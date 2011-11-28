@@ -1,0 +1,85 @@
+!!!5
+%html
+  %head
+    = haml :head
+    %style
+      :plain
+        body {
+          background-color: rgba(240,240,240,1.0);
+        }
+        .letter-press {
+          font-size: 58px;
+          background-color: #15b9fb;
+          background-image: -webkit-gradient(linear, left top, left bottom, from(#15b9fb), to(#0066d2));
+          background-repeat: no-repeat;
+          padding-top   : 40px;
+          padding-bottom: 40px;
+          padding-left  : 40px;
+          border-radius: 3px;
+          
+          color: #004d9f;
+          text-shadow: rgba(0,0,0,      0.5) -1px  0px,
+                       rgba(0,0,0,      0.3)  0px -1px,
+                       rgba(255,255,255,0.5)  0px  1px,
+                       rgba(0,0,0,      0.3) -1px -2px;
+        }
+        ul {
+          list-style: none;
+          background-color: rgba(200,200,200,1);
+          background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(220,220,220,1)), to(rgba(200,200,200,1)));
+          background-repeat: no-repeat;
+          
+          border-radius: 3px;
+          padding-top: 4px;
+          padding-bottom: 4px;
+          padding-left: 4px;
+           
+          border-top: 1px solid white;
+          border-right: 1px solid white;
+        }
+        ul li h2 {
+          padding: 4px 8px 4px 8px;
+          text-align: center;
+          line-height: 1.0;
+          border: 1px solid rgba(0,0,0,0.0);
+
+          color: rgba(0,0,0,0.5);
+          text-shadow: rgba(255,255,255,0.7) 2px 1px;
+        }
+        ul li h2 {
+          border-right: 1px solid rgba(0,0,0,0.4);
+          box-shadow: 1px 0px white;
+        }
+        ul li h2:hover {
+          background-color: rgba(0,0,0,0.4);
+          border-radius: 4px;
+          border: 1px solid gray;
+           color: white;
+          text-shadow: rgba(0,0,0,0.5) 2px 1px;
+        }
+        ul li {
+          display: inline-block;
+          margin: 0;
+        }
+  %body
+    .container
+      .row
+        %h1.letter-press
+          Letter Press
+
+        %ul
+          %li
+            %h2
+              File
+              %br
+              %small Related to local files
+          %li
+            %h2
+              Edit
+              %br
+              %small Cut / Copy / Paste
+          %li
+            %h2
+              Source
+              %br
+              %small Refactoring 

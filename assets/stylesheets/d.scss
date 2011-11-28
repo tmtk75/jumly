@@ -1,0 +1,35 @@
+.diagram {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#header, #footer {
+  font-family: 'helvetica';
+  .logo {
+    font-family: 'Tahoma', 'sans serif';
+    font-weight: bold;
+  }
+}
+#header {
+  .logo {
+    font-size: 20px;
+    color: gray;
+    text-decoration: none;
+  }
+  border-bottom: 1px lighten(#222, 20%) solid;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+#footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 2em;
+  padding-top: 0.4em;
+  width: 100%;
+  color: white;
+  background: #222;
+  opacity: 0.85;
+  border-top: 1px lighten(#222, 20%) solid;
+}
+

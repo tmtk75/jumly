@@ -1,0 +1,40 @@
+//@import "doc";
+
+@mixin _monospace {
+    font-family: "Courier New", Courier, monospace;
+}
+
+textarea {
+    @include _monospace;
+    width: auto;
+}
+#alert-message-placeholder {
+    position: absolute;
+    min-width: 960px;
+    opacity: 0.88;
+    z-index: 5;
+    margin-top: -4px;
+}
+#preview-for-sequence, #DSL-for-sequence {
+    -border: solid 1px #4094f1;
+    -margin-left: 2px;
+    padding-top: 8px;
+    border-radius: 4px;
+}
+#DSL-for-sequence {
+    -padding-left: 8px;
+}
+
+#buttons {
+    input {
+    }
+}
+
+#header {
+    margin-top: 1em;
+    #logo {
+        font-family: 'Coda',monospace;
+        font-size: 2em;
+        line-height: 2em;
+    }
+}

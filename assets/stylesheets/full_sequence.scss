@@ -1,0 +1,38 @@
+#full-sequence-diagram {
+  .twipsy {
+      white-space: nowrap;
+  }
+  .sequence-diagram {
+    .object {
+      .name {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        &.focused-hovered {
+          background-color: rgba(0, 0, 0, 0.22);
+          color: darken(gray, 20%);
+          text-shadow: 1px 1px white;
+          border-radius: 3px;
+        }
+      }
+    }
+    .message {
+      .name {
+      }
+    }
+    .interaction.reply ~ .interaction {
+      .name {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .desc {
+    pre {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      display: none;
+      position: absolute;
+    }
+  }
+}

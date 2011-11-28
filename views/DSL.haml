@@ -1,0 +1,28 @@
+- here = "./views"
+- require "#{here}/data.rb"
+- dsl = DSLData::DSL
+- kinds = DSLData::KINDS
+.page-header
+  %h1 DSL
+- [:sequence, "use-case", "class"].each do |kind|
+  <!--  Derrectives for <%=kind%>
+  ================================================================================================ -->
+  #DSL_Sequence_Diagram.row
+    .span16.columns
+      %h2 #{kind} diagram
+    - kinds[kind].each do |tag|
+      .span8.columns
+        %h3
+          = tag
+        %script{type: "text/jumly+#{kind}"}
+          = dsl[kind][tag][:body]
+        %pre
+          = dsl[kind][tag][:body]
+<!-- Common Derrectives
+================================================================================================ -->
+#DSL_Common_Derrectives.row
+  .span16.columns
+    %h2 Common Derrectives
+    @preferences
+    @beforeCompose
+    @afterCompose

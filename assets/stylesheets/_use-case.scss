@@ -1,0 +1,99 @@
+@import "_commons";
+
+.use-case-diagram {
+    $h: 44*3;
+    $v: 17*3;
+    $usecase_ratio: $h/$v;
+    padding-left: 6%;
+    padding-right: 6%;
+    // tr:nth-child(2n+0/2n+1) or tr:nth-child(even/odd)
+    .use-case {
+        .icon {
+            min-width: #{$h}px;
+            min-height: #{$v}px;
+               -moz-border-radius: #{$h}px / #{$v}px;
+                 -o-border-radius: #{$h}px / #{$v}px;
+            -webkit-border-radius: #{$h}px / #{$v}px;
+                    border-radius: #{$h}px / #{$v}px;
+            @include primary_border;
+            @include box_shadow;
+            background-color: white;
+        .name {
+            text-align: left;
+            vertical-align: middle;
+        }
+        }
+        &:nth-child(odd) > .icon {
+            margin-left: auto;
+        }
+        &:nth-child(even) > .icon {
+            margin-right: auto;
+        }
+    }
+    .actor {
+        position: relative;
+        &:nth-child(odd) {
+            float: left;
+        }
+        &:nth-child(even) {
+            float: right;
+        }
+    }
+    .extend, .include, .use {
+        .name {
+            &:before {
+                left: 45%; top: 45%;
+                position: absolute;
+            }
+        }
+    }
+    .use .name:before {
+        content: '<<use>>';
+    }
+    .extend  .name:before {
+        content: '<<extend>>';
+    }
+    .include .name:before {
+        content: '<<include>>';
+    }
+    .system-boundary {
+        @include primary_border;
+        padding: 0.5em 2em 1em 2em;
+        width: 55%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 4px;
+        > .name {
+            font-weight: bold;
+            margin-left: -1.5em;
+            margin-bottom: 0.5em;
+        }
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        @include box_shadow;
+        background-color: transparent;
+        .use-case:nth-child(4n + 2) .icon {
+            margin-left: 1em;
+            -background-color: red;
+        }
+        .use-case:nth-child(3) .icon {
+            margin-right: 1em;
+            -background-color: blue;
+        }
+        .system-boundary {
+            margin-top: 1em;
+            min-width: #{$h*1.5}px;
+            width: 85%;
+        }
+        &.out-of-bounds {
+            border-width: 0;
+            border-color: transparent;
+            box-shadow: none;
+            width: 0px; height: 0px;
+            padding: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+    }
+}
+

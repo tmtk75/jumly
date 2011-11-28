@@ -1,0 +1,33 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Full use-case diagram
+    = haml :"_head.html"
+    %link{href: "#{$css_dir}/full_use_case.css", type: "text/css", rel: "stylesheet"}
+    %style
+      :plain
+        .diagram {margin: auto;}
+  %body
+    = haml :_topbar
+
+    /================================================================================================
+    .container
+      %section#full-use-case-diagram
+        .page-header
+          %h1 Full use-case diagram <small>An example...</small>
+        .row
+          .span4.columns
+            Now Making...
+          .span12.columns
+            %script{type: "text/jumly+use-case", "system-boundary-name" => "Something text editor"}
+              :plain
+                @actor "An user": use:[1,2]
+                @actor "An employee"
+                @actor "A manager"
+                @use_case(id:2) "Close editing file."
+                @use_case(id:1) "Open existing file."
+                @afterCompose (e, d) ->
+                    d.find(".relationship").twipsy("relationship", "below")
+                    d.find(".actor:eq(1)").twipsy("actor", "above")
+                    d.find(".use-case:eq(1)").twipsy("use-case", "above")
+                    d.find(".system-boundary").twipsy("system-boundary", "below")

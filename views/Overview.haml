@@ -1,0 +1,115 @@
+.page-header
+  %h1 Overview <small> Getting you know diagrams JUMLY supports</small>
+.row
+  %p.span16
+    Now, JUMLY supports three kinds of UML diagram, which are sequence,
+    use-case and class diagram. Other kinds will be supported soon.
+
+<!-- Sequecne Diagram ========================================================= -->
+#Sequence_diagram.row
+  .span16
+    %h2 Sequence diagram
+  .span8.columns
+    %script{type: 'text/jumly+sequence'}
+      :plain
+        @found "You", ->
+          @message "contact", "Me", ->
+            @loop @message "mail", "Him", ->
+              @message "read", ->
+              @reply "reply", "Me"
+            @reply "", "You"
+          @beforeCompose (e, diag) ->
+            diag.You.iconify "view"
+            diag.Me .iconify "controller"
+            diag.Him.iconify "entity"
+  .span8.columns
+    %pre{class: 'brush: html'}
+      :preserve
+        &lt;script type='text/jumly+sequence'>
+        @found "You", ->
+          @message "contact", "Me", ->
+            @loop @message "mail", "Him", ->
+              @message "read", ->
+                @reply "reply", "Me"
+            @reply "", "You"
+          @beforeCompose (e, diag) ->
+            diag.You.iconify "view"
+            diag.Me .iconify "controller"
+            diag.Him.iconify "entity"
+        &lt;/script>
+    You can use most features for UML2 for sequence diagram.
+
+<!-- Use-caes Diagram
+================================================================================================ -->
+#Use_case_diagram.row
+  .span16
+    %h2 Use-case diagram
+  .span8.columns
+    %script{type: 'text/jumly+use-case', "system-boundary-name"=>'JUMLY'}
+      :plain
+        @usecase 1:"Render Diagram"
+        @usecase 2:"Arrange Diagram"
+        @actor "You":use:[1, 2]
+  .span8.columns
+    %pre{class: 'brush: html'}
+      :preserve
+        &lt;script type='text/jumly+use-case'
+                system-boundary-name='JUMLY'>
+        @usecase 1:"Render Diagram"
+        @usecase 2:"Arrange Diagram"
+        @actor "You":use:[1, 2]
+        &lt;/script>
+          
+<!-- Class Diagram
+============================================================================================== -->
+#Class_diagram.row
+  .span16
+    %h2 Class diagram
+  .span8.columns
+    %script{type: 'text/jumly+class'}
+      :plain
+        @def "You":
+            stereotype:"human"
+            attrs     :["name", "age", "length"]
+            methods   :["walk", "read", "run", "think"]
+        @def "JUMLY":
+            stereotype:"library"
+            attrs     :["version", "author"]
+            methods   :["$.jumly", "$.jumly.DSL"]
+  .span8.columns
+    %pre{class: 'brush: html'}
+      :preserve
+        &lt;script type='text/jumly+class'>
+        @def "You":
+            stereotype:"human"
+            attrs     :["name", "age", "length"]
+            methods   :["walk", "read", "run", "think"]
+        @def "JUMLY":
+            stereotype:"library"
+            attrs     :["version", "author"]
+            methods   :["$.jumly", "$.jumly.DSL"]
+        &lt;/script>
+
+<!-- Supported Diagram
+================================================================================================ -->
+#Supported_diagram.row
+  .span8
+    %h2 Supported diagrams
+    %table
+      %thead
+        %tr
+          %th name
+          %th type
+      %tbody
+        %tr
+          %td Sequence diagram
+          %td text/jumly+sequence
+        %tr
+          %td Use-case diagram
+          %td text/jumly+use-case
+        %tr
+          %td Class diagram
+          %td text/jumly+class
+        %tr
+          %td Others, coming soon
+          %td text/jumly+robustness, text/jumly+component, text/jumly+deployment, ...

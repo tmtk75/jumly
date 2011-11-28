@@ -1,0 +1,94 @@
+!!! 5
+%html
+  %head
+    %title JUMLY
+    = haml :"_head.html"
+    = haml :"_syntaxhighlighter.html"
+  %body
+    /-- Topbar
+    /================================================================================================
+    .topbar
+      .topbar-inner
+        .container
+          %h3
+            %a{href:"#"}JUMLY
+          %ul.nav
+            - chaps = [:Introduction, :Overview, :Demo, :Document, :License, :Download, :Credit]
+            = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
+  
+    /-- Masthead
+    /================================================================================================
+    %header#masthead
+      .inner
+        .container
+          .row
+            %div.span4.columns
+              %span.logo JUMLY
+            %div.span7.columns
+              %p.lead Be concentrative into your idea with JUMLY.
+              %p
+                Latest version
+                = File.read "VERSION"
+  
+    /-- Root container
+    /================================================================================================
+    .container
+      %section#Introduction= haml :Introduction
+      %section#Overview= haml :Overview
+      %section#Demo
+        .page-header
+          %h1 Demo
+        %ul.unstyled
+          %li <a href="full_sequence.html">Full sequence diagram</a>
+          %li <a href="full_use_case.html">Full use-case diagram</a>
+          %li <a href="full_class.html">Full class diagram</a>
+          %li <a href="demo_sequence.html">Examples for sequence diagram</a>
+          %li <a href="sb.html">Editor in realtime (sequence)</a>
+          %li
+            Quick demo sharing with a single URL.
+            %a{href: "d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22,%22b%22%0a%20@message%20%22hello%22,%22c%22"}
+              \/d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22...
+      %section#Document
+        .page-header
+          %h1 Document
+        %ul.unstyled
+          %li <a href="Tutorial#{$doc_ext}">Tutorial</a>
+          %li <a href="Share#{$doc_ext}">Share</a>
+          %li <a href="Design#{$doc_ext}">Design</a>
+          %li <a href="Grammer#{$doc_ext}">Grammer</a>
+      %section#License= haml :License
+      %section#Download= haml :Download
+      %section#Credit= haml :Credit
+      %section#Contact
+        .page-header
+          %h1 Contact
+        .row
+          %p.span6.columns If you ask me, send your message in some ways.
+          %dl.span10.columns
+            %address
+              %strong Twitter
+              %br
+              %a{href:'https://twitter.com/#!/jumly1'}@jumly1
+            %address
+              %strong Mail
+              %br
+              %a{href:'mailto:jumly2gmail.com'}jumly2@gmail.com
+
+    %div#footer
+      .inner
+        .container
+          %div
+            %p
+              %a{href: "http://tmtk75.wordpress.com/jumly"}JUMLY
+          %div
+            %p
+              all rights reserved &copy;
+              %a{href: "http://www.tmtk.net"}Tomotaka Sakuma
+              | Be concentrative into your idea
+  :javascript
+    SyntaxHighlighter.config.clipboardSwf = '/vendor/syntaxhighlighter_3.0.83/scripts/clipboard.swf';
+    SyntaxHighlighter.config.toolbar = false;
+    SyntaxHighlighter.all();
+  :css
+    .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
+    .syntaxhighlighter .toolbar { display: none; }

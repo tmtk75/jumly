@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Share
+    = haml :"_head.html"
+    = haml :"_syntaxhighlighter.html"
+    %link{src: "/share.css", type: "text/css", rel: "stylesheet"}
+    %script{src: "/javascripts/jumly.loader.js", type: "text/javascript"}
+  %body
+    = haml :_topbar
+
+    /================================================================================================
+    .container
+      %section#Share
+        #ph
+        .page-header
+          %h1 Share
+        :javascript
+          JUMLY.load("/found.js")
+        :javascript
+          setTimeout(function() {JUMLY.load("/create.js")}, 1000);

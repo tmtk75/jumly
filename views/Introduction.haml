@@ -1,0 +1,50 @@
+.page-header{style: 'display:none;'}
+  %h1 Introduction <small> Brief what JUMLY is, getting started, why you use</small>
+
+<!-- What's JUMLY?  =========================================================== -->
+#Whats_JUMLY.row= haml :'Whats_JUMLY'
+
+<!-- Getting Started ========================================================== -->
+#Getting_Started.row= haml :'Getting_Started'
+
+<!-- Did you have these experiences?  ========================================= -->
+#Did_you_have_these_experiences.row
+  %h2.span16.columns Did you have these experiences?
+  .span16.columns
+    %ul
+      %li Getting many small diagrams which have a few icons and relationships. |
+        Then you launched an UML modeling tool, and create a new project, and make a model, ... |
+      %li Wanted to copy a string, like a class name and something phrase, from UML note icon.
+      %li There was something you don't like at diagram which application generated. |
+        For instance, color, size, line width, font, and so on. |
+      %li Couldn't understand difference b/w old diagram and updated one.
+      %li Couldn't open an application file on other computer you don't usually use.
+
+<!-- Why you use JUMLY ======================================================== -->
+#why-you-use-jumly.row
+  %h2.span16.columns Why you use JUMLY
+  .span16.columns
+    %dl
+      %dt Fast for everything
+      %dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.
+      %dt Easy to use
+      %dd You need only a web browser and a text editor you get used to.
+      %dt High quality
+      %dd You can get keen designed diagrams, especially on MacOSX
+      %dt Concentrative
+      %dd You can concentrate on your modeling regardless of the layout for UML icons.
+      %dt Everything is text
+      %dd
+        Input data is text, and output format is text/html. It's great advantage to proprietary binnary data format,
+        because we can use SCM like Subversion/Mercurial/Git to manage and version the data.
+      %dt Based on DOM and jQuery
+      %dd Diagrams JUMLY renders are composed with DOM/jQuery node, so you've already understand the way to handle them.
+      %dt Powered by HTML5/CSS3
+      %dd
+        In addition the above, you will get HTML5/CSS3 bless.
+        For example, you can edit the styles of icons applying CSS.
+      %dt Light and small
+      %dd
+        Now the size of script is 56KB, and the size of stylesheet is 16KB.
+        They are relatively lighter than the UML modeling tools :)
+

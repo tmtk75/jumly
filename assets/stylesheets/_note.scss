@@ -1,0 +1,116 @@
+@import "_commons";
+
+$default-note-width: 192;
+/* $golden_ratio: 1.618; */
+$default-min-height: $default-note-width/1.618/1.618;
+@mixin default-note-size {
+    width: #{$default-note-width}px;
+    min-height: #{$default-min-height}px;
+}
+@mixin default-note-padding {
+    padding: 0.4em 1em 0.4em 1em;
+}
+@mixin default-note-boarder {
+    border: 2px solid rgba(128,128,128,0.77);
+}
+@mixin default-note-margin {
+    margin-top: 4px;
+    margin-left: 4px;
+}
+@mixin default-gradient {
+    background: -webkit-gradient(linear, 100% 100%, 50% 10%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+}
+
+@mixin default-note {
+    @include default-note-size;
+    @include default-note-padding;
+    @include default-note-boarder;
+    @include default-note-margin;
+    position: relative;
+}
+
+@mixin plain-note {
+    @include default-note;
+}
+
+/*-------- Folded up note -------- */
+@mixin foldedup-effect {
+    content: '';	
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+@mixin foldedup {
+    $foldw: 40;
+    $gs: 128;
+    $foldbd: 2px solid rgba($gs,$gs,$gs,0.5);
+	border: {top:$foldbd; right:$foldbd}
+	border: {bottom:$foldbd; left:$foldbd}
+	-webkit-border-bottom-right-radius: #{$foldw}px #{$foldw}px;
+	-webkit-box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
+    &:before { /* folded corner */
+        @include foldedup-effect;
+    	width: #{$foldw/(60/25)}px;
+    	height:#{$foldw/(60/20)}px;
+    	-webkit-border-bottom-right-radius: #{$foldw/2}px;
+    	-webkit-box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.3);
+    	-webkit-transform: rotate(-20deg) skew(-40deg,-3deg) translate(-#{$foldw/(60/13)}px,-#{$foldw/(60/13)}px);
+    }
+    &:after {  /* shadow */
+        @include foldedup-effect;
+    	z-index: -1;
+    	width: #{$foldw/(60/50)}px;
+    	height: #{$foldw/(60/50)}px;
+    	background: rgba(0, 0, 0, 0.2);
+    	display: inline-block;
+    	-webkit-box-shadow: 20px 20px 8px rgba(0, 0, 0, 0.2);
+    	-webkit-transform: rotate(0deg) translate(-#{$foldw/(60/45)}px,-#{$foldw/(60/30)}px) skew(20deg);
+    }
+}
+@mixin stack-effect {
+    content: '';
+    width: 98%;
+    z-index: -1;
+    border: 2px solid gray;
+    bottom: 0;
+    right: 0;
+    padding: 0 0 1px 0;
+    position: absolute;
+}
+@mixin piled {
+    -webkit-box-shadow: 1px 1px 4px rgba(0,0,0, 0.1);
+    -webkit-border-bottom-right-radius: 60px 5px;
+    &:before {
+        @include stack-effect;
+        height: 100%;
+        background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f9f9f9), color-stop(.1,#fff));
+        -webkit-box-shadow: 1px 1px 8px rgba(0,0,0, 0.1);
+        -webkit-border-bottom-right-radius: 60px 5px;
+        -webkit-transform: skew(2deg,2deg) translate(3px,8px)
+    }
+    &:after {
+        @include stack-effect;
+        height: 98%;
+        background: -webkit-gradient(linear, 0% 20%, 0% 100%, from(#f3f3f3), to(#f6f6f6), color-stop(.1,#fff));
+        -webkit-box-shadow: 0px 0px 8px rgba(0,0,0, 0.1);
+        -webkit-transform: skew(2deg,2deg) translate(-1px,2px)
+    }
+}
+
+.diagram .note {
+    position: absolute;
+}
+.plain-note {
+    @include plain-note;
+}
+.folded-note {
+    @include plain-note;
+    @include default-gradient;
+    @include foldedup;
+}
+.piled-note {
+    @include plain-note;
+    @include default-gradient;
+    @include piled;
+}
+

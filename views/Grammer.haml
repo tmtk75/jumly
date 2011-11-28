@@ -1,0 +1,55 @@
+- require "./views/GrammerData.rb"
+!!! 5
+%html
+  %head
+    %title JUMLY Grammer
+    = haml :"_head.html"
+    %link{href: "#{$css_dir}/grammer.css", type: "text/css", rel: "stylesheet"}
+    %script
+      prefs = $.jumly.preferences(".sequence-diagram")
+      prefs.compose_most_left = 0
+      prefs.compose_span = 12
+  %body
+    = haml :_topbar
+
+    /================================================================================================
+    .container
+      %section#grammer
+        .page-header
+          %h1 Grammer
+        #grammer-sequence
+          %h2.span16.columns Sequence diagram
+          - sequence = Jumly::Grammer::SequenceData
+          - orders = [[:found, :message, :create, :destroy], [:reply, :lost, :loop, :ref]]
+          - orders.each do |order|
+            .row
+              - order.each do |tag|
+                .span4.columns
+                  %script{type: "text/jumly+sequence"}= sequence::DATA[tag]
+            .row
+              - order.each do |tag|
+                .span4.columns
+                  @#{tag}
+                  %pre
+                    :preserve
+                      #{sequence::DATA[tag].strip}
+          #wide-diag
+            - order = [:alt, :reactivate, :iconify]
+            .row
+              - order.each do |tag|
+                .span5.columns
+                  %script{type: "text/jumly+sequence"}= sequence::DATA[tag]
+            .row
+              - order.each do |tag|
+                .span5.columns
+                  @#{tag}
+                  %pre
+                    :preserve
+                      #{sequence::DATA[tag].strip}
+
+          #grammer-derrectives.row
+            .span16.columns
+            %h2 Common Derrectives
+            @preferences
+            @beforeCompose
+            @afterCompose

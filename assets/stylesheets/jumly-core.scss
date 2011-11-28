@@ -1,0 +1,221 @@
+@import url(http://fonts.googleapis.com/css?family=Coda:800);
+@import "jumly-commons.scss";
+
+// Hx elements
+$HEADER_FONT_NAMES: "Arial Black",helvetica,serif,verdana;
+$BODY_FONT_NAMES: Arial,Helvetica,sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Coda', Tahoma, sans-serif;
+    font-weight: extra-bold;
+    small {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+}
+
+body {
+    //background: transparent url(/public/keisen_a09.gif);
+}
+
+h1 {
+  // 36 is the height of topbar of bootstrap framework, and 4 is margin b/w topbar and h1  
+    padding-top: #{36 + 4}px;
+}
+
+.site-color {
+    @include site_color_0;
+}
+
+.emphasis {
+    font-size: large;
+    padding-left: 0.5em;
+    padding-top: 0.3em;
+    padding-bottom: 0.5em;
+    @include border_radius(3px);
+    @include bg_accsent;
+}
+
+p em {
+    @include site_color_0;
+    @include border-radius(2px);
+    font-size: larger;
+    padding: 4px 0.7em 4px 0.7em;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+}
+
+/**
+ JUMLY Web styles
+ ========================================================================
+ */
+$JUMLY_FONT_SIZE: 100%;
+.diagram {
+    font-size: 100%;
+}
+
+/**
+ Introduction
+ ========================================================================
+ */
+#Whats_JUMLY {
+    .row {
+        -margin-bottom: 0px;
+    }
+    .diagram {
+        .object, .use-case {
+            color: rgba(0,0,0,0.66);
+            text-shadow: 1px 0px rgba(0,0,0,0.4);
+        }
+    }
+
+    /** */
+    #we-think-something {
+        .diagram {
+            font-family: helvetica;
+            .use-case, .actor { font-size: $JUMLY_FONT_SIZE; }
+            .use-case .name {
+                text-align: center;
+                margin-top: 1.2em;
+            }
+            .use-case:nth-child(2) {
+                margin-top: 6em;
+                margin-left: 6em;
+            }
+            .actor:nth-child(1) {
+                margin-top: 3em;
+            }
+        }
+    }
+    
+    #you-write-your-idea {
+        .diagram {
+            .object .name { font-size: $JUMLY_FONT_SIZE; }
+            .object:nth-child(2) {
+                left:44px;  // HaveToFix ingnoring this at r1798
+            }
+        }
+        .Styled-Node {
+            font-family: inherit;
+            .name {
+                font-size: larger;
+                padding-left: 1em;
+                padding-right: 1em;
+                @include border_radius(3px);
+                border-color: $BLUE;
+            }
+        }
+    }
+    
+    #Getting_Started {
+        .syntaxhighlighter.html {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            @include border_radius(3px);
+            padding: 17px;
+        }
+    }
+    
+    #Did_you_have_these_experiences {
+        li {
+            width: 66%;
+        }
+    }
+    
+    #why-you-use-jumly {
+        dt {
+          float: left;
+          width: 200px;
+          text-align: right;
+        }
+        dd {
+          float: left;
+          width: 720px;
+        }
+    }
+}
+
+/**
+ Overview
+ ========================================================================
+ */
+#Overview {
+}
+
+/* Inset blur
+body:after {
+        content:" ";
+        -webkit-box-shadow: inset 0px 0px 15px 15px #fff;
+        position: absolute;
+        left: 0; top: 0; right: 0; bottom: 0;
+}
+*/
+
+/**
+ Masthead and Footer
+ ========================================================================
+ */
+header {
+    .logo {
+        // font-weight font-style font-variant font-size/line-height font-family;
+        font: bold normal small-caps 3.52rem/100% #{$HEADER_FONT_NAMES};
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    }
+}
+
+#masthead, #footer {
+    $mc_from: #004D9F;
+    $mc_to  : #049cd9;
+    background-color: #049cd9;
+    background-repeat: no-repeat;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($mc_from), to($mc_to));
+    background-image: -webkit-linear-gradient($mc_from, $mc_to);
+    /*
+    background-image: -moz-linear-gradient(#004D9F, #049cd9);
+    background-image: -o-linear-gradient(top, #004D9F, #049cd9);
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#004D9F), to(#049cd9));
+    filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#004D9F', EndColorStr='#049cd9', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004D9F', EndColorStr='#049cd9', GradientType=0))";
+    */
+}
+
+#masthead div.inner,
+#footer div.inner {
+    background: transparent url(/assets/bootstrap/docs/assets/img/grid-18px.png) top center;
+    padding: 45px 0;
+    -webkit-box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    //   -moz-box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    //        box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.logo,
+#masthead h1,
+#masthead p,
+#footer h1,
+#footer p {
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
+#masthead p a,
+#footer p a {
+    color: #fff;
+    font-weight: bold;
+}
+#masthead {
+    margin-top: 40px;
+    h1, p {
+        text-align: center;
+        margin-bottom: 9px;
+    }
+    p {
+        font-weight: 300;
+        &.lead {
+            font-size: 20px;
+            line-height: 27px;
+        }
+    }    
+}
+.logo,
+#masthead h1 {
+    font-size: 54px;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}

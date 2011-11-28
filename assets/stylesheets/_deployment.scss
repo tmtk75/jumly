@@ -1,0 +1,38 @@
+.deployment-diagram {
+    $min_width: 88*2;
+    $min_height: $min_width*5/8;
+
+    .artifact {
+        .frame {
+            min-width: #{$min_width}px;
+            width: 0px;
+            @include primary_border;
+            @include box_shadow;
+            text-align: center;
+            -webkit-border-radius: 4px;
+            background-color: white;
+
+            .edge-top, .edge-right {
+                content: ' ';
+                background-color: white;
+                border-top: $primary_border_color #{$primary_border_width}px $primary_border_style;
+            }
+            .edge-top {
+                height: 8px;
+                border-left: $primary_border_color #{$primary_border_width + 1}px $primary_border_style;
+                -webkit-transform: skew(-60deg, 0);
+            }
+            .edge-right {
+                width: 16px;
+                border-right: $primary_border_color #{$primary_border_width}px $primary_border_style;
+                border-bottom: $primary_border_color #{$primary_border_width}px $primary_border_style;
+                -webkit-transform: skew(0, -30deg);
+                @include box_shadow;
+            }
+
+            .name {
+                font-weight: bold;
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Full sequence diagram
+    = haml :"_head.html"
+    %link{href: "#{$css_dir}/full_sequence.css", type: "text/css", rel: "stylesheet"}
+  %body
+    = haml :_topbar
+    /================================================================================================
+    .container
+      %section#full-sequence-diagram
+        .page-header
+          %h1 Full sequence diagram <small>A web application sequence</small>
+        .row
+          .span4.columns
+            .desc.d-found
+              @found
+              %pre @found "User", ->
+            .desc.d-message
+              @message
+              %pre @message "call", "Server", ->
+            .desc.d-create
+              @create
+              %pre @create "Session", ->
+          .span12.columns
+            %script{type: "text/jumly+sequence"}
+              :plain
+                @found "User", ->
+                  @message "search", "Browser", ->
+                    @message "http request", "HTTP Server", ->
+                      @create "HTTP Session"
+                      @message "save state", "HTTP Session"
+                      @message "do something"
+                      @message "query", "Database", ->
+                      @reply "", "Browser"
+                    @loop @message "request resources", "HTTP Server", ->
+                      @alt {
+                        "[found]": -> @message "update", "Database"
+                        "[missing]": -> @message "scratch", "HTTP Session"
+                      }
+                    @ref "Rendering page"
+                    @reactivate "disconnect", "HTTP Server", ->
+                      @destroy "HTTP Session"
+
+                  @beforeCompose (e, d) ->
+                    d.User.iconify "actor"
+                    d.Browser.iconify "view"
+                    d["HTTP Session"].iconify "controller"
+                    d["HTTP Server"].iconify "controller"
+                    d.Database.iconify("entity").css("margin-left":-80)
+                    d["HTTP Session"].lost()
+                  
+                  @afterCompose (e, d) ->
+                    f = (e) -> $(e.currentTarget).addClass "focused-hovered"
+                    g = (e) -> $(e.currentTarget).removeClass "focused-hovered"
+                    $(".object .name, .message .name").hover f, g
+                    h()
+
+                h = ->
+                  f = (x, y) ->
+                    a = -> $("\#{y}.desc *").fadeIn('slow')
+                    b = -> $("\#{y}.desc pre").fadeOut('fast')
+                    x.hover a, b
+                  $.fn.finout = (sel) -> f(this, sel)
+                  $(".object:eq(0) .icon-container").twipsy("Found first<br/>Starts from here!", "right").finout ".d-found"
+                  $(".message:eq(0)").twipsy("Basic message", "below").finout ".d-message"
+                  $(".create .name").twipsy("Create message", "above").finout ".d-create"
+                  $(".loop").twipsy("Kind of fragment for loop", "left")
+                  $(".object:eq(2) .icon-container").twipsy("Iconified object", "right")
+                  $(".message:eq(4)").twipsy("Self call message", "left")
+                  $(".return").css("margin-top":"-8px").twipsy("Reply message", "above")
+                  $(".alt:eq(0)").twipsy("Alt fragment for usually 'if'", "above")
+                  $(".ref").twipsy("Refer to another sequence", "above")
+                  $(".occurrence:eq(10)").twipsy("Start new interactions", "left")
+                  $(".lost .icon").twipsy("Lost message", "left")
+                  $(".destroy").twipsy("Destory message", "below")
+

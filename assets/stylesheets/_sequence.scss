@@ -1,0 +1,158 @@
+@import "_commons";
+/* */
+.sequence-diagram {
+    $min_width: 88;
+    $min_height: 31;
+
+    font-family: 'Tahoma';
+    .object-lane, .stop {
+    	position: relative;
+    }
+    /* ---------------- Object ---------------- */
+    .object {
+    	position: absolute;
+        .name {
+            @include primary_border;
+            text-align: center;
+    	    min-width: #{$min_width}px;
+    	    height: #{$min_height}px;
+	        display: table-cell;
+	        vertical-align: middle;
+            background-color: white;
+        }
+    }
+    /* ---------------- Lifeline ---------------- */
+    .lifeline,
+    .lifeline .line {
+    	position: absolute;
+    }
+    .lifeline .line {
+        margin-left: 51%;
+        @include unimportant;
+        border-left: dashed 1px gray;
+    }
+    /* ---------------- Occurrence ---------------- */
+    .occurrence {
+        position: relative;
+        width: 12px;
+        padding: 1em 0 1em 0;
+	    margin-top: 4px;
+        @include primary_border;
+        background-color: lightgray;
+        z-index: 1;
+    }
+    .message.create + .occurrence {
+        padding: 0.5em 0 0.5em 0;
+    }
+    /* ---------------- Interaction ---------------- */
+    .interaction {
+        position: relative;
+    }
+    .interaction.lost {
+        .occurrence.icon {
+          	height: 20px;
+    	    width: 20px;
+            @include border_radius(20px);
+    	    padding: 0;
+    	    margin: 0;
+    	    border-color: #999;
+    	    background-color: #aaa;
+        }
+        .occurrence.icon::before {
+        	content: '';
+        }
+    }
+    /* ---------------- Message ---------------- */
+    .message,
+    .message canvas {
+        position: absolute;
+    }
+    .message {
+        height: 20px;
+        .name {
+            margin-top: -10px;
+            text-align: center;
+        }
+    }
+    .message.lost .icon {
+    	background-color: gray;
+    	border: 1px solid #444;
+    }
+    .message.create .name::before {
+    	content: '<<create>>';
+    }
+    .message.return {
+        margin-top: -10px;
+    }
+    .fragment {
+        > .reply {
+            margin-bottom: 0.5em;  /* padding b/w .reply and .fragment inset. */
+        }
+    }
+    .message.return .name::before {
+    	content: '<<return>>';
+    }
+    .message.destroy .name::before {
+    	content: '<<destroy>>';
+    }
+    /* ---------------- Fragment ---------------- */
+    .fragment {
+        $inset_padding: 4px;
+    	margin: 4px 4px 8px 4px;
+    	padding: $inset_padding;
+        border: solid 1px #aaa;
+        @include border_radius(2px);
+        $condition_color: black;
+        $condition_font_weight: normal;
+        .header {
+            .name {
+                color: black;
+                font-weight: bold;
+            }
+            .condition {
+                color: $condition_color;
+                font-weight: $condition_font_weight;
+            }
+        }
+        &.alt {
+            > .condition {
+                color: $condition_color;
+                font-weight: $condition_font_weight;
+                //height: 0px;
+                margin-bottom: -0.5em;
+            }
+            div.divider {
+                border-bottom: 1px dashed #555;
+                margin: {
+                    top: 4px; bottom: 4px;
+                    left : -#{$inset_padding};
+                    right: -#{$inset_padding};
+                }
+            }
+        }
+    }
+    /* ---------------- Ref ---------------- */
+    .ref {
+        position: relative;
+    	margin: 4px;
+    	padding: 4px;
+        padding-bottom: 1em;
+    	background-color: white;
+        border: solid 1px black;
+        //min-width: #{$min_width*1.414}px;
+        .tag {
+            color: black;
+            font-weight: bold;
+        }
+        .name {
+	        text-align: center;
+        }
+    }
+    .object .name, .occurrence, .ref {
+        @include box_shadow;
+    }
+    .object {
+        @include text_shadow;
+    }
+}
+

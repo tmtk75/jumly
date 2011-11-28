@@ -1,0 +1,50 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Design
+    = haml :"_head.html"
+    :coffeescript
+      $.jumly.preferences(".sequence-diagram").compose_most_left = 2
+  %body
+    = haml :_topbar
+
+    /================================================================================================
+    .container
+      %section#Design
+        .page-header
+          %h1 Design
+        .row
+          /================================================================================================
+          .span16.columns
+            %h2
+              Web Application
+              %small JUMLY tutorial site
+           
+            :jumly_use_case
+              @actor "User":use:[2]
+              @actor "Creator":use:[1, 2]
+              @actor "Developer":use:[5, 6]
+              @boundary "JUMLY app", ->
+                @usecase 0:"Create a diagram"
+                @usecase 1:"Share a diagram"
+                @usecase 2:"Clikc a link, and see a diagram"
+                @usecase 3:"Auth with Twitter account"
+                @usecase 4:"Auth with Facebook account"
+                @usecase 5:"Require JUMLY gem on sinatra"
+                @usecase 6:"Require JUMLY gem on rails3.1"
+
+          /================================================================================================
+          .span16.columns
+            %h2 Sequence diagram
+
+            %script{type: "text/jumly+class"}
+              :plain
+                @def "UMLDiagram":
+                  methods: ["compose", "preferences"]
+            %script{type: "text/jumly+sequence"}
+              :plain
+                @found "JUMLY", ->
+                  @message "find text/jumly", "Window"
+                  @loop ->
+                    @create "UMLDiagram"
+                    @message "compose", "UMLDiagram"
