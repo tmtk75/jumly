@@ -35,17 +35,29 @@ end
 namespace :compress do
   task :js do
     minjs = ::YUI::JavaScriptCompressor.new.compress File.read "#{BUILD_DIR}/jumly.js"
-    open "#{BUILD_DIR}/jumly-#{VERSION}.min.js", "w" do |f|
+    jsminpath = "#{BUILD_DIR}/jumly-#{VERSION}.min.js"
+    open jsminpath, "w" do |f|
       f.write "// jumly-#{VERSION}, tomotaka.sakuma 2011 copryright(c), all rights reserved.\n"
       f.write minjs
     end
+    sh "cp #{jsminpath} #{BUILD_DIR}/jumly.min.js"
+    sh <<-EOF
+    cd #{BUILD_DIR}
+    shasum *.js > jumly.js.sha1
+    EOF
   end
   task :css do
     mincss = ::YUI::CssCompressor.new.compress File.read "#{BUILD_DIR}/jumly.css"
-    open "#{BUILD_DIR}/jumly-#{VERSION}.min.css", "w" do |f|
+    cssminpath = "#{BUILD_DIR}/jumly-#{VERSION}.min.css"
+    open cssminpath, "w" do |f|
       f.write "/* jumly-#{VERSION}, tomotaka.sakuma 2011 copryright(c), all rights reserved. */\n"
       f.write mincss
     end
+    sh "cp #{cssminpath} #{BUILD_DIR}/jumly.min.css"
+    sh <<-EOF
+    cd #{BUILD_DIR}
+    shasum *.css > jumly.css.sha1
+    EOF
   end
 end
 
