@@ -997,8 +997,7 @@ description "sequence-diagram", ->
 
         it "is up to browser rendering for height", ->
 
-
-    BODY_MARGIN_LEFT = $("body").css("margin-left").toInt()
+    BODY_MARGIN_LEFT = $("body").css("margin-left")?.toInt()
 
     description "location of .object when composing", ->
         it 'should be fixed if the value is not "auto"', ->

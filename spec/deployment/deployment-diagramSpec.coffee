@@ -1,4 +1,4 @@
-description "deployment-diagram", ->
+xdescription "deployment-diagram", ->
     description "location", ->
         shared_behavior "is located to the dialog", ->
             given "an artifact", ->
