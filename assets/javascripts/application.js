@@ -1,2 +1,2 @@
-//= require ./vendor
+//= require ./../../vendor/vendor
 //= require ./jumly
