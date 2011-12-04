@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Manual
+    = haml :"_head.html"
+    %style
+      body {margin-top:40px;}
+      ul#table-of-contents {list-style:none;}
+  %body
+    = haml :"_topbar"
+    .container-fluid
+      .sidebar
+        %ul#table-of-contents
+        :coffeescript
+            $ -> $("h1").each (i, e)-> $("#table-of-contents").append $("<li>").html $(e).text() 
+      .content
+        %h1 DSL
+        %h2 Sequence
+        %h1 API
+      
+        
