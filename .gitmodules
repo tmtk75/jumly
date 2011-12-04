@@ -1,9 +1,0 @@
-#[submodule "vendor/bootstrap"]
-#	path = vendor/bootstrap
-#	url = https://github.com/twitter/bootstrap
-[submodule "vendor/jasmine-story"]
-	path = vendor/jasmine-story
-	url = http://github.com/tmtk75/jasmine-story.git
-[submodule "vendor/jasmine"]
-	path = vendor/jasmine
-	url = https://github.com/pivotal/jasmine.git
