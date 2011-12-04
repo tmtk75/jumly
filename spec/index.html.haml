@@ -13,6 +13,7 @@
     %script{type:"text/javascript", src:"/specs/spec.js"}
     :css
       #TrivialReporter {z-index:10;}
+      .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
     :coffeescript
       env = jasmine.getEnv()
       env.addReporter new jasmine.TrivialReporter
