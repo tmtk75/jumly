@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Reference
+    = haml :"_head.html"
+    %style
+      body {margin-top:40px;}
+      ul#table-of-contents {list-style:none; margin-left:2px;}
+      pre code {background-color: transparent;}
+      h1,h2,h3,h4,h5,h6 {font-family:Helvetica,sans-serif;}
+      li.H2 {margin-left:1em;}
+      li.H3 {margin-left:1.8em;}
+  %body
+    = haml :"_topbar"
+    .container-fluid
+      .sidebar
+        %ul#table-of-contents
+        :coffeescript
+            $ ->
+              p = $("#table-of-contents") 
+              $("h1,h2,h3", $(".content")).each (i, e)->
+                a = $("<a>").attr("href", "#" + e.id)
+                            .html($(e).text())
+                p.append $("<li>").addClass(e.nodeName)
+                                  .append a
+      .content
+        = markdown :"_Reference_body.html"
