@@ -4,13 +4,15 @@
     %title JUMLY Reference
     = haml :"_head.html"
     %style
-      body {margin-top:40px;}
+      body {margin-top:40px; margin-bottom:6em;}
       ul#table-of-contents {list-style:none; margin-left:2px;}
       pre code {background-color: transparent;}
       h1,h2,h3,h4,h5,h6 {font-family:Helvetica,sans-serif;}
+      \.topbar h3 {font-family:'Coda',Tahoma,sans-serif;}
       li.H2 {margin-left:1em;}
       li.H3 {margin-left:1.8em;}
   %body
+    - $root_context = "/"
     = haml :"_topbar"
     .container-fluid
       .sidebar
@@ -24,4 +26,6 @@
                 p.append $("<li>").addClass(e.nodeName)
                                   .append a
       .content
+        %h1 Reference <small>#{File.read "VERSION"}</small>
         = markdown :"_Reference_body.html"
+      = haml :"_copyright.html"
