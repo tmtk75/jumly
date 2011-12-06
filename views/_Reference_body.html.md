@@ -148,6 +148,17 @@ JUMLY supports some observable events using [jQuery.Event][].
 
 
 
+jQuery.data
+===============================================================================
+JUMLY stores a few properties using jQuery.data.
+
+- jumly:property
+- jumly:...
+
+TBD.
+
+
+
 API
 ===============================================================================
 JUMLY provides a root function as a jQuery extention `$.jumly`,
