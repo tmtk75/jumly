@@ -44,14 +44,17 @@ description "attr", ->
         and_ "q is iact_aa", ->
             (q == iact_aa).shouldBe true
     
-    scenario "attrs method", ->
+    scenario "basic attributes", ->
         given "a fragment", ->
             @diagram = $.uml(".sequence-diagram")
                         .append(@obj_a = $.uml(".object").offset(left:  50).css(width: 88, height: 31))
                         .append(@obj_b = $.uml(".object").offset(left: 150).css(width: 88, height: 31))
             diagram.appendTo $("body")
             obj_a.activate().interact obj_b
-            @frag = $.uml(".fragment").enclose($("> .interaction:eq(0)", diagram)).attrs( name: "Loop-0", condition: "[person is empty]")
+            @frag = $.uml(".fragment")
+                     .enclose($("> .interaction:eq(0)", diagram))
+                     .name("Loop-0")
+                     .find(".condition").html("[person is empty]")
         then_it "name of the fragment is 'Loop-0'", ->
             frag.find(".name").html().shouldBe "Loop-0"
         and_ "condition of the fragment is the value", ->

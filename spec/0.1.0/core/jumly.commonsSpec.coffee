@@ -41,7 +41,7 @@ describe "commons", ->
             then_it "width", ->
                 a.width().shouldBe 100 + 50 + 100 + 50 + 100
 
-    describe "attrs", ->
+    describe "name, stereotype", ->
         it "should be function", ->
             that.obj = $.uml(".object")
             expect(typeof that.obj.name).toBe 'function'
@@ -51,7 +51,8 @@ describe "commons", ->
             that.obj = $.uml(".object")
     
         it "shouldn't call other methods", ->
-            that.obj.attrs name:'Taro', stereotype:'racer'
+            that.obj.name('Taro')
+                    .stereotype('racer')
             n = that.obj.name()
             m = that.obj.stereotype()
             expect(typeof n).toBe 'string'
@@ -60,7 +61,8 @@ describe "commons", ->
             expect(m).toBe 'racer'
     
         it "shouldn't call other methods", ->
-            that.obj.attrs name:'Jiro', stereotype:'engineer'
+            that.obj.name('Jiro')
+                    .stereotype('engineer')
             expect(that.obj.name()).toBe 'Jiro'
             expect(that.obj.stereotype()).toBe 'engineer'
         

@@ -226,51 +226,22 @@ $.fn.twipsy = (text, pos) ->
     t = _twipsy text, @parent()
     t.alignAt this, pos
 
-attrs_hooks = {
-    ".interaction":
-        stereotype: (self, val) -> self.find(".message:eq(0)").data("uml:this").stereotype(val)
-    ".message":
-        stereotype: (self, val) -> self.addClass(val)
-}
-__proto__umlnode =
-    hasStereotype: (e) -> @hasClass e
-    addStereotype: (e) -> @addClass e
-    # Provide getter / setter to return oneself for jQuery style, and interlocking with HTML.
-    attrs: (vals) ->
-        if arguments.length is 0 # As getter
-            return @data("uml:attrs") || {}
-    
-        # As setter for multiple values
-        a = @data("uml:attrs")
-        a = jQuery.extend(a, vals)
-        @data("uml:attrs", a)
-        # Set value to node having same classname & Hook funciton invocation.
-        hooks = attrs_hooks[@attr("uml:type")] || {}
-        for p, v of a
-            if !a.hasOwnProperty(p)
-                continue
-            @_html(p, a[p])
-            hook = hooks[p] || ->
-            hook(this, a[p])
-        this
-    # k: classname without dot, ex) name, stereotype, ...
-    _html: (k, v) -> @find("." + k + ":eq(0)").html(v)
-    _attr: (k, v) ->
-        #console.log "#{k}=#{v} #{arguments.length}"
-        return this if arguments.length is 0
-        return @attrs()[k] if arguments.length is 1 or v is undefined
-        val = {}
-        val[k] = v
-        @attrs(val)
-    
-    right: -> @offset().left + @width() - 1
-    outerBottom: -> @offset().top + @outerHeight() - 1
-    note: (text, opts) ->
-        note = $.uml ".note", text
-        note.attach this, opts
+jQuery.fn.name = (n)->
+  return @data("uml:property")?.name if arguments.length is 0 or n is undefined
+  @find(".name:eq(0)").html n
+  @data("uml:property")?.name = n
+  this
+jQuery.fn.stereotype = (n)->
+  return @data("uml:property")?.stereotype if arguments.length is 0 or n is undefined
+  @find(".stereotype:eq(0)").html n
+  @data("uml:property")?.stereotype = n
+  switch @attr("uml:type")
+    when ".interaction" then @find(".message:eq(0)").data("uml:this").stereotype n
+    when ".message" then @addClass n
+  this
+jQuery.fn.right = -> @offset().left + @width() - 1
+jQuery.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-$(["name", "stereotype"]).each (i, e) -> __proto__umlnode[e] = (n) -> this._attr(e, n)
-jQuery.extend(jQuery.fn, __proto__umlnode)
 ###
 (->
     head = document.getElementsByTagName("head")[0]

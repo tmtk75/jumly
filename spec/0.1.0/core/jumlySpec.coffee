@@ -223,10 +223,9 @@ description "jumly", ->
     narrative "fundamental capability"
     shared_behavior "create an object", ->
         given "an object", ->
-            @obj_a = $.uml(".object").attrs(
-                name: "foo"
-                stereotype: "bar"
-            )
+            @obj_a = $.uml(".object")
+                      .name("foo")
+                      .stereotype("bar")
     
     scenario "guarantee 'create an object' for getter", ->
         it_behaves_as "create an object"
@@ -237,8 +236,8 @@ description "jumly", ->
         and_ "the stereotype is 'bar'", ->
             obj_a.stereotype().shouldBe "bar"
         
-        and_ "attrs returns an object having all attributes", ->
-            @all = obj_a.attrs()
+        and_ "uml:property returns an object having all attributes", ->
+            @all = obj_a.data("uml:property")
         
         and_ "name", ->
             all.name.shouldBe "foo"
@@ -260,8 +259,8 @@ description "jumly", ->
         and_ "the stereotype is 'buz'", ->
             obj_a.stereotype().shouldBe "buz"
         
-        and_ "attrs returns an object having all attributes", ->
-            @all = obj_a.attrs()
+        and_ "uml:property returns an object having all attributes", ->
+            @all = obj_a.data("uml:property")
         
         and_ "name", ->
             all.name.shouldBe "fiz"
@@ -269,7 +268,7 @@ description "jumly", ->
         and_ "stereotype", ->
             all.stereotype.shouldBe "buz"
     
-    scenario "empty string for attrs", ->
+    scenario "empty string for name, stereotype", ->
         it_behaves_as "create an object"
         when_it "sets empty string", ->
             obj_a.name ""
@@ -281,7 +280,7 @@ description "jumly", ->
         and_ "too", ->
             (obj_a.stereotype() == "").shouldBe true
     
-    scenario "undefined for attrs", ->
+    scenario "undefined for name, stereotype", ->
         it_behaves_as "create an object"
         when_it "sets undefined", ->
             obj_a.name undefined
@@ -293,7 +292,7 @@ description "jumly", ->
         and_ "too", ->
             (obj_a.stereotype() == "bar").shouldBe true
     
-    scenario "null for attrs", ->
+    scenario "null for name, stereotype", ->
         it_behaves_as "create an object"
         when_it "sets null", ->
             obj_a.name null
@@ -308,7 +307,7 @@ description "jumly", ->
     scenario "partial update", ->
         it_behaves_as "create an object"
         when_it "set name", ->
-            obj_a.attrs stereotype: "baz"
+            obj_a.stereotype("baz")
         
         then_it "makes no effects", ->
             (obj_a.name() == "foo").shouldBe true

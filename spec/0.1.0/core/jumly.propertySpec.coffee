@@ -5,7 +5,7 @@ description "uml:property", ->
             @a = u ".object"
             @b = u ".object"
         when_it "add a stereotype", ->
-            @a.addStereotype "abstract"
+            @a.addClass "abstract"
         then_it "@a has the stereotype", ->
             # LEGACY: @a.data("uml:property").stereotypes().length.shouldBe 1
             # LEGACY: @a.hasStereotype("abstract").shouldBeTruthy()
@@ -16,7 +16,7 @@ description "uml:property", ->
     shared_scenario "stereotype CRUD, Add more", ->
         it_behaves_as "stereotype CRUD, Create/Read"
         when_it "add a stereotype", ->
-            @a.addStereotype "mutable"
+            @a.addClass "mutable"
         then_it "@a has the multiple stereotypes()", ->
             #@a.data("uml:property").stereotypes().length.shouldBe 2
         and_ ->

@@ -293,8 +293,7 @@ UMLInteraction::reply = (p) ->
 
 UMLInteraction::fragment = (attrs, opts) ->
     frag = $.uml(type:".fragment")
-    frag.attrs(attrs)
-        .enclose(this)
+    frag.enclose(this)
    
 UMLInteraction::isToSelf = ->
     a = @gives(".occurrence").as ".actor"
