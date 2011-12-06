@@ -6,8 +6,9 @@
     %link{rel:"stylesheet", type:"text/css", href:"/assets/jumly.css"}
     %script{type:"text/javascript", src:"/assets/vendor.js"}
     %script{type:"text/javascript", src:"/assets/jumly.js"}
-    -#%script{type:"text/javascript", src:"/specs/0.1.0/spec.js"}
-    %script{type:"text/javascript", src:"/specs/0.1.1/spec.js"}
+    - locals = {:scripts=>["0.1.0", "0.1.1"]} unless locals.key? :scripts
+    - scripts = locals[:scripts].map do |e| "<script type='application/javascript' src='/specs/#{e}/spec.js'></script>" end
+    = scripts.join "\n"
     :css
       #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}

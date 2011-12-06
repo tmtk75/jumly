@@ -11,9 +11,10 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  get '/'     do haml :"index.html" end
-  get '/spec' do haml File.read "spec/index.html.haml" end
-  get '/*'    do |n| haml :"#{n}" end
+  get '/'       do haml :"index.html" end
+  get '/spec'   do haml :"../spec/index.html" end
+  get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
+  get '/*'      do |n| haml :"#{n}" end
 
   helpers do
   end
