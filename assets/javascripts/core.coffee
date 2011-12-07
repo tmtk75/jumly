@@ -19,7 +19,7 @@ uml = (_, opts) ->
     
     factory = meta.factory
     opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
-    a = factory(_, opts)  #/FIXME: depends on the class.
+    a = factory(_, opts)
     a.find(".name:eq(0)").html(opts.name)
     a.name(opts.name) if opts.name
     a.attr id:opts.id if opts.id
@@ -76,13 +76,6 @@ uml.factory = (name, fact) ->
 name2type = {}
 uml.def = (name, type) ->
     jQuery.uml.factory name, (_, opts) -> new type _, opts
-
-## Packaging
-pkgs = {}
-uml.require = (pkgname, pkg) ->
-    unless pkg
-        return pkgs[pkgname] or (pkgs[pkgname] = {})
-    pkgs[pkgname] = pkg
 
 ## Export uml module into jQuery.
 jQuery.uml = jQuery.extend uml, jQuery.uml
