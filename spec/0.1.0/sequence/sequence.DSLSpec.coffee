@@ -119,7 +119,7 @@ description "sequence-diagram.DSL", ->
                 diagram.found "A", ->
                     @message "call", "B", ->
                     @reactivate @message "call", "B", ->
-            and_ -> (diagram.appendTo $ "body").data("uml:this").compose()
+            and_ -> (diagram.appendTo $ "body").self().compose()
             then_it "diagram has two interactions", ->
                 diagram.find("> .interaction.activated").expect(length: 2)
                        .filter(":eq(0)")
@@ -136,7 +136,7 @@ description "sequence-diagram.DSL", ->
                 diagram.found "A", ->
                     @message "b", "B", ->
                     @reactivate "c", "C", ->
-            and_ -> (diagram.appendTo $ "body").data("uml:this").compose()
+            and_ -> (diagram.appendTo $ "body").self().compose()
             then_it "diagram has two interactions, which is same to 'with @message'", ->
                 diagram.find("> .interaction.activated").expect(length: 2)
                        .filter(":eq(0)")
@@ -153,7 +153,7 @@ description "sequence-diagram.DSL", ->
                 diagram.found "A", ->
                     @message "b", "B", ->
                     @loop @reactivate "c", "C", ->
-            and_ -> (diagram.appendTo $ "body").data("uml:this").compose()
+            and_ -> (diagram.appendTo $ "body").self().compose()
             then_it "diagram has two interactions, which is same to 'with @message'", ->
                 diagram.find("> .fragment").expect(length: 1)
 

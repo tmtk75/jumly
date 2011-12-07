@@ -63,7 +63,7 @@ description "message.create", ->
         when_it "compose", ->
             @diag.debugshow()
         then_it "to left edge", ->
-            msg = @iact_ab.find(".message").data("uml:this")
+            msg = @iact_ab.find(".message").self()
             can = msg._current_canvas
             e = msg._to_create_line can
             canx = $(can).offset().left
@@ -86,7 +86,7 @@ description "message.create", ->
             @diag.obj_b.offset left:ax
             @diag.compose()
         then_it "", ->
-            msg = @iact_ab.find(".message").data("uml:this")
+            msg = @iact_ab.find(".message").self()
             e = msg._to_create_line msg._current_canvas
             can = $(msg._current_canvas)
             canr = can.offset().left + can.width()

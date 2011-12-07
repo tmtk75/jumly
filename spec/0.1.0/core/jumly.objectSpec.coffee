@@ -141,6 +141,6 @@ description 'object for sequence diagram', ->
         
     it "should return the same object for selector", ->
         expect($.uml($(".occurrence", iact_a))[0]).toBe occurr_a
-    it 'should store jQuery instance in attr with key "uml:this"', ->
-        expect(occurr_b.data("uml:this")).toBe occurr_b
+    it 'should store jQuery instance in self()', ->
+        expect(occurr_b.self()).toBe occurr_b
     

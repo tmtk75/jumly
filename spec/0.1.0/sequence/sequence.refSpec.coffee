@@ -22,7 +22,7 @@ description "sequence.ref", ->
             diag.found "A", ->
                 @ref "foobar <a href='http://www.yahoo.com'>yahoo</a>"
             diag.appendTo $ "body"
-            @ref = diag.find(".ref:last").data "uml:this"
+            @ref = diag.find(".ref:last").self()
         when_it "composing", ->
             diag.compose()
         #then_it "object is at the center of the ref", ->
@@ -34,7 +34,7 @@ description "sequence.ref", ->
             @diag = $.uml ".sequence-diagram"
             diag.found "A"
             diag.appendTo $ "body"
-            @occurr = diag.find(".occurrence:last").data "uml:this"
+            @occurr = diag.find(".occurrence:last").self()
         when_it "composing", ->
             diag.compose()
         then_it "x0 < x1", ->
@@ -286,7 +286,7 @@ description "sequence.ref", ->
     scenario "guarantee 'fragment position in a node' wrapping two interactions", ->
         it_behaves_as "fragment position in a node"
         when_it "", ->
-            diagram.find("> .interaction").find(".interaction:eq(0), .interaction:eq(1)").data("uml:this").fragment()
+            diagram.find("> .interaction").find(".interaction:eq(0), .interaction:eq(1)").self().fragment()
             diagram.append "two interactions"
         
         when_it "compose", ->
@@ -309,7 +309,7 @@ description "sequence.ref", ->
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_b).gives(".occurrence").as ".actor"
             @iter = diagram.find(".interaction:eq(1)")
-            @iter = iter.data("uml:this")
+            @iter = iter.self()
             iter.fragment()
             diagram.compose()
         

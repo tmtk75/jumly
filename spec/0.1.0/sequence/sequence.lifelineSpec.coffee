@@ -129,7 +129,7 @@ description "lifeline", ->
             #then_it "from obj_a", ->
             #    @obj_a.gives(".lifeline").hasClass("lifeline").shouldBe true
             then_it "from lifeline", ->
-                @diag.find(".lifeline:eq(0)").data("uml:this").gives(".object").hasClass("object").shouldBe true
+                @diag.find(".lifeline:eq(0)").self().gives(".object").hasClass("object").shouldBe true
                 @diag.hide()
     
         scenario "top of lifeline", ->
@@ -137,7 +137,7 @@ description "lifeline", ->
             then_it "", ->
                 c = ["red", "blue", "yellow", "gray", "green"]
                 @diag.find(".lifeline").each (i, e) ->
-                    e = $(e).data("uml:this")
+                    e = $(e).self()
                     obj = e.gives(".object")
                     obj.outerBottom().shouldBe e.offset().top - 1
 #                    e.css "border", "solid 1px #{c[i]}"
@@ -152,10 +152,10 @@ description "lifeline", ->
                         @message "d", "D", ->
             diag.compose()
         then_it "length is same", ->
-            a = diag.find(".lifeline:eq(0)").data("uml:this")
-            b = diag.find(".lifeline:eq(1)").data("uml:this")
-            c = diag.find(".lifeline:eq(2)").data("uml:this")
-            d = diag.find(".lifeline:eq(3)").data("uml:this")
+            a = diag.find(".lifeline:eq(0)").self()
+            b = diag.find(".lifeline:eq(1)").self()
+            c = diag.find(".lifeline:eq(2)").self()
+            d = diag.find(".lifeline:eq(3)").self()
 
             a.outerBottom().shouldBe b.outerBottom()
             b.outerBottom().shouldBe c.outerBottom()

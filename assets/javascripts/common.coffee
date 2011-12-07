@@ -348,7 +348,7 @@ UMLNote::attach = (target, opts) ->
 
     target.parents(".diagram")
         .append(this)
-        .data("uml:this").bind "composed", (_, e) ->
+        .self().bind "composed", (_, e) ->
             pos = target.offset()
             pos.left += opts.left
             pos.top  += opts.top

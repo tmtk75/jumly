@@ -63,7 +63,7 @@ UMLComponentDiagram::compose = ->
 
 UMLComponentDiagram::compose_ = ->
     @find(".component").each (i, e) ->
-        compo = $(e).data("uml:this")
+        compo = $(e).self()
         compo.find(".provided-interface, .required-interface").each (i, e) ->
             frame = compo.find(".frame")
             to_left = (e) ->
@@ -86,6 +86,6 @@ UMLComponentDiagram::compose_ = ->
                 to_right $(e)
     
     @find(".relationship").each (i, e) ->
-        $(e).data("uml:this").render()
+        $(e).self().render()
 
 $.uml.def ".component-diagram", UMLComponentDiagram

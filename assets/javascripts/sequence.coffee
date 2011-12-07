@@ -60,7 +60,7 @@ UMLMessage::_to_create_line = (canvas) ->
 UMLMessage::_find_occurrence = (actee) ->
     occurr = null
     @parents(".occurrence").each (i, e) =>
-        e = $(e).data("uml:this")
+        e = $(e).self()
         if e.gives(".object") is actee
             occurr = e
     occurr
@@ -222,7 +222,7 @@ UMLInteraction::awayfrom = (obj) ->
     return @backwardTo() unless obj
     
     for e in @parents(".occurrence").not(".activated")
-        e = $.data(e, "uml:this")
+        e = $(e).self()
         return e if e?.gives(".object") is obj
 
     obj.activate()
@@ -253,7 +253,7 @@ UMLInteraction::_build = ->
     #TODO: Move this centering logic for name to .message class. 
 
     # Return message
-    rmsg = $("> .message.return:last", that).data("uml:this")
+    rmsg = $("> .message.return:last", that).self()
     if rmsg
         x = msg.offset().left
         if rmsg.gives ".actee"
@@ -364,7 +364,7 @@ UMLOccurrence::interact = (_, opts) ->
 UMLOccurrence::create = (objsrc) ->
     obj = jQuery.uml ".object", objsrc.name
     obj.attr "id", objsrc.id
-    @parents(".sequence-diagram").data("uml:this")[objsrc.id] = obj
+    @parents(".sequence-diagram").self()[objsrc.id] = obj
     @gives(".object").parent().append obj
     iact = (@interact obj).stereotype "create"
     iact
@@ -511,7 +511,7 @@ UMLRef::preferredWidth = ->
         most.width = most.width()
         return most
    
-    dh = diag.data("uml:this")
+    dh = diag.self()
             .find(".occurrence:eq(0)").width()
     occurs = iact.find(".occurrence")
     most = occurs.mostLeftRight()
@@ -575,7 +575,7 @@ UMLSequenceDiagram::preferences = (a, b) ->
 
 rebuild_asynchronous_self_calling = (diag) ->
     diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
-        e = $(e).data("uml:this")
+        e = $(e).self()
         if not e.isToSelf()
             return
         iact = e.addClass("activated")
@@ -584,11 +584,11 @@ rebuild_asynchronous_self_calling = (diag) ->
         iact.insertAfter prev
         
         occurr = iact.css("padding-bottom", 0)
-                     .find("> .occurrence").data("uml:this")
+                     .find("> .occurrence").self()
                      .move()
                      .css("top", 0)
 
-        msg = iact.find(".message").data("uml:this")
+        msg = iact.find(".message").self()
         msg.css("z-index", -1)
            .offset
                left: occurr.offset().left
@@ -626,7 +626,7 @@ UMLSequenceDiagram::_compose = (props) ->
 
 render_icons = (objects) ->
     objects.each (i, e) ->
-        $(e).data("uml:this").renderIcon?()
+        $(e).self().renderIcon?()
 
 align_objects_horizontally = (objs, alinfo) ->
     f0 = (a) ->
@@ -661,7 +661,7 @@ align_lifelines_vertically = (diag) ->
                      #.outerBottom()
                      .max (e) -> $(e).outerBottom()
     $(".lifeline", diag).each (i, e) ->
-        a = $(e).data("uml:this")
+        a = $(e).self()
         obj = a.gives(".object")
         y = obj.outerBottom() + 1
         a.offset left:obj.offset().left, top:y

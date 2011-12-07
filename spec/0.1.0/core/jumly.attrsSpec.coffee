@@ -3,7 +3,7 @@ description "attr", ->
         diag = $.uml ".sequence-diagram"
         diag.found "A", ->
             @create "B"
-        msg = (diag.find ".message:last").data "uml:this"
+        msg = (diag.find ".message:last").self()
         (msg.hasClass "create").shouldBeTruthy()
         #msg.data("uml:property").stereotypes().length.shouldBe 1
     
@@ -11,7 +11,7 @@ description "attr", ->
         diag = $.uml ".sequence-diagram"
         diag.found "A", ->
             @message "call", "B"
-        msg = (diag.find ".message:last").data "uml:this"
+        msg = (diag.find ".message:last").self()
         #msg.data("uml:property").name.shouldBe "call"
 
     scenario "a string at 2nd parameter in creation", ->

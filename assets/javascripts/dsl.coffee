@@ -203,7 +203,7 @@ UMLSequenceDSL::destroy = (a) ->
 
 UMLSequenceDSL::reply = (a, b) ->
     @_current_occurrence
-        .parents(".interaction:eq(0)").data("uml:this")
+        .parents(".interaction:eq(0)").self()
         .reply name:a, ".actee":@_find_or_create_ b
     null
 
@@ -220,7 +220,7 @@ UMLSequenceDSL::loop = (a, b, c) ->
     ## NOTE: Should this return null in case of no context
     if a.constructor is this.constructor  ## First one is DSL
         frag = a._current_occurrence
-         .parents(".interaction:eq(0)").data("uml:this")
+         .parents(".interaction:eq(0)").self()
          .fragment(name:"Loop")
          .addClass "loop"
     else

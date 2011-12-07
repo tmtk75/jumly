@@ -77,7 +77,7 @@ class UMLDeploymentDiagram
 UMLDeploymentDiagram::compose = ->
     @trigger "beforeCompose", [this]
     $(".artifact").each (i, e) ->
-        $(e).data("uml:this").render()
+        $(e).self().render()
     @trigger "afterCompose", [this]
     this
 

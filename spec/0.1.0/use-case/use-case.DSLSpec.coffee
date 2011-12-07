@@ -45,7 +45,7 @@ description "use-case.DSL", ->
                 diag.boundary "a boundary", ->
                     @usecase "Close File":{extend:["Open File", "Close Socket"]}
             then_it "has two extends", ->
-                a = diag.find(".use-case:eq(0)").data("uml:this")
+                a = diag.find(".use-case:eq(0)").self()
                 a.data("uml:property").extend[0].shouldBe "Open File"
                 a.data("uml:property").extend[1].shouldBe "Close Socket"
                 
@@ -62,7 +62,7 @@ description "use-case.DSL", ->
                 diag.boundary "a boundary", ->
                     @actor "Manager":{extend:["User", "Viewer"]}
             then_it "has two extends for .actor", ->
-                a = diag.find(".actor:eq(0)").data("uml:this")
+                a = diag.find(".actor:eq(0)").self()
                 a.data("uml:property").extend[0].shouldBe "User"
                 a.data("uml:property").extend[1].shouldBe "Viewer"
                 
@@ -73,7 +73,7 @@ description "use-case.DSL", ->
                 diag.boundary "a boundary", ->
                     @usecase "Open File":{include:["Find File"]}
             then_it "it has a include", ->
-                a = diag.find(".use-case:eq(0)").data("uml:this")
+                a = diag.find(".use-case:eq(0)").self()
                 a.data("uml:property").include[0].shouldBe "Find File"
     
     description "@boundary", ->
@@ -133,7 +133,7 @@ description "use-case.DSL", ->
                 @foobars = []
                 ctxt = u(".use-case-diagram").boundary "b", ->
                     @usecase "a uc": use:uses, extend:exts, foobar:foobars
-                @uc_ = ctxt._diagram.find(".use-case:last").data("uml:this")
+                @uc_ = ctxt._diagram.find(".use-case:last").self()
                 @props = uc_.data("uml:property")
             then_it "props is defiened", ->
                 expect(props).toBeDefined()
@@ -170,7 +170,7 @@ description "use-case.DSL", ->
        
         uc = null
         u(".use-case-diagram").boundary "b", ->
-            uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".use-case:eq(0)").data("uml:this")
+            uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".use-case:eq(0)").self()
 
         it "should be basic spec for @usecase identified by string", ->
             expect(uc.attr "id").toBe "this value is set in 'id' attribute"
@@ -187,9 +187,9 @@ description "use-case.DSL", ->
                     @usecase(id:1234) "a uc 1": use:uses
                     @usecase(id:"TA-0") "a uc 0": use:uses
                     @actor(id:"AC-2") "User": use:[1234, "TA-0"], id:"abc"
-                @u0 = ctxt._diagram.find(".use-case:eq(0)").data("uml:this")
-                @u1 = ctxt._diagram.find(".use-case:eq(1)").data("uml:this")
-                @a0 = ctxt._diagram.find(".actor:eq(0)")   .data("uml:this")
+                @u0 = ctxt._diagram.find(".use-case:eq(0)").self()
+                @u1 = ctxt._diagram.find(".use-case:eq(1)").self()
+                @a0 = ctxt._diagram.find(".actor:eq(0)")   .self()
             then_it "identified with 1234", ->
                 expect(@u0.attr "id").toBe '1234'
             and_ ->

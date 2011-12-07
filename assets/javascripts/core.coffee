@@ -29,6 +29,7 @@ uml = (_, opts) ->
     a.data("uml:this", a)
     a.data "uml:property", type:_.type, name: opts.name, stereotypes: -> []
     a
+$.fn.self = -> @data("uml:this")
 
 ###
   + @param _ hash
@@ -37,7 +38,7 @@ from_jQuery = (_) ->
     if (typeof _ is "object" && !(typeof _.length is "number" && typeof _.data is "function"))
         _ = $(_)  # regard as a DOM node
     for i in [0.._.length-1]
-        a = $(_[i]).data("uml:this")
+        a = $(_[i]).self()
         _[i] = if !a then null else a
     
     return _
@@ -235,7 +236,7 @@ jQuery.fn.stereotype = (n)->
   @find(".stereotype:eq(0)").html n
   @data("uml:property")?.stereotype = n
   switch @data("uml:property").type
-    when ".interaction" then @find(".message:eq(0)").data("uml:this").stereotype n
+    when ".interaction" then @find(".message:eq(0)").self().stereotype n
     when ".message" then @addClass n
   this
 jQuery.fn.right = -> @offset().left + @width() - 1

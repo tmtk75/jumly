@@ -67,7 +67,7 @@ shift_usecase_down_to_above = (nodes) ->
 
 bind_between = (nodes, diag) ->
     nodes.each (i, e) ->
-        src = $(e).data("uml:this")
+        src = $(e).self()
 
         find_with_id = (id) ->
             return diag[id] if diag[id]
@@ -97,7 +97,7 @@ UMLUsecaseDiagram::align_actors_ = ->
 
 UMLUsecaseDiagram::render = ->
     @find(".relationship").each (i, e) ->
-        $(e).data("uml:this").render()
+        $(e).self().render()
 
 UMLUsecaseDiagram::compose = ->
     @trigger "beforeCompose", [this]

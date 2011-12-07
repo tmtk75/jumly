@@ -35,7 +35,7 @@ description "uml:property", ->
             @a = @diag.data "uml:property"
             @b = @diag.A.data "uml:property"
             @c = @diag.B.data "uml:property"
-            @d = @diag.find(".message:last").data("uml:this").data "uml:property"
+            @d = @diag.find(".message:last").self().data "uml:property"
         then_it "has name for @a", -> expect(@a.name).toBeDefined()
         and_    "has name for @b", -> expect(@b.name).toBeDefined()
         and_    "has name for @c", -> expect(@c.name).toBeDefined()
@@ -65,7 +65,7 @@ description "uml:property", ->
         it "has stereotype property", ->
             diag = $.uml ".sequence-diagram"
             diag.found "A", -> @create "B"
-            msg = (diag.find ".message:last").data "uml:this"
+            msg = (diag.find ".message:last").self()
             (msg.hasClass "create").shouldBeTruthy()
             #msg.data("uml:property").stereotypes().length.shouldBe 1
         
@@ -73,6 +73,6 @@ description "uml:property", ->
         it "has name property", ->
             diag = $.uml ".sequence-diagram"
             diag.found "A", -> @message "call", "B"
-            msg = (diag.find ".message:last").data "uml:this"
+            msg = (diag.find ".message:last").self()
             #msg.data("uml:property").name.shouldBe "call"
 

@@ -263,13 +263,13 @@ description "fragment", ->
                        .append(order = $.uml ".object", "Order")
                        .append(menumanager = $.uml ".object", "Menu Manager")
                        .append(database = $.uml ".object", "Database")
-                       .appendTo($ "body").data("uml:this")
+                       .appendTo($ "body").self()
           
             customer.activate().interact(order).name("End Order")
                 .toward().interact(menumanager).name("")
                     .toward().interact(database).name("Commit")
                     .toward().destroy order
-            @lp = diagram.find(".interaction:eq(2)").data("uml:this").fragment name: "Loop", condition: "[until complete]"
+            @lp = diagram.find(".interaction:eq(2)").self().fragment name: "Loop", condition: "[until complete]"
             $.uml(".ref", "Complete Order and Pay").appendTo diagram
             menumanager.lost()
             $(".object", diagram).align "bottom"

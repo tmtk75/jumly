@@ -449,7 +449,7 @@ description "message", ->
                       .find("> .interaction:eq(0)")
                         .find("> .occurrence").end().end()
                       .find("> .interaction:eq(1)").expect (e) ->
-                          n = $.uml(e)[0].data "uml:this"
+                          n = $.uml(e)[0].self()
                           n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                           e = n.gives ".object"
                           e.as(".actor") is e.as(".actee")
@@ -470,7 +470,7 @@ description "message", ->
                       .find("> .interaction")
                         .find("> .occurrence").end().end()
                           .find("> .interaction").expect (e) ->
-                              n = $.uml(e)[0].data "uml:this"
+                              n = $.uml(e)[0].self()
                               n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                               e = n.gives ".object"
                               e.as(".actor") is e.as(".actee")
@@ -492,7 +492,7 @@ description "message", ->
                       .find("> .interaction:eq(0)")
                         .find("> .occurrence").end().end()
                       .find("> .interaction:eq(1)").expect (e) ->
-                          n = $.uml(e)[0].data "uml:this"
+                          n = $.uml(e)[0].self()
                           n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                           e = n.gives ".object"
                           e.as(".actor") is e.as(".actee")
@@ -541,9 +541,9 @@ description "message", ->
             then_it "should be Order for the name of object", ->
                 diag.newone.name().shouldBe 'Order'
             then_it "should be as a property of diag", ->
-                (diag.newone is diag.find("#newone").data("uml:this")).shouldBe true
+                (diag.newone is diag.find("#newone").self()).shouldBe true
             then_it "should has id", ->
-                (diag.find("#newone").data("uml:this") is iact.gives(".occurrence").as(".actee").gives(".object")).shouldBe true
+                (diag.find("#newone").self() is iact.gives(".occurrence").as(".actee").gives(".object")).shouldBe true
 
         shared_scenario "sync-self-call", ->
             given "an .object", ->
@@ -561,7 +561,7 @@ description "message", ->
                 @child = diag.find("> .interaction > .occurrence > .interaction > .occurrence")
                 @child.length.shouldBe 1
             then_it "destination occurrence is on the top occurrence", ->
-                @child.data("uml:this").isOnOccurrence().shouldBe true
+                @child.self().isOnOccurrence().shouldBe true
 
         scenario "async-self-call", ->
             it_behaves_as "sync-self-call"
@@ -577,7 +577,7 @@ description "message", ->
             then_it "has a special class, .asynchronous", ->
                 diag.find("> .interaction:eq(1)").hasClass("asynchronous").shouldBe true
             then_it "destination occurrence is not on the top occurrence because of async", ->
-                @occurr = diag.find("> .interaction:eq(1) > .occurrence").data("uml:this")
+                @occurr = diag.find("> .interaction:eq(1) > .occurrence").self()
                 @occurr.isOnOccurrence().shouldBe false
 
     scenario "creation just after found", ->
