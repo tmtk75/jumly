@@ -20,7 +20,6 @@ uml = (_, opts) ->
     factory = meta.factory
     opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
     a = factory(_, opts)  #/FIXME: depends on the class.
-    a.attr("uml:type", _.type)
     a.find(".name:eq(0)").html(opts.name)
     a.name(opts.name) if opts.name
     a.attr id:opts.id if opts.id
@@ -133,7 +132,7 @@ jQuery.uml.lang._of = (nodes, query) ->
 	return (unode) ->
 		n = nodes.filter((i, e) ->
 			e = jQuery.uml(e)[0]
-			s = e.gives(unode.attr("uml:type"))
+			s = e.gives(unode.data("uml:property").type)
 			if s is unode then e else null
 		)
 		if n.length > 0 then jQuery.uml(n)[0] else []
@@ -235,7 +234,7 @@ jQuery.fn.stereotype = (n)->
   return @data("uml:property")?.stereotype if arguments.length is 0 or n is undefined
   @find(".stereotype:eq(0)").html n
   @data("uml:property")?.stereotype = n
-  switch @attr("uml:type")
+  switch @data("uml:property").type
     when ".interaction" then @find(".message:eq(0)").data("uml:this").stereotype n
     when ".message" then @addClass n
   this
