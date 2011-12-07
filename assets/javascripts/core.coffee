@@ -88,25 +88,6 @@ uml.require = (pkgname, pkg) ->
 jQuery.uml = jQuery.extend uml, jQuery.uml
 jQuery.jumly = jQuery.uml
 
-
-###
-Comtenplating the location and the filename for utility methods.
-###
-uml.centeringToParent = (nodes) ->
-    f = (i, e) ->
-        e = $(e).css("position", "absolute")
-        w = e.outerWidth()
-        e.css("position", "relative")
-         .width(w)
-         .css "margin-left":"auto", "margin-right":"auto"
-    nodes.each f
-
-### Make alias ###
-uml.alias = (str) ->
-    a = str.split new RegExp("[ \-]+")
-    (a.map (e) -> e[0]).join("").toLowerCase()
-
-
 ##
 jQuery.uml.lang = {}
 jQuery.uml.lang._gives = (a, dic) ->
