@@ -73,7 +73,7 @@ uml.normalize = (a, b) ->
 ###
 uml.factory = (name, fact) ->
     uml.factory[name] = {factory: fact}
-name2type = {}
+
 uml.def = (name, type) ->
     jQuery.uml.factory name, (_, opts) -> new type _, opts
 
