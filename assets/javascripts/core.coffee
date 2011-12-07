@@ -26,10 +26,9 @@ uml = (_, opts) ->
     
     # Common methods
     a.gives = jQuery.uml.lang._gives(a, _)
-    a.data("uml:this", a)
-    a.data "uml:property", type:_.type, name: opts.name, stereotypes: -> []
+    a.data "uml:property", _self:a, type:_.type, name: opts.name, stereotypes: -> []
     a
-$.fn.self = -> @data("uml:this")
+$.fn.self = -> @data("uml:property")?._self
 
 ###
   + @param _ hash
