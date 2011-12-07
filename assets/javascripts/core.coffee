@@ -12,7 +12,7 @@ uml = (_, opts) ->
     if (typeof _ is "object" && !_.type)
         return from_jQuery(_)
     
-    _ = jQuery.extend({}, if typeof _ is "string" then {type:_} else _)
+    _ = $.extend({}, if typeof _ is "string" then {type:_} else _)
     meta = uml.factory[_.type]
     if (meta is undefined)
         throw "unknown type '" + _.type + "'"
@@ -25,7 +25,7 @@ uml = (_, opts) ->
     a.attr id:opts.id if opts.id
     
     # Common methods
-    a.gives = jQuery.uml.lang._gives(a, _)
+    a.gives = $.uml.lang._gives(a, _)
     a.data "uml:property", _self:a, type:_.type, name: opts.name, stereotypes: -> []
     a
 $.fn.self = -> @data("uml:property")?._self
@@ -68,22 +68,18 @@ uml.normalize = (a, b) ->
         $.extend r, attrs
 
 
-###
-# Declaration for all attr keys of jQuery this library uses.
-###
-uml.factory = (name, fact) ->
-    uml.factory[name] = {factory: fact}
+## Declaration for all attr keys of jQuery this library uses.
+uml.factory = (name, fact)-> uml.factory[name] = factory:fact
 
-uml.def = (name, type) ->
-    jQuery.uml.factory name, (_, opts) -> new type _, opts
+uml.def = (name, type) -> $.uml.factory name, (_, opts) -> new type _, opts
 
-## Export uml module into jQuery.
-jQuery.uml = jQuery.extend uml, jQuery.uml
-jQuery.jumly = jQuery.uml
+## Export uml module into $.
+$.uml = $.extend uml, $.uml
+$.jumly = $.uml
 
 ##
-jQuery.uml.lang = {}
-jQuery.uml.lang._gives = (a, dic) ->
+$.uml.lang = {}
+$.uml.lang._gives = (a, dic) ->
 	gives = (query) ->
         r = dic[query]
         if r then r else null
@@ -96,20 +92,15 @@ jQuery.uml.lang._gives = (a, dic) ->
             return r
         gives(query)
 
-_as = (m) ->
-	return {
-		as:(e) -> m[e]
-	}
-
-jQuery.uml.lang._as = _as
-jQuery.uml.lang._of = (nodes, query) ->
+$.uml.lang._as = (m)-> as:(e) -> m[e]
+$.uml.lang._of = (nodes, query) ->
 	return (unode) ->
 		n = nodes.filter((i, e) ->
-			e = jQuery.uml(e)[0]
+			e = $.uml(e)[0]
 			s = e.gives(unode.data("uml:property").type)
 			if s is unode then e else null
 		)
-		if n.length > 0 then jQuery.uml(n)[0] else []
+		if n.length > 0 then $.uml(n)[0] else []
 
 run_scripts_done = false
 run_scripts = ->
@@ -124,36 +115,36 @@ run_scripts = ->
 uml.runScripts_ = run_scripts
 
 uml[':preferences'] =
-    run_script:
-        before_compose: (diag, target, script) ->
-            if target[0]?.localName is "head"
-                diag.appendTo $ "body"
-            else if script.attr("target-id")
-                target.html diag
-            else
-                diag.insertAfter script
-        determine_target: (script) ->
-            targetid = script.attr "target-id"
-            if targetid
-                $ "##{targetid}"
-            else
-                script.parent()
+  run_script:
+    before_compose: (diag, target, script) ->
+      if target[0]?.localName is "head"
+        diag.appendTo $ "body"
+      else if script.attr("target-id")
+        target.html diag
+      else
+        diag.insertAfter script
+    determine_target: (script) ->
+      targetid = script.attr "target-id"
+      if targetid
+        $ "##{targetid}"
+      else
+        script.parent()
 
 uml.run_script_ = (script) ->
-    script = $ script
-    type = script.attr("type")
-    unless type then throw "Not found: type attribute in script"
-    unless type.match /text\/jumly-(.*)-diagram|text\/jumly\+(.*)/ then throw "Illegal type: #{type}"
-    kind = RegExp.$1 + RegExp.$2
-    compiler = $.jumly.DSL ".#{kind}-diagram"
-    unless compiler then throw "Not found: compiler for '.#{kind}'"
-    unless compiler.compileScript then throw "Not found: compileScript"
-    diag = compiler.compileScript script
+  script = $ script
+  type = script.attr("type")
+  unless type then throw "Not found: type attribute in script"
+  unless type.match /text\/jumly-(.*)-diagram|text\/jumly\+(.*)/ then throw "Illegal type: #{type}"
+  kind = RegExp.$1 + RegExp.$2
+  compiler = $.jumly.DSL ".#{kind}-diagram"
+  unless compiler then throw "Not found: compiler for '.#{kind}'"
+  unless compiler.compileScript then throw "Not found: compileScript"
+  diag = compiler.compileScript script
 
-    prefs = $.jumly[':preferences'].run_script
-    target = prefs.determine_target script
-    prefs.before_compose diag, target, script
-    diag.compose()
+  prefs = $.jumly[':preferences'].run_script
+  target = prefs.determine_target script
+  prefs.before_compose diag, target, script
+  diag.compose()
 
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
@@ -180,31 +171,12 @@ preferences_ = (a, b) ->
 
 $.jumly.preferences = preferences_
 
-
-## Tooltip funciton
-##
-$_body = $("body")
-_twipsy = (text, target = $_body) ->
-    tip = $("<div>").addClass("twipsy")
-              .append($("<div>").addClass("twipsy-arrow"))
-              .append($("<div>").addClass("twipsy-inner").html(text))
-    tip.appendTo target
-    tip
-
-$.jumly.vendor =
-    bootstrap:
-        twipsy: _twipsy
-
-$.fn.twipsy = (text, pos) ->
-    t = _twipsy text, @parent()
-    t.alignAt this, pos
-
-jQuery.fn.name = (n)->
+$.fn.name = (n)->
   return @data("uml:property")?.name if arguments.length is 0 or n is undefined
   @find(".name:eq(0)").html n
   @data("uml:property")?.name = n
   this
-jQuery.fn.stereotype = (n)->
+$.fn.stereotype = (n)->
   return @data("uml:property")?.stereotype if arguments.length is 0 or n is undefined
   @find(".stereotype:eq(0)").html n
   @data("uml:property")?.stereotype = n
@@ -212,8 +184,8 @@ jQuery.fn.stereotype = (n)->
     when ".interaction" then @find(".message:eq(0)").self().stereotype n
     when ".message" then @addClass n
   this
-jQuery.fn.right = -> @offset().left + @width() - 1
-jQuery.fn.outerBottom = -> @offset().top + @outerHeight() - 1
+$.fn.right = -> @offset().left + @width() - 1
+$.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
 ###
 (->
@@ -263,7 +235,7 @@ jQuery.fn.outerBottom = -> @offset().top + @outerHeight() - 1
  
     load_script_ "#{vendor_dir}/jsdeferred.js", ->
         Deferred.parallel([
-            (load_script "#{vendor_dir}/jquery-1.6.2.min.js").next(-> load_script "#{vendor_dir}/jquery.client.js"),
+            (load_script "#{vendor_dir}/jquery-1.6.2.min.js").next(-> load_script "#{vendor_dir}/$.client.js"),
             load_script "#{vendor_dir}/coffee-script.min-1.1.1.js",
             load_script "#{vendor_dir}/cssua.min.js",
         ]).next(->
