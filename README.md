@@ -18,6 +18,10 @@ Tomotaka Sakuma 2011 copyright(c), all rights reserved.
 
 ## Changelog
 
+### 0.1.1
+- Implement JUMLY root namespace.
+- Implement JUMLY.ScriptParser class.
+
 ### 0.1.0 <small>Initial release.</small>
 - Enable to render sequence diagram.
 - Able to try prototype of use-case diagram.

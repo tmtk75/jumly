@@ -122,6 +122,8 @@ uml[':preferences'] =
       else
         script.parent()
 
+logger = $.logger "core"
+
 uml.run_script_ = (script) ->
   script = $ script
   type = script.attr("type")
@@ -136,6 +138,7 @@ uml.run_script_ = (script) ->
   prefs = $.jumly[':preferences'].run_script
   target = prefs.determine_target script
   prefs.before_compose diag, target, script
+  logger.debug "will compose"
   diag.compose()
 
 # Listen for window load, both in browsers and in IE.
@@ -168,3 +171,6 @@ $.fn.stereotype = (n)->
   this
 $.fn.right = -> @offset().left + @width() - 1
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
+
+##
+$.jumly.runScript = uml.run_script_

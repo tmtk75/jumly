@@ -8,3 +8,5 @@
 //= require component
 //= require deployment
 //= require dsl
+//= require parser
+//= require builder

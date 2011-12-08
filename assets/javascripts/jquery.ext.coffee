@@ -114,3 +114,15 @@ _align = (me, base, klass) ->
 
 jQuery.fn.alignAt = (base, pos) -> _align(this, base, pos)
 
+
+##
+class Logger
+  @out = (cate, lv, msg)-> console.log "#{cate}:#{lv} --", msg
+  @err = (cate, lv, msg)-> console.error "#{cate}:#{lv} --", msg
+  constructor: (@category)->
+Logger::log = (lv, msg)->
+  Logger.out @category, lv, msg
+Logger::debug = (s)-> @log "debug", s
+Logger::info  = (s)-> @log "info", s
+Logger::error = (s)-> @err @category, "error", s
+$.logger = (category)-> new Logger category

@@ -180,9 +180,9 @@ For example, below is same.
      $.jumly "Person"
         
 
-### `$.jumly.runScript <HTMLScriptElement>`
+### `$.jumly.parse <HTMLScriptElement>`
 
-    $.jumly.runScript $("script")[0]
+    $.jumly.parse $("script")[0], [options]
 
 
 
@@ -190,11 +190,11 @@ JUMLY DSL
 ===============================================================================
 As an assumption, CoffeeScript is able to be used.
 
-Derrective Form
+Directive Form
 -------------------------------------------------------------------------------
-As for most derrectives, the arguments are expected like followings.
+As for most directives, the arguments are expected like followings.
 
-    @<derrective>(<string|integer>) <arg0>, <arg1>, ...
+    @<directive>(<string|integer>) <arg0>, <arg1>, ...
 
 
 Common
@@ -272,6 +272,6 @@ For example,
         ...
 
 <dl>
-	<dt></dt>
-	<dd></dd>
+	<dt>[options]</dt>
+	<dd>Means a hash object or arguments liken arg1, arg2, ...</dd>
 </dl>

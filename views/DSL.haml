@@ -5,7 +5,7 @@
 .page-header
   %h1 DSL
 - [:sequence, "use-case", "class"].each do |kind|
-  <!--  Derrectives for <%=kind%>
+  <!--  Directives for <%=kind%>
   ================================================================================================ -->
   #DSL_Sequence_Diagram.row
     .span16.columns
@@ -18,11 +18,11 @@
           = dsl[kind][tag][:body]
         %pre
           = dsl[kind][tag][:body]
-<!-- Common Derrectives
+<!-- Common Directives
 ================================================================================================ -->
 #DSL_Common_Derrectives.row
   .span16.columns
-    %h2 Common Derrectives
+    %h2 Common Directives
     @preferences
     @beforeCompose
     @afterCompose
