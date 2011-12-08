@@ -140,7 +140,7 @@ uml.run_script_ = (script) ->
 
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
-    addEventListener 'DOMContentLoaded', run_scripts, no
+    addEventListener 'DOMContentLoaded', run_scripts
 else
     throw "window.addEventListener is not supported"
 
