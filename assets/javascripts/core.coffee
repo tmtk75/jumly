@@ -42,30 +42,29 @@ from_jQuery = (_) ->
     
     return _
 
-###
-  jumly parameter
-###
+## Normalize as JUMLY Parameter
+##
 uml.normalize = (a, b) ->
-    return a if a is undefined or a is null
-    switch typeof a
-        when "string" then return $.extend name:a, b
-        when "boolean", "number" then return null
-    return null if $.isArray a
-    return a if a.hasOwnProperty "id"
-    r = {}
-    for key, val of a
-        if typeof key is "string" and key.match(/[0-9]+/) and typeof val is "string"
-            r.id = parseInt key
-            r.name = val
-        else
-            r[key] = val
-    if r.hasOwnProperty "name"
-        r
+  return a if a is undefined or a is null
+  switch typeof a
+    when "string" then return $.extend name:a, b
+    when "boolean", "number" then return null
+  return null if $.isArray a
+  return a if a.hasOwnProperty "id"
+  r = {}
+  for key, val of a
+    if typeof key is "string" and key.match(/[1-9][0-9]*/) and typeof val is "string"
+      r.id = parseInt key
+      r.name = val
     else
-        r.name = key
-        attrs = r[key]
-        delete r[key]
-        $.extend r, attrs
+      r[key] = val
+  if r.hasOwnProperty "name"
+    r
+  else
+    r.name = key
+    attrs = r[key]
+    delete r[key]
+    $.extend r, attrs
 
 
 ## Declaration for all attr keys of jQuery this library uses.

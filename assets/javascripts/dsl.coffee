@@ -16,13 +16,13 @@ UMLClassDSL::start = (acts) ->  ## NOTE: Is there better name?
 
 $.jumly.DSL.mixin UMLClassDSL
 
-
 $.jumly.DSL type:".class-diagram", version:'0.0.1', compileScript: (script) ->
     diag = $.jumly ".class-diagram"
     ctxt = new UMLClassDSL(diag)
     ctxt.start ->
         eval CoffeeScript.compile script.html()
     diag
+
 ###
 ###
 class UMLComponentDSL
