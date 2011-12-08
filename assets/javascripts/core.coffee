@@ -1,46 +1,35 @@
-###
-# jumly for jQuery library to render UML diagram.
-This is a top comment.
-This line is 2nd line comment.
-This is a 2nd paragraph.
-###
-###
-# Top level function.
-## 2nd level header.
-###
-uml = (_, opts) ->
-    if (typeof _ is "object" && !_.type)
-        return from_jQuery(_)
+uml = (arg, opts) ->
+    if (typeof arg is "object" && !arg.type)
+        return from_jQuery(arg)
     
-    _ = $.extend({}, if typeof _ is "string" then {type:_} else _)
-    meta = uml.factory[_.type]
+    arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
+    meta = uml.factory[arg.type]
     if (meta is undefined)
-        throw "unknown type '" + _.type + "'"
+        throw "unknown type '" + arg.type + "'"
     
     factory = meta.factory
     opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
-    a = factory(_, opts)
+    a = factory(arg, opts)
     a.find(".name:eq(0)").html(opts.name)
     a.name(opts.name) if opts.name
     a.attr id:opts.id if opts.id
     
     # Common methods
-    a.gives = $.uml.lang._gives(a, _)
-    a.data "uml:property", _self:a, type:_.type, name: opts.name, stereotypes: -> []
+    a.gives = $.uml.lang._gives(a, arg)
+    a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
     a
 $.fn.self = -> @data("uml:property")?._self
 
 ###
   + @param _ hash
 ###
-from_jQuery = (_) ->
-    if (typeof _ is "object" && !(typeof _.length is "number" && typeof _.data is "function"))
-        _ = $(_)  # regard as a DOM node
-    for i in [0.._.length-1]
-        a = $(_[i]).self()
-        _[i] = if !a then null else a
-    
-    return _
+from_jQuery = (arg) ->
+    if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
+        arg = $(arg)  # regard as a DOM node
+    for i in [0..arg.length-1]
+        a = $(arg[i]).self()
+        arg[i] = if !a then null else a
+    return arg
 
 ## Normalize as JUMLY Parameter
 ##
