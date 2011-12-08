@@ -140,16 +140,16 @@ uml.run_script_ = (script) ->
 
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
-    addEventListener 'DOMContentLoaded', run_scripts
+  addEventListener 'DOMContentLoaded', run_scripts
 else
-    throw "window.addEventListener is not supported"
+  throw "window.addEventListener is not supported"
 
 ##
 prefs_ = {}
-preferences_ = (a, b) ->
-    if !b and typeof a is "string"
-        return prefs_[a]
-    prefs_[a] = $.extend prefs_[a], b
+preferences_ = (a, b)->
+  if !b and typeof a is "string"
+    return prefs_[a]
+  prefs_[a] = $.extend prefs_[a], b
 
 $.jumly.preferences = preferences_
 
@@ -168,64 +168,3 @@ $.fn.stereotype = (n)->
   this
 $.fn.right = -> @offset().left + @width() - 1
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
-
-###
-(->
-    head = document.getElementsByTagName("head")[0]
-    load_css_ = (href, callback) ->
-        node = document.createElement 'link'
-        node.type   = 'text/css'
-        node.rel    = 'stylesheet'
-        node.href   = href
-        node.media  = 'screen'
-        node.onload = callback
-        head.appendChild(node)
-    
-    load_script_ = (src, callback) ->
-        node = document.createElement 'script'
-        node.type   = 'text/javascript'
-        node.src    = src
-        node.onload = callback
-        head.appendChild(node)
-    
-    load_script = (src) ->
-        deferred = new Deferred()
-        load_script_ src, -> deferred.call.apply deferred, arguments
-        deferred
-
-    take = (resource, scriptNode) ->
-        $.get resource, (res) ->
-            e = $("<script>").attr(type:"text/jumly+sequence").html(res)
-            e.insertAfter scriptNode
-            $.jumly.run_script_ e
-
-    queue = []
-    window.JUMLY =
-        load: (resource) ->
-            scripts = document.getElementsByTagName("script")
-            me = scripts[scripts.length - 1]
-            if window.jQuery?.jumly
-                take resource, me
-            else
-                queue.push script:me, resource:resource
-    
-    css_dir    = "/stylesheets"
-    vendor_dir = "/vendor"
-    js_dir     = '/javascripts'
-
-    load_css_ "#{css_dir}/jumly-min.css"
- 
-    load_script_ "#{vendor_dir}/jsdeferred.js", ->
-        Deferred.parallel([
-            (load_script "#{vendor_dir}/jquery-1.6.2.min.js").next(-> load_script "#{vendor_dir}/$.client.js"),
-            load_script "#{vendor_dir}/coffee-script.min-1.1.1.js",
-            load_script "#{vendor_dir}/cssua.min.js",
-        ]).next(->
-            $("html").addClass $.client.os
-            load_script "#{js_dir}/jumly-min.js"
-        ).next(->
-            $(queue).each (i, e) -> take e.resource, e.script
-            $.jumly.runScripts_()
-        )
-) this
-###
