@@ -28,6 +28,17 @@ uml = (arg, opts) ->
 
 $.fn.self = -> @data("uml:property")?._self
 
+
+## Provide a way to refer to ID.
+uml.identify = (e)->
+  unless e
+    return null
+  if (p for p of e).length is 1 and p is "id"
+    switch typeof e.id
+      when "number", "string" then e.id
+      when "function" then e.id()
+      else return null
+
 ## Normalize as JUMLY Parameter
 ##
 uml.normalize = (a, b) ->
@@ -132,16 +143,6 @@ if window.addEventListener
     addEventListener 'DOMContentLoaded', run_scripts, no
 else
     throw "window.addEventListener is not supported"
-
-$.jumly.identify = (e) ->
-    unless e
-        return null
-    if (p for p of e).length is 1 and p is "id"
-        switch typeof e.id
-            when "number", "string" then e.id
-            when "function" then e.id()
-            else return null
-
 
 ##
 prefs_ = {}
