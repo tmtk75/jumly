@@ -1,5 +1,30 @@
-###
-###
+DSL_ = {}
+DSL = (args) ->
+    if args is null
+        throw "It MUST NOT be null."
+    if typeof args is "string"
+        return DSL_[args]
+    unless typeof args is "object" and not $.isArray args
+        throw "DSL can only accept an object."
+    unless args.type
+        throw "type property is required."
+    unless args.compileScript
+        throw "compileScript property is required."
+
+    DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
+DSLEvents_ =
+    beforeCompose: (f) ->
+        @_diagram.bind "beforeCompose", f
+        this
+    afterCompose: (f) ->
+        @_diagram.bind "afterCompose", f
+        this
+DSL.mixin = (type) ->
+    $.extend type.prototype, DSLEvents_
+
+$.jumly.DSL = DSL
+
+
 class UMLClassDSL
     constructor: (@_diagram) ->
 
@@ -319,11 +344,12 @@ $.jumly.DSL type:'.sequence-diagram', version:'0.0.1', compileScript: (script) -
     diag.found_ = -> eval CoffeeScript.compile script.html()
     diag.found_()
     diag
+      
+class DSL
+  constructor: ->
 
-###
-###
-class UMLUsecaseDSL
-    constructor: (@_diagram, @_boundary) ->
+class UMLUsecaseDSL extends DSL
+  constructor: (@_diagram, @_boundary) ->
 
 UMLUsecaseDSL::new_ = (type, uname) ->
     uname = $.jumly.normalize uname
@@ -332,17 +358,16 @@ UMLUsecaseDSL::new_ = (type, uname) ->
     a
 
 UMLUsecaseDSL::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
-UMLUsecaseDSL::use_case = -> @usecase.apply this, arguments
 
 UMLUsecaseDSL::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
 
 curry_ = (me, func, id) ->
-    return (args) ->
-        attrtext = $.jumly.normalize.apply null, arguments
-        attrtext.id = id
-        vals = [].slice.apply arguments
-        vals[0] = attrtext
-        func.apply me, vals
+  return (args) ->
+    attrtext = $.jumly.normalize.apply null, arguments
+    attrtext.id = id
+    vals = [].slice.apply arguments
+    vals[0] = attrtext
+    func.apply me, vals
 
 UMLUsecaseDSL::create_ = (type, target, func, uname) ->
     if id = $.jumly.identify uname

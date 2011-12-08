@@ -356,32 +356,3 @@ UMLNote::attach = (target, opts) ->
    this 
 
 jQuery.uml.def ".note", UMLNote
-DSL_ = {}
-DSL = (args) ->
-    if args is null
-        throw "It MUST NOT be null."
-    if typeof args is "string"
-        return DSL_[args]
-    unless typeof args is "object" and not $.isArray args
-        throw "DSL can only accept an object."
-    unless args.type
-        throw "type property is required."
-    unless args.compileScript
-        throw "compileScript property is required."
-
-    DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
-
-DSLEvents_ =
-    beforeCompose: (f) ->
-        @_diagram.bind "beforeCompose", f
-        this
-    afterCompose: (f) ->
-        @_diagram.bind "afterCompose", f
-        this
-
-DSL.mixin = (type) ->
-    $.extend type.prototype, DSLEvents_
-
-
-$.jumly.DSL = DSL
-

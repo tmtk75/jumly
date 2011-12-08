@@ -24,8 +24,8 @@
                 @actor "An user": use:[1,2]
                 @actor "An employee"
                 @actor "A manager"
-                @use_case(id:2) "Close editing file."
-                @use_case(id:1) "Open existing file."
+                @usecase(id:2) "Close editing file."
+                @usecase(id:1) "Open existing file."
                 @afterCompose (e, d) ->
                     d.find(".relationship").twipsy("relationship", "below")
                     d.find(".actor:eq(1)").twipsy("actor", "above")

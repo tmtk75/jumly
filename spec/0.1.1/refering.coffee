@@ -12,3 +12,5 @@ describe "Refering", ->
     diag.compose()
     expect(diag.foobar).toBe 1
     expect(diag.bizbuz).toBe 2
+
+  it "$.jumly.DSL"
