@@ -1,35 +1,32 @@
 uml = (arg, opts) ->
-    if (typeof arg is "object" && !arg.type)
-        return from_jQuery(arg)
-    
-    arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
-    meta = uml.factory[arg.type]
-    if (meta is undefined)
-        throw "unknown type '" + arg.type + "'"
-    
-    factory = meta.factory
-    opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
-    a = factory(arg, opts)
-    a.find(".name:eq(0)").html(opts.name)
-    a.name(opts.name) if opts.name
-    a.attr id:opts.id if opts.id
-    
-    # Common methods
-    a.gives = $.uml.lang._gives(a, arg)
-    a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
-    a
-$.fn.self = -> @data("uml:property")?._self
-
-###
-  + @param _ hash
-###
-from_jQuery = (arg) ->
-    if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
+  if (typeof arg is "object" && !arg.type)
+    mapJqToJy = (arg) ->
+      if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
         arg = $(arg)  # regard as a DOM node
-    for i in [0..arg.length-1]
+      for i in [0..arg.length-1]
         a = $(arg[i]).self()
         arg[i] = if !a then null else a
-    return arg
+      arg
+    return mapJqToJy arg
+  
+  arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
+  meta = uml.factory[arg.type]
+  if (meta is undefined)
+    throw "unknown type '" + arg.type + "'"
+  
+  factory = meta.factory
+  opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
+  a = factory(arg, opts)
+  a.find(".name:eq(0)").html(opts.name)
+  a.name(opts.name) if opts.name
+  a.attr id:opts.id if opts.id
+  
+  # Common methods
+  a.gives = $.uml.lang._gives(a, arg)
+  a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
+  a
+
+$.fn.self = -> @data("uml:property")?._self
 
 ## Normalize as JUMLY Parameter
 ##
@@ -55,11 +52,10 @@ uml.normalize = (a, b) ->
     delete r[key]
     $.extend r, attrs
 
-
 ## Declaration for all attr keys of jQuery this library uses.
 uml.factory = (name, fact)-> uml.factory[name] = factory:fact
 
-uml.def = (name, type) -> $.uml.factory name, (_, opts) -> new type _, opts
+uml.def = (name, type)-> uml.factory name, (_, opts)-> new type _, opts
 
 ## Export uml module into $.
 $.uml = $.extend uml, $.uml
