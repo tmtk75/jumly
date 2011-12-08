@@ -186,8 +186,16 @@ For example, below is same.
 
 
 
-DSL
+JUMLY DSL
 ===============================================================================
+As an assumption, CoffeeScript is able to be used.
+
+Derrective Form
+-------------------------------------------------------------------------------
+As for most derrectives, the arguments are expected like followings.
+
+    @<derrective>(<string|integer>) <arg0>, <arg1>, ...
+
 
 Common
 -------------------------------------------------------------------------------

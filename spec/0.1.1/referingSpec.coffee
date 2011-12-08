@@ -35,10 +35,16 @@ describe "Curry", ->
     f = (a, b)-> a.push b; a
     expect(f.curry([1,2])(3)).toEqual [1,2,3]
 
-  it "should bind ", ->
+  it "should bind instance method...", ->
     a =
       b: 2
       f: (x)-> x + this.b
     f = (obj)-> (args)-> obj.f.curry(3).apply obj, arguments
     expect(f(a)()).toBe 5
-        
+
+
+describe "Identifiable Derrective", ->
+  
+  it "should return equivalent object apart from id attribute", ->
+    
+    JUMLY
