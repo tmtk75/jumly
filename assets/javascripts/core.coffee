@@ -62,39 +62,36 @@ $.uml = $.extend uml, $.uml
 $.jumly = $.uml
 
 ##
-$.uml.lang = {}
-$.uml.lang._gives = (a, dic) ->
-	gives = (query) ->
-        r = dic[query]
-        if r then r else null
-	if !a.gives
-		return gives
-	f = a.gives
-	return (query) ->
-        r = f(query)
-        if r.length > 0 or r.of or r.as
-            return r
-        gives(query)
-
-$.uml.lang._as = (m)-> as:(e) -> m[e]
-$.uml.lang._of = (nodes, query) ->
-	return (unode) ->
-		n = nodes.filter((i, e) ->
-			e = $.uml(e)[0]
-			s = e.gives(unode.data("uml:property").type)
-			if s is unode then e else null
-		)
-		if n.length > 0 then $.uml(n)[0] else []
+$.jumly.lang =
+  _gives: (a, dic)->
+  	gives = (query)->
+          r = dic[query]
+          if r then r else null
+  	if !a.gives then return gives
+  	f = a.gives
+  	(query)->
+      r = f(query)
+      if r.length > 0 or r.of or r.as
+          return r
+      gives(query)
+  _as: (m)-> as:(e)-> m[e]
+  _of: (nodes, query)->
+  	(unode)->
+  		n = nodes.filter (i, e)->
+  			e = $.uml(e)[0]
+  			s = e.gives(unode.data("uml:property").type)
+  			if s is unode then e else null
+  		if n.length > 0 then $.uml(n)[0] else []
 
 run_scripts_done = false
 run_scripts = ->
-    if run_scripts_done then return null
-    scripts = document.getElementsByTagName 'script'
-    diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
-    for script in diagrams
-        uml.run_script_ script
-    run_scripts_done = true
-    null
+  return null if run_scripts_done 
+  scripts = document.getElementsByTagName 'script'
+  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
+  for script in diagrams
+    uml.run_script_ script
+  run_scripts_done = true
+  null
 
 uml.runScripts_ = run_scripts
 
