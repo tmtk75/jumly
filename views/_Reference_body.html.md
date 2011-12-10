@@ -56,20 +56,20 @@ Here is specification for named identification.
 - JUMLY uses the name value if you set a name and don't give any IDs.
 - JUMLY converts the value base on a rule.
 - JUMLY converts all [A-Z] to lower-case.
-- JUMLY keeps [0-9].
+- JUMLY keeps [0-9_].
 - Apart from above character, JUMLY converts all to '-' (hyphen).
 
 Here is specification for explicit identification.
 
 - JUMLY uses the ID value if you explicitly give it.
 - You can use number and string as ID value.
-- ID number is represented with a regular expression `^[1-9][0-9]*$`
-- ID string is represented with a regular expression `^[a-zA-Z_][a-zA-Z_0-9]*$`
-- If you use same value two times, JUMLY throw an exception.
+- ID number is represented with a regular expression `^[0-9]$`
+- ID string is represented with a regular expression `^[a-zA-Z_]$`
 
 
 JUMLY-DiagramElement
 -------------------------------------------------------------------------------
+- If you use same value more thatn two times in a diagram, JUMLY throws exception.
 TBD.
 
 

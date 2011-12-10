@@ -178,3 +178,7 @@ $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
 ##
 $.jumly.runScript = uml.run_script_
+
+
+JUMLY.Naming =
+  toID: (something)-> something.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"

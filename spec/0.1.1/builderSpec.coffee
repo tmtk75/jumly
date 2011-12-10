@@ -1,4 +1,4 @@
-describe "DiagramBuilder", ->
+describe "JUMLY.DiagramBuilder", ->
   mkscript = (type, script)->
                $("<script>").attr("type", "application/jumly+#{type}")
                             .text script
