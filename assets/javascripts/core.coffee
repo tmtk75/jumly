@@ -1,3 +1,7 @@
+## Reserved namespace
+if window.JUMLY then throw new Error "JUMLY already exists."
+window.JUMLY = {}
+
 uml = (arg, opts) ->
   if (typeof arg is "object" && !arg.type)
     mapJqToJy = (arg) ->

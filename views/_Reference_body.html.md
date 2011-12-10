@@ -136,6 +136,34 @@ If you'd like to use javascript, you can write:
 
 
 
+Build Diagram
+===============================================================================
+When HTML DOM tree is built,
+JUMLY builds all HTMLScriptElement having type attribute the value is
+formed with `'application/jumly+{diagramType}'` expect for elements
+suppressed explicitly.
+
+For example,
+
+    <script type="application/jumly+use-case">
+    ...
+    
+In order to suppress building at the time,
+you can append a class to HTMLScriptElement, which is `ignore` like this.
+
+    <script type="application/jumly+use-case" class="ignored">
+    ...
+
+If you use [$.jumly.build][], you can build them later.
+It's helpful that you get JUMLY better to add a plugin.
+
+    $("script.ignored").each (idx, script)-> $.jumly.build script
+
+
+  [$.jumly.build]: #jumlybuild-htmlscriptelement
+
+
+
 Event
 ===============================================================================
 JUMLY supports some observable events using [jQuery.Event][].
@@ -180,9 +208,9 @@ For example, below is same.
      $.jumly "Person"
         
 
-### `$.jumly.parse <HTMLScriptElement>`
+### `$.jumly.build <HTMLScriptElement>`
 
-    $.jumly.parse $("script")[0], [options]
+    $.jumly.build $("script")[0], [options]
 
 
 

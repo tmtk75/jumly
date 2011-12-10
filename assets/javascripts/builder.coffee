@@ -1,12 +1,24 @@
+class DiagramBuilder
+  @selectHTMLScriptElements = (element)-> $("script", element).not(".ignored")
+  
+  @new_ = (element)->
+    new UsecaseDiagramBuilder
 
-class UsecaseBuilder
-  constructor: ->
+DiagramBuilder::build = (script)->
+  tmp = "__#{new Date().getTime()}__"
+  this[tmp] = ->
+    eval CoffeeScript.compile script.text()
+  this[tmp]()
+  delete this.tmp
+
+JUMLY =
+  DiagramBuilder: DiagramBuilder
+
+$.extend window.JUMLY, JUMLY
 
 
-builders =
-  UsecaseBuilder: UsecaseBuilder
-
-JUMLY = $.extend JUMLY, builders
-
-## Reserved namespace for JUMLY.
-#window.JUMLY = JUMLY
+##
+class UsecaseDiagramBuilder
+  
+UsecaseDiagramBuilder::build = ->
+  

@@ -20,7 +20,7 @@ Tomotaka Sakuma 2011 copyright(c), all rights reserved.
 
 ### 0.1.1
 - Implement JUMLY root namespace.
-- Implement JUMLY.ScriptParser class.
+- Implement JUMLY.DiagramBuilder class.
 
 ### 0.1.0 <small>Initial release.</small>
 - Enable to render sequence diagram.
