@@ -126,3 +126,11 @@ Logger::debug = (s)-> @log "debug", s
 Logger::info  = (s)-> @log "info", s
 Logger::error = (s)-> @err @category, "error", s
 $.logger = (category)-> new Logger category
+
+##
+$.kindof = (that)->
+  return 'Null' if that is null
+  return 'Undefined' if that is undefined 
+  tc = that.constructor
+  toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
+  if typeof(tc) is 'function' then toName(tc) else tc # [object HTMLDocumentConstructor]

@@ -18,3 +18,5 @@ $.extend window.JUMLY, JUMLY
 
 
 class UsecaseDiagramBuilder extends DiagramBuilder
+
+UsecaseDiagramBuilder::boundary = ->

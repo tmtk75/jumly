@@ -43,12 +43,6 @@ xdescribe "pending,", ->
       f = (obj)-> (args)-> obj.f.curry(3).apply obj, arguments
       expect(f(a)()).toBe 5
   
-  kindof = (that)->
-    return 'Null' if that is null
-    return 'Undefined' if that is undefined 
-    tc = that.constructor
-    toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
-    if typeof(tc) is 'function' then toName(tc) else tc # [object HTMLDocumentConstructor]
   
   describe "sandbox", ->
     f = (x)-> console.log kindof

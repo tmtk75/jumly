@@ -40,10 +40,8 @@ describe "JUMLY.DiagramBuilder", ->
 
 
   describe "Event", ->
-    
     it "should", ->
       $("*").on "build.before", -> window.d0 = "build.before"
-
       script = mkscript "use-case", ""
       builder = JUMLY.DiagramBuilder.new_ script
       builder.build()

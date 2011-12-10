@@ -180,5 +180,27 @@ $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 $.jumly.runScript = uml.run_script_
 
 
+## v0.1.1a
 JUMLY.Naming =
   toID: (something)-> something.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
+  
+JUMLY.Identity =
+  normalize: (that)->
+    toID = JUMLY.Naming.toID
+    switch $.kindof that
+      when "String" then return id:toID(that), name:that
+      when "Object" then ## Through down
+      else throw new Error
+    keys = (p for p of that)
+    return that if keys.length > 1
+    id = keys[0]
+    it = that[keys[0]]
+    return (id:id, name:it) if $.kindof(it) is "String"
+    keys = (p for p of it)
+    return $.extend {}, it, {id:id} if keys.length > 1
+    name = keys[0]
+    mods = it[keys[0]]
+    $.extend {id:id, name:name}, mods
+
+$.jumly.build = (script)->
+  JUMLY.DiagramBuilder.new_(script).build(script)
