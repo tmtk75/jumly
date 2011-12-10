@@ -1,8 +1,4 @@
 describe "JUMLY.DiagramBuilder", ->
-  mkscript = (type, script)->
-               $("<script>").attr("type", "application/jumly+#{type}")
-                            .text script
-
   it "should have its own scope", ->
     script = mkscript "use-case", """
       window.a1 = 123
@@ -38,11 +34,18 @@ describe "JUMLY.DiagramBuilder", ->
       toBeFunction: -> @actual.constructor is Function
       
   it "should return the appropriate instance of DiagramBuilder for given HTMLScriptElement", ->
-    a0 = mkscript "use-case", "window.c1 = 112233"
-    builder = JUMLY.DiagramBuilder.new_ a0
+    builder = JUMLY.DiagramBuilder.new_ mkscript "use-case", "window.c1 = 112233"
     expect(builder).not.toBeUndefined()
     expect(builder.build).toBeFunction()
 
 
-  it "should be able to be registered new DiagramBuilder", ->
-    JUMLY.DiagramBuilder.register "foobar", FoobarDiagramBuilder
+  describe "Event", ->
+    
+    it "should", ->
+      $("*").on "build.before", -> window.d0 = "build.before"
+
+      script = mkscript "use-case", ""
+      builder = JUMLY.DiagramBuilder.new_ script
+      builder.build()
+
+      expect(window.d0).toBe "build.before"

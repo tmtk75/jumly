@@ -17,8 +17,4 @@ JUMLY =
 $.extend window.JUMLY, JUMLY
 
 
-##
-class UsecaseDiagramBuilder
-  
-UsecaseDiagramBuilder::build = ->
-  
+class UsecaseDiagramBuilder extends DiagramBuilder

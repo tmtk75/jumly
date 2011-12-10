@@ -14,4 +14,4 @@ describe "JUMLY.Naming", ->
 
   describe "isID", ->
     
-    it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`
+    it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`"

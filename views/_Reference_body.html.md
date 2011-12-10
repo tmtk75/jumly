@@ -208,7 +208,7 @@ For example, below is same.
      $.jumly "Person"
         
 
-### `$.jumly.build <HTMLScriptElement>`
+### `JUMLY-DiagramElement $.jumly.build <HTMLScriptElement>`
 
     $.jumly.build $("script")[0], [options]
 
