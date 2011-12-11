@@ -77,13 +77,9 @@ $.jumly.def ".class", UMLClass
     
 
 class UMLClassDSL extends JUMLY.DSLEvents_
-    constructor: (@_diagram) ->
+    constructor: (@diagram) ->
 
-UMLClassDSL::def = (props) ->
-    #if $.jumly.identify props
-    #  UMLUsecaseDiagram supports normalizing. Have to port it.
-    norm = $.jumly.normalize props
-    @_diagram.appear norm
+UMLClassDSL::def = (props) -> @diagram.appear $.jumly.normalize props
 
 UMLClassDSL::class = UMLClassDSL::def
 
