@@ -1,13 +1,10 @@
 ##
-class UMLClassDiagram
-  constructor: (props, opts) ->
-    jQuery.extend this, UMLClassDiagram.newNode()
-    this
-  @newNode = ->
-    $("<div>").addClass("diagram")
-              .addClass("class-diagram")
+class JUMLYClassDiagram
+JUMLYClassDiagram::build = ->
+  $("<div>").addClass("diagram")
+            .addClass("class-diagram")
 
-UMLClassDiagram::declare = (normval) ->
+JUMLYClassDiagram::declare = (normval) ->
   clz = $.jumly ".class", normval
   if normval.stereotype
     clz.find(".stereotype").html normval.stereotype
@@ -17,13 +14,13 @@ UMLClassDiagram::declare = (normval) ->
   $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
   @append clz
 
-UMLClassDiagram::preferredWidth = ->
+JUMLYClassDiagram::preferredWidth = ->
   @find(".class .icon").mostLeftRight().width() + 16 ##WORKAROUND: 16 is magic number.
 
-UMLClassDiagram::preferredHeight = ->
+JUMLYClassDiagram::preferredHeight = ->
   @find(".class .icon").mostTopBottom().height()
 
-UMLClassDiagram::compose = ->
+JUMLYClassDiagram::compose = ->
   @trigger "beforeCompose", [this]
   ## Resize for looks
   @find(".class .icon").each (i, e) ->
@@ -52,9 +49,9 @@ UMLClassDiagram::compose = ->
   </ul>
 </div>
 ###
-class UMLClass
+class JUMLYClass
   constructor: (props, opts) ->
-    jQuery.extend this, UMLClass.newNode()
+    jQuery.extend this, JUMLYClass.newNode()
     this
   @newNode = ->
     icon = $("<div>")
@@ -67,8 +64,8 @@ class UMLClass
               .addClass("class")
               .append(icon)
 
-$.jumly.def ".class-diagram", UMLClassDiagram
-$.jumly.def ".class", UMLClass
+$.jumly.def ".class-diagram", JUMLYClassDiagram
+$.jumly.def ".class", JUMLYClass
 
 class ClassDiagramBuilder extends JUMLY.DSLEvents_
   constructor: (@diagram) ->

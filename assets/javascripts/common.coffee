@@ -1,5 +1,12 @@
-uml = jQuery.uml
+##
+class JUMLYHTMLElement
+  constructor: ->
+    $.extend this, @build()
 
+JUMLY.HTMLElement = JUMLYHTMLElement
+
+
+uml = jQuery.uml
 ###
 #UMLObject
     activate()
