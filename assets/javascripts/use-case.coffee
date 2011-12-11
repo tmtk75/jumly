@@ -175,7 +175,7 @@ mixin =
 a = $.uml ".use-case-diagram"
 $.extend a.constructor.prototype, mixin
 
-$.jumly.DSL type:".use-case-diagram", version:'0.0.1', compileScript: (script) ->
+$.jumly.DSL type:".use-case-diagram", compileScript: (script) ->
     diag = $.jumly ".use-case-diagram"
     sbname = $(script).attr "system-boundary-name"
     diag.boundary sbname, ->

@@ -956,7 +956,7 @@ a = $.uml ".sequence-diagram"
 $.extend a.constructor.prototype, mixin
 
 ##
-$.jumly.DSL type:'.sequence-diagram', version:'0.0.1', compileScript: (script) ->
+$.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
     diag = $.jumly '.sequence-diagram'
     diag.found_ = -> eval CoffeeScript.compile script.html()
     diag.found_()

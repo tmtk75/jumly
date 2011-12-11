@@ -90,7 +90,7 @@ UMLClassDSL::class = UMLClassDSL::def
 UMLClassDSL::start = (acts) ->  ## NOTE: Is there better name?
     acts.apply this, []
 
-$.jumly.DSL type:".class-diagram", version:'0.0.1', compileScript: (script) ->
+$.jumly.DSL type:".class-diagram", compileScript: (script) ->
     diag = $.jumly ".class-diagram"
     ctxt = new UMLClassDSL(diag)
     ctxt.start ->
