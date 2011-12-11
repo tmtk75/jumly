@@ -10,16 +10,15 @@ class UMLClassDiagram
         $("<div>").addClass("diagram")
                   .addClass("class-diagram")
 
-UMLClassDiagram::appear = (norm) ->
-    clz = $.jumly ".class", norm
-    if norm.stereotype
-        clz.find(".stereotype").html norm.stereotype
-    else
-        clz.find(".stereotype").hide()
-    
-    $(norm.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
-    $(norm.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
-    @append clz
+UMLClassDiagram::declare = (normval) ->
+  clz = $.jumly ".class", normval
+  if normval.stereotype
+    clz.find(".stereotype").html normval.stereotype
+  else
+    clz.find(".stereotype").hide()
+  $(normval.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
+  $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
+  @append clz
 
 UMLClassDiagram::preferredWidth = ->
     @find(".class .icon").mostLeftRight().width() + 16 ## 16 is WORKAROUND
@@ -79,7 +78,7 @@ $.jumly.def ".class", UMLClass
 class ClassDiagramBuilder extends JUMLY.DSLEvents_
   constructor: (@diagram) ->
 
-ClassDiagramBuilder::def = (props)-> @diagram.appear $.jumly.normalize props
+ClassDiagramBuilder::def = (props)-> @diagram.declare $.jumly.normalize props
 
 ClassDiagramBuilder::class = ClassDiagramBuilder::def
 
