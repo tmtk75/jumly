@@ -88,9 +88,16 @@ describe "JUMLY", ->
         expect(a.age).toBe 12
         expect(a.eye).toBe "black"
 
-      it "should be usual form", ->
+      it "should be usual form with ID", ->
         a = normalize ID:Me:{age:8, eye:"green"}
         expect(a.id).toBe "ID"
+        expect(a.name).toBe "Me"
+        expect(a.age).toBe 8
+        expect(a.eye).toBe "green"
+
+      it "should be usual form without ID", ->
+        a = normalize Me:{age:8, eye:"green"}
+        expect(a.id).toBe "me"
         expect(a.name).toBe "Me"
         expect(a.age).toBe 8
         expect(a.eye).toBe "green"
@@ -100,6 +107,14 @@ describe "JUMLY", ->
         expect(a.id).toBe "123"
         expect(a.name).toBe "He"
         expect(a.race).toBe "US"
+
+      it "should be", ->
+        think = {}
+        render = {}
+        a = normalize User:use:[think, render]
+        expect(a.id).toBe "user"
+        expect(a.name).toBe "User"
+        expect(a.use).toEqual [think, render]
 
 describe "$.jumly", ->
   it "should provide public interface for user"
