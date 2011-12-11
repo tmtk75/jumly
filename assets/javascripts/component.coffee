@@ -89,3 +89,70 @@ UMLComponentDiagram::compose_ = ->
         $(e).self().render()
 
 $.uml.def ".component-diagram", UMLComponentDiagram
+
+
+###
+###
+class UMLComponentDSL extends JUMLY.DSLEvents_
+    constructor: (@_diagram, @_component) ->
+
+UMLComponentDSL::component = (name, acts) ->
+    @_diagram.append compo = $.uml ".component", name
+    ctxt = new UMLComponentDSL(@_diagram, compo)
+    acts?.apply ctxt, []
+    this
+
+class UMLName
+    constructor: (uname) ->
+        if typeof uname is "string"
+            @name = uname
+        else
+            for i of uname
+                @name = i
+                if typeof uname[i] is "object"
+                    if $.isArray uname[i]
+                        throw "#{i} MUST NOT be array"
+                    else
+                        $.extend this, uname[i]
+    @_to = (uname) -> new UMLName uname
+
+UMLComponentDSL::provide = (name) ->
+    i = $.uml ".provided-interface", name
+    @_component.append i
+    this
+
+UMLComponentDSL::require = (name) ->
+    i = $.uml ".required-interface", name
+    @_component.append i
+    this
+
+UMLComponentDSL::compose = (something) ->
+    if typeof something is "function"
+        something @_diagram
+    else if typeof something is "object" and something.each
+        something.append @_diagram
+    else
+        throw something + " MUST be a function or a jQuery object"
+    @_diagram.compose()
+    this
+
+mixin =
+    component: (name, acts) ->
+        diag = this
+        ctxt = new UMLComponentDSL(diag)
+        ctxt.component name, acts
+        ctxt
+
+## NOTE: This is WORKAROUND to append methods in other files.
+a = $.uml ".component-diagram"
+$.extend a.constructor.prototype, mixin
+
+
+$.uml.diagram = (klass, name, others) ->
+    acts = ([].slice.apply arguments).pop()
+    unless $.isFunction acts
+        throw "Last argument is expected a function"
+    diag = $.uml "." + klass + "-diagram"
+    ctxt = new UMLComponentDSL(diag)
+    acts.apply ctxt, []
+    ctxt
