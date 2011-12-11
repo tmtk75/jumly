@@ -1,25 +1,4 @@
 ###
-###
-class DeploymentContext extends JUMLY.DSLEvents_
-    constructor: (@_diagram, @_deployment) ->
-
-DeploymentContext::deployment = (name, acts) ->
-    @_diagram.append compo = $.uml ".deployment", name
-    ctxt = new DeploymentContext(@_diagram, compo)
-    acts?.apply ctxt, []
-    this
-
-mixin =
-    deployment: (name, acts) ->
-        diag = this
-        ctxt = new DeploymentContext(diag)
-        ctxt.deployment name, acts
-        ctxt
-
-## NOTE: This is WORKAROUND to append methods in other files.
-a = $.uml ".deployment-diagram"
-$.extend a.constructor.prototype, mixin
-###
 This class has information followings:
   - Current diagram instance
   - Current occurrence which is the last occurrence of actor.
