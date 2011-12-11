@@ -6,12 +6,12 @@ describe "use-case", ->
               @boundary "JUMLY", ->
                 @usecase think:"Thinking Something"
                 @usecase render:"Rendering Diagram": extend:[think]
-              @actor user: use:[think, render]
+              @actor user:use:[think, render]
               """
     script = mkscript "use-case", declare
     diag   = $.jumly.build script
     think  = diag.find(".use-case:eq(0)").self()
-    render = ding.find(".use-case:eq(1)").self()
+    render = diag.find(".use-case:eq(1)").self()
     actor  = diag.find(".actor").self()
 
     it "should have .diagram", ->
@@ -31,3 +31,5 @@ describe "use-case", ->
 
     describe "@boundary", ->
       it "should take string as name", ->
+        diag = $.jumly.build mkscript "use-case", "@boundary 'system', ->"
+        diag.system = diag.find(".boundary").self()
