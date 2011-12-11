@@ -88,12 +88,12 @@ describe "JUMLY", ->
         expect(a.age).toBe 12
         expect(a.eye).toBe "black"
 
-      it "should be that", ->
+      it "should be usual form", ->
         a = normalize ID:Me:{age:8, eye:"green"}
         expect(a.id).toBe "ID"
-        expect(a.name).toBe "You"
+        expect(a.name).toBe "Me"
         expect(a.age).toBe 8
-        expect(a.eys).toBe "green"
+        expect(a.eye).toBe "green"
 
 describe "$.jumly", ->
   it "should provide public interface for user"
