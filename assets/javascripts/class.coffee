@@ -1,5 +1,5 @@
 ##
-class JUMLYClassDiagram
+class JUMLYClassDiagram extends JUMLY.HTMLElement
 JUMLYClassDiagram::build = ->
   $("<div>").addClass("diagram")
             .addClass("class-diagram")
