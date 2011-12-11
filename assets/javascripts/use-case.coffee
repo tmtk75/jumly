@@ -112,3 +112,76 @@ UMLUsecaseDiagram::compose = ->
     this
     
 $.uml.def ".use-case-diagram", UMLUsecaseDiagram
+
+
+
+class UMLUsecaseDSL extends JUMLY.DSLEvents_
+  constructor: (@_diagram, @_boundary) ->
+
+UMLUsecaseDSL::new_ = (type, uname) ->
+    uname = $.jumly.normalize uname
+    a = $.uml type, uname
+    $.extend a.data("uml:property"), uname
+    a
+
+UMLUsecaseDSL::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
+
+UMLUsecaseDSL::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
+
+curry_ = (me, func, id) ->
+  return (args) ->
+    attrtext = $.jumly.normalize.apply null, arguments
+    attrtext.id = id
+    vals = [].slice.apply arguments
+    vals[0] = attrtext
+    func.apply me, vals
+
+UMLUsecaseDSL::create_ = (type, target, func, uname) ->
+    if id = $.jumly.identify uname
+        return curry_ this, func, id
+    a = @new_ type, uname
+    target.append a
+
+UMLUsecaseDSL::boundary = (name, acts) ->
+    name ?= ""
+    if id = $.jumly.identify name
+        return curry_ this, @boundary, id
+    boundary = @new_ ".system-boundary", name
+
+    acts.apply ctxt = new UMLUsecaseDSL(@_diagram, boundary)
+    if @_boundary
+        @_boundary.append boundary
+    else
+        @_diagram.append boundary
+    this
+
+UMLUsecaseDSL::compose = (something) ->
+    if typeof something is "function"
+        something @_diagram
+    else if typeof something is "object" and something.each
+        something.append @_diagram
+    else
+        throw something + " MUST be a function or a jQuery object"
+    @_diagram.compose()
+    this
+
+mixin =
+    boundary: (name, acts) ->
+        ctxt = new UMLUsecaseDSL(this)
+        ctxt.boundary name, acts
+        ctxt
+
+## NOTE: This is WORKAROUND to append methods in other files.
+a = $.uml ".use-case-diagram"
+$.extend a.constructor.prototype, mixin
+
+$.jumly.DSL type:".use-case-diagram", version:'0.0.1', compileScript: (script) ->
+    diag = $.jumly ".use-case-diagram"
+    sbname = $(script).attr "system-boundary-name"
+    diag.boundary sbname, ->
+        unless sbname
+            @_boundary.addClass("out-of-bounds").removeClass("system-boundary")
+                      .find(".name").remove()
+        eval CoffeeScript.compile script.html()
+    diag
+

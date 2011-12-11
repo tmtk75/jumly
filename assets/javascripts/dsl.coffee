@@ -1,31 +1,6 @@
-DSL_ = {}
-DSL = (args) ->
-    if args is null
-        throw "It MUST NOT be null."
-    if typeof args is "string"
-        return DSL_[args]
-    unless typeof args is "object" and not $.isArray args
-        throw "DSL can only accept an object."
-    unless args.type
-        throw "type property is required."
-    unless args.compileScript
-        throw "compileScript property is required."
-
-    DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
-DSLEvents_ =
-    beforeCompose: (f) ->
-        @_diagram.bind "beforeCompose", f
-        this
-    afterCompose: (f) ->
-        @_diagram.bind "afterCompose", f
-        this
-DSL.mixin = (type) ->
-    $.extend type.prototype, DSLEvents_
-
-$.jumly.DSL = DSL
 
 
-class UMLClassDSL
+class UMLClassDSL extends JUMLY.DSLEvents_
     constructor: (@_diagram) ->
 
 UMLClassDSL::def = (props) ->
@@ -39,8 +14,6 @@ UMLClassDSL::class = UMLClassDSL::def
 UMLClassDSL::start = (acts) ->  ## NOTE: Is there better name?
     acts.apply this, []
 
-$.jumly.DSL.mixin UMLClassDSL
-
 $.jumly.DSL type:".class-diagram", version:'0.0.1', compileScript: (script) ->
     diag = $.jumly ".class-diagram"
     ctxt = new UMLClassDSL(diag)
@@ -50,7 +23,7 @@ $.jumly.DSL type:".class-diagram", version:'0.0.1', compileScript: (script) ->
 
 ###
 ###
-class UMLComponentDSL
+class UMLComponentDSL extends JUMLY.DSLEvents_
     constructor: (@_diagram, @_component) ->
 
 UMLComponentDSL::component = (name, acts) ->
@@ -93,8 +66,6 @@ UMLComponentDSL::compose = (something) ->
     @_diagram.compose()
     this
 
-$.jumly.DSL.mixin UMLComponentDSL
-
 mixin =
     component: (name, acts) ->
         diag = this
@@ -117,7 +88,7 @@ $.uml.diagram = (klass, name, others) ->
     ctxt
 ###
 ###
-class DeploymentContext
+class DeploymentContext extends JUMLY.DSLEvents_
     constructor: (@_diagram, @_deployment) ->
 
 DeploymentContext::deployment = (name, acts) ->
@@ -125,8 +96,6 @@ DeploymentContext::deployment = (name, acts) ->
     ctxt = new DeploymentContext(@_diagram, compo)
     acts?.apply ctxt, []
     this
-
-$.jumly.DSL.mixin DeploymentContext
 
 mixin =
     deployment: (name, acts) ->
@@ -143,8 +112,8 @@ This class has information followings:
   - Current diagram instance
   - Current occurrence which is the last occurrence of actor.
 ###
-class UMLSequenceDSL
-    constructor: (props, @_diagram) ->
+class UMLSequenceDSL extends JUMLY.DSLEvents_
+     constructor: (props, @_diagram) ->
         $.extend this, props
 
 UMLSequenceDSL::_find_or_create_ = (e) ->
@@ -319,9 +288,6 @@ UMLSequenceDSL::compose = (opts) ->
         opts?.append @diagram
     @diagram.compose opts
 
-$.jumly.DSL.mixin UMLSequenceDSL
-
-
 mixin =
     found: (something, callback) ->
         diag = this
@@ -344,80 +310,3 @@ $.jumly.DSL type:'.sequence-diagram', version:'0.0.1', compileScript: (script) -
     diag.found_ = -> eval CoffeeScript.compile script.html()
     diag.found_()
     diag
-      
-class DSL
-  constructor: ->
-
-class UMLUsecaseDSL extends DSL
-  constructor: (@_diagram, @_boundary) ->
-
-UMLUsecaseDSL::new_ = (type, uname) ->
-    uname = $.jumly.normalize uname
-    a = $.uml type, uname
-    $.extend a.data("uml:property"), uname
-    a
-
-UMLUsecaseDSL::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
-
-UMLUsecaseDSL::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
-
-curry_ = (me, func, id) ->
-  return (args) ->
-    attrtext = $.jumly.normalize.apply null, arguments
-    attrtext.id = id
-    vals = [].slice.apply arguments
-    vals[0] = attrtext
-    func.apply me, vals
-
-UMLUsecaseDSL::create_ = (type, target, func, uname) ->
-    if id = $.jumly.identify uname
-        return curry_ this, func, id
-    a = @new_ type, uname
-    target.append a
-
-UMLUsecaseDSL::boundary = (name, acts) ->
-    name ?= ""
-    if id = $.jumly.identify name
-        return curry_ this, @boundary, id
-    boundary = @new_ ".system-boundary", name
-
-    acts.apply ctxt = new UMLUsecaseDSL(@_diagram, boundary)
-    if @_boundary
-        @_boundary.append boundary
-    else
-        @_diagram.append boundary
-    this
-
-UMLUsecaseDSL::compose = (something) ->
-    if typeof something is "function"
-        something @_diagram
-    else if typeof something is "object" and something.each
-        something.append @_diagram
-    else
-        throw something + " MUST be a function or a jQuery object"
-    @_diagram.compose()
-    this
-
-$.jumly.DSL.mixin UMLUsecaseDSL
-
-
-mixin =
-    boundary: (name, acts) ->
-        ctxt = new UMLUsecaseDSL(this)
-        ctxt.boundary name, acts
-        ctxt
-
-## NOTE: This is WORKAROUND to append methods in other files.
-a = $.uml ".use-case-diagram"
-$.extend a.constructor.prototype, mixin
-
-$.jumly.DSL type:".use-case-diagram", version:'0.0.1', compileScript: (script) ->
-    diag = $.jumly ".use-case-diagram"
-    sbname = $(script).attr "system-boundary-name"
-    diag.boundary sbname, ->
-        unless sbname
-            @_boundary.addClass("out-of-bounds").removeClass("system-boundary")
-                      .find(".name").remove()
-        eval CoffeeScript.compile script.html()
-    diag
-

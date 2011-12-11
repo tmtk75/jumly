@@ -179,6 +179,32 @@ $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 ##
 $.jumly.runScript = uml.run_script_
 
+DSL_ = {}
+DSL = (args) ->
+    if args is null
+        throw "It MUST NOT be null."
+    if typeof args is "string"
+        return DSL_[args]
+    unless typeof args is "object" and not $.isArray args
+        throw "DSL can only accept an object."
+    unless args.type
+        throw "type property is required."
+    unless args.compileScript
+        throw "compileScript property is required."
+
+    DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
+
+class DSLEvents_
+  beforeCompose: (f)->
+    @_diagram.bind "beforeCompose", f
+    this
+  afterCompose: (f)->
+    @_diagram.bind "afterCompose", f
+    this
+JUMLY.DSLEvents_ = DSLEvents_
+
+$.jumly.DSL = DSL
+
 
 ## v0.1.1a
 JUMLY.Naming =
