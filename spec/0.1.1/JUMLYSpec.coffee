@@ -82,9 +82,9 @@ describe "JUMLY", ->
         expect(a.on).toBe "desk"
 
       it "should be that as is for name having more than two keys", ->
-        a = normalize ID:{age:12, eye:"black"}
-        expect(a.id).toBe "ID"
-        expect(a.name).toBeUndefined()
+        a = normalize She:{age:12, eye:"black"}
+        expect(a.id).toBe "she"
+        expect(a.name).toBe "She"
         expect(a.age).toBe 12
         expect(a.eye).toBe "black"
 
@@ -108,7 +108,7 @@ describe "JUMLY", ->
         expect(a.name).toBe "He"
         expect(a.race).toBe "US"
 
-      it "should be", ->
+      it "should be no ID for the form that 3rd is Array", ->
         think = {}
         render = {}
         a = normalize User:use:[think, render]

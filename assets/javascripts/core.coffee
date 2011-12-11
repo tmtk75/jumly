@@ -193,14 +193,22 @@ JUMLY.Identity =
       else throw new Error
     keys = (p for p of that)
     return that if keys.length > 1
+
     id = keys[0]
     it = that[keys[0]]
-    return (id:id, name:it) if $.kindof(it) is "String"
+    return {id:id, name:it} if $.kindof(it) is "String"
+
     keys = (p for p of it)
-    return $.extend {}, it, {id:id} if keys.length > 1
+    return $.extend {}, it, {id:toID(id), name:id} if keys.length > 1
+
     name = keys[0]
     mods = it[keys[0]]
-    $.extend {id:id, name:name}, mods
+    switch $.kindof(mods)
+      when "Object" then $.extend {id:id, name:name}, mods
+      when "Array"
+        a = {id:toID(id), name:id}
+        a[name] = mods
+        a
 
 $.jumly.build = (script)->
   JUMLY.DiagramBuilder.new_(script).build(script)
