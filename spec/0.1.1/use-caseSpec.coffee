@@ -1,7 +1,7 @@
 describe "use-case", ->
 
-  ## Primary Showcase for use-case
-  it "should be rendered", ->
+  describe "show-case", ->
+    ## Primary Showcase for use-case
     declare = """
               @boundary "JUMLY", ->
                 @usecase think:"Thinking Something"
@@ -13,11 +13,18 @@ describe "use-case", ->
     think  = diag.find(".use-case:eq(0)").self()
     render = ding.find(".use-case:eq(1)").self()
     actor  = diag.find(".actor").self()
+
+    it "should have .diagram", ->
+      expect(diag.hasClass("diagram")).toBeTruthy()
     
-    expect(diag.hasClass("diagram")).toBeTruthy()
-    expect(diag.think ).toBe think
-    expect(diag.render).toBe render
-    expect(diag.actor ).toBe actor
+    it "should equal for think", ->
+      expect(diag.think).toBe think
+
+    it "should equal for render", ->
+      expect(diag.render).toBe render
+
+    it "should equal for actor", ->
+      expect(diag.actor).toBe actor
 
 
   describe "Builder", ->
