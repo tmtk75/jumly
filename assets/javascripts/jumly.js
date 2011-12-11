@@ -7,5 +7,4 @@
 //= require sequence
 //= require component
 //= require deployment
-//= require dsl
 //= require builder
