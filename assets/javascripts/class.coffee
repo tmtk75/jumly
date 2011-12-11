@@ -76,20 +76,19 @@ $.jumly.def ".class-diagram", UMLClassDiagram
 $.jumly.def ".class", UMLClass
     
 
-class UMLClassDSL extends JUMLY.DSLEvents_
-    constructor: (@diagram) ->
+class ClassDiagramBuilder extends JUMLY.DSLEvents_
+  constructor: (@diagram) ->
 
-UMLClassDSL::def = (props) -> @diagram.appear $.jumly.normalize props
+ClassDiagramBuilder::def = (props)-> @diagram.appear $.jumly.normalize props
 
-UMLClassDSL::class = UMLClassDSL::def
+ClassDiagramBuilder::class = ClassDiagramBuilder::def
 
-UMLClassDSL::start = (acts) ->  ## NOTE: Is there better name?
-    acts.apply this, []
+ClassDiagramBuilder::build = (acts)->
+  acts.apply this, []
 
 $.jumly.DSL type:".class-diagram", compileScript: (script) ->
-    diag = $.jumly ".class-diagram"
-    ctxt = new UMLClassDSL(diag)
-    ctxt.start ->
-        eval CoffeeScript.compile script.html()
-    diag
-
+  diag = $.jumly ".class-diagram"
+  ctxt = new ClassDiagramBuilder(diag)
+  ctxt.start ->
+    eval CoffeeScript.compile script.html()
+  diag
