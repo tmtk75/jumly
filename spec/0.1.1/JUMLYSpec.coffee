@@ -95,5 +95,11 @@ describe "JUMLY", ->
         expect(a.age).toBe 8
         expect(a.eye).toBe "green"
 
+      it "should be ID for number", ->
+        a = normalize 123:He:{race:"US"}
+        expect(a.id).toBe "123"
+        expect(a.name).toBe "He"
+        expect(a.race).toBe "US"
+
 describe "$.jumly", ->
   it "should provide public interface for user"
