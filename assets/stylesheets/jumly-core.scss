@@ -62,7 +62,7 @@ $JUMLY_FONT_SIZE: 100%;
         -margin-bottom: 0px;
     }
     .diagram {
-        .object, .use-case {
+        .object, .usecase {
             color: rgba(0,0,0,0.66);
             text-shadow: 1px 0px rgba(0,0,0,0.4);
         }
@@ -72,12 +72,12 @@ $JUMLY_FONT_SIZE: 100%;
     #we-think-something {
         .diagram {
             font-family: helvetica;
-            .use-case, .actor { font-size: $JUMLY_FONT_SIZE; }
-            .use-case .name {
+            .usecase, .actor { font-size: $JUMLY_FONT_SIZE; }
+            .usecase .name {
                 text-align: center;
                 margin-top: 1.2em;
             }
-            .use-case:nth-child(2) {
+            .usecase:nth-child(2) {
                 margin-top: 6em;
                 margin-left: 6em;
             }

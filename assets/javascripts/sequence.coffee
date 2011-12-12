@@ -763,7 +763,7 @@ This class has information followings:
   - Current diagram instance
   - Current occurrence which is the last occurrence of actor.
 ###
-class JUMLYSequenceDiagramBuilder extends JUMLY.DSLEvents_
+class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
      constructor: (props, @_diagram) ->
         $.extend this, props
 

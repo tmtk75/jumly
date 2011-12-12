@@ -18,7 +18,7 @@ JUMLY supports a MIME Type format, `application/jumly+{diagram-type}`.
     - pacakge
   - **Behaviour Diagram**
     - activity
-    - use-case
+    - usecase
     - state-machine
     - **Interaction Diagram**
       - sequence
@@ -145,13 +145,13 @@ suppressed explicitly.
 
 For example,
 
-    <script type="application/jumly+use-case">
+    <script type="application/jumly+usecase">
     ...
     
 In order to suppress building at the time,
 you can append a class to HTMLScriptElement, which is `ignore` like this.
 
-    <script type="application/jumly+use-case" class="ignored">
+    <script type="application/jumly+usecase" class="ignored">
     ...
 
 If you use [$.jumly.build][], you can build them later.

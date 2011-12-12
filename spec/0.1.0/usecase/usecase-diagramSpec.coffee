@@ -1,10 +1,10 @@
 u = $.jumly
-description "use-case-diagram", ->
+description "usecase-diagram", ->
 
     new_diag = ->
-        diag = u ".use-case-diagram"
+        diag = u ".usecase-diagram"
         diag.boundary "boundary", ->
-            @usecase "An use-case"
+            @usecase "An usecase"
             @actor "User"
         .compose $ "body"
         diag
@@ -28,10 +28,10 @@ description "use-case-diagram", ->
 
     xdescription "", ->
 
-        simple_one = u ".use-case", "simple use-case"
+        simple_one = u ".usecase", "simple use-case"
     
         it "should consist of following", ->
-            simple_one.expect((e)->e.hasClass("use-case"))
+            simple_one.expect((e)->e.hasClass("usecase"))
                       .find(".icon").expect(length:1)
                           .find(".name").expect(length:1)
     
@@ -41,9 +41,9 @@ description "use-case-diagram", ->
             """
     
         it "", ->
-            diag  = u ".use-case-diagram"
+            diag  = u ".usecase-diagram"
             bound = u ".system-boundary", "jumly library"
-            uc    = u ".use-case", text
+            uc    = u ".usecase", text
             uc.appendTo bound.appendTo diag.appendTo $ "body"
     
             uc.pack()
@@ -53,14 +53,14 @@ description "use-case-diagram", ->
             name.css "margin-top":(icon.height() - name.height())/10*4
     
         it "is referrence", ->
-            diag  = u ".use-case-diagram"
+            diag  = u ".usecase-diagram"
             bound = u ".system-boundary", "jumly library"
             act0  = u ".actor", "User"
             act1  = u ".actor", "Manager"
-            uc0   = u ".use-case", "This is an use-case for jumly use-case diagram."
-            uc1   = u ".use-case", """
+            uc0   = u ".usecase", "This is an use-case for jumly use-case diagram."
+            uc1   = u ".usecase", """
                         You can open any files with this application, because the app is binary editor.
-                        A description for an use-case can have any length text, which means it need to cut
+                        A description for an usecase can have any length text, which means it need to cut
                         the tail of text somewhere.
                         """
     

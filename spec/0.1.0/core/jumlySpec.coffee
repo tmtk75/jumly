@@ -414,8 +414,8 @@ description "jumly", ->
             save = prefs.before_compose
             prefs.before_compose = (diag, target) -> diag.prependTo target
 
-            script = $("<script>").attr(type:"text/jumly-use-case-diagram", "target-id":"we-can-change-a-manupilator").html """
-                @usecase(id:1) "an use-case"
+            script = $("<script>").attr(type:"text/jumly-usecase-diagram", "target-id":"we-can-change-a-manupilator").html """
+                @usecase(id:1) "an usecase"
                 @actor "user":use:[1]
                 """
             target = $("<div>").attr(id:"we-can-change-a-manupilator")
@@ -431,8 +431,8 @@ description "jumly", ->
    
         it 'should accept text/jumly+<type>', ->
             prefs = $.jumly[':preferences'].run_script
-            script = $("<script>").attr(type:"text/jumly+use-case", "target-id":"script-tag-mime-type").html """
-                @usecase(id:1) "an use-case"
+            script = $("<script>").attr(type:"text/jumly+usecase", "target-id":"script-tag-mime-type").html """
+                @usecase(id:1) "an usecase"
                 @actor "user":use:[1]
                 """
             target = $("<div>").attr(id:"script-tag-mime-type")

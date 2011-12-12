@@ -116,5 +116,6 @@ describe "JUMLY", ->
         expect(a.name).toBe "User"
         expect(a.use).toEqual [think, render]
 
+    
 describe "$.jumly", ->
   it "should provide public interface for user"

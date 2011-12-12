@@ -74,7 +74,6 @@ JUMLYClassDiagramBuilder::def = (props)->
 JUMLYClassDiagramBuilder::class = JUMLYClassDiagramBuilder::def
 
 JUMLYClassDiagramBuilder::build = (text)->
-  console.log $.kindof this
   diag = new JUMLYClassDiagram
   diag.__build__ = -> eval CoffeeScript.compile text
   delete diag.__build__

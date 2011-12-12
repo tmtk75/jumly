@@ -3,7 +3,7 @@ class UMLUsecase
         jQuery.extend this, UMLUsecase.newNode()
         this
     @newNode = ->
-        $("<div>").addClass("use-case")
+        $("<div>").addClass("usecase")
                   .append($("<div>").addClass("icon")
                                     .append($("<div>").addClass("name")))
 
@@ -21,7 +21,7 @@ UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
     t = T if t > T
     icon.css width:minwidth*t, height:minheight*t
 
-$.uml.def ".use-case", UMLUsecase
+$.uml.def ".usecase", UMLUsecase
 
 class UMLActor
     constructor: (props, opts) ->
@@ -50,7 +50,7 @@ class UMLUsecaseDiagram
         this
     @newNode = ->
         $("<div>").addClass("diagram")
-                  .addClass("use-case-diagram")
+                  .addClass("usecase-diagram")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -60,7 +60,7 @@ set_min_size = (nodes) ->
 
 shift_usecase_down_to_above = (nodes) ->
     nodes.each (i, e) ->
-        $(e).find("> .use-case .icon").each (i, e) ->
+        $(e).find("> .usecase .icon").each (i, e) ->
             e = $(e)
             if i > 0
                 e.css "margin-top", -e.css("min-height").toInt()/3
@@ -101,9 +101,9 @@ UMLUsecaseDiagram::render = ->
 
 UMLUsecaseDiagram::compose = ->
     @trigger "beforeCompose", [this]
-    set_min_size @find(".use-case .icon")
+    set_min_size @find(".usecase .icon")
     shift_usecase_down_to_above @find(".system-boundary")
-    bind_between @find(".use-case, .actor"), this
+    bind_between @find(".usecase, .actor"), this
     @align_actors_()
     @render()
     #@width @mostLeftRight().width()
@@ -111,11 +111,11 @@ UMLUsecaseDiagram::compose = ->
     @trigger "afterCompose", [this]
     this
     
-$.uml.def ".use-case-diagram", UMLUsecaseDiagram
+$.uml.def ".usecase-diagram", UMLUsecaseDiagram
 
 
 
-class JUMLYUsecaseDiagramBuilder extends JUMLY.DSLEvents_
+class JUMLYUsecaseDiagramBuilder extends JUMLY.DiagramBuilder
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
@@ -124,7 +124,7 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     $.extend a.data("uml:property"), uname
     a
 
-JUMLYUsecaseDiagramBuilder::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
+JUMLYUsecaseDiagramBuilder::usecase = (uname) -> @create_ ".usecase", @_boundary, @usecase, uname
 
 JUMLYUsecaseDiagramBuilder::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
 
@@ -172,11 +172,11 @@ mixin =
         ctxt
 
 ## NOTE: This is WORKAROUND to append methods in other files.
-a = $.uml ".use-case-diagram"
+a = $.uml ".usecase-diagram"
 $.extend a.constructor.prototype, mixin
 
-$.jumly.DSL type:".use-case-diagram", compileScript: (script) ->
-    diag = $.jumly ".use-case-diagram"
+$.jumly.DSL type:".usecase-diagram", compileScript: (script) ->
+    diag = $.jumly ".usecase-diagram"
     sbname = $(script).attr "system-boundary-name"
     diag.boundary sbname, ->
         unless sbname

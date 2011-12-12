@@ -4,7 +4,7 @@ xdescribe "pending,", ->
   describe "Refering", ->
     
     it "should be used with @_", ->
-      diag = jumly ".use-case-diagram"
+      diag = jumly ".usecase-diagram"
       diag.found "", ->
         @beforeCompose (e, d) ->
           d.foobar = 1
@@ -58,7 +58,7 @@ xdescribe "pending,", ->
       4. @direct id(id_value) a:1, b:2, c:3
     ###
     it "", ->
-      script = $("<script>").attr("type", "text/jumly+use-case")[0]
+      script = $("<script>").attr("type", "text/jumly+usecase")[0]
       $.jumly.runScript script
     
     it "should return equivalent object apart from id attribute for @usecaes", ->

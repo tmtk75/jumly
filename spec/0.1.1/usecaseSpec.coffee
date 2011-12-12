@@ -1,17 +1,17 @@
-describe "use-case", ->
+describe "usecase", ->
 
   describe "show-case", ->
-    ## Primary Showcase for use-case
+    ## Primary Showcase for usecase
     declare = """
               @boundary "JUMLY", ->
                 @usecase think:"Thinking Something"
                 @usecase render:"Rendering Diagram": extend:[think]
               @actor user:use:[think, render]
               """
-    script = mkscript "use-case", declare
+    script = mkscript "usecase", declare
     diag   = $.jumly.build script
-    think  = diag.find(".use-case:eq(0)").self()
-    render = diag.find(".use-case:eq(1)").self()
+    think  = diag.find(".usecase:eq(0)").self()
+    render = diag.find(".usecase:eq(1)").self()
     actor  = diag.find(".actor").self()
 
     it "should have .diagram", ->
@@ -31,5 +31,5 @@ describe "use-case", ->
 
     describe "@boundary", ->
       it "should take string as name", ->
-        diag = $.jumly.build mkscript "use-case", "@boundary 'system', ->"
+        diag = $.jumly.build mkscript "usecase", "@boundary 'system', ->"
         diag.system = diag.find(".boundary").self()

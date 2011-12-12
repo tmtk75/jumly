@@ -1,10 +1,10 @@
 u = $.jumly
-description "use-case.DSL", ->
+description "usecase.DSL", ->
 
     description "@beforeCompose", ->
 
         it "should run a closure before composing", ->
-            diag = u ".use-case-diagram"
+            diag = u ".usecase-diagram"
             diag.found "", ->
                 @beforeCompose (e, d) ->
                     d.foobar = 1
@@ -18,7 +18,7 @@ description "use-case.DSL", ->
     description "@afterCompose", ->
    
         it "should run a closure after composing", ->
-            diag = u ".use-case-diagram"
+            diag = u ".usecase-diagram"
             counter = 0
             diag.boundary "", ->
                 @afterCompose (e, d) ->
@@ -28,37 +28,37 @@ description "use-case.DSL", ->
 
     description "@usecase", ->
         scenario "register and identification", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
-            and_ "an use-case", ->
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            and_ "an usecase", ->
                 diag.boundary "1st boundary", ->
                     @usecase "Open File"
 
         scenario "having stereotypes in array declared with string", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
-            given "an use-case", ->
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "an usecase", ->
                 diag.boundary "2nd boundary", ->
                     @usecase "Close File":{extend:["Open File"]}
                 
         scenario "having stereotypes in array declared with array", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
-            given "an use-case", ->
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @usecase "Close File":{extend:["Open File", "Close Socket"]}
             then_it "has two extends", ->
-                a = diag.find(".use-case:eq(0)").self()
+                a = diag.find(".usecase:eq(0)").self()
                 a.data("uml:property").extend[0].shouldBe "Open File"
                 a.data("uml:property").extend[1].shouldBe "Close Socket"
                 
     description "@actor", ->
         scenario "register and identification", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
             and_ "an actor", ->
                 diag.boundary "1st boundary", ->
                     @actor "Hiroshi"
 
         scenario "actor, too", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
-            given "an use-case", ->
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @actor "Manager":{extend:["User", "Viewer"]}
             then_it "has two extends for .actor", ->
@@ -67,22 +67,22 @@ description "use-case.DSL", ->
                 a.data("uml:property").extend[1].shouldBe "Viewer"
                 
     description ".include", ->
-        scenario "include for use-case", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
-            given "an use-case", ->
+        scenario "include for usecase", ->
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @usecase "Open File":{include:["Find File"]}
             then_it "it has a include", ->
-                a = diag.find(".use-case:eq(0)").self()
+                a = diag.find(".usecase:eq(0)").self()
                 a.data("uml:property").include[0].shouldBe "Find File"
     
     description "@boundary", ->
 
         it 'should accept undefined', ->
-            ($.uml ".use-case-diagram").boundary undefined, ->
+            ($.uml ".usecase-diagram").boundary undefined, ->
 
         scenario "", ->
-            given "a use-case diagram", -> @diag = $.uml ".use-case-diagram"
+            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
             given "some boundaries", ->
                 diag.boundary "a", ->
                     @boundary "b", ->
@@ -103,37 +103,37 @@ description "use-case.DSL", ->
 
     description "@usecase", ->
         shared_scenario "simple string", ->
-            given "a use-case diagram", ->
-                @diag = $.uml ".use-case-diagram"
-            and_ "a boundary and an use-case", ->
+            given "a usecase diagram", ->
+                @diag = $.uml ".usecase-diagram"
+            and_ "a boundary and an usecase", ->
                 diag.boundary "a", ->
                     @usecase "open file"
             then_it "the name is defined", ->
-                diag.find(".use-case:last .name").text().shouldBe "open file"
+                diag.find(".usecase:last .name").text().shouldBe "open file"
 
         shared_scenario "attributed string", ->
-            given "a boundary and an use-case", ->
+            given "a boundary and an usecase", ->
                 diag.boundary "b", ->
                     @usecase "update file": use: ->
             then_it "the name is defined", ->
-                diag.find(".use-case:last .name").text().shouldBe "update file"
+                diag.find(".usecase:last .name").text().shouldBe "update file"
 
         shared_scenario "identified attributed string", ->
-            given "a new use-case", ->
+            given "a new usecase", ->
                 diag.boundary "b", ->
                     @usecase 1234:"close file": extend:[1, 2]
             xthen_it "the name is defined", ->
-                diag.find(".use-case:last .name").text().shouldBe "close file"
+                diag.find(".usecase:last .name").text().shouldBe "close file"
 
         u = $.jumly
         scenario "has extend property in this:property", ->
-            given "an use-case", ->
+            given "an usecase", ->
                 @uses = []
                 @exts = []
                 @foobars = []
-                ctxt = u(".use-case-diagram").boundary "b", ->
+                ctxt = u(".usecase-diagram").boundary "b", ->
                     @usecase "a uc": use:uses, extend:exts, foobar:foobars
-                @uc_ = ctxt._diagram.find(".use-case:last").self()
+                @uc_ = ctxt._diagram.find(".usecase:last").self()
                 @props = uc_.data("uml:property")
             then_it "props is defiened", ->
                 expect(props).toBeDefined()
@@ -169,8 +169,8 @@ description "use-case.DSL", ->
         p = u.normalize
        
         uc = null
-        u(".use-case-diagram").boundary "b", ->
-            uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".use-case:eq(0)").self()
+        u(".usecase-diagram").boundary "b", ->
+            uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".usecase:eq(0)").self()
 
         it "should be basic spec for @usecase identified by string", ->
             expect(uc.attr "id").toBe "this value is set in 'id' attribute"
@@ -181,14 +181,14 @@ description "use-case.DSL", ->
             expect(props.c).toBe 3
 
         scenario "identification", ->
-            given "an use-case", ->
+            given "an usecase", ->
                 @uses = []
-                ctxt = u(".use-case-diagram").boundary "b", ->
+                ctxt = u(".usecase-diagram").boundary "b", ->
                     @usecase(id:1234) "a uc 1": use:uses
                     @usecase(id:"TA-0") "a uc 0": use:uses
                     @actor(id:"AC-2") "User": use:[1234, "TA-0"], id:"abc"
-                @u0 = ctxt._diagram.find(".use-case:eq(0)").self()
-                @u1 = ctxt._diagram.find(".use-case:eq(1)").self()
+                @u0 = ctxt._diagram.find(".usecase:eq(0)").self()
+                @u1 = ctxt._diagram.find(".usecase:eq(1)").self()
                 @a0 = ctxt._diagram.find(".actor:eq(0)")   .self()
             then_it "identified with 1234", ->
                 expect(@u0.attr "id").toBe '1234'
@@ -205,8 +205,8 @@ description "use-case.DSL", ->
 
         it "should be created", ->
             uc = null
-            $.jumly(".use-case-diagram").boundary "b", ->
-                uc = (@usecase(id:1234) "a uc 1": use:"--!").find(".use-case:eq(0)")
+            $.jumly(".usecase-diagram").boundary "b", ->
+                uc = (@usecase(id:1234) "a uc 1": use:"--!").find(".usecase:eq(0)")
             props = uc.data "uml:property"
             expect(uc).toBeDefined()
             expect(props).toBeDefined()
@@ -217,8 +217,8 @@ description "use-case.DSL", ->
 
         it "should have use & foo propertes", ->
             uc = null
-            $.jumly(".use-case-diagram").boundary "b", ->
-                uc = (@usecase(id:1) "Take it", use:[2, 3], foo:[1]).find ".use-case:eq(0)"
+            $.jumly(".usecase-diagram").boundary "b", ->
+                uc = (@usecase(id:1) "Take it", use:[2, 3], foo:[1]).find ".usecase:eq(0)"
             props = uc.data "uml:property"
             props.name.shouldBe "Take it"
             props.use.length.shouldBe 2
@@ -228,28 +228,28 @@ description "use-case.DSL", ->
 
         it 'is able to write a DSL like', ->
             script = $("<script>").html """
-                @usecase "an use-case"
-                @usecase "another use-case"
+                @usecase "an usecase"
+                @usecase "another usecase"
                 """
-            diag = $.jumly.DSL('.use-case-diagram').compileScript script
-            diag.find(".use-case").expect length:2
+            diag = $.jumly.DSL('.usecase-diagram').compileScript script
+            diag.find(".usecase").expect length:2
 
         it 'is able to embed to a node with target-id attribute', ->
-            script = $("<script>").attr(type:"text/jumly-use-case-diagram", "target-id":"placeholder-to-embed").html """
-                @usecase(id:1) "an use-case"
+            script = $("<script>").attr(type:"text/jumly-usecase-diagram", "target-id":"placeholder-to-embed").html """
+                @usecase(id:1) "an usecase"
                 @actor "user":use:[1]
                 """
             target = $("<div>").attr(id:"placeholder-to-embed")
             $("body").append target
             diag = $.jumly.run_script_ script
             target.find(".diagram").expect(length:1)
-                  .find(".use-case").expect(length:1).end()
+                  .find(".usecase").expect(length:1).end()
                   .find(".actor").expect(length:1).end()
                   .find(".relationship").expect(length:1).end()
             target.find("> .diagram").expect(length:1)
 
         it '@afterCompose in <script>', ->
-            script = $("<script type='text/jumly-use-case-diagram'>").html """
+            script = $("<script type='text/jumly-usecase-diagram'>").html """
                 @usecase 1:"A"
                 @usecase "B":extend:[1]
                 @actor "C":use:[1]
@@ -263,13 +263,13 @@ description "use-case.DSL", ->
             script = $("<script>").html """
                 @actor "me"
                 @actor "you"
-                @usecase "an use-case"
-                @usecase "another use-case"
+                @usecase "an usecase"
+                @usecase "another usecase"
                 @boundary "an boundary", ->
-                    @usecase "an inner use-case"
+                    @usecase "an inner usecase"
                 """
-            diag = $.jumly.DSL('.use-case-diagram').compileScript script
-            diag.find("> .out-of-bounds > .use-case").expect length:2
+            diag = $.jumly.DSL('.usecase-diagram').compileScript script
+            diag.find("> .out-of-bounds > .usecase").expect length:2
             diag.appendTo $ "body"
             diag.compose()
            
@@ -292,7 +292,7 @@ description "use-case.DSL", ->
             script = $("<script>").html """
                 @actor "you"
             """
-            diag = $.jumly.DSL('.use-case-diagram').compileScript script
+            diag = $.jumly.DSL('.usecase-diagram').compileScript script
             expect(diag.find("> .out-of-bounds").length).toBe 1
             expect(diag.find("> .system-boundary").length).toBe 0
 
@@ -300,7 +300,7 @@ description "use-case.DSL", ->
             script = $("<script system-boundary-name='a boundary'>").html """
                 @actor "you"
             """
-            diag = $.jumly.DSL('.use-case-diagram').compileScript script
+            diag = $.jumly.DSL('.usecase-diagram').compileScript script
             expect(diag.find("> .out-of-bounds").length).toBe 0
             expect(diag.find("> .system-boundary").length).toBe 1
             expect(diag.find("> .system-boundary > .name").text()).toBe "a boundary"

@@ -3,7 +3,7 @@
 .row
   %p.span16
     Now, JUMLY supports three kinds of UML diagram, which are sequence,
-    use-case and class diagram. Other kinds will be supported soon.
+    usecase and class diagram. Other kinds will be supported soon.
 
 <!-- Sequecne Diagram ========================================================= -->
 #Sequence_diagram.row
@@ -45,7 +45,7 @@
   .span16
     %h2 Use-case diagram
   .span8.columns
-    %script{type: 'text/jumly+use-case', "system-boundary-name"=>'JUMLY'}
+    %script{type: 'text/jumly+usecase', "system-boundary-name"=>'JUMLY'}
       :plain
         @usecase 1:"Render Diagram"
         @usecase 2:"Arrange Diagram"
@@ -53,7 +53,7 @@
   .span8.columns
     %pre{class: 'brush: html'}
       :preserve
-        &lt;script type='text/jumly+use-case'
+        &lt;script type='text/jumly+usecase'
                 system-boundary-name='JUMLY'>
         @usecase 1:"Render Diagram"
         @usecase 2:"Arrange Diagram"
@@ -106,7 +106,7 @@
           %td text/jumly+sequence
         %tr
           %td Use-case diagram
-          %td text/jumly+use-case
+          %td text/jumly+usecase
         %tr
           %td Class diagram
           %td text/jumly+class
