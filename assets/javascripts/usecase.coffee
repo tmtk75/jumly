@@ -66,24 +66,22 @@ shift_usecase_down_to_above = (nodes) ->
                 e.css "margin-top", -e.css("min-height").toInt()/3
 
 bind_between = (nodes, diag) ->
-    nodes.each (i, e) ->
-        src = $(e).self()
-
-        find_with_id = (id) ->
-            return diag[id] if diag[id]
-            if (t = $("#" + id, diag)).length > 0
-                t
-
-        bind = (type) ->
-            $(src.data("uml:property")[type]).each (i, e) ->
-                return unless dst = find_with_id e
-                link = $.uml ".relationship", source:src, destination:dst
-                link.addClass type
-                diag.append link
-        
-        bind "use"
-        bind "extend"
-        bind "include"
+  nodes.each (i, e) ->
+    src = $(e).self()
+    find_with_id = (id) ->
+      return diag[id] if diag[id]
+      return id unless (typeof id is "string") or (typeof id is "number") ## Regard as the own object
+      if (t = $("#" + id, diag)).length > 0
+        t
+    bind = (type) ->
+      $(src.data("uml:property")[type]).each (i, e) ->
+        return unless dst = find_with_id e
+        link = $.uml ".relationship", source:src, destination:dst
+        link.addClass type
+        diag.append link
+    bind "use"
+    bind "extend"
+    bind "include"
 
 UMLUsecaseDiagram::align_actors_ = ->
     tb = @find(".system-boundary").mostTopBottom()

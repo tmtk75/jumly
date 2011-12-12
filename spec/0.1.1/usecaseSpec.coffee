@@ -1,5 +1,5 @@
+BODY = -> $("#TrivialReporter")
 describe "usecase", ->
-
   describe "show-case", ->
     ## Primary Showcase for usecase
     declare = """
@@ -13,6 +13,7 @@ describe "usecase", ->
     think  = diag.find(".usecase:eq(0)").self()
     render = diag.find(".usecase:eq(1)").self()
     actor  = diag.find(".actor").self()
+    diag.compose()
 
     it "should have .diagram", ->
       expect(diag.hasClass("diagram")).toBeTruthy()
