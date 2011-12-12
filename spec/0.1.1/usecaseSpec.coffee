@@ -24,7 +24,7 @@ describe "usecase", ->
       expect(diag.render).toBe render
 
     it "should equal for actor", ->
-      expect(diag.actor).toBe actor
+      expect(diag.user).toBe actor
 
 
   describe "Builder", ->
