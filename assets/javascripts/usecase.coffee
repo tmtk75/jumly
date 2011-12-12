@@ -125,10 +125,20 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     a
 
 JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
-  @_boundary.append @new_ ".usecase", uname
+  ##TODO: refactoring with @actor
+  a = @new_ ".usecase", uname
+  @_boundary.append a
+  b = JUMLY.Identity.normalize uname
+  @_diagram[b.id] = a
+  eval "#{b.id} = a"
 
 JUMLYUsecaseDiagramBuilder::actor = (uname) ->
-  @_diagram.append @new_ ".actor", uname
+  ##TODO: refactoring with @usecase
+  a = @new_ ".actor", uname
+  @_diagram.append a
+  b = JUMLY.Identity.normalize uname
+  @_diagram[b.id] = a
+  eval "#{b.id} = a"
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
