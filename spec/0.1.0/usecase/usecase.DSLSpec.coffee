@@ -170,17 +170,19 @@ description "usecase.DSL", ->
        
         uc = null
         u(".usecase-diagram").boundary "b", ->
-            uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".usecase:eq(0)").self()
-
-        it "should be basic spec for @usecase identified by string", ->
+            #@deprecated: v0.1.0 feature
+            #uc = (@usecase(id:"this value is set in 'id' attribute") "attr str": a:1, b:2, c:3).find(".usecase:eq(0)").self()
+        #@deprecated: v0.1.0 feature
+        xit "should be basic spec for @usecase identified by string", ->
             expect(uc.attr "id").toBe "this value is set in 'id' attribute"
             props = uc.data("uml:property")
             expect(props.name).toBe "attr str"
             expect(props.a).toBe 1
             expect(props.b).toBe 2
             expect(props.c).toBe 3
-
-        scenario "identification", ->
+            
+        #@deprecated v0.1.0 feature
+        xscenario "identification", ->
             given "an usecase", ->
                 @uses = []
                 ctxt = u(".usecase-diagram").boundary "b", ->
@@ -203,7 +205,8 @@ description "usecase.DSL", ->
             and_ ->
                 expect(@a0.data("uml:property").id).toBe 'AC-2'
 
-        it "should be created", ->
+        #@deprecated: v0.1.0 feature
+        xit "should be created", ->
             uc = null
             $.jumly(".usecase-diagram").boundary "b", ->
                 uc = (@usecase(id:1234) "a uc 1": use:"--!").find(".usecase:eq(0)")
@@ -215,7 +218,8 @@ description "usecase.DSL", ->
             expect(props["id"]).toBe 1234
             expect(props.name).toBe "a uc 1"
 
-        it "should have use & foo propertes", ->
+        #@deprecated: v0.1.0 feature
+        xit "should have use & foo propertes", ->
             uc = null
             $.jumly(".usecase-diagram").boundary "b", ->
                 uc = (@usecase(id:1) "Take it", use:[2, 3], foo:[1]).find ".usecase:eq(0)"
@@ -234,7 +238,8 @@ description "usecase.DSL", ->
             diag = $.jumly.DSL('.usecase-diagram').compileScript script
             diag.find(".usecase").expect length:2
 
-        it 'is able to embed to a node with target-id attribute', ->
+        #@deprecated: v0.1.0 feature
+        xit 'is able to embed to a node with target-id attribute', ->
             script = $("<script>").attr(type:"text/jumly-usecase-diagram", "target-id":"placeholder-to-embed").html """
                 @usecase(id:1) "an usecase"
                 @actor "user":use:[1]
