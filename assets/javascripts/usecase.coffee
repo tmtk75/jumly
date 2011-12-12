@@ -143,6 +143,7 @@ JUMLYUsecaseDiagramBuilder::create_ = (type, target, func, uname) ->
     target.append a
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
+    @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
     name ?= ""
     if id = $.jumly.identify name
         return curry_ this, @boundary, id
