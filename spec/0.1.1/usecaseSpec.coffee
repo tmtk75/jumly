@@ -28,8 +28,7 @@ describe "usecase", ->
 
 
   describe "Builder", ->
-
     describe "@boundary", ->
       it "should take string as name", ->
-        diag = $.jumly.build mkscript "usecase", "@boundary 'system', ->"
+        diag = (new JUMLY.UsecaseDiagramBuilder).build "@boundary 'system', ->"
         diag.system = diag.find(".boundary").self()

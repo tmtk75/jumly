@@ -127,13 +127,16 @@ uml[':preferences'] =
         script.parent()
 
 logger = $.logger "core"
+SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
+toTypeString = (type)->
+  unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
+  kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
 uml.run_script_ = (script) ->
   script = $ script
   type = script.attr("type")
   unless type then throw "Not found: type attribute in script"
-  unless type.match /text\/jumly-(.*)-diagram|text\/jumly\+(.*)/ then throw "Illegal type: #{type}"
-  kind = RegExp.$1 + RegExp.$2
+  toTypeString type
   compiler = $.jumly.DSL ".#{kind}-diagram"
   unless compiler then throw "Not found: compiler for '.#{kind}'"
   unless compiler.compileScript then throw "Not found: compileScript"
@@ -231,4 +234,12 @@ JUMLY.Identity =
         a
 
 $.jumly.build = (script)->
-  JUMLY.DiagramBuilder.new_(script).build(script)
+  type = toTypeString script.attr "type"
+  console.log "type:", type
+  builderType = (
+    switch type
+      when "class"    then JUMLY.ClassDiagramBuilder
+      when "usecase"  then JUMLY.UsecaseDiagramBuilder
+      when "sequence" then JUMLY.SequenceDiagramBuilder
+  )
+  (new builderType).build script.text()
