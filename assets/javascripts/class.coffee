@@ -49,23 +49,21 @@ JUMLYClassDiagram::compose = ->
   </ul>
 </div>
 ###
-class JUMLYClass
-  constructor: (props, opts) ->
-    jQuery.extend this, JUMLYClass.newNode()
-    this
-  @newNode = ->
-    icon = $("<div>")
-             .addClass("icon")
-             .append($("<div>").addClass("stereotype"))
-             .append($("<div>").addClass("name"))
-             .append(attrs = $("<ul>").addClass("attrs"))
-             .append(methods = $("<ul>").addClass("methods"))
-    $("<div>").addClass("object")
-              .addClass("class")
-              .append(icon)
+class JUMLYClass extends JUMLY.HTMLElement
+JUMLYClass::build = ->
+  icon = $("<div>")
+           .addClass("icon")
+           .append($("<div>").addClass "stereotype")
+           .append($("<div>").addClass "name")
+           .append($("<ul>").addClass "attrs")
+           .append($("<ul>").addClass "methods")
+  $("<div>").addClass("object")
+            .addClass("class")
+            .append(icon)
 
-$.jumly.def ".class-diagram", JUMLYClassDiagram
-$.jumly.def ".class", JUMLYClass
+JUMLY.define ".class-diagram", JUMLYClassDiagram
+JUMLY.define ".class", JUMLYClass
+
 
 class ClassDiagramBuilder extends JUMLY.DSLEvents_
   constructor: (@diagram) ->

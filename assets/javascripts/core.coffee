@@ -69,8 +69,8 @@ uml.normalize = (a, b) ->
 
 ## Declaration for all attr keys of jQuery this library uses.
 uml.factory = (name, fact)-> uml.factory[name] = factory:fact
-
-uml.def = (name, type)-> uml.factory name, (_, opts)-> new type _, opts
+JUMLY.define = (name, type)-> uml.factory name, (_, opts)-> new type _, opts
+uml.def = JUMLY.define
 
 ## Export uml module into $.
 $.uml = $.extend uml, $.uml
