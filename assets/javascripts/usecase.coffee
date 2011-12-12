@@ -124,23 +124,14 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     $.extend a.data("uml:property"), uname
     a
 
-JUMLYUsecaseDiagramBuilder::usecase = (uname) -> @create_ ".usecase", @_boundary, @usecase, uname
+JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
+  @create_ ".usecase", @_boundary, @usecase, uname
 
-JUMLYUsecaseDiagramBuilder::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
-
-curry_ = (me, func, id) ->
-  return (args) ->
-    attrtext = $.jumly.normalize.apply null, arguments
-    attrtext.id = id
-    vals = [].slice.apply arguments
-    vals[0] = attrtext
-    func.apply me, vals
+JUMLYUsecaseDiagramBuilder::actor = (uname) ->
+  @create_ ".actor", @_diagram, @actor, uname
 
 JUMLYUsecaseDiagramBuilder::create_ = (type, target, func, uname) ->
-    if id = $.jumly.identify uname
-        return curry_ this, func, id
-    a = @new_ type, uname
-    target.append a
+  target.append @new_ type, uname
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
