@@ -409,7 +409,8 @@ description "jumly", ->
             (typeof b1.gives).shouldBe "function"
 
     description "script tag", ->
-        it 'should TENTATIVELY change before-behavior', ->
+        #@disabled: v0.1.0 feature.
+        xit 'should TENTATIVELY change before-behavior', ->
             prefs = $.jumly[':preferences'].run_script
             save = prefs.before_compose
             prefs.before_compose = (diag, target) -> diag.prependTo target
@@ -428,17 +429,14 @@ description "jumly", ->
             prefs.before_compose = save
     
     description "type of script, mime-type", ->
-   
-        it 'should accept text/jumly+<type>', ->
-            prefs = $.jumly[':preferences'].run_script
-            script = $("<script>").attr(type:"text/jumly+usecase", "target-id":"script-tag-mime-type").html """
-                @usecase(id:1) "an usecase"
-                @actor "user":use:[1]
-                """
-            target = $("<div>").attr(id:"script-tag-mime-type")
-                               .append("<div>hello</div>")
-            $("body").append target
-
-            diag = $.jumly.run_script_ script
-            expect(target.find("*:eq(0)").hasClass "diagram").toBeTruthy()  ## diag is prepended in the target.
-
+      it 'should accept text/jumly+<type>', ->
+        prefs = $.jumly[':preferences'].run_script
+        script = $("<script>").attr(type:"text/jumly+usecase", "target-id":"script-tag-mime-type").html """
+            @usecase(id:1) "an usecase"
+            @actor "user":use:[1]
+            """
+        target = $("<div>").attr(id:"script-tag-mime-type")
+                           .append("<div>hello</div>")
+        $("body").append target
+        diag = $.jumly.run_script_ script
+        expect(target.find("*:eq(0)").hasClass "diagram").toBeTruthy()  ## diag is prepended in the target.
