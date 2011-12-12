@@ -165,15 +165,10 @@ JUMLYUsecaseDiagramBuilder::compose = (something) ->
     @_diagram.compose()
     this
 
-mixin =
-    boundary: (name, acts) ->
-        ctxt = new JUMLYUsecaseDiagramBuilder(this)
-        ctxt.boundary name, acts
-        ctxt
-
-## NOTE: This is WORKAROUND to append methods in other files.
-a = $.uml ".usecase-diagram"
-$.extend a.constructor.prototype, mixin
+UMLUsecaseDiagram::boundary = (name, acts)->
+  ctxt = new JUMLYUsecaseDiagramBuilder(this)
+  ctxt.boundary name, acts
+  ctxt
 
 $.jumly.DSL type:".usecase-diagram", compileScript: (script) ->
     diag = $.jumly ".usecase-diagram"
