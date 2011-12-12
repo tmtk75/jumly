@@ -65,19 +65,11 @@ JUMLY.define ".class-diagram", JUMLYClassDiagram
 JUMLY.define ".class", JUMLYClass
 
 
-class JUMLYClassDiagramBuilder extends JUMLY.DSLEvents_
+class JUMLYClassDiagramBuilder extends JUMLY.DiagramBuilder
   constructor: (@diagram) ->
 
 JUMLYClassDiagramBuilder::def = (props)->
   @diagram.declare JUMLY.Identity.normalize props
-
-JUMLYClassDiagramBuilder::class = JUMLYClassDiagramBuilder::def
-
-JUMLYClassDiagramBuilder::build = (text)->
-  diag = new JUMLYClassDiagram
-  diag.__build__ = -> eval CoffeeScript.compile text
-  delete diag.__build__
-  diag
 
 ##Deprecated
 JUMLYClassDiagramBuilder::start = (acts)-> acts.apply this, []

@@ -6,10 +6,11 @@ DiagramBuilder::accept = (closure)->
   closure.apply this, []
 
 DiagramBuilder::build = (text)->
-  a = this.constructor.name.replace(/^JUMLY/, "").replace(/DiagramBuilder$/, "")
-  console.log this.constructor.name, "name:", a
-  @diagram = null
-  @accept eval CoffeeScript.compile text
+  typename = this.constructor.name.replace(/^JUMLY/, "")
+                                  .replace(/Diagram(Builder)?$/, "")
+                                  .toLowerCase()
+  @diagram = $.jumly ".#{typename}-diagram"
+  @accept -> eval CoffeeScript.compile text
   @diagram
 
 JUMLY.DiagramBuilder = DiagramBuilder

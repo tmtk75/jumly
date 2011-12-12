@@ -56,7 +56,6 @@ describe "JUMLY", ->
     it "should build JUMLYClassDiagram", ->
       builder = new JUMLY.ClassDiagramBuilder
       diag = builder.build "@def 'Animal'"
-      expect($.kindof diag).toBe "JUMLYClassDiagram"
       expect(diag.hasClass "diagram").toBeTruthy()
       expect(diag.hasClass "class-diagram").toBeTruthy()
 
@@ -65,7 +64,6 @@ describe "JUMLY", ->
     it "should build JUMLYUsecaseDiagram", ->
       builder = new JUMLY.UsecaseDiagramBuilder
       diag = builder.build "@boundary 'sys', ->"
-      expect($.kindof diag).toBe "JUMLYUsecaseDiagram"
       expect(diag.hasClass "diagram").toBeTruthy()
       expect(diag.hasClass "usecase-diagram").toBeTruthy()
 
@@ -74,6 +72,5 @@ describe "JUMLY", ->
     it "should build JUMLYSequenceDiagram", ->
       builder = new JUMLY.SequenceDiagramBuilder
       diag = builder.build "@found 'It', ->"
-      expect($.kindof diag).toBe "JUMLYSequenceDiagram"
       expect(diag.hasClass "diagram").toBeTruthy()
       expect(diag.hasClass "sequence-diagram").toBeTruthy()
