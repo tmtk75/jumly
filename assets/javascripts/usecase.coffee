@@ -125,13 +125,10 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     a
 
 JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
-  @create_ ".usecase", @_boundary, @usecase, uname
+  @_boundary.append @new_ ".usecase", uname
 
 JUMLYUsecaseDiagramBuilder::actor = (uname) ->
-  @create_ ".actor", @_diagram, @actor, uname
-
-JUMLYUsecaseDiagramBuilder::create_ = (type, target, func, uname) ->
-  target.append @new_ type, uname
+  @_diagram.append @new_ ".actor", uname
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
