@@ -939,21 +939,16 @@ JUMLYSequenceDiagramBuilder::compose = (opts) ->
         opts?.append @diagram
     @diagram.compose opts
 
-mixin =
-    found: (something, callback) ->
-        diag = this
-        ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
-        actor = ctxt._find_or_create_ something
-        ctxt._current_occurrence = actor.activate()
-        ctxt.last = callback?.apply(ctxt, [ctxt])
-        ctxt
-
 JUMLYSequenceDiagramBuilder::preferences = ->
     @diagram.preferences.apply @diagram, arguments
 
-## NOTE: This is WORKAROUND to append methods in other files.
-a = $.uml ".sequence-diagram"
-$.extend a.constructor.prototype, mixin
+UMLSequenceDiagram::found = (something, callback)->
+  diag = this
+  ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
+  actor = ctxt._find_or_create_ something
+  ctxt._current_occurrence = actor.activate()
+  ctxt.last = callback?.apply(ctxt, [ctxt])
+  ctxt
 
 ##
 $.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->

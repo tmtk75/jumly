@@ -5,7 +5,7 @@ description "usecase.DSL", ->
 
         it "should run a closure before composing", ->
             diag = u ".usecase-diagram"
-            diag.found "", ->
+            diag.boundary "", ->
                 @beforeCompose (e, d) ->
                     d.foobar = 1
                 @afterCompose (e, d) ->
