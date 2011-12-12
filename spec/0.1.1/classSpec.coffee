@@ -9,10 +9,10 @@ describe "class", ->
   describe "ClassDiagramBuilder", ->
     describe "@def", ->
       it "should be passed for normalized value", ->
-        diag = JUMLY.DiagramBuilder("class").build "@def dog:'Pochi'"
+        builder = new JUMLY.ClassDiagramBuilder
+        diag = builder.build "@def dog:'Pochi'"
         expect(diag.find("#dog").find(".name").text()).toBe "Pochi"
         
-
   it "should be show-case by manual build", ->
     diag   = $.jumly ".class-diagram"
     animal = $.jumly ".class", "Aniaml"

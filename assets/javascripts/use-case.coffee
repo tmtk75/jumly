@@ -115,18 +115,18 @@ $.uml.def ".use-case-diagram", UMLUsecaseDiagram
 
 
 
-class UMLUsecaseDSL extends JUMLY.DSLEvents_
+class JUMLYUsecaseDiagramBuilder extends JUMLY.DSLEvents_
   constructor: (@_diagram, @_boundary) ->
 
-UMLUsecaseDSL::new_ = (type, uname) ->
+JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     uname = $.jumly.normalize uname
     a = $.uml type, uname
     $.extend a.data("uml:property"), uname
     a
 
-UMLUsecaseDSL::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
+JUMLYUsecaseDiagramBuilder::usecase = (uname) -> @create_ ".use-case", @_boundary, @usecase, uname
 
-UMLUsecaseDSL::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
+JUMLYUsecaseDiagramBuilder::actor = (uname) -> @create_ ".actor", @_diagram, @actor, uname
 
 curry_ = (me, func, id) ->
   return (args) ->
@@ -136,26 +136,26 @@ curry_ = (me, func, id) ->
     vals[0] = attrtext
     func.apply me, vals
 
-UMLUsecaseDSL::create_ = (type, target, func, uname) ->
+JUMLYUsecaseDiagramBuilder::create_ = (type, target, func, uname) ->
     if id = $.jumly.identify uname
         return curry_ this, func, id
     a = @new_ type, uname
     target.append a
 
-UMLUsecaseDSL::boundary = (name, acts) ->
+JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     name ?= ""
     if id = $.jumly.identify name
         return curry_ this, @boundary, id
     boundary = @new_ ".system-boundary", name
 
-    acts.apply ctxt = new UMLUsecaseDSL(@_diagram, boundary)
+    acts.apply ctxt = new JUMLYUsecaseDiagramBuilder(@_diagram, boundary)
     if @_boundary
         @_boundary.append boundary
     else
         @_diagram.append boundary
     this
 
-UMLUsecaseDSL::compose = (something) ->
+JUMLYUsecaseDiagramBuilder::compose = (something) ->
     if typeof something is "function"
         something @_diagram
     else if typeof something is "object" and something.each
@@ -167,7 +167,7 @@ UMLUsecaseDSL::compose = (something) ->
 
 mixin =
     boundary: (name, acts) ->
-        ctxt = new UMLUsecaseDSL(this)
+        ctxt = new JUMLYUsecaseDiagramBuilder(this)
         ctxt.boundary name, acts
         ctxt
 
@@ -185,3 +185,5 @@ $.jumly.DSL type:".use-case-diagram", compileScript: (script) ->
         eval CoffeeScript.compile script.html()
     diag
 
+
+JUMLY.UsecaseDiagramBuilder = JUMLYUsecaseDiagramBuilder

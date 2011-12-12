@@ -763,11 +763,11 @@ This class has information followings:
   - Current diagram instance
   - Current occurrence which is the last occurrence of actor.
 ###
-class UMLSequenceDSL extends JUMLY.DSLEvents_
+class JUMLYSequenceDiagramBuilder extends JUMLY.DSLEvents_
      constructor: (props, @_diagram) ->
         $.extend this, props
 
-UMLSequenceDSL::_find_or_create_ = (e) ->
+JUMLYSequenceDiagramBuilder::_find_or_create_ = (e) ->
     switch typeof e
         when "string"
             if @diagram[e]
@@ -780,9 +780,9 @@ UMLSequenceDSL::_find_or_create_ = (e) ->
         when "object"
             e
 
-UMLSequenceDSL::_actor = -> @_current_occurrence.gives ".object"
+JUMLYSequenceDiagramBuilder::_actor = -> @_current_occurrence.gives ".object"
 
-UMLSequenceDSL::message = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
     actname  = a
     if typeof b is "function" or b is undefined
         actee    = @_actor()
@@ -804,7 +804,7 @@ UMLSequenceDSL::message = (a, b, c) ->
                     stereotype = "asynchronous" 
     else
         msg = "invalid arguments"
-        console.log "UMLSequenceDSL::message", msg, a, b, c
+        console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
         throw msg
         
     iact = @_current_occurrence.interact actee
@@ -814,11 +814,11 @@ UMLSequenceDSL::message = (a, b, c) ->
     ## unless callback then return null  ##NOTE: In progress for this spec.
     
     occurr = iact.gives ".actee"
-    ctxt = new UMLSequenceDSL(diagram:@diagram, _current_occurrence:occurr)
+    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
     callback?.apply ctxt, []
     ctxt
 
-UMLSequenceDSL::create = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
     if typeof a is "string" and typeof b is "function"
         name     = null
         actee    = a
@@ -838,30 +838,30 @@ UMLSequenceDSL::create = (a, b, c) ->
     ## unless callback then return null  ##NOTE: In progress for this spec.
     
     occurr = iact.gives ".actee"
-    ctxt = new UMLSequenceDSL(diagram:@diagram, _current_occurrence:occurr)
+    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
     callback?.apply ctxt, []
     ctxt
 
-UMLSequenceDSL::destroy = (a) ->
+JUMLYSequenceDiagramBuilder::destroy = (a) ->
     @_current_occurrence.destroy @_find_or_create_ a
     null
 
-UMLSequenceDSL::reply = (a, b) ->
+JUMLYSequenceDiagramBuilder::reply = (a, b) ->
     @_current_occurrence
         .parents(".interaction:eq(0)").self()
         .reply name:a, ".actee":@_find_or_create_ b
     null
 
-UMLSequenceDSL::ref = (a) ->
+JUMLYSequenceDiagramBuilder::ref = (a) ->
     ($.uml ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
     null
 
-UMLSequenceDSL::lost = (a) ->
+JUMLYSequenceDiagramBuilder::lost = (a) ->
     @_current_occurrence.lost()
     null
 
 ## A kind of fragment
-UMLSequenceDSL::loop = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::loop = (a, b, c) ->
     ## NOTE: Should this return null in case of no context
     if a.constructor is this.constructor  ## First one is DSL
         frag = a._current_occurrence
@@ -880,7 +880,7 @@ UMLSequenceDSL::loop = (a, b, c) ->
     this
 
 ## A kind of fragment
-UMLSequenceDSL::alt = (ints, b, c) ->
+JUMLYSequenceDiagramBuilder::alt = (ints, b, c) ->
     iacts = {}
     self = this
     for name of ints
@@ -901,21 +901,21 @@ Examples:
   - @reactivate "do something", "A"
   - @reactivate @message "call a taxi", "Taxi agent"
 ###
-UMLSequenceDSL::reactivate = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::reactivate = (a, b, c) ->
     if a.constructor is this.constructor
         e = a._current_occurrence.parents(".interaction:eq(0)")
         @_actor().activate().append e
         return a
 
     occurr = @_actor().activate()
-    ctxt = new UMLSequenceDSL(diagram:@diagram, _current_occurrence:occurr)
+    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
     ctxt.message(a, b, c)
     ctxt
 
 ###
 Note on a nearby interaction.
 ###
-UMLSequenceDSL::note = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
     nodes = @_current_occurrence.find("> .interaction:eq(0)")
     if nodes.length is 0
         nodes = @_current_occurrence.parents ".interaction:eq(0):not(.activated)"
@@ -932,7 +932,7 @@ UMLSequenceDSL::note = (a, b, c) ->
 ###
 opts is passed to .diagram#compose, as is.
 ###
-UMLSequenceDSL::compose = (opts) ->
+JUMLYSequenceDiagramBuilder::compose = (opts) ->
     if typeof opts is "function"
         opts @diagram
     else
@@ -942,13 +942,13 @@ UMLSequenceDSL::compose = (opts) ->
 mixin =
     found: (something, callback) ->
         diag = this
-        ctxt = new UMLSequenceDSL diagram:diag, diag
+        ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
         actor = ctxt._find_or_create_ something
         ctxt._current_occurrence = actor.activate()
         ctxt.last = callback?.apply(ctxt, [ctxt])
         ctxt
 
-UMLSequenceDSL::preferences = ->
+JUMLYSequenceDiagramBuilder::preferences = ->
     @diagram.preferences.apply @diagram, arguments
 
 ## NOTE: This is WORKAROUND to append methods in other files.
@@ -961,3 +961,5 @@ $.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
     diag.found_ = -> eval CoffeeScript.compile script.html()
     diag.found_()
     diag
+
+JUMLY.SequenceDiagramBuilder = JUMLYSequenceDiagramBuilder

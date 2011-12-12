@@ -65,20 +65,29 @@ JUMLY.define ".class-diagram", JUMLYClassDiagram
 JUMLY.define ".class", JUMLYClass
 
 
-class ClassDiagramBuilder extends JUMLY.DSLEvents_
+class JUMLYClassDiagramBuilder extends JUMLY.DSLEvents_
   constructor: (@diagram) ->
 
-ClassDiagramBuilder::def = (props)->
-  @diagram.declare $.jumly.normalize props
+JUMLYClassDiagramBuilder::def = (props)->
+  @diagram.declare JUMLY.Identity.normalize props
 
-ClassDiagramBuilder::class = ClassDiagramBuilder::def
+JUMLYClassDiagramBuilder::class = JUMLYClassDiagramBuilder::def
 
-ClassDiagramBuilder::build = (acts)->
-  acts.apply this, []
+JUMLYClassDiagramBuilder::build = (text)->
+  console.log $.kindof this
+  diag = new JUMLYClassDiagram
+  diag.__build__ = -> eval CoffeeScript.compile text
+  delete diag.__build__
+  diag
+
+##Deprecated
+JUMLYClassDiagramBuilder::start = (acts)-> acts.apply this, []
 
 $.jumly.DSL type:".class-diagram", compileScript: (script) ->
   diag = $.jumly ".class-diagram"
-  ctxt = new ClassDiagramBuilder(diag)
-  ctxt.build ->
+  ctxt = new JUMLYClassDiagramBuilder(diag)
+  ctxt.start ->
     eval CoffeeScript.compile script.html()
   diag
+
+JUMLY.ClassDiagramBuilder = JUMLYClassDiagramBuilder
