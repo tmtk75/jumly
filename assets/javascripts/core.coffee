@@ -136,7 +136,7 @@ uml.run_script_ = (script) ->
   script = $ script
   type = script.attr("type")
   unless type then throw "Not found: type attribute in script"
-  toTypeString type
+  kind = toTypeString type
   compiler = $.jumly.DSL ".#{kind}-diagram"
   unless compiler then throw "Not found: compiler for '.#{kind}'"
   unless compiler.compileScript then throw "Not found: compileScript"
@@ -235,7 +235,6 @@ JUMLY.Identity =
 
 $.jumly.build = (script)->
   type = toTypeString script.attr "type"
-  console.log "type:", type
   builderType = (
     switch type
       when "class"    then JUMLY.ClassDiagramBuilder
