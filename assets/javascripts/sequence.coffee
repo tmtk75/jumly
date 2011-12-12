@@ -942,6 +942,7 @@ JUMLYSequenceDiagramBuilder::compose = (opts) ->
 JUMLYSequenceDiagramBuilder::preferences = ->
     @diagram.preferences.apply @diagram, arguments
 
+##NOTE: Keep compatibility to 0.1.0
 UMLSequenceDiagram::found = (something, callback)->
   diag = this
   ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
@@ -949,6 +950,8 @@ UMLSequenceDiagram::found = (something, callback)->
   ctxt._current_occurrence = actor.activate()
   ctxt.last = callback?.apply(ctxt, [ctxt])
   ctxt
+JUMLYSequenceDiagramBuilder::found = (something, callback)->
+  @diagram.found something, callback
 
 ##
 $.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
