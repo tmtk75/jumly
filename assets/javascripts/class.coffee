@@ -79,6 +79,6 @@ ClassDiagramBuilder::build = (acts)->
 $.jumly.DSL type:".class-diagram", compileScript: (script) ->
   diag = $.jumly ".class-diagram"
   ctxt = new ClassDiagramBuilder(diag)
-  ctxt.start ->
+  ctxt.build ->
     eval CoffeeScript.compile script.html()
   diag
