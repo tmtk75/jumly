@@ -12,6 +12,10 @@ JUMLYClassDiagram::declare = (normval) ->
     clz.find(".stereotype").hide()
   $(normval.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
   $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
+  
+  id = JUMLY.Naming.toRef(normval.id)
+  this[id] = clz if id 
+    
   @append clz
 
 JUMLYClassDiagram::preferredWidth = ->
