@@ -206,6 +206,7 @@ $.jumly.DSL = DSL
 ## v0.1.1a
 JUMLY.Naming =
   toID: (something)-> something.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
+  toRef: (s)-> s.replace(/^[0-9]|-/g, '_')
   
 JUMLY.Identity =
   normalize: (that)->
