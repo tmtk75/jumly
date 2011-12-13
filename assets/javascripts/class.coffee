@@ -13,8 +13,9 @@ JUMLYClassDiagram::declare = (normval) ->
   $(normval.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
   $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
   
-  id = JUMLY.Naming.toRef(normval.id)
-  this[id] = clz if id 
+  ref = JUMLY.Naming.toRef(normval.id)
+  throw new Error("Already exists for '#{ref}'") if this[ref]
+  this[ref] = clz if ref 
     
   @append clz
 
