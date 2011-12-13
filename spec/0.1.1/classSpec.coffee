@@ -32,8 +32,8 @@ describe "class", ->
       @def cat:Cat:
         attrs:["name"]
         methods:["sleep", "walk"]
-      window.cat = cat
       window.dog = dog
+      window.cat = cat
       """
     c1st = diag.find(".class:eq(0)").self()
     c2nd = diag.find(".class:eq(1)").self()
