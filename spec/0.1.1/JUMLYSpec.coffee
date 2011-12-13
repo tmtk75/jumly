@@ -4,6 +4,12 @@ describe "JUMLY", ->
 
   it "should provide class hierarchy for JUMLY library"
     
+  describe "@self", ->
+    it "should return ownself", ->
+      a = $.jumly ".usecase-diagram"
+      expect(a.self()).not.toBeUndefined()
+      expect(a.self()).toBe a
+    
   describe "Naming", ->
     describe "toID", ->
       toID = JUMLY.Naming.toID
