@@ -10,6 +10,7 @@ JUMLYDiagram::_regByRef_ = (id, obj)->
   ref = JUMLY.Naming.toRef id
   throw new Error("Already exists for '#{ref}'") if this[ref]
   this[ref] = obj
+  ref
 
 JUMLY.Diagram = JUMLYDiagram
 

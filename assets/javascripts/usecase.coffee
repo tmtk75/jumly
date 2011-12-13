@@ -124,7 +124,7 @@ JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->
   target.append a
   b = JUMLY.Identity.normalize uname
 
-  @_diagram._regByRef_ b.id, a
+  ref = @_diagram._regByRef_ b.id, a
   eval "#{ref} = a"
 
 JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
