@@ -229,7 +229,7 @@ JUMLY.Identity =
     mods = it[keys[0]]
     switch $.kindof(mods)
       when "Object" then $.extend {id:id, name:name}, mods
-      when "Array"
+      when "Array", "Function"
         a = {id:toID(id), name:id}
         a[name] = mods
         a
