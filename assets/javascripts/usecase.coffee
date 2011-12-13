@@ -44,13 +44,10 @@ class UMLSystemBoundary
 $.uml.def ".system-boundary", UMLSystemBoundary
 
 
-class UMLUsecaseDiagram
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLUsecaseDiagram.newNode()
-        this
-    @newNode = ->
-        $("<div>").addClass("diagram")
-                  .addClass("usecase-diagram")
+class UMLUsecaseDiagram extends JUMLY.Diagram
+UMLUsecaseDiagram::build = ->
+  $("<div>").addClass("diagram")
+            .addClass("usecase-diagram")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -127,7 +124,7 @@ JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->
   target.append a
   b = JUMLY.Identity.normalize uname
 
-  @_regByRef_ b.id, a
+  @_diagram._regByRef_ b.id, a
   eval "#{ref} = a"
 
 JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
