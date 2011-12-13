@@ -5,7 +5,6 @@ describe "JUMLY", ->
   it "should provide class hierarchy for JUMLY library"
     
   describe "Naming", ->
-    
     describe "toID", ->
       toID = JUMLY.Naming.toID
       
@@ -17,15 +16,26 @@ describe "JUMLY", ->
         
       it "should convert all characters apart from ASCII and digits to '-' hyphen", ->
         expect(toID("!\"#$%&'()[]^<>?+*{}|`@~=,./_")).toBe "---------------------------_"
-  
+
+
+    describe "toRef", -> ## about Ref@diagram
+      it "should be rule that Ref value consists of [a-z_][a-z0-9_] in regular expression"
+      toRef = JUMLY.Naming.toRef
+
+      it "should be converted for hyphen '-' to underscore '_'", ->
+        expect(toRef "-").toBe '_'
+        expect(toRef "a-b").toBe 'a_b'
+
+      it "should be converted for digit [0-9] in head to '_'"
+        expect(toRef "0").toBe '_'
+        expect(toRef "01").toBe '_1'
+
 
     describe "isID", ->
-      
       it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`"
 
 
   describe "Identity", ->
-
     describe "normalize", ->
       normalize = JUMLY.Identity.normalize
       
