@@ -7,6 +7,9 @@ describe "usecase", ->
                 @usecase think:"Thinking Something"
                 @usecase rendering:"Rendering Diagram": extend:[think]
               @actor user:use:[think, rendering]
+              window.rendering = rendering
+              window.think = think
+              window.user = user
               """
     script    = mkscript "usecase", declare
     diag      = $.jumly.build script
@@ -25,6 +28,15 @@ describe "usecase", ->
 
     it "should equal for actor", ->
       expect(diag.user).toBe actor
+      
+    it "should be refered for rendering by local variable", ->
+      expect(diag.rendering).toBe rendering
+      
+    it "should be refered for think by local variable", ->
+      expect(diag.think).toBe think
+      
+    it "should be refered for user by local variable", ->
+      expect(diag.user).toBe user
       
     it "should be able to be composed", ->
       BODY().append diag
