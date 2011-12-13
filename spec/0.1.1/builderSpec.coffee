@@ -1,24 +1,20 @@
 describe "JUMLY", ->
   describe "DiagramBuilder", ->
     it "should have its own scope", ->
-      script = mkscript "usecase", """
+      builder = new JUMLY.ClassDiagramBuilder
+      builder.build """
         window.a1 = 123
         a1 = 321
         this.a1 = 111
         """
-      builder = new JUMLY.DiagramBuilder
-      builder.build script
       expect(window.a1 ).toBe 123
       expect(builder.a1).toBe 111
       
     it "should be extended with 'extends'", ->
-      script = mkscript "usecase", """
-        @run "A", "B"
-        """
       class MyBuilder extends JUMLY.DiagramBuilder
       MyBuilder::run = -> this.ran = "abc"
       builder = new MyBuilder
-      builder.build script
+      builder.build '@run "A", "B"'
       expect(builder.ran).toBe "abc"
   
     it "should build HTMLScriptElement after DOM tree is built", ->
@@ -35,7 +31,7 @@ describe "JUMLY", ->
       toBeFunction: -> @actual.constructor is Function
         
     it "should return the appropriate instance of DiagramBuilder for given HTMLScriptElement", ->
-      builder = JUMLY.DiagramBuilder.new_ mkscript "usecase", "window.c1 = 112233"
+      builder = JUMLY.DiagramBuilder.something mkscript "usecase", "window.c1 = 112233"
       expect(builder).not.toBeUndefined()
       expect(builder.build).toBeFunction()
   
@@ -43,10 +39,8 @@ describe "JUMLY", ->
     describe "Event", ->
       it "should", ->
         $("*").on "build.before", -> window.d0 = "build.before"
-        script = mkscript "usecase", ""
-        builder = JUMLY.DiagramBuilder.new_ script
+        builder = new JUMLY.UsecaseDiagramBuilder()
         builder.build()
-  
         expect(window.d0).toBe "build.before"
 
     it "should convert text to JUMLYDiagramElement"
