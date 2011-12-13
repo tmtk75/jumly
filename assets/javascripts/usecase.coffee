@@ -122,21 +122,18 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     $.extend a.data("uml:property"), uname
     a
 
-JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
-  ##TODO: refactoring with @actor
-  a = @new_ ".usecase", uname
-  @_boundary.append a
+JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->
+  a = @new_ type, uname
+  target.append a
   b = JUMLY.Identity.normalize uname
   @_diagram[b.id] = a
   eval "#{b.id} = a"
 
+JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
+  @_declare_ uname, ".usecase", @_boundary
+
 JUMLYUsecaseDiagramBuilder::actor = (uname) ->
-  ##TODO: refactoring with @usecase
-  a = @new_ ".actor", uname
-  @_diagram.append a
-  b = JUMLY.Identity.normalize uname
-  @_diagram[b.id] = a
-  eval "#{b.id} = a"
+  @_declare_ uname, ".actor", @_diagram
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
