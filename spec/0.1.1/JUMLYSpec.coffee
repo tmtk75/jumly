@@ -26,7 +26,7 @@ describe "JUMLY", ->
         expect(toRef "-").toBe '_'
         expect(toRef "a-b").toBe 'a_b'
 
-      it "should be converted for digit [0-9] in head to '_'"
+      it "should be converted for digit [0-9] in head to '_'", ->
         expect(toRef "0").toBe '_'
         expect(toRef "01").toBe '_1'
 
