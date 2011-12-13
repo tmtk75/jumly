@@ -1,5 +1,5 @@
 ##
-class JUMLYClassDiagram extends JUMLY.HTMLElement
+class JUMLYClassDiagram extends JUMLY.Diagram
 JUMLYClassDiagram::build = ->
   $("<div>").addClass("diagram")
             .addClass("class-diagram")
@@ -12,11 +12,8 @@ JUMLYClassDiagram::declare = (normval) ->
     clz.find(".stereotype").hide()
   $(normval.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
   $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
-  
-  ref = JUMLY.Naming.toRef(normval.id)
-  throw new Error("Already exists for '#{ref}'") if this[ref]
-  this[ref] = clz if ref 
-    
+
+  @_regByRef_ normval.id, clz
   @append clz
 
 JUMLYClassDiagram::preferredWidth = ->

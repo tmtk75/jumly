@@ -5,6 +5,14 @@ class JUMLYHTMLElement
 
 JUMLY.HTMLElement = JUMLYHTMLElement
 
+class JUMLYDiagram extends JUMLYHTMLElement
+JUMLYDiagram::_regByRef_ = (id, obj)->
+  ref = JUMLY.Naming.toRef id
+  throw new Error("Already exists for '#{ref}'") if this[ref]
+  this[ref] = obj
+
+JUMLY.Diagram = JUMLYDiagram
+
 
 uml = jQuery.uml
 ###

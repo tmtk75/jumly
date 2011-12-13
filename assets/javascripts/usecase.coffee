@@ -127,9 +127,7 @@ JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->
   target.append a
   b = JUMLY.Identity.normalize uname
 
-  ref = JUMLY.Naming.toRef(b.id)
-  throw new Error("Already exists for '#{ref}'") if this[ref]
-  @_diagram[ref] = a
+  @_regByRef_ b.id, a
   eval "#{ref} = a"
 
 JUMLYUsecaseDiagramBuilder::usecase = (uname) ->
