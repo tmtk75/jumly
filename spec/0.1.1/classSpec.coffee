@@ -10,8 +10,8 @@ describe "class", ->
     describe "@def", ->
       it "should be passed for normalized value", ->
         builder = new JUMLY.ClassDiagramBuilder
-        diag = builder.build "@def dog:'Pochi'"
-        expect(diag.find("#dog").find(".name").text()).toBe "Pochi"
+        diag = builder.build "@def mydog:'Pochi'"
+        expect(diag.find("#mydog").find(".name").text()).toBe "Pochi"
 
       it "should throw Error when ID and method name are duplicated", ->
         f = -> (new JUMLY.ClassDiagramBuilder).build "@def declare:'Foo'"
@@ -57,7 +57,6 @@ describe "class", ->
 
     it "should be refered for cat as a local variable", ->
       expect(diag.cat).toBe window.cat
-
 
     it "should be able to be composed", ->
       BODY().append diag
