@@ -13,7 +13,8 @@ JUMLYClassDiagram::declare = (normval) ->
   $(normval.attrs).each (i, e) -> clz.find(".attrs").append $("<li>").html e
   $(normval.methods).each (i, e) -> clz.find(".methods").append $("<li>").html e
 
-  @_regByRef_ normval.id, clz
+  ref = @_regByRef_ normval.id, clz
+  eval "#{ref} = clz"
   @append clz
 
 JUMLYClassDiagram::preferredWidth = ->
