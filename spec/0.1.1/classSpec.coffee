@@ -32,6 +32,8 @@ describe "class", ->
       @def cat:Cat:
         attrs:["name"]
         methods:["sleep", "walk"]
+      window.cat = cat
+      window.dog = dog
       """
     c1st = diag.find(".class:eq(0)").self()
     c2nd = diag.find(".class:eq(1)").self()
@@ -49,6 +51,13 @@ describe "class", ->
 
     it "should be refered for cat by property", ->
       expect(diag.cat).toBe cat
+
+    it "should be refered for dog as a local variable", ->
+      expect(diag.dog).toBe window.dog
+
+    it "should be refered for cat as a local variable", ->
+      expect(diag.cat).toBe window.cat
+
 
     it "should be able to be composed", ->
       BODY().append diag
