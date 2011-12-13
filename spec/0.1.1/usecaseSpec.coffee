@@ -29,8 +29,8 @@ describe "usecase", ->
     it "should be able to be composed", ->
       BODY().append diag
       diag.compose()
-      diag.attr "id", "show-case"
-      expect($("#show-case").self()).toBe diag
+      diag.attr "id", "show-case-of-usecase"
+      expect($("#show-case-of-usecase").self()).toBe diag
 
 
   describe "Builder", ->
