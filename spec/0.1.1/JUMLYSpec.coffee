@@ -132,6 +132,11 @@ describe "JUMLY", ->
         expect(a.name).toBe "User"
         expect(a.use).toEqual [think, render]
 
+      it "should not be undefined", ->
+        a = normalize "update file": use: ->
+        expect(a).not.toBeUndefined()
+        expect(a.name).toBe "update file"
+        expect(a.use).not.toBeUndefined()
     
 describe "$.jumly", ->
   it "should provide public interface for user"
