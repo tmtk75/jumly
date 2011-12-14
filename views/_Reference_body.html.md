@@ -73,6 +73,12 @@ JUMLY-DiagramElement
 TBD.
 
 
+### Ref
+In order to refer each element, JUMLY provides Ref.
+Ref is notated as id value, which is sometimes modified by JUMLY avoid confusing and syntax error.
+TBD.
+
+
 
 Accesing by ID
 -------------------------------------------------------------------------------
