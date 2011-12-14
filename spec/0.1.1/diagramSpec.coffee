@@ -12,6 +12,7 @@ describe "JUMLYDiagram", ->
       a._regByRef_ id, {}
       expect(-> a._regByRef_ id, {}).toThrow()
       # Also for b, Error is thrown. ID check is document widely.
+      $("body").append $("<div>").attr id:id
       expect(-> b._regByRef_ id, {}).toThrow()
       
     it "should contain the name of diagram for its error message", ->
