@@ -145,7 +145,7 @@ JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
   else
     @_diagram.append boundary
   norm = JUMLY.Identity.normalize name
-  @diagram._regByRef_ norm.id
+  @_diagram._regByRef_ norm.id
   this
 
 JUMLYUsecaseDiagramBuilder::compose = (something) ->
