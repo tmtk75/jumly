@@ -52,15 +52,15 @@ describe "usecase", ->
         diag.system = diag.find(".boundary").self()
 
       it "should throw Error when ID and method name are duplicated", ->
-        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary render:'sys', ->"
+        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary render:'sys_1', ->"
         expect(f).toThrow()
 
     describe "@actor", ->
       it "should throw Error when ID and method name are duplicated", ->
-        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary 'sys', -> @actor compose:'Foo'"
+        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary 'sys_2', -> @actor compose:'Foo'"
         expect(f).toThrow()
 
     describe "@usecase", ->
       it "should throw Error when ID and method name are duplicated", ->
-        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary 'sys', -> @usecase compose:'Foo'"
+        f = -> (new JUMLY.UsecaseDiagramBuilder).build "@boundary 'sys_3', -> @usecase compose:'Foo'"
         expect(f).toThrow()
