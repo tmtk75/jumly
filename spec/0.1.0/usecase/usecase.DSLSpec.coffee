@@ -256,8 +256,8 @@ description "usecase.DSL", ->
         it '@afterCompose in <script>', ->
             script = $("<script type='text/jumly-usecase-diagram'>").html """
                 @usecase 1:"A"
-                @usecase "B":extend:[1]
-                @actor "C":use:[1]
+                @usecase "B_af":extend:[1]
+                @actor "C_af":use:[1]
                 @afterCompose (e, d) ->
                     d.foobar = true
                 """
