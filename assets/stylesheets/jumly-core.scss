@@ -62,9 +62,9 @@ $JUMLY_FONT_SIZE: 100%;
         -margin-bottom: 0px;
     }
     .diagram {
-        .object, .usecase {
+        .object, .usecase, .interaction {
             color: rgba(0,0,0,0.66);
-            text-shadow: 1px 0px rgba(0,0,0,0.4);
+            /*text-shadow: 1px 0px rgba(0,0,0,0.4);*/
         }
     }
 
