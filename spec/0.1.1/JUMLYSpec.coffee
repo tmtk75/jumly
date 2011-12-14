@@ -30,13 +30,15 @@ describe "JUMLY", ->
 
       it "should be converted for hyphen '-' to underscore '_'", ->
         expect(toRef "-").toBe '_'
+        expect(toRef "-0").toBe '_0'
+        expect(toRef "-1").toBe '_1'
         expect(toRef "a-b").toBe 'a_b'
 
       it "should be converted for digit [0-9] in head to '_'", ->
-        expect(toRef "0").toBe '_'
-        expect(toRef "01").toBe '_1'
+        expect(toRef "0").toBe '_0'
+        expect(toRef "01").toBe '_01'
 
-      it "should be converted for string starts with digit like 0,1 to be appended '_' like _0,_1", ->
+      it "should be converted for string starts with digit like 0,1 to be prepended '_' like _0,_1", ->
         expect(toRef "0").toBe '_0'
         expect(toRef "1").toBe '_1'
 
