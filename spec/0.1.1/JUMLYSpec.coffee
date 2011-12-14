@@ -36,6 +36,10 @@ describe "JUMLY", ->
         expect(toRef "0").toBe '_'
         expect(toRef "01").toBe '_1'
 
+      it "should be converted for string starts with digit like 0,1 to be appended '_' like _0,_1", ->
+        expect(toRef "0").toBe '_0'
+        expect(toRef "1").toBe '_1'
+
 
     describe "isID", ->
       it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`"
