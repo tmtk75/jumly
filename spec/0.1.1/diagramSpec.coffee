@@ -11,5 +11,15 @@ describe "JUMLYDiagram", ->
       id = "_regByRef_spec_for_duplicated_id"
       a._regByRef_ id, {}
       expect(-> a._regByRef_ id, {}).toThrow()
-      # Also for b, Error is thrown
+      # Also for b, Error is thrown. ID check is document widely.
       expect(-> b._regByRef_ id, {}).toThrow()
+      
+    it "should contain the name of diagram for its error message", ->
+      class YourDiagram extends JUMLY.Diagram
+      YourDiagram::build = ->
+      diag = new YourDiagram
+      try
+        diag._regByRef_ "_your_diagram_id"
+        diag._regByRef_ "_your_diagram_id"
+      catch err
+        expect(err.message.match /.*YourDiagram.*/).toBeTruthy()
