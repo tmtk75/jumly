@@ -134,18 +134,19 @@ JUMLYUsecaseDiagramBuilder::actor = (uname) ->
   @_declare_ uname, ".actor", @_diagram
 
 JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
-    @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
-    name ?= ""
-    if id = $.jumly.identify name
-        return curry_ this, @boundary, id
-    boundary = @new_ ".system-boundary", name
+  @_diagram = @diagram unless @_diagram  ##WORKAROUND: to v0.1.0
+  name ?= ""
+  return curry_ this, @boundary, id if id = $.jumly.identify name
+  boundary = @new_ ".system-boundary", name
 
-    acts.apply ctxt = new JUMLYUsecaseDiagramBuilder(@_diagram, boundary)
-    if @_boundary
-        @_boundary.append boundary
-    else
-        @_diagram.append boundary
-    this
+  acts.apply ctxt = new JUMLYUsecaseDiagramBuilder(@_diagram, boundary)
+  if @_boundary
+    @_boundary.append boundary
+  else
+    @_diagram.append boundary
+  norm = JUMLY.Identity.normalize name
+  @diagram._regByRef_ norm.id
+  this
 
 JUMLYUsecaseDiagramBuilder::compose = (something) ->
     if typeof something is "function"
