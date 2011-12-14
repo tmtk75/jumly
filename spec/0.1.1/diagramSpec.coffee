@@ -5,6 +5,7 @@ describe "JUMLYDiagram", ->
 
     it "should throw Error if ID already exists", ->
       class MyDiagram extends JUMLY.Diagram
+      MyDiagram::build = ->
       a = new MyDiagram
       b = new MyDiagram
       id = "_regByRef_spec_for_duplicated_id"
