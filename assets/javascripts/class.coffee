@@ -4,7 +4,7 @@ JUMLYClassDiagram::build = ->
   $("<div>").addClass("diagram")
             .addClass("class-diagram")
 
-JUMLYClassDiagram::member = (kind)->
+JUMLYClassDiagram::member = (kind, clz, normval)->
   $(normval["#{kind}s"]).each (i, e)->
     clz.find(".#{kind}s").append $("<li>").addClass(e)
       .attr("id", "#{normval.id}-#{kind}-#{e}").html e
@@ -16,7 +16,7 @@ JUMLYClassDiagram::declare = (normval) ->
   else
     clz.find(".stereotype").hide()
     
-  @member(kind) for kind in ["attr", "method"]
+  @member(kind, clz, normval) for kind in ["attr", "method"]
 
   ref = @_regByRef_ normval.id, clz
   eval "#{ref} = clz"
