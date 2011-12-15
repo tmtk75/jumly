@@ -17,6 +17,20 @@ describe "class", ->
         f = -> (new JUMLY.ClassDiagramBuilder).build "@def declare:'Foo'"
         expect(f).toThrow()
         
+      it "should throw Error for same attrs name", ->
+        f = -> (new JUMLY.ClassDiagramBuilder).build """
+                 @def AttrDup:
+                   attrs:["age", "age"]
+               """
+        expect(f).toThrow()
+
+      it "should throw Error for same methods name", ->
+        f = -> (new JUMLY.ClassDiagramBuilder).build """
+                 @def MethodDup:
+                   methods:["walk", "walk"]
+               """
+        expect(f).toThrow()
+        
   it "should be show-case by manual build", ->
     diag   = $.jumly ".class-diagram"
     animal = $.jumly ".class", "Aniaml"
@@ -27,10 +41,10 @@ describe "class", ->
   describe "show-case", ->
     diag = $.jumly.build mkscript "class", """
       @def dog:Dog:
-        attrs:["age", "origin"]
+        methods:["age", "origin"]
         methods:["balk", "run"]
       @def cat:Cat:
-        attrs:["name"]
+        methods:["name"]
         methods:["sleep", "walk"]
       window.dog = dog
       window.cat = cat
@@ -63,3 +77,21 @@ describe "class", ->
       diag.compose()
       diag.attr "id", "show-case-of-class"
       expect($("#show-case-of-class").self()).toBe diag
+
+    describe "methods", ->
+      it "should be annotated with class named by ref-name", ->
+        expect(dog.find(".methods .age")[0]).not.toBeUndefined()
+        expect(cat.find(".methods .name")[0]).not.toBeUndefined()
+        
+      it "should be refered with ID", ->
+        expect($("#dog-methods-age")[0]).not.toBeUndefined()
+        expect($("#cat-methods-name")[0]).not.toBeUndefined()
+
+    describe "methods", ->
+      it "should be annotated with class named by ref-name", ->
+        expect(dog.find(".methods .balk")[0]).not.toBeUndefined()
+        expect(cat.find(".methods .sleep")[0]).not.toBeUndefined()
+        
+      it "should be refered with ID", ->
+        expect($("#dog-methods-balk")[0]).not.toBeUndefined()
+        expect($("#cat-methods-sleep")[0]).not.toBeUndefined()
