@@ -79,6 +79,18 @@ Ref is notated as id value, which is sometimes modified by JUMLY avoid confusing
 TBD.
 
 
+### JUMLY-ClassDiagramElement
+All class elemens in class diagram have `.attrs` and `.mathods` child element,
+which have some `.attribute` and `.method`.
+They are identified by ID which is formed in:
+
+  < class ID > '-' < attr | method > '-' < its name >
+  
+For example,
+- `dog-method-balk`
+- `cat-attr-name`
+
+
 
 Accesing by ID
 -------------------------------------------------------------------------------
