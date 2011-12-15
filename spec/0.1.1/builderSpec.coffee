@@ -37,11 +37,11 @@ describe "JUMLY", ->
   
   
     describe "Event", ->
-      it "should", ->
-        $("*").on "build.before", -> window.d0 = "build.before"
+      it "should call 'build.before' before build", ->
+        $("*").on "build.before", -> window.d0 = "build.before called"
         builder = new JUMLY.UsecaseDiagramBuilder()
         builder.build()
-        expect(window.d0).toBe "build.before"
+        expect(window.d0).toBe "build.before called"
 
     it "should convert text to JUMLYDiagramElement"
 
