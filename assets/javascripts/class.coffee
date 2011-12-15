@@ -5,9 +5,11 @@ JUMLYClassDiagram::build = ->
             .addClass("class-diagram")
 
 JUMLYClassDiagram::member = (kind, clz, normval)->
+  holder = clz.find(".#{kind}s")
   $(normval["#{kind}s"]).each (i, e)->
-    clz.find(".#{kind}s").append $("<li>").addClass(e)
-      .attr("id", "#{normval.id}-#{kind}-#{e}").html e
+    id = "#{normval.id}-#{kind}-#{e}"
+    throw new Error("Already exists #{e}") if holder.find(".#{e}").length > 0
+    holder.append $("<li>").addClass(e).attr("id", id).html e
 
 JUMLYClassDiagram::declare = (normval) ->
   clz = $.jumly ".class", normval
