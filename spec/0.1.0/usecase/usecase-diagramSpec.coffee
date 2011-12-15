@@ -1,9 +1,9 @@
 u = $.jumly
 description "usecase-diagram", ->
-
+    seqno = 0
     new_diag = ->
         diag = u ".usecase-diagram"
-        diag.boundary "boundary", ->
+        diag.boundary "boundary#{seqno++}", ->
             @usecase "An usecase"
             @actor "User"
         .compose $ "body"

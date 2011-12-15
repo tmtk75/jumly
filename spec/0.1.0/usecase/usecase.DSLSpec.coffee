@@ -84,22 +84,22 @@ description "usecase.DSL", ->
         scenario "", ->
             given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
             given "some boundaries", ->
-                diag.boundary "a", ->
-                    @boundary "b", ->
-                .boundary "c", ->
-                    @boundary "d", ->
-                    @boundary "e", ->
+                diag.boundary "aaaaa", ->
+                    @boundary "bbbbb", ->
+                .boundary "ccccc", ->
+                    @boundary "ddddd", ->
+                    @boundary "eeeee", ->
             when_it "compose", ->
                 diag.appendTo $ "body"
                 diag.compose()
-            then_it "totaly five boundary", ->
+            then_it "totally five boundary", ->
                 diag.find(".system-boundary").length.shouldBe 5
             and_ ->
-                diag.find("> .system-boundary:eq(0)").expect(name:"a")
-                        .find(".system-boundary:eq(0)").expect(name:"b")
-                diag.find("> .system-boundary:eq(1)").expect(name:"c")
-                        .find(".system-boundary:eq(0)").expect(name:"d").end()
-                        .find(".system-boundary:eq(1)").expect(name:"e").end()
+                diag.find("> .system-boundary:eq(0)").expect(name:"aaaaa")
+                        .find(".system-boundary:eq(0)").expect(name:"bbbbb")
+                diag.find("> .system-boundary:eq(1)").expect(name:"ccccc")
+                        .find(".system-boundary:eq(0)").expect(name:"ddddd").end()
+                        .find(".system-boundary:eq(1)").expect(name:"eeeee").end()
 
     description "@usecase", ->
         shared_scenario "simple string", ->
@@ -113,14 +113,14 @@ description "usecase.DSL", ->
 
         shared_scenario "attributed string", ->
             given "a boundary and an usecase", ->
-                diag.boundary "b", ->
+                diag.boundary "bound-001", ->
                     @usecase "update file": use: ->
             then_it "the name is defined", ->
                 diag.find(".usecase:last .name").text().shouldBe "update file"
 
         shared_scenario "identified attributed string", ->
             given "a new usecase", ->
-                diag.boundary "b", ->
+                diag.boundary "bount-002", ->
                     @usecase 1234:"close file": extend:[1, 2]
             xthen_it "the name is defined", ->
                 diag.find(".usecase:last .name").text().shouldBe "close file"
@@ -131,7 +131,7 @@ description "usecase.DSL", ->
                 @uses = []
                 @exts = []
                 @foobars = []
-                ctxt = u(".usecase-diagram").boundary "b", ->
+                ctxt = u(".usecase-diagram").boundary "bound-003", ->
                     @usecase "a uc": use:uses, extend:exts, foobar:foobars
                 @uc_ = ctxt._diagram.find(".usecase:last").self()
                 @props = uc_.data("uml:property")
