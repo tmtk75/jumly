@@ -41,10 +41,10 @@ describe "class", ->
   describe "show-case", ->
     diag = $.jumly.build mkscript "class", """
       @def dog:Dog:
-        methods:["age", "origin"]
+        attrs:["age", "origin"]
         methods:["balk", "run"]
       @def cat:Cat:
-        methods:["name"]
+        attrs:["name"]
         methods:["sleep", "walk"]
       window.dog = dog
       window.cat = cat
@@ -78,14 +78,14 @@ describe "class", ->
       diag.attr "id", "show-case-of-class"
       expect($("#show-case-of-class").self()).toBe diag
 
-    describe "methods", ->
+    describe "attrs", ->
       it "should be annotated with class named by ref-name", ->
-        expect(dog.find(".methods .age")[0]).not.toBeUndefined()
-        expect(cat.find(".methods .name")[0]).not.toBeUndefined()
+        expect(dog.find(".attrs .age")[0]).not.toBeUndefined()
+        expect(cat.find(".attrs .name")[0]).not.toBeUndefined()
         
       it "should be refered with ID", ->
-        expect($("#dog-methods-age")[0]).not.toBeUndefined()
-        expect($("#cat-methods-name")[0]).not.toBeUndefined()
+        expect($("#dog-attrs-age")[0]).not.toBeUndefined()
+        expect($("#cat-attrs-name")[0]).not.toBeUndefined()
 
     describe "methods", ->
       it "should be annotated with class named by ref-name", ->
