@@ -45,6 +45,17 @@ describe "JUMLY", ->
 
     describe "isID", ->
       it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`"
+      
+    describe "toCSSClass", ->
+      toCSS = JUMLY.Naming.toCSSClass
+      it "should remove JUMLY in head", ->
+        expect(toCSS "JUMLYClass").toBe "class"
+
+      it "should convert all to lowercase", ->
+        expect(toCSS "JUMLYMETHOD").toBe "method"
+
+      it "should insert '-' before 'Diagram'", ->
+        expect(toCSS "JUMLYFooDiagram").toBe "foo-diagram"
 
 
   describe "Identity", ->
