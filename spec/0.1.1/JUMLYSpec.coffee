@@ -42,7 +42,6 @@ describe "JUMLY", ->
         expect(toRef "0").toBe '_0'
         expect(toRef "1").toBe '_1'
 
-
     describe "isID", ->
       it "should be represented with a regular expression `^[a-zA-Z0-9_\-]+$`"
       
@@ -56,6 +55,7 @@ describe "JUMLY", ->
 
       it "should insert '-' before 'Diagram'", ->
         expect(toCSS "JUMLYFooDiagram").toBe "foo-diagram"
+
 
 
   describe "Identity", ->
@@ -154,6 +154,14 @@ describe "JUMLY", ->
         expect(a).not.toBeUndefined()
         expect(a.name).toBe "update file"
         expect(a.use).not.toBeUndefined()
+
+  describe "HTMLElement", ->
+    it "should add a class after the class-name", ->
+      class MyFooClass extends JUMLY.HTMLElement
+      MyFooClass::build = ->
+      a = new MyFooClass
+      expect(a.hasClass "myfooclass") 
+
     
 describe "$.jumly", ->
   it "should provide public interface for user"
