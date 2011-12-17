@@ -930,20 +930,18 @@ JUMLYSequenceDiagramBuilder::preferences = ->
 
 ##NOTE: Keep compatibility to 0.1.0
 JUMLYSequenceDiagram::found = (something, callback)->
-  diag = this
-  ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
-  actor = ctxt._find_or_create_ something
-  ctxt._current_occurrence = actor.activate()
-  ctxt.last = callback?.apply(ctxt, [ctxt])
-  ctxt
+  b = new JUMLYSequenceDiagramBuilder diagram:this, this
+  actor = b._find_or_create_ something
+  b._current_occurrence = actor.activate()
+  b.last = callback?.apply b, [b]
+  b
+  
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
   @diagram.found something, callback
 
 ##
 $.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
-    diag = $.jumly '.sequence-diagram'
-    diag.found_ = -> eval CoffeeScript.compile script.html()
-    diag.found_()
-    diag
+  b = new JUMLYSequenceDiagramBuilder
+  b.build script.html()
 
 JUMLY.SequenceDiagramBuilder = JUMLYSequenceDiagramBuilder
