@@ -14,4 +14,10 @@ $ ->
       append diag
       diag.compose()
 
-    it "should "
+    
+    describe "@found", ->
+      it "should assign an ID", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        d = b.build "@found seq_found:'A'"
+        expect(d.seq_found).toBe d.find("#seq_found").self()
+        expect(d.seq_found.hasClass "object").toBeTruthy()
