@@ -211,6 +211,7 @@ JUMLY.Naming =
       '_' + s
     else
       s.replace(/^[0-9]|-/g, '_')
+  toCSSClass: (s)->s.replace(/^JUMLY/, "").replace(/Diagram$/, "-Diagram").toLowerCase()
   
 JUMLY.Identity =
   normalize: (that)->
