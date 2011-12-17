@@ -81,10 +81,7 @@ JUMLYClassDiagramBuilder::def = (props)->
 JUMLYClassDiagramBuilder::start = (acts)-> acts.apply this, []
 
 $.jumly.DSL type:".class-diagram", compileScript: (script) ->
-  diag = $.jumly ".class-diagram"
-  ctxt = new JUMLYClassDiagramBuilder(diag)
-  ctxt.start ->
-    eval CoffeeScript.compile script.html()
-  diag
+  b = new JUMLYClassDiagramBuilder
+  b.build script.html()
 
 JUMLY.ClassDiagramBuilder = JUMLYClassDiagramBuilder
