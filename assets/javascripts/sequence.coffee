@@ -1,10 +1,8 @@
-class UMLMessage
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLMessage.newNode()
-    @newNode = ->
-        $("<div>").addClass("message")
-                  .append($("<canvas>").addClass "arrow")
-                  .append($("<div>").addClass "name")
+class UMLMessage extends JUMLY.HTMLElement
+UMLMessage::build = ->
+  $("<div>").addClass("message")
+            .append($("<canvas>").addClass "arrow")
+            .append($("<div>").addClass "name")
 
 UMLMessage::to_line = (canvas) ->  # For backward compatibility.
     @_line_to_next_occurrence canvas
