@@ -1,11 +1,19 @@
 ##
 class JUMLYHTMLElement
   constructor: ->
-    $.extend this, @build()
+    cls = JUMLY.Naming.toCSSClass @constructor.name
+    p = $.extend this, $("<div>").addClass cls
+    a = Array.prototype.slice.apply arguments
+    a.unshift p
+    @_build_?.apply this, a
+    p
 
 JUMLY.HTMLElement = JUMLYHTMLElement
 
-class JUMLYDiagram extends JUMLYHTMLElement
+class JUMLYDiagram extends JUMLY.HTMLElement
+JUMLYDiagram::_build_ = (div)->
+    div.addClass "diagram"
+    
 JUMLYDiagram::_regByRef_ = (id, obj)->
   ref = JUMLY.Naming.toRef id
   throw new Error("Already exists for '#{ref}' in the " + $.kindof(this)) if this[ref]

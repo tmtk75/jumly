@@ -1,8 +1,5 @@
 ##
 class JUMLYClassDiagram extends JUMLY.Diagram
-JUMLYClassDiagram::build = ->
-  $("<div>").addClass("diagram")
-            .addClass("class-diagram")
 
 JUMLYClassDiagram::member = (kind, clz, normval)->
   holder = clz.find(".#{kind}s")
@@ -60,16 +57,15 @@ JUMLYClassDiagram::compose = ->
 </div>
 ###
 class JUMLYClass extends JUMLY.HTMLElement
-JUMLYClass::build = ->
+JUMLYClass::_build_ = (div)->
   icon = $("<div>")
            .addClass("icon")
            .append($("<div>").addClass "stereotype")
            .append($("<div>").addClass "name")
            .append($("<ul>").addClass "attrs")
            .append($("<ul>").addClass "methods")
-  $("<div>").addClass("object")
-            .addClass("class")
-            .append(icon)
+  div.addClass("object")
+     .append(icon)
 
 JUMLY.define ".class-diagram", JUMLYClassDiagram
 JUMLY.define ".class", JUMLYClass

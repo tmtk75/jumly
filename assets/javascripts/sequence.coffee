@@ -1,13 +1,12 @@
-class UMLMessage extends JUMLY.HTMLElement
-UMLMessage::build = ->
-  $("<div>").addClass("message")
-            .append($("<canvas>").addClass "arrow")
-            .append($("<div>").addClass "name")
+class JUMLYMessage extends JUMLY.HTMLElement
+JUMLYMessage::_build_ = (div)->
+  div.append($("<canvas>").addClass "arrow")
+     .append($("<div>").addClass "name")
 
-UMLMessage::to_line = (canvas) ->  # For backward compatibility.
+JUMLYMessage::to_line = (canvas) ->  # For backward compatibility.
     @_line_to_next_occurrence canvas
 
-UMLMessage::_line_to_next_occurrence = (canvas) ->
+JUMLYMessage::_line_to_next_occurrence = (canvas) ->
     if false #@hasClass("destroy")) {
         ##FIXME: Destroy message
         console.log "FIXME: to avoid runtime error."
@@ -16,7 +15,7 @@ UMLMessage::_line_to_next_occurrence = (canvas) ->
     dstll = @_dst_occurr this
     @_to_line srcll, dstll, canvas
 
-UMLMessage::_to_line = (srcll, dstll, canvas) ->
+JUMLYMessage::_to_line = (srcll, dstll, canvas) ->
     # Lost message is always toward right.
     if !@parent().hasClass("lost") and @isTowardLeft()
         {
@@ -37,25 +36,25 @@ UMLMessage::_to_line = (srcll, dstll, canvas) ->
                 y: canvas.outerHeight()/2
         }
 
-UMLMessage::_src_occurr = (msg) ->
+JUMLYMessage::_src_occurr = (msg) ->
     jQuery.uml(msg.parents(".occurrence")[0])[0]
 
-UMLMessage::_dst_occurr = (msg) ->
+JUMLYMessage::_dst_occurr = (msg) ->
     jQuery.uml(if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg)[0]
 
-UMLMessage::_canvas = ->
+JUMLYMessage::_canvas = ->
     @find("canvas:eq(0)")
         .attr(width:@width(), height:@height())
         .css (width:@width(), height:@height())
 
-UMLMessage::_to_create_line = (canvas) ->
+JUMLYMessage::_to_create_line = (canvas) ->
     e = @_to_line @_src_occurr(this), @_dst_occurr(this).gives(".object"), canvas
     if @isTowardLeft()
         src = @_src_occurr(this)
         e.dst.x = src.gives(".object").outerRight() - src.offset().left
     e
 
-UMLMessage::_find_occurrence = (actee) ->
+JUMLYMessage::_find_occurrence = (actee) ->
     occurr = null
     @parents(".occurrence").each (i, e) =>
         e = $(e).self()
@@ -84,7 +83,7 @@ _determine_primary_stereotype = (jqnode) ->
         if jqnode.hasClass e
             return e
 
-UMLMessage::repaint = (style) ->
+JUMLYMessage::repaint = (style) ->
     arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
     # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
     # So if you don't set same value to both, the rendered result may be inconsistent.
@@ -130,7 +129,7 @@ UMLMessage::repaint = (style) ->
     jQuery.g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
     this
 
-UMLMessage::isToward = (dir) ->
+JUMLYMessage::isToward = (dir) ->
     iact = @gives(".interaction")
     if "right" is dir
         iact.gives(".occurrence").as(".actor")
@@ -141,13 +140,13 @@ UMLMessage::isToward = (dir) ->
             .gives(".object").isRightAt(iact.gives(".occurrence").as(".actee")
                                               .gives(".object"))
 
-UMLMessage::isTowardRight = ->
+JUMLYMessage::isTowardRight = ->
     @isToward "right"
 
-UMLMessage::isTowardLeft = ->
+JUMLYMessage::isTowardLeft = ->
     @isToward "left"
 
-UMLMessage::_compose_looks_of_creation = ->
+JUMLYMessage::_compose_looks_of_creation = ->
     srcoccur = @_src_occurr(this)
     dstoccur = @_dst_occurr(this)
     render = (msg) ->
@@ -189,34 +188,33 @@ UMLMessage::_compose_looks_of_creation = ->
     centering_name this, w
     shift_down_lifeline created
 
-jQuery.uml.def ".message", UMLMessage
-class UMLInteraction
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLInteraction.newNode()
-        msg = jQuery.uml type:".message", ".interaction":this
-        props[".message"] = msg  ## FIXME: Can I remove this?
-        @append(msg)
-    @newNode = ->
-        $("<div>").addClass "interaction"
+$.jumly.def ".message", JUMLYMessage
 
-UMLInteraction::interact = (obj) ->
+class JUMLYInteraction extends JUMLY.HTMLElement
+
+JUMLYInteraction::_build_ = (div, props)->
+  msg = $.jumly type:".message", ".interaction":this
+  props[".message"] = msg  ## FIXME: Can I remove this?
+  div.append(msg)
+
+JUMLYInteraction::interact = (obj) ->
     @awayfrom().interact obj
-UMLInteraction::forward = (obj) ->
+JUMLYInteraction::forward = (obj) ->
     @toward()
-UMLInteraction::taking= (f) ->
+JUMLYInteraction::taking= (f) ->
     f(this)
     this
 
-UMLInteraction::to = (func) ->
+JUMLYInteraction::to = (func) ->
     occurrs = @gives(".occurrence")
     tee = occurrs.as(".actee")
     tor = occurrs.as(".actor")
     func(tee, tor)
 
-UMLInteraction::forwardTo = -> @gives(".occurrence").as ".actee"
-UMLInteraction::backwardTo = -> @gives(".occurrence").as ".actor"
-UMLInteraction::toward = -> @forwardTo()
-UMLInteraction::awayfrom = (obj) ->
+JUMLYInteraction::forwardTo = -> @gives(".occurrence").as ".actee"
+JUMLYInteraction::backwardTo = -> @gives(".occurrence").as ".actor"
+JUMLYInteraction::toward = -> @forwardTo()
+JUMLYInteraction::awayfrom = (obj) ->
     return @backwardTo() unless obj
     
     for e in @parents(".occurrence").not(".activated")
@@ -225,7 +223,7 @@ UMLInteraction::awayfrom = (obj) ->
 
     obj.activate()
 
-UMLInteraction::_build = ->
+JUMLYInteraction::_build = ->
     that = this
     a   = dstoccurr = that.gives(".occurrence").as ".actor"
     b   = srcoccurr = that.gives(".occurrence").as ".actee"
@@ -262,7 +260,7 @@ UMLInteraction::_build = ->
             .offset(left:x)
             .repaint(reverse:true)
 
-UMLInteraction::_build_self_invocation = (a, b, msg) ->
+JUMLYInteraction::_build_self_invocation = (a, b, msg) ->
     w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
     dx = w*2
     dy = w*1
@@ -281,7 +279,7 @@ UMLInteraction::_build_self_invocation = (a, b, msg) ->
         left: arrow.offset().left + arrow.outerWidth()
         top : arrow.offset().top
 
-UMLInteraction::reply = (p) ->
+JUMLYInteraction::reply = (p) ->
     @addClass "reply"
     a = $.uml(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
@@ -289,40 +287,35 @@ UMLInteraction::reply = (p) ->
         a.name p.name
     this
 
-UMLInteraction::fragment = (attrs, opts) ->
+JUMLYInteraction::fragment = (attrs, opts) ->
     frag = $.uml(type:".fragment")
     frag.enclose(this)
    
-UMLInteraction::isToSelf = ->
+JUMLYInteraction::isToSelf = ->
     a = @gives(".occurrence").as ".actor"
     b = @gives(".occurrence").as ".actee"
     unless a && b
         return false
     a.gives(".object") is b.gives(".object")
 
-jQuery.uml.def ".interaction", UMLInteraction
+jQuery.uml.def ".interaction", JUMLYInteraction
 
 ###
 ###
-UMLInteraction::is_to_itself = -> @isToSelf()
+JUMLYInteraction::is_to_itself = -> @isToSelf()
 
 
-class UMLLifeline
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLLifeline.newNode props
-    @newNode = (props) ->
-	    $("<div>").addClass("lifeline")
-	              .append($("<div>").addClass("line").height(128))
-			      .width(props[".object"].width())
-			      .height(128)
+class JUMLYLifeline extends JUMLY.HTMLElement
 
-jQuery.uml.def ".lifeline", UMLLifeline
-_as = jQuery.uml.lang._as
-class UMLOccurrence
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLOccurrence.newNode()
-    @newNode = ->
-        $("<div>").addClass("occurrence")
+JUMLYLifeline::_build_ = (div, props)->
+  div.append($("<div>").addClass("line").height(128))
+	   .width(props[".object"].width())
+	   .height(128)
+
+jQuery.uml.def ".lifeline", JUMLYLifeline
+
+_as = $.jumly.lang._as
+class JUMLYOccurrence extends JUMLY.HTMLElement
 
 ###
 NOTE: It's inconsistent.
@@ -337,7 +330,7 @@ NOTE: It's inconsistent.
 
     This makes an interaction to object_1 from current occurrence.
 ###
-UMLOccurrence::interact = (_, opts) ->
+JUMLYOccurrence::interact = (_, opts) ->
     if opts?.stereotype is ".lost"
         occurr = jQuery.uml(type:".occurrence").addClass "icon"
         iact   = jQuery.uml type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
@@ -359,7 +352,7 @@ UMLOccurrence::interact = (_, opts) ->
     iact.append(occurr).appendTo this
     iact
 
-UMLOccurrence::create = (objsrc) ->
+JUMLYOccurrence::create = (objsrc) ->
     obj = jQuery.uml ".object", objsrc.name
     obj.attr "id", objsrc.id
     @parents(".sequence-diagram").self()[objsrc.id] = obj
@@ -367,7 +360,7 @@ UMLOccurrence::create = (objsrc) ->
     iact = (@interact obj).stereotype "create"
     iact
 
-UMLOccurrence::move = ->
+JUMLYOccurrence::move = ->
     if @parent().hasClass "lost"
         @offset left:@parents(".diagram").find(".object").mostLeftRight().right
         return this 
@@ -378,10 +371,10 @@ UMLOccurrence::move = ->
     left += @width()*@shiftToParent()/2
     @offset left:left #- $("body").css("margin-left").toInt()
 
-UMLOccurrence::isOnOccurrence = ->
+JUMLYOccurrence::isOnOccurrence = ->
     not (@parentOccurrence() is null)
 
-UMLOccurrence::parentOccurrence = ->
+JUMLYOccurrence::parentOccurrence = ->
     lls = jQuery.uml(@parents(".occurrence"))
     return null if lls.length is 0
 
@@ -390,7 +383,7 @@ UMLOccurrence::parentOccurrence = ->
             return lls[i]
     null
 
-UMLOccurrence::shiftToParent = ->
+JUMLYOccurrence::shiftToParent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
     a = jQuery.uml(@parent().find ".message:eq(0)")[0]
@@ -400,7 +393,7 @@ UMLOccurrence::shiftToParent = ->
     # in case of self-invokation below
     return 1
 
-UMLOccurrence::preceding = (obj) ->
+JUMLYOccurrence::preceding = (obj) ->
     f = (ll) ->
         a = jQuery.uml(ll.parents ".occurrence:eq(0)")[0]
         return null if !a
@@ -408,7 +401,7 @@ UMLOccurrence::preceding = (obj) ->
         return f a
     f this
 
-UMLOccurrence::destroy = (actee) ->
+JUMLYOccurrence::destroy = (actee) ->
     #NOTE: expecting interface
     #return @interact(actee, {stereotype:"destroy"})
     #Tentative deprecated implementation.
@@ -425,19 +418,18 @@ UMLOccurrence::destroy = (actee) ->
               .insertAfter(occur)
     occur
 
-jQuery.uml.def ".occurrence", UMLOccurrence
-class UMLFragment
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLFragment.newNode()
-    @newNode = ->
-        $("<div>").addClass("fragment")
-                  .append($("<div>").addClass("header")
-                                    .append($("<div>").addClass("name"))
-                                    .append($("<div>").addClass("condition")))
+jQuery.uml.def ".occurrence", JUMLYOccurrence
 
-UMLFragment::enclose = (_) ->
+
+class JUMLYFragment extends JUMLY.HTMLElement
+JUMLYFragment::_build_ = (div)->
+  div.append($("<div>").addClass("header")
+                       .append($("<div>").addClass("name"))
+                       .append($("<div>").addClass("condition")))
+
+JUMLYFragment::enclose = (_) ->
     if not _? or _.length is 0
-        throw "UMLFragment::enclose arguments are empty."
+        throw "JUMLYFragment::enclose arguments are empty."
     if _.length > 1  # pre-condition: all nodes have same parent.
         a = $(_[0]).parent()[0]
         for i in [1 .. _.length - 1]
@@ -449,7 +441,7 @@ UMLFragment::enclose = (_) ->
     this.swallow(_)
     this
 
-UMLFragment::extendWidth = (opts) ->
+JUMLYFragment::extendWidth = (opts) ->
     frag = this
     dlw = opts?.left
     drw = opts?.right
@@ -465,7 +457,7 @@ UMLFragment::extendWidth = (opts) ->
 ###
   opts: expected {"[condiaion-1]": <action>, "[condition-1]": <action}
 ###
-UMLFragment::alter = (occurr, opts) ->
+JUMLYFragment::alter = (occurr, opts) ->
     alt = this
     alt.addClass("alt")
        .find(".condition").remove()  # because each interaction has each condition
@@ -484,11 +476,11 @@ UMLFragment::alter = (occurr, opts) ->
     alt.find(".divider:last").remove()
     alt
 
-jQuery.uml.def ".fragment", UMLFragment
+jQuery.uml.def ".fragment", JUMLYFragment
 ###
 # UMLRef
 ###
-class UMLRef
+class UMLRef extends JUMLY.HTMLElement
     constructor: (props, opts) ->
 	    jQuery.extend this, UMLRef.newNode()
     @newNode = ->
@@ -528,7 +520,7 @@ UMLRef::preferredWidth = ->
 
 jQuery.uml.def ".ref", UMLRef
 uml = jumly = jQuery.uml
-class UMLSequenceDiagram
+class UMLSequenceDiagram extends JUMLY.HTMLElement
     constructor: (props, opts) ->
         jQuery.extend this, UMLSequenceDiagram.newNode()
         @gives = (query) =>

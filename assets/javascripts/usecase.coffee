@@ -44,10 +44,7 @@ class UMLSystemBoundary
 $.uml.def ".system-boundary", UMLSystemBoundary
 
 
-class UMLUsecaseDiagram extends JUMLY.Diagram
-UMLUsecaseDiagram::build = ->
-  $("<div>").addClass("diagram")
-            .addClass("usecase-diagram")
+class JUMLYUsecaseDiagram extends JUMLY.Diagram
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -80,7 +77,7 @@ bind_between = (nodes, diag) ->
     bind "extend"
     bind "include"
 
-UMLUsecaseDiagram::align_actors_ = ->
+JUMLYUsecaseDiagram::align_actors_ = ->
     tb = @find(".system-boundary").mostTopBottom()
     height = tb.height()
     actors = @find(".actor")
@@ -90,11 +87,11 @@ UMLUsecaseDiagram::align_actors_ = ->
         y = tb.top + dy + height/2
         $(e).offset top:y
 
-UMLUsecaseDiagram::render = ->
+JUMLYUsecaseDiagram::render = ->
     @find(".relationship").each (i, e) ->
         $(e).self().render()
 
-UMLUsecaseDiagram::compose = ->
+JUMLYUsecaseDiagram::compose = ->
     @trigger "beforeCompose", [this]
     set_min_size @find(".usecase .icon")
     shift_usecase_down_to_above @find(".system-boundary")
@@ -106,7 +103,7 @@ UMLUsecaseDiagram::compose = ->
     @trigger "afterCompose", [this]
     this
     
-$.uml.def ".usecase-diagram", UMLUsecaseDiagram
+$.uml.def ".usecase-diagram", JUMLYUsecaseDiagram
 
 
 
@@ -158,7 +155,7 @@ JUMLYUsecaseDiagramBuilder::compose = (something) ->
     @_diagram.compose()
     this
 
-UMLUsecaseDiagram::boundary = (name, acts)->
+JUMLYUsecaseDiagram::boundary = (name, acts)->
   ctxt = new JUMLYUsecaseDiagramBuilder(this)
   ctxt.boundary name, acts
   ctxt

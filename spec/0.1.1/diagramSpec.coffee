@@ -24,3 +24,7 @@ describe "JUMLYDiagram", ->
         diag._regByRef_ "_your_diagram_id"
       catch err
         expect(err.message.match /.*YourDiagram.*/).toBeTruthy()
+
+  it "should add 'diagram'", ->
+    class MyFooDiagram extends JUMLY.Diagram
+    expect((new MyFooDiagram).hasClass "diagram") 

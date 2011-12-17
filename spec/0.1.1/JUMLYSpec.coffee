@@ -155,13 +155,6 @@ describe "JUMLY", ->
         expect(a.name).toBe "update file"
         expect(a.use).not.toBeUndefined()
 
-  describe "HTMLElement", ->
-    it "should add a class after the class-name", ->
-      class MyFooClass extends JUMLY.HTMLElement
-      MyFooClass::build = ->
-      a = new MyFooClass
-      expect(a.hasClass "myfooclass") 
-
     
 describe "$.jumly", ->
   it "should provide public interface for user"
