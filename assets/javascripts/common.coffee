@@ -6,7 +6,7 @@ class JUMLYHTMLElement
     a = Array.prototype.slice.apply arguments
     a.unshift p
     @_build_?.apply this, a
-    p
+    this
 
 JUMLY.HTMLElement = JUMLYHTMLElement
 

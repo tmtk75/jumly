@@ -478,11 +478,11 @@ JUMLYFragment::alter = (occurr, opts) ->
 
 jQuery.uml.def ".fragment", JUMLYFragment
 ###
-# UMLRef
+# JUMLYRef
 ###
-class UMLRef extends JUMLY.HTMLElement
+class JUMLYRef extends JUMLY.HTMLElement
     constructor: (props, opts) ->
-	    jQuery.extend this, UMLRef.newNode()
+	    jQuery.extend this, JUMLYRef.newNode()
     @newNode = ->
         $("<div>").addClass("ref")
 	              .append($("<div>").addClass("header")
@@ -491,7 +491,7 @@ class UMLRef extends JUMLY.HTMLElement
                   .append $("<div>").addClass "name"
 
 # preferredWidth
-UMLRef::preferredWidth = ->
+JUMLYRef::preferredWidth = ->
     diag = @parents(".sequence-diagram:eq(0)")
     iact = @prevAll(".interaction:eq(0)")
 
@@ -518,21 +518,15 @@ UMLRef::preferredWidth = ->
     most
     ### 
 
-jQuery.uml.def ".ref", UMLRef
+jQuery.uml.def ".ref", JUMLYRef
 uml = jumly = jQuery.uml
-class UMLSequenceDiagram extends JUMLY.HTMLElement
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLSequenceDiagram.newNode()
-        @gives = (query) =>
-            e = @find(query)
-            f = jQuery.uml.lang._of e, query
-            {of: f}
-        this
-    @newNode = ->
-        $("<div>").addClass("diagram")
-                  .addClass("sequence-diagram")
+class JUMLYSequenceDiagram extends JUMLY.Diagram
+JUMLYSequenceDiagram::gives = (query)->
+  e = @find(query)
+  f = jQuery.uml.lang._of e, query
+  {of: f}
 
-UMLSequenceDiagram::debugshow = ->
+JUMLYSequenceDiagram::debugshow = ->
     @prependTo $("body")
     @compose()
 
@@ -544,9 +538,9 @@ prefs_ =
 jumly.preferences(".sequence-diagram", prefs_)
 jumly.preferences(".sequence-diagram:system-default", prefs_)
 
-UMLSequenceDiagram::$ = (sel) -> uml($(sel, this))
-UMLSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
-UMLSequenceDiagram::preferences = (a, b) ->
+JUMLYSequenceDiagram::$ = (sel) -> uml($(sel, this))
+JUMLYSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
+JUMLYSequenceDiagram::preferences = (a, b) ->
     prefs = @data("uml:property").preferences
     if !prefs then @data("uml:property").preferences = prefs = {}
     width = ->
@@ -584,7 +578,7 @@ rebuild_asynchronous_self_calling = (diag) ->
                left: occurr.offset().left
                top : prev.find(".occurrence").outerBottom() - msg.height()/3
 
-UMLSequenceDiagram::compose = (props) ->
+JUMLYSequenceDiagram::compose = (props) ->
     try
         @trigger "beforeCompose", [this]
         @_compose props
@@ -596,7 +590,7 @@ UMLSequenceDiagram::compose = (props) ->
         console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
         throw ex
 
-UMLSequenceDiagram::_compose = (props) ->
+JUMLYSequenceDiagram::_compose = (props) ->
     prefs = @preferences()
     objects = @find(".object")
     align_objects_horizontally objects, prefs
@@ -732,7 +726,7 @@ jQuery.fn.selectWith = (f, cmp) ->
             t = x
     t
 
-UMLSequenceDiagram::preferredWidth = () ->
+JUMLYSequenceDiagram::preferredWidth = () ->
     bw = parseInt(@css "border-right-width") + parseInt(@css "border-left-width")
     
     nodes = $(".object, .ref, .fragment", this)
@@ -747,7 +741,7 @@ UMLSequenceDiagram::preferredWidth = () ->
     #console.log @find(".object .name").css "box-shadow"
     a.right - a.left + bw + 1
 
-jQuery.uml.def ".sequence-diagram", UMLSequenceDiagram
+jQuery.uml.def ".sequence-diagram", JUMLYSequenceDiagram
 
 
 ###
@@ -935,7 +929,7 @@ JUMLYSequenceDiagramBuilder::preferences = ->
     @diagram.preferences.apply @diagram, arguments
 
 ##NOTE: Keep compatibility to 0.1.0
-UMLSequenceDiagram::found = (something, callback)->
+JUMLYSequenceDiagram::found = (something, callback)->
   diag = this
   ctxt = new JUMLYSequenceDiagramBuilder diagram:diag, diag
   actor = ctxt._find_or_create_ something
