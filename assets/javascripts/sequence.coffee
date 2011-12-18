@@ -598,9 +598,9 @@ JUMLYSequenceDiagram::_compose = (props) ->
     l.pack_object_lane_vertically this
     l.pack_refs_horizontally this
     l.pack_fragments_horizontally this
-    align_creation_message_horizontally @find(".message.create")
-    align_lifelines_vertically this
-    align_lifelines_stop_horizontally @find(".stop")
+    l.align_creation_message_horizontally @find(".message.create")
+    l.align_lifelines_vertically this
+    l.align_lifelines_stop_horizontally @find(".stop")
     rebuild_asynchronous_self_calling this
     render_icons objects
     @width @preferredWidth()
@@ -684,32 +684,32 @@ render_icons = (objects) ->
     objects.each (i, e) ->
         $(e).self().renderIcon?()
 
-align_lifelines_vertically = (diag) ->
-    #mostbottom = jQuery.max (diag.find "> *"), (e) -> $(e).offset().top + $(e).height()
-    mostbottom = diag.find(".occurrence")
-                     .not(".interaction.lost .occurrence")
-                     #.css("border", "2px solid red")
-                     #.outerBottom()
-                     .max (e) -> $(e).outerBottom()
-    $(".lifeline", diag).each (i, e) ->
-        a = $(e).self()
-        obj = a.gives(".object")
-        y = obj.outerBottom() + 1
-        a.offset left:obj.offset().left, top:y
-        h = mostbottom - y + 16
-        #$(e).css("border": "2px blue solid").append(h).append(",").append($(e).offset().top)
-        $(e).height h
-        $(e).find(".line").css(top:0).height h
+SequenceDiagramLayout::align_lifelines_vertically = (diag)->
+  #mostbottom = jQuery.max (diag.find "> *"), (e) -> $(e).offset().top + $(e).height()
+  mostbottom = diag.find(".occurrence")
+                   .not(".interaction.lost .occurrence")
+                   #.css("border", "2px solid red")
+                   #.outerBottom()
+                   .max (e) -> $(e).outerBottom()
+  $(".lifeline", diag).each (i, e) ->
+    a = $(e).self()
+    obj = a.gives(".object")
+    y = obj.outerBottom() + 1
+    a.offset left:obj.offset().left, top:y
+    h = mostbottom - y + 16
+    #$(e).css("border": "2px blue solid").append(h).append(",").append($(e).offset().top)
+    $(e).height h
+    $(e).find(".line").css(top:0).height h
 
-align_lifelines_stop_horizontally = (stops) ->
-    stops.each (i, e) ->
-        e = $(e)
-        occurr = e.prev(".occurrence")
-        e.offset left:occurr.offset().left
+SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
+  stops.each (i, e) ->
+    e = $(e)
+    occurr = e.prev(".occurrence")
+    e.offset left:occurr.offset().left
 
-align_creation_message_horizontally = (msgs) ->
-    msgs.each (i, e) ->
-        $.uml(e)[0]._composeLooksOfCreation()
+SequenceDiagramLayout::align_creation_message_horizontally = (msgs)->
+  msgs.each (i, e) ->
+    $.uml(e)[0]._composeLooksOfCreation()
 
 jQuery.fn.selectWith = (f, cmp) ->
     t = null
