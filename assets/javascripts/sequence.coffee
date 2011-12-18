@@ -40,7 +40,7 @@ JUMLYMessage::_src_occurr = (msg) ->
   msg.parents(".occurrence:eq(0)").self()
 
 JUMLYMessage::_dst_occurr = (msg) ->
-    jQuery.uml(if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg)[0]
+  (if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg).self()
 
 JUMLYMessage::_canvas = ->
     @find("canvas:eq(0)")
