@@ -273,14 +273,14 @@ JUMLYInteraction::_buildSelfInvocation = (a, b, msg) ->
 
 JUMLYInteraction::reply = (p) ->
     @addClass "reply"
-    a = $.uml(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
+    a = $.jumly(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
     if p?.name
         a.name p.name
     this
 
 JUMLYInteraction::fragment = (attrs, opts) ->
-    frag = $.uml(type:".fragment")
+    frag = $.jumly(type:".fragment")
     frag.enclose(this)
    
 JUMLYInteraction::isToSelf = ->
@@ -313,7 +313,7 @@ JUMLYOccurrence::interact = (_, opts) ->
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if _?.stereotype is ".alt"
-        alt = $.uml ".fragment", name:"alt"
+        alt = $.jumly ".fragment", name:"alt"
         alt.alter this, opts
         return this
     else
@@ -643,7 +643,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
 
 SequenceDiagramLayout::align_creation_message_horizontally = (msgs)->
   msgs.each (i, e) ->
-    $.uml(e)[0]._composeLooksOfCreation()
+    $.jumly(e)[0]._composeLooksOfCreation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
   diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
@@ -714,7 +714,7 @@ JUMLYSequenceDiagramBuilder::_find_or_create_ = (e) ->
         when "string"
             if @diagram[e]
                 return @diagram[e]
-            a = $.uml ".object", e
+            a = $.jumly ".object", e
             a.attr id:e
             @diagram[e] = a
             @diagram.append a
@@ -795,7 +795,7 @@ JUMLYSequenceDiagramBuilder::reply = (a, b) ->
     null
 
 JUMLYSequenceDiagramBuilder::ref = (a) ->
-    ($.uml ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
+    ($.jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
     null
 
 JUMLYSequenceDiagramBuilder::lost = (a) ->
@@ -865,7 +865,7 @@ JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
     ##TENTATIVE: because DSL notation is not decided.
     text = a
     opts = b
-    note = $.uml ".note", text
+    note = $.jumly ".note", text
     if opts
         note.attach nodes, opts
     else
