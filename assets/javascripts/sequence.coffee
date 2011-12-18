@@ -575,16 +575,16 @@ rebuild_asynchronous_self_calling = (diag) ->
                top : prev.find(".occurrence").outerBottom() - msg.height()/3
 
 JUMLYSequenceDiagram::compose = (props) ->
-    try
-        @trigger "beforeCompose", [this]
-        @_compose props
-        @trigger "afterCompose", [this]
-        this
-    catch ex
-        causemsg = switch ex.type
-                     when "non_object_property_load" then "It may be not loaded completely for DOM tree.\n"
-        console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
-        throw ex
+  try
+    @trigger "beforeCompose", [this]
+    @_compose props
+    @trigger "afterCompose", [this]
+    this
+  catch ex
+    causemsg = switch ex.type
+                 when "non_object_property_load" then "It may be not loaded completely for DOM tree.\n"
+    console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
+    throw ex
 
 JUMLYSequenceDiagram::_compose = (props) ->
     prefs = @preferences()
