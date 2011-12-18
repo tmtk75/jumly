@@ -184,10 +184,8 @@ JUMLYInteraction::_build_ = (div, props)->
   props[".message"] = msg  ## FIXME: Can I remove this?
   div.append(msg)
 
-JUMLYInteraction::interact = (obj) ->
-    @awayfrom().interact obj
-JUMLYInteraction::forward = (obj) ->
-    @toward()
+JUMLYInteraction::interact = (obj) -> @awayfrom().interact obj
+JUMLYInteraction::forward = (obj) -> @toward()
 JUMLYInteraction::taking= (f) ->
     f(this)
     this
@@ -202,11 +200,11 @@ JUMLYInteraction::forwardTo = -> @gives(".occurrence").as ".actee"
 JUMLYInteraction::backwardTo = -> @gives(".occurrence").as ".actor"
 JUMLYInteraction::toward = -> @forwardTo()
 JUMLYInteraction::awayfrom = (obj) ->
-    return @backwardTo() unless obj
-    for e in @parents(".occurrence").not(".activated")
-      e = $(e).self()
-      return e if e?.gives(".object") is obj
-    obj.activate()
+  return @backwardTo() unless obj
+  for e in @parents(".occurrence").not(".activated")
+    e = $(e).self()
+    return e if e?.gives(".object") is obj
+  obj.activate()
 
 JUMLYInteraction::_buildInner = ->
   that = this
