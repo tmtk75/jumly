@@ -54,7 +54,7 @@ JUMLYMessage::_to_create_line = (canvas) ->
         e.dst.x = src.gives(".object").outerRight() - src.offset().left
     e
 
-JUMLYMessage::_find_occurrence = (actee) ->
+JUMLYMessage::_findOccurr = (actee) ->
     occurr = null
     @parents(".occurrence").each (i, e) =>
         e = $(e).self()
@@ -114,7 +114,7 @@ JUMLYMessage::repaint = (style) ->
     if @hasClass "create"
         line = @_to_create_line canvas
     else if @gives ".actee"
-        newsrc = @_find_occurrence @gives ".actee"
+        newsrc = @_findOccurr @gives ".actee"
         newdst = @_dst_occurr(this)
         line = @_to_line newsrc, newdst, canvas
     else
@@ -253,7 +253,7 @@ JUMLYInteraction::_build = ->
     if rmsg
         x = msg.offset().left
         if rmsg.gives ".actee"
-            newdst = rmsg._find_occurrence(rmsg.gives ".actee")
+            newdst = rmsg._findOccurr(rmsg.gives ".actee")
             w = srcoccurr.offset().left - newdst.offset().left
             x = Math.min srcoccurr.offset().left, newdst.offset().left
         rmsg.width(Math.abs w)
