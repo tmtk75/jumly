@@ -37,7 +37,7 @@ JUMLYMessage::_to_line = (srcll, dstll, canvas) ->
         }
 
 JUMLYMessage::_src_occurr = (msg) ->
-    jQuery.uml(msg.parents(".occurrence")[0])[0]
+  msg.parents(".occurrence:eq(0)").self()
 
 JUMLYMessage::_dst_occurr = (msg) ->
     jQuery.uml(if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg)[0]
