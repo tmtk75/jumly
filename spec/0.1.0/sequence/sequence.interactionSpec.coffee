@@ -588,17 +588,3 @@ description "interaction", ->
                                  .find("> .interaction").expect(name:'b->c')
                                    .find("> .occurrence").expect(length:1)
     
-            description "taking, which is an action in method chaining", ->
-                it "should be executed", ->
-                    diag = $.uml ".sequence-diagram"
-                    diag.append(a = $.uml ".object")
-                        .append(b = $.uml ".object")
-                        .append(c = $.uml ".object")
-                    n = 0
-                    m = 0
-                    a.activate()
-                     .interact(b).taking(=> n = diag.find(".interaction").length)
-                     .interact(c).taking(=> m = diag.find(".interaction").length)
-                    n.shouldBe 2
-                    m.shouldBe 3
-                    

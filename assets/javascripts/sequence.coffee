@@ -186,9 +186,6 @@ JUMLYInteraction::_build_ = (div, props)->
 
 JUMLYInteraction::interact = (obj) -> @awayfrom().interact obj
 JUMLYInteraction::forward = (obj) -> @toward()
-JUMLYInteraction::taking= (f) ->
-    f(this)
-    this
 
 JUMLYInteraction::to = (func) ->
   occurrs = @gives(".occurrence")
