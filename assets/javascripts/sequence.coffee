@@ -596,8 +596,8 @@ JUMLYSequenceDiagram::_compose = (props) ->
     l.build_interactions uml($ ".occurrence .interaction", this)
     l.generate_lifelines_and_align_horizontally this
     l.pack_object_lane_vertically this
-    pack_refs_horizontally this
-    pack_fragments_horizontally this
+    l.pack_refs_horizontally this
+    l.pack_fragments_horizontally this
     align_creation_message_horizontally @find(".message.create")
     align_lifelines_vertically this
     align_lifelines_stop_horizontally @find(".stop")
@@ -642,6 +642,44 @@ SequenceDiagramLayout::pack_object_lane_vertically = (diag)->
             .height(mostheight)
             .swallow(objs)
 
+SequenceDiagramLayout::pack_refs_horizontally = (diag)->
+  refs = uml($ ".ref", diag)
+  return if refs.length is 0
+  $(refs).each (i, ref) ->
+    pw = ref.preferredWidth()
+    ref.offset(left:pw.left)
+       .width(pw.width)
+
+SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
+  # fragments just under this diagram.
+  fragments = $ "> .fragment", diag
+  if fragments.length > 0
+    # To controll the width, you can write selector below.
+    # ".object:eq(0), > .interaction > .occurrence .interaction"
+    most = $(".object", diag).mostLeftRight()
+    left = fragments.offset().left
+    fragments.width (most.right - left) + (most.left - left)
+  
+  # fragments inside diagram
+  fixwidth = (i, fragment) ->
+    most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
+    fragment = $(fragment)
+    fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
+    ## WORKAROUND: it's tentative for both of next condition and the body
+    msg = uml(fragment.find("> .interaction > .message"))[0]
+    if (msg?.isTowardLeft())
+      fragment.offset(left:most.left)
+              .find("> .interaction > .occurrence")
+              .each (i, occurr) ->
+                  occurr = uml(occurr)[0]
+                  occurr.move()
+                        .prev().offset left:occurr.offset().left
+  
+  $(".occurrence > .fragment", diag)
+    .each(fixwidth)
+    .parents(".occurrence > .fragment")
+    .each(fixwidth)
+
 render_icons = (objects) ->
     objects.each (i, e) ->
         $(e).self().renderIcon?()
@@ -662,44 +700,6 @@ align_lifelines_vertically = (diag) ->
         #$(e).css("border": "2px blue solid").append(h).append(",").append($(e).offset().top)
         $(e).height h
         $(e).find(".line").css(top:0).height h
-
-pack_refs_horizontally  = (diag) ->
-    refs = uml($ ".ref", diag)
-    return if refs.length is 0
-    $(refs).each (i, ref) ->
-        pw = ref.preferredWidth()
-        ref.offset(left:pw.left)
-           .width(pw.width)
-
-pack_fragments_horizontally = (diag) ->
-    # fragments just under this diagram.
-    fragments = $ "> .fragment", diag
-    if fragments.length > 0
-        # To controll the width, you can write selector below.
-        # ".object:eq(0), > .interaction > .occurrence .interaction"
-        most = $(".object", diag).mostLeftRight()
-        left = fragments.offset().left
-        fragments.width (most.right - left) + (most.left - left)
-    
-    # fragments inside diagram
-    fixwidth = (i, fragment) ->
-        most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
-        fragment = $(fragment)
-        fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
-        ## WORKAROUND: it's tentative for both of next condition and the body
-        msg = uml(fragment.find("> .interaction > .message"))[0]
-        if (msg?.isTowardLeft())
-            fragment.offset(left:most.left)
-                    .find("> .interaction > .occurrence")
-                    .each (i, occurr) ->
-                        occurr = uml(occurr)[0]
-                        occurr.move()
-                              .prev().offset left:occurr.offset().left
-    
-    $(".occurrence > .fragment", diag)
-        .each(fixwidth)
-        .parents(".occurrence > .fragment")
-        .each(fixwidth)
 
 align_lifelines_stop_horizontally = (stops) ->
     stops.each (i, e) ->
