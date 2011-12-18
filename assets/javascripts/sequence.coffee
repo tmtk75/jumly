@@ -592,8 +592,8 @@ JUMLYSequenceDiagram::_compose = (props) ->
     
     l = new SequenceDiagramLayout
     l.align_objects_horizontally objects, prefs
-    align_occurrences_horizontally uml $(".occurrence", this)
-    build_interactions uml($ ".occurrence .interaction", this)
+    l.align_occurrences_horizontally uml $(".occurrence", this)
+    l.build_interactions uml($ ".occurrence .interaction", this)
     generate_lifelines_and_align_horizontally this
     pack_object_lane_vertically this
     pack_refs_horizontally this
@@ -619,16 +619,17 @@ SequenceDiagramLayout::align_objects_horizontally = (objs, alinfo)->
       b.css left:l
   objs.pickup2 f0, f1
 
+SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
+  occurrs.each (i, occurr) -> occurr.move()
+
+SequenceDiagramLayout::build_interactions = (iacts)->
+  iacts.each (i, iact) -> iact._build()
+
+
 
 render_icons = (objects) ->
     objects.each (i, e) ->
         $(e).self().renderIcon?()
-
-align_occurrences_horizontally = (occurrs) ->
-    occurrs.each (i, occurr) -> occurr.move()
-
-build_interactions = (iacts) ->
-    iacts.each (i, iact) -> iact._build()
 
 generate_lifelines_and_align_horizontally = (diag) ->
     $(".lifeline", diag).remove()
