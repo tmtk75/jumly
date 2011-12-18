@@ -376,7 +376,7 @@ UMLNote::attach = (target, opts) ->
 
     target.parents(".diagram")
         .append(this)
-        .self().bind "composed", (_, e) ->
+        .self().bind "afterCompose", (_, e) ->
             pos = target.offset()
             pos.left += opts.left
             pos.top  += opts.top

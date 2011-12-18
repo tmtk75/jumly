@@ -556,7 +556,7 @@ JUMLYSequenceDiagram::preferences = (a, b) ->
 JUMLYSequenceDiagram::compose = (props) ->
   try
     @trigger "beforeCompose", [this]
-    @_compose props
+    (new SequenceDiagramLayout).layout this
     @trigger "afterCompose", [this]
     this
   catch ex
@@ -564,12 +564,6 @@ JUMLYSequenceDiagram::compose = (props) ->
                  when "non_object_property_load" then "It may be not loaded completely for DOM tree.\n"
     console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
     throw ex
-
-JUMLYSequenceDiagram::_compose = (props) ->
-    l = new SequenceDiagramLayout
-    l.layout this
-    @trigger "composed", {diagram:this}  ## DEPRECATED: compose.after is better.
-    this
 
 class SequenceDiagramLayout
 SequenceDiagramLayout::layout = (diagram)->
