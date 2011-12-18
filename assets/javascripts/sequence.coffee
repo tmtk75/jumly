@@ -4,37 +4,33 @@ JUMLYMessage::_build_ = (div)->
      .append($("<div>").addClass "name")
 
 JUMLYMessage::to_line = (canvas) ->  # For backward compatibility.
-    @_lineToNextOccurr canvas
+  @_lineToNextOccurr canvas
 
 JUMLYMessage::_lineToNextOccurr = (canvas) ->
-    if false #@hasClass("destroy")) {
-        ##FIXME: Destroy message
-        console.log "FIXME: to avoid runtime error."
-        {src:{x:0, y:0}, dst:{x:400, y:0}}
-    srcll = @_src_occurr this
-    dstll = @_dst_occurr this
-    @_to_line srcll, dstll, canvas
+  if false #@hasClass("destroy")) {
+    ##FIXME: Destroy message
+    console.log "FIXME: to avoid runtime error."
+    {src:{x:0, y:0}, dst:{x:400, y:0}}
+  srcll = @_src_occurr this
+  dstll = @_dst_occurr this
+  @_to_line srcll, dstll, canvas
 
 JUMLYMessage::_to_line = (srcll, dstll, canvas) ->
-    # Lost message is always toward right.
-    if !@parent().hasClass("lost") and @isTowardLeft()
-        {
-            src:
-                x: srcll.offset().left - @offset().left
-                y: canvas.outerHeight()/2
-            dst:
-                x: dstll.outerWidth()
-                y: canvas.outerHeight()/2
-        }
-    else
-        {
-            src:
-                x: srcll.outerWidth()
-                y: canvas.outerHeight()/2
-            dst:
-                x: dstll.offset().left - srcll.offset().left
-                y: canvas.outerHeight()/2
-        }
+  # Lost message is always toward right.
+  if !@parent().hasClass("lost") and @isTowardLeft()
+    src:
+      x: srcll.offset().left - @offset().left
+      y: canvas.outerHeight()/2
+    dst:
+      x: dstll.outerWidth()
+      y: canvas.outerHeight()/2
+  else
+    src:
+      x: srcll.outerWidth()
+      y: canvas.outerHeight()/2
+    dst:
+      x: dstll.offset().left - srcll.offset().left
+      y: canvas.outerHeight()/2
 
 JUMLYMessage::_src_occurr = (msg) ->
   msg.parents(".occurrence:eq(0)").self()
@@ -43,9 +39,9 @@ JUMLYMessage::_dst_occurr = (msg) ->
   (if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg).self()
 
 JUMLYMessage::_prefferedCanvas = ->
-    @find("canvas:eq(0)")
-        .attr(width:@width(), height:@height())
-        .css (width:@width(), height:@height())
+  @find("canvas:eq(0)")
+    .attr(width:@width(), height:@height())
+    .css (width:@width(), height:@height())
 
 JUMLYMessage::_to_create_line = (canvas) ->
     e = @_to_line @_src_occurr(this), @_dst_occurr(this).gives(".object"), canvas
@@ -203,21 +199,19 @@ JUMLYInteraction::taking= (f) ->
     this
 
 JUMLYInteraction::to = (func) ->
-    occurrs = @gives(".occurrence")
-    tee = occurrs.as(".actee")
-    tor = occurrs.as(".actor")
-    func(tee, tor)
+  occurrs = @gives(".occurrence")
+  tee = occurrs.as(".actee")
+  tor = occurrs.as(".actor")
+  func(tee, tor)
 
 JUMLYInteraction::forwardTo = -> @gives(".occurrence").as ".actee"
 JUMLYInteraction::backwardTo = -> @gives(".occurrence").as ".actor"
 JUMLYInteraction::toward = -> @forwardTo()
 JUMLYInteraction::awayfrom = (obj) ->
     return @backwardTo() unless obj
-    
     for e in @parents(".occurrence").not(".activated")
-        e = $(e).self()
-        return e if e?.gives(".object") is obj
-
+      e = $(e).self()
+      return e if e?.gives(".object") is obj
     obj.activate()
 
 JUMLYInteraction::_buildInner = ->
