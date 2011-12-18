@@ -146,7 +146,7 @@ JUMLYMessage::isTowardRight = ->
 JUMLYMessage::isTowardLeft = ->
     @isToward "left"
 
-JUMLYMessage::_compose_looks_of_creation = ->
+JUMLYMessage::_composeLooksOfCreation = ->
     srcoccur = @_src_occurr(this)
     dstoccur = @_dst_occurr(this)
     render = (msg) ->
@@ -711,7 +711,7 @@ align_lifelines_stop_horizontally = (stops) ->
 
 align_creation_message_horizontally = (msgs) ->
     msgs.each (i, e) ->
-        $.uml(e)[0]._compose_looks_of_creation()
+        $.uml(e)[0]._composeLooksOfCreation()
 
 jQuery.fn.selectWith = (f, cmp) ->
     t = null
