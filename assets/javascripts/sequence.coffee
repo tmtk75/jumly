@@ -41,20 +41,20 @@ JUMLYMessage::_prefferedCanvas = ->
     .attr(width:@width(), height:@height())
     .css (width:@width(), height:@height())
 
-JUMLYMessage::_to_create_line = (canvas) ->
-    e = @_to_line @_src_occurr(), @_dst_occurr().gives(".object"), canvas
-    if @isTowardLeft()
-        src = @_src_occurr()
-        e.dst.x = src.gives(".object").outerRight() - src.offset().left
-    e
+JUMLYMessage::_to_create_line = (canvas)->
+  e = @_to_line @_src_occurr(), @_dst_occurr().gives(".object"), canvas
+  if @isTowardLeft()
+    src = @_src_occurr()
+    e.dst.x = src.gives(".object").outerRight() - src.offset().left
+  e
 
-JUMLYMessage::_findOccurr = (actee) ->
-    occurr = null
-    @parents(".occurrence").each (i, e) =>
-        e = $(e).self()
-        if e.gives(".object") is actee
-            occurr = e
-    occurr
+JUMLYMessage::_findOccurr = (actee)->
+  occurr = null
+  @parents(".occurrence").each (i, e)=>
+    e = $(e).self()
+    if e.gives(".object") is actee
+      occurr = e
+  occurr
 
 MESSAGE_STYLE =
     width      : 1
@@ -138,46 +138,42 @@ JUMLYMessage::isTowardRight = -> @isToward "right"
 JUMLYMessage::isTowardLeft = -> @isToward "left"
 
 JUMLYMessage::_composeLooksOfCreation = ->
-    srcoccur = @_src_occurr()
-    dstoccur = @_dst_occurr()
-    render = (msg) ->
-        msg.repaint()
-           .gives(".interaction").gives(".occurrence").as(".actee")
-           #.css(border:"none", "background-color":"transparent")
-        
-    preffered_width = (msg) ->
-        l = msg._to_line srcoccur, dstoccur.gives(".object"), msg
-        Math.abs l.src.x - l.dst.x
-        
-    centering_name = (msg, newwidth) ->
-        if msg.isTowardLeft()
-            return
-        newleft = srcoccur.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
-        msg.find(".name").offset(left:newleft)
-        
-    shift_down_lifeline = (obj) ->
-        diag = obj.parents ".sequence-diagram"
-        ll = $ ".lifeline .line:eq(1)", diag  # Should be derrived from obj. 
-        prevtop = ll.offset().top
-        ll.offset(top:obj.offset().top + obj.outerHeight())
-        ll.height ll.height() - (ll.offset().top - prevtop)
-    
-    shift_downward = (msg) ->
-        created.offset top:msg.offset().top - created.height()/3
-        y = created.outerBottom() + parseInt dstoccur.css "margin-top"
-        dstoccur.offset(top:y)
-       #         .addClass ""
-        iact = msg.parents(".interaction:eq(0)")
-        dy = iact.outerBottom() - dstoccur.outerBottom() - parseInt dstoccur.css "margin-top"
-        iact.css "margin-bottom", (Math.abs dy) 
-
-    
-    created = dstoccur.gives ".object"
-    w = preffered_width this
-    shift_downward this
-    render this
-    centering_name this, w
-    shift_down_lifeline created
+  srcoccur = @_src_occurr()
+  dstoccur = @_dst_occurr()
+  render = (msg) ->
+    msg.repaint()
+     .gives(".interaction").gives(".occurrence").as(".actee")
+      
+  preffered_width = (msg) ->
+    l = msg._to_line srcoccur, dstoccur.gives(".object"), msg
+    Math.abs l.src.x - l.dst.x
+      
+  centering_name = (msg, newwidth) ->
+    return if msg.isTowardLeft()
+    newleft = srcoccur.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
+    msg.find(".name").offset(left:newleft)
+      
+  shift_down_lifeline = (obj) ->
+    diag = obj.parents ".sequence-diagram"
+    ll = $ ".lifeline .line:eq(1)", diag  # Should be derrived from obj. 
+    prevtop = ll.offset().top
+    ll.offset(top:obj.offset().top + obj.outerHeight())
+    ll.height ll.height() - (ll.offset().top - prevtop)
+  
+  shift_downward = (msg) ->
+    created.offset top:msg.offset().top - created.height()/3
+    y = created.outerBottom() + parseInt dstoccur.css "margin-top"
+    dstoccur.offset(top:y)
+    iact = msg.parents(".interaction:eq(0)")
+    dy = iact.outerBottom() - dstoccur.outerBottom() - parseInt dstoccur.css "margin-top"
+    iact.css "margin-bottom", (Math.abs dy) 
+  
+  created = dstoccur.gives ".object"
+  w = preffered_width this
+  shift_downward this
+  render this
+  centering_name this, w
+  shift_down_lifeline created
 
 $.jumly.def ".message", JUMLYMessage
 
