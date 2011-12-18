@@ -11,7 +11,7 @@ JUMLYMessage::_lineToNextOccurr = (canvas) ->
     ##FIXME: Destroy message
     console.log "FIXME: to avoid runtime error."
     {src:{x:0, y:0}, dst:{x:400, y:0}}
-  srcll = @_src_occurr this
+  srcll = @_src_occurr()
   dstll = @_dst_occurr this
   @_to_line srcll, dstll, canvas
 
@@ -32,8 +32,7 @@ JUMLYMessage::_to_line = (srcll, dstll, canvas) ->
       x: dstll.offset().left - srcll.offset().left
       y: canvas.outerHeight()/2
 
-JUMLYMessage::_src_occurr = (msg) ->
-  msg.parents(".occurrence:eq(0)").self()
+JUMLYMessage::_src_occurr = -> @parents(".occurrence:eq(0)").self()
 
 JUMLYMessage::_dst_occurr = (msg) ->
   (if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg).self()
@@ -44,9 +43,9 @@ JUMLYMessage::_prefferedCanvas = ->
     .css (width:@width(), height:@height())
 
 JUMLYMessage::_to_create_line = (canvas) ->
-    e = @_to_line @_src_occurr(this), @_dst_occurr(this).gives(".object"), canvas
+    e = @_to_line @_src_occurr(), @_dst_occurr(this).gives(".object"), canvas
     if @isTowardLeft()
-        src = @_src_occurr(this)
+        src = @_src_occurr()
         e.dst.x = src.gives(".object").outerRight() - src.offset().left
     e
 
@@ -140,7 +139,7 @@ JUMLYMessage::isTowardRight = -> @isToward "right"
 JUMLYMessage::isTowardLeft = -> @isToward "left"
 
 JUMLYMessage::_composeLooksOfCreation = ->
-    srcoccur = @_src_occurr(this)
+    srcoccur = @_src_occurr()
     dstoccur = @_dst_occurr(this)
     render = (msg) ->
         msg.repaint()
