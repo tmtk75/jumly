@@ -1,4 +1,18 @@
 class JUMLYMessage extends JUMLY.HTMLElement
+class JUMLYInteraction extends JUMLY.HTMLElement
+class JUMLYLifeline extends JUMLY.HTMLElement
+class JUMLYOccurrence extends JUMLY.HTMLElement
+class JUMLYFragment extends JUMLY.HTMLElement
+class JUMLYSequenceDiagram extends JUMLY.Diagram
+class JUMLYRef extends JUMLY.HTMLElement
+$.jumly.def ".message", JUMLYMessage
+$.jumly.def ".interaction", JUMLYInteraction
+$.jumly.def ".lifeline", JUMLYLifeline
+$.jumly.def ".occurrence", JUMLYOccurrence
+$.jumly.def ".fragment", JUMLYFragment
+$.jumly.def ".ref", JUMLYRef
+$.jumly.def ".sequence-diagram", JUMLYSequenceDiagram
+
 JUMLYMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")
      .append($("<div>").addClass "name")
@@ -175,9 +189,7 @@ JUMLYMessage::_composeLooksOfCreation = ->
   centering_name this, w
   shift_down_lifeline created
 
-$.jumly.def ".message", JUMLYMessage
 
-class JUMLYInteraction extends JUMLY.HTMLElement
 
 JUMLYInteraction::_build_ = (div, props)->
   msg = $.jumly type:".message", ".interaction":this
@@ -278,38 +290,21 @@ JUMLYInteraction::isToSelf = ->
         return false
     a.gives(".object") is b.gives(".object")
 
-jQuery.uml.def ".interaction", JUMLYInteraction
 
 ###
 ###
 JUMLYInteraction::is_to_itself = -> @isToSelf()
 
 
-class JUMLYLifeline extends JUMLY.HTMLElement
 
 JUMLYLifeline::_build_ = (div, props)->
   div.append($("<div>").addClass("line").height(128))
 	   .width(props[".object"].width())
 	   .height(128)
 
-jQuery.uml.def ".lifeline", JUMLYLifeline
 
 _as = $.jumly.lang._as
-class JUMLYOccurrence extends JUMLY.HTMLElement
 
-###
-NOTE: It's inconsistent.
-  To make combined fragment,
-    
-      frag.interact(stereotype:.alt, {"[cond-1]":act-1, "[cond-2]":act-2})
-    
-    act-1, act-2 are function receiving an argument which is an occurrence.
-    They are able to be defined as follow,
-
-      act1 = (occurr) -> occurr.interact object_1
-
-    This makes an interaction to object_1 from current occurrence.
-###
 JUMLYOccurrence::interact = (_, opts) ->
     if opts?.stereotype is ".lost"
         occurr = jQuery.uml(type:".occurrence").addClass "icon"
@@ -398,10 +393,8 @@ JUMLYOccurrence::destroy = (actee) ->
               .insertAfter(occur)
     occur
 
-jQuery.uml.def ".occurrence", JUMLYOccurrence
 
 
-class JUMLYFragment extends JUMLY.HTMLElement
 JUMLYFragment::_build_ = (div)->
   div.append($("<div>").addClass("header")
                        .append($("<div>").addClass("name"))
@@ -456,19 +449,12 @@ JUMLYFragment::alter = (occurr, opts) ->
     alt.find(".divider:last").remove()
     alt
 
-jQuery.uml.def ".fragment", JUMLYFragment
-###
-# JUMLYRef
-###
-class JUMLYRef extends JUMLY.HTMLElement
-    constructor: (props, opts) ->
-	    jQuery.extend this, JUMLYRef.newNode()
-    @newNode = ->
-        $("<div>").addClass("ref")
-	              .append($("<div>").addClass("header")
-                                    .append($("<div>").addClass("tag")
-                                                      .html "ref"))
-                  .append $("<div>").addClass "name"
+
+JUMLYRef::_build_ = (div)->
+  div.append($("<div>").addClass("header")
+                       .append($("<div>").addClass("tag")
+                                         .html "ref"))
+     .append $("<div>").addClass "name"
 
 # preferredWidth
 JUMLYRef::preferredWidth = ->
@@ -498,9 +484,7 @@ JUMLYRef::preferredWidth = ->
     most
     ### 
 
-jQuery.uml.def ".ref", JUMLYRef
 uml = jumly = jQuery.uml
-class JUMLYSequenceDiagram extends JUMLY.Diagram
 JUMLYSequenceDiagram::gives = (query)->
   e = @find(query)
   f = jQuery.uml.lang._of e, query
@@ -714,7 +698,6 @@ JUMLYSequenceDiagram::preferredWidth = () ->
     #console.log @find(".object .name").css "box-shadow"
     a.right - a.left + bw + 1
 
-jQuery.uml.def ".sequence-diagram", JUMLYSequenceDiagram
 
 
 ###
