@@ -224,41 +224,41 @@ JUMLYInteraction::awayfrom = (obj) ->
     obj.activate()
 
 JUMLYInteraction::_buildInner = ->
-    that = this
-    a   = dstoccurr = that.gives(".occurrence").as ".actor"
-    b   = srcoccurr = that.gives(".occurrence").as ".actee"
-    msg = jQuery.uml($ "> .message", that)[0]
-    # Self-invokation case
-    if @isToSelf()
-        @_build_self_invocation a, b, msg
-        return
-		
-    # Normal message
-    w = a.offset().left - (b.offset().left + $(".occurrence:eq(0)", that).width())
-    if @hasClass("lost")
-        msg.height b.outerHeight()
-    else if msg.isTowardLeft()
-        w = b.offset().left - (a.offset().left + $(".occurrence:eq(0)", that).width())
+  that = this
+  a   = dstoccurr = that.gives(".occurrence").as ".actor"
+  b   = srcoccurr = that.gives(".occurrence").as ".actee"
+  msg = jQuery.uml($ "> .message", that)[0]
+  # Self-invokation case
+  if @isToSelf()
+    @_build_self_invocation a, b, msg
+    return
+	
+  # Normal message
+  w = a.offset().left - (b.offset().left + $(".occurrence:eq(0)", that).width())
+  if @hasClass("lost")
+    msg.height b.outerHeight()
+  else if msg.isTowardLeft()
+    w = b.offset().left - (a.offset().left + $(".occurrence:eq(0)", that).width())
 
-    msg.width(Math.abs(w))
-       .offset(left:Math.min(a.offset().left, b.offset().left))
-       .repaint()
+  msg.width(Math.abs(w))
+     .offset(left:Math.min(a.offset().left, b.offset().left))
+     .repaint()
 
-    # Locate the name of message
-    # Normal message
-    #TODO: Move this centering logic for name to .message class. 
+  # Locate the name of message
+  # Normal message
+  #TODO: Move this centering logic for name to .message class. 
 
-    # Return message
-    rmsg = $("> .message.return:last", that).self()
-    if rmsg
-        x = msg.offset().left
-        if rmsg.gives ".actee"
-            newdst = rmsg._findOccurr(rmsg.gives ".actee")
-            w = srcoccurr.offset().left - newdst.offset().left
-            x = Math.min srcoccurr.offset().left, newdst.offset().left
-        rmsg.width(Math.abs w)
-            .offset(left:x)
-            .repaint(reverse:true)
+  # Return message
+  rmsg = $("> .message.return:last", that).self()
+  if rmsg
+    x = msg.offset().left
+    if rmsg.gives ".actee"
+      newdst = rmsg._findOccurr(rmsg.gives ".actee")
+      w = srcoccurr.offset().left - newdst.offset().left
+      x = Math.min srcoccurr.offset().left, newdst.offset().left
+    rmsg.width(Math.abs w)
+        .offset(left:x)
+        .repaint(reverse:true)
 
 JUMLYInteraction::_build_self_invocation = (a, b, msg) ->
     w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
