@@ -223,7 +223,7 @@ JUMLYInteraction::awayfrom = (obj) ->
 
     obj.activate()
 
-JUMLYInteraction::_build = ->
+JUMLYInteraction::_buildInner = ->
     that = this
     a   = dstoccurr = that.gives(".occurrence").as ".actor"
     b   = srcoccurr = that.gives(".occurrence").as ".actee"
@@ -597,7 +597,7 @@ SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
   occurrs.each (i, occurr) -> occurr.move()
 
 SequenceDiagramLayout::build_interactions = (iacts)->
-  iacts.each (i, iact) -> iact._build()
+  iacts.each (i, iact) -> iact._buildInner()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
   $(".lifeline", diag).remove()
