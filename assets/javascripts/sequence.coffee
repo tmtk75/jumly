@@ -261,23 +261,23 @@ JUMLYInteraction::_buildInner = ->
         .repaint(reverse:true)
 
 JUMLYInteraction::_buildSelfInvocation = (a, b, msg) ->
-    w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
-    dx = w*2
-    dy = w*1
-    b.css top:0 + dy          # Shift the actee occurrence to y-positive
-    @css "padding-bottom":dy  # To expand the height of occurrence of actor
+  w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
+  dx = w*2
+  dy = w*1
+  b.css top:0 + dy          # Shift the actee occurrence to y-positive
+  @css "padding-bottom":dy  # To expand the height of occurrence of actor
 
-    msg.css(top:0)
-       .width(b.width() + dx)
-       .height(b.offset().top - msg.offset().top + dy + w/8)
-       .offset left:b.offset().left
-    
-    msg.repaint self:true
+  msg.css(top:0)
+     .width(b.width() + dx)
+     .height(b.offset().top - msg.offset().top + dy + w/8)
+     .offset left:b.offset().left
+  
+  msg.repaint self:true
 
-    arrow = msg.find ".arrow"
-    msg.find(".name").offset
-        left: arrow.offset().left + arrow.outerWidth()
-        top : arrow.offset().top
+  arrow = msg.find ".arrow"
+  msg.find(".name").offset
+      left: arrow.offset().left + arrow.outerWidth()
+      top : arrow.offset().top
 
 JUMLYInteraction::reply = (p) ->
     @addClass "reply"
