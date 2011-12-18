@@ -4,9 +4,9 @@ JUMLYMessage::_build_ = (div)->
      .append($("<div>").addClass "name")
 
 JUMLYMessage::to_line = (canvas) ->  # For backward compatibility.
-    @_line_to_next_occurrence canvas
+    @_lineToNextOccurr canvas
 
-JUMLYMessage::_line_to_next_occurrence = (canvas) ->
+JUMLYMessage::_lineToNextOccurr = (canvas) ->
     if false #@hasClass("destroy")) {
         ##FIXME: Destroy message
         console.log "FIXME: to avoid runtime error."
@@ -118,7 +118,7 @@ JUMLYMessage::repaint = (style) ->
         newdst = @_dst_occurr(this)
         line = @_to_line newsrc, newdst, canvas
     else
-        line = @_line_to_next_occurrence canvas
+        line = @_lineToNextOccurr canvas
         
     if arrow.reverse
         a           = line.src
