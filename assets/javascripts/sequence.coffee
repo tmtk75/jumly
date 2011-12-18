@@ -219,7 +219,7 @@ JUMLYInteraction::_buildInner = ->
   that = this
   a   = dstoccurr = that.gives(".occurrence").as ".actor"
   b   = srcoccurr = that.gives(".occurrence").as ".actee"
-  msg = jQuery.uml($ "> .message", that)[0]
+  msg = $.jumly($ "> .message", that)[0]
   # Self-invokation case
   if @isToSelf()
     @_buildSelfInvocation a, b, msg
@@ -307,8 +307,8 @@ _as = $.jumly.lang._as
 
 JUMLYOccurrence::interact = (_, opts) ->
     if opts?.stereotype is ".lost"
-        occurr = jQuery.uml(type:".occurrence").addClass "icon"
-        iact   = jQuery.uml type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
+        occurr = $.jumly(type:".occurrence").addClass "icon"
+        iact   = $.jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
         iact.addClass "lost"
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
@@ -317,8 +317,8 @@ JUMLYOccurrence::interact = (_, opts) ->
         alt.alter this, opts
         return this
     else
-        occurr = jQuery.uml type:".occurrence", ".object":_
-        iact   = jQuery.uml
+        occurr = $.jumly type:".occurrence", ".object":_
+        iact   = $.jumly
                     "type"       : ".interaction"
                     ".occurrence": _as(".actor":this, ".actee":occurr)
                     ".object"    : _as(".actor":@gives(".object"), ".actee":_)
@@ -328,7 +328,7 @@ JUMLYOccurrence::interact = (_, opts) ->
     iact
 
 JUMLYOccurrence::create = (objsrc) ->
-    obj = jQuery.uml ".object", objsrc.name
+    obj = $.jumly ".object", objsrc.name
     obj.attr "id", objsrc.id
     @parents(".sequence-diagram").self()[objsrc.id] = obj
     @gives(".object").parent().append obj
@@ -350,7 +350,7 @@ JUMLYOccurrence::isOnOccurrence = ->
     not (@parentOccurrence() is null)
 
 JUMLYOccurrence::parentOccurrence = ->
-    lls = jQuery.uml(@parents(".occurrence"))
+    lls = $.jumly(@parents(".occurrence"))
     return null if lls.length is 0
 
     for i in [0..lls.length - 1]
@@ -361,7 +361,7 @@ JUMLYOccurrence::parentOccurrence = ->
 JUMLYOccurrence::shiftToParent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
-    a = jQuery.uml(@parent().find ".message:eq(0)")[0]
+    a = $.jumly(@parent().find ".message:eq(0)")[0]
     return 0  if a is undefined
     return -1 if a.isTowardRight()
     return 1  if a.isTowardLeft()
@@ -370,7 +370,7 @@ JUMLYOccurrence::shiftToParent = ->
 
 JUMLYOccurrence::preceding = (obj) ->
     f = (ll) ->
-        a = jQuery.uml(ll.parents ".occurrence:eq(0)")[0]
+        a = $.jumly(ll.parents ".occurrence:eq(0)")[0]
         return null if !a
         return a    if a.gives(".object") is obj
         return f a
@@ -484,10 +484,10 @@ JUMLYRef::preferredWidth = ->
     most
     ### 
 
-uml = jumly = jQuery.uml
+uml = jumly = $.jumly
 JUMLYSequenceDiagram::gives = (query)->
   e = @find(query)
-  f = jQuery.uml.lang._of e, query
+  f = $.jumly.lang._of e, query
   {of: f}
 
 prefs_ =
