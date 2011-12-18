@@ -16,17 +16,48 @@
         .row
           /================================================================================================
           .span16.columns
+            %h2 JUMLY Sequence Diagram
+            %h3 Classes
+            %script{type:"text/jumly+class"}
+              :plain
+                @def 'JUMLYMessage'
+                @def 'JUMLYInteraction'
+                @def 'JUMLYLifeline'
+                @def 'JUMLYOccurrence'
+                @def 'JUMLYFragment'
+                @def 'JUMLYSequenceDiagram'
+                @def 'JUMLYRef'
+            %h3 Layout flow <small>v0.1.1b</small>
+            %script{type:"text/jumly+sequence"}
+              :plain
+                @found "Diagram", ->
+                  @message "preferences"
+                  @message "find '.object'" ##objects = diagram.find(".object")
+                  @message 'align_objects_horizontally', '.object'
+                  @message 'align_occurrences_horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
+                  @message 'build_interactions', ".occurrence .interaction"
+                  @message 'generate_lifelines_and_align_horizontally'
+                  @message 'pack_object_lane_vertically'
+                  @message 'pack_refs_horizontally'
+                  @message 'pack_fragments_horizontally'
+                  @message 'align_creation_message_horizontally', ".message.create"
+                  @message 'align_lifelines_vertically'
+                  @message 'align_lifelines_stop_horizontally', ".stop"
+                  @message 'rebuild_asynchronous_self_calling'
+                  @message 'render_icons', '.object'
+                  @message 'set width @preferredWidth()'
+                  
+
             %h2
               Web Application
               %small JUMLY tutorial site
-           
             %script{type:"text/jumly+usecase"}
               :plain
                 @actor "User":use:[2]
                 @actor "Creator":use:[1, 2]
                 @actor "Developer":use:[5, 6]
                 @boundary "JUMLY app", ->
-                  @usecase 0:"Create a diagram"
+                  @usecase 7:"Create a diagram"
                   @usecase 1:"Share a diagram"
                   @usecase 2:"Clikc a link, and see a diagram"
                   @usecase 3:"Auth with Twitter account"
@@ -37,7 +68,6 @@
           /================================================================================================
           .span16.columns
             %h2 Sequence diagram
-
             %script{type: "text/jumly+class"}
               :plain
                 @def "UMLDiagram":
