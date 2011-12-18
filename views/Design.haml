@@ -20,18 +20,19 @@
               Web Application
               %small JUMLY tutorial site
            
-            :jumly_use_case
-              @actor "User":use:[2]
-              @actor "Creator":use:[1, 2]
-              @actor "Developer":use:[5, 6]
-              @boundary "JUMLY app", ->
-                @usecase 0:"Create a diagram"
-                @usecase 1:"Share a diagram"
-                @usecase 2:"Clikc a link, and see a diagram"
-                @usecase 3:"Auth with Twitter account"
-                @usecase 4:"Auth with Facebook account"
-                @usecase 5:"Require JUMLY gem on sinatra"
-                @usecase 6:"Require JUMLY gem on rails3.1"
+            %script{type:"text/jumly+usecase"}
+              :plain
+                @actor "User":use:[2]
+                @actor "Creator":use:[1, 2]
+                @actor "Developer":use:[5, 6]
+                @boundary "JUMLY app", ->
+                  @usecase 0:"Create a diagram"
+                  @usecase 1:"Share a diagram"
+                  @usecase 2:"Clikc a link, and see a diagram"
+                  @usecase 3:"Auth with Twitter account"
+                  @usecase 4:"Auth with Facebook account"
+                  @usecase 5:"Require JUMLY gem on sinatra"
+                  @usecase 6:"Require JUMLY gem on rails3.1"
 
           /================================================================================================
           .span16.columns
