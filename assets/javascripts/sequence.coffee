@@ -5,13 +5,14 @@ class JUMLYOccurrence extends JUMLY.HTMLElement
 class JUMLYFragment extends JUMLY.HTMLElement
 class JUMLYSequenceDiagram extends JUMLY.Diagram
 class JUMLYRef extends JUMLY.HTMLElement
-$.jumly.def ".message", JUMLYMessage
-$.jumly.def ".interaction", JUMLYInteraction
-$.jumly.def ".lifeline", JUMLYLifeline
-$.jumly.def ".occurrence", JUMLYOccurrence
-$.jumly.def ".fragment", JUMLYFragment
-$.jumly.def ".ref", JUMLYRef
-$.jumly.def ".sequence-diagram", JUMLYSequenceDiagram
+jumly = $.jumly
+jumly.def ".message", JUMLYMessage
+jumly.def ".interaction", JUMLYInteraction
+jumly.def ".lifeline", JUMLYLifeline
+jumly.def ".occurrence", JUMLYOccurrence
+jumly.def ".fragment", JUMLYFragment
+jumly.def ".ref", JUMLYRef
+jumly.def ".sequence-diagram", JUMLYSequenceDiagram
 
 JUMLYMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")
@@ -190,7 +191,7 @@ JUMLYMessage::_composeLooksOfCreation = ->
   shift_down_lifeline created
 
 JUMLYInteraction::_build_ = (div, props)->
-  msg = $.jumly type:".message", ".interaction":this
+  msg = jumly type:".message", ".interaction":this
   props[".message"] = msg  ## FIXME: Can I remove this?
   div.append(msg)
 
@@ -217,7 +218,7 @@ JUMLYInteraction::_buildInner = ->
   that = this
   a   = dstoccurr = that.gives(".occurrence").as ".actor"
   b   = srcoccurr = that.gives(".occurrence").as ".actee"
-  msg = $.jumly($ "> .message", that)[0]
+  msg = jumly($ "> .message", that)[0]
   # Self-invokation case
   if @isToSelf()
     @_buildSelfInvocation a, b, msg
@@ -271,14 +272,14 @@ JUMLYInteraction::_buildSelfInvocation = (a, b, msg) ->
 
 JUMLYInteraction::reply = (p) ->
     @addClass "reply"
-    a = $.jumly(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
+    a = jumly(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
     if p?.name
         a.name p.name
     this
 
 JUMLYInteraction::fragment = (attrs, opts) ->
-    frag = $.jumly(type:".fragment")
+    frag = jumly(type:".fragment")
     frag.enclose(this)
    
 JUMLYInteraction::isToSelf = ->
@@ -296,20 +297,20 @@ JUMLYLifeline::_build_ = (div, props)->
 	   .height(128)
 
 JUMLYOccurrence::interact = (_, opts) ->
-    _as = $.jumly.lang._as
+    _as = jumly.lang._as
     if opts?.stereotype is ".lost"
-        occurr = $.jumly(type:".occurrence").addClass "icon"
-        iact   = $.jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
+        occurr = jumly(type:".occurrence").addClass "icon"
+        iact   = jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
         iact.addClass "lost"
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if _?.stereotype is ".alt"
-        alt = $.jumly ".fragment", name:"alt"
+        alt = jumly ".fragment", name:"alt"
         alt.alter this, opts
         return this
     else
-        occurr = $.jumly type:".occurrence", ".object":_
-        iact   = $.jumly
+        occurr = jumly type:".occurrence", ".object":_
+        iact   = jumly
                     "type"       : ".interaction"
                     ".occurrence": _as(".actor":this, ".actee":occurr)
                     ".object"    : _as(".actor":@gives(".object"), ".actee":_)
@@ -319,7 +320,7 @@ JUMLYOccurrence::interact = (_, opts) ->
     iact
 
 JUMLYOccurrence::create = (objsrc) ->
-    obj = $.jumly ".object", objsrc.name
+    obj = jumly ".object", objsrc.name
     obj.attr "id", objsrc.id
     @parents(".sequence-diagram").self()[objsrc.id] = obj
     @gives(".object").parent().append obj
@@ -341,7 +342,7 @@ JUMLYOccurrence::isOnOccurrence = ->
     not (@parentOccurrence() is null)
 
 JUMLYOccurrence::parentOccurrence = ->
-    lls = $.jumly(@parents(".occurrence"))
+    lls = jumly(@parents(".occurrence"))
     return null if lls.length is 0
 
     for i in [0..lls.length - 1]
@@ -352,7 +353,7 @@ JUMLYOccurrence::parentOccurrence = ->
 JUMLYOccurrence::shiftToParent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
-    a = $.jumly(@parent().find ".message:eq(0)")[0]
+    a = jumly(@parent().find ".message:eq(0)")[0]
     return 0  if a is undefined
     return -1 if a.isTowardRight()
     return 1  if a.isTowardLeft()
@@ -361,7 +362,7 @@ JUMLYOccurrence::shiftToParent = ->
 
 JUMLYOccurrence::preceding = (obj) ->
     f = (ll) ->
-        a = $.jumly(ll.parents ".occurrence:eq(0)")[0]
+        a = jumly(ll.parents ".occurrence:eq(0)")[0]
         return null if !a
         return a    if a.gives(".object") is obj
         return f a
@@ -463,10 +464,9 @@ JUMLYRef::preferredWidth = ->
     most.width = most.width()
     most
     
-jumly = $.jumly
 JUMLYSequenceDiagram::gives = (query)->
   e = @find(query)
-  f = $.jumly.lang._of e, query
+  f = jumly.lang._of e, query
   {of: f}
 
 prefs_ =
@@ -477,7 +477,7 @@ prefs_ =
 jumly.preferences(".sequence-diagram", prefs_)
 jumly.preferences(".sequence-diagram:system-default", prefs_)
 
-JUMLYSequenceDiagram::$ = (sel) -> $.jumly($(sel, this))
+JUMLYSequenceDiagram::$ = (sel) -> jumly($(sel, this))
 JUMLYSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 JUMLYSequenceDiagram::preferences = (a, b) ->
     prefs = @data("uml:property").preferences
@@ -489,7 +489,7 @@ JUMLYSequenceDiagram::preferences = (a, b) ->
         left + (right - left) + left
     ## Return preferences
     if (!b and typeof a is "string") or (!a and !b)
-        r = $.extend {}, $.jumly.preferences(".sequence-diagram"), prefs
+        r = $.extend {}, jumly.preferences(".sequence-diagram"), prefs
         r.WIDTH = width.apply this
         return r
     ## Overrite instance preferences
@@ -513,8 +513,8 @@ SequenceDiagramLayout::layout = (diagram)->
   prefs = diagram.preferences()
   objects = diagram.find(".object")
   @align_objects_horizontally objects, prefs
-  @align_occurrences_horizontally $.jumly $(".occurrence", diagram)
-  @build_interactions $.jumly($ ".occurrence .interaction", diagram)
+  @align_occurrences_horizontally jumly $(".occurrence", diagram)
+  @build_interactions jumly($ ".occurrence .interaction", diagram)
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
@@ -545,8 +545,8 @@ SequenceDiagramLayout::build_interactions = (iacts)->
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
   $(".lifeline", diag).remove()
   $(".object", diag).each (i, e)->
-    obj = $.jumly(e)[0]
-    a = $.jumly type:".lifeline", ".object":obj
+    obj = jumly(e)[0]
+    a = jumly type:".lifeline", ".object":obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
 
@@ -560,7 +560,7 @@ SequenceDiagramLayout::pack_object_lane_vertically = (diag)->
             .swallow(objs)
 
 SequenceDiagramLayout::pack_refs_horizontally = (diag)->
-  refs = $.jumly($ ".ref", diag)
+  refs = jumly($ ".ref", diag)
   return if refs.length is 0
   $(refs).each (i, ref) ->
     pw = ref.preferredWidth()
@@ -583,12 +583,12 @@ SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
     fragment = $(fragment)
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
-    msg = $.jumly(fragment.find("> .interaction > .message"))[0]
+    msg = jumly(fragment.find("> .interaction > .message"))[0]
     if (msg?.isTowardLeft())
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                  occurr = $.jumly(occurr)[0]
+                  occurr = jumly(occurr)[0]
                   occurr.move()
                         .prev().offset left:occurr.offset().left
   
@@ -622,7 +622,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
 
 SequenceDiagramLayout::align_creation_message_horizontally = (msgs)->
   msgs.each (i, e) ->
-    $.jumly(e)[0]._composeLooksOfCreation()
+    jumly(e)[0]._composeLooksOfCreation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
   diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
@@ -686,7 +686,7 @@ JUMLYSequenceDiagramBuilder::_find_or_create_ = (e) ->
         when "string"
             if @diagram[e]
                 return @diagram[e]
-            a = $.jumly ".object", e
+            a = jumly ".object", e
             a.attr id:e
             @diagram[e] = a
             @diagram.append a
@@ -767,7 +767,7 @@ JUMLYSequenceDiagramBuilder::reply = (a, b) ->
     null
 
 JUMLYSequenceDiagramBuilder::ref = (a) ->
-    ($.jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
+    (jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
     null
 
 JUMLYSequenceDiagramBuilder::lost = (a) ->
@@ -789,7 +789,7 @@ JUMLYSequenceDiagramBuilder::loop = (a, b, c) ->
             last.apply this, []
             newones = @_current_occurrence.find("> *").not(kids)
             if newones.length > 0
-                frag = $.jumly(".fragment").addClass("loop").enclose newones
+                frag = jumly(".fragment").addClass("loop").enclose newones
                 frag.find(".name:first").html "Loop"
     this
 
@@ -837,7 +837,7 @@ JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
     ##TENTATIVE: because DSL notation is not decided.
     text = a
     opts = b
-    note = $.jumly ".note", text
+    note = jumly ".note", text
     if opts
         note.attach nodes, opts
     else
@@ -868,7 +868,7 @@ JUMLYSequenceDiagramBuilder::found = (something, callback)->
   @diagram.found something, callback
 
 ##
-$.jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
+jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
   b = new JUMLYSequenceDiagramBuilder
   b.build script.html()
 
