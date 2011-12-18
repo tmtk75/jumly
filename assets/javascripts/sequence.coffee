@@ -526,10 +526,6 @@ JUMLYSequenceDiagram::gives = (query)->
   f = jQuery.uml.lang._of e, query
   {of: f}
 
-JUMLYSequenceDiagram::debugshow = ->
-    @prependTo $("body")
-    @compose()
-
 prefs_ =
     compose_most_left: 0
     compose_span     : 150 - (88 + 4)

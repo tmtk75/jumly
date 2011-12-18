@@ -5,7 +5,6 @@ description "message.create", ->
             @diag.append(@obj_a = $.uml ".object", "a")
         when_it "create message", ->
             @iact_ab = @obj_a.activate().create id:"obj_b", name:"b"
-#            @diag.debugshow()
         then_it "two object there", ->
             @diag.find(".object").length.shouldBe 2
         and_ "the height of the new one is down", ->
@@ -15,7 +14,6 @@ description "message.create", ->
         it_behaves_as "a creation"
         when_it "create message more from obj_b", ->
             @iact_bc = @iact_ab.toward().create id:"obj_c", name:"c"
-#            @diag.debugshow()
         then_it "three object there", ->
             @diag.find(".object").length.shouldBe 3
         and_ "the height of the new one is down more", ->
@@ -25,7 +23,6 @@ description "message.create", ->
         it_behaves_as "a creation"
         when_it "create message", ->
             @iact_ab2 = @iact_ab.awayfrom().interact @diag.obj_b
-#            @diag.debugshow()
         when_it "", ->
             @above = @iact_ab.gives(".occurrence").as ".actee"
             @below = @iact_ab2.gives(".occurrence").as ".actee"
@@ -61,7 +58,8 @@ description "message.create", ->
     scenario "create message to right", ->
         it_behaves_as "a creation"
         when_it "compose", ->
-            @diag.debugshow()
+            diag.prependTo $("body")
+            diag.compose()
         then_it "to left edge", ->
             msg = @iact_ab.find(".message").self()
             can = msg._current_canvas

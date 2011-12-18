@@ -531,7 +531,6 @@ description "message", ->
             when_it "create an order", ->
                 @iact = obj.activate()
                            .create name:"Order", id:"newone"
-                #diag.debugshow()
             then_it "an new object is created", ->
                 diag.find(".object").length.shouldBe 2
             and_ ->
