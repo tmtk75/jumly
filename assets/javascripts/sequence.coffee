@@ -131,18 +131,17 @@ JUMLYMessage::repaint = (style) ->
 
 JUMLYMessage::isToward = (dir) ->
   iact = @gives(".interaction")
-  actor = iact.gives(".occurrence").as(".actor").gives(".object")
-  actee = iact.gives(".occurrence").as(".actee").gives(".object")
+  see = (a)-> iact.gives(".occurrence").as(a).gives(".object")
+  actor = see ".actor"
+  actee = see ".actee"
   if "right" is dir
     actor.isLeftAt(actee)
   else if "left" is dir
     actor.isRightAt(actee)
 
-JUMLYMessage::isTowardRight = ->
-    @isToward "right"
+JUMLYMessage::isTowardRight = -> @isToward "right"
 
-JUMLYMessage::isTowardLeft = ->
-    @isToward "left"
+JUMLYMessage::isTowardLeft = -> @isToward "left"
 
 JUMLYMessage::_composeLooksOfCreation = ->
     srcoccur = @_src_occurr(this)
