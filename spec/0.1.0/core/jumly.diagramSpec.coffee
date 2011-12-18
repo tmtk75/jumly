@@ -77,8 +77,6 @@ description "diagram", ->
         scenario "four objects", ->
             it_behaves_as "four objects", ->
             when_it "", ->
-                #console.log $.jumly.preferences(".sequence-diagram")
-                #console.log $.jumly.preferences(".sequence-diagram:system-default")
                 $.jumly.preferences(".sequence-diagram", $.jumly.preferences(".sequence-diagram:system-default"))
             when_it "composed", ->
                 diag.appendTo $ "body"
