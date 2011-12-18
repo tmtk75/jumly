@@ -189,8 +189,6 @@ JUMLYMessage::_composeLooksOfCreation = ->
   centering_name this, w
   shift_down_lifeline created
 
-
-
 JUMLYInteraction::_build_ = (div, props)->
   msg = $.jumly type:".message", ".interaction":this
   props[".message"] = msg  ## FIXME: Can I remove this?
@@ -290,22 +288,15 @@ JUMLYInteraction::isToSelf = ->
         return false
     a.gives(".object") is b.gives(".object")
 
-
-###
-###
 JUMLYInteraction::is_to_itself = -> @isToSelf()
-
-
 
 JUMLYLifeline::_build_ = (div, props)->
   div.append($("<div>").addClass("line").height(128))
 	   .width(props[".object"].width())
 	   .height(128)
 
-
-_as = $.jumly.lang._as
-
 JUMLYOccurrence::interact = (_, opts) ->
+    _as = $.jumly.lang._as
     if opts?.stereotype is ".lost"
         occurr = $.jumly(type:".occurrence").addClass "icon"
         iact   = $.jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
@@ -393,8 +384,6 @@ JUMLYOccurrence::destroy = (actee) ->
               .insertAfter(occur)
     occur
 
-
-
 JUMLYFragment::_build_ = (div)->
   div.append($("<div>").addClass("header")
                        .append($("<div>").addClass("name"))
@@ -449,7 +438,6 @@ JUMLYFragment::alter = (occurr, opts) ->
     alt.find(".divider:last").remove()
     alt
 
-
 JUMLYRef::_build_ = (div)->
   div.append($("<div>").addClass("header")
                        .append($("<div>").addClass("tag")
@@ -475,16 +463,7 @@ JUMLYRef::preferredWidth = ->
     most.width = most.width()
     most
     
-    ### 
-    diag = @parents ".diagram"
-    most = $(".line", diag).mostLeftRight()
-    most.left  -= dh + diag.offset().left
-    most.right -=      diag.offset().left
-    most.width = most.width() - (@outerWidth() - @width()) + dh
-    most
-    ### 
-
-uml = jumly = $.jumly
+jumly = $.jumly
 JUMLYSequenceDiagram::gives = (query)->
   e = @find(query)
   f = $.jumly.lang._of e, query
@@ -698,13 +677,6 @@ JUMLYSequenceDiagram::preferredWidth = () ->
     #console.log @find(".object .name").css "box-shadow"
     a.right - a.left + bw + 1
 
-
-
-###
-This class has information followings:
-  - Current diagram instance
-  - Current occurrence which is the last occurrence of actor.
-###
 class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
      constructor: (props, @_diagram) ->
         $.extend this, props
