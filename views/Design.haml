@@ -33,18 +33,19 @@
                 @found "Diagram", ->
                   @message "preferences"
                   @message "find '.object'" ##objects = diagram.find(".object")
-                  @message 'align_objects_horizontally', '.object'
-                  @message 'align_occurrences_horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
+                  @message 'Align Horizontally', '.object'
+                  @message 'Align Horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
                   @message 'build_interactions', ".occurrence .interaction"
-                  @message 'generate_lifelines_and_align_horizontally'
-                  @message 'pack_object_lane_vertically'
-                  @message 'pack_refs_horizontally'
-                  @message 'pack_fragments_horizontally'
-                  @message 'align_creation_message_horizontally', ".message.create"
-                  @message 'align_lifelines_vertically'
-                  @message 'align_lifelines_stop_horizontally', ".stop"
+                  @create ".lifeline"
+                  @message 'Align Horizontally', ".lifeline"
+                  @message 'pack_object_lane_vertically', ".object-lane"
+                  @message 'pack_refs_horizontally', ".ref"
+                  @message 'pack_fragments_horizontally', ".fragment"
+                  @message 'Align Horizontally', ".message.create"
+                  @message 'Align Vertically', ".lifeline"
+                  @message 'Align Horizontally', ".lifline.stop"
                   @message 'rebuild_asynchronous_self_calling'
-                  @message 'render_icons', '.object'
+                  @message 'Render Icons', '.object'
                   @message 'set width @preferredWidth()'
                   
 
