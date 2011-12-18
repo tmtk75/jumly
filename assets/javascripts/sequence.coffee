@@ -589,7 +589,9 @@ JUMLYSequenceDiagram::compose = (props) ->
 JUMLYSequenceDiagram::_compose = (props) ->
     prefs = @preferences()
     objects = @find(".object")
-    align_objects_horizontally objects, prefs
+    
+    l = new SequenceDiagramLayout
+    l.align_objects_horizontally objects, prefs
     align_occurrences_horizontally uml $(".occurrence", this)
     build_interactions uml($ ".occurrence .interaction", this)
     generate_lifelines_and_align_horizontally this
@@ -606,19 +608,21 @@ JUMLYSequenceDiagram::_compose = (props) ->
     @trigger "composed", {diagram:this}  ## DEPRECATED: compose.after is better.
     this
 
+class SequenceDiagramLayout
+SequenceDiagramLayout::align_objects_horizontally = (objs, alinfo)->
+  f0 = (a) ->
+    if a.css("left") is "auto"
+      a.css left:alinfo.compose_most_left
+  f1 = (a, b) ->
+    if b.css("left") is "auto"
+      l = a.position().left + a.outerWidth() + alinfo.compose_span
+      b.css left:l
+  objs.pickup2 f0, f1
+
+
 render_icons = (objects) ->
     objects.each (i, e) ->
         $(e).self().renderIcon?()
-
-align_objects_horizontally = (objs, alinfo) ->
-    f0 = (a) ->
-        if a.css("left") is "auto"
-            a.css left:alinfo.compose_most_left
-    f1 = (a, b) ->
-        if b.css("left") is "auto"
-            l = a.position().left + a.outerWidth() + alinfo.compose_span
-            b.css left:l
-    objs.pickup2 f0, f1
 
 align_occurrences_horizontally = (occurrs) ->
     occurrs.each (i, occurr) -> occurr.move()
