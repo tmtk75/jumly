@@ -498,7 +498,7 @@ prefs_ =
 jumly.preferences(".sequence-diagram", prefs_)
 jumly.preferences(".sequence-diagram:system-default", prefs_)
 
-JUMLYSequenceDiagram::$ = (sel) -> uml($(sel, this))
+JUMLYSequenceDiagram::$ = (sel) -> $.jumly($(sel, this))
 JUMLYSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 JUMLYSequenceDiagram::preferences = (a, b) ->
     prefs = @data("uml:property").preferences
@@ -534,8 +534,8 @@ SequenceDiagramLayout::layout = (diagram)->
   prefs = diagram.preferences()
   objects = diagram.find(".object")
   @align_objects_horizontally objects, prefs
-  @align_occurrences_horizontally uml $(".occurrence", diagram)
-  @build_interactions uml($ ".occurrence .interaction", diagram)
+  @align_occurrences_horizontally $.jumly $(".occurrence", diagram)
+  @build_interactions $.jumly($ ".occurrence .interaction", diagram)
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
@@ -566,8 +566,8 @@ SequenceDiagramLayout::build_interactions = (iacts)->
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
   $(".lifeline", diag).remove()
   $(".object", diag).each (i, e)->
-    obj = uml(e)[0]
-    a = uml type:".lifeline", ".object":obj
+    obj = $.jumly(e)[0]
+    a = $.jumly type:".lifeline", ".object":obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
 
@@ -581,7 +581,7 @@ SequenceDiagramLayout::pack_object_lane_vertically = (diag)->
             .swallow(objs)
 
 SequenceDiagramLayout::pack_refs_horizontally = (diag)->
-  refs = uml($ ".ref", diag)
+  refs = $.jumly($ ".ref", diag)
   return if refs.length is 0
   $(refs).each (i, ref) ->
     pw = ref.preferredWidth()
@@ -604,12 +604,12 @@ SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
     fragment = $(fragment)
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
-    msg = uml(fragment.find("> .interaction > .message"))[0]
+    msg = $.jumly(fragment.find("> .interaction > .message"))[0]
     if (msg?.isTowardLeft())
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                  occurr = uml(occurr)[0]
+                  occurr = $.jumly(occurr)[0]
                   occurr.move()
                         .prev().offset left:occurr.offset().left
   
