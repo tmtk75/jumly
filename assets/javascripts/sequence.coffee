@@ -553,27 +553,6 @@ JUMLYSequenceDiagram::preferences = (a, b) ->
     #console.log "setter", prefs
     $.extend prefs, a
 
-rebuild_asynchronous_self_calling = (diag) ->
-    diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
-        e = $(e).self()
-        if not e.isToSelf()
-            return
-        iact = e.addClass("activated")
-                   .addClass("asynchronous")
-        prev = iact.parents(".interaction:eq(0)")
-        iact.insertAfter prev
-        
-        occurr = iact.css("padding-bottom", 0)
-                     .find("> .occurrence").self()
-                     .move()
-                     .css("top", 0)
-
-        msg = iact.find(".message").self()
-        msg.css("z-index", -1)
-           .offset
-               left: occurr.offset().left
-               top : prev.find(".occurrence").outerBottom() - msg.height()/3
-
 JUMLYSequenceDiagram::compose = (props) ->
   try
     @trigger "beforeCompose", [this]
@@ -587,28 +566,29 @@ JUMLYSequenceDiagram::compose = (props) ->
     throw ex
 
 JUMLYSequenceDiagram::_compose = (props) ->
-    prefs = @preferences()
-    objects = @find(".object")
-    
     l = new SequenceDiagramLayout
-    l.align_objects_horizontally objects, prefs
-    l.align_occurrences_horizontally uml $(".occurrence", this)
-    l.build_interactions uml($ ".occurrence .interaction", this)
-    l.generate_lifelines_and_align_horizontally this
-    l.pack_object_lane_vertically this
-    l.pack_refs_horizontally this
-    l.pack_fragments_horizontally this
-    l.align_creation_message_horizontally @find(".message.create")
-    l.align_lifelines_vertically this
-    l.align_lifelines_stop_horizontally @find(".stop")
-    rebuild_asynchronous_self_calling this
-    render_icons objects
-    @width @preferredWidth()
-
+    l.layout this
     @trigger "composed", {diagram:this}  ## DEPRECATED: compose.after is better.
     this
 
 class SequenceDiagramLayout
+SequenceDiagramLayout::layout = (diagram)->
+  prefs = diagram.preferences()
+  objects = diagram.find(".object")
+  @align_objects_horizontally objects, prefs
+  @align_occurrences_horizontally uml $(".occurrence", diagram)
+  @build_interactions uml($ ".occurrence .interaction", diagram)
+  @generate_lifelines_and_align_horizontally diagram
+  @pack_object_lane_vertically diagram
+  @pack_refs_horizontally diagram
+  @pack_fragments_horizontally diagram
+  @align_creation_message_horizontally diagram.find(".message.create")
+  @align_lifelines_vertically diagram
+  @align_lifelines_stop_horizontally diagram.find(".stop")
+  @rebuild_asynchronous_self_calling diagram
+  @render_icons objects
+  diagram.width diagram.preferredWidth()
+  
 SequenceDiagramLayout::align_objects_horizontally = (objs, alinfo)->
   f0 = (a) ->
     if a.css("left") is "auto"
@@ -680,10 +660,6 @@ SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
     .parents(".occurrence > .fragment")
     .each(fixwidth)
 
-render_icons = (objects) ->
-    objects.each (i, e) ->
-        $(e).self().renderIcon?()
-
 SequenceDiagramLayout::align_lifelines_vertically = (diag)->
   #mostbottom = jQuery.max (diag.find "> *"), (e) -> $(e).offset().top + $(e).height()
   mostbottom = diag.find(".occurrence")
@@ -710,6 +686,31 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
 SequenceDiagramLayout::align_creation_message_horizontally = (msgs)->
   msgs.each (i, e) ->
     $.uml(e)[0]._composeLooksOfCreation()
+
+SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
+  diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
+    e = $(e).self()
+    if not e.isToSelf()
+        return
+    iact = e.addClass("activated")
+            .addClass("asynchronous")
+    prev = iact.parents(".interaction:eq(0)")
+    iact.insertAfter prev
+    
+    occurr = iact.css("padding-bottom", 0)
+                 .find("> .occurrence").self()
+                 .move()
+                 .css("top", 0)
+
+    msg = iact.find(".message").self()
+    msg.css("z-index", -1)
+       .offset
+         left: occurr.offset().left
+         top : prev.find(".occurrence").outerBottom() - msg.height()/3
+
+SequenceDiagramLayout::render_icons = (objects)->
+  objects.each (i, e) ->
+    $(e).self().renderIcon?()
 
 jQuery.fn.selectWith = (f, cmp) ->
     t = null
