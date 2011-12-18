@@ -230,7 +230,7 @@ JUMLYInteraction::_buildInner = ->
   msg = jQuery.uml($ "> .message", that)[0]
   # Self-invokation case
   if @isToSelf()
-    @_build_self_invocation a, b, msg
+    @_buildSelfInvocation a, b, msg
     return
 	
   # Normal message
@@ -260,7 +260,7 @@ JUMLYInteraction::_buildInner = ->
         .offset(left:x)
         .repaint(reverse:true)
 
-JUMLYInteraction::_build_self_invocation = (a, b, msg) ->
+JUMLYInteraction::_buildSelfInvocation = (a, b, msg) ->
     w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
     dx = w*2
     dy = w*1
