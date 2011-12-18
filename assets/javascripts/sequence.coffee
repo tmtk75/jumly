@@ -42,7 +42,7 @@ JUMLYMessage::_src_occurr = (msg) ->
 JUMLYMessage::_dst_occurr = (msg) ->
   (if msg.hasClass "return" then msg.prev ".occurrence" else $ "~ .occurrence", msg).self()
 
-JUMLYMessage::_canvas = ->
+JUMLYMessage::_prefferedCanvas = ->
     @find("canvas:eq(0)")
         .attr(width:@width(), height:@height())
         .css (width:@width(), height:@height())
@@ -87,7 +87,7 @@ JUMLYMessage::repaint = (style) ->
     arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
     # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
     # So if you don't set same value to both, the rendered result may be inconsistent.
-    canvas = @_current_canvas = @_canvas()
+    canvas = @_current_canvas = @_prefferedCanvas()
 
     if style?.inherit
         p = @parents(".occurrence:eq(0)")
