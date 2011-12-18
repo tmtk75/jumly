@@ -594,8 +594,8 @@ JUMLYSequenceDiagram::_compose = (props) ->
     l.align_objects_horizontally objects, prefs
     l.align_occurrences_horizontally uml $(".occurrence", this)
     l.build_interactions uml($ ".occurrence .interaction", this)
-    generate_lifelines_and_align_horizontally this
-    pack_object_lane_vertically this
+    l.generate_lifelines_and_align_horizontally this
+    l.pack_object_lane_vertically this
     pack_refs_horizontally this
     pack_fragments_horizontally this
     align_creation_message_horizontally @find(".message.create")
@@ -625,20 +625,26 @@ SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
 SequenceDiagramLayout::build_interactions = (iacts)->
   iacts.each (i, iact) -> iact._build()
 
+SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
+  $(".lifeline", diag).remove()
+  $(".object", diag).each (i, e)->
+    obj = uml(e)[0]
+    a = uml type:".lifeline", ".object":obj
+    a.offset left:obj.offset().left, top:obj.outerBottom() + 1
+    a.insertAfter obj
 
+SequenceDiagramLayout::pack_object_lane_vertically = (diag)->
+  return if $(".object-lane", diag).length > 0
+  objs = $ ".object", diag
+  mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
+  mostheight ?= 0
+  $("<div>").addClass("object-lane")
+            .height(mostheight)
+            .swallow(objs)
 
 render_icons = (objects) ->
     objects.each (i, e) ->
         $(e).self().renderIcon?()
-
-generate_lifelines_and_align_horizontally = (diag) ->
-    $(".lifeline", diag).remove()
-    $(".object", diag).each((i, e) ->
-        obj = uml(e)[0]
-        a = uml type:".lifeline", ".object":obj
-        a.offset left:obj.offset().left, top:obj.outerBottom()  + 1
-        a.insertAfter obj
-    )
 
 align_lifelines_vertically = (diag) ->
     #mostbottom = jQuery.max (diag.find "> *"), (e) -> $(e).offset().top + $(e).height()
@@ -656,15 +662,6 @@ align_lifelines_vertically = (diag) ->
         #$(e).css("border": "2px blue solid").append(h).append(",").append($(e).offset().top)
         $(e).height h
         $(e).find(".line").css(top:0).height h
-
-pack_object_lane_vertically = (diag) ->
-    return if $(".object-lane", diag).length > 0
-    objs = $ ".object", diag
-    mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
-    mostheight ?= 0
-    $("<div>").addClass("object-lane")
-              .height(mostheight)
-              .swallow(objs)
 
 pack_refs_horizontally  = (diag) ->
     refs = uml($ ".ref", diag)
