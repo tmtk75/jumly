@@ -84,50 +84,50 @@ _determine_primary_stereotype = (jqnode) ->
             return e
 
 JUMLYMessage::repaint = (style) ->
-    arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
-    # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
-    # So if you don't set same value to both, the rendered result may be inconsistent.
-    canvas = @_current_canvas = @_prefferedCanvas()
+  arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
+  # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
+  # So if you don't set same value to both, the rendered result may be inconsistent.
+  canvas = @_current_canvas = @_prefferedCanvas()
 
-    if style?.inherit
-        p = @parents(".occurrence:eq(0)")
-        arrow.fillStyle   = p.css "background-color"
-        arrow.strokeStyle = p.css "border-top-color"
-        (p.css "box-shadow").match /(rgba\(.*\)) ([0-9]+)px ([0-9]+)px ([0-9]+)px ([0-9]+)px/
-        arrow.shadowColor   = RegExp.$1
-        arrow.shadowOffsetX = RegExp.$2
-        arrow.shadowOffsetY = RegExp.$3
-        arrow.shadowBlur    = RegExp.$4
+  if style?.inherit
+    p = @parents(".occurrence:eq(0)")
+    arrow.fillStyle   = p.css "background-color"
+    arrow.strokeStyle = p.css "border-top-color"
+    (p.css "box-shadow").match /(rgba\(.*\)) ([0-9]+)px ([0-9]+)px ([0-9]+)px ([0-9]+)px/
+    arrow.shadowColor   = RegExp.$1
+    arrow.shadowOffsetX = RegExp.$2
+    arrow.shadowOffsetY = RegExp.$3
+    arrow.shadowBlur    = RegExp.$4
 
-    if arrow.self
-        ctxt = canvas[0].getContext '2d'
-        gap = 2
-        rcx = @width() - (gap + 4)
-        rey = @height() - (arrow.height/2 + 4)
-        llw = @_dst_occurr(this).outerWidth()
-        $.g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
-        arrow.base = 0
-        $.g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
-        $.g2d.arrow ctxt, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
-        return this
+  if arrow.self
+    ctxt = canvas[0].getContext '2d'
+    gap = 2
+    rcx = @width() - (gap + 4)
+    rey = @height() - (arrow.height/2 + 4)
+    llw = @_dst_occurr(this).outerWidth()
+    $.g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
+    arrow.base = 0
+    $.g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
+    $.g2d.arrow ctxt, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
+    return this
 
-    if @hasClass "create"
-        line = @_to_create_line canvas
-    else if @gives ".actee"
-        newsrc = @_findOccurr @gives ".actee"
-        newdst = @_dst_occurr(this)
-        line = @_to_line newsrc, newdst, canvas
-    else
-        line = @_lineToNextOccurr canvas
-        
-    if arrow.reverse
-        a           = line.src
-        line.src    = line.dst
-        line.dst    = a
-        arrow.shape = 'dashed'
-        
-    jQuery.g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
-    this
+  if @hasClass "create"
+    line = @_to_create_line canvas
+  else if @gives ".actee"
+    newsrc = @_findOccurr @gives ".actee"
+    newdst = @_dst_occurr(this)
+    line = @_to_line newsrc, newdst, canvas
+  else
+    line = @_lineToNextOccurr canvas
+      
+  if arrow.reverse
+    a           = line.src
+    line.src    = line.dst
+    line.dst    = a
+    arrow.shape = 'dashed'
+      
+  jQuery.g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
+  this
 
 JUMLYMessage::isToward = (dir) ->
     iact = @gives(".interaction")
