@@ -223,14 +223,13 @@ JUMLYInteraction::_buildInner = ->
   if @isToSelf()
     @_buildSelfInvocation src, dst, msg
     return
-	
-  # Normal message
+
+  # Determine the width of interaction for normal message
   w = src.offset().left - (dst.offset().left + $(".occurrence:eq(0)", that).width())
   if @hasClass("lost")
     msg.height dst.outerHeight()
   else if msg.isTowardLeft()
     w = dst.offset().left - (src.offset().left + $(".occurrence:eq(0)", that).width())
-
   msg.width(Math.abs(w))
      .offset(left:Math.min(src.offset().left, dst.offset().left))
      .repaint()

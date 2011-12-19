@@ -37,7 +37,9 @@
                   @message 'Align Horizontally', '.object'
                   @message 'Align Horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
                   @message 'build_interactions', ".occurrence .interaction", ->
-                    @message "_buildInner"
+                    @message "_buildInner", ->
+                      @message "repaint (normal or self)"
+                      @message "render reply"
                   @create ".lifeline"
                   @message 'Align Horizontally', ".lifeline"
                   @message 'Pack Vertically', ".object-lane"
