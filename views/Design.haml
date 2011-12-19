@@ -30,6 +30,7 @@
             %h3 Layout flow <small>v0.1.1b</small>
             %script{type:"text/jumly+sequence"}
               :plain
+                @preferences compose_span:4
                 @found "Diagram", ->
                   @message "preferences"
                   @message "find '.object'" ##objects = diagram.find(".object")
