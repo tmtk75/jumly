@@ -36,7 +36,8 @@
                   @message "find '.object'" ##objects = diagram.find(".object")
                   @message 'Align Horizontally', '.object'
                   @message 'Align Horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
-                  @message 'build_interactions', ".occurrence .interaction"
+                  @message 'build_interactions', ".occurrence .interaction", ->
+                    @message "_buildInner"
                   @create ".lifeline"
                   @message 'Align Horizontally', ".lifeline"
                   @message 'Pack Vertically', ".object-lane"

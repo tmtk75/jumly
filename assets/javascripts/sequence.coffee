@@ -216,23 +216,23 @@ JUMLYInteraction::awayfrom = (obj) ->
 
 JUMLYInteraction::_buildInner = ->
   that = this
-  a   = dstoccurr = that.gives(".occurrence").as ".actor"
-  b   = srcoccurr = that.gives(".occurrence").as ".actee"
+  src = that.gives(".occurrence").as ".actor"
+  dst = that.gives(".occurrence").as ".actee"
   msg = jumly($ "> .message", that)[0]
   # Self-invokation case
   if @isToSelf()
-    @_buildSelfInvocation a, b, msg
+    @_buildSelfInvocation src, dst, msg
     return
 	
   # Normal message
-  w = a.offset().left - (b.offset().left + $(".occurrence:eq(0)", that).width())
+  w = src.offset().left - (dst.offset().left + $(".occurrence:eq(0)", that).width())
   if @hasClass("lost")
-    msg.height b.outerHeight()
+    msg.height dst.outerHeight()
   else if msg.isTowardLeft()
-    w = b.offset().left - (a.offset().left + $(".occurrence:eq(0)", that).width())
+    w = dst.offset().left - (src.offset().left + $(".occurrence:eq(0)", that).width())
 
   msg.width(Math.abs(w))
-     .offset(left:Math.min(a.offset().left, b.offset().left))
+     .offset(left:Math.min(src.offset().left, dst.offset().left))
      .repaint()
 
   # Locate the name of message
@@ -245,8 +245,8 @@ JUMLYInteraction::_buildInner = ->
     x = msg.offset().left
     if rmsg.gives ".actee"
       newdst = rmsg._findOccurr(rmsg.gives ".actee")
-      w = srcoccurr.offset().left - newdst.offset().left
-      x = Math.min srcoccurr.offset().left, newdst.offset().left
+      w = dst.offset().left - newdst.offset().left
+      x = Math.min dst.offset().left, newdst.offset().left
     rmsg.width(Math.abs w)
         .offset(left:x)
         .repaint(reverse:true)
