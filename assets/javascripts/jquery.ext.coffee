@@ -6,20 +6,6 @@ jQuery.min = (nodes, ef) -> jQuery.choose(nodes, ef, min)
 jQuery.fn.max = (ef) -> jQuery.max(this, ef)
 jQuery.fn.min = (ef) -> jQuery.min(this, ef)
 
-#
-jQuery.fn.selectWith = (f, cmp) ->
-    t = null
-    obj = null
-    @each (i, e) ->
-        if i is 0
-            t = f e
-            return
-        x = f e
-        if cmp x, t
-            obj = $(e)
-            t = x
-    t
-
 # A specific iterator that picks up by 2 from this nodeset.
 # f0: a callback has one argument like (e) -> to handle the 1st node.
 # f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.

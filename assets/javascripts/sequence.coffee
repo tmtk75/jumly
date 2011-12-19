@@ -648,18 +648,17 @@ SequenceDiagramLayout::render_icons = (objects)->
   objects.each (i, e) ->
     $(e).self().renderIcon?()
 
-jQuery.fn.selectWith = (f, cmp) ->
-    t = null
-    obj = null
-    @each (i, e) ->
-        if i is 0
-            t = f e
-            return
-        x = f e
-        if cmp x, t
-            obj = $(e)
-            t = x
-    t
+jQuery.fn.selectWith = (f, cmp)->
+  t = null
+  obj = null
+  @each (i, e) ->
+    if i is 0
+      t = f e
+      return
+    x = f e
+    if cmp x, t
+      t = x
+  t
 
 JUMLYSequenceDiagram::preferredWidth = () ->
     bw = parseInt(@css "border-right-width") + parseInt(@css "border-left-width")
