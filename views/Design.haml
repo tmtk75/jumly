@@ -31,23 +31,27 @@
             %script{type:"text/jumly+sequence"}
               :plain
                 @preferences compose_span:4
+                Align = "<span class='a'>Align</span>"
+                Pack = "<span class='p'>Pack</span>"
+                H = "<span class='h'>Horizontally</span>"
+                V = "<span class='v'>Vertically</span>"
                 @found "Diagram", ->
                   @message "preferences"
                   @message "find '.object'" ##objects = diagram.find(".object")
-                  @message 'Align Horizontally', '.object'
-                  @message 'Align Horizontally', '.occurrence' ## jumly $(".occurrence", diagram)'
+                  @message "\#{Align} \#{H}", '.object'
+                  @message "\#{Align} \#{H}", '.occurrence' ## jumly $(".occurrence", diagram)'
                   @message 'build_interactions', ".occurrence .interaction", ->
                     @message "_buildInner", ->
                       @message "repaint (normal or self)"
                       @message "render reply"
                   @create ".lifeline"
-                  @message 'Align Horizontally', ".lifeline"
-                  @message 'Pack Vertically', ".object-lane"
-                  @message 'Pack Horizontally', ".ref"
-                  @message 'Pack Horizontally', ".ref.fragment"
-                  @message 'Align Horizontally', ".message.create"
-                  @message 'Align Vertically', ".lifeline"
-                  @message 'Align Horizontally', ".lifline.stop"
+                  @message "\#{Align} \#{H}", ".lifeline"
+                  @message "\#{Pack} \#{V}", ".object-lane"
+                  @message "\#{Pack} \#{H}", ".ref"
+                  @message "\#{Pack} \#{H}", ".ref.fragment"
+                  @message "\#{Align} \#{H}", ".message.create"
+                  @message "\#{Align} \#{V}", ".lifeline"
+                  @message "\#{Align} \#{H}", ".lifline.stop"
                   @message 'rebuild_asynchronous_self_calling'
                   @message 'Render Icons', '.object'
                   @message 'set width @preferredWidth()'
