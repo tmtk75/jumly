@@ -5,6 +5,11 @@
     = haml :"_head.html"
     :coffeescript
       $.jumly.preferences(".sequence-diagram").compose_most_left = 2
+    :css
+      .diagram .a {color:red;}
+      .diagram .p {color:green;}
+      .diagram .h {color:orange;}
+      .diagram .v {color:blue;}
   %body
     = haml :_topbar
 
@@ -55,7 +60,6 @@
                   @message 'rebuild_asynchronous_self_calling'
                   @message 'Render Icons', '.object'
                   @message 'set width @preferredWidth()'
-                  
 
             %h2
               Web Application
