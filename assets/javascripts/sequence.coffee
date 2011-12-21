@@ -511,23 +511,22 @@ SequenceDiagramLayout::_q = (sel)-> $ sel, @diagram
 SequenceDiagramLayout::layout = (diagram)->
   @diagram = diagram
   @prefs = diagram.preferences()
-  objects = @_q ".object"
   
-  @align_objects_horizontally objects
+  @align_objects_horizontally()
   @align_occurrences_horizontally()
   @compose_interactions()
-  @generate_lifelines_and_align_horizontally diagram
-  @pack_object_lane_vertically diagram
-  @pack_refs_horizontally diagram
-  @pack_fragments_horizontally diagram
+  @generate_lifelines_and_align_horizontally()
+  @pack_object_lane_vertically()
+  @pack_refs_horizontally()
+  @pack_fragments_horizontally()
   @align_creation_message_horizontally()
-  @align_lifelines_vertically diagram
+  @align_lifelines_vertically()
   @align_lifelines_stop_horizontally()
-  @rebuild_asynchronous_self_calling diagram
-  @render_icons objects
+  @rebuild_asynchronous_self_calling()
+  @render_icons()
   diagram.width diagram.preferredWidth()
   
-SequenceDiagramLayout::align_objects_horizontally = (objs)->
+SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is "auto"
       a.css left:@prefs.compose_most_left
@@ -535,7 +534,7 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
     if b.css("left") is "auto"
       l = a.position().left + a.outerWidth() + @prefs.compose_span
       b.css left:l
-  objs.pickup2 f0, f1
+  @_q(".object").pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
    @_q(".occurrence").selfEach (e)-> e.moveHorizontally()
@@ -550,30 +549,30 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
 
-SequenceDiagramLayout::pack_object_lane_vertically = (diag)->
-  return if $(".object-lane", diag).length > 0
-  objs = $ ".object", diag
+SequenceDiagramLayout::pack_object_lane_vertically = ()->
+  return if $(".object-lane", @diagram).length > 0
+  objs = $ ".object", @diagram
   mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
   mostheight ?= 0
   $("<div>").addClass("object-lane")
             .height(mostheight)
             .swallow(objs)
 
-SequenceDiagramLayout::pack_refs_horizontally = (diag)->
-  refs = jumly($ ".ref", diag)
+SequenceDiagramLayout::pack_refs_horizontally = ->
+  refs = jumly($ ".ref", @diagram)
   return if refs.length is 0
   $(refs).each (i, ref) ->
     pw = ref.preferredWidth()
     ref.offset(left:pw.left)
        .width(pw.width)
 
-SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
+SequenceDiagramLayout::pack_fragments_horizontally = ->
   # fragments just under this diagram.
-  fragments = $ "> .fragment", diag
+  fragments = $ "> .fragment", @diagram
   if fragments.length > 0
     # To controll the width, you can write selector below.
     # ".object:eq(0), > .interaction > .occurrence .interaction"
-    most = $(".object", diag).mostLeftRight()
+    most = $(".object", @diagram).mostLeftRight()
     left = fragments.offset().left
     fragments.width (most.right - left) + (most.left - left)
   
@@ -592,19 +591,16 @@ SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
                   occurr.moveHorizontally()
                         .prev().offset left:occurr.offset().left
   
-  $(".occurrence > .fragment", diag)
+  $(".occurrence > .fragment", @diagram)
     .each(fixwidth)
     .parents(".occurrence > .fragment")
     .each(fixwidth)
 
-SequenceDiagramLayout::align_lifelines_vertically = (diag)->
-  #mostbottom = jQuery.max (diag.find "> *"), (e) -> $(e).offset().top + $(e).height()
-  mostbottom = diag.find(".occurrence")
-                   .not(".interaction.lost .occurrence")
-                   #.css("border", "2px solid red")
-                   #.outerBottom()
-                   .max (e) -> $(e).outerBottom()
-  $(".lifeline", diag).each (i, e) ->
+SequenceDiagramLayout::align_lifelines_vertically = ->
+  mostbottom = @diagram.find(".occurrence")
+                       .not(".interaction.lost .occurrence")
+                       .max (e) -> $(e).outerBottom()
+  $(".lifeline", @diagram).each (i, e) ->
     a = $(e).self()
     obj = a.gives(".object")
     y = obj.outerBottom() + 1
@@ -624,8 +620,8 @@ SequenceDiagramLayout::align_creation_message_horizontally = ->
   @_q(".message.create").selfEach (e)->
     e._composeLooksOfCreation()
 
-SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
-  diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
+SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
+  @diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
     e = $(e).self()
     if not e.isToSelf()
         return
@@ -645,8 +641,8 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
          left: occurr.offset().left
          top : prev.find(".occurrence").outerBottom() - msg.height()/3
 
-SequenceDiagramLayout::render_icons = (objects)->
-  objects.each (i, e) ->
+SequenceDiagramLayout::render_icons = ->
+  $(".object", @diagram).each (i, e) ->
     $(e).self().renderIcon?()
 
 jQuery.fn.selectWith = (f, cmp)->
