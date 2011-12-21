@@ -319,26 +319,25 @@ JUMLYOccurrence::interact = (_, opts) ->
     iact
 
 JUMLYOccurrence::create = (objsrc) ->
-    obj = jumly ".object", objsrc.name
-    obj.attr "id", objsrc.id
-    @parents(".sequence-diagram").self()[objsrc.id] = obj
-    @gives(".object").parent().append obj
-    iact = (@interact obj).stereotype "create"
-    iact
+  obj = jumly ".object", objsrc.name
+  obj.attr "id", objsrc.id
+  @parents(".sequence-diagram").self()[objsrc.id] = obj
+  @gives(".object").parent().append obj
+  iact = (@interact obj).stereotype "create"
+  iact
 
-JUMLYOccurrence::move = ->
-    if @parent().hasClass "lost"
-        @offset left:@parents(".diagram").find(".object").mostLeftRight().right
-        return this 
-    if not @isOnOccurrence()
-        left = @gives(".object").offset().left + (@gives(".object").width() - @width())/2
-    else
-        left = @parentOccurrence().offset().left
-    left += @width()*@shiftToParent()/2
-    @offset left:left #- $("body").css("margin-left").toInt()
+JUMLYOccurrence::moveHorizontally =->
+  if @parent().hasClass "lost"
+    @offset left:@parents(".diagram").find(".object").mostLeftRight().right
+    return this 
+  if not @isOnOccurrence()
+    left = @gives(".object").offset().left + (@gives(".object").width() - @width())/2
+  else
+    left = @parentOccurrence().offset().left
+  left += @width()*@shiftToParent()/2
+  @offset left:left
 
-JUMLYOccurrence::isOnOccurrence = ->
-    not (@parentOccurrence() is null)
+JUMLYOccurrence::isOnOccurrence =-> not (@parentOccurrence() is null)
 
 JUMLYOccurrence::parentOccurrence = ->
     lls = jumly(@parents(".occurrence"))
@@ -539,7 +538,7 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
   objs.pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
-   @_q(".occurrence").selfEach (e)-> e.move()
+   @_q(".occurrence").selfEach (e)-> e.moveHorizontally()
 
 SequenceDiagramLayout::build_interactions = ->
   @_q(".occurrence .interaction").selfEach (e)-> e._buildInner()
@@ -590,7 +589,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = (diag)->
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
                   occurr = jumly(occurr)[0]
-                  occurr.move()
+                  occurr.moveHorizontally()
                         .prev().offset left:occurr.offset().left
   
   $(".occurrence > .fragment", diag)
@@ -637,7 +636,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
     
     occurr = iact.css("padding-bottom", 0)
                  .find("> .occurrence").self()
-                 .move()
+                 .moveHorizontally()
                  .css("top", 0)
 
     msg = iact.find(".message").self()
