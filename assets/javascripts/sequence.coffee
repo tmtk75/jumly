@@ -506,12 +506,17 @@ JUMLYSequenceDiagram::compose = (props) ->
     console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
     throw ex
 
-class SequenceDiagramLayout
-SequenceDiagramLayout::_q = (sel)-> $ sel, @diagram
-SequenceDiagramLayout::layout = (diagram)->
+class JUMLYDiagramLayout
+JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
+JUMLYDiagramLayout::layout = (diagram)->
   @diagram = diagram
   @prefs = diagram.preferences()
-  
+  @_layout_?()
+JUMLY.DiagramLayout = JUMLYDiagramLayout
+
+class SequenceDiagramLayout extends JUMLY.DiagramLayout
+
+SequenceDiagramLayout::_layout_ = ->
   @align_objects_horizontally()
   @align_occurrences_horizontally()
   @compose_interactions()
@@ -524,7 +529,7 @@ SequenceDiagramLayout::layout = (diagram)->
   @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling()
   @render_icons()
-  diagram.width diagram.preferredWidth()
+  @diagram.width @diagram.preferredWidth()
   
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
