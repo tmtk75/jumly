@@ -35,6 +35,7 @@ $.fn.selfEach = (f)-> @each (i, e)->
   e = $(e).self()
   throw new Error("self() returned undefined.", e) unless e?
   f e
+  this
 
 
 ## Provide a way to refer to ID.

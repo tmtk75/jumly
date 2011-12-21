@@ -543,15 +543,15 @@ SequenceDiagramLayout::compose_interactions = ->
   @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
-  $(".lifeline", @diagram).remove()
+  @_q(".lifeline").remove()
   @_q(".object").selfEach (obj)->
     a = jumly type:".lifeline", ".object":obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
 
 SequenceDiagramLayout::pack_object_lane_vertically = ()->
-  return if $(".object-lane", @diagram).length > 0
-  objs = $ ".object", @diagram
+  return if @_q(".object-lane").length > 0
+  objs = @_q(".object")
   mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
   mostheight ?= 0
   $("<div>").addClass("object-lane")
@@ -559,9 +559,9 @@ SequenceDiagramLayout::pack_object_lane_vertically = ()->
             .swallow(objs)
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
-  refs = jumly($ ".ref", @diagram)
+  refs = @_q(".ref")
   return if refs.length is 0
-  $(refs).each (i, ref) ->
+  $(refs).selfEach (ref) ->
     pw = ref.preferredWidth()
     ref.offset(left:pw.left)
        .width(pw.width)
@@ -572,14 +572,13 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
   if fragments.length > 0
     # To controll the width, you can write selector below.
     # ".object:eq(0), > .interaction > .occurrence .interaction"
-    most = $(".object", @diagram).mostLeftRight()
+    most = @_q(".object").mostLeftRight()
     left = fragments.offset().left
     fragments.width (most.right - left) + (most.left - left)
   
   # fragments inside diagram
-  fixwidth = (i, fragment) ->
+  fixwidth = (fragment) ->
     most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
-    fragment = $(fragment)
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
     msg = jumly(fragment.find("> .interaction > .message"))[0]
@@ -591,8 +590,8 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
                   occurr.moveHorizontally()
                         .prev().offset left:occurr.offset().left
   
-  $(".occurrence > .fragment", @diagram)
-    .each(fixwidth)
+  @_q(".occurrence > .fragment")
+    .selfEach(fixwidth)
     .parents(".occurrence > .fragment")
     .each(fixwidth)
 
