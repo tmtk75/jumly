@@ -544,10 +544,9 @@ SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
 SequenceDiagramLayout::build_interactions = (iacts)->
   iacts.selfEach (iact) -> iact._buildInner()
 
-SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
-  $(".lifeline", diag).remove()
-  $(".object", diag).each (i, e)->
-    obj = $(e).self()
+SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
+  $(".lifeline", @diagram).remove()
+  @q(".object").selfEach (obj)->
     a = jumly type:".lifeline", ".object":obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
