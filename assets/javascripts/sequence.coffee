@@ -509,9 +509,9 @@ JUMLYSequenceDiagram::compose = (props) ->
 
 class SequenceDiagramLayout
 SequenceDiagramLayout::layout = (diagram)->
-  prefs = diagram.preferences()
+  @prefs = diagram.preferences()
   objects = diagram.find(".object")
-  @align_objects_horizontally objects, prefs
+  @align_objects_horizontally objects
   @align_occurrences_horizontally jumly $(".occurrence", diagram)
   @build_interactions jumly($ ".occurrence .interaction", diagram)
   @generate_lifelines_and_align_horizontally diagram
@@ -525,13 +525,13 @@ SequenceDiagramLayout::layout = (diagram)->
   @render_icons objects
   diagram.width diagram.preferredWidth()
   
-SequenceDiagramLayout::align_objects_horizontally = (objs, alinfo)->
-  f0 = (a) ->
+SequenceDiagramLayout::align_objects_horizontally = (objs)->
+  f0 = (a)=>
     if a.css("left") is "auto"
-      a.css left:alinfo.compose_most_left
-  f1 = (a, b) ->
+      a.css left:@prefs.compose_most_left
+  f1 = (a, b)=>
     if b.css("left") is "auto"
-      l = a.position().left + a.outerWidth() + alinfo.compose_span
+      l = a.position().left + a.outerWidth() + @prefs.compose_span
       b.css left:l
   objs.pickup2 f0, f1
 
