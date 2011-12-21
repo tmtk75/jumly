@@ -512,7 +512,7 @@ SequenceDiagramLayout::layout = (diagram)->
   @prefs = diagram.preferences()
   objects = diagram.find(".object")
   @align_objects_horizontally objects
-  @align_occurrences_horizontally jumly $(".occurrence", diagram)
+  @align_occurrences_horizontally $(".occurrence", diagram)
   @build_interactions jumly($ ".occurrence .interaction", diagram)
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
@@ -536,7 +536,7 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
   objs.pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
-  occurrs.each (i, occurr) -> occurr.move()
+  occurrs.each (i, occurr) -> $(occurr).self().move()
 
 SequenceDiagramLayout::build_interactions = (iacts)->
   iacts.each (i, iact) -> iact._buildInner()
