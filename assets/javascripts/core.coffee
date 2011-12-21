@@ -2,7 +2,7 @@
 if window.JUMLY then throw new Error "JUMLY already exists."
 window.JUMLY = {}
 
-uml = (arg, opts) ->
+jumly = (arg, opts) ->
   if (typeof arg is "object" && !arg.type)
     mapJqToJy = (arg) ->
       if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
@@ -14,7 +14,7 @@ uml = (arg, opts) ->
     return mapJqToJy arg
   
   arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
-  meta = uml.factory[arg.type]
+  meta = jumly.factory[arg.type]
   if (meta is undefined)
     throw "unknown type '" + arg.type + "'"
   
@@ -26,7 +26,7 @@ uml = (arg, opts) ->
   a.attr id:opts.id if opts.id
   
   # Common methods
-  a.gives = $.uml.lang._gives(a, arg)
+  a.gives = jumly.lang._gives(a, arg)
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 
@@ -39,7 +39,7 @@ $.fn.selfEach = (f)-> @each (i, e)->
 
 
 ## Provide a way to refer to ID.
-uml.identify = (e)->
+jumly.identify = (e)->
   unless e
     return null
   if (p for p of e).length is 1 and p is "id"
@@ -50,7 +50,7 @@ uml.identify = (e)->
 
 ## Normalize as JUMLY Parameter
 ##
-uml.normalize = (a, b) ->
+jumly.normalize = (a, b) ->
   return a if a is undefined or a is null
   switch typeof a
     when "string" then return $.extend name:a, b
@@ -73,16 +73,16 @@ uml.normalize = (a, b) ->
     $.extend r, attrs
 
 ## Declaration for all attr keys of jQuery this library uses.
-uml.factory = (name, fact)-> uml.factory[name] = factory:fact
-JUMLY.define = (name, type)-> uml.factory name, (_, opts)-> new type _, opts
-uml.def = JUMLY.define
+jumly.factory = (name, fact)-> jumly.factory[name] = factory:fact
+JUMLY.define = (name, type)-> jumly.factory name, (_, opts)-> new type _, opts
+jumly.def = JUMLY.define
 
 ## Export uml module into $.
-$.uml = $.extend uml, $.uml
+$.uml = jumly
 $.jumly = $.uml
 
 ##
-$.jumly.lang =
+jumly.lang =
   _gives: (a, dic)->
   	gives = (query)->
           r = dic[query]
@@ -98,10 +98,10 @@ $.jumly.lang =
   _of: (nodes, query)->
   	(unode)->
   		n = nodes.filter (i, e)->
-  			e = $.uml(e)[0]
+  			e = jumly(e)[0]
   			s = e.gives(unode.data("uml:property").type)
   			if s is unode then e else null
-  		if n.length > 0 then $.uml(n)[0] else []
+  		if n.length > 0 then jumly(n)[0] else []
 
 run_scripts_done = false
 run_scripts = ->
@@ -109,13 +109,13 @@ run_scripts = ->
   scripts = document.getElementsByTagName 'script'
   diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
   for script in diagrams
-    uml.run_script_ script
+    jumly.run_script_ script
   run_scripts_done = true
   null
 
-uml.runScripts_ = run_scripts
+jumly.runScripts_ = run_scripts
 
-uml[':preferences'] =
+jumly[':preferences'] =
   run_script:
     before_compose: (diag, target, script) ->
       if target[0]?.localName is "head"
@@ -137,17 +137,17 @@ toTypeString = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
   kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
-uml.run_script_ = (script) ->
+jumly.run_script_ = (script) ->
   script = $ script
   type = script.attr("type")
   unless type then throw "Not found: type attribute in script"
   kind = toTypeString type
-  compiler = $.jumly.DSL ".#{kind}-diagram"
+  compiler = jumly.DSL ".#{kind}-diagram"
   unless compiler then throw "Not found: compiler for '.#{kind}'"
   unless compiler.compileScript then throw "Not found: compileScript"
   diag = compiler.compileScript script
 
-  prefs = $.jumly[':preferences'].run_script
+  prefs = jumly[':preferences'].run_script
   target = prefs.determine_target script
   prefs.before_compose diag, target, script
   logger.debug "will compose"
@@ -166,7 +166,7 @@ preferences_ = (a, b)->
     return prefs_[a]
   prefs_[a] = $.extend prefs_[a], b
 
-$.jumly.preferences = preferences_
+jumly.preferences = preferences_
 
 $.fn.name = (n)->
   return @data("uml:property")?.name if arguments.length is 0 or n is undefined
@@ -185,7 +185,7 @@ $.fn.right = -> @offset().left + @width() - 1
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
 ##
-$.jumly.runScript = uml.run_script_
+jumly.runScript = jumly.run_script_
 
 DSL_ = {}
 DSL = (args) ->
@@ -205,7 +205,7 @@ class DSLEvents_
     this
 JUMLY.DSLEvents_ = DSLEvents_
 
-$.jumly.DSL = DSL
+jumly.DSL = DSL
 
 
 ## v0.1.1a
@@ -244,7 +244,7 @@ JUMLY.Identity =
         a[name] = mods
         a
 
-$.jumly.build = (script)->
+jumly.build = (script)->
   type = toTypeString script.attr "type"
   builderType = (
     switch type
