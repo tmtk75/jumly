@@ -586,9 +586,9 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                  occurr = jumly(occurr)[0]
-                  occurr.moveHorizontally()
-                        .prev().offset left:occurr.offset().left
+                occurr = jumly(occurr)[0]
+                occurr.moveHorizontally()
+                      .prev().offset left:occurr.offset().left
   
   @_q(".occurrence > .fragment")
     .selfEach(fixwidth)
@@ -639,8 +639,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
          top : prev.find(".occurrence").outerBottom() - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
-  $(".object", @diagram).each (i, e) ->
-    $(e).self().renderIcon?()
+  @_q(".object").selfEach (e)-> e.renderIcon?()
 
 jQuery.fn.selectWith = (f, cmp)->
   t = null
@@ -655,19 +654,18 @@ jQuery.fn.selectWith = (f, cmp)->
   t
 
 JUMLYSequenceDiagram::preferredWidth = () ->
-    bw = parseInt(@css "border-right-width") + parseInt(@css "border-left-width")
-    
-    nodes = $(".object, .ref, .fragment", this)
-    return 0 + bw if nodes.length is 0
-    a = nodes.mostLeftRight()
-    return 0 + bw if a.left is a.right
+  bw = @css("border-right-width").toInt() + @css("border-left-width").toInt()
 
-    f = (e) -> parseInt $(e).css("left")
-    cmp = (x, t) -> x < t
-    left = nodes.selectWith f, cmp
+  nodes = $(".object, .ref, .fragment", this)
+  return 0 + bw if nodes.length is 0
+  a = nodes.mostLeftRight()
+  return 0 + bw if a.left is a.right
 
-    #console.log @find(".object .name").css "box-shadow"
-    a.right - a.left + bw + 1
+  f = (e) -> parseInt $(e).css("left")
+  cmp = (x, t) -> x < t
+  left = nodes.selectWith f, cmp
+
+  a.right - a.left + bw + 1
 
 class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
      constructor: (props, @_diagram) ->
