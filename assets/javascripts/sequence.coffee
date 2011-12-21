@@ -516,7 +516,7 @@ SequenceDiagramLayout::layout = (diagram)->
   
   @align_objects_horizontally objects
   @align_occurrences_horizontally()
-  @build_interactions @q ".occurrence .interaction"
+  @build_interactions()
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
@@ -541,8 +541,8 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
 SequenceDiagramLayout::align_occurrences_horizontally = ->
    @q(".occurrence").selfEach (e)-> e.move()
 
-SequenceDiagramLayout::build_interactions = (iacts)->
-  iacts.selfEach (iact) -> iact._buildInner()
+SequenceDiagramLayout::build_interactions = ->
+  @q(".occurrence .interaction").selfEach (e)-> e._buildInner()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   $(".lifeline", @diagram).remove()
