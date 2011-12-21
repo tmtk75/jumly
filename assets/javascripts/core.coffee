@@ -31,6 +31,7 @@ uml = (arg, opts) ->
   a
 
 $.fn.self = -> @data("uml:property")?._self
+$.fn.selfEach = (f)-> @each (i, e)-> f $(e).self()
 
 
 ## Provide a way to refer to ID.

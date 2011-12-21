@@ -539,7 +539,7 @@ SequenceDiagramLayout::align_occurrences_horizontally = (occurrs)->
   occurrs.each (i, occurr) -> $(occurr).self().move()
 
 SequenceDiagramLayout::build_interactions = (iacts)->
-  iacts.each (i, iact) -> $(iact).self()._buildInner()
+  iacts.selfEach (iact) -> iact._buildInner()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = (diag)->
   $(".lifeline", diag).remove()
