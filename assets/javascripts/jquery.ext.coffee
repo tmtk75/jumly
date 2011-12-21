@@ -1,10 +1,11 @@
 max = (a, b) -> b - a
 min = (a, b) -> a - b
-jQuery.choose = (nodes, ef, cmpf) -> jQuery.map(nodes, ef).sort(cmpf)[0]
-jQuery.max = (nodes, ef) -> jQuery.choose(nodes, ef, max)
-jQuery.min = (nodes, ef) -> jQuery.choose(nodes, ef, min)
-jQuery.fn.max = (ef) -> jQuery.max(this, ef)
-jQuery.fn.min = (ef) -> jQuery.min(this, ef)
+jQuery.choose = (nodes, ef, cmpf)-> jQuery.map(nodes, ef).sort(cmpf)[0]
+jQuery.max = (nodes, ef)-> jQuery.choose(nodes, ef, max)
+jQuery.min = (nodes, ef)-> jQuery.choose(nodes, ef, min)
+jQuery.fn.choose = (ef, cmpf)-> jQuery.choose(this, ef, cmpf)
+jQuery.fn.max = (ef)-> jQuery.max(this, ef)
+jQuery.fn.min = (ef)-> jQuery.min(this, ef)
 
 # A specific iterator that picks up by 2 from this nodeset.
 # f0: a callback has one argument like (e) -> to handle the 1st node.

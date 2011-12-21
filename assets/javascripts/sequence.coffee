@@ -641,18 +641,6 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
 SequenceDiagramLayout::render_icons = ->
   @_q(".object").selfEach (e)-> e.renderIcon?()
 
-jQuery.fn.selectWith = (f, cmp)->
-  t = null
-  obj = null
-  @each (i, e) ->
-    if i is 0
-      t = f e
-      return
-    x = f e
-    if cmp x, t
-      t = x
-  t
-
 JUMLYSequenceDiagram::preferredWidth = () ->
   bw = @css("border-right-width").toInt() + @css("border-left-width").toInt()
 
@@ -660,10 +648,7 @@ JUMLYSequenceDiagram::preferredWidth = () ->
   return 0 + bw if nodes.length is 0
   a = nodes.mostLeftRight()
   return 0 + bw if a.left is a.right
-
-  f = (e) -> parseInt $(e).css("left")
-  cmp = (x, t) -> x < t
-  left = nodes.selectWith f, cmp
+  left = nodes.choose ((e)-> $(e).css("left").toInt()), ((x, t)-> x < t)
 
   a.right - a.left + bw + 1
 
