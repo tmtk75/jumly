@@ -508,11 +508,11 @@ JUMLYSequenceDiagram::compose = (props) ->
     throw ex
 
 class SequenceDiagramLayout
-SequenceDiagramLayout::q = (sel)-> $ sel, @diagram
+SequenceDiagramLayout::_q = (sel)-> $ sel, @diagram
 SequenceDiagramLayout::layout = (diagram)->
   @diagram = diagram
   @prefs = diagram.preferences()
-  objects = @q ".object"
+  objects = @_q ".object"
   
   @align_objects_horizontally objects
   @align_occurrences_horizontally()
@@ -539,14 +539,14 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
   objs.pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
-   @q(".occurrence").selfEach (e)-> e.move()
+   @_q(".occurrence").selfEach (e)-> e.move()
 
 SequenceDiagramLayout::build_interactions = ->
-  @q(".occurrence .interaction").selfEach (e)-> e._buildInner()
+  @_q(".occurrence .interaction").selfEach (e)-> e._buildInner()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   $(".lifeline", @diagram).remove()
-  @q(".object").selfEach (obj)->
+  @_q(".object").selfEach (obj)->
     a = jumly type:".lifeline", ".object":obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
@@ -622,7 +622,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
     e.offset left:occurr.offset().left
 
 SequenceDiagramLayout::align_creation_message_horizontally = ->
-  @q(".message.create").selfEach (e)->
+  @_q(".message.create").selfEach (e)->
     e._composeLooksOfCreation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
