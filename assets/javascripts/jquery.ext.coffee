@@ -73,9 +73,6 @@ jQuery.fn.align = (dir, base) ->
             throw "unspported: " + dir
     @each (i, e) -> $(e).offset f(i, e)
 
-jQuery.fn.debug = ->
-    @css border:"1px solid red"
-
 String.prototype.toInt = ->
     if this.length > 0
         parseInt this
