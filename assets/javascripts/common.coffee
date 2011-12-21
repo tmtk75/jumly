@@ -87,11 +87,11 @@ JUMLYObject::lost = ->
         .interact(null, {stereotype:".lost"})
 
 uml.def ".object", JUMLYObject
-class UMLRelationship
+class JUMLYRelationship
     constructor: (props, opts) ->
         @src = opts.source
         @dst = opts.destination
-        jQuery.extend this, UMLRelationship.newNode()
+        jQuery.extend this, JUMLYRelationship.newNode()
         this
     @newNode = ->
         $("<div>").addClass("relationship")
@@ -117,7 +117,7 @@ Math.sign = (x) ->
 
 jQuery.fn.cssAsInt = (name) -> parseInt @css(name)
 
-UMLRelationship::render = ->
+JUMLYRelationship::render = ->
     margin_left = $("body").cssAsInt "margin-left"
     margin_top  = $("body").cssAsInt "margin-top"
     pt = (obj) ->
@@ -186,7 +186,7 @@ UMLRelationship::render = ->
     $.g2d.arrow ctxt, s, t, style
     ctxt.restore()
 
-$.uml.def ".relationship", UMLRelationship
+$.uml.def ".relationship", JUMLYRelationship
 _STYLES =
     radius       : 14    # Radius of each circle
     lineWidth    : 1.5
