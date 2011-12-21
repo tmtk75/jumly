@@ -29,22 +29,22 @@ JUMLY.Diagram = JUMLYDiagram
 
 uml = jQuery.uml
 ###
-#UMLObject
+#JUMLYObject
     activate()
     isLeftAt()
     isRightAt()
     iconify(fixture)
     message([incoming | outgoing])
 ###
-class UMLObject
+class JUMLYObject
     constructor: (props, opts) ->
-        jQuery.extend this, UMLObject.newNode()
+        jQuery.extend this, JUMLYObject.newNode()
     @newNode = ->
 	     $("<div>").addClass("object")
 	               .append($("<div>").addClass("name"))
 
 # activate
-UMLObject::activate = ->
+JUMLYObject::activate = ->
     _as = uml.lang._as
     occurr = uml(type:".occurrence", ".object":this)
     iact = uml(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
@@ -55,15 +55,15 @@ UMLObject::activate = ->
     occurr
 
 # isLeftAt
-UMLObject::isLeftAt = (a) ->
+JUMLYObject::isLeftAt = (a) ->
 	@offset().left < a.offset().left
 
 # isRightAt
-UMLObject::isRightAt = (a) ->
+JUMLYObject::isRightAt = (a) ->
 	(a.offset().left + a.width()) < @offset().left
 
 # iconify
-UMLObject::iconify = (fixture, styles) ->
+JUMLYObject::iconify = (fixture, styles) ->
     unless typeof fixture is "function"
         fixture = $.uml.icon["." + fixture] || $.uml.icon[".actor"]
     canvas = $("<canvas>").addClass("icon")
@@ -82,11 +82,11 @@ UMLObject::iconify = (fixture, styles) ->
     this
 
 # Lost message
-UMLObject::lost = ->
+JUMLYObject::lost = ->
     this.activate()
         .interact(null, {stereotype:".lost"})
 
-uml.def ".object", UMLObject
+uml.def ".object", JUMLYObject
 class UMLRelationship
     constructor: (props, opts) ->
         @src = opts.source
