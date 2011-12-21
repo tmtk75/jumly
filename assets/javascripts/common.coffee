@@ -357,17 +357,14 @@ $.extend $.uml.icon, {
     ".entity"    : _render_entity
 }
 
-###
-# UMLNote
-###
-class UMLNote
+class JUMLYNote
     constructor: (props, opts) ->
-        jQuery.extend this, UMLNote.newNode()
+        jQuery.extend this, JUMLYNote.newNode()
         @html opts.name
     @newNode = ->
         $("<div>").addClass("note")
 
-UMLNote::attach = (target, opts) ->
+JUMLYNote::attach = (target, opts) ->
     self = this
     opts = $.extend {left:0, top:0}, opts
 
@@ -383,4 +380,4 @@ UMLNote::attach = (target, opts) ->
             self.offset left:pos.left, top:pos.top
    this 
 
-jQuery.uml.def ".note", UMLNote
+jQuery.uml.def ".note", JUMLYNote
