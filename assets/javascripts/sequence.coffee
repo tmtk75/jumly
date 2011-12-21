@@ -506,14 +506,6 @@ JUMLYSequenceDiagram::compose = (props) ->
     console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
     throw ex
 
-class JUMLYDiagramLayout
-JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
-JUMLYDiagramLayout::layout = (diagram)->
-  @diagram = diagram
-  @prefs = diagram.preferences()
-  @_layout_?()
-JUMLY.DiagramLayout = JUMLYDiagramLayout
-
 class SequenceDiagramLayout extends JUMLY.DiagramLayout
 
 SequenceDiagramLayout::_layout_ = ->

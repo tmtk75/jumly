@@ -253,3 +253,13 @@ $.jumly.build = (script)->
       when "sequence" then JUMLY.SequenceDiagramBuilder
   )
   (new builderType).build script.text()
+
+
+class JUMLYDiagramLayout
+JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
+JUMLYDiagramLayout::layout = (diagram)->
+  @diagram = diagram
+  @prefs = diagram.preferences()
+  @_layout_?()
+
+JUMLY.DiagramLayout = JUMLYDiagramLayout
