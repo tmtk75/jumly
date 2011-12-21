@@ -521,7 +521,7 @@ SequenceDiagramLayout::layout = (diagram)->
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
   @pack_fragments_horizontally diagram
-  @align_creation_message_horizontally @q ".message.create"
+  @align_creation_message_horizontally()
   @align_lifelines_vertically diagram
   @align_lifelines_stop_horizontally @q ".stop"
   @rebuild_asynchronous_self_calling diagram
@@ -621,9 +621,9 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
     occurr = e.prev(".occurrence")
     e.offset left:occurr.offset().left
 
-SequenceDiagramLayout::align_creation_message_horizontally = (msgs)->
-  msgs.each (i, e) ->
-    jumly(e)[0]._composeLooksOfCreation()
+SequenceDiagramLayout::align_creation_message_horizontally = ->
+  @q(".message.create").selfEach (e)->
+    e._composeLooksOfCreation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = (diag)->
   diag.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
