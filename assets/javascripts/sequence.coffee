@@ -214,7 +214,7 @@ JUMLYInteraction::awayfrom = (obj) ->
     return e if e?.gives(".object") is obj
   obj.activate()
 
-JUMLYInteraction::_buildInner = ->
+JUMLYInteraction::_compose_ = ->
   that = this
   src = that.gives(".occurrence").as ".actor"
   dst = that.gives(".occurrence").as ".actee"
@@ -515,7 +515,7 @@ SequenceDiagramLayout::layout = (diagram)->
   
   @align_objects_horizontally objects
   @align_occurrences_horizontally()
-  @build_interactions()
+  @compose_interactions()
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
@@ -540,8 +540,8 @@ SequenceDiagramLayout::align_objects_horizontally = (objs)->
 SequenceDiagramLayout::align_occurrences_horizontally = ->
    @_q(".occurrence").selfEach (e)-> e.moveHorizontally()
 
-SequenceDiagramLayout::build_interactions = ->
-  @_q(".occurrence .interaction").selfEach (e)-> e._buildInner()
+SequenceDiagramLayout::compose_interactions = ->
+  @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   $(".lifeline", @diagram).remove()
