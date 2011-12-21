@@ -508,21 +508,22 @@ JUMLYSequenceDiagram::compose = (props) ->
     throw ex
 
 class SequenceDiagramLayout
+SequenceDiagramLayout::q = (sel)-> $ sel, @diagram
 SequenceDiagramLayout::layout = (diagram)->
-  q = (sel)-> $ sel, diagram
+  @diagram = diagram
   @prefs = diagram.preferences()
-  objects = q ".object"
+  objects = @q ".object"
   
   @align_objects_horizontally objects
-  @align_occurrences_horizontally q ".occurrence"
-  @build_interactions q ".occurrence .interaction"
+  @align_occurrences_horizontally @q ".occurrence"
+  @build_interactions @q ".occurrence .interaction"
   @generate_lifelines_and_align_horizontally diagram
   @pack_object_lane_vertically diagram
   @pack_refs_horizontally diagram
   @pack_fragments_horizontally diagram
-  @align_creation_message_horizontally q ".message.create"
+  @align_creation_message_horizontally @q ".message.create"
   @align_lifelines_vertically diagram
-  @align_lifelines_stop_horizontally q ".stop"
+  @align_lifelines_stop_horizontally @q ".stop"
   @rebuild_asynchronous_self_calling diagram
   @render_icons objects
   diagram.width diagram.preferredWidth()
