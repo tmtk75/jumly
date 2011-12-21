@@ -40,61 +40,61 @@ jQuery.fn.swallow = (_, f) ->
 	@append _.detach()
 	this
 
-jQuery.fn.outerRight = ->
-    @offset().left + @outerWidth()
+jQuery.fn.cssLeft = -> @css("left").toInt()
+
+jQuery.fn.outerRight = -> @offset().left + @outerWidth()
 
 jQuery.fn.mostLeftRight = ->
-    left : @min (e) -> $(e).offset().left
-    right: @max (e) ->
-        t = $(e).offset().left + $(e).outerWidth()
-        if t - 1 < 0 then 0 else t - 1
-    width: ->
-        if @right? and @left?
-            @right - @left + 1
-        else
-            0
+  left : @min (e) -> $(e).offset().left
+  right: @max (e) ->
+    t = $(e).offset().left + $(e).outerWidth()
+    if t - 1 < 0 then 0 else t - 1
+  width: ->
+    if @right? and @left?
+      @right - @left + 1
+    else
+      0
 
 jQuery.fn.mostTopBottom = ->
-    top   : @min (e) -> $(e).offset().top
-    bottom: @max (e) ->
-        t = $(e).offset().top + $(e).outerHeight()
-        if t - 1 < 0 then 0 else t - 1
-    height: ->
-        if @top? and @bottom?
-            @bottom - @top + 1
-        else
-            0
+  top   : @min (e) -> $(e).offset().top
+  bottom: @max (e) ->
+    t = $(e).offset().top + $(e).outerHeight()
+    if t - 1 < 0 then 0 else t - 1
+  height: ->
+    if @top? and @bottom?
+        @bottom - @top + 1
+    else
+        0
 
 jQuery.fn.align = (dir, base) ->
 	base = $(base || this[0])
 	switch dir
-	    when 'bottom', 'south'
-	        f = (i, e) -> top:base.outerHeight() - $(e).outerHeight()
-        else
-            throw "unspported: " + dir
-    @each (i, e) -> $(e).offset f(i, e)
+    when 'bottom', 'south'
+      f = (i, e) -> top:base.outerHeight() - $(e).outerHeight()
+    else
+      throw "unspported: " + dir
+  @each (i, e) -> $(e).offset f(i, e)
 
 String.prototype.toInt = ->
-    if this.length > 0
-        parseInt this
-    else
-        0
+  if this.length > 0
+    parseInt this
+  else
+    0
 
 ##
 ## Alignment for left, right, above, below.
 ##
 _align = (me, base, klass) ->
-    me.addClass klass
-    pos = base.offset()
-    switch klass
-        when "left"  then pos.left -= me.outerWidth()
-        when "right" then pos.left += base.outerWidth()
-        when "above" then pos.top  -= me.outerHeight()
-        when "below" then pos.top  += base.outerHeight()
-    me.offset(pos)
+  me.addClass klass
+  pos = base.offset()
+  switch klass
+    when "left"  then pos.left -= me.outerWidth()
+    when "right" then pos.left += base.outerWidth()
+    when "above" then pos.top  -= me.outerHeight()
+    when "below" then pos.top  += base.outerHeight()
+  me.offset(pos)
 
 jQuery.fn.alignAt = (base, pos) -> _align(this, base, pos)
-
 
 ##
 class Logger

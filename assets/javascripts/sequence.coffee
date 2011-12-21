@@ -648,7 +648,7 @@ JUMLYSequenceDiagram::preferredWidth = () ->
   return 0 + bw if nodes.length is 0
   a = nodes.mostLeftRight()
   return 0 + bw if a.left is a.right
-  left = nodes.choose ((e)-> $(e).css("left").toInt()), ((x, t)-> x < t)
+  left = nodes.choose ((e)-> $(e).cssLeft()), ((x, t)-> x < t)
 
   a.right - a.left + bw + 1
 
