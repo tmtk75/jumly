@@ -523,7 +523,7 @@ SequenceDiagramLayout::layout = (diagram)->
   @pack_fragments_horizontally diagram
   @align_creation_message_horizontally()
   @align_lifelines_vertically diagram
-  @align_lifelines_stop_horizontally @q ".stop"
+  @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling diagram
   @render_icons objects
   diagram.width diagram.preferredWidth()
@@ -615,8 +615,8 @@ SequenceDiagramLayout::align_lifelines_vertically = (diag)->
     $(e).height h
     $(e).find(".line").css(top:0).height h
 
-SequenceDiagramLayout::align_lifelines_stop_horizontally = (stops)->
-  stops.each (i, e) ->
+SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
+  $(".stop", @diagram).each (i, e) ->
     e = $(e)
     occurr = e.prev(".occurrence")
     e.offset left:occurr.offset().left
