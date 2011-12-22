@@ -93,7 +93,7 @@ $.uml.def ".component-diagram", UMLComponentDiagram
 
 ###
 ###
-class UMLComponentDSL extends JUMLY.DSLEvents_
+class UMLComponentDSL
     constructor: (@_diagram, @_component) ->
 
 UMLComponentDSL::component = (name, acts) ->

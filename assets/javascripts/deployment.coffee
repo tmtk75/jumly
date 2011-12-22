@@ -85,7 +85,7 @@ $.uml.def ".deployment-diagram", UMLDeploymentDiagram
 
 ###
 ###
-class DeploymentContext extends JUMLY.DSLEvents_
+class DeploymentContext
     constructor: (@_diagram, @_deployment) ->
 
 DeploymentContext::deployment = (name, acts) ->

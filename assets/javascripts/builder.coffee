@@ -1,6 +1,14 @@
-class DiagramBuilder extends JUMLY.DSLEvents_
+class DiagramBuilder
   @selectHTMLScriptElements = (element)->
     $("script", element).not(".ignored")
+
+DiagramBuilder::beforeCompose = (f)->
+  @_diagram.bind "beforeCompose", f
+  this
+
+DiagramBuilder::afterCompose = (f)->
+  @_diagram.bind "afterCompose", f
+  this
 
 DiagramBuilder::accept = (closure)->
   closure.apply this, []

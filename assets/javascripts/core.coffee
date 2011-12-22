@@ -196,15 +196,6 @@ DSL = (args) ->
   throw "compileScript property is required." unless args.compileScript
   DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
 
-class DSLEvents_
-  beforeCompose: (f)->
-    @_diagram.bind "beforeCompose", f
-    this
-  afterCompose: (f)->
-    @_diagram.bind "afterCompose", f
-    this
-JUMLY.DSLEvents_ = DSLEvents_
-
 jumly.DSL = DSL
 
 
