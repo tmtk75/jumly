@@ -40,6 +40,8 @@ jQuery.fn.swallow = (_, f) ->
 	@append _.detach()
 	this
 
+jQuery.fn.cssAsInt = (name) -> parseInt @css(name)
+
 jQuery.fn.cssLeft = -> @css("left").toInt()
 
 jQuery.fn.outerRight = -> @offset().left + @outerWidth()

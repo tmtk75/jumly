@@ -115,8 +115,6 @@ Math.sign = (x) ->
         return 1
     return -1
 
-jQuery.fn.cssAsInt = (name) -> parseInt @css(name)
-
 JUMLYRelationship::render = ->
     margin_left = $("body").cssAsInt "margin-left"
     margin_top  = $("body").cssAsInt "margin-top"
