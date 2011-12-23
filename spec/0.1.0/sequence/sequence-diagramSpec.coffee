@@ -997,23 +997,24 @@ description "sequence-diagram", ->
 
         it "is up to browser rendering for height", ->
 
-    BODY_MARGIN_LEFT = $("body").css("margin-left")?.toInt()
+    BODY_MARGIN_LEFT = $("body").cssAsInt "margin-left"
 
     description "location of .object when composing", ->
         it 'should be fixed if the value is not "auto"', ->
             diag = $.jumly ".sequence-diagram"
+            $("body").append diag
             ctxt = diag.found "A", -> @message "call", "B"
             obj = diag.find(".object:eq(1)")
             obj.offset(left:-123)
-            ctxt.compose $ "body"
+            ctxt.compose()
             obj.offset().left.shouldBe -123 + BODY_MARGIN_LEFT
 
         it 'is able to set settings for compose', ->
             MLEFT = 234
             $.jumly.preferences(".sequence-diagram", compose_most_left:MLEFT)
-            #console.log $.jumly.preferences(".sequence-diagram")
             diag = $.jumly ".sequence-diagram"
-            (diag.found "A", -> @message "call", "B").compose $ "body"
+            $("body").append diag
+            (diag.found "A", -> @message "call", "B").compose()
             diag.find(".object:eq(0)").offset().left.shouldBe MLEFT + BODY_MARGIN_LEFT
 
     

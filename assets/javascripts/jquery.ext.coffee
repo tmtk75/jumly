@@ -40,7 +40,9 @@ jQuery.fn.swallow = (_, f) ->
 	@append _.detach()
 	this
 
-jQuery.fn.cssAsInt = (name) -> parseInt @css(name)
+jQuery.fn.cssAsInt = (name) ->
+  a = @css(name)
+  if a then parseInt a else 0
 
 jQuery.fn.cssLeft = -> @css("left").toInt()
 
