@@ -833,8 +833,13 @@ JUMLYSequenceDiagram::found = (something, callback)->
   b = new JUMLYSequenceDiagramBuilder
   b.diagram = this
   b.found something, callback
-JUMLYSequenceDiagramBuilder::beforeCompose = (f)-> f null, @diagram
-JUMLYSequenceDiagramBuilder::afterCompose = (f)-> f null, @diagram
+  
+JUMLYSequenceDiagramBuilder::beforeCompose = (f)->
+    @diagram.bind "beforeCompose", f
+    this
+JUMLYSequenceDiagramBuilder::afterCompose = (f)->
+    @diagram.bind "afterCompose", f
+    this
   
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
   actor = @_find_or_create_ something
