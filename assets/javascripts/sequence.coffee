@@ -830,14 +830,17 @@ JUMLYSequenceDiagramBuilder::preferences = ->
 
 ##NOTE: Keep compatibility to 0.1.0
 JUMLYSequenceDiagram::found = (something, callback)->
-  b = new JUMLYSequenceDiagramBuilder diagram:this, this
-  actor = b._find_or_create_ something
-  b._current_occurrence = actor.activate()
-  b.last = callback?.apply b, [b]
-  b
+  b = new JUMLYSequenceDiagramBuilder
+  b.diagram = this
+  b.found something, callback
+JUMLYSequenceDiagramBuilder::beforeCompose = (f)-> f null, @diagram
+JUMLYSequenceDiagramBuilder::afterCompose = (f)-> f null, @diagram
   
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
-  @diagram.found something, callback
+  actor = @_find_or_create_ something
+  @_current_occurrence = actor.activate()
+  @last = callback?.apply this, [this]
+  this
 
 ##
 jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
