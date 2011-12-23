@@ -640,147 +640,141 @@ SequenceDiagramLayout::render_icons = ->
 
 JUMLYSequenceDiagram::preferredWidth = () ->
   bw = @css("border-right-width").toInt() + @css("border-left-width").toInt()
-
   nodes = $(".object, .ref, .fragment", this)
   return 0 + bw if nodes.length is 0
   a = nodes.mostLeftRight()
   return 0 + bw if a.left is a.right
   left = nodes.choose ((e)-> $(e).cssLeft()), ((x, t)-> x < t)
-
   a.right - a.left + bw + 1
 
 class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
-     constructor: (props, @_diagram) ->
-        $.extend this, props
+  constructor: (props, @_diagram) ->
+    $.extend this, props
 
 JUMLYSequenceDiagramBuilder::_find_or_create_ = (e) ->
-    switch typeof e
-        when "string"
-            if @diagram[e]
-                return @diagram[e]
-            a = jumly ".object", e
-            a.attr id:e
-            @diagram[e] = a
-            @diagram.append a
-            a
-        when "object"
-            e
+  switch typeof e
+    when "string"
+      if @diagram[e]
+        return @diagram[e]
+      a = jumly ".object", e
+      a.attr id:e
+      @diagram[e] = a
+      @diagram.append a
+      a
+    when "object"
+      e
 
 JUMLYSequenceDiagramBuilder::_actor = -> @_current_occurrence.gives ".object"
 
 JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
-    actname  = a
-    if typeof b is "function" or b is undefined
-        actee    = @_actor()
-        callback = b
-    else if typeof a is "string" and typeof b is "string"
-        if typeof c is "function"
-            actee    = @_find_or_create_ b
-            callback = c
-        else if c is undefined
-            actee    = @_find_or_create_ b
-            callback = null
-    else if typeof a is "object" and typeof b is "string"
-        actee    = @_find_or_create_ b
-        callback = c
-        for e of a
-            switch e
-                when "asynchronous"
-                    actname = a[e]
-                    stereotype = "asynchronous" 
-    else
-        msg = "invalid arguments"
-        console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
-        throw msg
-        
-    iact = @_current_occurrence.interact actee
-    iact.name(actname)
-        .stereotype(stereotype)
-
-    ## unless callback then return null  ##NOTE: In progress for this spec.
-    
-    occurr = iact.gives ".actee"
-    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
-    callback?.apply ctxt, []
-    ctxt
+  actname  = a
+  if typeof b is "function" or b is undefined
+    actee    = @_actor()
+    callback = b
+  else if typeof a is "string" and typeof b is "string"
+    if typeof c is "function"
+      actee    = @_find_or_create_ b
+      callback = c
+    else if c is undefined
+      actee    = @_find_or_create_ b
+      callback = null
+  else if typeof a is "object" and typeof b is "string"
+    actee    = @_find_or_create_ b
+    callback = c
+    for e of a
+      switch e
+        when "asynchronous"
+          actname = a[e]
+          stereotype = "asynchronous" 
+  else
+    msg = "invalid arguments"
+    console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
+    throw msg
+      
+  iact = @_current_occurrence.interact actee
+  iact.name(actname)
+      .stereotype(stereotype)
+  ## unless callback then return null  ##NOTE: In progress for this spec.
+  occurr = iact.gives ".actee"
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  callback?.apply ctxt, []
+  ctxt
 
 JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
-    if typeof a is "string" and typeof b is "function"
-        name     = null
-        actee    = a
-        callback = b
-    else if typeof a is "string" and typeof b is "string" and typeof c is "function"
-        name     = a
-        actee    = b
-        callback = c
-    else if typeof a is "string" and b is undefined
-        name     = null
-        actee    = a
-        callback = null
-        
-    iact = @_current_occurrence.create id:actee, name:actee
-    if name then iact.name name
-
-    ## unless callback then return null  ##NOTE: In progress for this spec.
-    
-    occurr = iact.gives ".actee"
-    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
-    callback?.apply ctxt, []
-    ctxt
+  if typeof a is "string" and typeof b is "function"
+    name     = null
+    actee    = a
+    callback = b
+  else if typeof a is "string" and typeof b is "string" and typeof c is "function"
+    name     = a
+    actee    = b
+    callback = c
+  else if typeof a is "string" and b is undefined
+    name     = null
+    actee    = a
+    callback = null
+      
+  iact = @_current_occurrence.create id:actee, name:actee
+  if name then iact.name name
+  ## unless callback then return null  ##NOTE: In progress for this spec.
+  occurr = iact.gives ".actee"
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  callback?.apply ctxt, []
+  ctxt
 
 JUMLYSequenceDiagramBuilder::destroy = (a) ->
-    @_current_occurrence.destroy @_find_or_create_ a
-    null
+  @_current_occurrence.destroy @_find_or_create_ a
+  null
 
 JUMLYSequenceDiagramBuilder::reply = (a, b) ->
-    @_current_occurrence
-        .parents(".interaction:eq(0)").self()
-        .reply name:a, ".actee":@_find_or_create_ b
-    null
+  @_current_occurrence
+    .parents(".interaction:eq(0)").self()
+    .reply name:a, ".actee":@_find_or_create_ b
+  null
 
 JUMLYSequenceDiagramBuilder::ref = (a) ->
-    (jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
-    null
+  (jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
+  null
 
 JUMLYSequenceDiagramBuilder::lost = (a) ->
-    @_current_occurrence.lost()
-    null
+  @_current_occurrence.lost()
+  null
 
 ## A kind of fragment
 JUMLYSequenceDiagramBuilder::loop = (a, b, c) ->
-    ## NOTE: Should this return null in case of no context
-    if a.constructor is this.constructor  ## First one is DSL
-        frag = a._current_occurrence
-         .parents(".interaction:eq(0)").self()
-         .fragment(name:"Loop")
-         .addClass "loop"
-    else
-        last = [].slice.apply(arguments).pop()  ## Last one is Function
-        if $.isFunction(last)
-            kids = @_current_occurrence.find("> *")
-            last.apply this, []
-            newones = @_current_occurrence.find("> *").not(kids)
-            if newones.length > 0
-                frag = jumly(".fragment").addClass("loop").enclose newones
-                frag.find(".name:first").html "Loop"
-    this
+  ## NOTE: Should this return null in case of no context
+  if a.constructor is this.constructor  ## First one is DSL
+    frag = a._current_occurrence
+     .parents(".interaction:eq(0)").self()
+     .fragment(name:"Loop")
+     .addClass "loop"
+  else
+    last = [].slice.apply(arguments).pop()  ## Last one is Function
+    if $.isFunction(last)
+      kids = @_current_occurrence.find("> *")
+      last.apply this, []
+      newones = @_current_occurrence.find("> *").not(kids)
+      if newones.length > 0
+        frag = jumly(".fragment").addClass("loop").enclose newones
+        frag.find(".name:first").html "Loop"
+  this
 
 ## A kind of fragment
 JUMLYSequenceDiagramBuilder::alt = (ints, b, c) ->
-    iacts = {}
-    self = this
-    for name of ints
-        unless typeof ints[name] is "function"
-            break
-        act = ints[name]
-        _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
-            what = act.apply self
-            unless what then return what
-            what._current_occurrence
-                .parent(".interaction:eq(0)")
-        iacts[name] = _new_act(name, act)
-    @_current_occurrence.interact stereotype:".alt", iacts
-    this
+  iacts = {}
+  self = this
+  for name of ints
+    unless typeof ints[name] is "function"
+      break
+    act = ints[name]
+    _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
+      what = act.apply self
+      unless what then return what
+      what._current_occurrence
+          .parent(".interaction:eq(0)")
+    iacts[name] = _new_act(name, act)
+  @_current_occurrence.interact stereotype:".alt", iacts
+  this
 
 ###
 Examples:
@@ -788,45 +782,38 @@ Examples:
   - @reactivate @message "call a taxi", "Taxi agent"
 ###
 JUMLYSequenceDiagramBuilder::reactivate = (a, b, c) ->
-    if a.constructor is this.constructor
-        e = a._current_occurrence.parents(".interaction:eq(0)")
-        @_actor().activate().append e
-        return a
+  if a.constructor is this.constructor
+    e = a._current_occurrence.parents(".interaction:eq(0)")
+    @_actor().activate().append e
+    return a
+  occurr = @_actor().activate()
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  ctxt.message(a, b, c)
+  ctxt
 
-    occurr = @_actor().activate()
-    ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
-    ctxt.message(a, b, c)
-    ctxt
-
-###
-Note on a nearby interaction.
-###
 JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
-    nodes = @_current_occurrence.find("> .interaction:eq(0)")
-    if nodes.length is 0
-        nodes = @_current_occurrence.parents ".interaction:eq(0):not(.activated)"
+  nodes = @_current_occurrence.find("> .interaction:eq(0)")
+  if nodes.length is 0
+    nodes = @_current_occurrence.parents ".interaction:eq(0):not(.activated)"
 
-    ##TENTATIVE: because DSL notation is not decided.
-    text = a
-    opts = b
-    note = jumly ".note", text
-    if opts
-        note.attach nodes, opts
-    else
-        nodes.append note
+  ##TENTATIVE: because DSL notation is not decided.
+  text = a
+  opts = b
+  note = jumly ".note", text
+  if opts
+    note.attach nodes, opts
+  else
+    nodes.append note
 
-###
-opts is passed to .diagram#compose, as is.
-###
 JUMLYSequenceDiagramBuilder::compose = (opts) ->
-    if typeof opts is "function"
-        opts @diagram
-    else
-        opts?.append @diagram
-    @diagram.compose opts
+  if typeof opts is "function"
+    opts @diagram
+  else
+    opts?.append @diagram
+  @diagram.compose opts
 
 JUMLYSequenceDiagramBuilder::preferences = ->
-    @diagram.preferences.apply @diagram, arguments
+  @diagram.preferences.apply @diagram, arguments
 
 ##NOTE: Keep compatibility to 0.1.0
 JUMLYSequenceDiagram::found = (something, callback)->
@@ -835,11 +822,11 @@ JUMLYSequenceDiagram::found = (something, callback)->
   b.found something, callback
   
 JUMLYSequenceDiagramBuilder::beforeCompose = (f)->
-    @diagram.bind "beforeCompose", f
-    this
+  @diagram.bind "beforeCompose", f
+  this
 JUMLYSequenceDiagramBuilder::afterCompose = (f)->
-    @diagram.bind "afterCompose", f
-    this
+  @diagram.bind "afterCompose", f
+  this
   
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
   actor = @_find_or_create_ something
