@@ -33,26 +33,26 @@ description "sequence-diagram.DSL", ->
             @diagram = uml ".sequence-diagram"
 
     description "found", ->
-        shared_scenario "found context", ->
-            it_behaves_as "given a .sequence_diagram"
-            then_it "has a function .message", ->
-                diagram.found "Actor", ->
-                    (typeof this["message"]).shouldBe 'function'
+      shared_scenario "found context", ->
+        it_behaves_as "given a .sequence_diagram"
+        then_it "has a function .message", ->
+          diagram.found "Actor", ->
+            (typeof this["message"]).shouldBe 'function'
 
-        scenario "returning", ->
-            it_behaves_as "given a .sequence_diagram"
-            @that = if this.window then window else this
-            when_it "A sequence starts", ->
-                that.a = diagram.found "A", ->
-                    that.b = this
-                    that.c = @message "call", "B", ->
-                    1234
-            then_it "found returns InteractionContext", ->
-                (that.a is that.b).shouldBe true
-            then_it "returns different context from ownself", ->
-                (that.b is that.c).shouldBe false
-            then_it "InteractionContext has the last value evaluated in the context", ->
-                that.a.last.shouldBe 1234
+      scenario "returning", ->
+        it_behaves_as "given a .sequence_diagram"
+        @that = if this.window then window else this
+        when_it "A sequence starts", ->
+          that.a = diagram.found "A", ->
+            that.b = this
+            that.c = @message "call", "B", ->
+            1234
+        then_it "found returns InteractionContext", ->
+          (that.a is that.b).shouldBe true
+        then_it "returns different context from ownself", ->
+          (that.b is that.c).shouldBe false
+        then_it "InteractionContext has the last value evaluated in the context", ->
+          that.a.last.shouldBe 1234
 
     description "returning InteractionContext", ->
         @diagram = uml ".sequence-diagram"
