@@ -158,51 +158,51 @@ description "sequence-diagram.DSL", ->
             diagram.find("> .fragment").expect(length: 1)
 
     description "noting", ->
-        ## Note is basically after destination occurrence
-        scenario "note before an interaction", ->
-            it_behaves_as "given a .sequence_diagram"
-            given "a noted interaction", ->
-                diagram.found "A", ->
-                    @note "It's a first call."
-                    @message "a->b", "B"
-                diagram.appendTo $ "body"
-                diagram.compose()
-            then_it "no note because of no active interaction", ->
-                $(".note", diagram).expect length:0
+      ## Note is basically after destination occurrence
+      scenario "note before an interaction", ->
+        it_behaves_as "given a .sequence_diagram"
+        given "a noted interaction", ->
+          diagram.found "Afff-1234", ->
+            @note "It's a first call."
+            @message "a->b", "Bfff-1324"
+          diagram.appendTo $ "body"
+          diagram.compose()
+        then_it "no note because of no active interaction", ->
+          $(".note", diagram).expect length:0
 
         scenario "note after an interaction", ->
-            it_behaves_as "given a .sequence_diagram"
-            given "a noted interaction", ->
-                diagram.found "A", ->
-                    @message "a->b", "B"
-                    @note "It's a first call."
-                diagram.appendTo $ "body"
-                diagram.compose()
-            then_it "last occurrence has no children", ->
-                $(".interaction:not(.activated):eq(0) > .occurrence:eq(0)", diagram).expect(length:1)
-                    .find("> *").expect length:0
-            then_it "note is after the destination occurrence", ->
-                $(".interaction:not(.activated):eq(0)", diagram)
-                    .find("> *:eq(0)").expect((e) -> e.hasClass "message").end()
-                    .find("> *:eq(1)").expect((e) -> e.hasClass "occurrence").end()
-                    .find("> *:eq(2)").expect((e) -> e.hasClass "note")
+          it_behaves_as "given a .sequence_diagram"
+          given "a noted interaction", ->
+            diagram.found "Aggg-1234", ->
+              @message "a->b", "Bggg-1234"
+              @note "It's a first call."
+            diagram.appendTo $ "body"
+            diagram.compose()
+          then_it "last occurrence has no children", ->
+            $(".interaction:not(.activated):eq(0) > .occurrence:eq(0)", diagram).expect(length:1)
+              .find("> *").expect length:0
+          then_it "note is after the destination occurrence", ->
+            $(".interaction:not(.activated):eq(0)", diagram)
+              .find("> *:eq(0)").expect((e) -> e.hasClass "message").end()
+              .find("> *:eq(1)").expect((e) -> e.hasClass "occurrence").end()
+              .find("> *:eq(2)").expect((e) -> e.hasClass "note")
 
         scenario "note for interaction", ->
-            it_behaves_as "given a .sequence_diagram"
-            given "a noted interaction", ->
-                diagram.found "A", ->
-                    @message "a->b", "B"
-                    @note "It's a first call."
-                    @message "a->b", "B"
-                diagram.appendTo $ "body"
-                diagram.compose()
-            then_it "", ->
-                $(".interaction:not(.activated):eq(0)", diagram)
-                    .find("> *:eq(0)").expect((e) -> e.hasClass "message").end()
-                    .find("> *:eq(1)").expect((e) -> e.hasClass "occurrence").end()
-                    .find("> *:eq(2)").expect((e) -> e.hasClass "note")
-                $(".interaction:not(.activated):eq(1)", diagram)
-                    .find("> .note").expect length:0
+          it_behaves_as "given a .sequence_diagram"
+          given "a noted interaction", ->
+            diagram.found "Ahhh-1234", ->
+              @message "a->b", "Bhhh-1234"
+              @note "It's a first call."
+              @message "a->b", "Bhhh-1234-1"
+            diagram.appendTo $ "body"
+            diagram.compose()
+          then_it "", ->
+            $(".interaction:not(.activated):eq(0)", diagram)
+              .find("> *:eq(0)").expect((e) -> e.hasClass "message").end()
+              .find("> *:eq(1)").expect((e) -> e.hasClass "occurrence").end()
+              .find("> *:eq(2)").expect((e) -> e.hasClass "note")
+            $(".interaction:not(.activated):eq(1)", diagram)
+              .find("> .note").expect length:0
 
     description "@loop", ->
 
