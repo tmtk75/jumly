@@ -368,7 +368,7 @@ description "sequence.ref", ->
             @message "contact", "Me-ref-6", ->
               @loop @message "mail", "Him-ref-7", ->
                 @message "read-ref-8", ->
-                @reply "reply", "Me-ref-9"
+                @reply "reply", "Me-ref-6"
               @ref "Make the report-ref-10"
           ctxt.compose $ "body"
 
