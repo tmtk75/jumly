@@ -1,5 +1,4 @@
 uml = u = $.uml
-
 description "sequence-diagram.DSL", ->
 
     description "@beforeCompose", ->
@@ -43,9 +42,9 @@ description "sequence-diagram.DSL", ->
         it_behaves_as "given a .sequence_diagram"
         @that = if this.window then window else this
         when_it "A sequence starts", ->
-          that.a = diagram.found "A", ->
+          that.a = diagram.found aaabbb1111:"A", ->
             that.b = this
-            that.c = @message "call", "B", ->
+            that.c = @message "call", "Bbbbddd111222", ->
             1234
         then_it "found returns InteractionContext", ->
           (that.a is that.b).shouldBe true

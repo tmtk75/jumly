@@ -693,7 +693,7 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
   else
     msg = "invalid arguments"
     console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
-    throw msg
+    throw new Error(msg, a, b, c)
       
   iact = @_currOccurr.interact actee
   iact.name(actname)
