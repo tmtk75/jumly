@@ -31,11 +31,6 @@ describe "JUMLY", ->
     beforeEach -> @addMatchers
       toBeLessThan: (expected)-> @actual < expected
       toBeFunction: -> @actual.constructor is Function
-        
-    it "should return the appropriate instance of DiagramBuilder for given HTMLScriptElement", ->
-      builder = JUMLY.DiagramBuilder.something mkscript "usecase", "window.c1 = 112233"
-      expect(builder).not.toBeUndefined()
-      expect(builder.build).toBeFunction()
   
   
     describe "Event", ->
