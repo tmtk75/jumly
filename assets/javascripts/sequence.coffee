@@ -805,6 +805,12 @@ JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
   else
     nodes.append note
 
+JUMLYSequenceDiagramBuilder::found = (something, callback)->
+  actor = @_findOrCreate something
+  @_current_occurrence = actor.activate()
+  @last = callback?.apply this, [this]
+  this
+
 JUMLYSequenceDiagramBuilder::compose = (opts) ->
   if typeof opts is "function"
     opts @diagram
@@ -828,12 +834,6 @@ JUMLYSequenceDiagramBuilder::afterCompose = (f)->
   @diagram.bind "afterCompose", f
   this
   
-JUMLYSequenceDiagramBuilder::found = (something, callback)->
-  actor = @_findOrCreate something
-  @_current_occurrence = actor.activate()
-  @last = callback?.apply this, [this]
-  this
-
 ##
 jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
   b = new JUMLYSequenceDiagramBuilder
