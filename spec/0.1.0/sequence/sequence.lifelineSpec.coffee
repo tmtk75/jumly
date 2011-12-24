@@ -143,33 +143,31 @@ description "lifeline", ->
 #                    e.css "border", "solid 1px #{c[i]}"
 
     scenario "lifeline length is aligned", ->
-        given "a sequence", ->
-            @diag = $.uml(".sequence-diagram")
-            diag.appendTo $ "body"
-            diag.found "A", ->
-                @message "b", "B", ->
-                    @message "c", "C", ->
-                        @message "d", "D", ->
-            diag.compose()
-        then_it "length is same", ->
-            a = diag.find(".lifeline:eq(0)").self()
-            b = diag.find(".lifeline:eq(1)").self()
-            c = diag.find(".lifeline:eq(2)").self()
-            d = diag.find(".lifeline:eq(3)").self()
-
-            a.outerBottom().shouldBe b.outerBottom()
-            b.outerBottom().shouldBe c.outerBottom()
-            c.outerBottom().shouldBe d.outerBottom()
+      given "a sequence", ->
+        @diag = $.uml(".sequence-diagram")
+        diag.appendTo $ "body"
+        diag.found "A-ll-0", ->
+          @message "b", "B-ll-1", ->
+            @message "c", "C-ll-2", ->
+              @message "d", "D-ll-3", ->
+        diag.compose()
+      then_it "length is same", ->
+        a = diag.find(".lifeline:eq(0)").self()
+        b = diag.find(".lifeline:eq(1)").self()
+        c = diag.find(".lifeline:eq(2)").self()
+        d = diag.find(".lifeline:eq(3)").self()
+        a.outerBottom().shouldBe b.outerBottom()
+        b.outerBottom().shouldBe c.outerBottom()
+        c.outerBottom().shouldBe d.outerBottom()
 
     scenario "lifeline length for .stop", ->
-        given "a", ->
-            @diag = $.uml(".sequence-diagram")
-            diag.appendTo $ "body"
-            diag.found "A", ->
-                @message "b", "B", ->
-                    @message "d", "D", ->
-                    @message "c", "C", ->
-                        @message destroy:"d", "D", ->
-            diag.compose()
-        then_it "", ->
-
+      given "a", ->
+        @diag = $.uml(".sequence-diagram")
+        diag.appendTo $ "body"
+        diag.found "A-ll-4", ->
+          @message "b", "B-ll-5", ->
+            @message "d", "D-ll-6", ->
+            @message "c", "C-ll-7", ->
+              @message destroy:"d", "D-ll-8", ->
+        diag.compose()
+      then_it "", ->
