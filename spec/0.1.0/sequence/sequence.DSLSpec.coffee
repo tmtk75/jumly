@@ -54,41 +54,42 @@ description "sequence-diagram.DSL", ->
           that.a.last.shouldBe 1234
 
     description "returning InteractionContext", ->
-        @diagram = uml ".sequence-diagram"
-        @that1 = {}
-        @that2 = {}
-        that1.a = diagram.found "A", ->
-            that1.b = @message "call", "B", -> that2.b = this
-            that1.c = @message "call", ->
-            that1.d = @create  "C", ->
-            that1.e = @destroy "B", ->
-            that1.f = @reply ->
-            that1.g = @ref ->
-            that1.h = @loop ->
-            that1.i = @reactivate "call", "B"
-        it "message",    -> (that1.b.constructor is that1.a.constructor).shouldBe true
-        it "selfcall",   -> (that1.c.constructor is that1.a.constructor).shouldBe true
-        it "create",     -> (that1.d.constructor is that1.a.constructor).shouldBe true
-        it "destroy",    -> (that1.e is null).shouldBe true  ## No occurrence at the actee of destroy.
-        it "reply",      -> (that1.f is null).shouldBe true  ##
-        it "ref",        -> (that1.g is null).shouldBe true  ##
-        it "loop",       -> (that1.h.constructor is that1.a.constructor).shouldBe true
-        it "reactivate", -> (that1.i.constructor is that1.a.constructor).shouldBe true
-        ctxtA = null
-        that1.A = diagram.found "A", ->
-            ctxtA = this
-            that1.B = @message "call", "B"
-            that1.C = @message "call"
-            that1.D = @create  "C"
-        it "message without action, different one",  -> (not(that1.B is ctxtA) and ctxtA.constructor is that1.B.constructor).shouldBe true
-        it "selfcall without action, different one", -> (not(that1.C is ctxtA) and ctxtA.constructor is that1.C.constructor).shouldBe true
-        it "create without action, different one",   -> (not(that1.D is ctxtA) and ctxtA.constructor is that1.D.constructor).shouldBe true
-        ### NOTE: I'm contemplating whethere @message returns always InteractionContext without action or not.
-        # NOTE: Tentatively, not return null
-        it "message without action, different one",  -> (that1.B is null).shouldBe true
-        it "selfcall without action, different one", -> (that1.C is null).shouldBe true
-        it "create without action, different one",   -> (that1.D is null).shouldBe true
-        ###
+      suffix = "-returning Inter"
+      @diagram = uml ".sequence-diagram"
+      @that1 = {}
+      @that2 = {}
+      that1.a = diagram.found "A#{suffix}", ->
+        that1.b = @message "call", "B#{suffix}", -> that2.b = this
+        that1.c = @message "call", ->
+        that1.d = @create  "C#{suffix}", ->
+        that1.e = @destroy "B#{suffix}-1", ->
+        that1.f = @reply ->
+        that1.g = @ref ->
+        that1.h = @loop ->
+        that1.i = @reactivate "call", "B#{suffix}-2"
+      it "message",    -> (that1.b.constructor is that1.a.constructor).shouldBe true
+      it "selfcall",   -> (that1.c.constructor is that1.a.constructor).shouldBe true
+      it "create",     -> (that1.d.constructor is that1.a.constructor).shouldBe true
+      it "destroy",    -> (that1.e is null).shouldBe true  ## No occurrence at the actee of destroy.
+      it "reply",      -> (that1.f is null).shouldBe true  ##
+      it "ref",        -> (that1.g is null).shouldBe true  ##
+      it "loop",       -> (that1.h.constructor is that1.a.constructor).shouldBe true
+      it "reactivate", -> (that1.i.constructor is that1.a.constructor).shouldBe true
+      ctxtA = null
+      that1.A = diagram.found "A#{suffix}-3", ->
+        ctxtA = this
+        that1.B = @message "call", "B#{suffix}-4"
+        that1.C = @message "call"
+        that1.D = @create  "C#{suffix}-5"
+      it "message without action, different one",  -> (not(that1.B is ctxtA) and ctxtA.constructor is that1.B.constructor).shouldBe true
+      it "selfcall without action, different one", -> (not(that1.C is ctxtA) and ctxtA.constructor is that1.C.constructor).shouldBe true
+      it "create without action, different one",   -> (not(that1.D is ctxtA) and ctxtA.constructor is that1.D.constructor).shouldBe true
+      ### NOTE: I'm contemplating whethere @message returns always InteractionContext without action or not.
+      # NOTE: Tentatively, not return null
+      it "message without action, different one",  -> (that1.B is null).shouldBe true
+      it "selfcall without action, different one", -> (that1.C is null).shouldBe true
+      it "create without action, different one",   -> (that1.D is null).shouldBe true
+      ###
 
     description "goal", ->
         scenario "A order in a family restaurant", ->
