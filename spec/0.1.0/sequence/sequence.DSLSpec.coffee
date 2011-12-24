@@ -116,9 +116,9 @@ description "sequence-diagram.DSL", ->
       scenario "reactivating with @message", ->
         given "a diagram", -> @diagram = $.uml ".sequence-diagram"
         when_it "a sequence starts", ->
-          diagram.found "A", ->
-            @message "call", "B", ->
-            @reactivate @message "call", "B", ->
+          diagram.found "Aaaa-12341234", ->
+            @message "call", "Bbbb-12341234", ->
+            @reactivate @message "call", "Bbbb-12341234-1", ->
         and_ -> (diagram.appendTo $ "body").self().compose()
         then_it "diagram has two interactions", ->
           diagram.find("> .interaction.activated").expect(length: 2)
@@ -131,31 +131,31 @@ description "sequence-diagram.DSL", ->
                      .find("> .interaction").expect(length: 1).end()
         
         scenario "reactivating", ->
-            given "a diagram", -> @diagram = $.uml ".sequence-diagram"
-            when_it "a sequence starts", ->
-                diagram.found "A", ->
-                    @message "b", "B", ->
-                    @reactivate "c", "C", ->
-            and_ -> (diagram.appendTo $ "body").self().compose()
-            then_it "diagram has two interactions, which is same to 'with @message'", ->
-                diagram.find("> .interaction.activated").expect(length: 2)
-                       .filter(":eq(0)")
-                           .find("> .occurrence").expect(length: 1)
-                               .find("> .interaction").expect(length: 1).end()
-                           .end().end()
-                       .filter(":eq(1)")
-                           .find("> .occurrence").expect(length: 1)
-                               .find("> .interaction").expect(length: 1).end()
+          given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+          when_it "a sequence starts", ->
+            diagram.found "Addd-1234", ->
+              @message "b", "Bddd-1234", ->
+              @reactivate "c", "Cddd-1234", ->
+          and_ -> (diagram.appendTo $ "body").self().compose()
+          then_it "diagram has two interactions, which is same to 'with @message'", ->
+            diagram.find("> .interaction.activated").expect(length: 2)
+                   .filter(":eq(0)")
+                     .find("> .occurrence").expect(length: 1)
+                       .find("> .interaction").expect(length: 1).end()
+                     .end().end()
+                   .filter(":eq(1)")
+                     .find("> .occurrence").expect(length: 1)
+                       .find("> .interaction").expect(length: 1).end()
                 
         scenario "reactivating covered with @loop", ->
-            given "a diagram", -> @diagram = $.uml ".sequence-diagram"
-            when_it "a sequence starts", ->
-                diagram.found "A", ->
-                    @message "b", "B", ->
-                    @loop @reactivate "c", "C", ->
-            and_ -> (diagram.appendTo $ "body").self().compose()
-            then_it "diagram has two interactions, which is same to 'with @message'", ->
-                diagram.find("> .fragment").expect(length: 1)
+          given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+          when_it "a sequence starts", ->
+            diagram.found "Aeee-1324", ->
+              @message "b", "Beee-1234", ->
+              @loop @reactivate "c", "Ceee-1234", ->
+          and_ -> (diagram.appendTo $ "body").self().compose()
+          then_it "diagram has two interactions, which is same to 'with @message'", ->
+            diagram.find("> .fragment").expect(length: 1)
 
     description "noting", ->
         ## Note is basically after destination occurrence
