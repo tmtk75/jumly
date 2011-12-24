@@ -25,8 +25,11 @@ description "message.return", ->
         diag.appendTo $ "body"
         diag.compose()
       then_it "width", ->
-        diag.find(".return:eq(0)").outerRight()
-            .shouldBe diag.find(".occurrence:eq(1)").offset().left
+        a = diag.find(".occurrence:eq(3)")
+        b = diag.find(".return:eq(0)")
+        c = diag.find(".occurrence:eq(1)")
+        expect(a.offset().left).toBe b.outerRight()
+        expect(c.offset().left).toBe b.offset().left
 
     scenario "reply to right 2", ->
       given "an .object", ->
