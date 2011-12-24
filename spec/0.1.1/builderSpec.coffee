@@ -39,16 +39,14 @@ describe "JUMLY", ->
   
   
     describe "Event", ->
-      it "should call 'build.before' before build for sequence", ->
-        $("*").on "build.before", -> window.d0 = "build.before called"
+      it "should call 'build.after' before build for sequence", ->
         builder = new JUMLY.SequenceDiagramBuilder()
-        builder.build "@found 'Event build.before spec for sequence', ->"
-        expect(window.d0).toBe "build.before called"
-        
-        $("*").off "build.before"
-        window.d0 = null
-        builder.build "@found 'Event build.before spec for sequence again', ->"
-        expect(window.d0).toBeNull()
+        diag = builder.build """
+          @found 'Event build.after spec for sequence', ->
+          @diagram.on "build.after", -> window.d0 = "build.after called"
+          """
+        expect(window.d0).toBe "build.after called"
+
 
     it "should convert text to JUMLYDiagramElement"
 

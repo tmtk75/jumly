@@ -19,6 +19,7 @@ DiagramBuilder::build = (text)->
                                   .toLowerCase()
   @diagram = $.jumly ".#{typename}-diagram"
   @accept -> eval CoffeeScript.compile text
+  @diagram.trigger "build.after"
   @diagram
 
 JUMLY.DiagramBuilder = DiagramBuilder
