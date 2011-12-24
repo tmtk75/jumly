@@ -92,25 +92,25 @@ description "sequence-diagram.DSL", ->
       ###
 
     description "goal", ->
-        scenario "A order in a family restaurant", ->
-            it_behaves_as "given a .sequence_diagram"
-            when_it "A sequence starts", ->
-                diagram.found "Customer", ->
-                    @message "ask", "Hole Staff", ->
-                        @message "find a handy terminal", ->
-                    @message "order a set menu", "Hole Staff", ->
-                        @message "input the order", "Handy Terminal", ->
-                            @create "Order", ->
-                                @message "validate the pair"
-                            @message "tell the order", "Kitchen Staff", ->
-                                @create "cook", "Set Menu", ->
-                        @message "provide the dish", "Customer", ->
-                    @message "eat"
-            and_ ->
-                diagram.appendTo $ "body"
-                diagram.compose()
-            then_it "some .interations are created", ->
-                diagram.find(".interaction").not(".activated").length.shouldBe 10
+      scenario "A order in a family restaurant", ->
+        it_behaves_as "given a .sequence_diagram"
+        when_it "A sequence starts", ->
+          diagram.found "Customer 1", ->
+            @message "ask", "Hole Staff 1", ->
+              @message "find a handy terminal", ->
+            @message "order a set menu", "Hole Staff 2", ->
+              @message "input the order", "Handy Terminal", ->
+                @create "Order", ->
+                  @message "validate the pair"
+                @message "tell the order", "Kitchen Staff", ->
+                  @create "cook", "Set Menu", ->
+              @message "provide the dish", "Customer 2", ->
+            @message "eat"
+        and_ ->
+          diagram.appendTo $ "body"
+          diagram.compose()
+        then_it "some .interations are created", ->
+          diagram.find(".interaction").not(".activated").length.shouldBe 10
 
     description "complexity", ->
         scenario "reactivating with @message", ->
