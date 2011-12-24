@@ -651,7 +651,7 @@ class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
   constructor: (props, @_diagram) ->
     $.extend this, props
 
-JUMLYSequenceDiagramBuilder::_find_or_create_ = (e) ->
+JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
   switch typeof e
     when "string"
       if @diagram[e]
@@ -673,13 +673,13 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
     callback = b
   else if typeof a is "string" and typeof b is "string"
     if typeof c is "function"
-      actee    = @_find_or_create_ b
+      actee    = @_findOrCreate b
       callback = c
     else if c is undefined
-      actee    = @_find_or_create_ b
+      actee    = @_findOrCreate b
       callback = null
   else if typeof a is "object" and typeof b is "string"
-    actee    = @_find_or_create_ b
+    actee    = @_findOrCreate b
     callback = c
     for e of a
       switch e
@@ -723,13 +723,13 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
   ctxt
 
 JUMLYSequenceDiagramBuilder::destroy = (a) ->
-  @_current_occurrence.destroy @_find_or_create_ a
+  @_current_occurrence.destroy @_findOrCreate a
   null
 
 JUMLYSequenceDiagramBuilder::reply = (a, b) ->
   @_current_occurrence
     .parents(".interaction:eq(0)").self()
-    .reply name:a, ".actee":@_find_or_create_ b
+    .reply name:a, ".actee":@_findOrCreate b
   null
 
 JUMLYSequenceDiagramBuilder::ref = (a) ->
@@ -829,7 +829,7 @@ JUMLYSequenceDiagramBuilder::afterCompose = (f)->
   this
   
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
-  actor = @_find_or_create_ something
+  actor = @_findOrCreate something
   @_current_occurrence = actor.activate()
   @last = callback?.apply this, [this]
   this
