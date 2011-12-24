@@ -242,8 +242,9 @@ JUMLYInteraction::_compose_ = ->
   rmsg = $("> .message.return:last", that).self()
   if rmsg
     x = msg.offset().left
-    if rmsg.gives ".actee"
-      newdst = rmsg._findOccurr(rmsg.gives ".actee")
+    actee = rmsg.gives ".actee"
+    if actee
+      newdst = rmsg._findOccurr actee
       w = dst.offset().left - newdst.offset().left
       x = Math.min dst.offset().left, newdst.offset().left
     rmsg.width(Math.abs w)
