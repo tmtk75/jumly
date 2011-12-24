@@ -205,44 +205,43 @@ description "sequence-diagram.DSL", ->
               .find("> .note").expect length:0
 
     description "@loop", ->
+      scenario "2 objects A", ->
+        given "2 objects and an interaction", ->
+          @diag = $.uml ".sequence-diagram"
+          diag.found "A-loop-1", ->
+            @loop @message "call", "B-loop-2"
+        when_it "composing", ->
+          diag.appendTo $ "body"
+          diag.compose()
+        then_it "composition", ->
+          diag.find(".interaction.activated > .occurrence:eq(0) > .fragment").expect length:1
+        and_ "having .fragment", ->
+          diag.find(".fragment").expect length:1
+        and_ "having .loop", ->
+          diag.find(".fragment.loop").expect length:1
 
-        scenario "2 objects A", ->
-            given "2 objects and an interaction", ->
-                @diag = $.uml ".sequence-diagram"
-                diag.found "A", ->
-                    @loop @message "call", "B"
-            when_it "composing", ->
-                diag.appendTo $ "body"
-                diag.compose()
-            then_it "composition", ->
-                diag.find(".interaction.activated > .occurrence:eq(0) > .fragment").expect length:1
-            and_ "having .fragment", ->
-                diag.find(".fragment").expect length:1
-            and_ "having .loop", ->
-                diag.find(".fragment.loop").expect length:1
+      scenario "2 objects B", ->
+        given "2 objects and an interaction", ->
+          @diag = $.uml ".sequence-diagram"
+          diag.found "A-loop-3", ->
+            @loop @message "call", "B-loop-4", ->
+        when_it "composing", ->
+          diag.appendTo $ "body"
+          diag.compose()
+        then_it "composition", ->
+          diag.find(".interaction.activated > .occurrence:eq(0) > .fragment").expect length:1
 
-        scenario "2 objects B", ->
-            given "2 objects and an interaction", ->
-                @diag = $.uml ".sequence-diagram"
-                diag.found "A", ->
-                    @loop @message "call", "B", ->
-            when_it "composing", ->
-                diag.appendTo $ "body"
-                diag.compose()
-            then_it "composition", ->
-                diag.find(".interaction.activated > .occurrence:eq(0) > .fragment").expect length:1
-
-        it "should accept an acts, and run it in a new loop fragment", ->
-            diag = $.jumly ".sequence-diagram"
-            diag.found "A", ->
-                @message "no", "Without"
-                @loop ->
-                    @create "b"
-                    @message "c", "C"
-            .compose $ "body"
-            expect(diag.find(".loop").length).toBe 1
-            expect(diag.find(".loop .message").length).toBe 2
-            expect(diag.find(".object").length).toBe 4
+      it "should accept an acts, and run it in a new loop fragment", ->
+        diag = $.jumly ".sequence-diagram"
+        diag.found "A-loop-5", ->
+          @message "no", "Without"
+          @loop ->
+            @create "b-loop-6"
+            @message "c", "C-loop-7"
+        .compose $ "body"
+        expect(diag.find(".loop").length).toBe 1
+        expect(diag.find(".loop .message").length).toBe 2
+        expect(diag.find(".object").length).toBe 4
 
     description "script tag", ->
 
