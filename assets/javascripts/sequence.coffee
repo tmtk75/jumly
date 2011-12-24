@@ -673,26 +673,30 @@ JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
   actname  = a
   if typeof b is "function" or b is undefined
-    actee    = @_actor()
+    actee = @_actor()
     callback = b
   else if typeof a is "string" and typeof b is "string"
     if typeof c is "function"
-      actee    = @_findOrCreate b
+      actee = @_findOrCreate b
       callback = c
     else if c is undefined
-      actee    = @_findOrCreate b
+      actee = @_findOrCreate b
       callback = null
   else if typeof a is "object" and typeof b is "string"
-    actee    = @_findOrCreate b
+    actee = @_findOrCreate b
     callback = c
     for e of a
       switch e
         when "asynchronous"
           actname = a[e]
           stereotype = "asynchronous" 
+  else if typeof a is "string" and typeof b is "object"
+    norm = JUMLY.Identity.normalize b
+    actee = @_findOrCreate norm.name
+    callback = c
   else
     msg = "invalid arguments"
-    console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
+    console.error "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
     throw new Error(msg, a, b, c)
       
   iact = @_currOccurr.interact actee
@@ -700,9 +704,9 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
       .stereotype(stereotype)
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
-  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
-  callback?.apply ctxt, []
-  ctxt
+  b = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
+  callback?.apply b, []
+  b
 
 JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
   if typeof a is "string" and typeof b is "function"

@@ -1014,7 +1014,7 @@ description "sequence-diagram", ->
         $.jumly.preferences(".sequence-diagram", compose_most_left:MLEFT)
         diag = $.jumly ".sequence-diagram"
         $("body").append diag
-        (diag.found aaaa222:"A", -> @message "call", bbbb222:"B").compose()
+        (diag.found aaaa222:"A-able-0", -> @message "call", bbbb222:"B-able-1").compose()
         diag.find(".object:eq(0)").offset().left.shouldBe MLEFT + BODY_MARGIN_LEFT
 
     
