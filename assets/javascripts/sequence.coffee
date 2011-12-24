@@ -664,7 +664,7 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
     when "object"
       e
 
-JUMLYSequenceDiagramBuilder::_actor = -> @_current_occurrence.gives ".object"
+JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 
 JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
   actname  = a
@@ -691,12 +691,12 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
     console.log "JUMLYSequenceDiagramBuilder::message", msg, a, b, c
     throw msg
       
-  iact = @_current_occurrence.interact actee
+  iact = @_currOccurr.interact actee
   iact.name(actname)
       .stereotype(stereotype)
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
-  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
   ctxt
 
@@ -714,46 +714,46 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
     actee    = a
     callback = null
       
-  iact = @_current_occurrence.create id:actee, name:actee
+  iact = @_currOccurr.create id:actee, name:actee
   if name then iact.name name
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
-  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
   ctxt
 
 JUMLYSequenceDiagramBuilder::destroy = (a) ->
-  @_current_occurrence.destroy @_findOrCreate a
+  @_currOccurr.destroy @_findOrCreate a
   null
 
 JUMLYSequenceDiagramBuilder::reply = (a, b) ->
-  @_current_occurrence
+  @_currOccurr
     .parents(".interaction:eq(0)").self()
     .reply name:a, ".actee":@_findOrCreate b
   null
 
 JUMLYSequenceDiagramBuilder::ref = (a) ->
-  (jumly ".ref", a).insertAfter @_current_occurrence.parents(".interaction:eq(0)")
+  (jumly ".ref", a).insertAfter @_currOccurr.parents(".interaction:eq(0)")
   null
 
 JUMLYSequenceDiagramBuilder::lost = (a) ->
-  @_current_occurrence.lost()
+  @_currOccurr.lost()
   null
 
 ## A kind of fragment
 JUMLYSequenceDiagramBuilder::loop = (a, b, c) ->
   ## NOTE: Should this return null in case of no context
   if a.constructor is this.constructor  ## First one is DSL
-    frag = a._current_occurrence
+    frag = a._currOccurr
      .parents(".interaction:eq(0)").self()
      .fragment(name:"Loop")
      .addClass "loop"
   else
     last = [].slice.apply(arguments).pop()  ## Last one is Function
     if $.isFunction(last)
-      kids = @_current_occurrence.find("> *")
+      kids = @_currOccurr.find("> *")
       last.apply this, []
-      newones = @_current_occurrence.find("> *").not(kids)
+      newones = @_currOccurr.find("> *").not(kids)
       if newones.length > 0
         frag = jumly(".fragment").addClass("loop").enclose newones
         frag.find(".name:first").html "Loop"
@@ -770,10 +770,10 @@ JUMLYSequenceDiagramBuilder::alt = (ints, b, c) ->
     _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
       what = act.apply self
       unless what then return what
-      what._current_occurrence
+      what._currOccurr
           .parent(".interaction:eq(0)")
     iacts[name] = _new_act(name, act)
-  @_current_occurrence.interact stereotype:".alt", iacts
+  @_currOccurr.interact stereotype:".alt", iacts
   this
 
 ###
@@ -783,18 +783,18 @@ Examples:
 ###
 JUMLYSequenceDiagramBuilder::reactivate = (a, b, c) ->
   if a.constructor is this.constructor
-    e = a._current_occurrence.parents(".interaction:eq(0)")
+    e = a._currOccurr.parents(".interaction:eq(0)")
     @_actor().activate().append e
     return a
   occurr = @_actor().activate()
-  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _current_occurrence:occurr)
+  ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   ctxt.message(a, b, c)
   ctxt
 
 JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
-  nodes = @_current_occurrence.find("> .interaction:eq(0)")
+  nodes = @_currOccurr.find("> .interaction:eq(0)")
   if nodes.length is 0
-    nodes = @_current_occurrence.parents ".interaction:eq(0):not(.activated)"
+    nodes = @_currOccurr.parents ".interaction:eq(0):not(.activated)"
 
   ##TENTATIVE: because DSL notation is not decided.
   text = a
@@ -807,7 +807,7 @@ JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
 
 JUMLYSequenceDiagramBuilder::found = (something, callback)->
   actor = @_findOrCreate something
-  @_current_occurrence = actor.activate()
+  @_currOccurr = actor.activate()
   @last = callback?.apply this, [this]
   this
 
