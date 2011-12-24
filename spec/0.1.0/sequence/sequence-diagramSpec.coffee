@@ -1003,7 +1003,7 @@ description "sequence-diagram", ->
       it 'should be fixed if the value is not "auto"', ->
         diag = $.jumly ".sequence-diagram"
         $("body").append diag
-        ctxt = diag.found "A", -> @message "call", "B"
+        ctxt = diag.found aaaa111:"A", -> @message "call", "B"
         obj = diag.find(".object:eq(1)")
         obj.offset(left:-123)
         ctxt.compose()
@@ -1014,20 +1014,17 @@ description "sequence-diagram", ->
         $.jumly.preferences(".sequence-diagram", compose_most_left:MLEFT)
         diag = $.jumly ".sequence-diagram"
         $("body").append diag
-        (diag.found "A", -> @message "call", "B").compose()
+        (diag.found aaaa222:"A", -> @message "call", bbbb222:"B").compose()
         diag.find(".object:eq(0)").offset().left.shouldBe MLEFT + BODY_MARGIN_LEFT
 
     
     description "de-fact specification", ->
-
-        it "objects identified by the name in sequence-diagram", ->
-            diag = $.jumly ".sequence-diagram"
-            diag.found "JUMLY service", ->
-                    @create "Styled Node"
-                .compose $ "body"
-            expect(diag.find(".object:eq(0)").attr("id")).toBe "JUMLY service"
-            expect(diag.find(".object:eq(1)").attr("id")).toBe "Styled Node"
-            expect(diag["JUMLY service"]).toBeDefined()
-            expect(diag["Styled Node"]).toBeDefined()
-
-
+      it "objects identified by the name in sequence-diagram", ->
+        diag = $.jumly ".sequence-diagram"
+        diag.found "JUMLY service", ->
+              @create "Styled Node"
+            .compose $ "body"
+        expect(diag.find(".object:eq(0)").attr("id")).toBe "jumly-service"
+        expect(diag.find(".object:eq(1)").attr("id")).toBe "styled-node"
+        expect(diag["jumly-service"]).toBeDefined()
+        expect(diag["styled-node"]).toBeDefined()
