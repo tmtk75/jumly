@@ -256,48 +256,46 @@ description "usecase.DSL", ->
             expect(diag.foobar).toBeTruthy()
             
         it 'is an .out-of-bounds', ->
-            script = $("<script>").html """
-                @actor "me"
-                @actor "you"
-                @usecase "an usecase"
-                @usecase "another usecase"
-                @boundary "an boundary", ->
-                    @usecase "an inner usecase"
-                """
-            diag = $.jumly.DSL('.usecase-diagram').compileScript script
-            diag.find("> .out-of-bounds > .usecase").expect length:2
-            diag.appendTo $ "body"
-            diag.compose()
-           
-            # style is similar to none
-            oob = diag.find("> .out-of-bounds")
-            oob.css("border-width").shouldBe ""
-            oob.css("border-color").shouldBe ""
-            oob.css("box-shadow").shouldBe "none"
-            oob.css("-webkit-box-shadow").shouldBe "none"
+          script = $("<script>").html """
+              @actor "me-oob-0"
+              @actor "you-oob-1"
+              @usecase "an usecase-oob-2"
+              @usecase "another usecase-oob-3"
+              @boundary "an boundary-oob-4", ->
+                  @usecase "an inner usecase-oob-5"
+              """
+          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          diag.find("> .out-of-bounds > .usecase").expect length:2
+          diag.appendTo $ "body"
+          diag.compose()
+         
+          # style is similar to none
+          oob = diag.find("> .out-of-bounds")
+          oob.css("border-width").shouldBe ""
+          oob.css("border-color").shouldBe ""
+          oob.css("box-shadow").shouldBe "none"
+          oob.css("-webkit-box-shadow").shouldBe "none"
 
-            # size
-            oob.outerWidth().shouldBeGreaterThan 0   # depends on window size
-            oob.outerHeight().shouldBeGreaterThan 0  # depends on total of icons.
+          # size
+          oob.outerWidth().shouldBeGreaterThan 0   # depends on window size
+          oob.outerHeight().shouldBeGreaterThan 0  # depends on total of icons.
 
-            # doesn't have .name
-            oob.find("> .name").length.shouldBe 0
-
+          # doesn't have .name
+          oob.find("> .name").length.shouldBe 0
 
         it 'is .out-of-bounds in case of no system-boundary-name attribute', ->
-            script = $("<script>").html """
-                @actor "you"
-            """
-            diag = $.jumly.DSL('.usecase-diagram').compileScript script
-            expect(diag.find("> .out-of-bounds").length).toBe 1
-            expect(diag.find("> .system-boundary").length).toBe 0
+          script = $("<script>").html """
+              @actor "you-oob-6"
+          """
+          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          expect(diag.find("> .out-of-bounds").length).toBe 1
+          expect(diag.find("> .system-boundary").length).toBe 0
 
         it 'is .system-boundary in case having system-boundary-name attribute', ->
-            script = $("<script system-boundary-name='a boundary'>").html """
-                @actor "you"
-            """
-            diag = $.jumly.DSL('.usecase-diagram').compileScript script
-            expect(diag.find("> .out-of-bounds").length).toBe 0
-            expect(diag.find("> .system-boundary").length).toBe 1
-            expect(diag.find("> .system-boundary > .name").text()).toBe "a boundary"
-
+          script = $("<script system-boundary-name='a boundary'>").html """
+              @actor "you-oob-7"
+          """
+          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          expect(diag.find("> .out-of-bounds").length).toBe 0
+          expect(diag.find("> .system-boundary").length).toBe 1
+          expect(diag.find("> .system-boundary > .name").text()).toBe "a boundary"
