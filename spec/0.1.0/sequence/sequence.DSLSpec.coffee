@@ -113,22 +113,22 @@ description "sequence-diagram.DSL", ->
           diagram.find(".interaction").not(".activated").length.shouldBe 10
 
     description "complexity", ->
-        scenario "reactivating with @message", ->
-            given "a diagram", -> @diagram = $.uml ".sequence-diagram"
-            when_it "a sequence starts", ->
-                diagram.found "A", ->
-                    @message "call", "B", ->
-                    @reactivate @message "call", "B", ->
-            and_ -> (diagram.appendTo $ "body").self().compose()
-            then_it "diagram has two interactions", ->
-                diagram.find("> .interaction.activated").expect(length: 2)
-                       .filter(":eq(0)")
-                           .find("> .occurrence").expect(length: 1)
-                               .find("> .interaction").expect(length: 1).end()
-                           .end().end()
-                       .filter(":eq(1)")
-                           .find("> .occurrence").expect(length: 1)
-                               .find("> .interaction").expect(length: 1).end()
+      scenario "reactivating with @message", ->
+        given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+        when_it "a sequence starts", ->
+          diagram.found "A", ->
+            @message "call", "B", ->
+            @reactivate @message "call", "B", ->
+        and_ -> (diagram.appendTo $ "body").self().compose()
+        then_it "diagram has two interactions", ->
+          diagram.find("> .interaction.activated").expect(length: 2)
+                 .filter(":eq(0)")
+                   .find("> .occurrence").expect(length: 1)
+                     .find("> .interaction").expect(length: 1).end()
+                   .end().end()
+                 .filter(":eq(1)")
+                   .find("> .occurrence").expect(length: 1)
+                     .find("> .interaction").expect(length: 1).end()
         
         scenario "reactivating", ->
             given "a diagram", -> @diagram = $.uml ".sequence-diagram"
