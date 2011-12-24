@@ -656,11 +656,17 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
     when "string"
       if @diagram[e]
         return @diagram[e]
-      a = jumly ".object", e
-      a.attr id:e
-      @diagram[e] = a
-      @diagram.append a
-      a
+      a = JUMLY.Identity.normalize e
+      obj = jumly ".object", a
+      @diagram._regByRef_ a.id, obj
+      @diagram.append obj
+      obj
+    when "object"
+      a = JUMLY.Identity.normalize e
+      obj = jumly ".object", a
+      @diagram._regByRef_ a.id, obj
+      @diagram.append obj
+      obj
 
 JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 
