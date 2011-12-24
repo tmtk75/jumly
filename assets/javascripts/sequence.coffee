@@ -725,6 +725,10 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
     name     = null
     actee    = a
     callback = null
+  else if typeof a is "object" and typeof b is "function"
+    e = JUMLY.Identity.normalize a
+    actee    = e.name
+    callback = b
       
   id = JUMLY.Naming.toID(actee)
   iact = @_currOccurr.create id:id, name:actee
