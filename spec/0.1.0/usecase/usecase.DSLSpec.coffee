@@ -102,15 +102,6 @@ description "usecase.DSL", ->
                         .find(".system-boundary:eq(1)").expect(name:"eeeee").end()
 
     description "@usecase", ->
-        shared_scenario "simple string", ->
-            given "a usecase diagram", ->
-                @diag = $.uml ".usecase-diagram"
-            and_ "a boundary and an usecase", ->
-                diag.boundary "a", ->
-                    @usecase "open file"
-            then_it "the name is defined", ->
-                diag.find(".usecase:last .name").text().shouldBe "open file"
-
         shared_scenario "attributed string", ->
             given "a boundary and an usecase", ->
                 diag.boundary "bound-001", ->

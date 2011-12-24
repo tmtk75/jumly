@@ -48,15 +48,14 @@ description "fragment.alt", ->
               .find("> :eq(8)").expect((e) -> e.hasClass "interaction").end()
     
     scenario "alt for reactivation, which is a case the returning is null", ->
-        given "2 objects and an interaction", ->
-            @diag = $.uml ".sequence-diagram"
-            diag.found "A", ->
-                @alt "[x > 0]": ->
-                    @message "a->b", "B"
-                    null
-        when_it "composing it which null returned", ->
-            diag.appendTo $ "body"
-            diag.compose()
-        then_it "occurrence has fragment", ->
-            diag.find(".alt").expect length:1
-
+      given "2 objects and an interaction", ->
+        @diag = $.uml ".sequence-diagram"
+        diag.found "A-alt-1", ->
+          @alt "[x > 0]": ->
+            @message "a->b", "B-alt-1"
+            null
+      when_it "composing it which null returned", ->
+        diag.appendTo $ "body"
+        diag.compose()
+      then_it "occurrence has fragment", ->
+        diag.find(".alt").expect length:1
