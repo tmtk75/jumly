@@ -661,8 +661,6 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
       @diagram[e] = a
       @diagram.append a
       a
-    when "object"
-      e
 
 JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 
