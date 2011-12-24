@@ -6,7 +6,7 @@ description "sequence-diagram.fragment.loop", ->
       @create "", "Order-loop-2", ->
         @loop @message "mail", "Me-loop-3", ->
           @message "read", ->
-          @reply "something", diag["You-loop-1"]
+          @reply "", diag["You-loop-1"]
     ctxt.compose $ "body"
     widthBetween23 = diag.find(".object").not(":eq(0)").mostLeftRight().width()
     diag.find(".loop").outerWidth().shouldBeLessThan widthBetween23
