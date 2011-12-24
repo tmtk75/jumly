@@ -30,15 +30,15 @@ description "sequence.ref", ->
         #    @ref.offset().left.shouldBeLessThan diag.A.offset().left
     
     scenario "when activated", ->
-        given "a new found", ->
-            @diag = $.uml ".sequence-diagram"
-            diag.found "A"
-            diag.appendTo $ "body"
-            @occurr = diag.find(".occurrence:last").self()
-        when_it "composing", ->
-            diag.compose()
-        then_it "x0 < x1", ->
-            @occurr.offset().left.shouldBeLessThan diag.A.offset().left + diag.A.outerWidth()/2
+      given "a new found", ->
+        @diag = $.uml ".sequence-diagram"
+        diag.found "A-act-0"
+        diag.appendTo $ "body"
+        @occurr = diag.find(".occurrence:last").self()
+      when_it "composing", ->
+        diag.compose()
+      then_it "x0 < x1", ->
+        @occurr.offset().left.shouldBeLessThan diag.A.offset().left + diag.A.outerWidth()/2
 
     scenario "default diagram width", ->
         it_behaves_as "2 objects"
@@ -209,18 +209,18 @@ description "sequence.ref", ->
             (ll.offset().left + ll.outerWidth()).shouldBeLessThan fragment.offset().left + fragment.outerWidth()
 
     scenario "ref's width depends on the rectangle occupied with objects", ->
-        it_behaves_as "2 objects"
-        when_it "objects and ref", ->
-            diagram.append(@ref = $.uml(".ref", 
-                width: ".object"
-                buffer: 0
-            ).find(".name").html("ref").end()).compose()
-        then_it "maybe less than", ->
-            ref.outerWidth().shouldBeLessThan $(".object", diagram).mostLeftRight().width()
-        then_it "should be centered. left of ref is at left of the center of obj-a", ->
-            obj = diagram.find(".object:eq(0)")
-            m = obj.offset().left + obj.outerWidth()/2
-            ref.offset().left.shouldBeLessThan m
+      it_behaves_as "2 objects"
+      when_it "objects and ref", ->
+        diagram.append(@ref = $.uml(".ref", 
+            width: ".object"
+            buffer: 0
+        ).find(".name").html("ref").end()).compose()
+      then_it "maybe less than", ->
+        ref.outerWidth().shouldBeLessThan $(".object", diagram).mostLeftRight().width()
+      then_it "should be centered. left of ref is at left of the center of obj-a", ->
+        obj = diagram.find(".object:eq(0)")
+        m = obj.offset().left + obj.outerWidth()/2
+        ref.offset().left.shouldBeLessThan m
     
     scenario "ref's width in case of no occurrence", ->
         it_behaves_as "2 objects"
@@ -341,41 +341,40 @@ description "sequence.ref", ->
             ref.outerRight().shouldBeLessThan obj.outerRight()
 
         it "should look good even in the deep", ->
-            diag = $.jumly ".sequence-diagram"
-            ctxt = diag.found "You", ->
-                @message "contact", "Me", ->
-                    @message "mail", "Him", ->
-                    @ref "Make the report"
-                    @ref "Submit it"
-            ctxt.compose $ "body"
+          diag = $.jumly ".sequence-diagram"
+          ctxt = diag.found "You-ref-0", ->
+            @message "contact", "Me-ref-1", ->
+              @message "mail", "Him-ref-2", ->
+              @ref "Make the report-ref-3"
+              @ref "Submit it-ref-4"
+          ctxt.compose $ "body"
 
-            occur = diag.find(".occurrence:eq(0)")
-            ref = diag.find(".ref")
-            obj = diag.find(".object:last")
+          occur = diag.find(".occurrence:eq(0)")
+          ref = diag.find(".ref")
+          obj = diag.find(".object:last")
 
-            occur.outerRight().shouldBeLessThan ref.offset().left
-            ref.outerRight().shouldBeLessThan obj.outerRight()
+          occur.outerRight().shouldBeLessThan ref.offset().left
+          ref.outerRight().shouldBeLessThan obj.outerRight()
 
-            occur1 = diag.find(".occurrence:eq(1)")
-            occur2 = diag.find(".occurrence:eq(2)")
-            ref.offset().left.shouldBeLessThan occur1.offset().left
-            occur2.outerRight().shouldBeLessThan ref.outerRight()
+          occur1 = diag.find(".occurrence:eq(1)")
+          occur2 = diag.find(".occurrence:eq(2)")
+          ref.offset().left.shouldBeLessThan occur1.offset().left
+          occur2.outerRight().shouldBeLessThan ref.outerRight()
 
 
         it "should look good even after loop fragment", ->
-            diag = $.jumly ".sequence-diagram"
-            ctxt = diag.found "You", ->
-                @message "contact", "Me", ->
-                    @loop @message "mail", "Him", ->
-                        @message "read", ->
-                        @reply "reply", "Me"
-                    @ref "Make the report"
-            ctxt.compose $ "body"
+          diag = $.jumly ".sequence-diagram"
+          ctxt = diag.found "You-ref-5", ->
+            @message "contact", "Me-ref-6", ->
+              @loop @message "mail", "Him-ref-7", ->
+                @message "read-ref-8", ->
+                @reply "reply", "Me-ref-9"
+              @ref "Make the report-ref-10"
+          ctxt.compose $ "body"
 
-            occur = diag.find(".occurrence:eq(0)").css("border-color", "red")
-            ref = diag.find(".ref")
-            obj = diag.find(".object:last")
+          occur = diag.find(".occurrence:eq(0)").css("border-color", "red")
+          ref = diag.find(".ref")
+          obj = diag.find(".object:last")
 
-            occur.outerRight().shouldBeLessThan ref.offset().left
-            ref.outerRight().shouldBeLessThan obj.outerRight()
-
+          occur.outerRight().shouldBeLessThan ref.offset().left
+          ref.outerRight().shouldBeLessThan obj.outerRight()
