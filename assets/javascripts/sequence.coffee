@@ -726,8 +726,9 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
     actee    = a
     callback = null
       
-  iact = @_currOccurr.create id:actee, name:actee
-  if name then iact.name name
+  id = JUMLY.Naming.toID(actee)
+  iact = @_currOccurr.create id:id, name:actee
+  iact.name name if name 
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
   ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
