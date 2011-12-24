@@ -5,7 +5,7 @@ description "message.return", ->
         @diag.found "A-rp-0", ->
           @message "b", "B-rp-1", ->
             @message "c", "C-rp-2", ->
-              @reply "", "A-rp-3"
+              @reply "", "A-rp-0"
       when_it "compose", ->
         diag.appendTo $ "body"
         diag.compose()
@@ -20,7 +20,7 @@ description "message.return", ->
           @message "b", "B-rp-5", ->
             @message "c", "C-rp-6", ->
               @message "a", "A-rp-7", ->
-                @reply "", "B-rp-8"
+                @reply "", "B-rp-5"
       when_it "compose", ->
         diag.appendTo $ "body"
         diag.compose()
