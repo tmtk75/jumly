@@ -244,27 +244,24 @@ description "sequence-diagram.DSL", ->
         expect(diag.find(".object").length).toBe 4
 
     description "script tag", ->
+      it 'is able to write a DSL like', ->
+        script = $("<script>").html """
+          @found "User-stag-1", ->
+              @message "turn on", "Mobile-stag-1", ->
+                  @message "connect to", "Basepoint"
+          """
+        diag = $.jumly.DSL('.sequence-diagram').compileScript script
+        diag.find(".interaction:not(.activated)").expect length:2
+        diag.appendTo $ "body"
+        diag.compose()
 
-        it 'is able to write a DSL like', ->
-            script = $("<script>").html """
-                @found "User", ->
-                    @message "turn on", "Mobile", ->
-                        @message "connect to", "Basepoint"
-                """
-            diag = $.jumly.DSL('.sequence-diagram').compileScript script
-            diag.find(".interaction:not(.activated)").expect length:2
-            diag.appendTo $ "body"
-            diag.compose()
+      it 'should load script node', ->
+        script = $("<script>").html """
+          @found "User-stag-2", -> @message "turn on", "Mobile-stag-1", ->
+          """
+        script.attr "type", "text/jumly-sequence-diagram"
+        diag = $.jumly.run_script_ script
+        diag.find(".interaction:not(.activated)").expect length:1
 
-        it 'should load script node', ->
-            script = $("<script>").html """
-                @found "User", -> @message "turn on", "Mobile", ->
-                """
-            script.attr "type", "text/jumly-sequence-diagram"
-            diag = $.jumly.run_script_ script
-            diag.find(".interaction:not(.activated)").expect length:1
-
-        it 'should be thrown because no type', ->
-            expect(-> $.jumly.run_script_ $ "<script>").toThrow()
-
-
+      it 'should be thrown because no type', ->
+        expect(-> $.jumly.run_script_ $ "<script>").toThrow()
