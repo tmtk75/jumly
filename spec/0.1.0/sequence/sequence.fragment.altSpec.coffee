@@ -21,31 +21,31 @@ description "fragment.alt", ->
             
     scenario "three combined fragment", ->
       given "2 objects and an interaction", ->
-          @diag = $.uml ".sequence-diagram"
-          diag.found "A", ->
-              @message "call", "B"
-              @alt "[x > 0]": ->
-                      @message "a->e", "E"
-                   "[x = 0]": ->
-                      @message "a->d", "D"
-                   "[x < 0]": ->
-                      @message "a->c", "C"
+        @diag = $.uml ".sequence-diagram"
+        diag.found "A-cf-1234", ->
+          @message "call", "B-cf-1234"
+          @alt "[x > 0]": ->
+                  @message "a->e", "E-cf-1234"
+               "[x = 0]": ->
+                  @message "a->d", "D-cf-1234"
+               "[x < 0]": ->
+                  @message "a->c", "C-cf-1234"
       when_it "composing", ->
-          diag.appendTo $ "body"
-          diag.compose()
+        diag.appendTo $ "body"
+        diag.compose()
       then_it "occurrence has fragment", ->
-          diag.find(".interaction.activated > .occurrence:eq(0)")
-              .find("> :eq(0)").expect((e) -> e.hasClass "interaction").end()
-              .find("> :eq(1)").expect((e) -> e.hasClass "alt")
-                  .find("> :eq(0)").expect((e) -> e.hasClass "header").end()
-                  .find("> :eq(1)").expect((e) -> e.hasClass "condition").end()
-                  .find("> :eq(2)").expect((e) -> e.hasClass "interaction").end()
-                  .find("> :eq(3)").expect((e) -> e.hasClass "divider").end()
-                  .find("> :eq(4)").expect((e) -> e.hasClass "condition").end()
-                  .find("> :eq(5)").expect((e) -> e.hasClass "interaction").end()
-                  .find("> :eq(6)").expect((e) -> e.hasClass "divider").end()
-                  .find("> :eq(7)").expect((e) -> e.hasClass "condition").end()
-                  .find("> :eq(8)").expect((e) -> e.hasClass "interaction").end()
+        diag.find(".interaction.activated > .occurrence:eq(0)")
+            .find("> :eq(0)").expect((e) -> e.hasClass "interaction").end()
+            .find("> :eq(1)").expect((e) -> e.hasClass "alt")
+              .find("> :eq(0)").expect((e) -> e.hasClass "header").end()
+              .find("> :eq(1)").expect((e) -> e.hasClass "condition").end()
+              .find("> :eq(2)").expect((e) -> e.hasClass "interaction").end()
+              .find("> :eq(3)").expect((e) -> e.hasClass "divider").end()
+              .find("> :eq(4)").expect((e) -> e.hasClass "condition").end()
+              .find("> :eq(5)").expect((e) -> e.hasClass "interaction").end()
+              .find("> :eq(6)").expect((e) -> e.hasClass "divider").end()
+              .find("> :eq(7)").expect((e) -> e.hasClass "condition").end()
+              .find("> :eq(8)").expect((e) -> e.hasClass "interaction").end()
     
     scenario "alt for reactivation, which is a case the returning is null", ->
         given "2 objects and an interaction", ->
