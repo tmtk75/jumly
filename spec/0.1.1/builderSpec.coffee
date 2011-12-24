@@ -11,9 +11,11 @@ describe "JUMLY", ->
       expect(builder.a1).toBe 111
       
     it "should be extended with 'extends'", ->
-      class MyBuilder extends JUMLY.DiagramBuilder
-      MyBuilder::run = -> this.ran = "abc"
-      builder = new MyBuilder
+      class MyDiagramBuilder extends JUMLY.DiagramBuilder
+      MyDiagramBuilder::run = -> this.ran = "abc"
+      class MyDiagram extends JUMLY.Diagram
+      JUMLY.define ".my-diagram", MyDiagram
+      builder = new MyDiagramBuilder
       builder.build '@run "A", "B"'
       expect(builder.ran).toBe "abc"
   
@@ -37,11 +39,16 @@ describe "JUMLY", ->
   
   
     describe "Event", ->
-      it "should call 'build.before' before build", ->
+      it "should call 'build.before' before build for sequence", ->
         $("*").on "build.before", -> window.d0 = "build.before called"
-        builder = new JUMLY.UsecaseDiagramBuilder()
-        builder.build()
+        builder = new JUMLY.SequenceDiagramBuilder()
+        builder.build "@found 'Event build.before spec for sequence', ->"
         expect(window.d0).toBe "build.before called"
+        
+        $("*").off "build.before"
+        window.d0 = null
+        builder.build "@found 'Event build.before spec for sequence again', ->"
+        expect(window.d0).toBeNull()
 
     it "should convert text to JUMLYDiagramElement"
 
