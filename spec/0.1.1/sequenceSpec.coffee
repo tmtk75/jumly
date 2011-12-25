@@ -114,10 +114,13 @@ $ ->
       append diag
       diag.compose()
       expect(diag.find("#you"   ).attr "id").toBe "you"
-      expect(diag.find("#think" ).attr "id").toBe "think"
       expect(diag.find("#jumly" ).attr "id").toBe "jumly"
       expect(diag.find("#s-node").attr "id").toBe "s-node"
-      #$("#TrivialReporter")
+      expect(diag["you"]   ).not.toBeUndefined()
+      expect(diag["jumly"] ).not.toBeUndefined()
+      expect(diag["s-node"]).not.toBeUndefined()
+      expect(diag.find(".object").length).toBe 3
+      #$("#TrivialReporter").hide()
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
 Generally,
