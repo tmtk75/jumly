@@ -164,7 +164,7 @@ describe "JUMLY", ->
         expect(a.name).toBe "update file"
         expect(a.use).not.toBeUndefined()
 
-      it "should return 'undefined' for jQuery object which doesn't have 'id' attribute", ->
+      it "should return 'undefined' for jQuery object which doesn't have 'id' and 'name' HTMLElement", ->
         norm = normalize $("<div>")
         expect(norm).toBeUndefined()
         
@@ -172,6 +172,16 @@ describe "JUMLY", ->
         norm = normalize $("<div>").attr("id", "Identified Object")
         expect(norm.id).toBe "Identified Object" 
         expect(norm.name).toBeUndefined()
+
+      it "should return an object for jQuery object which has 'name' HTMLElement", ->
+        norm = normalize $("<div>").append $("<span>").attr name:"Trickster"
+        expect(norm.id).toBeUndefined()
+        expect(norm.name).toBe ""
+
+      it "should return a normalized object which has id and name", ->
+        norm = normalize $("<div>").attr(id:"speed-star").append $("<span>").attr name:"Speed star"
+        expect(norm.id).toBe "speed-star"
+        expect(norm.name).toBe "Speed star"
       
     
 describe "$.jumly", ->
