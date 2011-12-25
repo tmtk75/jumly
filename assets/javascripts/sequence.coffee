@@ -658,9 +658,10 @@ class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
 JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
   switch typeof e
     when "string"
-      if @diagram[e]
-        return @diagram[e]
       a = JUMLY.Identity.normalize e
+      r = JUMLY.Naming.toRef a.id
+      if @diagram[r]
+        return @diagram[r]
       obj = jumly ".object", a
       @diagram._regByRef_ a.id, obj
       @diagram.append obj
