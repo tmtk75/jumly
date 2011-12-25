@@ -300,7 +300,6 @@ JUMLYLifeline::_build_ = (div, props)->
 	   .height(128)
 
 JUMLYOccurrence::interact = (_, opts) ->
-    throw new Error "Undefined argument" unless _
     _as = jumly.lang._as
     if opts?.stereotype is ".lost"
         occurr = jumly(type:".occurrence").addClass "icon"
