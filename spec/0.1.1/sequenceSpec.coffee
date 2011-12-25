@@ -16,8 +16,11 @@ $ ->
       append diag
       diag.compose()
 
+      it "should generate three objects", ->
+        expect(diag.find(".object").length).toBe 3
+
       it "should make refer to the object", ->
-        byid  = diag.find("#a-new-slide")
+        byid  = diag.find("#a-new-slide").self()
         byref = diag.slide
         expect(byid).toBe byref
 
