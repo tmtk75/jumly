@@ -14,13 +14,16 @@ DiagramBuilder::accept = (closure)->
   closure.apply this, []
 
 DiagramBuilder::build = (text)->
-  typename = this.constructor.name.replace(/^JUMLY/, "")
-                                  .replace(/Diagram(Builder)?$/, "")
-                                  .toLowerCase()
-  @diagram = $.jumly ".#{typename}-diagram"
-  @accept -> eval CoffeeScript.compile text
-  @diagram.trigger "build.after"
-  @diagram
+  try
+    typename = this.constructor.name.replace(/^JUMLY/, "")
+                                    .replace(/Diagram(Builder)?$/, "")
+                                    .toLowerCase()
+    @diagram = $.jumly ".#{typename}-diagram"
+    @accept -> eval CoffeeScript.compile text
+    @diagram.trigger "build.after"
+    @diagram
+  catch ex
+    #$.logger.error ex, ex.stack
+    throw ex
 
 JUMLY.DiagramBuilder = DiagramBuilder
-

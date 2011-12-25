@@ -215,7 +215,9 @@ JUMLY.Identity =
     switch $.kindof that
       when "String" then return id:toID(that), name:that
       when "Object" then ## Through down
-      else throw new Error
+      else
+        console.error "Cannot recognize kind:", that
+        throw new Error "Cannot recognize kind: '#{$.kindof that}'"
     keys = (p for p of that)
     return that if keys.length > 1
 

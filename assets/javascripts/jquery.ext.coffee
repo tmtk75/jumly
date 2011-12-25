@@ -102,8 +102,8 @@ jQuery.fn.alignAt = (base, pos) -> _align(this, base, pos)
 
 ##
 class Logger
-  @out = (cate, lv, msg)-> console.log "#{cate}:#{lv} --", msg
-  @err = (cate, lv, msg)-> console.error "#{cate}:#{lv} --", msg
+  @out = (cate, lv, msg)-> console.log "#{cate}:#{lv} --", msg, arguments[3], arguments[4], arguments[5]
+  @err = (cate, lv, msg)-> console.error "#{cate}:#{lv} --", msg, arguments[3], arguments[4], arguments[5]
   constructor: (@category)->
 Logger::log = (lv, msg)->
   Logger.out @category, lv, msg
