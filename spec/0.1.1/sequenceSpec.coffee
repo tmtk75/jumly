@@ -43,6 +43,20 @@ $ ->
         expect(window.createdVariable).toBe a
         expect(diag.find(".object:eq(1) .name").text()).toBe "something name"
 
+      it "should identify with the ID not the name", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        diag = b.build """
+                       @found "Seakyld0022", ->
+                         @create "Edenbird0011":"Kyldylym0011"
+                       """
+        expect(diag.find(".object").length).toBe 2
+        expect(diag.find(".object:eq(0)").attr("id")).toBe "seakyld0022"
+        expect(diag.find(".object:eq(0) .name").text()).toBe "Seakyld0022"
+        expect(diag.find(".object:eq(1)").attr("id")).toBe "Edenbird0011"
+        expect(diag.find(".object:eq(1) .name").text()).toBe "Kyldylym0011"
+        expect(diag.find("#Edenbird0011").self()).toBe diag.find(".object:eq(1)").self()
+        expect(diag.find("#kyldylym0011").length).toBe 0
+
 
     describe "@message", ->
       it "should refer to the object having same id if a string is given at 2nd argument", ->
