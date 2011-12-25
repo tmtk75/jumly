@@ -169,17 +169,17 @@ describe "JUMLY", ->
         expect(norm).toBeUndefined()
         
       it "should return an object for jQuery object which has 'id' attribute", ->
-        norm = normalize $("<div>").attr("id", "Identified Object")
+        norm = normalize $("<div>").attr id:"Identified Object"
         expect(norm.id).toBe "Identified Object" 
         expect(norm.name).toBeUndefined()
 
       it "should return an object for jQuery object which has 'name' HTMLElement", ->
-        norm = normalize $("<div>").append $("<span>").attr name:"Trickster"
+        norm = normalize $("<div>").append $("<span>").addClass("name").html "Trickster"
         expect(norm.id).toBeUndefined()
-        expect(norm.name).toBe ""
+        expect(norm.name).toBe "Trickster"
 
       it "should return a normalized object which has id and name", ->
-        norm = normalize $("<div>").attr(id:"speed-star").append $("<span>").attr name:"Speed star"
+        norm = normalize $("<div>").attr(id:"speed-star").append $("<span>").addClass("name").html "Speed star"
         expect(norm.id).toBe "speed-star"
         expect(norm.name).toBe "Speed star"
       
