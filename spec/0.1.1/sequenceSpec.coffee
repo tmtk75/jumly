@@ -120,7 +120,15 @@ $ ->
       expect(diag["jumly"] ).not.toBeUndefined()
       expect(diag["s-node"]).not.toBeUndefined()
       expect(diag.find(".object").length).toBe 3
-      #$("#TrivialReporter").hide()
+
+    it "should work well for 2011-12-26 07:36", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      diag = b.build """@found "Foxixen", ->"""
+      append diag
+      
+      b = new JUMLY.SequenceDiagramBuilder
+      diag = b.build """@found "Foxixen", ->"""
+
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
 Generally,
