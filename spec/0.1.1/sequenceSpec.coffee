@@ -109,14 +109,15 @@ $ ->
         @found "You", ->
           @message "Think", ->
             @message "Write your idea", "JUMLY", ->
-              @create "Styled Node"
+              @create "S Node"
         """
       append diag
       diag.compose()
-      expect(diag["you"]).not.toBeUndefined()
-      expect(diag["think"]).not.toBeUndefined()
-      expect(diag["jumly"]).not.toBeUndefined()
-      expect(diag["styled_node"]).not.toBeUndefined()
+      expect(diag.find("#you"   ).attr "id").toBe "you"
+      expect(diag.find("#think" ).attr "id").toBe "think"
+      expect(diag.find("#jumly" ).attr "id").toBe "jumly"
+      expect(diag.find("#s-node").attr "id").toBe "s-node"
+      #$("#TrivialReporter")
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
 Generally,
