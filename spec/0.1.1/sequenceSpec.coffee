@@ -4,17 +4,13 @@ $ ->
     describe "show-case", ->
       builder = new JUMLY.SequenceDiagramBuilder
       dsl = """
-          try
             @found "An usual user", ->
               @message "render", "A diagram you want"
               @create slide:"A new slide", ->
                 @message "init"
               @message "improve", slide
             @diagram.slide = slide
-          catch ex
-            console.error ex.stack
-            throw ex
-          """
+            """
       diag = builder.build dsl
       append diag
       diag.compose()
@@ -47,6 +43,7 @@ $ ->
     describe "@message", ->
       it "should refer to the object having same id if a string is given at 2nd argument", ->
         b = new JUMLY.SequenceDiagramBuilder
+        b.verbose = true
         diag = b.build """
                        @found abcd13241234:"Root Object", ->
                          @message "call-1", "New Object 1234"
