@@ -9,10 +9,16 @@ $ ->
               @create slide:"A new slide", ->
                 @message "init"
               @message "improve", slide
+            @diagram.slide = slide
             """
       diag = builder.build dsl
       append diag
       diag.compose()
+
+      it "should make refer to the object", ->
+        byid  = diag.find("#a-new-slide")
+        byref = diag.slide
+        expect(byid).toBe byref
 
     
     describe "@found", ->

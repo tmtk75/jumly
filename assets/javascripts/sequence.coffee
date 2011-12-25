@@ -737,7 +737,12 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
   occurr = iact.gives ".actee"
   ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
+  @_def_ id, occurr
   ctxt
+
+JUMLYSequenceDiagramBuilder::_def_ = (varname, refobj)->
+  ref = JUMLY.Naming.toRef varname
+  @diagram._def_ ref, refobj
 
 JUMLYSequenceDiagramBuilder::destroy = (a) ->
   @_currOccurr.destroy @_findOrCreate a
