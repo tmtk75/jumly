@@ -36,8 +36,11 @@ $ ->
         diag = b.build """
                        @found abcd12234844:"A", ->
                          @create "create-spec-1":"something name"
+                         window.createdVariable = create_spec_1
                        """
-        expect(diag.find("#create-spec-1.object").length).toBe 1
+        a = diag.find("#create-spec-1.object").self()
+        expect(a.length).toBe 1
+        expect(window.createdVariable).toBe a
         expect(diag.find(".object:eq(1) .name").text()).toBe "something name"
 
 

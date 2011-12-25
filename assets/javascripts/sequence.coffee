@@ -744,7 +744,7 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
   occurr.gives(".object").attr("id", id)
   ctxt = new JUMLYSequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
-  @_def_ id, occurr
+  @_def_ id, occurr.gives(".object")
   ctxt
 
 JUMLYSequenceDiagramBuilder::_def_ = (varname, refobj)->
