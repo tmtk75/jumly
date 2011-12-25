@@ -18,9 +18,25 @@ $ ->
 
       it "should generate three objects", ->
         expect(diag.find(".object").length).toBe 3
+        #console.log (e for e of diag)
+
+      it "should create object for '#slide'", ->
+        expect(diag["slide"]).not.toBeUndefined()
+
+      it "should create object for '#an-usual-user'", ->
+        expect(diag["an-usual-user"]).toBeUndefined()
+        expect(diag["an_usual_user"]).not.toBeUndefined()
+
+      it "should create object for '#a-diagram-you-want'", ->
+        expect(diag["a-diagram-you-want"]).toBeUndefined()
+        expect(diag["a_diagram_you_want"]).not.toBeUndefined()
+
+      it "should not create object for '#a-new-slide'", ->
+        expect(diag["a-new-slide"]).toBeUndefined()
+        expect(diag["a_new_slide"]).toBeUndefined()
 
       it "should make refer to the object", ->
-        byid  = diag.find("#a-new-slide").self()
+        byid  = diag.find("#slide").self()
         byref = diag.slide
         expect(byid).toBe byref
 
