@@ -701,7 +701,7 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
           stereotype = "asynchronous" 
   else if typeof a is "string" and typeof b is "object"
     norm = JUMLY.Identity.normalize b
-    actee = @_findOrCreate norm.name
+    actee = @_findOrCreate norm.id
     callback = c
   else
     msg = "invalid arguments"
