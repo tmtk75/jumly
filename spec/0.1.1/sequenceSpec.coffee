@@ -100,7 +100,23 @@ $ ->
       describe "occurrence", ->
         describe "width-height", ->
         describe "left-top", ->
-        
+
+
+    it "should work well for 2011-12-25 23:11", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      b.verbose = true
+      diag = b.build """
+        @found "You", ->
+          @message "Think", ->
+            @message "Write your idea", "JUMLY", ->
+              @create "Styled Node"
+        """
+      append diag
+      diag.compose()
+      expect(diag["you"]).not.toBeUndefined()
+      expect(diag["think"]).not.toBeUndefined()
+      expect(diag["jumly"]).not.toBeUndefined()
+      expect(diag["styled_node"]).not.toBeUndefined()
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
 Generally,
