@@ -73,10 +73,26 @@ JUMLY-DiagramElement
 TBD.
 
 
-### Ref
+### How to refer JUMLY-HTMLElement
 In order to refer each element, JUMLY provides Ref.
-Ref is notated as id value, which is sometimes modified by JUMLY avoid confusing and syntax error.
-TBD.
+Ref is generally notated as id value.
+It's sometimes modified by JUMLY avoid confusing and syntax error.
+
+There are three ways to refer JUMLY-HTMLElement in diagram.
+
+- With variable
+- With jQuery selector
+- As property of diagram
+
+For example, when a definition is given, it shows the each way. 
+
+    @class "User"
+    @class "App"
+    @class "DB"
+    ## Change font-color.
+    user.css color:"red"                     # With variable
+    @diagram.find("#app").css color:"green"  # With jQuery selector
+    @diagram["db"].css color:"blue"          # As property of diagram
 
 
 ### JUMLY-ClassDiagramElement
