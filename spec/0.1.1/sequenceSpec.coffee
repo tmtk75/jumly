@@ -37,7 +37,7 @@ $ ->
                        @found abcd12234844:"A", ->
                          @create "create-spec-1":"something name"
                        """
-        expect(diag.find("#create-spec-1").length).toBe 1
+        expect(diag.find("#create-spec-1.object").length).toBe 1
         expect(diag.find(".object:eq(1) .name").text()).toBe "something name"
 
 
