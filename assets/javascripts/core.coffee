@@ -220,8 +220,9 @@ JUMLY.Identity =
       else
         if that and that.constructor is jQuery
           id = toID(that)
-          if id
-            return id:id
+          name = that.find(".name")
+          if id? or (name.length > 0)
+            return id:id, name: (if name.html() then name.html() else undefined)
           else
             return undefined
         console.error "Cannot recognize kind:", that
