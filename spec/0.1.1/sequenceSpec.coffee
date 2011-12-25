@@ -4,13 +4,17 @@ $ ->
     describe "show-case", ->
       builder = new JUMLY.SequenceDiagramBuilder
       dsl = """
+          try
             @found "An usual user", ->
               @message "render", "A diagram you want"
               @create slide:"A new slide", ->
                 @message "init"
               @message "improve", slide
             @diagram.slide = slide
-            """
+          catch ex
+            console.error ex.stack
+            throw ex
+          """
       diag = builder.build dsl
       append diag
       diag.compose()
