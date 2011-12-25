@@ -300,6 +300,7 @@ JUMLYLifeline::_build_ = (div, props)->
 	   .height(128)
 
 JUMLYOccurrence::interact = (_, opts) ->
+    throw new Error "Undefined argument" unless _
     _as = jumly.lang._as
     if opts?.stereotype is ".lost"
         occurr = jumly(type:".occurrence").addClass "icon"
@@ -672,6 +673,9 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
       @diagram._regByRef_ a.id, obj
       @diagram.append obj
       obj
+    else
+      console.error "It must be string or object for", e
+      throw new Error "Unrecognized argument: #{e}"
 
 JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 
