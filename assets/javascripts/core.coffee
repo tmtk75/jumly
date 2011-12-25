@@ -218,6 +218,12 @@ JUMLY.Identity =
       when "String" then return id:toID(that), name:that
       when "Object" then ## Through down
       else
+        if that and that.constructor is jQuery
+          id = toID(that)
+          if id
+            return id:id
+          else
+            return undefined
         console.error "Cannot recognize kind:", that
         throw new Error "Cannot recognize kind: '#{$.kindof that}'"
     keys = (p for p of that)
