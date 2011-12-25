@@ -15,7 +15,6 @@ JUMLYDiagram::_build_ = (div)->
     div.addClass "diagram"
     
 JUMLYDiagram::_def_ = (varname, e)->
-  #console.log varname, e
   eval "#{varname} = e"
     
 JUMLYDiagram::_regByRef_ = (id, obj)->

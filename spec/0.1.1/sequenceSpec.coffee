@@ -3,6 +3,7 @@ $ ->
   describe "sequence", ->
     describe "show-case", ->
       builder = new JUMLY.SequenceDiagramBuilder
+      builder.verbose = true
       dsl = """
             @found "An usual user", ->
               @message "render", "A diagram you want"
