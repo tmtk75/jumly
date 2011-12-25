@@ -164,6 +164,15 @@ describe "JUMLY", ->
         expect(a.name).toBe "update file"
         expect(a.use).not.toBeUndefined()
 
+      it "should return 'undefined' for jQuery object which doesn't have 'id' attribute", ->
+        norm = normalize $("<div>")
+        expect(norm).toBeUndefined()
+        
+      it "should return an object for jQuery object which has 'id' attribute", ->
+        norm = normalize $("<div>").attr("id", "Identified Object")
+        expect("Identified Object").toBe norm.id
+        
+      
     
 describe "$.jumly", ->
   it "should provide public interface for user"
