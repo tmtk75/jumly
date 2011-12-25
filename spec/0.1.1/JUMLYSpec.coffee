@@ -170,8 +170,8 @@ describe "JUMLY", ->
         
       it "should return an object for jQuery object which has 'id' attribute", ->
         norm = normalize $("<div>").attr("id", "Identified Object")
-        expect("Identified Object").toBe norm.id
-        
+        expect(norm.id).toBe "Identified Object" 
+        expect(norm.name).toBeUndefined()
       
     
 describe "$.jumly", ->
