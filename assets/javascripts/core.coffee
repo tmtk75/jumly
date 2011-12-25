@@ -201,7 +201,9 @@ jumly.DSL = DSL
 
 ## v0.1.1a
 JUMLY.Naming =
-  toID: (something)-> something.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
+  toID: (that)->
+    return that.attr("id") if that.constructor is jQuery
+    that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
   toRef: (s)->
     if s.match /^[0-9].*/
       '_' + s

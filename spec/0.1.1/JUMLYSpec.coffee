@@ -22,6 +22,15 @@ describe "JUMLY", ->
         
       it "should convert all characters apart from ASCII and digits to '-' hyphen", ->
         expect(toID("!\"#$%&'()[]^<>?+*{}|`@~=,./_")).toBe "---------------------------_"
+        
+      it "should return id attribute value for jQuery object", ->
+        id = "Naming-toID-identified-jQuery-object"
+        div = $("<div>").attr id:id
+        expect(toID div).toBe id
+
+      it "should return 'undefined' for not identified HTMLElement", ->
+        div = $("<div>")
+        expect(toID div).toBe undefined
 
 
     describe "toRef", -> ## about Ref@diagram
