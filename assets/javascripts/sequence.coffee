@@ -729,8 +729,11 @@ JUMLYSequenceDiagramBuilder::create = (a, b, c) ->
     e = JUMLY.Identity.normalize a
     actee    = e.name
     callback = b
-      
-  id = JUMLY.Naming.toID(actee)
+  
+  if typeof a is "string"
+    id = JUMLY.Naming.toID(actee)
+  else
+    id = JUMLY.Naming.toRef (JUMLY.Identity.normalize a).id
   iact = @_currOccurr.create id:id, name:actee
   iact.name name if name 
   ## unless callback then return null  ##NOTE: In progress for this spec.
