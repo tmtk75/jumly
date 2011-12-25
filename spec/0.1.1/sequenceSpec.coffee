@@ -33,6 +33,28 @@ $ ->
         expect(d.seq_found.hasClass "object").toBeTruthy()
 
 
+    describe "@create", ->
+      it "should assign an ID for identified value", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        diag = b.build """
+                       @found abcd12234844:"A", ->
+                         @create "create-spec-1":"something name"
+                       """
+        expect(diag.find("#create-spec-1").length).toBeGreaterThan 1
+        expect(diag.find(".object:eq(1)").text()).toBe "something name"
+
+
+    describe "@message", ->
+      it "should refer to the object having same id if a string is given at 2nd argument", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        diag = b.build """
+                       @found abcd13241234:"Root Object", ->
+                         @message "call-1", "New Object 1234"
+                         @message "call-2", "New Object 1234"
+                       """
+        expect(diag.find(".object").length).toBe 2
+
+
     describe "layout", ->
       describe "diagram", ->
         describe "width-height", ->
