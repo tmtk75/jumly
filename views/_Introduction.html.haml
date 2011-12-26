@@ -38,7 +38,8 @@
                 @message "Write<br/>your idea", "JUMLY", ->
                   @create "Styled Node"
               @beforeCompose (e, diag) ->
-                diag["Styled Node"].find(".name").addClass("site-color").end().addClass("Styled-Node")
+                diag["styled-node"].find(".name").addClass("site-color").end()
+                                   .addClass("Styled-Node")
                                    .css("margin-left":-30)
               @afterCompose (e, d) ->
                 d.css "line-height":1
