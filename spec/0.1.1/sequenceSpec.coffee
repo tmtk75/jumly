@@ -10,7 +10,6 @@ $ ->
               @create slide:"A new slide", ->
                 @message "init"
               @message "improve", slide
-            @diagram.slide = slide
             """
       diag = builder.build dsl
       append diag
@@ -118,7 +117,7 @@ $ ->
       expect(diag.find("#s-node").attr "id").toBe "s-node"
       expect(diag["you"]   ).not.toBeUndefined()
       expect(diag["jumly"] ).not.toBeUndefined()
-      expect(diag["s-node"]).not.toBeUndefined()
+      expect(diag["s_node"]).not.toBeUndefined()
       expect(diag.find(".object").length).toBe 3
 
     it "should work well for 2011-12-26 07:36", ->
