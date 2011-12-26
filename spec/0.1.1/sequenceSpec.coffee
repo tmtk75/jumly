@@ -10,6 +10,9 @@ $ ->
               @create slide:"A new slide", ->
                 @message "init"
               @message "improve", slide
+              window["An usual user"]      = an_usual_user
+              window["A diagram you want"] = a_diagram_you_want
+              window["A new slide"]        = slide
             """
       diag = builder.build dsl
       append diag
@@ -38,6 +41,15 @@ $ ->
         byid  = diag.find("#slide").self()
         byref = diag.slide
         expect(byid).toBe byref
+
+      it "should equal to for an_usual_user", ->
+        expect(window["An usual user"]).toBe diag.find("#an-usual-user").self()
+
+      it "should equal to for a_diagram_you_want", ->
+        expect(window["A diagram you want"]).toBe diag.find("#a-diagram-you-want").self()
+
+      it "should equal to for slide", ->
+        expect(window["A new slide"]).toBe diag.find("#slide").self()
 
     
     describe "@found", ->

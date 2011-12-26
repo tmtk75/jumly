@@ -665,12 +665,14 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
       obj = jumly ".object", a
       @diagram._regByRef_ a.id, obj
       @diagram.append obj
+      @diagram._def_ r, obj
       obj
     when "object"
       a = JUMLY.Identity.normalize e
       obj = jumly ".object", a
       @diagram._regByRef_ a.id, obj
       @diagram.append obj
+      @diagram._def_ JUMLY.Naming.toRef(a.id), obj
       obj
     else
       console.error "It must be string or object for", e
