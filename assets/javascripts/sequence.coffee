@@ -325,7 +325,7 @@ JUMLYOccurrence::interact = (_, opts) ->
 JUMLYOccurrence::create = (objsrc) ->
   obj = jumly ".object", objsrc.name
   obj.attr "id", objsrc.id
-  @parents(".sequence-diagram").self()[objsrc.id] = obj
+  @parents(".sequence-diagram").self()[JUMLY.Naming.toRef objsrc.id] = obj
   @gives(".object").parent().append obj
   iact = (@interact obj).stereotype "create"
   iact
