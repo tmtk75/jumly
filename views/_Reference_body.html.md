@@ -80,7 +80,7 @@ It's sometimes modified by JUMLY avoid confusing and syntax error.
 
 There are three ways to refer JUMLY-HTMLElement in diagram.
 
-- With variable
+- With ref variable
 - With jQuery selector
 - As property of diagram
 
@@ -88,11 +88,11 @@ For example, when a definition is given, it shows the each way.
 
     @class "User"
     @class "App"
-    @class "DB"
+    @class "Mobile Phone"
     ## Change font-color.
-    user.css color:"red"                     # With variable
-    @diagram.find("#app").css color:"green"  # With jQuery selector
-    @diagram["db"].css color:"blue"          # As property of diagram
+    user.css color:"red"                       # With ref variable
+    @diagram.find("#app").css color:"green"    # With jQuery selector
+    @diagram["mobile-phone"].css color:"blue"  # As property of diagram
 
 
 ### JUMLY-ClassDiagramElement
@@ -100,7 +100,7 @@ All class elemens in class diagram have `.attrs` and `.mathods` child element,
 which have some `.attribute` and `.method`.
 They are identified by ID which is formed in:
 
-  < class ID > '-' < attr | method > '-' < its name >
+  < class ID > '-' < attr \| method > '-' < its name >
   
 For example,
 - `dog-method-balk`
