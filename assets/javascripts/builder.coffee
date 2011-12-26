@@ -23,7 +23,7 @@ DiagramBuilder::build = (text)->
     @diagram.trigger "build.after"
     @diagram
   catch ex
-    $.logger(this).error ex, ex.stack if @verbose
+    $.logger(this).error ex, ex.stack, text if @verbose
     throw ex
 
 JUMLY.DiagramBuilder = DiagramBuilder
