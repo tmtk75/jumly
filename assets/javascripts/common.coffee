@@ -11,6 +11,10 @@ class JUMLYHTMLElement
 JUMLY.HTMLElement = JUMLYHTMLElement
 
 class JUMLYDiagram extends JUMLY.HTMLElement
+  ## v0.1.1 Tenatative Implementation.
+  @isRefExisting = (ref, diag)->
+    $("##{ref}").length > 0
+        
 JUMLYDiagram::_build_ = (div)->
     div.addClass "diagram"
     
@@ -20,10 +24,7 @@ JUMLYDiagram::_def_ = (varname, e)->
 JUMLYDiagram::_regByRef_ = (id, obj)->
   ref = JUMLY.Naming.toRef id
   throw new Error("Already exists for '#{ref}' in the " + $.kindof(this)) if this[ref]
-  if (a = $("##{ref}")).length > 0
-    err = new Error("Element which has same ID(#{ref}) already exists in the document.")
-    err.element = a
-    throw err
+  throw new Error("Element which has same ID(#{ref}) already exists in the document.") if JUMLY.Diagram.isRefExisting? ref, this 
   this[ref] = obj
   ref
 

@@ -122,12 +122,16 @@ $ ->
       expect(diag.find(".object").length).toBe 3
 
     it "should work well for 2011-12-26 07:36", ->
+      save = JUMLY.Diagram.isRefExisting
+      delete JUMLY.Diagram.isRefExisting
+
       b = new JUMLY.SequenceDiagramBuilder
       diag = b.build """@found "Foxixen", ->"""
       append diag
-      
       b = new JUMLY.SequenceDiagramBuilder
       diag = b.build """@found "Foxixen", ->"""
+
+      JUMLY.Diagram.isRefExisting = save
 
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
