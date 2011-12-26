@@ -6,6 +6,7 @@ description "sequence-diagram", ->
         scenario "of single object, which is includeing the horizontal thickness of box-shadow", ->
             given "an object", ->
                 @diag = u ".sequence-diagram"
+                @diag.css border:"black solid 1px"
                 @ctxt = diag.found "Something"
             when_it "give shadow and compose", ->
                 $(["", "-webkit-", "-moz-", "-o-"]).each (i, e) -> diag.find(".object").css(e + "box-shadow", "10px 5px 5px #080")
