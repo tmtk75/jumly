@@ -998,7 +998,6 @@ description "sequence-diagram", ->
 
         it "is up to browser rendering for height", ->
 
-    BODY_MARGIN_LEFT = $("body").cssAsInt "margin-left"
 
     description "location of .object when composing", ->
       it 'should be fixed if the value is not "auto"', ->
@@ -1008,7 +1007,7 @@ description "sequence-diagram", ->
         obj = diag.find(".object:eq(1)")
         obj.offset(left:-123)
         ctxt.compose()
-        obj.offset().left.shouldBe -123 + BODY_MARGIN_LEFT
+        obj.offset().left.shouldBe -123
 
       it 'is able to set settings for compose', ->
         MLEFT = 234
@@ -1016,7 +1015,7 @@ description "sequence-diagram", ->
         diag = $.jumly ".sequence-diagram"
         $("body").append diag
         (diag.found aaaa222:"A-able-0", -> @message "call", bbbb222:"B-able-1").compose()
-        diag.find(".object:eq(0)").offset().left.shouldBe MLEFT + BODY_MARGIN_LEFT
+        diag.find(".object:eq(0)").offset().left.shouldBe MLEFT + $("body").cssAsInt("margin-left")
 
     
     description "de-fact specification", ->
