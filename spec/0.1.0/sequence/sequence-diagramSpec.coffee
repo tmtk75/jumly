@@ -1027,5 +1027,5 @@ description "sequence-diagram", ->
             .compose $ "body"
         expect(diag.find(".object:eq(0)").attr("id")).toBe "jumly-service"
         expect(diag.find(".object:eq(1)").attr("id")).toBe "styled-node"
-        expect(diag["jumly-service"]).toBeDefined()
-        expect(diag["styled-node"]).toBeDefined()
+        expect(diag["jumly_service"]).toBeDefined()
+        expect(diag["styled_node"]).toBeDefined()
