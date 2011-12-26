@@ -32,6 +32,7 @@
       #you-write-your-idea.span6.columns
         %script{type: 'text/jumly+sequence'}
           :plain
+            delete JUMLY.Diagram.isRefExisting
             @preferences compose_most_left:0, compose_span:32
             @found "You", ->
               @message "Think", ->
