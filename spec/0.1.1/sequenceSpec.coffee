@@ -143,6 +143,17 @@ $ ->
       diag = b.build """@found "Foxixen", ->"""
 
       JUMLY.Diagram.isRefExisting = save
+      
+    it "should work well for 2011-12-28 07:31", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      b.verbose = true
+      diag = b.build """
+        @found 732:"You", ->
+          @message "Hello!", 734:"JUMLY"
+        """
+      append diag
+      diag.compose()
+      
 
 ###
 Layout for 2D digram is deciding left-top and width-height at all.
