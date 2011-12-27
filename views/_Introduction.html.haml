@@ -39,7 +39,7 @@
                 @message "Write<br/>your idea", "JUMLY", ->
                   @create "Styled Node"
               @beforeCompose (e, diag) ->
-                diag["styled-node"].find(".name").addClass("site-color").end()
+                diag["styled_node"].find(".name").addClass("site-color").end()
                                    .addClass("Styled-Node")
                                    .css("margin-left":-30)
               @afterCompose (e, d) ->
