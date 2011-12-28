@@ -594,7 +594,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
   @_q(".occurrence > .fragment")
     .selfEach(fixwidth)
     .parents(".occurrence > .fragment")
-    .each(fixwidth)
+    .selfEach(fixwidth)
 
 SequenceDiagramLayout::align_lifelines_vertically = ->
   mostbottom = @diagram.find(".occurrence")
