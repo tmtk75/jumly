@@ -28,7 +28,7 @@ description "usecase-diagram", ->
 
     xdescription "", ->
 
-        simple_one = u ".usecase", "simple use-case"
+        simple_one = u ".usecase", "simple usecase"
     
         it "should consist of following", ->
             simple_one.expect((e)->e.hasClass("usecase"))
@@ -57,7 +57,7 @@ description "usecase-diagram", ->
             bound = u ".system-boundary", "jumly library"
             act0  = u ".actor", "User"
             act1  = u ".actor", "Manager"
-            uc0   = u ".usecase", "This is an use-case for jumly use-case diagram."
+            uc0   = u ".usecase", "This is an usecase for jumly usecase diagram."
             uc1   = u ".usecase", """
                         You can open any files with this application, because the app is binary editor.
                         A description for an usecase can have any length text, which means it need to cut
