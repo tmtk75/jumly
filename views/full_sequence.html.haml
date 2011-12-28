@@ -43,12 +43,12 @@
                       @destroy "HTTP Session"
 
                   @beforeCompose (e, d) ->
-                    d.User.iconify "actor"
-                    d.Browser.iconify "view"
-                    d["HTTP Session"].iconify "controller"
-                    d["HTTP Server"].iconify "controller"
-                    d.Database.iconify("entity").css("margin-left":-80)
-                    d["HTTP Session"].lost()
+                    d.user.iconify "actor"
+                    d.browser.iconify "view"
+                    d["http_session"].iconify "controller"
+                    d["http_server"].iconify "controller"
+                    d.database.iconify("entity").css("margin-left":-80)
+                    d["http_session"].lost()
                   
                   @afterCompose (e, d) ->
                     f = (e) -> $(e.currentTarget).addClass "focused-hovered"
