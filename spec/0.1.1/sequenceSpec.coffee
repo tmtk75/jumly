@@ -59,6 +59,10 @@ $ ->
         expect(d.seq_found).toBe d.find("#seq_found").self()
         expect(d.seq_found.hasClass "object").toBeTruthy()
 
+      it "should throw Error if name is empty", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        expect(-> b.build "@found '', ->").toThrow()
+
 
     describe "@create", ->
       it "should assign an ID for identified value", ->
