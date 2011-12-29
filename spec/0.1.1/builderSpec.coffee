@@ -68,3 +68,18 @@ describe "JUMLY", ->
       diag = builder.build "@found 'It', ->"
       expect(diag.hasClass "diagram").toBeTruthy()
       expect(diag.hasClass "sequence-diagram").toBeTruthy()
+
+$ ->
+  describe "ID, Ref duplication", ->
+    it "should throw an Error when building same ID in body", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      $("body").append b.build "@found 'Monkey Magic', ->"
+      expect(-> b.build "@found 'Monkey Magic', ->").toThrow()
+
+    it "should throw an Error when @creating same Ref in a diagram", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      expect(-> b.build "@found 'Line999', -> @create '', 'Line999'").toThrow()
+
+    it "should not throw an Error when @messaging same Ref in a diagram because it's a self-call", ->
+      b = new JUMLY.SequenceDiagramBuilder
+      b.build "@found 'Line999', -> @message '', 'Line999'"
