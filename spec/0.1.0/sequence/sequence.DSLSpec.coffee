@@ -5,7 +5,7 @@ description "sequence-diagram.DSL", ->
 
         it "should run a closure before composing", ->
             diag = u ".sequence-diagram"
-            diag.found "", ->
+            diag.found "seq.DSL.name-1", ->
                 @beforeCompose (e, d) ->
                     d.foobar = 1
                 @afterCompose (e, d) ->
@@ -20,7 +20,7 @@ description "sequence-diagram.DSL", ->
         it "should run a closure after composing", ->
             diag = u ".sequence-diagram"
             counter = 0
-            diag.found "", ->
+            diag.found "seq.DSL.name-2", ->
                 @afterCompose (e, d) ->
                     counter += 1
             diag.compose()
@@ -257,7 +257,7 @@ description "sequence-diagram.DSL", ->
 
       it 'should load script node', ->
         script = $("<script>").html """
-          @found "User-stag-2", -> @message "turn on", "Mobile-stag-1", ->
+          @found "User-stag-2", -> @message "turn on", "Mobile-stag-2", ->
           """
         script.attr "type", "text/jumly-sequence-diagram"
         diag = $.jumly.run_script_ script
