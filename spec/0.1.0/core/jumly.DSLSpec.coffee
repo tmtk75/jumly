@@ -5,7 +5,7 @@ description "jumly.DSL", ->
 
         it "should run a closure before composing", ->
             diag = u ".sequence-diagram"
-            diag.found "", ->
+            diag.found "Need something name", ->
                 @beforeCompose (e, d) ->
                     d.foobar = 1
                 @afterCompose (e, d) ->
@@ -20,7 +20,7 @@ description "jumly.DSL", ->
             diag = u ".sequence-diagram"
             holder = null
             counter = 0
-            diag.found "", ->
+            diag.found "Need something name 1", ->
                 @afterCompose (e, d) ->
                     holder = d
                     counter += 1
@@ -37,7 +37,7 @@ description "jumly.DSL", ->
    
         it "should be set every instance", ->
             diag = u ".sequence-diagram"
-            diag.found "", -> @preferences compose_most_left:0, compose_span:48
+            diag.found "Need something name-1", -> @preferences compose_most_left:0, compose_span:48
             prefs = diag.preferences()
             prefs.compose_most_left.shouldBe 0
             prefs.compose_span.shouldBe 48
