@@ -133,8 +133,8 @@ $ ->
       expect(diag.find(".object").length).toBe 3
 
     it "should work well for 2011-12-26 07:36", ->
-      save = JUMLY.Diagram.isRefExisting
-      delete JUMLY.Diagram.isRefExisting
+      save = JUMLY.Diagram.isIDExisting
+      delete JUMLY.Diagram.isIDExisting
 
       b = new JUMLY.SequenceDiagramBuilder
       diag = b.build """@found "Foxixen", ->"""
@@ -142,7 +142,7 @@ $ ->
       b = new JUMLY.SequenceDiagramBuilder
       diag = b.build """@found "Foxixen", ->"""
 
-      JUMLY.Diagram.isRefExisting = save
+      JUMLY.Diagram.isIDExisting = save
       
     it "should work well for 2011-12-28 07:31", ->
       b = new JUMLY.SequenceDiagramBuilder
