@@ -1,8 +1,8 @@
 //= require jquery.ext
 //= require jquery.g2d
 //= require core
+//= require prefs
 //= require common
-//= require builder
 //= require usecase
 //= require class
 //= require sequence

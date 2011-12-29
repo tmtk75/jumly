@@ -70,16 +70,34 @@ describe "JUMLY", ->
       expect(diag.hasClass "sequence-diagram").toBeTruthy()
 
 $ ->
-  describe "ID, Ref duplication", ->
-    it "should throw an Error when building same ID in body", ->
-      b = new JUMLY.SequenceDiagramBuilder
-      $("body").append b.build "@found 'Monkey Magic', ->"
-      expect(-> b.build "@found 'Monkey Magic', ->").toThrow()
-
-    it "should throw an Error when @creating same Ref in a diagram", ->
-      b = new JUMLY.SequenceDiagramBuilder
-      expect(-> b.build "@found 'Line999', -> @create '', 'Line999'").toThrow()
-
-    it "should not throw an Error when @messaging same Ref in a diagram because it's a self-call", ->
-      b = new JUMLY.SequenceDiagramBuilder
-      b.build "@found 'Line999', -> @message '', 'Line999'"
+  enable = (b)-> JUMLY.Preferences "document.id.validation.enable":b
+  describe "JUMLY", ->
+    describe "Builder", ->
+      describe "ID, Ref duplication", ->
+        it "should throw an Error when building same ID in body", ->
+          enable true
+          b = new JUMLY.SequenceDiagramBuilder
+          $("body").append b.build "@found 'Monkey Magic', ->"
+          expect(-> b.build "@found 'Monkey Magic', ->").toThrow()
+          enable false
+    
+        it "should throw an Error when @creating same Ref in a diagram", ->
+          b = new JUMLY.SequenceDiagramBuilder
+          expect(-> b.build "@found 'Line999', -> @create '', 'Line999'").toThrow()
+    
+        it "should not throw an Error when @messaging same Ref in a diagram because it's a self-call", ->
+          b = new JUMLY.SequenceDiagramBuilder
+          b.build "@found 'Line999', -> @message '', 'Line999'"
+    
+        describe "Configuration", ->
+          it "should be no validation for duplication of ID in default", ->
+            b = new JUMLY.SequenceDiagramBuilder
+            $("body").append b.build "@found 'Monkey Magic-1', ->"
+            b.build "@found 'Monkey Magic-1', ->"
+    
+          it "should validate if only configuring", ->
+            enable true
+            b = new JUMLY.SequenceDiagramBuilder
+            $("body").append b.build "@found 'Monkey Magic-2', ->"
+            expect(-> b.build "@found 'Monkey Magic-2', ->").toThrow()
+            enable false

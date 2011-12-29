@@ -1,4 +1,6 @@
 describe "JUMLYDiagram", ->
+  enable = (b)-> JUMLY.Preferences "document.id.validation.enable":b
+  
   describe "@_regByRef_", ->
     it "should throw Error if duplicated property is registered", ->
       class TentativeDiagram extends JUMLY.Diagram
@@ -10,10 +12,12 @@ describe "JUMLYDiagram", ->
       b = new MyDiagram
       id = "_regByRef_spec_for_duplicated_id"
       a._regByRef_ id, {}
+      enable true
       expect(-> a._regByRef_ id, {}).toThrow()
       # Also for b, Error is thrown. ID check is document widely.
       $("body").append $("<div>").attr id:id
       expect(-> b._regByRef_ id, {}).toThrow()
+      enable false
       
     it "should contain the name of diagram for its error message", ->
       class YourDiagram extends JUMLY.Diagram

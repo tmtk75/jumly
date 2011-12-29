@@ -13,7 +13,10 @@ JUMLY.HTMLElement = JUMLYHTMLElement
 class JUMLYDiagram extends JUMLY.HTMLElement
   ## v0.1.1 Tenatative Implementation.
   @isIDExisting = (id, diag)->
-    $("##{id}").length > 0
+    if JUMLY.Preferences "document.id.validation.enable"
+      $("##{id}").length > 0
+    else
+      false
         
 JUMLYDiagram::_build_ = (div)->
     div.addClass "diagram"
@@ -29,6 +32,37 @@ JUMLYDiagram::_regByRef_ = (id, obj)->
   ref
 
 JUMLY.Diagram = JUMLYDiagram
+
+
+class DiagramBuilder
+  @selectHTMLScriptElements = (element)->
+    $("script", element).not(".ignored")
+
+DiagramBuilder::beforeCompose = (f)->
+  @_diagram.bind "beforeCompose", f
+  this
+
+DiagramBuilder::afterCompose = (f)->
+  @_diagram.bind "afterCompose", f
+  this
+
+DiagramBuilder::accept = (closure)->
+  closure.apply this, []
+
+DiagramBuilder::build = (text)->
+  try
+    typename = this.constructor.name.replace(/^JUMLY/, "")
+                                    .replace(/Diagram(Builder)?$/, "")
+                                    .toLowerCase()
+    @diagram = $.jumly ".#{typename}-diagram"
+    @accept -> eval CoffeeScript.compile text
+    @diagram.trigger "build.after"
+    @diagram
+  catch ex
+    $.logger(this).error ex, ex.stack, text if @verbose
+    throw ex
+
+JUMLY.DiagramBuilder = DiagramBuilder
 
 
 uml = jQuery.uml

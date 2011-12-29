@@ -182,7 +182,19 @@ describe "JUMLY", ->
         norm = normalize $("<div>").attr(id:"speed-star").append $("<span>").addClass("name").html "Speed star"
         expect(norm.id).toBe "speed-star"
         expect(norm.name).toBe "Speed star"
-      
+
+
+  describe "Preferences", ->
+    it "should store a scalar value, and read it", ->
+      JUMLY.Preferences "document.id.validation.enable":1234
+      expect(JUMLY.Preferences "document.id.validation.enable").toBe 1234
+      JUMLY.Preferences "document.id.validation.enable":false
+
+    it "should store a function, and eval it", ->
+      JUMLY.Preferences "document.name.foobar.solid":->2345
+      expect(JUMLY.Preferences "document.name.foobar.solid").toBe 2345
+      JUMLY.Preferences "document.name.foobar.solid":false
+
     
 describe "$.jumly", ->
   it "should provide public interface for user"
