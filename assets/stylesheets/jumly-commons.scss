@@ -38,7 +38,7 @@ $SILVER_R: #{$SILVER_RATIO}#{"%"};
 }
 
 // Image color of this site.
-@mixin site_color_0($_from: darken($PRIMARY_COLOR, 10%), $_to: $PRIMARY_COLOR) {
+@mixin site_color_0($_from: $PRIMARY_COLOR, $_to: darken($PRIMARY_COLOR, 10%)) {
     color: white;
     background-color: transparent;
     text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
