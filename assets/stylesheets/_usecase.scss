@@ -71,7 +71,7 @@
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
         @include box_shadow;
-        background-color: transparent;
+        background-color: white;
         .usecase:nth-child(4n + 2) .icon {
             margin-left: 1em;
             -background-color: red;
