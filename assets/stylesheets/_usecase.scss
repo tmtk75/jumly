@@ -23,21 +23,13 @@
         vertical-align: middle;
       }
     }
-    &:nth-child(odd) > .icon {
-      margin-left: auto;
-    }
-    &:nth-child(even) > .icon {
-      margin-right: auto;
-    }
+    &:nth-child(odd) > .icon {margin-left: auto;}
+    &:nth-child(even) > .icon {margin-right: auto;}
   }
   .actor {
     position: relative;
-    &:nth-child(odd) {
-      float: left;
-    }
-    &:nth-child(even) {
-      float: right;
-    }
+    &:nth-child(odd) {float: left;}
+    &:nth-child(even) {float: right;}
   }
   .extend, .include, .use {
     .name {
@@ -47,15 +39,9 @@
       }
     }
   }
-  .use .name:before {
-    content: '<<use>>';
-  }
-  .extend  .name:before {
-    content: '<<extend>>';
-  }
-  .include .name:before {
-    content: '<<include>>';
-  }
+  .use .name:before {content: '<<use>>';}
+  .extend  .name:before {content: '<<extend>>';}
+  .include .name:before {content: '<<include>>';}
   .system-boundary {
     @include primary_border;
     padding: 0.5em 2em 1em 2em;
