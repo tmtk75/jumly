@@ -39,11 +39,11 @@ class DiagramBuilder
     $("script", element).not(".ignored")
 
 DiagramBuilder::beforeCompose = (f)->
-  @_diagram.bind "beforeCompose", f
+  @diagram.bind "beforeCompose", f
   this
 
 DiagramBuilder::afterCompose = (f)->
-  @_diagram.bind "afterCompose", f
+  @diagram.bind "afterCompose", f
   this
 
 DiagramBuilder::accept = (closure)->

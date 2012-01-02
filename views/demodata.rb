@@ -3,7 +3,7 @@ module Jumly
     module Sequence
       COFFEE = {}
       [:restaurant, :applytheme, :osgi, :http, :httpreqres, :order].each {|e|
-        COFFEE[e] = File.read "./views/javascripts/#{e}.js.coffee"
+        COFFEE[e] = File.read "#{Dir.pwd()}/views/javascripts/#{e}.coffee"
       }
     end
   end
