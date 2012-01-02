@@ -5,7 +5,7 @@
     %title JUMLY 
     = haml :"_head.html"
     - [:monotone, :pop, :cool].each do |e|
-      %link{rel: "stylesheet", type: "text/css", href: "#{$css_dir}/site/jumly.theme-#{e}.css"}
+      %link{rel: "stylesheet", type: "text/css", href: "#{$css_dir}/theme/#{e}.css"}
   %body
     = haml :_topbar
 
