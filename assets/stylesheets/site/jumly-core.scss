@@ -25,6 +25,14 @@ body {
     background-color: transparent !important;
 }
 
+.syntaxhighlighter.html {
+  background-color: whiteSmoke !important;
+  padding: 8.5px;
+  margin: 0 0 18px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  @include border-radius(3px);
+}
+
 h1 {
   // 36 is the height of topbar of bootstrap framework, and 4 is margin b/w topbar and h1  
     padding-top: #{36 + 4}px;
