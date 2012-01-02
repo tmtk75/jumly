@@ -5,7 +5,7 @@
     %title JUMLY 
     = haml :"_head.html"
     - [:monotone, :pop, :cool].each do |e|
-      %link{rel: "stylesheet", type: "text/css", href: "#{$css_dir}/jumly.theme-#{e}.css"}
+      %link{rel: "stylesheet", type: "text/css", href: "#{$css_dir}/site/jumly.theme-#{e}.css"}
   %body
     = haml :_topbar
 
@@ -19,15 +19,13 @@
             %h2 Basic sample
             %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:httpreqres]
 
-          .span16.columns
-            %h2 Applying theme
-            %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:applytheme]
+          /.span16.columns
+          /  %h2 Applying theme
+          /  %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:applytheme]
 
           /.span16.columns
           /  %h2 OSGi
-          /  %script{type:"text/jumly+sequence"}
-          /    = Jumly::Demo::Sequence::COFFEE[:osgi]
-          /     
+          /  %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:osgi]
           /  <img src="http://netbeams.googlecode.com/svn/branches/marcello/persistence/docs/marcello-dissertation/diagrams/From-OSGi-DSP-Platform-Start-to-All-Components-Sequence-Diagram.png"/>
 
           .span16.columns

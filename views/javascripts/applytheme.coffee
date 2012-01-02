@@ -6,12 +6,12 @@
         @create  "HTTP Session"
         @message "put username", "HTTP Session"
         @message "select", "Database"
-        @message "build JSON", -> @note "This is an typical HTTP server like apache", left:30, top:40
+        @message "build JSON", -> #@note "This is an typical HTTP server like apache", left:30, top:40
         @reply "JSON", "Browser"
-      @note "This JSON includes username, user-ID, TEL, e-mail address <a href='http://www.yahoo.co.jp'>yahoo</a>"
+      #@note "This JSON includes username, user-ID, TEL, e-mail address <a href='http://www.yahoo.co.jp'>yahoo</a>"
   @message "format"
   @beforeCompose (e, diag) ->
-    diag.Database.note "MySQL, H2, Oracle, ...", left:-158, top:60, width:120, "min-height":50
+    #diag.Database.note "MySQL, H2, Oracle, ...", left:-158, top:60, width:120, "min-height":50
     diag.iconify = (a) ->
       for e of a
         this[e].iconify a[e]
