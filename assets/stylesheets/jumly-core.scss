@@ -14,6 +14,15 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
     //background: transparent url(/public/keisen_a09.gif);
+    background-image: url(/assets/lined.png);
+    //background-image: url(/assets/square.png) !important;
+    background-image: url(/assets/grid_b.gif) !important;
+}
+.syntaxhighlighter.html .line.alt1,
+.syntaxhighlighter.html .line.alt2,
+.syntaxhighlighter.html {
+    background-image: none !important;
+    background-color: transparent !important;
 }
 
 h1 {
