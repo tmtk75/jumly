@@ -1,7 +1,5 @@
 #full-sequence-diagram {
-  .twipsy {
-      white-space: nowrap;
-  }
+  .twipsy {white-space: nowrap;}
   .sequence-diagram {
     .object {
       .name {
@@ -16,17 +14,10 @@
         }
       }
     }
-    .message {
-      .name {
-      }
-    }
     .interaction.reply ~ .interaction {
-      .name {
-        margin-top: 20px;
-      }
+      .name {margin-top: 20px;}
     }
   }
-
   .desc {
     pre {
       padding-top: 3px;
