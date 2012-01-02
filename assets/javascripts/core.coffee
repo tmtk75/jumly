@@ -131,7 +131,6 @@ jumly[':preferences'] =
       else
         script.parent()
 
-logger = $.logger "core"
 SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
 toTypeString = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
@@ -150,7 +149,6 @@ jumly.run_script_ = (script) ->
   prefs = jumly[':preferences'].run_script
   target = prefs.determine_target script
   prefs.before_compose diag, target, script
-  logger.debug "will compose"
   diag.compose()
 
 # Listen for window load, both in browsers and in IE.
