@@ -136,7 +136,9 @@ JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
   return curry_ this, @boundary, id if id = $.jumly.identify name
   boundary = @new_ ".system-boundary", name
 
-  acts.apply ctxt = new JUMLYUsecaseDiagramBuilder(@_diagram, boundary)
+  ctxt = new JUMLYUsecaseDiagramBuilder(@_diagram, boundary)
+  ctxt.diagram = @_diagram  ##WORKAROUND: to v0.1.0
+  acts.apply ctxt 
   if @_boundary
     @_boundary.append boundary
   else
