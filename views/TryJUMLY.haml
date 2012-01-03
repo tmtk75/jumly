@@ -10,42 +10,60 @@
   %body
     .topbar
       .topbar-inner
-        .container
+        .container-fluid
           %h3 <a href="/#">JUMLY</a>
-          %ul <li><a href="#"></a></li>
-    .container
+          %ul <li><a id="sample-1">Sample-1</a></li>
+          %ul <li><a href="/Reference.html">Reference</a></li>
+    .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
       .row
         .span6.columns
-          %textarea{rows:16,placeholder:""}
-        #diagram-container.span8.columns
+          %textarea{rows:16,placeholder:"Put directives"}
+        #diagram-container.span10.columns
+        
       .row
         %hr
         .span16.columns
           %h2 Directives
-        .span8.columns
-        .span8.columns
+        .span6.columns
+        .span5.columns
+        .span5.columns
 
-    .notification
-      .alert-message.block-message.error.hide
-        %span.title Error <br/>
-        %strong type:
-        %span.type
-        %strong.constructor <br/>
-        %strong message:
-        %span.message <br/>
-        %strong arguments:
-        %span.arguments
+    .alert-message.block-message.error.hide
+      %span.title Error <br/>
+      %strong type:
+      %span.type
+      %strong.constructor <br/>
+      %strong message:
+      %span.message <br/>
+      %strong arguments:
+      %span.arguments
       
 
   :coffeescript
+    jQuery.fn.replaceSmoothly = (old, a) ->
+      a.css visibility:"hidden"
+      @append a
+      a.css left:'', top:'', position:''
+      a.compose()
+      a.hide()
+      old.css height:0, padding:0
+      a.css visibility:"visible"
+      a.fadeIn 'slow'
+      old.fadeOut 'slow', -> t.remove()
+
     jQuery.fn.jumly = (kind, script)->
       builder = 
         sequence: JUMLY.SequenceDiagramBuilder
       diag = (new builder[kind]).build script
-      @find("> *").remove().end().append diag
-      diag.compose()
+      f = (diag)=>
+        old = @find "> *"
+        @replaceSmoothly old, diag
+      g = (diag)=>
+        @find("> *").remove().end().append diag
+        diag.compose()
+      g diag
 
     alertmsg = (ex)->
       $(".alert-message")
@@ -55,18 +73,34 @@
         .find(".arguments")  .html((ex.arguments || []).join ",").end()
         .alert()
         .click(-> $(this).fadeOut())
-        .fadeIn -> #setTimeout (=> $(this).fadeOut()), 6000
+        .fadeIn -> setTimeout (=> $(this).fadeOut()), 6000
+
+    storage = window.localStorage
+    storeKey = "TryJUMLY.sequence"
+    textarea = $ "textarea"
+    
+    updatediagram = ->
+      try
+        script = textarea.val()
+        $("#diagram-container").jumly 'sequence', script
+        storage.setItem storeKey, script
+      catch ex
+        alertmsg ex
 
     $ ->
-      storage = window.localStorage
-      storeKey = "TryJUMLY.sequence"
-      $("textarea").val(storage.getItem storeKey).focus().typing
+      textarea.val(storage.getItem storeKey).focus().typing
         start: (e, n)->
-        stop: (e, n)->
-          try
-            script = $("textarea").val()
-            storage.setItem storeKey, script
-            $("#diagram-container").jumly 'sequence', script
-          catch ex
-            alertmsg ex
+        stop: (e, n)-> updatediagram e, n
         delay: 400
+      updatediagram()
+
+    $ ->
+      samples =
+        "sample-1":"""
+          @found "You", ->
+            @message "use", "JUMLY"
+          """ 
+      $("#sample-1,#sample-2,#sample-3").click ->
+        textarea.val samples[$(this).attr "id"]
+        updatediagram()
+        false

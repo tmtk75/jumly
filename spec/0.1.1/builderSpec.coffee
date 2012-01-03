@@ -101,3 +101,13 @@ $ ->
             $("body").append b.build "@found 'Monkey Magic-2', ->"
             expect(-> b.build "@found 'Monkey Magic-2', ->").toThrow()
             enable false
+
+        describe "Reserved name", ->
+          it "should build successfully for actee which has name 'JUMLY'", ->
+            b = new JUMLY.SequenceDiagramBuilder
+            diag = b.build """
+              @found 'You', ->
+                @message 'use', 'JUMLY'
+              """
+            $("body").append diag
+            diag.compose()
