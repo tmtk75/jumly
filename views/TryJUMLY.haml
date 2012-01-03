@@ -20,7 +20,7 @@
         %h1 Try JUMLY <small>Sequence Diagram</small>
       .row
         .span6.columns
-          %textarea{rows:16,placeholder:"Put directives"}
+          %textarea{rows:20,placeholder:"Put directives"}
         #diagram-container.span10.columns
         
       .row
@@ -109,7 +109,7 @@
       @fadeIn -> setTimeout (=> $(this).fadeOut()), delay
 
     alertmsg = (ex)->
-      $(".alert-message.error")
+      $(".alert-message").hide().filter(".error")
         .find(".type")       .html("\#{ex.type || ''}").end()
         .find(".constructor").html("\#{ex.constructor.name}").end()
         .find(".message")    .html("\#{ex.message}").end()
@@ -146,6 +146,11 @@
         you.iconify "actor"
         diagram.iconify "entity"
         jumly.iconify "controller"
+        
+        @after (e, d)->
+          d.find(".occurrence:eq(1)")
+           .twipsy("includes&nbsp;some&nbsp;" +
+                   "JavaScript&nbsp;files", "right")
         """ 
       "sample-2":"""
         @found "You", ->
@@ -157,6 +162,15 @@
             @message "read", "Page"
           @message "close", "Front Cover"
           @ref "Tidy up book at shelf"
+        
+        @after (e, diag)->
+          page.twipsy("Bootstrap Tooltip", "right")
+          tiptext = '''
+            Tooltip is better<br/>
+            when note is exaggerated'''
+          diag.find(".occurrence:eq(5)")
+              .twipsy(tiptext, "right")
+              .css("white-space":"nowrap")
         """
     $ ->
       $("#sample-1,#sample-2,#sample-3").click ->
