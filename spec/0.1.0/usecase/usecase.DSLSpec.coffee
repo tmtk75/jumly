@@ -6,9 +6,9 @@ description "usecase.DSL", ->
         it "should run a closure before composing", ->
             diag = u ".usecase-diagram"
             diag.boundary "", ->
-                @beforeCompose (e, d) ->
+                @_diagram.on "beforeCompose", (e, d)->
                     d.foobar = 1
-                @afterCompose (e, d) ->
+                @_diagram.on "afterCompose", (e, d)->
                     d.bizbuz = 2 if d.foobar is 1
             diag.compose()
             expect(diag.foobar).toBe 1
