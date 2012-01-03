@@ -10,7 +10,7 @@
       .topbar-inner
         .container
           %h3 <a href="/#">JUMLY</a>
-          %ul <li><a href="#"><a/></li>
+          %ul <li><a href="#"></a></li>
     .container
       %section
         .page-header
@@ -21,11 +21,20 @@
           #diagram-container.span8.columns
 
   :coffeescript
+    jQuery.fn.jumly = (kind, script)->
+      builder = 
+        sequence: JUMLY.SequenceDiagramBuilder
+      diag = (new builder[kind]).build script
+      @find("> *").remove().end().append diag
+      diag.compose()
+
     $ ->
-      $('textarea').focus().typing
+      storage = window.localStorage
+      storeKey = "TryJUMLY.sequence"
+      $("textarea").val(storage.getItem storeKey).focus().typing
         start: (e, n)->
         stop: (e, n)->
-          diag = (new JUMLY.SequenceDiagramBuilder).build $("textarea").val()
-          $("#diagram-container").find("> *").remove().end().append diag
-          diag.compose()
+          script = $("textarea").val()
+          storage.setItem storeKey, script
+          $("#diagram-container").jumly 'sequence', script
         delay: 400
