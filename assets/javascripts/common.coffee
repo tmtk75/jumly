@@ -46,6 +46,9 @@ DiagramBuilder::afterCompose = (f)->
   @diagram.bind "afterCompose", f
   this
 
+DiagramBuilder::before = -> @beforeCompose.apply this, arguments
+DiagramBuilder::after = -> @afterCompose.apply this, arguments
+
 DiagramBuilder::accept = (closure)->
   closure.apply this, []
 
