@@ -102,6 +102,12 @@ $ ->
                          @message "call-2", "New Object 1234"
                        """
         expect(diag.find(".object").length).toBe 2
+      
+      it "should use name as .name's value", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        b.verbose = true
+        diag = b.build """@found "a", -> @message "b", d:"c" """
+        expect(diag.find("#d").text()).toBe "c"        
 
 
     describe "layout", ->
