@@ -53,7 +53,7 @@
       a.fadeIn 'slow'
       old.fadeOut 'slow', -> t.remove()
 
-    jQuery.fn.jumly = (kind, script)->
+    jQuery.fn.jumlize = (kind, script)->
       builder = 
         sequence: JUMLY.SequenceDiagramBuilder
       diag = (new builder[kind]).build script
@@ -82,7 +82,7 @@
     updatediagram = ->
       try
         script = textarea.val()
-        $("#diagram-container").jumly 'sequence', script
+        $("#diagram-container").jumlize 'sequence', script
         storage.setItem storeKey, script
       catch ex
         alertmsg ex
