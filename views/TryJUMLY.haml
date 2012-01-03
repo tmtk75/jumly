@@ -13,6 +13,7 @@
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
           %ul <li><a id="sample-1">Sample-1</a></li>
+          %ul <li><a id="sample-2">Sample-2</a></li>
           %ul <li><a href="/Reference.html">Reference</a></li>
     .container-fluid
       .page-header
@@ -45,10 +46,25 @@
             @reply {name}, {object}
         .span4.columns
           %h3 @loop
+          %pre
+            :preserve
+              @loop {directive}
+              @loop -> {directives}
         .span4.columns
           %h3 @ref
+          %pre
+            @ref {name}
         .span4.columns
           %h3 @alt
+          %pre
+            :preserve
+              @alt
+                {cond-1}: -> {directives}
+                {cond-2}: -> {directives}
+        .span4.columns
+          %h3 iconify
+          %pre
+            {object}.iconify {"actor"|"view"|"controller"|"entity}
 
     .alert-message.block-message.error.hide
       %span.title Error <br/>
@@ -125,6 +141,17 @@
         diagram.iconify "entity"
         jumly.iconify "controller"
         """ 
+      "sample-2":"""
+        @found "You", ->
+          @message "open", "Front Cover"
+          @loop ->
+            @alt
+              "[page > 0]": -> @message "flip", "Page"
+              "[page = 0]": -> @message "stop reading"
+            @message "read", "Page"
+          @message "close", "Front Cover"
+          @ref "Tidy up book at shelf"
+        """
     $ ->
       $("#sample-1,#sample-2,#sample-3").click ->
         textarea.val samples[$(this).attr "id"]
