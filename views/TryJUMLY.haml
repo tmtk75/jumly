@@ -1,0 +1,31 @@
+!!! 5
+%html
+  %head
+    %title Try JUMLY
+    = haml :"_head.html"
+    %style
+      textarea {width:100%; font-family:'Courier New';}
+  %body
+    .topbar
+      .topbar-inner
+        .container
+          %h3 <a href="/#">JUMLY</a>
+          %ul <li><a href="#"><a/></li>
+    .container
+      %section
+        .page-header
+          %h1 Try JUMLY <small>Sequence Diagram</small>
+        .row
+          .span6.columns
+            %textarea{rows:16,placeholder:""}
+          #diagram-container.span8.columns
+
+  :coffeescript
+    $ ->
+      $('textarea').focus().typing
+        start: (e, n)->
+        stop: (e, n)->
+          diag = (new JUMLY.SequenceDiagramBuilder).build $("textarea").val()
+          $("#diagram-container").find("> *").remove().end().append diag
+          diag.compose()
+        delay: 400
