@@ -3,6 +3,8 @@
   %head
     %title Try JUMLY
     = haml :"_head.html"
+    %script{src:"/assets/bootstrap/js/bootstrap-alerts.js"}
+    %script{src:"/assets/bootstrap/js/bootstrap-twipsy.js"}
     %style
       textarea {width:100%; font-family:'Courier New';}
   %body
@@ -12,13 +14,30 @@
           %h3 <a href="/#">JUMLY</a>
           %ul <li><a href="#"></a></li>
     .container
-      %section
-        .page-header
-          %h1 Try JUMLY <small>Sequence Diagram</small>
-        .row
-          .span6.columns
-            %textarea{rows:16,placeholder:""}
-          #diagram-container.span8.columns
+      .page-header
+        %h1 Try JUMLY <small>Sequence Diagram</small>
+      .row
+        .span6.columns
+          %textarea{rows:16,placeholder:""}
+        #diagram-container.span8.columns
+      .row
+        %hr
+        .span16.columns
+          %h2 Directives
+        .span8.columns
+        .span8.columns
+
+    .notification
+      .alert-message.block-message.error.hide
+        %span.title Error <br/>
+        %strong type:
+        %span.type
+        %strong.constructor <br/>
+        %strong message:
+        %span.message <br/>
+        %strong arguments:
+        %span.arguments
+      
 
   :coffeescript
     jQuery.fn.jumly = (kind, script)->
@@ -28,13 +47,26 @@
       @find("> *").remove().end().append diag
       diag.compose()
 
+    alertmsg = (ex)->
+      $(".alert-message")
+        .find(".type")       .html("\#{ex.type || ''}").end()
+        .find(".constructor").html("\#{ex.constructor.name}").end()
+        .find(".message")    .html("\#{ex.message}").end()
+        .find(".arguments")  .html((ex.arguments || []).join ",").end()
+        .alert()
+        .click(-> $(this).fadeOut())
+        .fadeIn -> #setTimeout (=> $(this).fadeOut()), 6000
+
     $ ->
       storage = window.localStorage
       storeKey = "TryJUMLY.sequence"
       $("textarea").val(storage.getItem storeKey).focus().typing
         start: (e, n)->
         stop: (e, n)->
-          script = $("textarea").val()
-          storage.setItem storeKey, script
-          $("#diagram-container").jumly 'sequence', script
+          try
+            script = $("textarea").val()
+            storage.setItem storeKey, script
+            $("#diagram-container").jumly 'sequence', script
+          catch ex
+            alertmsg ex
         delay: 400
