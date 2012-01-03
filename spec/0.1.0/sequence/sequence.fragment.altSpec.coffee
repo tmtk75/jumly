@@ -24,12 +24,13 @@ description "fragment.alt", ->
         @diag = $.uml ".sequence-diagram"
         diag.found "A-cf-1234", ->
           @message "call", "B-cf-1234"
-          @alt "[x > 0]": ->
-                  @message "a->e", "E-cf-1234"
-               "[x = 0]": ->
-                  @message "a->d", "D-cf-1234"
-               "[x < 0]": ->
-                  @message "a->c", "C-cf-1234"
+          @alt
+           "[x > 0]": ->
+              @message "a->e", "E-cf-1234"
+           "[x = 0]": ->
+              @message "a->d", "D-cf-1234"
+           "[x < 0]": ->
+              @message "a->c", "C-cf-1234"
       when_it "composing", ->
         diag.appendTo $ "body"
         diag.compose()
