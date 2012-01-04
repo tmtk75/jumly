@@ -9,6 +9,7 @@ module Sinatra
         env.append_path 'assets/stylesheets'
         env.append_path 'assets/images'
         env.append_path 'vendor'
+        env.append_path 'views/javascripts'
         run env
       end
       

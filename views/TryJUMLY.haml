@@ -20,7 +20,7 @@
       .row
         .span6.columns
           %textarea{rows:20,placeholder:"Put directives"}
-          %a#link-to-view.btn.default Link to view
+          %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns
         
       .row
@@ -78,7 +78,10 @@
 
     .alert-message.block-message.success.hide
       Rendering was succeeded, and stored into localStorage.
-      
+    
+    #link-to-show.modal.hide
+      %h2 Link
+      %pre.content
 
   :coffeescript
     jQuery.fn.fadeAlert = (delay = 6000)->
@@ -155,6 +158,10 @@
         updatediagram()
         false
 
-      $("#link-to-view").click ->
-        d = encodeURIComponent textarea.val()
-        console.log d
+      $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
+        #d = encodeURIComponent textarea.val()
+        d = Base64.encode textarea.val()
+        link = "/Share?b=\#{d}"
+        $(this).find(".content").html "<a href='\#{link}'>\#{link}</a>"
+
+  %script{src:"#{$js_dir}/base64.js"}

@@ -1,0 +1,61 @@
+!!! 5
+%html
+  %head
+    %link{type:'text/css',rel:'stylesheet',href:"#{$vendor_dir}/bootstrap/bootstrap.min.css"}
+    :css
+      pre {white-space:pre; word-wrap:normal;}
+  %body
+    .container
+      %pre#urlenc
+      %pre#b64enc
+      %pre#output
+      %a.primary.btn#exec Huffman w/ BWT/MTF and Base64
+      %pre#data
+        :preserve
+          @found "You", ->
+            @message "open", "Front Cover"
+            @loop ->
+              @alt
+                "[page > 0]": -> @message "flip", "Page"
+                "[page = 0]": -> @message "stop reading"
+              @message "read", "Page"
+            @message "close", "Front Cover"
+            @ref "Tidy up book at shelf"
+          
+          @after (e, diag)->
+            page.twipsy("Bootstrap Tooltip", "right")
+            tiptext = '''
+              Tooltip is better<br/>
+              when note is exaggerated'''
+            diag.find(".occurrence:eq(5)")
+                .twipsy(tiptext, "right")
+                .css("white-space":"nowrap")
+
+  %script{src:"#{$js_dir}/jquery-1.7.1.min.js"}
+  %script{src:"#{$js_dir}/coffee-script.min-1.1.3.js"}
+  %script{src:"#{$js_dir}/codec.js"}
+  %script{src:"#{$js_dir}/base64.js"}
+
+  :coffeescript
+    compressHuffmanBWTMTF = (src)->
+      dst = Codec.BWTMTFHuffman.encode src
+      res = Codec.BWTMTFHuffman.decode dst
+  
+      bytesize = (that)->
+        size = Math.floor(that.length / 8)
+        if ((that.length % 8) != 0)
+          size++
+        size
+      $('#urlenc').html uen = encodeURIComponent src
+      $('#b64enc').html b64 = Base64.encode src
+      $('#output').html """
+        src: \#{src.length}
+        Huffman: \#{bytesize(dst)}
+        Base64: \#{b64.length}
+        URLEncode: \#{uen.length}
+        Huffman/src: \#{parseInt(bytesize(dst) / src.length * 100)}%
+        Base64/src: \#{parseInt(b64.length / src.length * 100)}%
+        URLEncode/src: \#{parseInt(uen.length / src.length * 100)}%
+        """
+    $("#exec").click ->
+      compressHuffmanBWTMTF $('#data').text()

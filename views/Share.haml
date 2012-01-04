@@ -19,17 +19,24 @@
     .container
       .diagram-container
     .alert-message.error.hide
-      .script
-
+      .content
+      
+  %script{src:"#{$js_dir}/base64.js"}
+  /
+    QueryParams
+      t:  string    Encode type for 'b' param (default: b64)
+      b:  string    JUMLY body (required)
+      
   :coffeescript
     b = {}
     b[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
-    console.log b
-    directs = decodeURIComponent b.d
+    switch b.t
+      when 'raw' then directs = decodeURIComponent b.b
+      else directs = Base64.decode b.b
     $ ->
       try
         $(".diagram-container").jumlize "sequence", directs, ->
       catch ex
         $(".alert-message.error")
-          .find(".script").text(directs).end()
+          .find(".content").text(directs).end()
           .alert().fadeIn()
