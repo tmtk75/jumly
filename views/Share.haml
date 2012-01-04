@@ -3,19 +3,24 @@
   %head
     %title JUMLY Share
     = haml :"_head.html"
-    = haml :"_syntaxhighlighter.html"
-    %link{src: "/share.css", type: "text/css", rel: "stylesheet"}
-    %script{src: "/javascripts/jumly.loader.js", type: "text/javascript"}
   %body
-    = haml :_topbar
-
-    /================================================================================================
     .container
-      %section#Share
-        #ph
-        .page-header
-          %h1 Share
-        :javascript
-          JUMLY.load("/found.js")
-        :javascript
-          setTimeout(function() {JUMLY.load("/create.js")}, 1000);
+      #shared-diagram
+
+  :coffeescript
+    b = {}
+    b[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
+    console.log b
+    console.log decodeURIComponent b.d
+
+    jQuery.fn.jumlize = (kind, script)->
+      builder = 
+        sequence: JUMLY.SequenceDiagramBuilder
+      diag = (new builder[kind]).build script
+      g = (diag)=>
+        @find("> *").remove().end().append diag
+        diag.compose()
+      g diag
+
+    $ ->
+      $("#shared-diagram").jumlize "sequence", "@found 'F', ->"
