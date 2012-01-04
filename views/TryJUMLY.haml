@@ -20,6 +20,7 @@
       .row
         .span6.columns
           %textarea{rows:20,placeholder:"Put directives"}
+          %a#link-to-view.btn.default Link to view
         #diagram-container.span10.columns
         
       .row
@@ -76,7 +77,7 @@
       %span.arguments
 
     .alert-message.block-message.success.hide
-      Success.
+      Rendering was succeeded, and stored into localStorage.
       
 
   :coffeescript
@@ -101,7 +102,7 @@
         script = textarea.val()
         $("#diagram-container").jumlize 'sequence', script
         storage.setItem storeKey, script
-        $(".alert-message").hide().filter(".success").fadeAlert(1000)
+        $(".alert-message").hide().filter(".success").fadeAlert(2500)
       catch ex
         alertmsg ex
 
@@ -111,7 +112,7 @@
         stop: (e, n)-> updatediagram e, n
         delay: 400
       updatediagram()
-
+        
     samples =
       "sample-1":"""
         @found "You", ->
@@ -153,3 +154,7 @@
         textarea.val samples[$(this).attr "id"]
         updatediagram()
         false
+
+      $("#link-to-view").click ->
+        d = encodeURIComponent textarea.val()
+        console.log d
