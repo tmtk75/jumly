@@ -3,15 +3,32 @@
   %head
     %title JUMLY Share
     = haml :"_head.html"
+    = haml :"_bootstrap.html"
+    :css
+      body {margin-top:44px;}
+      .diagram-container {}
+      .alert-message {white-space:pre;}
+      .diagram {margin: 0 auto 0 auto;}
   %body
+    .topbar
+      .topbar-inner
+        .container-fluid
+          %h3 <a href="/#">JUMLY</a>
+          %ul <li><a href="/Reference.html">Reference</a></li>
     .container
-      #shared-diagram
+      .diagram-container
+    .alert-message.error.hide
+      .script
 
   :coffeescript
     b = {}
     b[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
     console.log b
-    console.log decodeURIComponent b.d
-
+    directs = decodeURIComponent b.d
     $ ->
-      $("#shared-diagram").jumlize "sequence", "@found 'F', ->"
+      try
+        $(".diagram-container").jumlize "sequence", directs, ->
+      catch ex
+        $(".alert-message.error")
+          .find(".script").text(directs).end()
+          .alert().fadeIn()
