@@ -8,3 +8,4 @@
 //= require sequence
 //= require component
 //= require deployment
+//= require jquery-jumly

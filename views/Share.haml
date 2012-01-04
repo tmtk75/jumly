@@ -13,14 +13,5 @@
     console.log b
     console.log decodeURIComponent b.d
 
-    jQuery.fn.jumlize = (kind, script)->
-      builder = 
-        sequence: JUMLY.SequenceDiagramBuilder
-      diag = (new builder[kind]).build script
-      g = (diag)=>
-        @find("> *").remove().end().append diag
-        diag.compose()
-      g diag
-
     $ ->
       $("#shared-diagram").jumlize "sequence", "@found 'F', ->"
