@@ -165,7 +165,10 @@
         $(this).find(".content").html "<a href='\#{link}'>\#{link}</a>"
 
   %script{src:"#{$js_dir}/base64.js"}
-  %script{type:"text/javascript"}
-    :preserve
-      window.callback = function(bitlyResponse) {var json = eval(bitlyResponse);alert(json.statusCode);}
+  :javascript
+    window.callback = function(bitlyres) {
+      var json = eval(bitlyres);
+      console.log(json);
+      alert(json.statusCode);
+    }
   %script{type:"text/javascript",src:"http://api.bit.ly/shorten?version=2.0.1&login=tmtk75&apiKey=R_39bc09b13aac4481bc526f946f7d1538&longUrl=http://www.yahoo.co.jp/&callback=window.callback"}
