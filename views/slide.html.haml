@@ -1,0 +1,34 @@
+!!! 5
+%html
+  %head
+    - slippy_dir = "/assets/slippy"
+    %link{type:"text/css", rel:"stylesheet", href:"#{slippy_dir}/slippy.css"}
+    %link{type:"text/css", rel:"stylesheet", href:"#{slippy_dir}/slippy-pure.css"}
+    %link{type:"text/css", rel:"stylesheet", href:"#{slippy_dir}/highlighter/shCore.css"}
+    %link{type:"text/css", rel:"stylesheet", href:"#{slippy_dir}/highlighter/shThemeEclipse.css"}
+    %script{type:"text/javascript", src:"#{slippy_dir}/jquery.min.js"}
+    %script{type:"text/javascript", src:"#{slippy_dir}/jquery.history.js"}
+    %script{type:"text/javascript", src:"#{slippy_dir}/slippy.js"}
+    %script{type:"text/javascript", src:"#{slippy_dir}/highlighter/shCore.js"}
+    %script{type:"text/javascript", src:"#{slippy_dir}/highlighter/shBrushJScript.js"}
+  %body
+    .slide
+      %h1 My 1st slide using Slippy!
+      %ul.vcenter
+        %li CDEFGAB
+        %li 01234
+
+      .layout{"data-name"=>"default"}
+        %content
+        .footer
+          .left Tomotaka Sakuma
+          .right JUMLY on <a href="http://github.com/tmtk75/jumly-core/">github</a>
+          .left Blog <a href="http://tmtk75.github.com">tmtk75.github.com</a>
+          .right Twitter <a href="http://twitter.com/jumly1">@jumly1</a>
+          %hr.defloat
+
+  :javascript
+    $(function() {
+      $(".slide").slippy({});
+      SyntaxHighlighter.all();
+    });
