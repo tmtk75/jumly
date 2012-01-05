@@ -1,0 +1,9 @@
+[submodule "vendor/resty"]
+	path = vendor/resty
+	url = git@github.com:tmtk75/resty.git
+[submodule "vendor/slippy"]
+	path = vendor/slippy
+	url = https://github.com/Seldaek/slippy.git
+[submodule "vendor/bootstrap"]
+	path = vendor/bootstrap
+	url = https://github.com/twitter/bootstrap.git
