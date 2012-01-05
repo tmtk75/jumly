@@ -81,7 +81,10 @@
     
     #link-to-show.modal.hide
       %h2 Link
-      %pre.content
+      %h3 Short Link
+      %pre.short
+      %h3 Raw Link
+      %pre.long
 
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
@@ -119,7 +122,6 @@
         delay: 400
       updatediagram()
 
-    $ ->
       $("#sample-1,#sample-2,#sample-3").click ->
         textarea.val JUMLY.TryJUMLY.samples[$(this).attr "id"]
         updatediagram()
@@ -129,12 +131,11 @@
         #d = encodeURIComponent textarea.val()
         d = Base64.encode textarea.val()
         link = "/Share?b=\#{d}"
-        $(this).find(".content").html "<a href='\#{link}'>\#{link}</a>"
-
-  :javascript
-    window.callback = function(bitlyres) {
-      var json = eval(bitlyres);
-      console.log(json);
-      alert(json.statusCode);
-    }
-  %script{type:"text/javascript",src:"http://api.bit.ly/shorten?version=2.0.1&login=tmtk75&apiKey=R_39bc09b13aac4481bc526f946f7d1538&longUrl=http://www.yahoo.co.jp/&callback=window.callback"}
+        longUrl = "\#{location.origin}/\#{link}"
+        modal = $(this)
+        
+        modal.find(".long").html "<a href='\#{link}'>\#{link}</a>"
+        bitly = "http://api.bit.ly/shorten?version=2.0.1&login=tmtk75&apiKey=R_39bc09b13aac4481bc526f946f7d1538&longUrl=\#{encodeURIComponent longUrl}&callback=?"
+        $.getJSON bitly, (res)->
+          shortUrl = res.results[longUrl].shortUrl
+          modal.find(".short").html "<a href='\#{shortUrl}' target='shortUrl'>\#{shortUrl}</a>"
