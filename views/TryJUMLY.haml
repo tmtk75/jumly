@@ -117,12 +117,12 @@
     storeKey = "TryJUMLY.sequence"
     textarea = $ "textarea"
     
-    updatediagram = ->
+    updatediagram = (showalert)->
       try
         script = textarea.val()
         $("#diagram-container").jumlize 'sequence', script
         storage.setItem storeKey, script
-        $(".alert-message").hide().filter(".success").fadeAlert(2500)
+        $(".alert-message").hide().filter(".success").fadeAlert(2500) if showalert
       catch ex
         alertmsg ex
 
@@ -135,7 +135,7 @@
 
       $("#sample-1,#sample-2,#sample-3").click ->
         textarea.val JUMLY.TryJUMLY.samples[$(this).attr "id"]
-        updatediagram()
+        updatediagram true
         false
 
       $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
