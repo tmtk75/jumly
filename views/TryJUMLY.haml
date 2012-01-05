@@ -89,6 +89,10 @@
         %h3 Raw Link
         .long
       .modal-footer
+        %a#close-link-to-show.btn close
+        :coffeescript
+          $ -> $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
+          
 
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
