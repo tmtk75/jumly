@@ -89,9 +89,10 @@
         %h3 Raw Link
         .long
       .modal-footer
-        %a#close-link-to-show.btn close
+        %a#close-link-to-show.btn Close
         :coffeescript
-          $ -> $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
+          $ ->
+            $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
           
 
   %script{src:"#{$js_dir}/base64.js"}
