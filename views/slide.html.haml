@@ -18,14 +18,35 @@
         %li CDEFGAB
         %li 01234
 
-      .layout{"data-name"=>"default"}
-        %content
-        .footer
-          .left Tomotaka Sakuma
-          .right JUMLY on <a href="http://github.com/tmtk75/jumly-core/">github</a>
-          .left Blog <a href="http://tmtk75.github.com">tmtk75.github.com</a>
-          .right Twitter <a href="http://twitter.com/jumly1">@jumly1</a>
-          %hr.defloat
+    .slide
+      %h1 H1
+      %h2 H2
+      %h3 H3
+      %h4 H4
+      %table.incremental
+        %tr
+          %td a
+          %td b
+          %td c
+        %tr
+          %td 1
+          %td 2
+          %td 3
+      %ul.incremental
+        %li A
+        %li B
+        %li C
+      %pre{class:"brush:js eval"}
+        alert("hello");
+
+    .layout{"data-name"=>"default"}
+      %content
+      .footer
+        .left Tomotaka Sakuma
+        .right JUMLY on <a href="http://github.com/tmtk75/jumly-core/">github</a>
+        .left Blog <a href="http://tmtk75.github.com">tmtk75.github.com</a>
+        .right Twitter <a href="http://twitter.com/jumly1">@jumly1</a>
+        %hr.defloat
 
   :javascript
     $(function() {
