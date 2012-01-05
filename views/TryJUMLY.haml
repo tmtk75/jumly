@@ -125,9 +125,17 @@
         $(".alert-message").hide().filter(".success").fadeAlert(2500) if showalert
       catch ex
         alertmsg ex
-
+    
+    ## Initially restored script
+    qp = {}
+    qp[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
+    if qp.b
+      d = Base64.decode qp.b
+    else
+      d = storage.getItem storeKey
+    
     $ ->
-      textarea.val(storage.getItem storeKey).focus().typing
+      textarea.val(d).focus().typing
         start: (e, n)->
         stop: (e, n)-> updatediagram e, n
         delay: 400
