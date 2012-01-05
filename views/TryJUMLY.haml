@@ -7,6 +7,7 @@
     :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt;}
       #link-to-show .short, #link-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
+      .alert-message {right:2px;margin-top:2px;}
   %body
     .topbar
       .topbar-inner
@@ -68,7 +69,7 @@
             {object}.iconify {"actor"|"view"|"controller"|"entity}
 
     .alert-message.block-message.error.hide
-      %span.title Error <br/>
+      %h3.title Error
       %strong type:
       %span.type
       %strong.constructor <br/>
@@ -78,6 +79,7 @@
       %span.arguments
 
     .alert-message.block-message.success.hide
+      %h3.title Success
       Rendering was succeeded, and stored into localStorage.
     
     #link-to-show.modal.hide
