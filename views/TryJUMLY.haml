@@ -4,8 +4,9 @@
     %title Try JUMLY
     = haml :"_head.html"
     = haml :"_bootstrap.html"
-    %style
+    :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt;}
+      #link-to-show .short, #link-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
   %body
     .topbar
       .topbar-inner
@@ -80,11 +81,14 @@
       Rendering was succeeded, and stored into localStorage.
     
     #link-to-show.modal.hide
-      %h2 Link
-      %h3 Short Link
-      %pre.short
-      %h3 Raw Link
-      %pre.long
+      .modal-header
+        %h2 Link To Share
+      .modal-body
+        %h3 Short Link
+        .short
+        %h3 Raw Link
+        .long
+      .modal-footer
 
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
