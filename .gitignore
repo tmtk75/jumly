@@ -1,2 +1,4 @@
 .sass-cache
 Gemfile.lock
+.bundle
+tmp
