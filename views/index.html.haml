@@ -13,6 +13,8 @@
           %h3
             %a{href:"#"}JUMLY
           %ul.nav
+            %li
+              %a{href:"TryJUMLY"} TryJUMLY
             - chaps = [:Introduction, :Overview, :Demo, :Document, :License, :Download, :Credit]
             = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
             %li
