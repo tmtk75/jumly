@@ -13,15 +13,15 @@
       .topbar-inner
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
-          %ul <li><a id="sample-1">Sample-1</a></li>
-          %ul <li><a id="sample-2">Sample-2</a></li>
+          %ul <li><a id="sample-1" data-bind="click:sampleRequired">Sample-1</a></li>
+          %ul <li><a id="sample-2" data-bind="click:sampleRequired">Sample-2</a></li>
           %ul <li><a href="/Reference.html">Reference</a></li>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
       .row
         .span6.columns
-          %textarea{rows:20,placeholder:"Put directives"}
+          %textarea{"data-bind"=>"value:targetJumlipt",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns
         
@@ -98,6 +98,7 @@
           
 
   %script{src:"#{$js_dir}/base64.js"}
+  %script{src:"#{$js_dir}/knockout.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
@@ -134,17 +135,21 @@
     else
       d = storage.getItem storeKey
     
+    viewModel =
+      targetJumlipt: d
+      sampleRequired: (e, a, b)->
+        console.log e.target.id
+        textarea.val JUMLY.TryJUMLY.samples[e.target.id]
+        updatediagram true
+    
     $ ->
-      textarea.val(d).focus().typing
+      ko.applyBindings viewModel, $("body")[0]
+      
+      textarea.focus().typing
         start: (e, n)->
         stop: (e, n)-> updatediagram e, n
         delay: 400
       updatediagram()
-
-      $("#sample-1,#sample-2,#sample-3").click ->
-        textarea.val JUMLY.TryJUMLY.samples[$(this).attr "id"]
-        updatediagram true
-        false
 
       $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         #d = encodeURIComponent textarea.val()
