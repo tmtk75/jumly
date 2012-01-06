@@ -23,7 +23,7 @@
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
-        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram"}
+        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
         
       .row
         .span16.columns
@@ -147,8 +147,9 @@
       update: (element, valueAccessor, allBindingsAccessor, viewModel)->
         console.log element
         console.log ko.utils.unwrapObservable valueAccessor()
-        console.log ko.utils.unwrapObservable allBindingsAccessor()
+        console.log (ko.utils.unwrapObservable allBindingsAccessor()).after
         console.log viewModel
+        
         diag = ko.utils.unwrapObservable valueAccessor()
         $(element).html diag
         diag.compose()
