@@ -6,8 +6,8 @@
     = haml :"_bootstrap.html"
     :css
       body {margin-top:44px;}
-      .diagram-container {}
-      .alert-message {white-space:pre;}
+      .alert-message {right:0px;}
+      .alert-message.error .content {white-space:pre;font-family:Monaco,mono;font-size:9pt;}
       .diagram {margin: 0 auto 0 auto;}
       .footer {position:absolute;bottom:0px;text-align:center;width:100%;background:rgba(24,24,24,1);opacity:0.87;z-index:10;color:white;text-shadow:1px 0 gray;padding:2px 0 2px 0;}
   %body
@@ -19,10 +19,14 @@
           %ul <li><a href="/Reference.html">Reference</a></li>
     .container
       .diagram-container
+      .alert-message.info
+        %p From here if you edit this.
     .footer
       version #{File.read "VERSION"}
-    .alert-message.error.hide
-      .content
+    .alert-message.block-message.error.hide
+      %h2 Error
+      %strong.message
+      %p.content
       
   %script{src:"#{$js_dir}/base64.js"}
   /
@@ -36,10 +40,12 @@
     switch b.t
       when 'raw' then directs = decodeURIComponent b.b
       else directs = Base64.decode b.b
+    tryUrl = "/TryJUMLY?b=\#{b.b}"
     $ ->
       try
         $(".diagram-container").jumlize "sequence", directs, ->
       catch ex
         $(".alert-message.error")
+          .find(".message").text(ex.message).end()
           .find(".content").text(directs).end()
           .alert().fadeIn()
