@@ -23,7 +23,7 @@
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
-        #diagram-container.span10.columns
+        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram"}
         
       .row
         .span16.columns
@@ -136,20 +136,30 @@
       d = storage.getItem storeKey
     
     viewModel =
-      targetJumlipt: d
+      targetJumlipt: ko.observable d
       sampleRequired: (e, a, b)->
         console.log e.target.id
         textarea.val JUMLY.TryJUMLY.samples[e.target.id]
         updatediagram true
+
+    ko.bindingHandlers.jumly =
+      init: (element, valueAccessor, allBindingsAccessor, viewModel)->
+      update: (element, valueAccessor, allBindingsAccessor, viewModel)->
+        console.log element
+        console.log ko.utils.unwrapObservable valueAccessor()
+        console.log ko.utils.unwrapObservable allBindingsAccessor()
+        console.log viewModel
+        diag = ko.utils.unwrapObservable valueAccessor()
+        $(element).html diag
+        diag.compose()
+
+    viewModel.diagram = ko.dependentObservable ->
+      (new JUMLY.SequenceDiagramBuilder).build viewModel.targetJumlipt()
     
     $ ->
       ko.applyBindings viewModel, $("body")[0]
       
-      textarea.focus().typing
-        start: (e, n)->
-        stop: (e, n)-> updatediagram e, n
-        delay: 400
-      updatediagram()
+      textarea.focus()
 
       $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         #d = encodeURIComponent textarea.val()
