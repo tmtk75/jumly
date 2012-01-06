@@ -15,7 +15,7 @@
           %ul.nav
             %li
               %a{href:"TryJUMLY"} TryJUMLY
-            - chaps = [:Introduction, :Overview, :Demo, :Document, :License, :Download, :Credit]
+            - chaps = [:Introduction, :Overview, :Demo, :Document, :License]
             = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
             %li
               %a{href:"Reference.html"} Reference
@@ -41,6 +41,7 @@
         .page-header
           %h1 Demo
         %ul.unstyled
+          %li <a href="TryJUMLY#{$doc_ext}">TryJUMLY</a>
           %li <a href="full_sequence.html">Full feature sequence diagram</a>
           %li <a href="full_usecase.html">Full feature usecase diagram</a>
           %li <a href="full_class.html">Full feature class diagram</a>
@@ -50,12 +51,13 @@
             Quick demo sharing with a single URL.
             %a{href: "d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22,%22b%22%0a%20@message%20%22hello%22,%22c%22"}
               \/d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22...
+          %li
+            Easy Quick Sharing! <a href="http://bit.ly/xuc8K1">http://bit.ly/xuc8K1</a>
       %section#Document
         .page-header
           %h1 Document
         %ul.unstyled
           %li <a href="Tutorial#{$doc_ext}">Tutorial</a>
-          %li <a href="TryJUMLY#{$doc_ext}">TryJUMLY</a>
           %li <a href="Share#{$doc_ext}">Share</a>
           %li <a href="Design#{$doc_ext}">Design</a>
           %li <a href="Grammer#{$doc_ext}">Grammer</a>
