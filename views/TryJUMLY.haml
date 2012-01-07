@@ -6,7 +6,7 @@
     = haml :"_bootstrap.html"
     :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt;}
-      #link-to-show .short, #link-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
+      #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
       .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
   %body
     .topbar
@@ -23,7 +23,7 @@
       .row
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
-          %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
+          %a.btn{"data-controls-modal"=>"url-to-show"} Show URL
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
 
       .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
@@ -41,13 +41,13 @@
         %h3 Success
         %p Rendering was succeeded.
       
-      #link-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
+      #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
       %script#show-URL{type:"text/html"}
         .modal-header
           %h2 URL To Share
         .modal-body
           %h3 Short URL
-          .short <a href='${short}' target='shortLink'>${short}</a>
+          .short <a href='${short}' target='shortURL'>${short}</a>
           %h3 Raw URL
           .long <a href='${long}'>${long}</a>
         .modal-footer
@@ -86,15 +86,15 @@
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
         
     $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut('fast')), 1500
-    linkToShow = $("#link-to-show")
-    $(document).on "click", "\#{linkToShow.selector} .btn", (e)-> linkToShow.modal 'hide'
+    urlToShow = $("#url-to-show")
+    $(document).on "click", "\#{urlToShow.selector} .btn", (e)-> urlToShow.modal 'hide'
     
     $ ->
       ko.applyBindings viewModel, $("body")[0]
       $("textarea").focus()
-      linkToShow.modal(backdrop:"static",keyboard:true).bind "show", ->
-        link = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
-        longUrl = "\#{location.origin}/\#{link}"
+      urlToShow.modal(backdrop:"static",keyboard:true).bind "show", ->
+        path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
+        longUrl = "\#{location.origin}\#{path}"
         viewModel.urlToShare.long longUrl
         JUMLY.TryJUMLY.bitly longUrl, (res)->
           viewModel.urlToShare.short res.results[longUrl].shortUrl
