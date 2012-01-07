@@ -15,6 +15,7 @@
           %h3 <a href="/#">JUMLY</a>
           %ul <li><a id="sample-1" data-bind="click:sampleRequired">Sample-1</a></li>
           %ul <li><a id="sample-2" data-bind="click:sampleRequired">Sample-2</a></li>
+          %ul <li><a id="sample-3" data-bind="click:sampleRequired">Sample-3</a></li>
           %ul <li><a href="/Reference.html">Reference</a></li>
     .container-fluid
       .page-header
@@ -25,7 +26,8 @@
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
 
-    .alert-message.block-message.error.hide
+    .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
+    %script#alert-error{type:"text/html"}
       %h3.title Error
       %strong type:
       %span.constructor
@@ -83,9 +85,8 @@
     
     viewModel =
       targetJumlipt: ko.observable d
-      sampleRequired: (e, a, b)->
-        textarea.val JUMLY.TryJUMLY.samples[e.target.id]
-        updatediagram true
+      sampleRequired: (model, event)->
+        model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
         
     $(".alert-message").on "show", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500

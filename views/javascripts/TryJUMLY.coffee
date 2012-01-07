@@ -36,3 +36,16 @@ JUMLY.TryJUMLY =
             .twipsy(tiptext, "right")
             .css("white-space":"nowrap")
       """
+    "sample-3":"""
+      @found "You", ->
+        @create "Diagram"
+        @message "show URL", "JUMLY", ->
+          @message "generate short URL", "bit.ly", ->
+            @reply "", "JUMLY"
+          @message "show&nbsp;the URL", ->
+          @reply "", "You"
+        @message "copy it"
+        @ref "Easy Draw, Easy Share!!!"
+      ref = @diagram.find(".ref .name")
+      ref.css "font-weight":"bold", "font-size":"large"
+      """
