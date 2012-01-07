@@ -98,5 +98,4 @@
         modal.find(".long").html anchor 
         JUMLY.TryJUMLY.bitly longUrl, (res)->
           shortUrl = res.results[longUrl].shortUrl
-          modal.find(".short").html "<a href='\#{shortUrl}' target='shortUrl'>\#{shortUrl}</a>"
-
+          modal.find(".short").html $("<a>").attr(href:shortUrl,target:'shortUrl').html shortUrl
