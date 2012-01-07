@@ -94,10 +94,6 @@
           console.error ex
           $(".alert-message").hide().filter(".error").show() #.trigger "show"
           
-    class JUMLYError extends Error
-      constructor: (@message, @cause, @jumlipt)->
-    JUMLY.Error = JUMLYError
-          
     viewModel.diagram = ko.dependentObservable ->
       jumlipt = viewModel.targetJumlipt()
       try

@@ -263,3 +263,8 @@ JUMLYDiagramLayout::layout = (diagram)->
   @_layout_?()
 
 JUMLY.DiagramLayout = JUMLYDiagramLayout
+
+
+class JUMLYError extends Error
+  constructor: (@message, @cause, @jumlipt)->
+JUMLY.Error = JUMLYError
