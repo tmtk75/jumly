@@ -36,10 +36,12 @@
           %strong message:
           %span.message ${cause}
   
-      .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success"}'}
-      %script#alert-success{type:"text/html"}
+      .alert-message.block-message.success.hide
         %h3 Success
         %p Rendering was succeeded.
+
+      .alert-message.info.hide
+        Auto-save the current jumlipt.
       
       #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
       %script#show-URL{type:"text/html"}
@@ -54,23 +56,17 @@
           %a.btn Close
           
   %script{src:"#{$js_dir}/base64.js"}
-  %script{src:"#{$js_dir}/knockout.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
     storage = window.localStorage
-    storeKey = "TryJUMLY.sequence"
-    
-    ## Initially restored script
+    storeKey = "TryJUMLY.sequence.jumlipt"
     qp = {}
     qp[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
-    if qp.b
-      d = Base64.decode qp.b
-    else
-      d = storage.getItem storeKey
+    initialJumlipt = if qp.b then Base64.decode qp.b else storage.getItem storeKey
     
     viewModel =
-      targetJumlipt: ko.observable d
+      targetJumlipt: ko.observable initialJumlipt
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
       success: ->
@@ -83,15 +79,20 @@
       urlToShare:
         short: ko.observable "..."
         long: ko.observable "..."
+      typing:
+        delay:5000, stop:(e)->
+          storage.setItem storeKey, viewModel.targetJumlipt()
+          $(".alert-message.info").fadeIn().trigger "show"
+                
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
         
-    $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut('fast')), 1500
+    $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
     urlToShow = $("#url-to-show")
     $(document).on "click", "\#{urlToShow.selector} .btn", (e)-> urlToShow.modal 'hide'
     
     $ ->
       ko.applyBindings viewModel, $("body")[0]
-      $("textarea").focus()
+      $("textarea").focus().typing viewModel.typing
       urlToShow.modal(backdrop:"static",keyboard:true).bind "show", ->
         path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}\#{path}"
