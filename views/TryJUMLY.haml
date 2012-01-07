@@ -26,35 +26,35 @@
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
 
-    .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
-    %script#alert-error{type:"text/html"}
-      %h3.title Error
-      %strong type:
-      %span.constructor
-      %strong message:
-      %span.message ${message}
-      %strong arguments:
-      %span.arguments
-
-    .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success",data:message}'}
-    / @see http://knockoutjs.com/documentation/template-binding.html
-    %script#alert-success{type:"text/html"}
-      %h3.title Success
-      %p Rendering was succeeded.
-    
-    #link-to-show.modal.hide
-      .modal-header
-        %h2 Link To Share
-      .modal-body
-        %h3 Short Link
-        .short
-        %h3 Raw Link
-        .long
-      .modal-footer
-        %a#close-link-to-show.btn Close
-        :coffeescript
-          $ ->
-            $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
+      .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
+      %script#alert-error{type:"text/html"}
+        %h3.title Error
+        %strong type:
+        %span.constructor
+        %strong message:
+        %span.message ${message}
+        %strong arguments:
+        %span.arguments
+  
+      .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success",data:message}'}
+      / @see http://knockoutjs.com/documentation/template-binding.html
+      %script#alert-success{type:"text/html"}
+        %h3.title Success
+        %p Rendering was succeeded.
+      
+      #link-to-show.modal.hide
+        .modal-header
+          %h2 Link To Share
+        .modal-body
+          %h3 Short Link
+          .short
+          %h3 Raw Link
+          .long
+        .modal-footer
+          %a#close-link-to-show.btn Close
+          :coffeescript
+            $ ->
+              $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
           
 
   %script{src:"#{$js_dir}/base64.js"}
