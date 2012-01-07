@@ -28,7 +28,7 @@
 
       .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
       %script#alert-error{type:"text/html"}
-        %h3.title Error
+        %h3 Error
         %strong type:
         %span.constructor
         %strong message:
@@ -37,9 +37,8 @@
         %span.arguments
   
       .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success",data:message}'}
-      / @see http://knockoutjs.com/documentation/template-binding.html
       %script#alert-success{type:"text/html"}
-        %h3.title Success
+        %h3 Success
         %p Rendering was succeeded.
       
       #link-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL'}"}
@@ -54,7 +53,6 @@
         .modal-footer
           %a.btn Close
           
-
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/knockout.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
@@ -78,7 +76,7 @@
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
         
-    $(".alert-message").on "show", (e)->
+    $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
 
     ko.bindingHandlers.jumly =
