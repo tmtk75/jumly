@@ -103,7 +103,7 @@
       try
         (new JUMLY.SequenceDiagramBuilder).build jumlipt
       catch ex
-        new JUMLY.Error "Failed to build", ex, jumlipt
+        ex
     
     $ ->
       textarea.focus()

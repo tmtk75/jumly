@@ -52,18 +52,18 @@ DiagramBuilder::after = -> @afterCompose.apply this, arguments
 DiagramBuilder::accept = (closure)->
   closure.apply this, []
 
-DiagramBuilder::build = (text)->
+DiagramBuilder::build = (jumlipt)->
   try
     typename = this.constructor.name.replace(/^JUMLY/, "")
                                     .replace(/Diagram(Builder)?$/, "")
                                     .toLowerCase()
     @diagram = $.jumly ".#{typename}-diagram"
-    @accept -> eval CoffeeScript.compile text
+    @accept -> eval CoffeeScript.compile jumlipt
     @diagram.trigger "build.after"
     @diagram
   catch ex
     $.logger(this).error ex, ex.stack, text if @verbose
-    throw ex
+    throw new JUMLY.Error "Failed to build", ex, jumlipt
 
 JUMLY.DiagramBuilder = DiagramBuilder
 
