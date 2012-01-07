@@ -42,7 +42,8 @@
         %h3.title Success
         %p Rendering was succeeded.
       
-      #link-to-show.modal.hide
+      #link-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL'}"}
+      %script#show-URL{type:"text/html"}
         .modal-header
           %h2 Link To Share
         .modal-body
@@ -51,10 +52,7 @@
           %h3 Raw Link
           .long
         .modal-footer
-          %a#close-link-to-show.btn Close
-          :coffeescript
-            $ ->
-              $("#close-link-to-show").click -> $("#link-to-show").modal('hide')
+          %a.btn Close
           
 
   %script{src:"#{$js_dir}/base64.js"}
@@ -116,9 +114,11 @@
         link = "/Share?b=\#{d}"
         longUrl = "\#{location.origin}/\#{link}"
         modal = $(this)
-        
+        modal.find(".btn").click -> modal.modal('hide')
+
         modal.find(".long").html "<a href='\#{link}'>\#{link}</a>"
         bitly = "http://api.bit.ly/shorten?version=2.0.1&login=tmtk75&apiKey=R_39bc09b13aac4481bc526f946f7d1538&longUrl=\#{encodeURIComponent longUrl}&callback=?"
         $.getJSON bitly, (res)->
           shortUrl = res.results[longUrl].shortUrl
           modal.find(".short").html "<a href='\#{shortUrl}' target='shortUrl'>\#{shortUrl}</a>"
+
