@@ -266,5 +266,9 @@ JUMLY.DiagramLayout = JUMLYDiagramLayout
 
 
 class JUMLYError extends Error
-  constructor: (@message, @cause, @jumlipt)->
+  constructor: (@type, @message, @arguments, @cause, @jumlipt)->
+    if typeof @type is "object"
+      @type = p.type
+      @message = p.message
+      @arguments = p.arguments
 JUMLY.Error = JUMLYError

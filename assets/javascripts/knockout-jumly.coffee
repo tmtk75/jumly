@@ -15,9 +15,16 @@ jumlyBind =
     catch ex
       bindings().error? ($.extend ex, {type:ex.constructor.name, diagram:diag, ko:koarg})
 
+name2builder =
+  sequence: JUMLY.SequenceDiagramBuilder
+
 JUMLY.ko =
-  sequence: (jumlipt)-> @observable jumlipt
-  observable: (observableJumlipt, builder = JUMLY.SequenceDiagramBuilder)->
+  ## observableJumlipt: string wrapped with ko.observable.
+  ## builder: DiagramBuilder or string.
+  dependentObservable: (observableJumlipt, builder)->
+    unless ko.isObservable observableJumlipt
+      throw new JUMLY.Error "not_observable", "is not observable", [observableJumlipt]
+    builder = name2builder[builder.toLowerCase()] if typeof builder is "string"
     ko.dependentObservable ->
       try
         (new builder).build observableJumlipt()

@@ -81,11 +81,11 @@
         console.error reason
         viewModel.errorReason reason
         $(".alert-message").hide().filter(".error").show()
+    viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
         
     $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
           
-    viewModel.diagram = JUMLY.ko.observable viewModel.targetJumlipt
     
     $ ->
       textarea.focus()

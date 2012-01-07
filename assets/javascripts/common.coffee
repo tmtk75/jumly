@@ -63,7 +63,7 @@ DiagramBuilder::build = (jumlipt)->
     @diagram
   catch ex
     $.logger(this).error ex, ex.stack, text if @verbose
-    throw new JUMLY.Error "Failed to build", ex, jumlipt
+    throw new JUMLY.Error "failed_to_build", "Failed to build", [], ex, jumlipt
 
 JUMLY.DiagramBuilder = DiagramBuilder
 
