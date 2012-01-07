@@ -26,17 +26,15 @@
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
 
-      .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
+      .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
       %script#alert-error{type:"text/html"}
         %h3 Error
-        %strong type:
-        %span.constructor
+        %strong type: ${type}
+        ${message}
         %strong message:
-        %span.message ${message}
-        %strong arguments:
-        %span.arguments
+        %span.message ${cause}
   
-      .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success",data:message}'}
+      .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success"}'}
       %script#alert-success{type:"text/html"}
         %h3 Success
         %p Rendering was succeeded.
@@ -72,12 +70,15 @@
     
     viewModel =
       targetJumlipt: ko.observable d
-      message: ko.observable "hello"
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
       success: ->
         $(".alert-message").hide().filter(".success").show().trigger "show"
-      error: (a, b, c)-> console.error a, b, c
+      errorReason: ko.observable {}
+      error: (reason)->
+        console.error reason
+        viewModel.errorReason reason
+        $(".alert-message").hide().filter(".error").show()
         
     $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
@@ -85,7 +86,7 @@
     ko.bindingHandlers.jumly =
       init: (elem, val, bindings, model)->
       update: (elem, val, bindings, model)->
-        koarg = ko:{element:elem, valueAccessor:val, allBindingsAccessor:bindings, viewModel:model}
+        koarg = element:elem, valueAccessor:val, allBindingsAccessor:bindings, viewModel:model
         diag = ko.utils.unwrapObservable val()
         try
           $(elem).html diag
@@ -93,8 +94,7 @@
           diag.compose()
           bindings().success? {diagram:diag, ko:koarg}
         catch ex
-          bindings().error? {cause:ex, diagram:diag, ko:koarg} 
-          $(".alert-message").hide().filter(".error").show() #.trigger "show"
+          bindings().error? ($.extend ex, {type:ex.constructor.name, diagram:diag, ko:koarg})
           
     viewModel.diagram = ko.dependentObservable ->
       jumlipt = viewModel.targetJumlipt()
