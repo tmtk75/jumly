@@ -96,8 +96,7 @@
         anchor = $("<a>").attr(href:link).html link
         modal = $(this)
         modal.find(".long").html anchor 
-        bitly = "http://api.bit.ly/shorten?version=2.0.1&login=tmtk75&apiKey=R_39bc09b13aac4481bc526f946f7d1538&longUrl=\#{encodeURIComponent longUrl}&callback=?"
-        $.getJSON bitly, (res)->
+        JUMLY.TryJUMLY.bitly longUrl, (res)->
           shortUrl = res.results[longUrl].shortUrl
           modal.find(".short").html "<a href='\#{shortUrl}' target='shortUrl'>\#{shortUrl}</a>"
 
