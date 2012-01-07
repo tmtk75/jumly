@@ -15,5 +15,14 @@ jumlyBind =
     catch ex
       bindings().error? ($.extend ex, {type:ex.constructor.name, diagram:diag, ko:koarg})
 
+JUMLY.ko =
+  sequence: (jumlipt)-> @observable jumlipt
+  observable: (observableJumlipt, builder = JUMLY.SequenceDiagramBuilder)->
+    ko.dependentObservable ->
+      try
+        (new builder).build observableJumlipt()
+      catch ex
+        ex
+
 $ ->
   ko.bindingHandlers.jumly = jumlyBind

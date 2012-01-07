@@ -85,12 +85,7 @@
     $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
           
-    viewModel.diagram = ko.dependentObservable ->
-      jumlipt = viewModel.targetJumlipt()
-      try
-        (new JUMLY.SequenceDiagramBuilder).build jumlipt
-      catch ex
-        ex
+    viewModel.diagram = JUMLY.ko.observable viewModel.targetJumlipt
     
     $ ->
       textarea.focus()
