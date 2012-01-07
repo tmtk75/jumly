@@ -7,7 +7,7 @@
     :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt;}
       #link-to-show .short, #link-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {width:100%;bottom:0px;position:fixed;margin:1px;}
+      .alert-message {width:100%;bottom:0px;position:fixed;margin:0px;}
   %body
     .topbar
       .topbar-inner
@@ -103,12 +103,13 @@
 
   :coffeescript
     alertError = (ex)->
-      $(".alert-message").hide().filter(".error")
-        .find(".type")       .html("\#{ex.type || ''}").end()
-        .find(".constructor").html("\#{ex.constructor.name}").end()
-        .find(".message")    .html("\#{ex.message}").end()
-        .find(".arguments")  .html((ex.arguments || []).join ",").end()
-        .show()
+      a = $(".alert-message").hide().filter(".error")
+      for p of ex
+        s = switch typeof ex[p]
+             when "object", "function" then ex[p].name
+             else ex[p]
+        a.find(".\#{p}").html("\#{s}")
+      a.show()
 
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence"
