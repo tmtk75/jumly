@@ -24,49 +24,6 @@
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
-        
-      .row
-        .span16.columns
-          %hr
-          %h2 Directives
-      .row
-        .span4.columns
-          %h3 @found
-          %pre
-            @found {object}
-        .span4.columns
-          %h3 @message
-          %pre
-            @message {name}, [{object}]
-        .span4.columns
-          %h3 @create
-          %pre
-            @create {object}
-        .span4.columns
-          %h3 @reply
-          %pre
-            @reply {name}, {object}
-        .span4.columns
-          %h3 @loop
-          %pre
-            :preserve
-              @loop {directive}
-              @loop -> {directives}
-        .span4.columns
-          %h3 @ref
-          %pre
-            @ref {name}
-        .span4.columns
-          %h3 @alt
-          %pre
-            :preserve
-              @alt
-                {cond-1}: -> {directives}
-                {cond-2}: -> {directives}
-        .span4.columns
-          %h3 iconify
-          %pre
-            {object}.iconify {"actor"|"view"|"controller"|"entity}
 
     .alert-message.block-message.error.hide
       %h3.title Error
