@@ -41,15 +41,15 @@
         %h3 Success
         %p Rendering was succeeded.
       
-      #link-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL'}"}
+      #link-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
       %script#show-URL{type:"text/html"}
         .modal-header
-          %h2 Link To Share
+          %h2 URL To Share
         .modal-body
-          %h3 Short Link
-          .short
-          %h3 Raw Link
-          .long
+          %h3 Short URL
+          .short <a href='${short}' target='shortLink'>${short}</a>
+          %h3 Raw URL
+          .long <a href='${long}'>${long}</a>
         .modal-footer
           %a.btn Close
           
@@ -80,6 +80,9 @@
         console.error reason
         viewModel.errorReason reason
         $(".alert-message").hide().filter(".error").show()
+      urlToShare:
+        short: ko.observable "..."
+        long: ko.observable "..."
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
         
     $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut('fast')), 1500
@@ -87,15 +90,11 @@
     $(document).on "click", "\#{linkToShow.selector} .btn", (e)-> linkToShow.modal 'hide'
     
     $ ->
-      $("textarea").focus()
       ko.applyBindings viewModel, $("body")[0]
-
+      $("textarea").focus()
       linkToShow.modal(backdrop:"static",keyboard:true).bind "show", ->
         link = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}/\#{link}"
-        anchor = $("<a>").attr(href:link).html link
-        modal = $(this)
-        modal.find(".long").html anchor 
+        viewModel.urlToShare.long longUrl
         JUMLY.TryJUMLY.bitly longUrl, (res)->
-          shortUrl = res.results[longUrl].shortUrl
-          modal.find(".short").html $("<a>").attr(href:shortUrl,target:'shortUrl').html shortUrl
+          viewModel.urlToShare.short res.results[longUrl].shortUrl
