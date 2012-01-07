@@ -84,8 +84,6 @@
         
     $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
-
-    JUMLY.knockout this
           
     viewModel.diagram = ko.dependentObservable ->
       jumlipt = viewModel.targetJumlipt()
