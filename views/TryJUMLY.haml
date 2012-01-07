@@ -128,6 +128,9 @@
       sampleRequired: (e, a, b)->
         textarea.val JUMLY.TryJUMLY.samples[e.target.id]
         updatediagram true
+        
+    $(".alert-message").on "show", (e)->
+      setTimeout (-> $(e.target).fadeOut('fast')), 1500
 
     ko.bindingHandlers.jumly =
       init: (element, valueAccessor, allBindingsAccessor, viewModel)->
@@ -137,6 +140,7 @@
           $(element).html arg
           throw arg unless arg.compose?
           arg.compose()
+          $(".alert-message").hide().filter(".success").show().trigger "show"
         catch ex
           console.error ex
           alertError ex
