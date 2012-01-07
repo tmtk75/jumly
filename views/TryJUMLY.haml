@@ -32,15 +32,15 @@
       %strong type:
       %span.constructor
       %strong message:
-      %span.message
+      %span.message ${message}
       %strong arguments:
       %span.arguments
 
-    .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success"}'}
+    .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success",data:message}'}
     / @see http://knockoutjs.com/documentation/template-binding.html
     %script#alert-success{type:"text/html"}
       %h3.title Success
-      %p Rendering was succeeded, and stored into localStorage.
+      %p Rendering was succeeded.
     
     #link-to-show.modal.hide
       .modal-header
@@ -62,15 +62,6 @@
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
-    alertError = (ex)->
-      a = $(".alert-message").hide().filter(".error")
-      for p of ex
-        s = switch typeof ex[p]
-             when "object", "function" then ex[p].name
-             else ex[p]
-        a.find(".\#{p}").html("\#{s}")
-      a.show()
-
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence"
     textarea = $ "textarea"
@@ -85,6 +76,7 @@
     
     viewModel =
       targetJumlipt: ko.observable d
+      message: ko.observable "hello"
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
         
@@ -102,7 +94,7 @@
           $(".alert-message").hide().filter(".success").show().trigger "show"
         catch ex
           console.error ex
-          alertError ex
+          $(".alert-message").hide().filter(".error").show() #.trigger "show"
           
     class JUMLYError extends Error
       constructor: (@message, @cause, @jumlipt)->
