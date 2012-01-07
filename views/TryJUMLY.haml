@@ -7,7 +7,7 @@
     :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt;}
       #link-to-show .short, #link-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {right:2px;margin-top:2px;}
+      .alert-message {width:100%;bottom:0px;position:fixed;margin:1px;}
   %body
     .topbar
       .topbar-inner
@@ -21,7 +21,7 @@
         %h1 Try JUMLY <small>Sequence Diagram</small>
       .row
         .span6.columns
-          %textarea{"data-bind"=>"value:targetJumlipt",rows:20,placeholder:"Put directives"}
+          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
         
@@ -102,30 +102,17 @@
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
-    jQuery.fn.fadeAlert = (delay = 6000)->
-      @click(-> $(this).fadeOut())
-      @fadeIn -> setTimeout (=> $(this).fadeOut()), delay
-
-    alertmsg = (ex)->
+    alertError = (ex)->
       $(".alert-message").hide().filter(".error")
         .find(".type")       .html("\#{ex.type || ''}").end()
         .find(".constructor").html("\#{ex.constructor.name}").end()
         .find(".message")    .html("\#{ex.message}").end()
         .find(".arguments")  .html((ex.arguments || []).join ",").end()
-        .alert().fadeAlert()
+        .show()
 
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence"
     textarea = $ "textarea"
-    
-    updatediagram = (showalert)->
-      try
-        script = textarea.val()
-        $("#diagram-container").jumlize 'sequence', script
-        storage.setItem storeKey, script
-        $(".alert-message").hide().filter(".success").fadeAlert(2500) if showalert
-      catch ex
-        alertmsg ex
     
     ## Initially restored script
     qp = {}
@@ -138,32 +125,37 @@
     viewModel =
       targetJumlipt: ko.observable d
       sampleRequired: (e, a, b)->
-        console.log e.target.id
         textarea.val JUMLY.TryJUMLY.samples[e.target.id]
         updatediagram true
 
     ko.bindingHandlers.jumly =
       init: (element, valueAccessor, allBindingsAccessor, viewModel)->
       update: (element, valueAccessor, allBindingsAccessor, viewModel)->
-        console.log element
-        console.log ko.utils.unwrapObservable valueAccessor()
-        console.log (ko.utils.unwrapObservable allBindingsAccessor()).after
-        console.log viewModel
-        
-        diag = ko.utils.unwrapObservable valueAccessor()
-        $(element).html diag
-        diag.compose()
-
+        arg = ko.utils.unwrapObservable valueAccessor()
+        try
+          $(element).html arg
+          throw arg unless arg.compose?
+          arg.compose()
+        catch ex
+          console.error ex
+          alertError ex
+          
+    class JUMLYError extends Error
+      constructor: (@message, @cause, @jumlipt)->
+    JUMLY.Error = JUMLYError
+          
     viewModel.diagram = ko.dependentObservable ->
-      (new JUMLY.SequenceDiagramBuilder).build viewModel.targetJumlipt()
+      jumlipt = viewModel.targetJumlipt()
+      try
+        (new JUMLY.SequenceDiagramBuilder).build jumlipt
+      catch ex
+        new JUMLY.Error "Failed to build", ex, jumlipt
     
     $ ->
-      ko.applyBindings viewModel, $("body")[0]
-      
       textarea.focus()
+      ko.applyBindings viewModel, $("body")[0]
 
       $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
-        #d = encodeURIComponent textarea.val()
         d = Base64.encode textarea.val()
         link = "/Share?b=\#{d}"
         longUrl = "\#{location.origin}/\#{link}"
