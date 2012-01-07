@@ -60,7 +60,6 @@
   :coffeescript
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence"
-    textarea = $ "textarea"
     
     ## Initially restored script
     qp = {}
@@ -88,12 +87,11 @@
           
     
     $ ->
-      textarea.focus()
+      $("textarea").focus()
       ko.applyBindings viewModel, $("body")[0]
 
       $("#link-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
-        d = Base64.encode textarea.val()
-        link = "/Share?b=\#{d}"
+        link = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}/\#{link}"
         modal = $(this)
         modal.find(".btn").click -> modal.modal('hide')
