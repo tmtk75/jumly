@@ -24,7 +24,7 @@
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
           %a.btn{"data-controls-modal"=>"link-to-show"} Show Link
-        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,after:1234"}
+        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
 
       .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error"}'}
       %script#alert-error{type:"text/html"}
@@ -75,21 +75,25 @@
       message: ko.observable "hello"
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
+      success: ->
+        $(".alert-message").hide().filter(".success").show().trigger "show"
+      error: (a, b, c)-> console.error a, b, c
         
     $(document).on "show", ".alert-message", (e)->
       setTimeout (-> $(e.target).fadeOut('fast')), 1500
 
     ko.bindingHandlers.jumly =
-      init: (element, valueAccessor, allBindingsAccessor, viewModel)->
-      update: (element, valueAccessor, allBindingsAccessor, viewModel)->
-        arg = ko.utils.unwrapObservable valueAccessor()
+      init: (elem, val, bindings, model)->
+      update: (elem, val, bindings, model)->
+        koarg = ko:{element:elem, valueAccessor:val, allBindingsAccessor:bindings, viewModel:model}
+        diag = ko.utils.unwrapObservable val()
         try
-          $(element).html arg
-          throw arg unless arg.compose?
-          arg.compose()
-          $(".alert-message").hide().filter(".success").show().trigger "show"
+          $(elem).html diag
+          throw diag unless diag.compose?
+          diag.compose()
+          bindings().success? {diagram:diag, ko:koarg}
         catch ex
-          console.error ex
+          bindings().error? {cause:ex, diagram:diag, ko:koarg} 
           $(".alert-message").hide().filter(".error").show() #.trigger "show"
           
     viewModel.diagram = ko.dependentObservable ->
