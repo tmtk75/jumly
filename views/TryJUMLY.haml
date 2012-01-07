@@ -29,10 +29,12 @@
       .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
       %script#alert-error{type:"text/html"}
         %h3 Error
-        %strong type: ${type}
-        ${message}
-        %strong message:
-        %span.message ${cause}
+        %p
+          %strong type: ${type}
+          ${message}
+        %p
+          %strong message:
+          %span.message ${cause}
   
       .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success"}'}
       %script#alert-success{type:"text/html"}
