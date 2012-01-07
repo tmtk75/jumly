@@ -34,9 +34,11 @@
       %strong arguments:
       %span.arguments
 
-    .alert-message.block-message.success.hide
+    .alert-message.block-message.success.hide{"data-bind"=>'template:{name:"alert-success"}'}
+    / @see http://knockoutjs.com/documentation/template-binding.html
+    %script#alert-success{type:"text/html"}
       %h3.title Success
-      Rendering was succeeded, and stored into localStorage.
+      %p Rendering was succeeded, and stored into localStorage.
     
     #link-to-show.modal.hide
       .modal-header
