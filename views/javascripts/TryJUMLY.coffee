@@ -5,6 +5,12 @@ JUMLY.TryJUMLY =
     $.getJSON bitly, callback
   samples:
     "sample-1":"""
+      ## A basic sample
+      @found "You", ->
+        @message "use", "JUMLY", ->
+          @create "Diagram"
+      """
+    "sample-2":"""
       @found "You", ->
         @message "use", "JUMLY"
         @message "write", "JUMLY", ->
@@ -19,7 +25,7 @@ JUMLY.TryJUMLY =
          .twipsy("includes&nbsp;some&nbsp;" +
                  "JavaScript&nbsp;files", "right")
       """ 
-    "sample-2":"""
+    "sample-3":"""
       @found "You", ->
         @message "open", "Front Cover"
         @loop ->
@@ -39,7 +45,7 @@ JUMLY.TryJUMLY =
             .twipsy(tiptext, "right")
             .css("white-space":"nowrap")
       """
-    "sample-3":"""
+    "sample-4":"""
       @found "You", ->
         @create "Diagram"
         @message "show URL", "JUMLY", ->

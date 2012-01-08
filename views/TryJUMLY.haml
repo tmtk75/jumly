@@ -8,16 +8,22 @@
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
       #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
       #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
+      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0;}
+      .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
   %body
     .topbar
       .topbar-inner
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
-          %ul <li><a id="sample-1" data-bind="click:sampleRequired">Sample-1</a></li>
-          %ul <li><a id="sample-2" data-bind="click:sampleRequired">Sample-2</a></li>
-          %ul <li><a id="sample-3" data-bind="click:sampleRequired">Sample-3</a></li>
-          %ul <li><a href="/Reference.html">Reference</a></li>
+          %ul.nav
+            %li <a id="sample-1" data-bind="click:sampleRequired">Sample-1</a>
+            %li <a id="sample-2" data-bind="click:sampleRequired">Sample-2</a>
+            %li <a id="sample-3" data-bind="click:sampleRequired">Sample-3</a>
+            %li.dropdown{"data-dropdown"=>"dropdown"}
+              %a.dropdown-toggle Other samples
+              %ul.dropdown-menu
+                %li <a id="sample-4" data-bind="click:sampleRequired">Sample-4</a>
+            %li <a href="/Reference.html">Reference</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
@@ -25,6 +31,8 @@
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
+    .bottombar
+      JUMLY v#{File.read "VERSION"} Tomotaka Sakuma 2012, copyright(c) all rights reserved.
 
       %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       
