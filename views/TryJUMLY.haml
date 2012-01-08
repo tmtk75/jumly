@@ -72,7 +72,9 @@
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
       success: ->
-        $(".alert-message").hide().filter(".success").show().trigger "show"
+        a = $(".alert-message").hide()
+        if $(".diagram > *").length > 0
+          a.filter(".success").show().trigger "show"
       errorReason: ko.observable {}
       error: (reason)->
         console.error reason
