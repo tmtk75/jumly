@@ -15,24 +15,26 @@
       .topbar-inner
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
+          - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
           %ul.nav
-            %li <a id="sample-1" data-bind="click:sampleRequired">Sample-1</a>
-            %li <a id="sample-2" data-bind="click:sampleRequired">Sample-2</a>
-            %li <a id="sample-3" data-bind="click:sampleRequired">Sample-3</a>
+            %li #{_sr 1, "Sample-1"}
+            %li #{_sr 2, "Sample-2"}
+            %li #{_sr 3, "Sample-3"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle Other samples
               %ul.dropdown-menu
-                %li <a id="sample-4" data-bind="click:sampleRequired">Sample-4</a>
+                %li #{_sr 4, "Sample-4"}
+                %li #{_sr 5, "Sample-5"}
             %li <a href="/Reference.html">Reference</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
       .row
-        .span6.columns
-          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
-        #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
+        .span7.columns
+          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Put directives"}
+        #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
-      JUMLY v#{File.read "VERSION"} Tomotaka Sakuma 2012, copyright(c) all rights reserved.
+      JUMLY v#{File.read "VERSION"} Tomotaka Sakuma 2012 copyright(c), all rights reserved.
 
       %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       
@@ -85,7 +87,6 @@
           a.filter(".success").show().trigger "show"
       errorReason: ko.observable {}
       error: (reason)->
-        console.error reason
         viewModel.errorReason reason
         $(".alert-message").hide().filter(".error").show()
       urlToShare:
