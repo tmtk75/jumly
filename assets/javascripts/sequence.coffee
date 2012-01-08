@@ -656,30 +656,21 @@ class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
     $.extend this, props
 
 JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
+  a = JUMLY.Identity.normalize e
+  r = JUMLY.Naming.toRef a.id
+  return @diagram[r] if @diagram[r]
+  obj = jumly ".object", a
+  @diagram._regByRef_ a.id, obj
+  @diagram.append obj
   switch typeof e
     when "string"
-      a = JUMLY.Identity.normalize e
-      r = JUMLY.Naming.toRef a.id
-      if @diagram[r]
-        return @diagram[r]
-      obj = jumly ".object", a
-      @diagram._regByRef_ a.id, obj
-      @diagram.append obj
       @diagram._def_ r, obj
-      obj
     when "object"
-      a = JUMLY.Identity.normalize e
-      r = JUMLY.Naming.toRef a.id
-      if @diagram[r]
-        return @diagram[r]
-      obj = jumly ".object", a
-      @diagram._regByRef_ a.id, obj
-      @diagram.append obj
       @diagram._def_ JUMLY.Naming.toRef(a.id), obj
-      obj
     else
       console.error "It must be string or object for", e
       throw new Error "Unrecognized argument: #{e}"
+  obj
 
 JUMLYSequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
 
