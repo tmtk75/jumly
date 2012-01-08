@@ -5,10 +5,8 @@
     = haml :"_head.html"
     = haml :"_bootstrap.html"
     :css
-      textarea {
-        width:100%; font-family:Monaco,'Courier New';font-size:9pt;
-        border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);
-      }
+      textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
+      #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
       #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
       .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
   %body
@@ -26,9 +24,10 @@
       .row
         .span6.columns
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:20,placeholder:"Put directives"}
-          %a.btn{"data-controls-modal"=>"url-to-show"} Show URL
         #diagram-container.span10.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
 
+      %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
+      
       .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
       %script#alert-error{type:"text/html"}
         %h3 Error
