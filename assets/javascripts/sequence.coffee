@@ -669,6 +669,9 @@ JUMLYSequenceDiagramBuilder::_findOrCreate = (e) ->
       obj
     when "object"
       a = JUMLY.Identity.normalize e
+      r = JUMLY.Naming.toRef a.id
+      if @diagram[r]
+        return @diagram[r]
       obj = jumly ".object", a
       @diagram._regByRef_ a.id, obj
       @diagram.append obj
@@ -702,7 +705,7 @@ JUMLYSequenceDiagramBuilder::message = (a, b, c) ->
           stereotype = "asynchronous" 
   else if typeof a is "string" and typeof b is "object"
     norm = JUMLY.Identity.normalize b
-    actee = @_findOrCreate norm.id
+    actee = @_findOrCreate norm
     callback = c
   else
     msg = "invalid arguments"
