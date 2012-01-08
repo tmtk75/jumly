@@ -8,7 +8,7 @@
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
       #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
       #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0;}
+      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
       .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
   %body
     .topbar
@@ -29,43 +29,42 @@
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
+        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Put directives"}
         #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
       JUMLY v#{File.read "VERSION"} Tomotaka Sakuma 2012 copyright(c), all rights reserved.
+    
+    .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
+    %script#alert-error{type:"text/html"}
+      %h3 Error
+      %p
+        %strong type: ${type}
+        ${message}
+      %p
+        %strong message:
+        %span.message ${cause}
 
-      %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
-      
-      .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
-      %script#alert-error{type:"text/html"}
-        %h3 Error
-        %p
-          %strong type: ${type}
-          ${message}
-        %p
-          %strong message:
-          %span.message ${cause}
-  
-      .alert-message.block-message.success.hide
-        %h3 Success
-        %p Rendering was succeeded.
+    .alert-message.block-message.success.hide
+      %h3 Success
+      %p Rendering was succeeded.
 
-      .alert-message.info.hide
-        Auto-save the current jumlipt.
-      
-      #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
-      %script#show-URL{type:"text/html"}
-        .modal-header
-          %h2 URL To Share
-        .modal-body
-          %h3 Short URL
-          .short <a href='${short}' target='shortURL'>${short}</a>
-          %h3 Raw URL
-          .long <a href='${long}'>${long}</a>
-        .modal-footer
-          %a.btn Close
+    .alert-message.info.hide
+      Auto-save the current jumlipt.
+    
+    #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
+    %script#show-URL{type:"text/html"}
+      .modal-header
+        %h2 URL To Share
+      .modal-body
+        %h3 Short URL
+        .short <a href='${short}' target='shortURL'>${short}</a>
+        %h3 Raw URL
+        .long <a href='${long}'>${long}</a>
+      .modal-footer
+        %a.btn Close
           
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
