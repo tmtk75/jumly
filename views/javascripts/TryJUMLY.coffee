@@ -59,21 +59,17 @@ JUMLY.TryJUMLY =
       ref.css "font-weight":"bold", "font-size":"large"
       """
     "sample-5":"""
-      ## jumlipt
       @found "you", ->
         @message "Login", "Gmail", ->
         @create "sign-up", "Facebook account", ->
       
-      ## Image tag to logos
       gmail_logo = '<img src="http://www.sizlotech.com/wp-content/uploads/2011/11/Super_Gmail_Logo1-625x462.png" width="44"/>'
       fb_logo = '<img src="http://burberry-tiepin.x0.com/wp-content/uploads/2012/01/facebook300x300.png" width="44"/>'
       
-      ## Append imgs
       you.iconify "actor"
       @diagram.find(".object .name").css(border:"none", "background":"none", "box-shadow":"none")
       gmail.find(".name").append("<br>"+gmail_logo)
       facebook_account.find(".name").append(fb_logo)
       
-      ## Append note
       @diagram.append $("<div>").css(position:"absolute",right:0,top:0,width:"44%",border:"solid 1px rgba(0,32,64,1)","border-radius":"3px",padding:"4px 0.5em 4px 1em",background:"rgba(0,32,80,0.4)",color:"white","box-shadow":"2px 1px 2px 1px gray").html "You can append anything and customize looks using CSS/jQuery syntax you are familiar with whenever you want."
       """
