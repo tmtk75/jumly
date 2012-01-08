@@ -74,7 +74,7 @@
     storeKey = "TryJUMLY.sequence.jumlipt"
     qp = {}
     qp[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
-    initialJumlipt = if qp.b then Base64.decode qp.b else storage.getItem storeKey
+    initialJumlipt = (if qp.b then Base64.decode qp.b else storage.getItem storeKey) || ""
     
     viewModel =
       targetJumlipt: ko.observable initialJumlipt
