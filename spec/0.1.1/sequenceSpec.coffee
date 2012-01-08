@@ -91,6 +91,13 @@ $ ->
         expect(diag.find("#Edenbird0011").self()).toBe diag.find(".object:eq(1)").self()
         expect(diag.find("#kyldylym0011").length).toBe 0
 
+      it "should use name as .name's value", ->
+        b = new JUMLY.SequenceDiagramBuilder
+        b.verbose = true
+        diag = b.build """@found "a", -> @create d:"c" """
+        expect(diag.find("#a").text()).toBe "a"        
+        expect(diag.find("#d").text()).toBe "c"        
+
 
     describe "@message", ->
       it "should refer to the object having same id if a string is given at 2nd argument", ->
@@ -107,6 +114,7 @@ $ ->
         b = new JUMLY.SequenceDiagramBuilder
         b.verbose = true
         diag = b.build """@found "a", -> @message "b", d:"c" """
+        expect(diag.find("#a").text()).toBe "a"        
         expect(diag.find("#d").text()).toBe "c"        
 
 
