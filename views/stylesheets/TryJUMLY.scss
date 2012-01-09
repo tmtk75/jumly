@@ -1,13 +1,13 @@
 .note {
-  $bwidth:1px;
+  $bwidth:2px;
   $bstyle:solid;
   $bcolor:rgba(128,128,128,1);
   $brad:3px;
   $bgcolor:rgba(0,64,128,0.4);
   $pad:4;
   $foldw:16;
-  $notewidth:120;
-  $innerheight:32;
+  $notewidth:180;
+  $innerheight:64;
   
   width:#{$notewidth}px;
   position:relative;
@@ -23,7 +23,7 @@
   }
   .edge {
     position:absolute;
-    right:-7px;top:0px;
+    right:-9px;top:1px;
     margin-top:21px;
     border-right:$bstyle $bwidth $bcolor;
     border-bottom:$bstyle $bwidth $bcolor;
@@ -34,7 +34,7 @@
   }
   .fold {
     position:absolute;
-    right:1px;top:0px;    
+    right:0px;top:0px;    
     border-top:$bstyle #{$foldw}px transparent;
     border-bottom:$bstyle #{$foldw}px transparent;
     border-right:$bstyle #{$foldw}px rgba(0,64,128,0.6);
