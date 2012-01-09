@@ -4,6 +4,7 @@
     %title Try JUMLY
     = haml :"_head.html"
     = haml :"_bootstrap.html"
+    %link{rel:"stylesheet",href:"#{$css_dir}/TryJUMLY.css"}
     :css
       textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
       #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
@@ -34,6 +35,13 @@
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
+          .note
+            .inner
+              .content
+                Hello
+            .fold
+            .edge
+          
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
         #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
