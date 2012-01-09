@@ -27,6 +27,7 @@
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
             %li <a href="/Reference.html">Reference</a>
+            %li <a href="#" data-controls-modal="TryJUMLY-overview">Help</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
@@ -67,18 +68,21 @@
       .modal-footer
         %a.btn Close
 
-    #TryJULMY-overview.modal
+    #TryJUMLY-overview.modal.hide
+      .modal-header
+        %h2 Overview
       .modal-body
         %img{src:"/assets/TryJUMLY-overview.png",width:"100%"}
+      .modal-footer
+        %a.btn Close
 
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
     $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
-    urlToShow = $("#url-to-show")
-    $(document).on "click", "\#{urlToShow.selector} .btn", (e)-> urlToShow.modal 'hide'
-          
+    $(document).on "click", ".modal .btn", (e)-> $(this).parents(".modal:first").modal 'hide'
+    
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence.jumlipt"
     qp = {}
@@ -110,7 +114,7 @@
     $ ->
       ko.applyBindings viewModel, $("body")[0]
       $("textarea").focus().typing viewModel.typing
-      urlToShow.modal(backdrop:"static",keyboard:true).bind "show", ->
+      $("#url-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}\#{path}"
         viewModel.urlToShare.long longUrl
