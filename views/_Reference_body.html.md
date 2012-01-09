@@ -325,6 +325,8 @@ Terminology
     <dd>Kind of JUMLY-HTMLElement consists of JUMLY-HTMLElement, which has class attribute <code>diagram</code>.</dd>
 	<dt>Named-HTMLElement</dt>
 	<dd>HTMLElement having class <code>name</code>, which is usually contained by JUMLY-HTMLElement.</dd>
+	<dt id="terminology-jumlipt">JUMLIPT</dt>
+	<dd>It's abbriviation for JUMLY script, which is <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> to declare diagram of JUMLY.</dd>
 </dl>
 
 For example,
