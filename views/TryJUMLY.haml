@@ -10,6 +10,7 @@
       #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
       .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
       .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
+      .modal img {border:solid 1px rgba(128,128,128,0.7);box-shadow:3px 2px 3px 2px rgba(128,128,128,0.7);}
   %body
     .topbar
       .topbar-inner
@@ -65,11 +66,19 @@
         .long <a href='${long}'>${long}</a>
       .modal-footer
         %a.btn Close
-          
+
+    #TryJULMY-overview.modal
+      .modal-body
+        %img{src:"/assets/TryJUMLY-overview.png",width:"100%"}
+
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
+    $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
+    urlToShow = $("#url-to-show")
+    $(document).on "click", "\#{urlToShow.selector} .btn", (e)-> urlToShow.modal 'hide'
+          
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence.jumlipt"
     qp = {}
@@ -97,10 +106,6 @@
           $(".alert-message.info").fadeIn().trigger "show"
                 
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
-        
-    $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
-    urlToShow = $("#url-to-show")
-    $(document).on "click", "\#{urlToShow.selector} .btn", (e)-> urlToShow.modal 'hide'
     
     $ ->
       ko.applyBindings viewModel, $("body")[0]
