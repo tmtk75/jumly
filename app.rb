@@ -5,6 +5,10 @@ $js_dir  = "/assets"
 $css_dir = "/assets"
 $vendor_dir = "/assets"
 
+$copyright_html = <<EOF
+&copy;copyright 2011-#{Time.new.year}, Tomotaka Sakuma all rights reserved.
+EOF
+
 class App < Sinatra::Base
   if development?
     require 'sinatra/reloader'
@@ -19,4 +23,3 @@ class App < Sinatra::Base
   helpers do
   end
 end
-

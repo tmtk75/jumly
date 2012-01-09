@@ -37,7 +37,8 @@
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Put directives"}
         #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
-      JUMLY v#{File.read "VERSION"} Tomotaka Sakuma 2012 copyright(c), all rights reserved.
+      = $copyright_html
+      JUMLY v#{File.read "VERSION"}
     
     .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
     %script#alert-error{type:"text/html"}
