@@ -27,7 +27,7 @@
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
             %li <a href="/Reference.html">Reference</a>
-            %li <a href="#" data-controls-modal="TryJUMLY-overview">Help</a>
+            %li <a href="#" data-controls-modal="TryJUMLY-Help" data-backdrop="static" data-keyboard="true">Help</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
@@ -68,11 +68,13 @@
       .modal-footer
         %a.btn Close
 
-    #TryJUMLY-overview.modal.hide
-      .modal-header
-        %h2 Overview
+    #TryJUMLY-Help.modal.hide
       .modal-body
         %img{src:"/assets/TryJUMLY-overview.png",width:"100%"}
+      .modal-body
+        If you click one of [Examples], you get a sample jumlipt in [Input Jumplit] area.
+        At the same time, a diagram corresponding to the jumplipt is rendered in [Diagram appears] area.
+        If you click [Display URL to share], you get raw and shorten URL to view the diagram.
       .modal-footer
         %a.btn Close
 
