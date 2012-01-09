@@ -127,6 +127,7 @@ $default-min-height: $default-note-width/1.618/1.618;
   
   width:#{$notewidth}px;
   position:absolute;
+  z-index:1;
   .inner {
     color:#fff5f3;
     border-left:$bwidth $bstyle $bcolor;

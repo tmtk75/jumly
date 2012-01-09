@@ -34,13 +34,6 @@
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
-          .note.normal
-            .inner
-              .content
-                Hello
-            .fold
-            .edge
-          
           %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
         #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
