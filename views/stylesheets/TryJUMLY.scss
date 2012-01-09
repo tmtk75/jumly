@@ -1,31 +1,43 @@
-.note .inner {
-  padding:4px;
-  border-left:1px solid gray;
-  border-top:1px solid gray;
-  border-bottom:1px solid gray;
-  border-top-left-radius:4px;
-  border-bottom-left-radius:4px;
-  width:180px;
-  min-height:64px;
-  background-color:rgba(0,64,128,0.4);
-}
-.note .edge {
-  position:absolute;
-  left:209px;
-  margin-top:-53px;
-  border-right:solid 1px gray;
-  border-bottom:solid 1px gray;
-  border-bottom-right-radius:4px;
-  width:20px;
-  height:52px;
-  background-color:rgba(0,64,128,0.4);
-}
-.note .fold {
-  position:absolute;
-  left:206px;
-  margin-top:-73px;
-  border-top:solid 16px transparent;
-  border-bottom:solid 16px transparent;
-  border-right:solid 16px rgba(0,64,128,0.6);
-  -webkit-transform:rotate(-45deg);
+.note {
+  $bwidth:1px;
+  $bstyle:solid;
+  $bcolor:rgba(128,128,128,1);
+  $brad:3px;
+  $bgcolor:rgba(0,64,128,0.4);
+  $pad:4;
+  $foldw:16;
+  $notewidth:120;
+  $innerheight:32;
+  
+  width:#{$notewidth}px;
+  position:relative;
+  .inner {
+    border-left:$bwidth $bstyle $bcolor;
+    border-top:$bwidth $bstyle $bcolor;
+    border-bottom:$bwidth $bstyle $bcolor;
+    border-top-left-radius:$brad;
+    border-bottom-left-radius:$brad;
+    background-color:$bgcolor;
+    width:#{$notewidth - $foldw}px;
+    min-height:#{$innerheight}px;
+  }
+  .edge {
+    position:absolute;
+    right:-7px;top:0px;
+    margin-top:21px;
+    border-right:$bstyle $bwidth $bcolor;
+    border-bottom:$bstyle $bwidth $bcolor;
+    border-bottom-right-radius:$brad;
+    width:21px;
+    min-height:#{$innerheight - 20}px;
+    background-color:$bgcolor;
+  }
+  .fold {
+    position:absolute;
+    right:1px;top:0px;    
+    border-top:$bstyle #{$foldw}px transparent;
+    border-bottom:$bstyle #{$foldw}px transparent;
+    border-right:$bstyle #{$foldw}px rgba(0,64,128,0.6);
+    -webkit-transform:rotate(-45deg);
+  }
 }
