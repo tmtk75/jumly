@@ -18,11 +18,11 @@
           %h3 <a href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
           %ul.nav
-            %li #{_sr 1, "Sample-1"}
-            %li #{_sr 2, "Sample-2"}
-            %li #{_sr 3, "Sample-3"}
+            %li #{_sr 1, "Example-1"}
+            %li #{_sr 2, "Example-2"}
+            %li #{_sr 3, "Example-3"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle Other samples
+              %a.dropdown-toggle Other examples
               %ul.dropdown-menu
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
@@ -34,7 +34,7 @@
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
-          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Put directives"}
+          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
         #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
     .bottombar
       = $copyright_html
@@ -116,7 +116,7 @@
     
     $ ->
       ko.applyBindings viewModel, $("body")[0]
-      $("textarea").focus().typing viewModel.typing
+      $("textarea").typing viewModel.typing
       $("#url-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}\#{path}"
