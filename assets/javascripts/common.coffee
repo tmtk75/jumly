@@ -66,7 +66,7 @@ DiagramBuilder::build = (jumlipt)->
     throw new JUMLY.Error "failed_to_build", "Failed to build", [], ex, jumlipt
 
 DiagramBuilder::comment = (text)->
-  $.jumly(".comment").find(".content").html(text).end().appendTo @diagram
+  $.jumly(".note").find(".content").html(text).end().appendTo @diagram
 
 JUMLY.DiagramBuilder = DiagramBuilder
 
@@ -399,39 +399,14 @@ $.extend $.uml.icon, {
     ".entity"    : _render_entity
 }
 
-class JUMLYComment extends JUMLY.HTMLElement
+class JUMLYNote extends JUMLY.HTMLElement
 
-JUMLYComment::_build_ = (div, a)->
+JUMLYNote::_build_ = (div, a)->
   div.addClass("note").addClass("normal")
     .append($("<div>").addClass("name"))
     .append($("<div>").addClass("inner")
               .append($("<div>").addClass("content").html a))
     .append($("<div>").addClass("fold"))
     .append($("<div>").addClass("edge"))
-jQuery.uml.def ".comment", JUMLYComment
-
-
-class JUMLYNote
-    constructor: (props, opts) ->
-        jQuery.extend this, JUMLYNote.newNode()
-        @html opts.name
-    @newNode = ->
-        $("<div>").addClass("note")
-
-JUMLYNote::attach = (target, opts) ->
-    self = this
-    opts = $.extend {left:0, top:0}, opts
-
-    if opts?.width then @width opts.width
-    if opts?["min-height"] then @css "min-height", opts["min-height"]
-
-    target.parents(".diagram")
-        .append(this)
-        .self().bind "afterCompose", (_, e) ->
-            pos = target.offset()
-            pos.left += opts.left
-            pos.top  += opts.top
-            self.offset left:pos.left, top:pos.top
-   this 
 
 jQuery.uml.def ".note", JUMLYNote

@@ -823,7 +823,7 @@ JUMLYSequenceDiagramBuilder::reactivate = (a, b, c) ->
   ctxt.message(a, b, c)
   ctxt
 
-JUMLYSequenceDiagramBuilder::note = (a, b, c) ->
+JUMLYSequenceDiagramBuilder::_note = (a, b, c) ->
   nodes = @_currOccurr.find("> .interaction:eq(0)")
   if nodes.length is 0
     nodes = @_currOccurr.parents ".interaction:eq(0):not(.activated)"
