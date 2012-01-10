@@ -4,7 +4,7 @@ $ ->
   Builder = JUMLY.SequenceDiagramBuilder
   describe "sequence", ->
     describe "@note", ->
-      xit "should create a .note", ->
+      it "should create a .note", ->
         appose diag = (new Builder).build '@note "hello"'
         expect(diag.find(".note").length).toBe 1
         expect(diag.find(".note").text()).toBe "hello"
@@ -16,11 +16,9 @@ $ ->
           '''
         # How do I assert this?
 
-      xdescribe ".object", ->
+      describe ".object", ->
         it "should", ->
           appose diag = (new Builder).build '''
             @found "You", ->
             @note you, "and I"
             '''
-          
-          
