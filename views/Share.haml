@@ -8,8 +8,8 @@
       body {margin-top:44px;}
       .alert-message {right:0px;margin:2px;position:fixed;top:40px;}
       .alert-message.error .content {white-space:pre;font-family:Monaco,mono;font-size:9pt;}
+      .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
       .diagram {margin: 0 auto 0 auto;}
-      .footer {position:absolute;bottom:0px;text-align:center;width:100%;background:rgba(24,24,24,1);opacity:0.87;z-index:10;color:white;text-shadow:1px 0 gray;padding:2px 0 2px 0;}
   %body
     .topbar
       .topbar-inner
@@ -21,8 +21,9 @@
       .diagram-container
       .alert-message.info
         %p.content
-    .footer
-      version #{File.read "VERSION"}
+    .bottombar
+      = $copyright_html
+      JUMLY v#{File.read "VERSION"}
     .alert-message.block-message.error.hide
       %h2 Error
       %strong.message

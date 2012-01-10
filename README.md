@@ -18,6 +18,9 @@ Tomotaka Sakuma 2011 copyright(c), all rights reserved.
 
 ## Changelog
 
+### 0.1.2
+- Implement JUMLY.Note
+
 ### 0.1.1
 - Implement JUMLY root namespace.
 - Implement JUMLY.DiagramBuilder class, and its sub-classes.
