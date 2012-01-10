@@ -402,8 +402,7 @@ $.extend $.uml.icon, {
 class JUMLYNote extends JUMLY.HTMLElement
 
 JUMLYNote::_build_ = (div, a)->
-  div.addClass("note").addClass("normal")
-    .append($("<div>").addClass("name"))
+  div.addClass("note")
     .append($("<div>").addClass("inner")
               .append($("<div>").addClass("content").html a))
 

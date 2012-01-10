@@ -114,7 +114,7 @@ $default-min-height: $default-note-width/1.618/1.618;
     @include piled;
 }
 
-.note.normal {
+.note {
   $bwidth:2px;
   $bstyle:solid;
   $bcolor:rgba(128,128,128,1);
@@ -139,6 +139,8 @@ $default-min-height: $default-note-width/1.618/1.618;
     width:#{$notewidth - $foldw}px;
     min-height:#{$innerheight}px;
     padding-left:4px;
+  }
+  &.fold.top-right {
     &::before {
       position:absolute;
       right:-13px;top:1px;
