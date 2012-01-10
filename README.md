@@ -18,10 +18,14 @@ Tomotaka Sakuma 2011 copyright(c), all rights reserved.
 
 ## Changelog
 
+### 0.1.2
+- Implement JUMLY.Note
+
 ### 0.1.1
 - Implement JUMLY root namespace.
 - Implement JUMLY.DiagramBuilder class, and its sub-classes.
 - Enhance way to refer in JUMLY DSL.
+- Improve web-site. Especially, TryJUMLY page.
 
 ### 0.1.0 <small>Initial release.</small>
 - Enable to render sequence diagram.
