@@ -65,6 +65,9 @@ DiagramBuilder::build = (jumlipt)->
     $.logger(this).error ex, ex.stack, jumlipt if @verbose
     throw new JUMLY.Error "failed_to_build", "Failed to build", [], ex, jumlipt
 
+DiagramBuilder::comment = (text)->
+  $.jumly(".comment").find(".content").html(text).end().appendTo @diagram
+
 JUMLY.DiagramBuilder = DiagramBuilder
 
 
@@ -395,6 +398,18 @@ $.extend $.uml.icon, {
     ".controller": _render_controller
     ".entity"    : _render_entity
 }
+
+class JUMLYComment extends JUMLY.HTMLElement
+
+JUMLYComment::_build_ = (div, a)->
+  div.addClass("note").addClass("normal")
+    .append($("<div>").addClass("name"))
+    .append($("<div>").addClass("inner")
+              .append($("<div>").addClass("content").html a))
+    .append($("<div>").addClass("fold"))
+    .append($("<div>").addClass("edge"))
+jQuery.uml.def ".comment", JUMLYComment
+
 
 class JUMLYNote
     constructor: (props, opts) ->
