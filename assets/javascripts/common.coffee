@@ -65,7 +65,7 @@ DiagramBuilder::build = (jumlipt)->
     $.logger(this).error ex, ex.stack, jumlipt if @verbose
     throw new JUMLY.Error "failed_to_build", "Failed to build", [], ex, jumlipt
 
-DiagramBuilder::comment = (text)->
+DiagramBuilder::note = (text)->
   $.jumly(".note").find(".content").html(text).end().appendTo @diagram
 
 JUMLY.DiagramBuilder = DiagramBuilder
@@ -406,7 +406,5 @@ JUMLYNote::_build_ = (div, a)->
     .append($("<div>").addClass("name"))
     .append($("<div>").addClass("inner")
               .append($("<div>").addClass("content").html a))
-    .append($("<div>").addClass("fold"))
-    .append($("<div>").addClass("edge"))
 
 jQuery.uml.def ".note", JUMLYNote

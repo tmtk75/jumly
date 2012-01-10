@@ -138,24 +138,27 @@ $default-min-height: $default-note-width/1.618/1.618;
     background-color:$bgcolor;
     width:#{$notewidth - $foldw}px;
     min-height:#{$innerheight}px;
-  }
-  .edge {
-    position:absolute;
-    right:-9px;top:1px;
-    margin-top:21px;
-    border-right:$bstyle $bwidth $bcolor;
-    border-bottom:$bstyle $bwidth $bcolor;
-    border-bottom-right-radius:$brad;
-    width:21px;
-    min-height:#{$innerheight - 20}px;
-    background-color:$bgcolor;
-  }
-  .fold {
-    position:absolute;
-    right:0px;top:0px;    
-    border-top:$bstyle #{$foldw}px transparent;
-    border-bottom:$bstyle #{$foldw}px transparent;
-    border-right:$bstyle #{$foldw}px rgba(0,64,128,0.6);
-    -webkit-transform:rotate(-45deg);
+    padding-left:4px;
+    &::before {
+      position:absolute;
+      right:-13px;top:1px;
+      margin-top:21px;
+      border-right:$bstyle $bwidth $bcolor;
+      border-bottom:$bstyle $bwidth $bcolor;
+      border-bottom-right-radius:$brad;
+      width:21px;
+      min-height:#{$innerheight - 20}px;
+      background-color:$bgcolor;
+      content:'';
+    }
+    &::after {
+      position:absolute;
+      right:-4px;top:0px;    
+      border-top:$bstyle #{$foldw}px transparent;
+      border-bottom:$bstyle #{$foldw}px transparent;
+      border-right:$bstyle #{$foldw}px rgba(0,64,128,0.6);
+      -webkit-transform:rotate(-45deg);
+      content:''
+    }
   }
 }
