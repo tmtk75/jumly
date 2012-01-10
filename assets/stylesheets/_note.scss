@@ -120,19 +120,21 @@ $default-min-height: $default-note-width/1.618/1.618;
   $bcolor:rgba(128,128,128,1);
   $brad:3px;
   $bgcolor:rgba(0,64,128,0.4);
+  $foldc: rgba(0,64,128,0.6);
   $pad:4;
   $foldw:16;
   $notewidth:180;
   $innerheight:64;
+  $bdstyle: $bstyle $bwidth $bcolor;
   
   width:#{$notewidth}px;
   position:absolute;
   z-index:1;
   .inner {
     color:#fff5f3;
-    border-left:$bwidth $bstyle $bcolor;
-    border-top:$bwidth $bstyle $bcolor;
-    border-bottom:$bwidth $bstyle $bcolor;
+    border-left: $bdstyle;
+    border-top: $bdstyle;
+    border-bottom: $bdstyle;
     border-top-left-radius:$brad;
     border-bottom-left-radius:$brad;
     background-color:$bgcolor;
@@ -141,26 +143,29 @@ $default-min-height: $default-note-width/1.618/1.618;
     padding-left:4px;
   }
   &.fold.top-right {
-    &::before {
-      position:absolute;
-      right:-13px;top:1px;
-      margin-top:21px;
-      border-right:$bstyle $bwidth $bcolor;
-      border-bottom:$bstyle $bwidth $bcolor;
-      border-bottom-right-radius:$brad;
-      width:21px;
-      min-height:#{$innerheight - 20}px;
-      background-color:$bgcolor;
-      content:'';
-    }
-    &::after {
-      position:absolute;
-      right:-4px;top:0px;    
-      border-top:$bstyle #{$foldw}px transparent;
-      border-bottom:$bstyle #{$foldw}px transparent;
-      border-right:$bstyle #{$foldw}px rgba(0,64,128,0.6);
-      -webkit-transform:rotate(-45deg);
-      content:''
+    .inner {
+      &::before {
+        position:absolute;
+        content:'';
+        right:-13px;top:1px;
+        margin-top:21px;
+        border-right: $bdstyle;
+        border-bottom: $bdstyle;
+        border-bottom-right-radius:$brad;
+        width:21px;
+        min-height:#{$innerheight - 20}px;
+        background-color:$bgcolor;
+      }
+      &::after {
+        $bdstyle: $bstyle #{$foldw}px transparent;
+        position:absolute;
+        content:'';
+        right:-4px;top:0px;    
+        border-top: $bdstyle;
+        border-bottom:$bdstyle;
+        border-right:$bstyle #{$foldw}px $foldc;
+        -webkit-transform:rotate(-45deg);
+      }
     }
   }
 }
