@@ -2,15 +2,9 @@
 %html
   %head
     %title Try JUMLY
+    %link{rel:"stylesheet",href:"#{$css_dir}/TryJUMLY.css"}
     = haml :"_head.html"
     = haml :"_bootstrap.html"
-    :css
-      textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
-      #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
-      #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
-      .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
-      .modal img {border:solid 1px rgba(128,128,128,0.7);box-shadow:3px 2px 3px 2px rgba(128,128,128,0.7);}
   %body
     .topbar
       .topbar-inner
@@ -34,8 +28,55 @@
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
-          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
-        #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
+          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
+        .span9.columns            
+          #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
+          
+          /-------- Tutorial --------
+          #tutorial
+            %h2 3-Step Tutorial
+            .content{"data-bind"=>"click:tutorial.toNext"}
+              .welcome{"data-bind"=>"css:{active:tutorial.isWelcome}"}
+                %h3 Welcome!
+                Thank you for your visiting to JUMLY.
+                Let's start 3-step tutorial.
+                To move to the next step, <strong>click around me or type keydown</strong>.
+                After this, you can learn a little <a href="/Reference.html#terminology-jumlipt" target="teminology">JUMLIPT</a> and how to customize with jQuery/CSS.
+                
+              .step1{"data-bind"=>"css:{active:tutorial.isStep1}"}
+                %h3 Step1 <small>Write in JUMLIPT.</small>
+                Initially, Write a few JUMLIPT directives for a sequence diagram.
+                Here it's an one of general web application.
+                
+              .step2{"data-bind"=>"css:{active:tutorial.isStep2}"}
+                %h3 Step2 <small></small>
+  
+              .step3{"data-bind"=>"css:{active:tutorial.isStep3}"}
+                %h3 Step3 <small></small>
+
+            %a.btn{"data-bind"=>"click:tutorial.reset"} From The Top
+
+            %script.step1{type:"text/html"}
+              :plain
+                @found "WebBrowser"
+            %script.step1{type:"text/html"}
+              :plain
+                @found "WebBrowser", ->
+                  @message "POST", "WebApp"
+            %script.step1{type:"text/html"}
+              :plain
+                @found "WebBrowser", ->
+                  @message "POST", "WebApp", ->
+                    @message "Authenticate&nbsp;credential", ->
+                      @message "Connect", "DB", ->
+            %script.step2{type:"text/html"}
+              :plain
+                @found "WebBrowser", ->
+                  @message "POST", "WebApp", ->
+                    @message "Authenticate&nbsp;credential", ->
+                      @message "Connect", "DB", ->
+                @before (e, d)->
+                  d.css color:"blue"
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
@@ -111,11 +152,14 @@
         delay:5000, stop:(e)->
           storage.setItem storeKey, viewModel.targetJumlipt()
           $(".alert-message.info").fadeIn().trigger "show"
-                
+
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
+    JUMLY.TryJUMLY.Tutorial.bootup viewModel
+          
     $ ->
       ko.applyBindings viewModel, $("body")[0]
+      
       $("textarea").typing viewModel.typing
       $("#url-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"

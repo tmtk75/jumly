@@ -73,3 +73,37 @@ JUMLY.TryJUMLY =
       
       @diagram.append $("<div>").css(position:"absolute",right:0,top:0,width:"44%",border:"solid 1px rgba(0,32,64,.2)","border-radius":"3px",padding:"4px 0.5em 4px 1em",background:"rgba(0,32,80,0.4)",color:"white","box-shadow":"2px 1px 2px 1px gray").html "You can append anything and customize looks using CSS/jQuery syntax you are familiar with whenever you want."
       """
+
+JUMLY.TryJUMLY.Tutorial =
+  bootup: (viewModel)->
+    tutorial =
+      reset: ->
+        tutorial.currentStep 0
+        viewModel.targetJumlipt ""
+      currentStep: ko.observable 0
+      toNext: ->
+        n = tutorial.currentStep()
+        tutorial.currentStep n + 1
+        if tutorial.isStep1()
+          viewModel.targetJumlipt $("script.step1").filter(":eq(#{n})").text()
+        else if tutorial.isStep2()
+          viewModel.targetJumlipt $("script.step2").filter(":eq(#{n})").text()
+    
+    step1n = $("script.step1").length + 1
+    step2n = $("script.step2").length + 1
+    step3n = $("script.step3").length + 1
+    range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
+    prev = 0
+    steps = (prev = (range prev, n) for n in [1, step1n, step2n, step3n])
+    isInStep = (n, v)-> steps[n][0] <= v <= steps[n][1]
+    dependsOn = ko.dependentObservable
+    tutorial.isWelcome = dependsOn -> isInStep 0, tutorial.currentStep()
+    tutorial.isStep1   = dependsOn -> isInStep 1, tutorial.currentStep()
+    tutorial.isStep2   = dependsOn -> isInStep 2, tutorial.currentStep()
+    tutorial.isStep3   = dependsOn -> isInStep 3, tutorial.currentStep()
+
+    viewModel.tutorial = tutorial
+
+    jwerty.key('↓', -> tutorial.toNext())
+    jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
+    jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
