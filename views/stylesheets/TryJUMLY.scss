@@ -39,15 +39,20 @@ textarea#jumlipt {
   box-shadow: 3px 2px 3px 2px rgba(128,128,128,0.7);
 }
 
+$bg0:80;
+$bg1:128;
+$bg2:240;
+@mixin _active {
+  background-color: rgba($bg2,$bg2,$bg2,1.0);
+  color:#404040;
+  text-shadow:1px 1px white;
+}
 #tutorial {
   z-index:10;
-  position:absolute;
+  position:fixed;
   right:2px;
-  bottom:2px;
+  bottom:#{2+18+4*2}px;
   width:520px;
-  $bg0:80;
-  $bg1:128;
-  $bg2:240;
   background-color: rgba($bg0,$bg0,$bg0,0.5);
   padding:0.5em;
   border-radius:3px;
@@ -58,9 +63,7 @@ textarea#jumlipt {
     margin-bottom:2px;
   }
   .active {
-    background-color: rgba($bg2,$bg2,$bg2,1.0);
-    color:#404040;
-    text-shadow:1px 1px white;
+    @include _active;
   }
 }
 
@@ -68,4 +71,29 @@ textarea#jumlipt {
   right:0;
   top:0;
   margin:4px 4px 0 0;
+}
+
+html.tutorial {
+  .instructions {
+    .instruction {
+      z-index:10;
+      background-color: rgba($bg0,$bg0,$bg0,0.5);
+      padding:0.5em;
+      border-radius:3px;
+      font-weight:normal;
+      p {
+        @include _active;
+        border-radius:4px;
+        padding:0.5em;
+        margin-bottom:1px;
+      }
+      display:none;
+      &.active {display:block;}
+    }
+  }
+  &.tutorial-1-0 {
+    textarea#jumlipt {
+      background-color: rgba(0,128,192,0.25);
+    }
+  }
 }

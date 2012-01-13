@@ -74,36 +74,99 @@ JUMLY.TryJUMLY =
       @diagram.append $("<div>").css(position:"absolute",right:0,top:0,width:"44%",border:"solid 1px rgba(0,32,64,.2)","border-radius":"3px",padding:"4px 0.5em 4px 1em",background:"rgba(0,32,80,0.4)",color:"white","box-shadow":"2px 1px 2px 1px gray").html "You can append anything and customize looks using CSS/jQuery syntax you are familiar with whenever you want."
       """
 
-JUMLY.TryJUMLY.Tutorial =
+Tutorial =
   bootup: (viewModel)->
+    step = ko.observable 13
     tutorial =
       reset: ->
-        tutorial.currentStep 0
+        step 0
         viewModel.targetJumlipt ""
-      currentStep: ko.observable 0
-      toNext: ->
-        n = tutorial.currentStep()
-        tutorial.currentStep n + 1
-        if tutorial.isStep1()
-          viewModel.targetJumlipt $("script.step1").filter(":eq(#{n})").text()
-        else if tutorial.isStep2()
-          viewModel.targetJumlipt $("script.step2").filter(":eq(#{n})").text()
-    
-    step1n = $("script.step1").length + 1
-    step2n = $("script.step2").length + 1
-    step3n = $("script.step3").length + 1
+      toNext: -> step step() + 1
+      toPrev: -> step step() - 1
+
+    step0n = [null]
+    step1n = [null, 0, 1, 2, 3, 3]
+    step2n = [null, 0, 1, 2, 3, 3]
+    step3n = [0]
     range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
     prev = 0
-    steps = (prev = (range prev, n) for n in [1, step1n, step2n, step3n])
-    isInStep = (n, v)-> steps[n][0] <= v <= steps[n][1]
-    dependsOn = ko.dependentObservable
-    tutorial.isWelcome = dependsOn -> isInStep 0, tutorial.currentStep()
-    tutorial.isStep1   = dependsOn -> isInStep 1, tutorial.currentStep()
-    tutorial.isStep2   = dependsOn -> isInStep 2, tutorial.currentStep()
-    tutorial.isStep3   = dependsOn -> isInStep 3, tutorial.currentStep()
+    steps = (prev = (range prev, n) for n in [step0n, step1n, step2n, step3n].map (n)-> n.length)
 
+    stepHandlers =
+      1: (n)-> viewModel.targetJumlipt (Tutorial.data1[step1n[n]] || "")
+      2: (n)-> viewModel.targetJumlipt (Tutorial.data2[step2n[n]] || "")
+      3: (n)-> viewModel.targetJumlipt (Tutorial.data3[step3n[n]] || "")
+    tutorial.chap = ko.dependentObservable ->
+      n = step()
+      isIn = (r, v)-> r[0] <= v <= r[1]
+      m = ((isIn r, n) for r in steps).indexOf true
+    tutorial.sec = ko.dependentObservable ->
+      s = step() - steps[tutorial.chap()]?[0]
+    tutorial.isIn = (m, n)-> @chap() is m and @sec() is n
+    ko.dependentObservable ->
+      m = tutorial.chap()
+      return unless steps[m]
+      s = tutorial.sec()
+      $("html").attr("class", "").addClass("tutorial").addClass("tutorial-#{m}-#{s}")
+      stepHandlers[m]? s, steps[m][0], steps[m][1]
+    
     viewModel.tutorial = tutorial
 
-    jwerty.key('↓', -> tutorial.toNext())
-    jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
-    jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
+    jwerty.key '↑', -> tutorial.toPrev()
+    jwerty.key '↓', -> tutorial.toNext()
+    #jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
+    #jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
+
+  data1:
+    0:'''
+      @found "WebBrowser"'''
+    1:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp"'''
+    2:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp", ->
+          @message "Authenticate&nbsp;credential", ->
+            @message "Connect", "DB", ->'''
+    3:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp", ->
+          @message "Authenticate&nbsp;credential", ->
+            @message "Connect", "DB", ->
+        @message "GET", "WebApp"'''
+  data2:
+    0:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp", ->'''
+    1:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp", ->
+      @before (e, d)->
+        d.css "font-weight":"bold"'''
+    2:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp"
+      @before (e, d)->
+        d.find("*").css("box-shadow":"none").end()
+         .find(".object .name")
+         .css("background":"none",border:"none")'''
+    3:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp"
+      @before (e, d)->
+        d.css("border":"2px dashed #0080c0","padding":"1em 0 1em 0","border-radius":"4px","background-color":"rgba(0,128,192,0.4)")'''
+  data3:
+    0:'''
+      @found "WebBrowser", ->
+        @message "POST", "WebApp", ->
+          @message "Authenticate&nbsp;credential", ->
+            @message "Connect", "DB", ->
+        @message "GET", "WebApp"
+      @before (e, d)->
+        d.find(".object .name:eq(1)")
+         .css("font-weight":"bold"
+             ,"background-color":"rgba(0,128,192,0.5)")'''
+
+JUMLY.TryJUMLY.Tutorial = Tutorial
+$ ->
+  $("*[rel=twipsy]").twipsy(trigger:'manual',html:true).twipsy('show')

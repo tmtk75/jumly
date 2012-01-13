@@ -1,0 +1,88 @@
+/-------- Tutorial --------
+#tutorial
+  %h2 3-Step Tutorial
+  .content{"data-bind"=>"click:tutorial.toNext"}
+    .welcome{"data-bind"=>"css:{active:tutorial.chap() == 0}"}
+      %h3 Welcome!
+      Thank you for your visiting to JUMLY.
+      Let's start 3-step tutorial.
+      To move to next step, <strong>click around me or type keydown</strong>.
+      After this, you can learn a little <a href="/Reference.html#terminology-jumlipt" target="teminology">JUMLIPT</a>, how to customize with jQuery/CSS, and share it.
+      
+    .step1{"data-bind"=>"css:{active:tutorial.chap() == 1}"}
+      %h3 Step1 <small>Write in JUMLIPT.</small>
+      Initially, Write a few JUMLIPT directives for a sequence diagram.
+      Here it's an one of general web application.
+      
+    .step2{"data-bind"=>"css:{active:tutorial.chap() == 2}"}
+      %h3 Step2 <small>Styling with CSS and jQuery.</small>
+      On JUMLY, if you know a little CSS and jQuery, you can modify the looks of diagram easily.
+      The second step is way to make your style with CSS and jQuery.
+  
+    .step3{"data-bind"=>"css:{active:tutorial.chap() == 3}"}
+      %h3 Step3 <small>Getting URL to share.</small>
+
+.instructions{"data-bind"=>"click:tutorial.toNext"}
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,0)}"}
+    %h4 Step1-1
+    %p
+      Write a first JUMLIPT at the left textarea which background is light blue.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,1)}"}
+    %h4 Step1-2
+    %p
+      Wrote a JUMLIPT.<br/>
+      <code>@found</code> is a JUMLIPT directive to start a sequence diagram.<br>
+      "WebBrowser" was rendered above.<br>
+      Go ahead to next.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,2)}"}
+    %h4 Step1-3
+    %p
+      Appended <code>@message</code> directive.<br>
+      It makes a message. The first argument is the name of message,
+      and second one specifies the object name which is message's destination.
+    %p
+      See the second argument of <code>@found</code>.<br>
+      The <code>-></code> is a directive to keep its context.<br>
+      Go ahead to next to see another example.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,3)}"}
+    %h4 Step1-4
+    %p
+      Appended two messages.<br>
+      One of them is self call message.<br>
+      It is made by only message name without second argument.<br>
+      Like this, insert line-break and indent (two-space is better) after <code>-></code>
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,4)}"}
+    %h4 Step1-5
+    %p
+      If you want a new message from WebBrowser,
+      you put a new <code>@message</code> directive from the context of WebBrowser like the left exapmle.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,5)}"}
+    %h4 Step1 Finished
+    %p
+      Now, you can make an interaction you want with JUMLY.<br>
+      Next time is step2, go ahead.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,1)}"}
+    %h4 Step2-1
+    %p
+      Use a simple interaction as example.<br>
+      Try to make the font-style changed, more bolder.<br>
+      Go ahead.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,2)}"}
+    %h4 Step2-2
+    %p
+      <code>@before (d)-></code> directive makes a context that you can receive a jQuery object.
+      The object is the HTMLDivElement for diagram.
+      If you change CSS property of it, diagram's appearance changes.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,3)}"}
+    %h4 Step2-3
+    %p
+      If you want simple looks, you can turn off some effects.<br>
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,4)}"}
+    %h4 Step2-4
+    %p
+      And it's sure you can modify the ownself diagram for backgroun-color, border, and or so.
+  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,5)}"}
+    %h4 Step2 Finished
+    %p
+      Now, you can make and decorate diagram as you want with JUMLY, CSS and jQuery.<br>
+      Go ahead to step3.

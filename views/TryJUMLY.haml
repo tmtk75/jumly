@@ -31,52 +31,7 @@
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
         .span9.columns            
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
-          
-          /-------- Tutorial --------
-          #tutorial
-            %h2 3-Step Tutorial
-            .content{"data-bind"=>"click:tutorial.toNext"}
-              .welcome{"data-bind"=>"css:{active:tutorial.isWelcome}"}
-                %h3 Welcome!
-                Thank you for your visiting to JUMLY.
-                Let's start 3-step tutorial.
-                To move to the next step, <strong>click around me or type keydown</strong>.
-                After this, you can learn a little <a href="/Reference.html#terminology-jumlipt" target="teminology">JUMLIPT</a> and how to customize with jQuery/CSS.
-                
-              .step1{"data-bind"=>"css:{active:tutorial.isStep1}"}
-                %h3 Step1 <small>Write in JUMLIPT.</small>
-                Initially, Write a few JUMLIPT directives for a sequence diagram.
-                Here it's an one of general web application.
-                
-              .step2{"data-bind"=>"css:{active:tutorial.isStep2}"}
-                %h3 Step2 <small></small>
-  
-              .step3{"data-bind"=>"css:{active:tutorial.isStep3}"}
-                %h3 Step3 <small></small>
-
-            %a.btn{"data-bind"=>"click:tutorial.reset"} From The Top
-
-            %script.step1{type:"text/html"}
-              :plain
-                @found "WebBrowser"
-            %script.step1{type:"text/html"}
-              :plain
-                @found "WebBrowser", ->
-                  @message "POST", "WebApp"
-            %script.step1{type:"text/html"}
-              :plain
-                @found "WebBrowser", ->
-                  @message "POST", "WebApp", ->
-                    @message "Authenticate&nbsp;credential", ->
-                      @message "Connect", "DB", ->
-            %script.step2{type:"text/html"}
-              :plain
-                @found "WebBrowser", ->
-                  @message "POST", "WebApp", ->
-                    @message "Authenticate&nbsp;credential", ->
-                      @message "Connect", "DB", ->
-                @before (e, d)->
-                  d.css color:"blue"
+          = haml :"_TryJUMLYTutorial"
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
