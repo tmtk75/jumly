@@ -1,5 +1,5 @@
 /-------- Tutorial --------
-#tutorial
+#tutorial{"data-bind"=>"visible:!tutorial.hasFinished()"}
   %h2 3-Step Tutorial
   .content{"data-bind"=>"click:tutorial.toNext"}
     .welcome{"data-bind"=>"css:{active:tutorial.chap() == 0}"}
@@ -7,7 +7,7 @@
       Thank you for your visiting to JUMLY.
       Let's start 3-step tutorial.
       To move to next step, <strong>click around me or type keydown</strong>.
-      After this, you can learn a little <a href="/Reference.html#terminology-jumlipt" target="teminology">JUMLIPT</a>, how to customize with jQuery/CSS, and share it.
+      After this, you can learn a little JUMLIPT, how to customize with jQuery/CSS, and share it.
       
     .step1{"data-bind"=>"css:{active:tutorial.chap() == 1}"}
       %h3 Step1 <small>Write in JUMLIPT.</small>
@@ -21,8 +21,13 @@
   
     .step3{"data-bind"=>"css:{active:tutorial.chap() == 3}"}
       %h3 Step3 <small>Getting URL to share.</small>
+      Last step, let you know how to share diagram you made.<br>
+      It's easy to share. <strong>Click the button at right-top</strong>, and
+      a modal dialog shows two URLs. One of them is raw link and another one is shortened with bit.ly.<br>
+      They are the URL to view diagram, and pass it to colleague!
+      
 
-.instructions{"data-bind"=>"click:tutorial.toNext"}
+.instructions{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasShared() || !tutorial.hasFinished())"}
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,0)}"}
     %h4 Step1-1
     %p
@@ -86,3 +91,15 @@
     %p
       Now, you can make and decorate diagram as you want with JUMLY, CSS and jQuery.<br>
       Go ahead to step3.
+  .instruction{"data-bind"=>"css:{active:tutorial.hasShared()}"}
+    %h4 Step3 and tutorial all finished.
+    %p
+      Thank you for having this tutorial.
+      You can make simple and stylish sequence diagram,
+      improve it by yourself with CSS/jQuery,
+      and easily share it.<br>
+      See other examples on the topbar to know JUMLY more.
+    %p
+      And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
+      Thank you so much for trying JUMLY.
+    %a.btn{"data-bind"=>"click:tutorial.finish"}Finish
