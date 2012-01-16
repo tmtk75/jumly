@@ -2,15 +2,9 @@
 %html
   %head
     %title Try JUMLY
+    %link{rel:"stylesheet",href:"#{$css_dir}/TryJUMLY.css"}
     = haml :"_head.html"
     = haml :"_bootstrap.html"
-    :css
-      textarea {width:100%; font-family:Monaco,'Courier New';font-size:9pt; border:none; box-shadow:none; background-color:rgba(255,255,255,0.2);}
-      #link-to-share {position:absolute; right:0; top:40px; margin:2px;}
-      #url-to-show .short, #url-to-show .long {white-space:pre-wrap;word-wrap:break-word;}
-      .alert-message {width:100%;left:0px;bottom:0px;position:fixed;margin:0px;}
-      .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
-      .modal img {border:solid 1px rgba(128,128,128,0.7);box-shadow:3px 2px 3px 2px rgba(128,128,128,0.7);}
   %body
     .topbar
       .topbar-inner
@@ -34,8 +28,10 @@
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
       .row
         .span7.columns
-          %textarea{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
-        #diagram-container.span9.columns{"data-bind"=>"jumly:diagram,success:success,error:error"}
+          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
+        .span9.columns            
+          #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
+          = haml :"_TryJUMLYTutorial"
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
@@ -111,11 +107,14 @@
         delay:5000, stop:(e)->
           storage.setItem storeKey, viewModel.targetJumlipt()
           $(".alert-message.info").fadeIn().trigger "show"
-                
+
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
+    JUMLY.TryJUMLY.Tutorial.bootup viewModel
+          
     $ ->
       ko.applyBindings viewModel, $("body")[0]
+      
       $("textarea").typing viewModel.typing
       $("#url-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
         path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"

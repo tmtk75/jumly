@@ -163,7 +163,7 @@ description "sequence-diagram.DSL", ->
         it_behaves_as "given a .sequence_diagram"
         given "a noted interaction", ->
           diagram.found "Afff-1234", ->
-            @note "It's a first call."
+            @_note "It's a first call."
             @message "a->b", "Bfff-1324"
           diagram.appendTo $ "body"
           diagram.compose()
@@ -175,7 +175,7 @@ description "sequence-diagram.DSL", ->
           given "a noted interaction", ->
             diagram.found "Aggg-1234", ->
               @message "a->b", "Bggg-1234"
-              @note "It's a first call."
+              @_note "It's a first call."
             diagram.appendTo $ "body"
             diagram.compose()
           then_it "last occurrence has no children", ->
@@ -192,7 +192,7 @@ description "sequence-diagram.DSL", ->
           given "a noted interaction", ->
             diagram.found "Ahhh-1234", ->
               @message "a->b", "Bhhh-1234"
-              @note "It's a first call."
+              @_note "It's a first call."
               @message "a->b", "Bhhh-1234-1"
             diagram.appendTo $ "body"
             diagram.compose()

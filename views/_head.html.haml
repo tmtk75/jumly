@@ -10,19 +10,3 @@
 /-- css --
 %link{type: 'text/css', rel: 'stylesheet', href: "#{$vendor_dir}/bootstrap/bootstrap.min.css"}
 %link{type: 'text/css', rel: 'stylesheet', href: "#{$css_dir}/site/jumly-site.css"}
-/-- legacy --
-:coffeescript
-  ## Tooltip funciton
-  $_body = $("body")
-  _twipsy = (text, target = $_body) ->
-    tip = $("<div>").addClass("twipsy")
-                    .append($("<div>").addClass("twipsy-arrow"))
-                    .append($("<div>").addClass("twipsy-inner").html(text))
-    tip.appendTo target
-    tip
-  $.jumly.vendor =
-    bootstrap:
-      twipsy: _twipsy
-  $.fn.twipsy = (text, pos) ->
-    t = _twipsy text, @parent()
-    t.alignAt this, pos
