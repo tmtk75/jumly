@@ -76,18 +76,34 @@ JUMLY.TryJUMLY =
 
 Tutorial =
   bootup: (viewModel)->
-    step = ko.observable 13
-    tutorial =
-      reset: ->
-        step 0
-        viewModel.targetJumlipt ""
-      toNext: -> step step() + 1
-      toPrev: -> step step() - 1
-
     step0n = [null]
     step1n = [null, 0, 1, 2, 3, 3]
     step2n = [null, 0, 1, 2, 3, 3]
     step3n = [0]
+    stepn = step0n.length + step1n.length + step2n.length + step3n.length - 1
+    COOKEY = "JUMLY.Tutorial.step"
+
+    step = ko.observable ((parseInt $.cookie COOKEY) || 0)
+    save = (n)->
+      step n
+      $.cookie COOKEY, n
+    tutorial =
+      reset: ->
+        step 0
+        viewModel.targetJumlipt ""
+      toNext: ->
+        n = step()
+        save n + 1 if n < stepn
+      toPrev: ->
+        return if step() > stepn
+        n = step()
+        save n - 1 if n > 0
+      share: -> save stepn + 1 if step() is stepn
+      finish: -> save stepn + 2
+      hasShared: -> step() is stepn + 1
+      hasFinished: -> step() >= stepn + 1
+    tutorial.finish() if tutorial.hasShared()
+
     range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
     prev = 0
     steps = (prev = (range prev, n) for n in [step0n, step1n, step2n, step3n].map (n)-> n.length)
@@ -163,10 +179,12 @@ Tutorial =
             @message "Connect", "DB", ->
         @message "GET", "WebApp"
       @before (e, d)->
-        d.find(".object .name:eq(1)")
+        d.find(".object .name")
          .css("font-weight":"bold"
-             ,"background-color":"rgba(0,128,192,0.5)")'''
-
+             ,"color":"rgba(0,108,160,1)"
+             ,"background-color":"rgba(0,128,192,0.5)"
+             ,"border-color":"rgba(0,128,192,0.8)")'''
+             
 JUMLY.TryJUMLY.Tutorial = Tutorial
 $ ->
   $("*[rel=twipsy]").twipsy(trigger:'manual',html:true).twipsy('show')

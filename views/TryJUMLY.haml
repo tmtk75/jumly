@@ -21,11 +21,12 @@
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
             %li <a href="/Reference.html">Reference</a>
+            %li <a data-bind="click:tutorial.reset">Tutorial</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sequence Diagram</small>
-        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show"} Link To Share
+        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
       .row
         .span7.columns
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
@@ -50,8 +51,8 @@
       %h3 Success
       %p Rendering was succeeded.
 
-    .alert-message.info.hide
-      Auto-save the current jumlipt.
+    .alert-message.info.hide{style:"position:absolute;right:2px"}
+      Auto-save.
     
     #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
     %script#show-URL{type:"text/html"}
@@ -61,7 +62,7 @@
         %h3 Short URL
         .short <a href='${short}' target='shortURL'>${short}</a>
         %h3 Raw URL
-        .long <a href='${long}'>${long}</a>
+        .long <a href='${long}' target='rawURL'>${long}</a>
       .modal-footer
         %a.btn Close
 
