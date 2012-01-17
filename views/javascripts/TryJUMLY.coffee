@@ -99,7 +99,9 @@ Tutorial =
         n = step()
         save n - 1 if n > 0
       share: -> save stepn + 1 if step() is stepn
-      finish: -> save stepn + 2
+      finish: ->
+        save stepn + 2
+        $("html").removeClass("tutorial").removeClass tutorial.currentTutorialClass
       hasShared: -> step() is stepn + 1
       hasFinished: -> step() >= stepn + 1
       isNotRun: $.cookie COOKEY
@@ -125,7 +127,7 @@ Tutorial =
       m = tutorial.chap()
       return unless steps[m]
       s = tutorial.sec()
-      $("html").attr("class", "").addClass("tutorial").addClass("tutorial-#{m}-#{s}")
+      $("html").attr("class", "").addClass("tutorial").addClass(tutorial.currentTutorialClass = "tutorial-#{m}-#{s}")
       stepHandlers[m]? s, steps[m][0], steps[m][1]
     
     viewModel.tutorial = tutorial
