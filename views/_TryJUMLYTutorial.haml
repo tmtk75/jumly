@@ -1,5 +1,5 @@
 /-------- Tutorial --------
-#tutorial{"data-bind"=>"visible:!tutorial.hasFinished()"}
+#tutorial{"data-bind"=>"visible:(tutorial.hasStarted() && !tutorial.hasFinished())"}
   %h2 3-Step Tutorial
   .content{"data-bind"=>"click:tutorial.toNext"}
     .welcome{"data-bind"=>"css:{active:tutorial.chap() == 0}"}
@@ -25,9 +25,16 @@
       It's easy to share. <strong>Click the button at right-top</strong>, and
       a modal dialog shows two URLs. One of them is raw link and another one is shortened with bit.ly.<br>
       They are the URL to view diagram, and pass it to colleague!
+
+
+#tutorial-ask.alert-message.info.hide
+  %strong Would you like to start tutorial <span data-bind="text:(tutorial.hasStarted()?'again':'')"></span>?
+  %a.btn.small.cancel{"data-bind"=>"click:tutorial.reset"} Yes
+  %a.btn.small.cancel{"data-bind"=>"visible:!tutorial.hasStarted()"} Later
+  %a.btn.small.cancel{"data-bind"=>"click:tutorial.finish,text:(tutorial.hasStarted()?'No':'Skip')"}
       
 
-.instructions{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasShared() || !tutorial.hasFinished())"}
+.instructions{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))"}
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,0)}"}
     %h4 Step1-1
     %p

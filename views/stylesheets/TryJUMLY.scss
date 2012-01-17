@@ -20,8 +20,18 @@ textarea#jumlipt {
   position: fixed;
   width: 100%;
   left: 0px;
-  bottom: 0px;
   margin: 0px;
+}
+.alert-message.block-message.notice {
+  bottom: 0px;
+}
+#tutorial-ask {
+  position:fixed;
+  left:0;
+  top:0;
+  margin:2px;
+  bottom:auto;
+  margin-top:42px;
 }
 .tutorial .alert-message.block-message {
   visibility: hidden;

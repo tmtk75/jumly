@@ -21,7 +21,7 @@
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
             %li <a href="/Reference.html">Reference</a>
-            %li <a data-bind="click:tutorial.reset">Tutorial</a>
+            %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
     .container-fluid
       .page-header
@@ -37,7 +37,7 @@
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
     
-    .alert-message.block-message.error.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
+    .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
     %script#alert-error{type:"text/html"}
       %h3 Error
       %p
@@ -47,13 +47,13 @@
         %strong message:
         %span.message ${cause}
 
-    .alert-message.block-message.success.hide
+    .alert-message.block-message.success.notice.hide
       %h3 Success
       %p Rendering was succeeded.
 
-    .alert-message.info.hide{style:"position:absolute;right:2px"}
-      Auto-save.
-    
+    #auto-save-message.alert-message.info.hide{style:"position:absolute;right:2px"}
+      %p Auto-save.
+
     #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
     %script#show-URL{type:"text/html"}
       .modal-header
@@ -64,7 +64,7 @@
         %h3 Raw URL
         .long <a href='${long}' target='rawURL'>${long}</a>
       .modal-footer
-        %a.btn Close
+        %a.btn.cancel Close
 
     #tryjumly-help.modal.hide
       .modal-body
@@ -74,14 +74,15 @@
         At the same time, a diagram corresponding to the jumplipt is rendered in [Diagram appears] area.
         If you click [Display URL to share], you get raw and shorten URL to view the diagram.
       .modal-footer
-        %a.btn Close
+        %a.btn.cancel Close
 
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
   :coffeescript
     $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
-    $(document).on "click", ".modal .btn", (e)-> $(this).parents(".modal:first").modal 'hide'
+    $(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
+    $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
     
     storage = window.localStorage
     storeKey = "TryJUMLY.sequence.jumlipt"
@@ -107,12 +108,12 @@
       typing:
         delay:5000, stop:(e)->
           storage.setItem storeKey, viewModel.targetJumlipt()
-          $(".alert-message.info").fadeIn().trigger "show"
+          $("#auto-save-message").fadeIn().trigger "show"
 
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
     JUMLY.TryJUMLY.Tutorial.bootup viewModel
-          
+    
     $ ->
       ko.applyBindings viewModel, $("body")[0]
       
@@ -122,4 +123,7 @@
         longUrl = "\#{location.origin}\#{path}"
         viewModel.urlToShare.long longUrl
         JUMLY.TryJUMLY.bitly longUrl, (res)->
+          console.error "bit.ly returns something wrong.", res if res.errorCode
           viewModel.urlToShare.short res.results[longUrl].shortUrl
+
+      JUMLY.TryJUMLY.Tutorial.start viewModel

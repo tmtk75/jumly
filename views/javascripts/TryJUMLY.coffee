@@ -74,6 +74,7 @@ JUMLY.TryJUMLY =
       @diagram.append $("<div>").css(position:"absolute",right:0,top:0,width:"44%",border:"solid 1px rgba(0,32,64,.2)","border-radius":"3px",padding:"4px 0.5em 4px 1em",background:"rgba(0,32,80,0.4)",color:"white","box-shadow":"2px 1px 2px 1px gray").html "You can append anything and customize looks using CSS/jQuery syntax you are familiar with whenever you want."
       """
 
+COOKEY = "JUMLY.Tutorial.step"
 Tutorial =
   bootup: (viewModel)->
     step0n = [null]
@@ -81,15 +82,14 @@ Tutorial =
     step2n = [null, 0, 1, 2, 3, 3]
     step3n = [0]
     stepn = step0n.length + step1n.length + step2n.length + step3n.length - 1
-    COOKEY = "JUMLY.Tutorial.step"
-
-    step = ko.observable ((parseInt $.cookie COOKEY) || 0)
+    stepInCookie = $.cookie COOKEY
+    step = ko.observable (if (stepInCookie is undefined or stepInCookie is null) then -1 else parseInt stepInCookie)
     save = (n)->
       step n
       $.cookie COOKEY, n
     tutorial =
       reset: ->
-        step 0
+        save 0
         viewModel.targetJumlipt ""
       toNext: ->
         n = step()
@@ -102,6 +102,7 @@ Tutorial =
       finish: -> save stepn + 2
       hasShared: -> step() is stepn + 1
       hasFinished: -> step() >= stepn + 1
+      isNotRun: $.cookie COOKEY
     tutorial.finish() if tutorial.hasShared()
 
     range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
@@ -119,6 +120,7 @@ Tutorial =
     tutorial.sec = ko.dependentObservable ->
       s = step() - steps[tutorial.chap()]?[0]
     tutorial.isIn = (m, n)-> @chap() is m and @sec() is n
+    tutorial.hasStarted = ko.dependentObservable -> step() >= 0
     ko.dependentObservable ->
       m = tutorial.chap()
       return unless steps[m]
@@ -127,12 +129,19 @@ Tutorial =
       stepHandlers[m]? s, steps[m][0], steps[m][1]
     
     viewModel.tutorial = tutorial
+    viewModel.askTutorial = -> Tutorial.askTutorialToStart()
 
     jwerty.key '↑', -> tutorial.toPrev()
     jwerty.key '↓', -> tutorial.toNext()
     #jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
     #jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
 
+  askTutorialToStart: -> $("#tutorial-ask").show()
+  start: (viewModel)->
+    #if viewModel.tutorial.isNotRun()
+    unless $.cookie COOKEY
+      @askTutorialToStart()
+    
   data1:
     0:'''
       @found "WebBrowser"'''
