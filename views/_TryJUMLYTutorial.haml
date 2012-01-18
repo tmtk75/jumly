@@ -1,5 +1,5 @@
 /-------- Tutorial --------
-#tutorial{"data-bind"=>"visible:(tutorial.hasStarted() && !tutorial.hasFinished())"}
+#tutorial.hide{"data-bind"=>"visible:(tutorial.hasStarted() && !tutorial.hasFinished())"}
   %h2 3-Step Tutorial
   .content{"data-bind"=>"click:tutorial.toNext"}
     .welcome{"data-bind"=>"css:{active:tutorial.chap() == 0}"}
@@ -29,12 +29,12 @@
 
 #tutorial-ask.alert-message.info.hide
   %strong Would you like to start tutorial <span data-bind="text:(tutorial.hasStarted()?'again':'')"></span>?
-  %a.btn.small.cancel{"data-bind"=>"click:tutorial.reset"} Yes
+  %a.btn.small.cancel{"data-bind"=>"click:tutorial.enable"} Yes
   %a.btn.small.cancel{"data-bind"=>"visible:!tutorial.hasStarted()"} Later
   %a.btn.small.cancel{"data-bind"=>"click:tutorial.finish,text:(tutorial.hasStarted()?'No':'Skip')"}
       
 
-.instructions{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))"}
+.instructions.hide{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))"}
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,0)}"}
     %h4 Step1-1
     %p

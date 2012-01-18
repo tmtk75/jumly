@@ -88,6 +88,9 @@ Tutorial =
       step n
       $.cookie COOKEY, n
     tutorial =
+      enable: ->
+        $("#tutorial, .instructions").show()
+        tutorial.reset()
       reset: ->
         save 0
         viewModel.targetJumlipt ""
@@ -140,7 +143,6 @@ Tutorial =
 
   askTutorialToStart: -> $("#tutorial-ask").show()
   start: (viewModel)->
-    #if viewModel.tutorial.isNotRun()
     unless $.cookie COOKEY
       @askTutorialToStart()
     
