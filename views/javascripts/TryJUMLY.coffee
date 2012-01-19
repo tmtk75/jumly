@@ -141,6 +141,8 @@ Tutorial =
 
     jwerty.key '↑', -> tutorial.toPrev()
     jwerty.key '↓', -> tutorial.toNext()
+    #jwerty.key '←', -> $("#tutorial").animate right:-2
+    #jwerty.key '→', -> $("#tutorial").animate right:-$("#tutorial").width()
     #jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
     #jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
 

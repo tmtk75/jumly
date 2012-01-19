@@ -12,27 +12,27 @@
           %h3 <a href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
           %ul.nav
-            %li #{_sr 1, "Example-1"}
-            %li #{_sr 2, "Example-2"}
-            %li #{_sr 3, "Example-3"}
+            %li #{_sr 1, "サンプル-1"}
+            %li #{_sr 2, "サンプル-2"}
+            %li #{_sr 3, "サンプル-3"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle Other examples
+              %a.dropdown-toggle その他のサンプル
               %ul.dropdown-menu
-                %li #{_sr 4, "Shorten w/ bit.ly"}
-                %li #{_sr 5, "Using &lt;img&gt;"}
-            %li <a href="/Reference.html">Reference</a>
-            %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
-            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
+                %li #{_sr 4, "bit.lyでの短縮"}
+                %li #{_sr 5, "&lt;img&gt;タグを使う"}
+            %li <a href="/Reference.html">リファレンス</a>
+            %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
+            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
     .container-fluid
       .page-header
-        %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
-        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
+        %h1 Try JUMLY <small>Sandbox for シーケンスダイアグラム</small>
+        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} 共有用リンクを表示する
       .row
         .span7.columns
-          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
+          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"ここにJUMLIPTを入力します。もしくは画面上部のサンプルを選択してください。"}
         .span9.columns            
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
-          = haml :"_TryJUMLYTutorial"
+          = haml :"_TryJUMLYTutorial.ja"
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
