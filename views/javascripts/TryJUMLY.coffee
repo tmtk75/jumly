@@ -89,8 +89,10 @@ Tutorial =
       $.cookie COOKEY, n
     tutorial =
       enable: ->
-        $("#tutorial, .instructions").show()
+        tutorial.resume()
         tutorial.reset()
+      resume: ->
+        $("#tutorial, .instructions").show()
       reset: ->
         save 0
         viewModel.targetJumlipt ""
@@ -109,6 +111,7 @@ Tutorial =
       hasFinished: -> step() >= stepn + 1
       isNotRun: $.cookie COOKEY
     tutorial.finish() if tutorial.hasShared()
+    tutorial.resume() if 0 <= step() <= stepn
 
     range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
     prev = 0
