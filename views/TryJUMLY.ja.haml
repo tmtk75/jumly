@@ -25,7 +25,11 @@
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
     .container-fluid
       .page-header
-        %h1 Try JUMLY <small>シーケンスダイアグラム</small>
+        %h1 Try JUMLY <small>Sandbox for シーケンスダイアグラム</small>
+        #buttons
+          <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
+          <a href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote" style="margin-right:10px;"/></a>
+          <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY.ja"></div>
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} 共有用リンクを表示する
       .row
         .span7.columns
@@ -75,7 +79,8 @@
         If you click [Display URL to share], you get raw and shorten URL to view the diagram.
       .modal-footer
         %a.btn.cancel Close
-
+    <div id="fb-root"></div>
+  %script{src:"#{$js_dir}/btn.js"}
   %script{src:"#{$js_dir}/base64.js"}
   %script{src:"#{$js_dir}/TryJUMLY.js"}
 
