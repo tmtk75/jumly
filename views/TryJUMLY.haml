@@ -26,9 +26,10 @@
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
-        <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
-        <a href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote" /></a>
-        <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
+        #buttons
+          <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
+          <a href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote" style="margin-right:10px;"/></a>
+          <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
       .row
         .span7.columns
