@@ -24,7 +24,7 @@
       最後のステップでは、あなたが描いたダイアグラムを他の人に見せるための方法を紹介します。
       とても簡単です。<strong>画面右上のボタンをクリックしてください</strong>。
       モーダルダイアログに2つのURLが表示されます。ひとつは生のURLで、もうひとつはbit.lyによる短縮URLです。
-      仲間にURLを教えて、あなたの描いたダイアグラムを見せましょう！
+      仲間にURLを教えて、あなたの描いたダイアグラムを共有しましょう！
 
 
 #tutorial-ask.alert-message.info.hide
@@ -48,7 +48,7 @@
       "WebBrowser"が描かれたはずです。<br>
       （上キーで戻る）
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,2)}"}
-    %h4 Step1-3
+    %h4 ステップ1-3
     %p
       <code>@message</code>ディレクティブを追加しました。
       これはメッセージをひとつ作成します。第1引数はメッセージ名、第2引数にはメッセージの対象オブジェクト名を指定します。
@@ -65,48 +65,53 @@
       例のように@messageの最後の引数に<code>-></code>を与えることで、そのメッセージをコンテキストにすることができます。<br>
       また、<code>-></code>の後は改行して2スペース分インデントするのが慣例です。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,4)}"}
-    %h4 Step1-5
+    %h4 ステップ1-5
     %p
       WebBrowserからメッセージを描きたい場合は、左の例のように、そのコンテキストに@messageディレクティブを書きます。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,5)}"}
-    %h4 Step1を終えました。
+    %h4 ステップ1を終えました。
     %p
       あなたは簡単なシーケンスダイアグラムをJUMLYで描けるようになりました。
       いろいろ試してみてください。
       次はステップ2へ進みましょう。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,1)}"}
-    %h4 Step2-1
+    %h4 ステップ2-1
     %p
       例としてメッセージをひとつ含む簡単なシーケンスダイアグラムを使います。
       オブジェクト名を太字にしてみましょう。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,2)}"}
-    %h4 Step2-2
+    %h4 ステップ2-2
     %p
       <code>@before (d)-></code>ディレクティブはjQueryオブジェクトを受け取るコンテキストを作成します。
       そのjQueryオブジェクトはダイアグラムのDiv要素です。
       jQueryのcssメソッドでfont-weightをboldにすると、ダイアグラムの表示が変わります。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,3)}"}
-    %h4 Step2-3
+    %h4 ステップ2-3
     %p
-      If you want simple looks, you can turn off some effects.<br>
+      もし単純な表示を好むのであれば、それらの効果を無効にすることは簡単です。
+      JUMLYはほとんどの効果や表現をCSSを使ってるからです。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,4)}"}
-    %h4 Step2-4
+    %h4 ステップ2-4
     %p
-      And it's sure you can modify the ownself diagram for backgroun-color, border, and or so.
+      もちろんダイアグラム自体の背景色やボーダーを変更することも可能です。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,5)}"}
-    %h4 Step2 Finished
+    %h4 ステップ2を終えました。
     %p
-      Now, you can make and decorate diagram as you want with JUMLY, CSS and jQuery.<br>
-      Go ahead to step3.
+      今あなたはJUMLYを使ってシーケンスダイアグラムを作り、CSS/jQueryで装飾や見た目を変更できるようになりました。
+      ここはSandboxです。いろいろ試してみてください。<br>
+      ステップ3へ進みましょう。
   .instruction{"data-bind"=>"css:{active:tutorial.hasShared()}"}
-    %h4 Step3 and tutorial all finished.
+    %h4 ステップ3、そして全チュートリアル終えました。
     %p
-      Thank you for having this tutorial.
-      You can make simple and stylish sequence diagram,
-      improve it by yourself with CSS/jQuery,
-      and easily share it.<br>
-      See other examples on the topbar to know JUMLY more.
-    %p
-      And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
-      Thank you so much for trying JUMLY.
-    %a.btn{"data-bind"=>"click:tutorial.finish"}Finish
+      チュートリアルをご覧いただき、ありがとうございました。<br>
+      スタイリッシュなシーケンスダイアグラムを作り、見た目を調整して、URLで簡単に共有する。
+      あなたはもう十分にJUMLYを使えるはずです。
+      JUMLYがあなたの思考の手助け、プレゼンテーションの作成時間の短縮などに役立てば幸いです。<br>
+      よりJUMLYを知るには、画面上部のサンプルを御覧ください。
+      リファレンス、マニュアルは鋭意作成中です。<br>
+      ありがとうございました。
+    /
+      %p
+        And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
+        Thank you so much for trying JUMLY.
+    %a.btn{"data-bind"=>"click:tutorial.finish"}チュートリアルを終了する
