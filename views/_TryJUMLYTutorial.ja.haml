@@ -43,9 +43,10 @@
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,1)}"}
     %h4 ステップ1-2
     %p
-      あるJUMLIPTを入力しました。
+      <code>@found</code>JUMLIPTを入力しました。
       <code>@found</code>は、シーケンスダイアグラムを開始するためのJUMLIPTディレクティブです。
-      "WebBrowser"が描かれたはずです。
+      "WebBrowser"が描かれたはずです。<br>
+      （上キーで戻る）
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,2)}"}
     %h4 Step1-3
     %p
@@ -76,15 +77,14 @@
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,1)}"}
     %h4 Step2-1
     %p
-      Use a simple interaction as example.<br>
-      Try to make the font-style changed, more bolder.<br>
-      Go ahead.
+      例としてメッセージをひとつ含む簡単なシーケンスダイアグラムを使います。
+      オブジェクト名を太字にしてみましょう。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,2)}"}
     %h4 Step2-2
     %p
-      <code>@before (d)-></code> directive makes a context that you can receive a jQuery object.
-      The object is the HTMLDivElement for diagram.
-      If you change CSS property of it, diagram's appearance changes.
+      <code>@before (d)-></code>ディレクティブはjQueryオブジェクトを受け取るコンテキストを作成します。
+      そのjQueryオブジェクトはダイアグラムのDiv要素です。
+      jQueryのcssメソッドでfont-weightをboldにすると、ダイアグラムの表示が変わります。
   .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,3)}"}
     %h4 Step2-3
     %p
