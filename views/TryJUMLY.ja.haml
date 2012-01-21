@@ -12,6 +12,7 @@
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
+          - def _tr(n0, n1, t) "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:tutorialRequired'>#{t}</a>" end
           %ul.nav
             %li #{_sr 1, "サンプル-1"}
             %li #{_sr 2, "サンプル-2"}
@@ -21,6 +22,11 @@
               %ul.dropdown-menu
                 %li #{_sr 4, "bit.lyでの短縮"}
                 %li #{_sr 5, "&lt;img&gt;タグを使う"}
+                - [1,2,3,4].each do |e|
+                  %li #{_tr "data1", e-1, "ステップ1-#{e}"}
+                - [1,2,3,4].each do |e|
+                  %li #{_tr "data2", e-1, "ステップ2-#{e}"}
+                %li #{_tr "data3", 0, "ステップ3-1"}
             %li <a href="/Reference.html">リファレンス</a>
             %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
@@ -127,6 +133,9 @@
       targetJumlipt: ko.observable initialJumlipt
       sampleRequired: (model, event)->
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
+      tutorialRequired: (model, event)->
+        a = $(event.target)
+        model.targetJumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
       success: ->
         a = $(".alert-message").hide()
         if $(".diagram > *").length > 0
