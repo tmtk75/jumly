@@ -27,12 +27,14 @@
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
-        #3rd-party-buttons
+        #3rd-party-buttons{style:"position:fixed;right:100px;top:44px;"}
+          %img{height:"20px",style:"margin-bottom:-4px",src:"/assets/ic_chats.png","data-bind"=>"click:openDisqus"}
           <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
           <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
           <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
           <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
-        %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
+        #jumly-buttons
+          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
       .row
         .span7.columns
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
@@ -86,7 +88,6 @@
     #fb-root
     
     / DISQUS Thread
-    %a#disqus_trigger.btn{"data-bind"=>"click:openDisqus,visible:!disqusOpened()"}Comment
     #disqus_thread{"data-bind"=>"visible:disqusOpened()"}
       /<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       /<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
@@ -139,7 +140,7 @@
           storage.setItem storeKey, viewModel.targetJumlipt()
           $("#auto-save-message").fadeIn().trigger "show"
       disqusOpened: ko.observable false
-      openDisqus: -> @disqusOpened true
+      openDisqus: -> @disqusOpened !@disqusOpened()
 
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
