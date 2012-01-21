@@ -88,6 +88,11 @@ Tutorial =
       step n
       $.cookie COOKEY, n
     tutorial =
+      enable: ->
+        tutorial.resume()
+        tutorial.reset()
+      resume: ->
+        $("#tutorial, .instructions").show()
       reset: ->
         save 0
         viewModel.targetJumlipt ""
@@ -99,11 +104,14 @@ Tutorial =
         n = step()
         save n - 1 if n > 0
       share: -> save stepn + 1 if step() is stepn
-      finish: -> save stepn + 2
+      finish: ->
+        save stepn + 2
+        $("html").removeClass("tutorial").removeClass tutorial.currentTutorialClass
       hasShared: -> step() is stepn + 1
       hasFinished: -> step() >= stepn + 1
       isNotRun: $.cookie COOKEY
     tutorial.finish() if tutorial.hasShared()
+    tutorial.resume() if 0 <= step() <= stepn
 
     range = (prev, numOfStep)-> if typeof prev is "number" then [prev, prev + numOfStep - 1] else range prev[1] + 1, numOfStep
     prev = 0
@@ -125,7 +133,7 @@ Tutorial =
       m = tutorial.chap()
       return unless steps[m]
       s = tutorial.sec()
-      $("html").attr("class", "").addClass("tutorial").addClass("tutorial-#{m}-#{s}")
+      $("html").attr("class", "").addClass("tutorial").addClass(tutorial.currentTutorialClass = "tutorial-#{m}-#{s}")
       stepHandlers[m]? s, steps[m][0], steps[m][1]
     
     viewModel.tutorial = tutorial
@@ -133,12 +141,13 @@ Tutorial =
 
     jwerty.key '↑', -> tutorial.toPrev()
     jwerty.key '↓', -> tutorial.toNext()
+    #jwerty.key '←', -> $("#tutorial").animate right:-2
+    #jwerty.key '→', -> $("#tutorial").animate right:-$("#tutorial").width()
     #jwerty.key('⌃+⇧+P/⌘+⇧+P', -> console.log "alsjdf");
     #jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
 
   askTutorialToStart: -> $("#tutorial-ask").show()
   start: (viewModel)->
-    #if viewModel.tutorial.isNotRun()
     unless $.cookie COOKEY
       @askTutorialToStart()
     

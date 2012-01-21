@@ -12,41 +12,39 @@
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
-          - def _tr(n, t) "<a id='tutorial-#{n}' data-bind='click:tutorialRequired'>#{t}</a>" end
           %ul.nav
-            %li #{_sr 1, "Example-1"}
-            %li #{_sr 2, "Example-2"}
-            %li #{_sr 3, "Example-3"}
-            %li #{_tr "1-0", "Tutorial step1-1"}
+            %li #{_sr 1, "サンプル-1"}
+            %li #{_sr 2, "サンプル-2"}
+            %li #{_sr 3, "サンプル-3"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle Other examples
+              %a.dropdown-toggle その他のサンプル
               %ul.dropdown-menu
-                %li #{_sr 4, "Shorten w/ bit.ly"}
-                %li #{_sr 5, "Using &lt;img&gt;"}
-            %li <a href="/Reference.html">Reference</a>
-            %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
-            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
+                %li #{_sr 4, "bit.lyでの短縮"}
+                %li #{_sr 5, "&lt;img&gt;タグを使う"}
+            %li <a href="/Reference.html">リファレンス</a>
+            %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
+            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle Languages
+              %a.dropdown-toggle 言語
               %ul.dropdown-menu
-                %li <a href="TryJUMLY.ja">Japanese</a>
+                %li <a href="TryJUMLY">英語</a>
     .container-fluid
       .page-header
-        %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
-        #3rd-party-buttons{style:"position:fixed;right:100px;top:44px;"}
+        %h1 Try JUMLY <small>Sandbox for シーケンスダイアグラム</small>
+        #3rd-party-buttons{style:"position:fixed;right:160px;top:44px;"}
           %img{height:"20px",style:"margin-bottom:-4px",src:"/assets/ic_chats.png","data-bind"=>"click:openDisqus"}
           <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
           <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
           <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
           <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
         #jumly-buttons
-          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
+          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} 共有用リンクを表示する
       .row
         .span7.columns
-          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
-        .span9.columns
+          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"ここにJUMLIPTを入力します。もしくは画面上部のサンプルを選択してください。"}
+        .span9.columns            
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
-          = haml :"_TryJUMLYTutorial"
+          = haml :"_TryJUMLYTutorial.ja"
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
@@ -84,11 +82,10 @@
       .modal-body
         %img{src:"/assets/TryJUMLY-overview.png",width:"100%"}
       .modal-body.description
-        If you click one of [Examples], you get a sample <a href="/Reference.html#terminology-jumlipt">jumlipt</a> in [Input Jumplit] area.
-        At the same time, a diagram corresponding to the jumplipt is rendered in [Diagram appears] area.
-        If you click [Display URL to share], you get raw and shorten URL to view the diagram.
+        [Examples]をクリックするとサンプルJUMLIPTと対応するダイアグラムを描画します。
+        [Link To Share]ボタンをクリックすると共有用のリンクを表示します。
       .modal-footer
-        %a.btn.cancel Close
+        %a.btn.cancel 閉じる
         
     / Facebook Like button
     #fb-root
@@ -128,8 +125,8 @@
     
     viewModel =
       targetJumlipt: ko.observable initialJumlipt
-      sampleRequired: (model, event)-> model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
-      tutorialRequired: (model, event)-> ##FIXME
+      sampleRequired: (model, event)->
+        model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
       success: ->
         a = $(".alert-message").hide()
         if $(".diagram > *").length > 0
