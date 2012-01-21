@@ -65,7 +65,8 @@ $bg2:240;
   background-color: rgba($bg0,$bg0,$bg0,0.5);
   padding:0.5em;
   border-radius:3px;
-  right:-200px;
+  right:-192px;
+  opacity:0.77;
   .welcome, .step1, .step2, .step3 {
     background-color: rgba($bg1,$bg1,$bg1,0.7);
     border-radius:4px;
@@ -80,6 +81,7 @@ $bg2:240;
 /*.tutorial-1-0 #tutorial,*/
 .tutorial-2-0 #tutorial,
 .tutorial-3-0 #tutorial {
+  opacity:1;
   right:-2px; 
 }
   
