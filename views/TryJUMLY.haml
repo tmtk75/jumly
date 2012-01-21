@@ -24,6 +24,10 @@
             %li <a href="/Reference.html">Reference</a>
             %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
+            %li.dropdown{"data-dropdown"=>"dropdown"}
+              %a.dropdown-toggle Languages
+              %ul.dropdown-menu
+                %li <a href="TryJUMLY.ja">Japanese</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>

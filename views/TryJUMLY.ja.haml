@@ -24,6 +24,10 @@
             %li <a href="/Reference.html">リファレンス</a>
             %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
+            %li.dropdown{"data-dropdown"=>"dropdown"}
+              %a.dropdown-toggle 言語
+              %ul.dropdown-menu
+                %li <a href="TryJUMLY">英語</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for シーケンスダイアグラム</small>
