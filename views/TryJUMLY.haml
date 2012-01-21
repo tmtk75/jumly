@@ -27,16 +27,16 @@
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
-        #buttons
-          <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
-          <a href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote" style="margin-right:10px;"/></a>
-          <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
         %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} Link To Share
       .row
         .span7.columns
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"Write JUMLIPT here, or click one of examples."}
-        .span9.columns            
+        .span9.columns
+          #3rd-party-buttons{style:"position:absolute;right:1px;"}
+            <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
+            <a href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
+            <div class="g-plusone" data-size="medium" data-href="http://jumly.dev/TryJUMLY"></div>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
           = haml :"_TryJUMLYTutorial"
     .bottombar
