@@ -17,12 +17,16 @@
             %li #{_sr 1, "Example-1"}
             %li #{_sr 2, "Example-2"}
             %li #{_sr 3, "Example-3"}
-            %li #{_tr "data1", 0, "Tutorial step1-1"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle Other examples
               %ul.dropdown-menu
                 %li #{_sr 4, "Shorten w/ bit.ly"}
                 %li #{_sr 5, "Using &lt;img&gt;"}
+                - [1,2,3,4].each do |e|
+                  %li #{_tr "data1", e-1, "Tutorial step1-#{e}"}
+                - [1,2,3,4].each do |e|
+                  %li #{_tr "data2", e-1, "Tutorial step2-#{e}"}
+                %li #{_tr "data3", 0, "Tutorial step3-1"}
             %li <a href="/Reference.html">Reference</a>
             %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
