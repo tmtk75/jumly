@@ -60,12 +60,12 @@ $bg2:240;
 #tutorial {
   z-index:10;
   position:fixed;
-  right:2px;
   bottom:#{2+18+4*2}px;
   width:520px;
   background-color: rgba($bg0,$bg0,$bg0,0.5);
   padding:0.5em;
   border-radius:3px;
+  right:-200px;
   .welcome, .step1, .step2, .step3 {
     background-color: rgba($bg1,$bg1,$bg1,0.7);
     border-radius:4px;
@@ -76,6 +76,13 @@ $bg2:240;
     @include _active;
   }
 }
+.tutorial-0-0 #tutorial,
+/*.tutorial-1-0 #tutorial,*/
+.tutorial-2-0 #tutorial,
+.tutorial-3-0 #tutorial {
+  right:-2px; 
+}
+  
 
 .top-right {
   right:0;
