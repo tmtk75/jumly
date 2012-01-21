@@ -1,13 +1,23 @@
 @import url("http://mediacdn.disqus.com/1326940420/build/system//defaults.css");
 @import url("http://mediacdn.disqus.com/1326940420/build/themes/dsq7884a9652e94555c70f96b6be63be216.css?126");
 
-#disqus_thread {
-  //background-color: rgba(64,64,64,0.33);
+@mixin pos {
   position:fixed;
-  bottom:18px;
-  left:2px;
+  left:1px;
   border:2px solid #404040;
   border-radius:3px;
+}
+#disqus_trigger {
+  @include pos;
+  bottom:27px;
+  padding:2px 1em;
+  background-color: rgba(64,64,64,0.95);
+  color:white;
+}
+#disqus_thread {
+  //background-color: rgba(64,64,64,0.33);
+  @include pos;
+  bottom:17px;
   padding:0.5em;
   h3 {
     font-weight:normal;
@@ -23,4 +33,3 @@
 a.dsq-subscribe-email em, a.dsq-subscribe-rss em {
   text-decoration:none;  
 }
-

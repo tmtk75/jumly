@@ -86,9 +86,10 @@
     #fb-root
     
     / DISQUS Thread
-    #disqus_thread
+    #disqus_trigger{"data-bind"=>"click:openDisqus,visible:!disqusOpened()"}Comment
+    #disqus_thread{"data-bind"=>"visible:disqusOpened()"}
       /<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      /<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>    
+      /<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
     :javascript
       /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -137,6 +138,8 @@
         delay:5000, stop:(e)->
           storage.setItem storeKey, viewModel.targetJumlipt()
           $("#auto-save-message").fadeIn().trigger "show"
+      disqusOpened: ko.observable false
+      openDisqus: -> @disqusOpened true
 
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
