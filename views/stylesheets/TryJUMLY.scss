@@ -44,9 +44,22 @@ textarea#jumlipt {
   padding: 4px;
   color: #BFBFBF;
 }
-.modal img {
-  border: solid 1px rgba(128,128,128,0.7);
-  box-shadow: 3px 2px 3px 2px rgba(128,128,128,0.7);
+#tryjumly-help {
+  img {
+    border: solid 1px rgba(128,128,128,0.7);
+    box-shadow: 3px 2px 3px 2px rgba(128,128,128,0.7);
+  }
+  .modal-body {
+    padding-bottom:4px;
+  }
+  .modal-body.description {
+    padding-top:0;
+    padding-bottom:8px;
+  }
+  .modal-footer {
+    padding-top:4px;
+    padding-bottom:4px;
+  }
 }
 
 $bg0:80;
