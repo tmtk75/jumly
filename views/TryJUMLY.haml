@@ -12,12 +12,12 @@
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
-          - def _tr(n, t) "<a id='tutorial-#{n}' data-bind='click:tutorialRequired'>#{t}</a>" end
+          - def _tr(n0, n1, t) "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:tutorialRequired'>#{t}</a>" end
           %ul.nav
             %li #{_sr 1, "Example-1"}
             %li #{_sr 2, "Example-2"}
             %li #{_sr 3, "Example-3"}
-            %li #{_tr "1-0", "Tutorial step1-1"}
+            %li #{_tr "data1", 0, "Tutorial step1-1"}
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle Other examples
               %ul.dropdown-menu
@@ -128,8 +128,11 @@
     
     viewModel =
       targetJumlipt: ko.observable initialJumlipt
-      sampleRequired: (model, event)-> model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
-      tutorialRequired: (model, event)-> ##FIXME
+      sampleRequired: (model, event)->
+        model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
+      tutorialRequired: (model, event)->
+        a = $(event.target)
+        model.targetJumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
       success: ->
         a = $(".alert-message").hide()
         if $(".diagram > *").length > 0
