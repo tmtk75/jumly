@@ -4,21 +4,13 @@
 @mixin pos {
   position:fixed;
   left:1px;
-  border:2px solid #404040;
-  border-radius:3px;
-}
-#disqus_trigger {
-  @include pos;
-  bottom:27px;
-  padding:2px 1em;
-  background-color: rgba(64,64,64,0.95);
-  color:white;
 }
 #disqus_thread {
   //background-color: rgba(64,64,64,0.33);
   @include pos;
   bottom:17px;
   padding:0.5em;
+  border:2px solid #404040;
   h3 {
     font-weight:normal;
     font-family:tahoma;
@@ -28,3 +20,15 @@
 #dsq-content #dsq-footer, .dsq-reply, #dsq-content #dsq-global-toolbar, #dsq-content h3 {margin:0;}
 .dsq-textarea-reply {margin-bottom:2px;}
 a.dsq-subscribe-email em, a.dsq-subscribe-rss em {text-decoration:none;}
+
+
+#disqus_trigger {
+  @include pos;
+  bottom:27px;
+  padding:2px 1em;
+  //background-color: rgba(64,64,64,0.95);
+  //color:white;
+}
+.twitter-share-button {
+  margin-left:-28px;
+}
