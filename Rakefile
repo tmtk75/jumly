@@ -13,7 +13,7 @@ CSS_BUILD_DIR = "#{BUILD_DIR}/stylesheets"
 
 namespace :compile do
   task :js do
-    sh "coffee --bare -c -o #{JS_BUILD_DIR} assets/javascripts/*.coffee"
+    sh "coffee -c -o #{JS_BUILD_DIR} assets/javascripts/*.coffee"
   end
   task :css do
     sh "sass --unix-newline --update --scss assets/stylesheets:#{CSS_BUILD_DIR}"
