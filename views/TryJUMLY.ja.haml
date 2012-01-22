@@ -30,6 +30,7 @@
             %li <a href="/Reference.html">リファレンス</a>
             %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
+            %li <a href="#" data-controls-modal="tryjumly-feedback" data-backdrop="static" data-keyboard="true">フィードバック</a>
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle 言語
               %ul.dropdown-menu
@@ -93,6 +94,27 @@
       .modal-footer
         %a.btn.cancel 閉じる
         
+    #tryjumly-feedback.modal.hide
+      .modal-header
+        %h3 フィードバック <small>ご意見をお聞かせください</small>
+        あなたのフィードバックを送ってください。開発の励みになります。
+      .modal-body
+        %dl
+          %dt Twitter
+          %dd
+            %a{href:"http://twitter.com/#!/jumly1",target:"twitter"}@jumly1
+          %dt Facebook page
+          %dd
+            %a{href:"https://www.facebook.com/pages/JUMLY/105533476235251",target:"facebook"}JUMLY
+          %dt Gmail
+          %dd
+            %a{href:"mailto:jumly2gmail.com",target:"gmail"}jumly2@gmail.com
+          %dt github issue
+          %dd
+            %a{href:"https://github.com/tmtk75/jumly-core/issues",target:"github.com"}github.com/tmtk75/jumly-core
+      .modal-footer
+        %a.btn.cancel Cancel
+
     / Facebook Like button
     #fb-root
     
