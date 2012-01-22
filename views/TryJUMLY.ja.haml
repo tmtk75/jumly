@@ -27,6 +27,9 @@
                 - [1,2,3,4].each do |e|
                   %li #{_tr "data2", e-1, "ステップ2-#{e}"}
                 %li #{_tr "data3", 0, "ステップ3-1"}
+                %li.divider
+                %li
+                  %a{href:"/full_sequence.html"} Full feature<br>sequence diagram
             %li <a href="/Reference.html">リファレンス</a>
             %li <a href="#" data-bind="click:askTutorial">チュートリアルを開始する</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">ヘルプ</a>
