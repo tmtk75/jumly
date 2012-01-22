@@ -27,6 +27,9 @@
                 - [1,2,3,4].each do |e|
                   %li #{_tr "data2", e-1, "Tutorial step2-#{e}"}
                 %li #{_tr "data3", 0, "Tutorial step3-1"}
+                %li.divider
+                %li
+                  %a{href:"/full_sequence.html"} Full feature<br>sequence diagram
             %li <a href="/Reference.html">Reference</a>
             %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
             %li.dropdown{"data-dropdown"=>"dropdown"}
