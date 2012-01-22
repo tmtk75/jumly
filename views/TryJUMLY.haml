@@ -29,11 +29,12 @@
                 %li #{_tr "data3", 0, "Tutorial step3-1"}
             %li <a href="/Reference.html">Reference</a>
             %li <a href="#" data-bind="click:askTutorial">Tutorial</a>
-            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle Languages
               %ul.dropdown-menu
                 %li <a href="TryJUMLY.ja">Japanese</a>
+            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">Help</a>
+            %li <a href="#" data-controls-modal="tryjumly-feedback" data-backdrop="static" data-keyboard="true">Feedback</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>Sandbox for sequence Diagram</small>
@@ -93,6 +94,24 @@
         If you click [Display URL to share], you get raw and shorten URL to view the diagram.
       .modal-footer
         %a.btn.cancel Close
+
+    #tryjumly-feedback.modal.hide
+      .modal-header
+        %h3 Feedback <small>Thank you for your feedback.</small>
+        Could you send your feedback? Whatever you send makes me happy.  
+      .modal-body
+        %dl
+          %dt Twitter
+          %dd
+            %a{href:"http://twitter.com/#!/jumly1",target:"twitter"}@jumly1
+          %dt Gmail
+          %dd
+            %a{href:"mailto:jumly2gmail.com",target:"gmail"}jumly2@gmail.com
+          %dt github issue
+          %dd
+            %a{href:"https://github.com/tmtk75/jumly-core/issues",target:"github.com"}github.com/tmtk75/jumly-core
+      .modal-footer
+        %a.btn.cancel Cancel
         
     / Facebook Like button
     #fb-root
