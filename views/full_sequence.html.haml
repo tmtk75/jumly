@@ -4,6 +4,7 @@
     %title JUMLY Full sequence diagram
     = haml :"_head.html"
     %link{href: "#{$css_dir}/site/full_sequence.css", type: "text/css", rel: "stylesheet"}
+    %script{src:"#{$js_dir}/bootstrap/js/bootstrap-twipsy.js"}
   %body
     = haml :_topbar
     /================================================================================================
@@ -57,21 +58,16 @@
                     h()
 
                 h = ->
-                  f = (x, y) ->
-                    a = -> $("\#{y}.desc *").fadeIn('slow')
-                    b = -> $("\#{y}.desc pre").fadeOut('fast')
-                    x.hover a, b
-                  $.fn.finout = (sel) -> f(this, sel)
-                  $(".object:eq(0) .icon-container").twipsy("Found first<br/>Starts from here!", "right").finout ".d-found"
-                  $(".message:eq(0)").twipsy("Basic message", "below").finout ".d-message"
-                  $(".create .name").twipsy("Create message", "above").finout ".d-create"
-                  $(".loop").twipsy("Kind of fragment for loop", "left")
-                  $(".object:eq(2) .icon-container").twipsy("Iconified object", "right")
-                  $(".message:eq(4)").twipsy("Self call message", "left")
-                  $(".return").css("margin-top":"-8px").twipsy("Reply message", "above")
-                  $(".alt:eq(0)").twipsy("Alt fragment for usually 'if'", "above")
-                  $(".ref").twipsy("Refer to another sequence", "above")
-                  $(".occurrence:eq(10)").twipsy("Start new interactions", "left")
-                  $(".lost .icon").twipsy("Lost message", "left")
-                  $(".destroy").twipsy("Destory message", "below")
+                  $(".object:eq(0)").attr(title:"Found first<br/>Starts from here!").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                  $(".message:eq(0)").attr(title:"Basic message").twipsy(trigger:"manual",placement:"below").twipsy("show")
+                  $(".create .name").attr(title:"Create message").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                  $(".loop").attr(title:"Kind of fragment for loop").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                  $(".object:eq(2) .icon-container").attr(title:"Iconified object").twipsy(trigger:"manual",placement:"right").twipsy("show")
+                  $(".message:eq(4)").attr(title:"Self call message").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                  $(".return").css("margin-top":"-8px").attr(title:"Reply message").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                  $(".alt:eq(0)").attr(title:"Alt fragment for usually 'if'").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                  $(".ref").attr(title:"Refer to another sequence").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                  $(".occurrence:eq(10)").attr(title:"Start new interactions").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                  $(".lost .icon").attr(title:"Lost message").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                  $(".destroy").attr(title:"Destory message").twipsy(trigger:"manual",placement:"below").twipsy("show")
 

@@ -3,6 +3,7 @@
   %head
     %title JUMLY Full usecase diagram
     = haml :"_head.html"
+    %script{src:"#{$js_dir}/bootstrap/js/bootstrap-twipsy.js"}
     %style
       :plain
         .diagram {margin: auto;}
@@ -27,7 +28,7 @@
                 @usecase 1:"Open existing file."
                 @diagram = @_diagram  #WORKAROUND: Need refactoring for usecase builder.
                 @afterCompose (e, d) ->
-                    d.find(".relationship").twipsy("relationship", "below")
-                    d.find(".actor:eq(1)").twipsy("actor", "above")
-                    d.find(".usecase:eq(1)").twipsy("usecase", "above")
-                    d.find(".system-boundary").twipsy("system-boundary", "below")
+                    d.find(".relationship").attr(title:"relationship").twipsy(trigger:'manual',placement:"below").twipsy('show')
+                    d.find(".actor:eq(1)").attr(title:"actor").twipsy(trigger:'manual',placement:"above").twipsy('show')
+                    d.find(".usecase:eq(1)").attr(title:"usecase").twipsy(trigger:'manual',placement:"above").twipsy('show')
+                    d.find(".system-boundary").attr(title:"system-boundary").twipsy(trigger:'manual',placement:"below").twipsy('show')
