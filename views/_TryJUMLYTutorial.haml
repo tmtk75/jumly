@@ -1,117 +1,42 @@
 /-------- Tutorial --------
 #tutorial.hide{"data-bind"=>"visible:(tutorial.hasStarted() && !tutorial.hasFinished())"}
-  %h2 3-Step Tutorial
+  %h2 #{i18n._ '3-Step Tutorial'}
   .content{"data-bind"=>"click:tutorial.toNext"}
     .welcome{"data-bind"=>"css:{active:tutorial.chap() == 0}"}
-      %h3 Welcome!
-      Thank you for your visiting to JUMLY.
-      Let's start 3-step tutorial.
-      To move to next step, <strong>click around me or type keydown</strong>.
-      After this, you can learn a little JUMLIPT, how to customize with jQuery/CSS, and share it.
-      
+      %h3 #{i18n._ 'welcome.h'}
+      = i18n._ 'welcome.d'
+
     .step1{"data-bind"=>"css:{active:tutorial.chap() == 1}"}
-      %h3 Step1 <small>Write in JUMLIPT.</small>
-      Initially, Write a few JUMLIPT directives for a sequence diagram.
-      Here it's an one of general web application.
+      %h3 #{i18n._ 'step1.h'}
+      = i18n._ 'step1.d'
       
     .step2{"data-bind"=>"css:{active:tutorial.chap() == 2}"}
-      %h3 Step2 <small>Styling with CSS and jQuery.</small>
-      On JUMLY, if you know a little CSS and jQuery, you can modify the looks of diagram easily.
-      The second step is way to make your style with CSS and jQuery.
+      %h3 #{i18n._ 'step2.h'}
+      = i18n._ 'step2.d'
   
     .step3{"data-bind"=>"css:{active:tutorial.chap() == 3}"}
-      %h3 Step3 <small>Getting URL to share.</small>
-      Last step, let you know how to share diagram you made.<br>
-      It's easy to share. <strong>Click the button at right-top</strong>, and
-      a modal dialog shows two URLs. One of them is raw link and another one is shortened with bit.ly.<br>
-      They are the URL to view diagram, and pass it to colleague!
+      %h3 #{i18n._ 'step3.h'}
+      = i18n._ 'step3.d'
 
 
 #tutorial-ask.alert-message.info.hide
-  %strong Would you like to start tutorial <span data-bind="text:(tutorial.hasStarted()?'again':'')"></span>?
-  %a.btn.small.cancel{"data-bind"=>"click:tutorial.enable"} Yes
-  %a.btn.small.cancel{"data-bind"=>"visible:!tutorial.hasStarted()"} Later
-  %a.btn.small.cancel{"data-bind"=>"click:tutorial.finish,text:(tutorial.hasStarted()?'No':'Skip')"}
+  %strong #{i18n._ 'ask.tutorial.start'}</span>
+  %a.btn.small.cancel{"data-bind"=>"click:tutorial.enable"} #{i18n._ 'ask.yes.d'}
+  %a.btn.small.cancel{"data-bind"=>"visible:!tutorial.hasStarted()"} #{i18n._ 'ask.later.d'}
+  %a.btn.small.cancel{"data-bind"=>"click:tutorial.finish,text:(tutorial.hasStarted()?'#{i18n._ 'ask.no.d'}':'#{i18n._ 'ask.skip.d'}')"}
       
 
 .instructions.hide{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))"}
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,0)}"}
-    %h4 Step1-1
-    %p
-      Write a first JUMLIPT at the left textarea which background is light blue.<br>
-      (Click or down key to go next)
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,1)}"}
-    %h4 Step1-2
-    %p
-      Wrote a JUMLIPT.<br/>
-      <code>@found</code> is a JUMLIPT directive to start a sequence diagram.<br>
-      "WebBrowser" was rendered above.<br>
-      Go ahead to next. (Up key to go back)
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,2)}"}
-    %h4 Step1-3
-    %p
-      Appended <code>@message</code> directive.<br>
-      It makes a message. The first argument is the name of message,
-      and second one specifies the object name which is message's destination.
-    %p
-      See the second argument of <code>@found</code>.<br>
-      The <code>-></code> is a directive to keep its context.<br>
-      Go ahead to next to see another example.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,3)}"}
-    %h4 Step1-4
-    %p
-      Appended two messages.<br>
-      One of them is self call message.<br>
-      It is made by only message name without second argument.<br>
-      Like this, insert line-break and indent (two-space is better) after <code>-></code>
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,4)}"}
-    %h4 Step1-5
-    %p
-      If you want a new message from WebBrowser,
-      you put a new <code>@message</code> directive from the context of WebBrowser like the left exapmle.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(1,5)}"}
-    %h4 Step1 Finished
-    %p
-      Now, you can make an interaction you want with JUMLY.<br>
-      Next time is step2, go ahead.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,1)}"}
-    %h4 Step2-1
-    %p
-      Use a simple interaction as example.<br>
-      Try to make the font-style changed, more bolder.<br>
-      Go ahead.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,2)}"}
-    %h4 Step2-2
-    %p
-      <code>@before (d)-></code> directive makes a context that you can receive a jQuery object.
-      The object is the HTMLDivElement for diagram.
-      If you change CSS property of it, diagram's appearance changes.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,3)}"}
-    %h4 Step2-3
-    %p
-      If you want simple looks, you can turn off some effects.<br>
-      JUMLY uses almost only CSS to rendering and effect.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,4)}"}
-    %h4 Step2-4
-    %p
-      And it's sure you can modify the ownself diagram for backgroun-color, border, and or so.
-  .instruction{"data-bind"=>"css:{active:tutorial.isIn(2,5)}"}
-    %h4 Step2 Finished
-    %p
-      Now, you can make and decorate diagram as you want with JUMLY, CSS and jQuery.
-      Here is sandbox. Try scripting in many ways.<br>
-      Go ahead to step3.
+  - [[0,1,2,3,4,5], [1,2,3,4,5], []].each_with_index do |steps, i|
+    - step = i + 1
+    - steps.each do |sub|
+      .instruction{"data-bind"=>"css:{active:tutorial.isIn(#{step},#{sub})}"}
+        %h4
+          = i18n._ "step#{step}-#{sub}.h"
+        %p
+          = i18n._ "step#{step}-#{sub}.d"
+          
   .instruction{"data-bind"=>"css:{active:tutorial.hasShared()}"}
-    %h4 Step3 and tutorial all finished.
-    %p
-      Thank you for having this tutorial.
-      You can make simple and stylish sequence diagram,
-      improve it by yourself with CSS/jQuery,
-      and easily share it.<br>
-      You are enough to use JUMLY. I'm happy that JUMLY help you contemplate
-      and shorten the time you make a presentation slide.
-      See other examples on the topbar to know JUMLY more.
-    %p
-      And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
-      Thank you so much for trying JUMLY.
-    %a.btn{"data-bind"=>"click:tutorial.finish"}Finish
+    %h4 #{i18n._ 'step3.finished.h'}
+    %p #{i18n._ 'step3.finished.d'}
+    %a.btn{"data-bind"=>"click:tutorial.finish"} #{i18n._ 'finished.btn.d'}
