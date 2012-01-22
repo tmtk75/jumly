@@ -11,63 +11,52 @@
     .container
       %section#full-sequence-diagram
         .page-header
-          %h1 Full sequence diagram <small>A web application sequence</small>
+          %h1 Full feature sequence diagram <small>A web application sequence</small>
         .row
-          .span4.columns
-            .desc.d-found
-              @found
-              %pre @found "User", ->
-            .desc.d-message
-              @message
-              %pre @message "call", "Server", ->
-            .desc.d-create
-              @create
-              %pre @create "Session", ->
-          .span12.columns
-            %script{type: "text/jumly+sequence"}
-              :plain
-                @found "User", ->
-                  @message "search", "Browser", ->
-                    @message "http request", "HTTP Server", ->
-                      @create "HTTP Session"
-                      @message "save state", "HTTP Session"
-                      @message "do something"
-                      @message "query", "Database", ->
-                      @reply "", "Browser"
-                    @loop @message "request resources", "HTTP Server", ->
-                      @alt {
-                        "[found]": -> @message "update", "Database"
-                        "[missing]": -> @message "scratch", "HTTP Session"
-                      }
-                    @ref "Rendering page"
-                    @reactivate "disconnect", "HTTP Server", ->
-                      @destroy "HTTP Session"
+          %script{type: "text/jumly+sequence"}
+            :plain
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @message "http request", "HTTP Server", ->
+                    @create "HTTP Session"
+                    @message "save state", "HTTP Session"
+                    @message "do something"
+                    @message "query", "Database", ->
+                    @reply "", "Browser"
+                  @loop @message "request resources", "HTTP Server", ->
+                    @alt {
+                      "[found]": -> @message "update", "Database"
+                      "[missing]": -> @message "scratch", "HTTP Session"
+                    }
+                  @ref "Rendering page"
+                  @reactivate "disconnect", "HTTP Server", ->
+                    @destroy "HTTP Session"
 
-                  @beforeCompose (e, d) ->
-                    d.user.iconify "actor"
-                    d.browser.iconify "view"
-                    d["http_session"].iconify "controller"
-                    d["http_server"].iconify "controller"
-                    d.database.iconify("entity").css("margin-left":-80)
-                    d["http_session"].lost()
-                  
-                  @afterCompose (e, d) ->
-                    f = (e) -> $(e.currentTarget).addClass "focused-hovered"
-                    g = (e) -> $(e.currentTarget).removeClass "focused-hovered"
-                    $(".object .name, .message .name").hover f, g
-                    h()
+                @beforeCompose (e, d) ->
+                  d.user.iconify "actor"
+                  d.browser.iconify "view"
+                  d["http_session"].iconify "controller"
+                  d["http_server"].iconify "controller"
+                  d.database.iconify("entity").css("margin-left":-80)
+                  d["http_session"].lost()
+                
+                @afterCompose (e, d) ->
+                  f = (e) -> $(e.currentTarget).addClass "focused-hovered"
+                  g = (e) -> $(e.currentTarget).removeClass "focused-hovered"
+                  $(".object .name, .message .name").hover f, g
+                  h()
 
-                h = ->
-                  $(".object:eq(0)").attr(title:"Found first<br/>Starts from here!").twipsy(trigger:"manual",placement:"left").twipsy("show")
-                  $(".message:eq(0)").attr(title:"Basic message").twipsy(trigger:"manual",placement:"below").twipsy("show")
-                  $(".create .name").attr(title:"Create message").twipsy(trigger:"manual",placement:"above").twipsy("show")
-                  $(".loop").attr(title:"Kind of fragment for loop").twipsy(trigger:"manual",placement:"left").twipsy("show")
-                  $(".object:eq(2) .icon-container").attr(title:"Iconified object").twipsy(trigger:"manual",placement:"right").twipsy("show")
-                  $(".message:eq(4)").attr(title:"Self call message").twipsy(trigger:"manual",placement:"left").twipsy("show")
-                  $(".return").css("margin-top":"-8px").attr(title:"Reply message").twipsy(trigger:"manual",placement:"above").twipsy("show")
-                  $(".alt:eq(0)").attr(title:"Alt fragment for usually 'if'").twipsy(trigger:"manual",placement:"above").twipsy("show")
-                  $(".ref").attr(title:"Refer to another sequence").twipsy(trigger:"manual",placement:"above").twipsy("show")
-                  $(".occurrence:eq(10)").attr(title:"Start new interactions").twipsy(trigger:"manual",placement:"left").twipsy("show")
-                  $(".lost .icon").attr(title:"Lost message").twipsy(trigger:"manual",placement:"left").twipsy("show")
-                  $(".destroy").attr(title:"Destory message").twipsy(trigger:"manual",placement:"below").twipsy("show")
+              h = ->
+                $(".object:eq(0)").attr(title:"Found first<br/>Starts from here!").twipsy(trigger:"manual",placement:"right").twipsy("show")
+                $(".message:eq(0)").attr(title:"Basic message").twipsy(trigger:"manual",placement:"below").twipsy("show")
+                $(".create .name").attr(title:"Create message").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                $(".loop").attr(title:"Kind of fragment for loop").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                $(".object:eq(2) .icon-container").attr(title:"Iconified object").twipsy(trigger:"manual",placement:"right").twipsy("show")
+                $(".message:eq(4)").attr(title:"Self call message").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                $(".return").css("margin-top":"-8px").attr(title:"Reply message").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                $(".alt:eq(0)").attr(title:"Alt fragment for usually 'if'").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                $(".ref").attr(title:"Refer to another sequence").twipsy(trigger:"manual",placement:"above").twipsy("show")
+                $(".occurrence:eq(10)").attr(title:"Start new interactions").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                $(".lost .icon").attr(title:"Lost message").twipsy(trigger:"manual",placement:"left").twipsy("show")
+                $(".destroy").attr(title:"Destory message").twipsy(trigger:"manual",placement:"below").twipsy("show")
 
