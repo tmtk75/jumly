@@ -32,4 +32,5 @@ JUMLY.ko =
         ex
 
 $ ->
-  ko.bindingHandlers.jumly = jumlyBind
+  if window.ko
+    ko.bindingHandlers.jumly = jumlyBind

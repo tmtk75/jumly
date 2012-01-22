@@ -13,7 +13,7 @@ CSS_BUILD_DIR = "#{BUILD_DIR}/stylesheets"
 
 namespace :compile do
   task :js do
-    sh "coffee --bare -c -o #{JS_BUILD_DIR} assets/javascripts/*.coffee"
+    sh "coffee -c -o #{JS_BUILD_DIR} assets/javascripts/*.coffee"
   end
   task :css do
     sh "sass --unix-newline --update --scss assets/stylesheets:#{CSS_BUILD_DIR}"
@@ -37,7 +37,7 @@ namespace :compress do
     minjs = ::YUI::JavaScriptCompressor.new.compress File.read "#{BUILD_DIR}/jumly.js"
     jsminpath = "#{BUILD_DIR}/jumly-#{VERSION}.min.js"
     open jsminpath, "w" do |f|
-      f.write "// jumly-#{VERSION}, tomotaka.sakuma 2011 copryright(c), all rights reserved.\n"
+      f.write "// jumly-#{VERSION}, tomotaka.sakuma 2011-#{Time.new.year} copyright(c), all rights reserved.\n"
       f.write minjs
     end
     sh "cp #{jsminpath} #{BUILD_DIR}/jumly.min.js"
