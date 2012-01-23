@@ -1,0 +1,168 @@
+# i18n resources
+example-1: {ja: サンプル-1}
+example-2: {ja: サンプル-2}
+example-3: {ja: サンプル-3}
+shorten w/ bit.ly: {ja: bit.lyでの短縮}
+using <img>: {ja: "&lt;img&gt;タグを使う"}
+tutorial step: {ja: ステップ}
+other examples: {ja: その他のサンプル}
+reference: {ja: リファレンス}
+tutorial: {ja: チュートリアルを開始する}
+help: {ja: ヘルプ}
+feedback: {ja: フィードバック}
+ask.tutorial.start: {en: "Would you like to start tutorial?", ja: チュートリアルを開始しますか？}
+link to share: {ja: 共有用URL}
+sandbox for sequence diagram: {ja: Sandbox for シーケンスダイアグラム}
+write jumlipt here, or click one of examples.: {ja: ここにJUMLIPTを入力します。もしくは画面上部のサンプルを選択してください。}
+languages: {ja: 言語}
+japanese: {ja: 日本語}
+3-step tutorial: {ja: 3ステップチュートリアル}
+welcome.h: {en: welcome!, ja: ようこそ！}
+welcome.d:
+  en: Thank you for your visiting to JUMLY.
+    Let's start 3-step tutorial.
+    To move to next step, <strong>click around me or type keydown</strong>.
+    After this, you can learn a little JUMLIPT, how to customize with jQuery/CSS, and share it.
+  ja: JUMLYお試しありがとうございます。 簡単な3ステップのチュートリアルを始めましょう。
+    次のステップに行くには、クリックするか下キーを押してください。
+    簡単なJUMLIPT、jQuery/CSSでのカスタマイズ方法、および共有の仕方を学びます。
+step1.h: {en: Step1 <small>Write in JUMLIPT.</small>, ja: ステップ1 <small>JUMLIPTを書いてみる</small>}
+step1.d:
+  en: Initially, Write a few JUMLIPT directives for a sequence diagram.
+    Here it's an one of general web application.
+  ja: 最初にシーケンスダイアグラムを描くいくつかJUMLIPTを書いてみます。一般的なウェブアプリケーションの相互作用です。
+
+step2.h: {en: Step2 <small>Styling with CSS and jQuery.</small>, ja: ステップ2 <small>CSSとjQueryで見た目をカスタマイズする</small>}
+step2.d: 
+  en: On JUMLY, if you know a little CSS and jQuery, you can modify the looks of diagram easily.
+    The second step is way to make your style with CSS and jQuery.
+  ja: JUMLYではCSSとjQueryで簡単に見た目を変更することができます。ステップ2ではその方法を紹介します。
+step3.h: {en: Step3 <small>Getting URL to share.</small>, ja: ステップ3 <small>共有用URLを作成する</small>}
+step3.d:
+  en: Last step, let you know how to share diagram you made.<br>
+    It's easy to share. <strong>Click the button at right-top</strong>, and
+    a modal dialog shows two URLs. One of them is raw link and another one is shortened with bit.ly.<br>
+    They are the URL to view diagram, and pass it to colleague!
+  ja: 最後のステップでは、あなたが描いたダイアグラムを他の人に見せるための方法を紹介します。
+      とても簡単です。<strong>画面右上のボタンをクリックしてください</strong>。
+      モーダルダイアログに2つのURLが表示されます。ひとつは生のURLで、もうひとつはbit.lyによる短縮URLです。
+      仲間にURLを教えて、あなたの描いたダイアグラムを共有しましょう！
+step1-1.h: {en: Step1-1, ja: ステップ1-1}
+step1-1.d:
+  en: Write a first JUMLIPT at the left textarea which background is light blue.<br>
+    (Click or down key to go next)
+  ja: 左のテキストエリアに最初のJUMLIPTを入力してみましょう。（クリックか下キーで次へ）
+step1-2.h: {en: Step1-2, ja: ステップ1-2}
+step1-2.d:
+  en: Wrote a JUMLIPT.<br/>
+      <code>@found</code> is a JUMLIPT directive to start a sequence diagram.<br>
+      "WebBrowser" was rendered above.<br>
+      Go ahead to next. (Up key to go back)
+  ja: <code>@found</code>JUMLIPTを入力しました。
+      <code>@found</code>は、シーケンスダイアグラムを開始するためのJUMLIPTディレクティブです。
+      "WebBrowser"が描かれたはずです。<br>
+      （上キーで戻る）
+step1-3.h: {en: Step1-3, ja: ステップ1-3}
+step1-3.d:
+  en: Appended <code>@message</code> directive.<br>
+      It makes a message. The first argument is the name of message,
+      and second one specifies the object name which is message's destination.
+      <hr>
+      See the second argument of <code>@found</code>.<br>
+      The <code>-></code> is a directive to keep its context.<br>
+      Go ahead to next to see another example.
+  ja: <code>@message</code>ディレクティブを追加しました。
+      これはメッセージをひとつ作成します。第1引数はメッセージ名、第2引数にはメッセージの対象オブジェクト名を指定します。
+step1-4.h: {en: Step1-4, ja: ステップ1-4}
+step1-4.d:
+  en: Appended two messages.<br>
+      One of them is self call message.<br>
+      It is made by only message name without second argument.<br>
+      Like this, insert line-break and indent (two-space is better) after <code>-></code>
+  ja: さらに2つのメッセージを追加しました。<br>
+      ひとつは自己呼び出しのメッセージで、@messageの第2引数を省略します。
+      もうひとつはさらに別のオブジェクトへのメッセージで、さきほどの自己呼び出しからのメッセージを作成しています。<br>
+      例のように@messageの最後の引数に<code>-></code>を与えることで、そのメッセージをコンテキストにすることができます。<br>
+      また、<code>-></code>の後は改行して2スペース分インデントするのが慣例です。
+step1-5.h: {en: Step1-5, ja: ステップ1-5}
+step1-5.d:
+  en: If you want a new message from WebBrowser,
+      you put a new <code>@message</code> directive from the context of WebBrowser like the left exapmle.
+  ja: WebBrowserからメッセージを描きたい場合は、左の例のように、そのコンテキストに@messageディレクティブを書きます。
+step1-6.h: {en: Step1 Finished, ja: ステップ1を終えました。}
+step1-6.d:
+  en: Now, you can make an interaction you want with JUMLY.<br>
+      Next time is step2, go ahead.
+  ja: あなたは簡単なシーケンスダイアグラムをJUMLYで描けるようになりました。
+      いろいろ試してみてください。
+      次はステップ2へ進みましょう。
+step2-1.h: {en: Step2-1, ja: ステップ2-1}
+step2-1.d:
+  en: Use a simple interaction as example.<br>
+      Try to make the font-style changed, more bolder.<br>
+      Go ahead.
+  ja: 例としてメッセージをひとつ含む簡単なシーケンスダイアグラムを使います。
+      オブジェクト名を太字にしてみましょう。
+step2-2.h: {en: Step2-2, ja: ステップ2-2}
+step2-2.d:
+  en: <code>@before (d)-></code> directive makes a context that you can receive a jQuery object.
+      The object is the HTMLDivElement for diagram.
+      If you change CSS property of it, diagram's appearance changes.
+  ja: <code>@before (d)-></code>ディレクティブはjQueryオブジェクトを受け取るコンテキストを作成します。
+      そのjQueryオブジェクトはダイアグラムのDiv要素です。
+      jQueryのcssメソッドでfont-weightをboldにすると、ダイアグラムの表示が変わります。
+step2-3.h: {en: Step2-3, ja: ステップ2-3}
+step2-3.d:
+  en: If you want simple looks, you can turn off some effects.<br>
+      JUMLY uses almost only CSS to rendering and effect.
+  ja: もし単純な表示を好むのであれば、それらの効果を無効にすることは簡単です。
+      JUMLYはほとんどの効果や表現をCSSを使ってるからです。
+step2-4.h: {en: Step2-4, ja: ステップ2-4}
+step2-4.d:
+  en: And it's sure you can modify the ownself diagram for backgroun-color, border, and or so.
+  ja: もちろんダイアグラム自体の背景色やボーダーを変更することも可能です。
+step2-5.h: {en: Step2 Finished, ja: ステップ2を終えました。}
+step2-5.d:
+  en: Now, you can make and decorate diagram as you want with JUMLY, CSS and jQuery.
+      Here is sandbox. Try scripting in many ways.<br>
+      Go ahead to step3.
+  ja: 今あなたはJUMLYを使ってシーケンスダイアグラムを作り、CSS/jQueryで装飾や見た目を変更できるようになりました。
+      ここはSandboxです。いろいろ試してみてください。<br>
+      ステップ3へ進みましょう。
+step3.finished.h: {en: Step3 and tutorial all finished., ja: ステップ3、そして全チュートリアル終えました。}
+step3.finished.d:
+  en: Thank you for having this tutorial.
+      You can make simple and stylish sequence diagram,
+      improve it by yourself with CSS/jQuery,
+      and easily share it.<br>
+      You are enough to use JUMLY. I'm happy that JUMLY help you contemplate
+      and shorten the time you make a presentation slide.
+      See other examples on the topbar to know JUMLY more.
+      <hr>
+      And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
+      Thank you so much for trying JUMLY.
+  ja: チュートリアルをご覧いただき、ありがとうございました。<br>
+      スタイリッシュなシーケンスダイアグラムを作り、見た目を調整して、URLで簡単に共有する。
+      あなたはもう十分にJUMLYを使えるはずです。
+      JUMLYがあなたの思考の手助け、プレゼンテーションの作成時間の短縮などに役立てば幸いです。<br>
+      よりJUMLYを知るには、画面上部のサンプルを御覧ください。
+      リファレンス、マニュアルは鋭意作成中です。<br>
+      ありがとうございました。
+finished.btn.d: {en: Finish, ja: チュートリアルを終了する}
+ask.yes.d: {en: Yes, ja: はい}
+ask.later.d: {en: Later, ja: 後で}
+ask.skip.d: {en: Skip, ja: チュートリアルをしない}
+ask.no.d: {en: No, ja: いいえ}
+help.d:
+  en: If you click one of [Examples], you get a sample <a href="/Reference.html#terminology-jumlipt">jumlipt</a> in [Input Jumplit] area.
+      At the same time, a diagram corresponding to the jumplipt is rendered in [Diagram appears] area.
+      If you click [Display URL to share], you get raw and shorten URL to view the diagram.
+  ja: ExamplesをクリックするとサンプルJUMLIPTと対応するダイアグラムを描画します。
+      Link To Shareボタンをクリックすると共有用のリンクを表示します。
+help.btn.close.d: {en: Close, ja: 閉じる}
+feedback.h: {en: Feedback <small>Thank you for your feedback.</small>, ja: フィードバック <small>ご意見をお聞かせください</small>}
+feedback.d: {en: "Could you send your feedback? Whatever you send makes me happy.", ja: あなたのフィードバックを送ってください。開発の励みになります。}
+show-url.h: {en: URL To Share, ja: 共有用URL}
+show-url.short.h: {en: Short URL, ja: 短縮URL}
+show-url.raw.h: {en: Raw URL, ja: オリジナルURL}
+show-url.btn.close.d: {en: Close, ja: 閉じる}
