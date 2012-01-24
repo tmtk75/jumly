@@ -151,8 +151,8 @@ Tutorial =
     #jwerty.key('↑,↑,↓,↓,←,→,←,→,b,a,↩', -> console.log "KONAMI")
 
   askTutorialToStart: -> $("#tutorial-ask").show()
-  start: (viewModel)->
-    unless $.cookie COOKEY
+  start: (viewModel, jumlipt)->
+    unless ($.cookie COOKEY) or jumlipt
       @askTutorialToStart()
     
   data1:
