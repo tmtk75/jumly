@@ -35,7 +35,8 @@
             %li.dropdown{"data-dropdown"=>"dropdown"}
               %a.dropdown-toggle #{i18n._ 'Languages'}
               %ul.dropdown-menu
-                %li <a href="TryJUMLY.ja">#{i18n._ 'Japanese'}</a>
+                %li <a href="TryJUMLY.en">#{i18n._ 'lang.english'}</a>
+                %li <a href="TryJUMLY.ja">#{i18n._ 'lang.japanese'}</a>
             %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">#{i18n._ 'Help'}</a>
             %li <a href="#" data-controls-modal="tryjumly-feedback" data-backdrop="static" data-keyboard="true">#{i18n._ 'Feedback'}</a>
     .container-fluid
@@ -74,7 +75,7 @@
       %p Rendering was succeeded.
 
     #auto-save-message.alert-message.info.hide{style:"position:absolute;right:2px"}
-      %p Auto-save.
+      %p #{i18n._ 'notify.save.d'}
 
     #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
     %script#show-URL{type:"text/html"}

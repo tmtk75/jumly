@@ -15,7 +15,8 @@ link to share: {ja: 共有用URL}
 sandbox for sequence diagram: {ja: Sandbox for シーケンスダイアグラム}
 write jumlipt here, or click one of examples.: {ja: ここにJUMLIPTを入力します。もしくは画面上部のサンプルを選択してください。}
 languages: {ja: 言語}
-japanese: {ja: 日本語}
+lang.english: {en: English, ja: 英語}
+lang.japanese: {en: Japanese, ja: 日本語}
 3-step tutorial: {ja: 3ステップチュートリアル}
 welcome.h: {en: welcome!, ja: ようこそ！}
 welcome.d:
@@ -167,3 +168,4 @@ show-url.h: {en: URL To Share, ja: 共有用URL}
 show-url.short.h: {en: Short URL, ja: 短縮URL}
 show-url.raw.h: {en: Raw URL, ja: オリジナルURL}
 show-url.btn.close.d: {en: Close, ja: 閉じる}
+notify.save.d: {en: Auto-save., ja: 保存しました。}
