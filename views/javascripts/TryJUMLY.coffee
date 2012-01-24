@@ -37,13 +37,17 @@ JUMLY.TryJUMLY =
         @ref "Tidy up book at shelf"
       
       @after (e, diag)->
-        page.twipsy("Bootstrap Tooltip", "right")
+        page.attr(title:"Bootstrap Tooltip")
+            .twipsy(placement:"right",trigger:'manual')
+            .twipsy('show')
         tiptext = '''
           Tooltip is better<br/>
           when note is exaggerated'''
         diag.find(".occurrence:eq(5)")
-            .twipsy(tiptext, "right")
-            .css("white-space":"nowrap")
+            .attr(title:tiptext)
+            .twipsy(html:true)
+            .twipsy(trigger:'manual',placement:"right")
+            .twipsy('show')
       """
     "sample-4":"""
       @found "You", ->

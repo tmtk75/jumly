@@ -18,7 +18,7 @@ class App < Sinatra::Base
   get '/'       do haml :"index.html" end
   get '/spec'   do haml :"../spec/index.html" end
   get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
-  get %r{/(.*?)\.([a-z]{2})} do |bn, ext| haml :"#{bn}", :locals=>mklocals(bn, ext) end
+  get %r{/(.*?)\.([a-z]{2})$} do |bn, ext| haml :"#{bn}", :locals=>mklocals(bn, ext) end
   get '/*' do |n| haml :"#{n}", :locals=>mklocals(n, "en") end
 
   class I18N
