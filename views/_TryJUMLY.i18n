@@ -69,7 +69,7 @@ step1-2.d:
   en: Appended <code>@message</code> directive.<br>
       It makes a message. The first argument is the name of message,
       and second one specifies the object name which is message's destination.
-      <hr>
+      <br><br>
       See the second argument of <code>@found</code>.<br>
       The <code>-></code> is a directive to keep its context.<br>
       Go ahead to next to see another example.
@@ -140,7 +140,7 @@ step3.finished.d:
       You are enough to use JUMLY. I'm happy that JUMLY help you contemplate
       and shorten the time you make a presentation slide.
       See other examples on the topbar to know JUMLY more.
-      <hr>
+      <br><br>
       And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
       Thank you so much for trying JUMLY.
   ja: チュートリアルをご覧いただき、ありがとうございました。<br>
