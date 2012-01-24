@@ -128,4 +128,7 @@ html.tutorial {
       background-color: rgba(0,128,192,0.25);
     }
   }
+  &.tutorial-1-0 {
+    .instruction {visibility:hidden;}
+  }
 }
