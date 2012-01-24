@@ -154,8 +154,10 @@
     viewModel =
       targetJumlipt: ko.observable initialJumlipt
       sampleRequired: (model, event)->
+        $(".twipsy").remove()
         model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
       tutorialRequired: (model, event)->
+        $(".twipsy").remove()
         a = $(event.target)
         model.targetJumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
       success: ->
