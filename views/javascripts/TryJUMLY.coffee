@@ -82,7 +82,7 @@ COOKEY = "JUMLY.Tutorial.step"
 Tutorial =
   bootup: (viewModel)->
     step0n = [null]
-    step1n = [null, 0, 1, 2, 3, 3]
+    step1n = [null, null, 0, 1, 2, 3, 3]  ## Number is key of data used in tutorial.
     step2n = [null, 0, 1, 2, 3, 3]
     step3n = [0]
     stepn = step0n.length + step1n.length + step2n.length + step3n.length - 1

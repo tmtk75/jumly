@@ -27,7 +27,7 @@
       
 
 .instructions.hide{"data-bind"=>"click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))"}
-  - [[0,1,2,3,4,5], [1,2,3,4,5], []].each_with_index do |steps, i|
+  - [[0,1,2,3,4,5,6], [1,2,3,4,5], []].each_with_index do |steps, i|
     - step = i + 1
     - steps.each do |sub|
       .instruction{"data-bind"=>"css:{active:tutorial.isIn(#{step},#{sub})}"}
