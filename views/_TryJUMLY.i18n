@@ -20,10 +20,11 @@ japanese: {ja: 日本語}
 welcome.h: {en: welcome!, ja: ようこそ！}
 welcome.d:
   en: Thank you for your visiting to JUMLY.
-    Let's start 3-step tutorial.
+    Let's start 3-step tutorial. It takes a few minutes to finish this. 
     To move to next step, <strong>click around me or type keydown</strong>.
     After this, you can learn a little JUMLIPT, how to customize with jQuery/CSS, and share it.
-  ja: JUMLYお試しありがとうございます。 簡単な3ステップのチュートリアルを始めましょう。
+  ja: JUMLYお試しありがとうございます。
+    簡単な3ステップのチュートリアルを始めましょう。このチュートリアルは数分で終わります。
     次のステップに行くには、クリックするか下キーを押してください。
     簡単なJUMLIPT、jQuery/CSSでのカスタマイズ方法、および共有の仕方を学びます。
 step1.h: {en: Step1 <small>Write in JUMLIPT.</small>, ja: ステップ1 <small>JUMLIPTを書いてみる</small>}
