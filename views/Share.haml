@@ -41,7 +41,8 @@
     switch b.t
       when 'raw' then directs = decodeURIComponent b.b
       else directs = Base64.decode b.b
-    tryUrl = "/TryJUMLY?b=\#{b.b}"
+    path = location.pathname.replace "Share", "TryJUMLY"
+    tryUrl = "\#{path}?b=\#{b.b}"
     $ ->
       try
         $(".alert-message.info").find(".content").html "<a href='\#{tryUrl}'>Click here to edit this.<a>"
