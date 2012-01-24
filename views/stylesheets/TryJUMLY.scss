@@ -91,7 +91,7 @@ $bg2:240;
   }
 }
 .tutorial-0-0 #tutorial,
-/*.tutorial-1-0 #tutorial,*/
+.tutorial-1-0 #tutorial,
 .tutorial-2-0 #tutorial,
 .tutorial-3-0 #tutorial {
   opacity:1;
@@ -123,9 +123,12 @@ html.tutorial {
       &.active {display:block;}
     }
   }
-  &.tutorial-1-0 {
+  &.tutorial-1-1 {
     textarea#jumlipt {
       background-color: rgba(0,128,192,0.25);
     }
+  }
+  &.tutorial-1-0 {
+    .instruction {visibility:hidden;}
   }
 }

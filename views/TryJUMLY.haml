@@ -187,11 +187,11 @@
       
       $("textarea").typing viewModel.typing
       $("#url-to-show").modal(backdrop:"static",keyboard:true).bind "show", ->
-        path = "/Share?b=\#{Base64.encode viewModel.targetJumlipt()}"
+        path = "/Share.#{i18n.ext}?b=\#{Base64.encode viewModel.targetJumlipt()}"
         longUrl = "\#{location.origin}\#{path}"
         viewModel.urlToShare.long longUrl
         JUMLY.TryJUMLY.bitly longUrl, (res)->
           console.error "bit.ly returns something wrong.", res if res.errorCode
           viewModel.urlToShare.short res.results[longUrl].shortUrl
 
-      JUMLY.TryJUMLY.Tutorial.start viewModel
+      JUMLY.TryJUMLY.Tutorial.start viewModel, qp.b

@@ -49,13 +49,13 @@ step3.d:
       とても簡単です。<strong>画面右上のボタンをクリックしてください</strong>。
       モーダルダイアログに2つのURLが表示されます。ひとつは生のURLで、もうひとつはbit.lyによる短縮URLです。
       仲間にURLを教えて、あなたの描いたダイアグラムを共有しましょう！
-step1-0.h: {en: Step1-1, ja: ステップ1-1}
-step1-0.d:
+step1-1.h: {en: Step1-1, ja: ステップ1-1}
+step1-1.d:
   en: Write a first JUMLIPT at the left textarea which background is light blue.<br>
     (Click or down key to go next)
   ja: 左のテキストエリアに最初のJUMLIPTを入力してみましょう。（クリックか下キーで次へ）
-step1-1.h: {en: Step1-2, ja: ステップ1-2}
-step1-1.d:
+step1-2.h: {en: Step1-2, ja: ステップ1-2}
+step1-2.d:
   en: Wrote a JUMLIPT.<br/>
       <code>@found</code> is a JUMLIPT directive to start a sequence diagram.<br>
       "WebBrowser" was rendered above.<br>
@@ -64,19 +64,19 @@ step1-1.d:
       <code>@found</code>は、シーケンスダイアグラムを開始するためのJUMLIPTディレクティブです。
       "WebBrowser"が描かれたはずです。<br>
       （上キーで戻る）
-step1-2.h: {en: Step1-3, ja: ステップ1-3}
-step1-2.d:
+step1-3.h: {en: Step1-3, ja: ステップ1-3}
+step1-3.d:
   en: Appended <code>@message</code> directive.<br>
       It makes a message. The first argument is the name of message,
       and second one specifies the object name which is message's destination.
-      <hr>
+      <br><br>
       See the second argument of <code>@found</code>.<br>
       The <code>-></code> is a directive to keep its context.<br>
       Go ahead to next to see another example.
   ja: <code>@message</code>ディレクティブを追加しました。
       これはメッセージをひとつ作成します。第1引数はメッセージ名、第2引数にはメッセージの対象オブジェクト名を指定します。
-step1-3.h: {en: Step1-4, ja: ステップ1-4}
-step1-3.d:
+step1-4.h: {en: Step1-4, ja: ステップ1-4}
+step1-4.d:
   en: Appended two messages.<br>
       One of them is self call message.<br>
       It is made by only message name without second argument.<br>
@@ -86,13 +86,13 @@ step1-3.d:
       もうひとつはさらに別のオブジェクトへのメッセージで、さきほどの自己呼び出しからのメッセージを作成しています。<br>
       例のように@messageの最後の引数に<code>-></code>を与えることで、そのメッセージをコンテキストにすることができます。<br>
       また、<code>-></code>の後は改行して2スペース分インデントするのが慣例です。
-step1-4.h: {en: Step1-5, ja: ステップ1-5}
-step1-4.d:
+step1-5.h: {en: Step1-5, ja: ステップ1-5}
+step1-5.d:
   en: If you want a new message from WebBrowser,
       you put a new <code>@message</code> directive from the context of WebBrowser like the left exapmle.
   ja: WebBrowserからメッセージを描きたい場合は、左の例のように、そのコンテキストに@messageディレクティブを書きます。
-step1-5.h: {en: Step1 Finished, ja: ステップ1を終えました。}
-step1-5.d:
+step1-6.h: {en: Step1 Finished, ja: ステップ1を終えました。}
+step1-6.d:
   en: Now, you can make an interaction you want with JUMLY.<br>
       Next time is step2, go ahead.
   ja: あなたは簡単なシーケンスダイアグラムをJUMLYで描けるようになりました。
@@ -140,7 +140,7 @@ step3.finished.d:
       You are enough to use JUMLY. I'm happy that JUMLY help you contemplate
       and shorten the time you make a presentation slide.
       See other examples on the topbar to know JUMLY more.
-      <hr>
+      <br><br>
       And also, check out the blog, RSS feed and the repository in order to see latest news for JUMLY.
       Thank you so much for trying JUMLY.
   ja: チュートリアルをご覧いただき、ありがとうございました。<br>
@@ -154,7 +154,7 @@ finished.btn.d: {en: Finish, ja: チュートリアルを終了する}
 ask.yes.d: {en: Yes, ja: はい}
 ask.later.d: {en: Later, ja: 後で}
 ask.skip.d: {en: Skip, ja: チュートリアルをしない}
-ask.no.d: {en: No, ja: いいえ}
+ask.no.d: {en: 'No', ja: いいえ}
 help.d:
   en: If you click one of [Examples], you get a sample <a href="/Reference.html#terminology-jumlipt">jumlipt</a> in [Input Jumplit] area.
       At the same time, a diagram corresponding to the jumplipt is rendered in [Diagram appears] area.

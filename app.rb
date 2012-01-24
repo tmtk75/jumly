@@ -23,6 +23,7 @@ class App < Sinatra::Base
 
   class I18N
     require 'yaml'
+    attr :ext
     def initialize(bn, ext)
       @res = {}
       @bn = bn
