@@ -132,3 +132,29 @@ html.tutorial {
     .instruction {visibility:hidden;}
   }
 }
+
+.lightbox-background {
+  background-color:rgba(64,64,64,0.8);
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:10000;
+  .fixed.messagebox {
+    color:white;
+    font-weight:normal;
+    //text-shadow:1px 0px gray;
+    margin-top:128px;
+    .inner {
+      h1,h2,h3 {color:white;}
+      padding:1em;
+      border-radius:5px;
+      margin:auto;
+      width:512px;
+      height:128px;
+      background-color:rgba(32,32,32,1);
+      box-shadow: 3px 3px 3px rgba(16,16,16,0.5);
+    }
+  }
+}
+.unsupported {
+  display:block;
+}

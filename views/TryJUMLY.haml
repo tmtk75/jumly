@@ -60,6 +60,12 @@
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
     
+    .lightbox-background.hide{"data-bind"=>"css:suppressWithBrowser"}
+      .fixed.messagebox
+        .inner
+          %h2 #{i18n._ 'Caution.'}
+          %p #{i18n._ 'caution.browser.d'}
+
     .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
     %script#alert-error{type:"text/html"}
       %h3 Error
@@ -177,6 +183,9 @@
           $("#auto-save-message").fadeIn().trigger "show"
       disqusOpened: ko.observable false
       openDisqus: -> @disqusOpened !@disqusOpened()
+      suppressWithBrowser: (->
+        b = navigator.userAgent.match /webkit|opera/i
+        unsupported:!b, hide:b)()
 
     viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
     
