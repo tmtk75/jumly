@@ -63,10 +63,8 @@
     .lightbox-background.hide{"data-bind"=>"css:suppressWithBrowser"}
       .fixed.messagebox
         .inner
-          %h2 Caution.
-          %p
-            JUMLY supports Webkit-based web browser like Google Chrome and Safari, and partially Opera.
-            Also It's being developed and tested by mainly RockMelt.
+          %h2 #{i18n._ 'Caution.'}
+          %p #{i18n._ 'caution.browser.d'}
 
     .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
     %script#alert-error{type:"text/html"}

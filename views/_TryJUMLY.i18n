@@ -169,3 +169,10 @@ show-url.short.h: {en: Short URL, ja: 短縮URL}
 show-url.raw.h: {en: Raw URL, ja: オリジナルURL}
 show-url.btn.close.d: {en: Close, ja: 閉じる}
 notify.save.d: {en: Auto-save., ja: 保存しました。}
+caution.browser.d:
+  en: JUMLY supports WebKit-based web browser like Google Chrome and Safari, and partially Opera.
+      Also It's being developed and tested by mainly RockMelt.<br>
+      Launch one of appropriate browsers and access to same URL.
+  ja: JUMLYは現在Google ChromeやSafariなどのWebKitベースのブラウザ、もしくは部分的にOperaをサポートしています。
+      また開発・テストは主にRockMeltで行われています。<br>
+      対応しているブラウザを起動して、同じURLにアクセスしてください。
