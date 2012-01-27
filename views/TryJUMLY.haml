@@ -51,7 +51,9 @@
           <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
           <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
         #jumly-buttons
-          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} #{i18n._ 'Link To Share'}
+          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"}
+            #{i18n._ 'Link To Share'}
+            %img{src:"/assets/ic_up.png",width:"20px",style:"text-align:middle"}
       .row
         .span1.columns{style:"width:26px;"}
           %img{src:"/assets/ic_refresh.png",width:"24px"}
