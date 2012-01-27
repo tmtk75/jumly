@@ -53,7 +53,10 @@
         #jumly-buttons
           %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"} #{i18n._ 'Link To Share'}
       .row
-        .span7.columns
+        .span1.columns{style:"width:26px;"}
+          %img{src:"/assets/ic_refresh.png",width:"24px"}
+          %img{src:"/assets/ic_settings.png",width:"24px"}
+        .span7.columns{style:"margin-left:0px;"}
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
         .span9.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
