@@ -4,12 +4,16 @@ $(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".al
 $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
 
 class LocalStorage
-  constructor: (@prefix = "JUMLY")->
+  @_spawn_ = (name, _kind = "string")->
+    (val, kind = _kind)->
+      key = "#{@prefix}#{name}"
+      s = window.localStorage
+      unless val then s.getItem key else s.setItem key, val
 
-LocalStorage::jumlipt = (val)->
-  key = "#{@prefix}.jumlipt"
-  return window.localStorage.getItem key unless val
-  window.localStorage.setItem key, val
+  constructor: (@prefix = "JUMLY.")->
+    key = "jumlipt"
+    this[key] = LocalStorage._spawn_ key
+    
 
 _requireSample = (model, event)->
   $(".twipsy").remove()
@@ -29,7 +33,7 @@ _error = (reason)->
   viewModel.errorReason reason
   $(".alert-message").hide().filter(".error").show()
 
-storage = new LocalStorage
+storage = new LocalStorage 
 
 _stop = (e)->
   storage.jumlipt viewModel.targetJumlipt()
