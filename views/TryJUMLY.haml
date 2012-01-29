@@ -57,7 +57,7 @@
           %img{src:"/assets/ic_settings.png",width:"24px"}
         .span7.columns{style:"margin-left:0px;"}
           %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
-        .span9.columns
+        .span8.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:success,error:error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
     .bottombar
@@ -148,6 +148,7 @@
   <script src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js' type='text/javascript'></script><script type='text/javascript' charset='utf-8'>tfb.account='jumly1';tfb.label='follow-me';tfb.color='#404040';tfb.side ='r';tfb.top=136;tfb.showbadge();</script>
   %script{src:"http://static.evernote.com/noteit.js"}
   %script{src:"#{$js_dir}/base64.js"}
+  %script{src:"#{$js_dir}/bitly.js"}
   %script{src:"#{$js_dir}/TryJUMLY.Tutorial.js"}
   :coffeescript
     JUMLY.TryJUMLY.lang = "#{i18n.ext}"
