@@ -1,8 +1,4 @@
 ## (c)copyright 2011-2012, Tomotaka Sakuma all rights reserved.
-$(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
-$(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
-$(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
-
 _requireSample = (model, event)->
   $(".twipsy").remove()
   model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
@@ -46,6 +42,10 @@ viewModel =
 viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
 
 JUMLY.TryJUMLY.Tutorial.bootup viewModel
+
+$(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000
+$(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
+$(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
 
 $ ->
   ko.applyBindings viewModel, $("body")[0]
