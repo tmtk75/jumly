@@ -132,5 +132,3 @@ Tutorial =
              ,"border-color":"rgba(0,128,192,0.8)")'''
              
 JUMLY.TryJUMLY.Tutorial = Tutorial
-$ ->
-  $("*[rel=twipsy]").twipsy(trigger:'manual',html:true).twipsy('show')
