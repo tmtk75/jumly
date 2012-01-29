@@ -6,7 +6,6 @@ $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").mo
 storage = window.localStorage
 storeKey = "TryJUMLY.sequence.jumlipt"
 qp = JUMLY.TryJUMLY.utils.queryparams()
-initialJumlipt = (if qp.b then Base64.decode qp.b else storage.getItem storeKey) || ""
 
 _requireSample = (model, event)->
   $(".twipsy").remove()
@@ -32,6 +31,7 @@ _stop = (e)->
 
 _openDisqus = -> @disqusOpened !@disqusOpened()
 
+initialJumlipt = (if qp.b then Base64.decode qp.b else storage.getItem storeKey) || ""
 viewModel =
   targetJumlipt: ko.observable initialJumlipt
   errorReason: ko.observable {}
