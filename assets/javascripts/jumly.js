@@ -10,3 +10,4 @@
 //= require deployment
 //= require jquery-jumly
 //= require knockout-jumly
+//= require lstorage

@@ -3,15 +3,6 @@ $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOu
 $(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
 $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
 
-class LocalStorage
-  constructor: (props, @prefix = "JUMLY.")->
-    this[key] = LocalStorage._spawn_ key for key in props
-  @_spawn_ = (name, _kind = "string")->
-    (val, kind = _kind)->
-      key = "#{@prefix}#{name}"
-      s = window.localStorage
-      unless val then s.getItem key else s.setItem key, val
-
 _requireSample = (model, event)->
   $(".twipsy").remove()
   model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
@@ -30,7 +21,7 @@ _error = (reason)->
   viewModel.errorReason reason
   $(".alert-message").hide().filter(".error").show()
 
-storage = new LocalStorage ["jumlipt"]
+storage = new JUMLY.LocalStorage ["jumlipt"]
 
 _stop = (e)->
   storage.jumlipt viewModel.targetJumlipt()
