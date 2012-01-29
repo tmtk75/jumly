@@ -57,12 +57,13 @@ $ ->
   $("#url-to-show")
     .modal(backdrop:"static",keyboard:true)
     .bind "show", ->
-      path = "/Share.#{i18n.ext}?b=\#{Base64.encode viewModel.targetJumlipt()}"
-      longUrl = "\#{location.origin}\#{path}"
+      path = "/Share.#{JUMLY.TryJUMLY.lang}?b=#{Base64.encode viewModel.targetJumlipt()}"
+      longUrl = "#{location.origin}#{path}"
       viewModel.urlToShare.long longUrl
-      JUMLY.TryJUMLY.bitly url:longUrl,
-        success:-> viewModel.urlToShare.short res.results[longUrl].shortUrl
-        failure:-> console.error "bit.ly returns something wrong.", res if res.errorCode
+      JUMLY.TryJUMLY.bitly
+        url:longUrl
+        success:(res)-> viewModel.urlToShare.short res.results[longUrl].shortUrl
+        failure:(res)-> console.error "bit.ly returns something wrong.", res
 
   JUMLY.TryJUMLY.Tutorial.start viewModel, qp.b
 
