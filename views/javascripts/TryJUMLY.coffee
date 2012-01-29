@@ -3,8 +3,13 @@ $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOu
 $(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
 $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
 
-storage = window.localStorage
-storeKey = "TryJUMLY.sequence.jumlipt"
+class LocalStorage
+  constructor: (@prefix = "JUMLY")->
+
+LocalStorage::jumlipt = (val)->
+  key = "#{@prefix}.jumlipt"
+  return window.localStorage.getItem key unless val
+  window.localStorage.setItem key, val
 
 _requireSample = (model, event)->
   $(".twipsy").remove()
@@ -24,15 +29,17 @@ _error = (reason)->
   viewModel.errorReason reason
   $(".alert-message").hide().filter(".error").show()
 
+storage = new LocalStorage
+
 _stop = (e)->
-  storage.setItem storeKey, viewModel.targetJumlipt()
+  storage.jumlipt viewModel.targetJumlipt()
   $("#auto-save-message").fadeIn().trigger "show"
 
 _openDisqus = -> @disqusOpened !@disqusOpened()
 
 qp = JUMLY.TryJUMLY.utils.queryparams()
 viewModel =
-  targetJumlipt: ko.observable ((if qp.b then Base64.decode qp.b else storage.getItem storeKey) || "")  # Initial JUMIPT value
+  targetJumlipt: ko.observable ((if qp.b then Base64.decode qp.b else storage.jumlipt()) || "")  # Initial JUMIPT value
   errorReason: ko.observable {}
   urlToShare: {short:(ko.observable "..."), long:(ko.observable "...")}
   disqusOpened: ko.observable false
