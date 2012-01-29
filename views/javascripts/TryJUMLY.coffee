@@ -47,20 +47,19 @@ $(document).on "show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOu
 $(document).on "click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide()
 $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide'
 
+$("#url-to-show")
+  .modal(backdrop:"static",keyboard:true)
+  .bind "show", ->
+    path = "/Share.#{JUMLY.TryJUMLY.lang}?b=#{Base64.encode viewModel.targetJumlipt()}"
+    longUrl = "#{location.origin}#{path}"
+    viewModel.urlToShare.long longUrl
+    JUMLY.TryJUMLY.bitly
+      url:longUrl
+      success:(res)-> viewModel.urlToShare.short res.results[longUrl].shortUrl
+      failure:(res)-> console.error "bit.ly returns something wrong.", res
+
+$("textarea").typing {delay:5000, stop:_stop}
+
 $ ->
   ko.applyBindings viewModel, $("body")[0]
-  
-  $("textarea").typing {delay:5000, stop:_stop}
-  $("#url-to-show")
-    .modal(backdrop:"static",keyboard:true)
-    .bind "show", ->
-      path = "/Share.#{JUMLY.TryJUMLY.lang}?b=#{Base64.encode viewModel.targetJumlipt()}"
-      longUrl = "#{location.origin}#{path}"
-      viewModel.urlToShare.long longUrl
-      JUMLY.TryJUMLY.bitly
-        url:longUrl
-        success:(res)-> viewModel.urlToShare.short res.results[longUrl].shortUrl
-        failure:(res)-> console.error "bit.ly returns something wrong.", res
-
   JUMLY.TryJUMLY.Tutorial.start viewModel, qp.b
-
