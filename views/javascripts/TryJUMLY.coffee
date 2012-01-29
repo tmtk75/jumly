@@ -5,8 +5,7 @@ $(document).on "click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").mo
 
 storage = window.localStorage
 storeKey = "TryJUMLY.sequence.jumlipt"
-qp = {}
-qp[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
+qp = JUMLY.TryJUMLY.utils.queryparams()
 initialJumlipt = (if qp.b then Base64.decode qp.b else storage.getItem storeKey) || ""
 
 _requireSample = (model, event)->
