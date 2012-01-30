@@ -14,26 +14,28 @@ _success = ->
     a.filter(".success").show().trigger "show"
 
 _error = (reason)->
-  viewModel.errorReason reason
+  viewModel.jumly.errorReason reason
   $(".alert-message").hide().filter(".error").show()
 
 storage = new JUMLY.LocalStorage ["jumlipt"]
 
-_openDisqus = -> @disqusOpened !@disqusOpened()
+_toggleDisqus = -> @disqusOpened !@disqusOpened()
 
 givenJumlipt = JUMLY.TryJUMLY.utils.queryparams().b
 
 viewModel =
-  errorReason: ko.observable {}
   urlToShare: {short:(ko.observable "..."), long:(ko.observable "...")}
   disqusOpened: ko.observable false
 
-  sampleRequired: _requireSample
-  tutorialRequired: _requireTutorialData
-  openDisqus: _openDisqus
+  want: ## User Needs.
+    toCommentOnDisqus: _toggleDisqus
+    toRequireSampleJumlipt: _requireSample
+    toRequireJumliptOfTutorial: _requireTutorialData
+    
   suppressWithBrowser: (-> b = navigator.userAgent.match /webkit|opera/i; unsupported:!b, hide:b)()
   jumly:
     jumlipt: ko.observable ((if givenJumlipt then Base64.decode givenJumlipt else storage.jumlipt()) || "")  # Initial JUMIPT value
+    errorReason: ko.observable {}
     success:_success
     error:_error
 

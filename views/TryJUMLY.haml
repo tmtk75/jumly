@@ -11,8 +11,8 @@
       .topbar-inner
         .container-fluid
           %h3 <a href="/#">JUMLY</a>
-          - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:sampleRequired'>#{t}</a>" end
-          - def _tr(n0, n1, t) "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:tutorialRequired'>#{t}</a>" end
+          - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:want.toRequireSampleJumlipt'>#{t}</a>" end
+          - def _tr(n0, n1, t) "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:want.toRequireJumliptOfTutorial'>#{t}</a>" end
           %ul.nav
             %li #{_sr 1, i18n._('Example-1')}
             %li #{_sr 2, i18n._('Example-2')}
@@ -43,7 +43,7 @@
       .page-header
         %h1 Try JUMLY <small>#{i18n._ 'Sandbox for sequence Diagram'}</small>
         #3rd-party-buttons{style:"position:fixed;right:100px;top:44px;"}
-          %img{height:"20px",style:"margin-bottom:-4px",src:"/assets/ic_chats.png","data-bind"=>"click:openDisqus"}
+          %img{height:"20px",style:"margin-bottom:-4px",src:"/assets/ic_chats.png","data-bind"=>"click:want.toCommentOnDisqus"}
           <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
           <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
           <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
@@ -70,7 +70,7 @@
           %h2 #{i18n._ 'Caution.'}
           %p #{i18n._ 'caution.browser.d'}
 
-    .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:errorReason}'}
+    .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:jumly.errorReason}'}
     %script#alert-error{type:"text/html"}
       %h3 Error
       %p
