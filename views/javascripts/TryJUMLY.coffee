@@ -10,8 +10,7 @@ _requireTutorialData = (model, event)->
 
 _success = ->
   a = $(".alert-message").hide()
-  if $(".diagram > *").length > 0
-    a.filter(".success").show().trigger "show"
+  a.filter(".success").show().trigger "show" if $(".diagram > *").length > 0
 
 _error = (reason)->
   viewModel.jumly.errorReason reason

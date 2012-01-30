@@ -23,7 +23,7 @@ Tutorial =
         $("#tutorial, .instructions").show()
       reset: ->
         save 0
-        viewModel.targetJumlipt ""
+        viewModel.jumly.jumlipt ""
       toNext: ->
         n = step()
         save n + 1 if n < stepn
@@ -46,9 +46,9 @@ Tutorial =
     steps = (prev = (range prev, n) for n in [step0n, step1n, step2n, step3n].map (n)-> n.length)
 
     stepHandlers =
-      1: (n)-> viewModel.targetJumlipt (Tutorial.data1[step1n[n]] || "")
-      2: (n)-> viewModel.targetJumlipt (Tutorial.data2[step2n[n]] || "")
-      3: (n)-> viewModel.targetJumlipt (Tutorial.data3[step3n[n]] || "")
+      1: (n)-> viewModel.jumly.jumlipt (Tutorial.data1[step1n[n]] || "")
+      2: (n)-> viewModel.jumly.jumlipt (Tutorial.data2[step2n[n]] || "")
+      3: (n)-> viewModel.jumly.jumlipt (Tutorial.data3[step3n[n]] || "")
     tutorial.chap = ko.dependentObservable ->
       n = step()
       isIn = (r, v)-> r[0] <= v <= r[1]
