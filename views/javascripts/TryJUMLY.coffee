@@ -33,11 +33,10 @@ viewModel =
   disqusOpened: ko.observable false
 
   sampleRequired: _requireSample
-  tutorialRequired: _requireTutorialData 
-  success: _success 
-  error: _error
+  tutorialRequired: _requireTutorialData
   openDisqus: _openDisqus
   suppressWithBrowser: (-> b = navigator.userAgent.match /webkit|opera/i; unsupported:!b, hide:b)()
+  jumly: {success:_success, error:_error}
 
 viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
 
