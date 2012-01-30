@@ -26,13 +26,13 @@ givenJumlipt = JUMLY.TryJUMLY.utils.queryparams().b
 viewModel =
   urlToShare: {short:(ko.observable "..."), long:(ko.observable "...")}
   disqusOpened: ko.observable false
+  cssStylesOfBrowser: ((ua)-> b = ua.match /webkit|opera/i; unsupported:!b, hide:b)(navigator.userAgent) ## Returns object which ko css binding requires.
 
   want: ## User Needs.
     toCommentOnDisqus: _toggleDisqus
     toRequireSampleJumlipt: _requireSample
     toRequireJumliptOfTutorial: _requireTutorialData
-    
-  suppressWithBrowser: ((ua)-> b = ua.match /webkit|opera/i; unsupported:!b, hide:b)(navigator.userAgent)
+
   jumly:
     jumlipt: ko.observable ((if givenJumlipt then Base64.decode givenJumlipt else storage.jumlipt()) || "")  # Initial JUMIPT value
     errorReason: ko.observable {}
