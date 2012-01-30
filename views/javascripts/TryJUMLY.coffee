@@ -32,7 +32,7 @@ viewModel =
     toRequireSampleJumlipt: _requireSample
     toRequireJumliptOfTutorial: _requireTutorialData
     
-  suppressWithBrowser: (-> b = navigator.userAgent.match /webkit|opera/i; unsupported:!b, hide:b)()
+  suppressWithBrowser: ((ua)-> b = ua.match /webkit|opera/i; unsupported:!b, hide:b)(navigator.userAgent)
   jumly:
     jumlipt: ko.observable ((if givenJumlipt then Base64.decode givenJumlipt else storage.jumlipt()) || "")  # Initial JUMIPT value
     errorReason: ko.observable {}
