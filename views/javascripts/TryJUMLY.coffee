@@ -51,11 +51,25 @@ fillURLtoShare = ->
     success:(res)-> viewModel.urlToShare.short res.results[longUrl].shortUrl
     failure:(res)-> console.error "bit.ly returns something wrong.", res
 
+fillSnippet = (e)->
+  a = $("#jumlipt").val()
+  $("textarea", e.target).val """
+    <link href="http://tmtk75.github.com/jumly/latest/jumly.min.css" rel="stylesheet"/>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js"></script>
+    <script src="http://tmtk75.github.com/jumly/latest/jumly.min.js"></script>
+    <script type="text/jumly+sequence">
+    #{a}
+    </script>
+  """
+
 $(document).on("show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000)
            .on("click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide())
            .on("click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide')
 $("#url-to-show").modal(backdrop:"static",keyboard:true)
                  .bind "show", fillURLtoShare
+$("#jumly-snippet").modal(backdrop:"static",keyboard:true)
+                   .bind "show", fillSnippet
 saveAndNotice = (e)->
   storage.jumlipt viewModel.jumly.jumlipt()
   $("#auto-save-message").fadeIn().trigger "show"

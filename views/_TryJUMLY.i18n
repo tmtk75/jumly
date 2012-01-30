@@ -176,3 +176,8 @@ caution.browser.d:
   ja: JUMLYは現在Google ChromeやSafariなどのWebKitベースのブラウザ、もしくは部分的にOperaをサポートしています。
       また開発・テストは主にRockMeltで行われています。<br>
       対応しているブラウザを起動して、同じURLにアクセスしてください。
+show-snippet.h: {en: Snippet for the diagram, ja: コードスニペット}
+show-snippet.d:
+  en: Copy this and paste in the place of your document where you want.
+  ja: 下記のコードを表示したい場所にコピー＆ペーストしてください。
+show-snippet.btn.close.d: {en: Close, ja: 閉じる}
