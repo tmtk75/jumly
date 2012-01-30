@@ -25,7 +25,8 @@ _stop = (e)->
 
 _openDisqus = -> @disqusOpened !@disqusOpened()
 
-qp = JUMLY.TryJUMLY.utils.queryparams()
+givenJumlipt = JUMLY.TryJUMLY.utils.queryparams().b
+
 viewModel =
   errorReason: ko.observable {}
   urlToShare: {short:(ko.observable "..."), long:(ko.observable "...")}
@@ -36,7 +37,7 @@ viewModel =
   openDisqus: _openDisqus
   suppressWithBrowser: (-> b = navigator.userAgent.match /webkit|opera/i; unsupported:!b, hide:b)()
   jumly:
-    jumlipt: ko.observable ((if qp.b then Base64.decode qp.b else storage.jumlipt()) || "")  # Initial JUMIPT value
+    jumlipt: ko.observable ((if givenJumlipt then Base64.decode givenJumlipt else storage.jumlipt()) || "")  # Initial JUMIPT value
     success:_success
     error:_error
 
@@ -62,4 +63,4 @@ $("textarea").typing {delay:5000, stop:_stop}
 
 $ ->
   ko.applyBindings viewModel, $("body")[0]
-  JUMLY.TryJUMLY.Tutorial.start viewModel, qp.b
+  JUMLY.TryJUMLY.Tutorial.start viewModel, givenJumlipt
