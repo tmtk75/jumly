@@ -1,12 +1,12 @@
 ## (c)copyright 2011-2012, Tomotaka Sakuma all rights reserved.
 _requireSample = (model, event)->
   $(".twipsy").remove()
-  model.targetJumlipt JUMLY.TryJUMLY.samples[event.target.id]
+  model.jumly.jumlipt JUMLY.TryJUMLY.samples[event.target.id]
     
 _requireTutorialData = (model, event)->
   $(".twipsy").remove()
   a = $(event.target)
-  model.targetJumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
+  model.jumly.jumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
 
 _success = ->
   a = $(".alert-message").hide()
@@ -20,14 +20,13 @@ _error = (reason)->
 storage = new JUMLY.LocalStorage ["jumlipt"]
 
 _stop = (e)->
-  storage.jumlipt viewModel.targetJumlipt()
+  storage.jumlipt viewModel.jumly.jumlipt()
   $("#auto-save-message").fadeIn().trigger "show"
 
 _openDisqus = -> @disqusOpened !@disqusOpened()
 
 qp = JUMLY.TryJUMLY.utils.queryparams()
 viewModel =
-  targetJumlipt: ko.observable ((if qp.b then Base64.decode qp.b else storage.jumlipt()) || "")  # Initial JUMIPT value
   errorReason: ko.observable {}
   urlToShare: {short:(ko.observable "..."), long:(ko.observable "...")}
   disqusOpened: ko.observable false
@@ -36,14 +35,17 @@ viewModel =
   tutorialRequired: _requireTutorialData
   openDisqus: _openDisqus
   suppressWithBrowser: (-> b = navigator.userAgent.match /webkit|opera/i; unsupported:!b, hide:b)()
-  jumly: {success:_success, error:_error}
+  jumly:
+    jumlipt: ko.observable ((if qp.b then Base64.decode qp.b else storage.jumlipt()) || "")  # Initial JUMIPT value
+    success:_success
+    error:_error
 
-viewModel.diagram = JUMLY.ko.dependentObservable viewModel.targetJumlipt, 'sequence'
+viewModel.diagram = JUMLY.ko.dependentObservable viewModel.jumly.jumlipt, 'sequence'
 
 JUMLY.TryJUMLY.Tutorial.bootup viewModel
 
 fillURLtoShare = ->
-  path = "/Share.#{JUMLY.TryJUMLY.lang}?b=#{Base64.encode viewModel.targetJumlipt()}"
+  path = "/Share.#{JUMLY.TryJUMLY.lang}?b=#{Base64.encode viewModel.jumly.jumlipt()}"
   longUrl = "#{location.origin}#{path}"
   viewModel.urlToShare.long longUrl
   JUMLY.TryJUMLY.bitly

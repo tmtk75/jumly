@@ -56,7 +56,7 @@
           %img{src:"/assets/ic_refresh.png",width:"24px"}
           %img{src:"/assets/ic_settings.png",width:"24px"}
         .span7.columns{style:"margin-left:0px;"}
-          %textarea#jumlipt{"data-bind"=>"value:targetJumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
+          %textarea#jumlipt{"data-bind"=>"value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
         .span8.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:jumly.success,error:jumly.error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
