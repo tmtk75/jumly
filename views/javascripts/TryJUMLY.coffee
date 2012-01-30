@@ -19,10 +19,6 @@ _error = (reason)->
 
 storage = new JUMLY.LocalStorage ["jumlipt"]
 
-_stop = (e)->
-  storage.jumlipt viewModel.jumly.jumlipt()
-  $("#auto-save-message").fadeIn().trigger "show"
-
 _openDisqus = -> @disqusOpened !@disqusOpened()
 
 givenJumlipt = JUMLY.TryJUMLY.utils.queryparams().b
@@ -59,7 +55,10 @@ $(document).on("show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOu
            .on("click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide')
 $("#url-to-show").modal(backdrop:"static",keyboard:true)
                  .bind "show", fillURLtoShare
-$("textarea").typing {delay:5000, stop:_stop}
+saveAndNotice = (e)->
+  storage.jumlipt viewModel.jumly.jumlipt()
+  $("#auto-save-message").fadeIn().trigger "show"
+$("textarea").typing delay:5000, stop:saveAndNotice
 
 $ ->
   ko.applyBindings viewModel, $("body")[0]
