@@ -20,6 +20,7 @@ class App < Sinatra::Base
   get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
   get '/README' do markdown :"../README" end
   get %r{/(.*?)\.([a-z]{2})$} do |bn, ext| haml :"#{bn}", :locals=>mklocals(bn, ext) end
+  get '/*.html' do |n| File.read "./views/#{n}.html" end 
   get '/*' do |n| haml :"#{n}", :locals=>mklocals(n, "en") end
 
   class I18N
