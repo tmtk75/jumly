@@ -52,14 +52,9 @@
           %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"}
             #{i18n._ 'Link To Share'}
       .row
-        .span1.columns{style:"width:26px;"}
-          %img{src:"/assets/ic_refresh.png",width:"24px"}
-          %a{"data-controls-modal"=>"jumly-snippet","data-bind"=>"click:want.toShowSnippet"}
-            %img{src:"/assets/ic_archive.png",width:"24px"}
-          %img{src:"/assets/ic_settings.png",width:"24px"}
-        .span7.columns{style:"margin-left:0px;"}
+        .span7
           %textarea#jumlipt{"data-bind"=>"value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
-        .span8.columns
+        .span9.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:jumly.success,error:jumly.error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
     .bottombar
