@@ -9,12 +9,12 @@ _requireTutorialData = (model, event)->
   model.jumly.jumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
 
 _success = ->
-  a = $(".alert-message").hide()
-  a.filter(".success").show().trigger "show" if $(".diagram > *").length > 0
+  a = $(".alert").hide()
+  a.filter(".alert-success").show().trigger "show" if $(".diagram > *").length > 0
 
 _error = (reason)->
   viewModel.jumly.errorReason reason
-  $(".alert-message").hide().filter(".error").show()
+  $(".alert").hide().filter(".alert-error").show()
 
 storage = new JUMLY.LocalStorage ["jumlipt"]
 
@@ -63,8 +63,8 @@ fillSnippet = (e)->
     </script>
   """
 
-$(document).on("show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000)
-           .on("click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide())
+$(document).on("show", ".alert", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000)
+           .on("click", ".alert .btn.cancel", (e)-> $(this).parents(".alert").hide())
            .on("click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide')
 $("#url-to-show").bind "show", fillURLtoShare
 $("#jumly-snippet").bind "show", fillSnippet

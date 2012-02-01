@@ -19,13 +19,13 @@ textarea#jumlipt {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-.alert-message.block-message {
+.alert.alert-block {
   position: fixed;
   width: 100%;
   left: 0px;
   margin: 0px;
 }
-.alert-message.block-message.notice {
+.alert.alert-block.notice {
   bottom: 0px;
 }
 #tutorial-ask {
@@ -36,7 +36,7 @@ textarea#jumlipt {
   bottom:auto;
   margin-top:42px;
 }
-.tutorial .alert-message.block-message {
+.tutorial .alert.alert-block {
   visibility: hidden;
 }
 .bottombar {

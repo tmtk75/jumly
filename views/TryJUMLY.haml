@@ -73,7 +73,7 @@
           %h2 #{i18n._ 'Caution.'}
           %p #{i18n._ 'caution.browser.d'}
 
-    .alert-message.block-message.error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:jumly.errorReason}'}
+    .alert.alert-block.alert-error.notice.hide{"data-bind"=>'template:{name:"alert-error",data:jumly.errorReason}'}
     %script#alert-error{type:"text/html"}
       %h3 Error
       %p
@@ -83,12 +83,13 @@
         %strong message:
         %span.message ${cause}
 
-    .alert-message.block-message.success.notice.hide
-      %h3 Success
-      %p Rendering was succeeded.
+    .alert.alert-block.alert-success.notice.hide
+      %a.close x
+      %h3.alert-heading Success
+      Rendering was succeeded.
 
-    #auto-save-message.alert-message.info.hide{style:"position:fixed;left:2px;top:42px;"}
-      %p #{i18n._ 'notify.save.d'}
+    #auto-save-message.alert.alert-info.hide{style:"position:fixed;left:2px;top:42px;"}
+      .alert-heading #{i18n._ 'notify.save.d'}
 
     #url-to-show.modal.hide{"data-bind"=>"template:{name:'show-URL',data:urlToShare}"}
     %script#show-URL{type:"text/html"}
