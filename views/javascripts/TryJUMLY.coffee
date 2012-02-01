@@ -66,10 +66,8 @@ fillSnippet = (e)->
 $(document).on("show", ".alert-message", (e)-> setTimeout (-> $(e.target).fadeOut()), 2000)
            .on("click", ".alert-message .btn.cancel", (e)-> $(this).parents(".alert-message").hide())
            .on("click", ".modal .btn.cancel", (e)-> $(this).parents(".modal").modal 'hide')
-$("#url-to-show").modal(backdrop:"static",keyboard:true)
-                 .bind "show", fillURLtoShare
-$("#jumly-snippet").modal(backdrop:"static",keyboard:true)
-                   .bind "show", fillSnippet
+$("#url-to-show").bind "show", fillURLtoShare
+$("#jumly-snippet").bind "show", fillSnippet
 saveAndNotice = (e)->
   storage.jumlipt viewModel.jumly.jumlipt()
   $("#auto-save-message").fadeIn().trigger "show"
