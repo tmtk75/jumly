@@ -48,25 +48,6 @@ h1 {
     @include site_color_0;
 }
 
-.emphasis {
-    font-size: large;
-    padding-left: 0.5em;
-    padding-top: 0.3em;
-    padding-bottom: 0.5em;
-    @include border_radius(3px);
-    @include bg_accsent;
-}
-
-#Getting_Started p em {
-    @include site_color_0;
-    @include border-radius(2px);
-    font-size: larger;
-    padding: 4px 0.7em 4px 0.7em;
-    font-weight: bold;
-    font-style: normal;
-    text-decoration: none;
-}
-
 /**
  JUMLY Web styles
  ========================================================================
