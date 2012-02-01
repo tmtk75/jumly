@@ -5,8 +5,7 @@
     = haml :"_head.html"
     = haml :"_syntaxhighlighter.html"
   %body
-    /-- Topbar
-    /================================================================================================
+    -# Topbar =================================================================
     .topbar
       .topbar-inner
         .container
@@ -15,13 +14,12 @@
           %ul.nav
             %li
               %a{href:"TryJUMLY"} TryJUMLY
-            - chaps = [:Introduction, :Overview, :Demo, :Document, :License]
+            - chaps = [:License]
             = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
             %li
               %a{href:"Reference.html"} Reference
   
-    /-- Masthead
-    /================================================================================================
+    -# Masthead ===============================================================
     %header#masthead
       .inner
         .container
@@ -32,51 +30,31 @@
               %p.lead Be concentrative into your idea with JUMLY.
               %p Latest version #{File.read "VERSION"}
   
-    /-- Root container
-    /================================================================================================
+    -# Root container =========================================================
     .container
       %section#Introduction= haml :"_Introduction.html"
       %section#Overview= haml :"_Overview.html"
-      %section#Demo
+      %section#Example
         .page-header
-          %h1 Demo
+          %h1 Example
         %ul.unstyled
-          %li <a href="TryJUMLY#{$doc_ext}">TryJUMLY</a>
           %li <a href="full_sequence.html">Full feature sequence diagram</a>
           %li <a href="full_usecase.html">Full feature usecase diagram</a>
           %li <a href="full_class.html">Full feature class diagram</a>
           %li <a href="demo_sequence.html">Examples for sequence diagram</a>
-          %li <a href="sb.html">Editor in realtime (sequence)</a>
-          %li
-            Quick demo sharing with a single URL.
-            %a{href: "d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22,%22b%22%0a%20@message%20%22hello%22,%22c%22"}
-              \/d?a=@found%20%22a%22,-%3E%0A%20@message%20%22hi%22...
           %li
             Easy Quick Sharing! <a href="http://bit.ly/xuc8K1">http://bit.ly/xuc8K1</a>
-      %section#Document
-        .page-header
-          %h1 Document
-        %ul.unstyled
-          %li <a href="Tutorial#{$doc_ext}">Tutorial</a>
-          %li <a href="Share#{$doc_ext}">Share</a>
-          %li <a href="Design#{$doc_ext}">Design</a>
-          %li <a href="Grammer#{$doc_ext}">Grammer</a>
-          %li <a href="Reference.html#{$doc_ext}">Reference</a>
       %section#License= haml :"_License.html"
       %section#Credit= haml :"_Credit.html"
       %section#Contact
         .page-header
           %h1 Contact
         .row
-          %p.span6.columns If you ask me, send your message in some ways.
-          %dl.span10.columns
+          .span16.columns
+            %p If you ask me, send your message in some ways.
             %address
-              %strong Twitter
-              %br
               %a{href:'https://twitter.com/#!/jumly1'}@jumly1
             %address
-              %strong Mail
-              %br
               %a{href:'mailto:jumly2gmail.com'}jumly2@gmail.com
 
     %div#footer
