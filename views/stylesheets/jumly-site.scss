@@ -15,8 +15,8 @@ body {
 .syntaxhighlighter.html .line.alt1,
 .syntaxhighlighter.html .line.alt2,
 .syntaxhighlighter.html {
-    background-image:none !important;
-    background-color:transparent !important;
+  background-image:none !important;
+  background-color:transparent !important;
 }
 .syntaxhighlighter.html .gutter .line {
   border-right:3px solid rgba(0,107,159,0.5) !important;
@@ -29,16 +29,9 @@ body {
   @include border-radius(3px);
 }
 
-h1 {
-  // 36 is the height of navbar of bootstrap framework, and 4 is margin b/w navbar and h1  
-  padding-top:#{36 + 4}px;
-}
-.alert-message {
-  opacity:0.94;
-}
-.site-color {
-  @include site_color_0;
-}
+h1 {padding-top:#{36 + 4}px;} // 36 is the height of navbar of bootstrap framework, and 4 is margin b/w navbar and h1
+.alert-message {opacity:0.94;}
+.site-color {@include site_color_0;}
 #Whats_JUMLY {
   #we-think-something {
     .usecase .name {text-align:center; margin-top:1.2em;}
