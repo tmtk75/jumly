@@ -5,12 +5,11 @@
     = haml :"_head.html"
     = haml :"_syntaxhighlighter.html"
   %body
-    -# Topbar =================================================================
-    .topbar
-      .topbar-inner
+    .navbar.navbar-fixed-top
+      .navbar-inner
         .container
           %h3
-            %a{href:"#"}JUMLY
+            %a.brand{href:"/#"}JUMLY
           %ul.nav
             %li
               %a{href:"TryJUMLY"} TryJUMLY
@@ -18,6 +17,8 @@
             = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
             %li
               %a{href:"Reference.html"} Reference
+          %form.navbar-search.pull-left
+            %input.search-query{type:"text",placeholder:"Search"}
   
     -# Masthead ===============================================================
     %header#masthead
