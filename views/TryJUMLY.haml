@@ -7,10 +7,10 @@
     = haml :"_head.html"
     = haml :"_bootstrap.html"
   %body
-    .topbar
-      .topbar-inner
+    .navbar.navbar-fixed-top
+      .navbar-inner
         .container-fluid
-          %h3 <a href="/#">JUMLY</a>
+          %h3 <a class="brand" href="/#">JUMLY</a>
           - def _sr(n, t) "<a id='sample-#{n}' data-bind='click:want.toRequireSampleJumlipt'>#{t}</a>" end
           - def _tr(n0, n1, t) "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:want.toRequireJumliptOfTutorial'>#{t}</a>" end
           %ul.nav
@@ -18,7 +18,9 @@
             %li #{_sr 2, i18n._('Example-2')}
             %li #{_sr 3, i18n._('Example-3')}
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle #{i18n._ 'Other examples'}
+              %a.dropdown-toggle{"data-toggle"=>"dropdown"}
+                #{i18n._ 'Other examples'}
+                %b.caret
               %ul.dropdown-menu
                 %li #{_sr 4, i18n._('Shorten w/ bit.ly')}
                 %li #{_sr 5, i18n._("Using <img>")}
@@ -33,12 +35,16 @@
             %li <a href="/Reference.html">#{i18n._ 'Reference'}</a>
             %li <a href="#" data-bind="click:askTutorial">#{i18n._ 'Tutorial'}</a>
             %li.dropdown{"data-dropdown"=>"dropdown"}
-              %a.dropdown-toggle #{i18n._ 'Languages'}
+              %a.dropdown-toggle{"data-toggle"=>"dropdown"}
+                #{i18n._ 'Languages'}
+                %b.caret
               %ul.dropdown-menu
                 %li <a href="TryJUMLY.en">#{i18n._ 'lang.english'}</a>
                 %li <a href="TryJUMLY.ja">#{i18n._ 'lang.japanese'}</a>
             %li <a href="#tryjumly-help" data-toggle='modal'>#{i18n._ 'Help'}</a>
             %li <a href="#tryjumly-feedback" data-toggle='modal'>#{i18n._ 'Feedback'}</a>
+          %form.navbar-search.pull-right
+            %input.search-query{type:"text",placeholder:"Search"}
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>#{i18n._ 'Sandbox for sequence Diagram'}</small>
@@ -52,9 +58,9 @@
           %a#link-to-share.btn.primary{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
             #{i18n._ 'Link To Share'}
       .row
-        .span7
+        .span5
           %textarea#jumlipt{"data-bind"=>"value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
-        .span9.columns
+        .span7.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:jumly.success,error:jumly.error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
     .bottombar
