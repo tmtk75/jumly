@@ -13,10 +13,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-    //background-image: url(/assets/lined.png);
-    //background-image: url(/assets/grid_b.gif) !important;
-    //background: transparent url(/public/keisen_a09.gif);
-    //background-image: url(/assets/square.png) !important;
     background: transparent url(/assets/grid_c.gif) !important;
 }
 .syntaxhighlighter.html .line.alt1,
@@ -47,76 +43,47 @@ h1 {
 .site-color {
     @include site_color_0;
 }
-
-/**
- JUMLY Web styles
- ========================================================================
- */
-$JUMLY_FONT_SIZE: 100%;
-.diagram {
-    font-size: 100%;
-}
-
-/**
- Introduction
- ========================================================================
- */
 #Whats_JUMLY {
-    .row {
-        -margin-bottom: 0px;
-    }
+  #we-think-something {
     .diagram {
-        .object, .usecase, .interaction {
-            color: rgba(0,0,0,0.66);
-            /*text-shadow: 1px 0px rgba(0,0,0,0.4);*/
-        }
+      .usecase .name {
+        text-align: center;
+        margin-top: 1.2em;
+      }
+      .usecase:nth-child(2) {
+        margin-top: 6em;
+        margin-left: 6em;
+      }
+      .actor:nth-child(1) {
+        margin-top: 3em;
+      }
     }
-
-    /** */
-    #we-think-something {
-        .diagram {
-            font-family: helvetica;
-            .usecase, .actor { font-size: $JUMLY_FONT_SIZE; }
-            .usecase .name {
-                text-align: center;
-                margin-top: 1.2em;
-            }
-            .usecase:nth-child(2) {
-                margin-top: 6em;
-                margin-left: 6em;
-            }
-            .actor:nth-child(1) {
-                margin-top: 3em;
-            }
-        }
+  }
+  #you-write-your-idea {
+    .diagram {
+      .object:nth-child(2) {
+        left:44px;  // HaveToFix ingnoring this at r1798
+      }
     }
-    
-    #you-write-your-idea {
-        .diagram {
-            .object .name { font-size: $JUMLY_FONT_SIZE; }
-            .object:nth-child(2) {
-                left:44px;  // HaveToFix ingnoring this at r1798
-            }
-        }
-        .Styled-Node {
-            font-family: inherit;
-            .name {
-                font-size: larger;
-                padding-left: 1em;
-                padding-right: 1em;
-                @include border_radius(3px);
-                border-color: $BLUE;
-            }
-        }
+    .Styled-Node {
+      font-family: inherit;
+      .name {
+        font-weight: bold;
+        padding-left: 1em;
+        padding-right: 1em;
+        @include border_radius(3px);
+        border-color: $BLUE;
+      }
     }
-    
-    #Getting_Started {
-        .syntaxhighlighter.html {
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            @include border_radius(3px);
-            padding: 17px;
-        }
+  }
+  
+  #Getting_Started {
+    .syntaxhighlighter.html {
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      @include border_radius(3px);
+      padding: 17px;
     }
+  }
     
     #Did_you_have_these_experiences {
         li {
@@ -136,22 +103,6 @@ $JUMLY_FONT_SIZE: 100%;
         }
     }
 }
-
-/**
- Overview
- ========================================================================
- */
-#Overview {
-}
-
-/* Inset blur
-body:after {
-        content:" ";
-        -webkit-box-shadow: inset 0px 0px 15px 15px #fff;
-        position: absolute;
-        left: 0; top: 0; right: 0; bottom: 0;
-}
-*/
 
 /**
  Masthead and Footer
