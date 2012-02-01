@@ -3,9 +3,9 @@
 
 <!-- What's JUMLY?  =========================================================== -->
 #Whats_JUMLY.row
-  .span16
+  .span16.columns
     %h2 What's JUMLY?
-  .span5.columns
+  
     %p
       JUMLY is a JavaScript library.
     %p
@@ -17,44 +17,45 @@
       %li
         Modern browser like WebKit-base brwoser and Opera.
         (planning it works on other browsers, especially Firefox.)
-  
-  .span11.columns
-    .row
-      #we-think-something.span5.columns
-        %script{type: 'text/jumly+usecase'}
+
+  .row
+    #we-think-something.span8.columns
+      %script{type: 'text/jumly+usecase'}
+        @usecase 1:"Think something"
+        @usecase "Draw diagram":extend:[1]
+        @actor "You":use:[1]
+    .span8.columns
+      %pre{class: 'brush: html'}
+        :preserve
           @usecase 1:"Think something"
-          @usecase "Draw diagram":extend:[1]
+          @usecase "Draw Diagram":extend:[1]
           @actor "You":use:[1]
-      #you-write-your-idea.span6.columns
-        %script{type: 'text/jumly+sequence'}
-          :plain
-            delete JUMLY.Diagram.isRefExisting
-            @preferences compose_most_left:0, compose_span:32
-            @found "You", ->
-              @message "Think", ->
-                @message "Write<br/>your idea", "JUMLY", ->
-                  @create "Styled Node"
-              @beforeCompose (e, diag) ->
-                diag["styled_node"].find(".name").addClass("site-color").end()
-                                   .addClass("Styled-Node")
-                                   .css("margin-left":-30)
-              @afterCompose (e, d) ->
-                d.css "line-height":1
-                d.find(".create .name").css "margin-top":30, "margin-left":20
-                d.find(".message:eq(1) .name").css "margin-top":15
-      .span5.columns
-        %pre
-          :preserve
-            @usecase 1:"Think something"
-            @usecase "Draw Diagram":extend:[1]
-            @actor "You":use:[1]
-      .span6.columns
-        %pre
-          :preserve
-            @found "You", ->
-              @message "Think", ->
-                @message "Write your idea", "JUMLY", ->
-                  @create "Styled Node"
+
+  .row
+    #you-write-your-idea.span8.columns
+      %script{type: 'text/jumly+sequence'}
+        :plain
+          delete JUMLY.Diagram.isRefExisting
+          @preferences compose_most_left:0, compose_span:32
+          @found "You", ->
+            @message "Think", ->
+              @message "Write<br/>your idea", "JUMLY", ->
+                @create "Styled Node"
+            @beforeCompose (e, diag) ->
+              diag["styled_node"].find(".name").addClass("site-color").end()
+                                 .addClass("Styled-Node")
+                                 .css("margin-left":-30)
+            @afterCompose (e, d) ->
+              d.css "line-height":1
+              d.find(".create .name").css "margin-top":30, "margin-left":20
+              d.find(".message:eq(1) .name").css "margin-top":15
+    .span8.columns
+      %pre{class: 'brush: html'}
+        :preserve
+          @found "You", ->
+            @message "Think", ->
+              @message "Write your idea", "JUMLY", ->
+                @create "Styled Node"
 
 <!-- Getting Started ========================================================== -->
 #Getting_Started.row
