@@ -151,7 +151,7 @@ step3.finished.d:
       リファレンス、マニュアルは鋭意作成中です。<br>
       ありがとうございました。
 finished.btn.d: {en: Finish, ja: チュートリアルを終了する}
-ask.yes.d: {en: Yes, ja: はい}
+ask.yes.d: {en: 'Yes', ja: はい}
 ask.later.d: {en: Later, ja: 後で}
 ask.skip.d: {en: Skip, ja: チュートリアルをしない}
 ask.no.d: {en: 'No', ja: いいえ}
