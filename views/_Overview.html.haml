@@ -1,15 +1,15 @@
 .page-header
   %h1 Overview <small> Getting you know diagrams JUMLY supports</small>
 .row
-  %p.span16
+  %p.span12
     Now, JUMLY supports three kinds of UML diagram, which are sequence,
     usecase and class diagram. Other kinds will be supported soon.
 
-<!-- Sequecne Diagram ========================================================= -->
+-# Sequecne Diagram ===========================================================
 #Sequence_diagram.row
-  .span16
+  .span12
     %h2 Sequence diagram
-  .span8.columns
+  .span6.columns
     %script{type: 'text/jumly+sequence'}
       :plain
         @found "You", ->
@@ -22,7 +22,7 @@
             diag.you.iconify "view"
             diag.me .iconify "controller"
             diag.him.iconify "entity"
-  .span8.columns
+  .span6.columns
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+sequence'>
@@ -39,18 +39,17 @@
         &lt;/script>
     You can use most features for UML2 for sequence diagram.
 
-<!-- Use-caes Diagram
-================================================================================================ -->
+-# Use-case Diagram ===========================================================
 #Use_case_diagram.row
-  .span16
+  .span12
     %h2 Use-case diagram
-  .span8.columns
+  .span6.columns
     %script{type: 'text/jumly+usecase', "system-boundary-name"=>'JUMLY'}
       :plain
         @usecase 1:"Render Diagram"
         @usecase 2:"Arrange Diagram"
         @actor "You":use:[1, 2]
-  .span8.columns
+  .span6.columns
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+usecase'
@@ -59,13 +58,12 @@
         @usecase 2:"Arrange Diagram"
         @actor "You":use:[1, 2]
         &lt;/script>
-          
-<!-- Class Diagram
-============================================================================================== -->
+
+-# Class Diagram ==============================================================
 #Class_diagram.row
-  .span16
+  .span12
     %h2 Class diagram
-  .span8.columns
+  .span6.columns
     %script{type: 'text/jumly+class'}
       :plain
         @def "You":
@@ -76,7 +74,7 @@
           stereotype:"library"
           attrs     :["version", "author"]
           methods   :["$.jumly", "$.jumly.DSL"]
-  .span8.columns
+  .span6.columns
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+class'>
