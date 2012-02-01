@@ -37,8 +37,8 @@
               %ul.dropdown-menu
                 %li <a href="TryJUMLY.en">#{i18n._ 'lang.english'}</a>
                 %li <a href="TryJUMLY.ja">#{i18n._ 'lang.japanese'}</a>
-            %li <a href="#" data-controls-modal="tryjumly-help" data-backdrop="static" data-keyboard="true">#{i18n._ 'Help'}</a>
-            %li <a href="#" data-controls-modal="tryjumly-feedback" data-backdrop="static" data-keyboard="true">#{i18n._ 'Feedback'}</a>
+            %li <a href="#tryjumly-help" data-toggle='modal' data-backdrop="static" data-keyboard="true">#{i18n._ 'Help'}</a>
+            %li <a href="#tryjumly-feedback" data-toggle='modal' data-backdrop="static" data-keyboard="true">#{i18n._ 'Feedback'}</a>
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>#{i18n._ 'Sandbox for sequence Diagram'}</small>
@@ -49,7 +49,7 @@
           <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
           <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
         #jumly-buttons
-          %a#link-to-share.btn.primary{"data-controls-modal"=>"url-to-show","data-bind"=>"click:tutorial.share"}
+          %a#link-to-share.btn.primary{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
             #{i18n._ 'Link To Share'}
       .row
         .span7
