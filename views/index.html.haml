@@ -13,11 +13,9 @@
           %ul.nav
             %li
               %a{href:"TryJUMLY"} TryJUMLY
-            - chaps = [:License]
-            = chaps.map {|e| "<li><a href='##{e}'>#{e}</a></li>"}.join "\n"
             %li
               %a{href:"Reference.html"} Reference
-          %form.navbar-search.pull-left
+          %form.navbar-search.pull-right
             %input.search-query{type:"text",placeholder:"Search"}
   
     -# Masthead ===============================================================
