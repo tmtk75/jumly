@@ -36,17 +36,18 @@ JUMLY.TryJUMLY.samples =
       @ref "Tidy up book at shelf"
     
     @after (e, diag)->
+      $(".tooltip").remove()
       page.attr(title:"Bootstrap Tooltip")
-          .twipsy(placement:"right",trigger:'manual')
-          .twipsy('show')
+          .attr("data-placement":"bottom")
+          .tooltip('show')
       tiptext = '''
         Tooltip is better<br/>
         when note is exaggerated'''
       diag.find(".occurrence:eq(5)")
           .attr(title:tiptext)
-          .twipsy(html:true)
-          .twipsy(trigger:'manual',placement:"right")
-          .twipsy('show')
+          .attr("data-trigger":'manual')
+          .attr("data-placement":"right")
+          .tooltip('show')
     """
   "sample-4":"""
     @found "You", ->
