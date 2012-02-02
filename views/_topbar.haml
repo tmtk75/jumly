@@ -1,16 +1,10 @@
-/-- Topbar
-/================================================================================================
-.topbar
-  .topbar-inner
+.navbar.navbar-fixed-top
+  .navbar-inner
     .container-fluid
       %h3
-        %a{href: "/#"}JUMLY
-      %ul
+        %a.brand{href:"/#"}JUMLY
+      %ul.nav
         %li
-          %a{href: "/TryJUMLY"}TryJUMLY
-        %li
-          %a{href: "/#Demo"}Demo
-        %li
-          %a{href: "/#Document"}Document
-        %li
-          %a{href: "/Reference.html"}Reference
+          %a{href:"/TryJUMLY"}TryJUMLY
+      %form.navbar-search.pull-right
+        %input.search-query{type:"text",placeholder:"Search"}
