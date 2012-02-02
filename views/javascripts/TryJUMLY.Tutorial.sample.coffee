@@ -17,9 +17,12 @@ JUMLY.TryJUMLY.samples =
     jumly.iconify "controller"
     
     @after (e, d)->
+      $(".tooltip").remove()
+      tipbody = "includes&nbsp;some<br>" +
+                "JavaScript&nbsp;files"
       d.find(".occurrence:eq(1)")
-       .twipsy("includes&nbsp;some&nbsp;" +
-               "JavaScript&nbsp;files", "right")
+       .attr(title:tipbody,"data-placement":'right')
+       .tooltip("show")
     """ 
   "sample-3":"""
     @found "You", ->
