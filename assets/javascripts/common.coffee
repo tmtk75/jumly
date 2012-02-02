@@ -116,7 +116,7 @@ JUMLYObject::iconify = (fixture, styles) ->
         .prepend(container.append canvas)
 
     {size, styles} = fixture canvas[0], styles
-    container.css width:size.width, height:size.height
+    container.css height:size.height #, width:size.width ##FIXME: Way to decide the width.
     render = =>
         name = @find(".name")
         styles.fillStyle   = name.css("background-color")
