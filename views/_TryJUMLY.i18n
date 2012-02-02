@@ -3,7 +3,7 @@ example-1: {ja: サンプル-1}
 example-2: {ja: サンプル-2}
 example-3: {ja: サンプル-3}
 shorten w/ bit.ly: {ja: bit.lyでの短縮}
-using <img>: {ja: "&lt;img&gt;タグを使う"}
+using <img>: {en: Using &lt;img>, ja: "&lt;img&gt;タグを使う"}
 tutorial step: {ja: ステップ}
 other examples: {ja: その他のサンプル}
 reference: {ja: リファレンス}

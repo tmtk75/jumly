@@ -1,10 +1,10 @@
 ## (c)copyright 2011-2012, Tomotaka Sakuma all rights reserved.
 _requireSample = (model, event)->
-  $(".twipsy").remove()
+  $(".tooltip").remove()
   model.jumly.jumlipt JUMLY.TryJUMLY.samples[event.target.id]
     
 _requireTutorialData = (model, event)->
-  $(".twipsy").remove()
+  $(".tooltip").remove()
   a = $(event.target)
   model.jumly.jumlipt JUMLY.TryJUMLY.Tutorial[a.attr("data-step")][a.attr("data-sub")]
 

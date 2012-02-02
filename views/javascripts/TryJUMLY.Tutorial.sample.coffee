@@ -17,7 +17,6 @@ JUMLY.TryJUMLY.samples =
     jumly.iconify "controller"
     
     @after (e, d)->
-      $(".tooltip").remove()
       tipbody = "includes&nbsp;some<br>" +
                 "JavaScript&nbsp;files"
       d.find(".occurrence:eq(1)")
@@ -36,7 +35,6 @@ JUMLY.TryJUMLY.samples =
       @ref "Tidy up book at shelf"
     
     @after (e, diag)->
-      $(".tooltip").remove()
       page.attr(title:"Bootstrap Tooltip")
           .attr("data-placement":"bottom")
           .tooltip('show')
