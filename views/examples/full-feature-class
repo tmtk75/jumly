@@ -1,0 +1,6 @@
+@def "Browser":
+  attrs: ["version", "copyright"]
+  methods: ["Open", "Close", "Save", "New"]
+@def "HTTP Server":
+  attrs: ["port", "thread"]
+  methods: ["Listen", "Timeout"]

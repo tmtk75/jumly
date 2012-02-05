@@ -1,0 +1,47 @@
+@found "User", ->
+  @message "search", "Browser", ->
+    @message "http request", "HTTP Server", ->
+      @create "HTTP Session"
+      @message "save state", "HTTP Session"
+      @message "do something"
+      @message "query", "Database", ->
+      @reply "", "Browser"
+    @loop @message "request resources", "HTTP Server", ->
+      @alt {
+        "[found]": -> @message "update", "Database"
+        "[missing]": -> @message "scratch", "HTTP Session"
+      }
+    @ref "Rendering page"
+    @reactivate "disconnect", "HTTP Server", ->
+      @destroy "HTTP Session"
+
+  @before (e, d) ->
+    d.user.iconify "actor"
+    d.browser.iconify "view"
+    d["http_session"].iconify "controller"
+    d["http_server"].iconify "controller"
+    d.database.iconify("entity").css("margin-left":-80)
+    d["http_session"].lost()
+  
+  @after (e, diag)->
+    f = (e)-> $(e.currentTarget).addClass "focused-hovered"
+    g = (e)-> $(e.currentTarget).removeClass "focused-hovered"
+    $(".object .name, .message .name").hover f, g
+    showTooltips diag
+
+showTooltips = (diag)->
+  a = 
+    ".object:eq(0)" : title:"Found first<br/>Starts from here!","data-placement":"right"
+    ".message:eq(0)": title:"Basic message","data-placement":"bottom"
+    ".create .name" : title:"Create message","data-placement":"top"
+    ".loop"         : title:"Kind of fragment for loop","data-placement":"left"
+    ".message:eq(4)": title:"Self call message","data-placement":"left"
+    ".return"       : title:"Reply message","margin-top":"-8px","data-placement":"top"
+    ".alt:eq(0)"    : title:"Alt fragment for usually 'if'","data-placement":"top"
+    ".ref"          : title:"Refer to another sequence","data-placement":"top"
+    ".occurrence    :eq(10)": title:"Start new interactions","data-placement":"left"
+    ".lost .icon"   : title:"Lost message","data-placement":"left"
+    ".destroy"      : title:"Destory message","data-placement":"bottom"
+    ".object:eq(2) .icon-container": title:"Iconified object","data-placement":"right"
+  for p of a
+    $(p, diag).attr(a[p]).tooltip('show')

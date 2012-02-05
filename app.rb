@@ -19,6 +19,10 @@ class App < Sinatra::Base
   get '/spec'   do haml :"../spec/index.html" end
   get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
   get '/README' do markdown :"../README" end
+  get '/examples/*' do |n|
+    content_type "text/jumly"
+    File.new("views/examples/#{n}").read
+  end
   get %r{/(.*?)\.([a-z]{2})$} do |bn, ext| haml :"#{bn}", :locals=>mklocals(bn, ext) end
   get '/*' do |n| haml :"#{n}", :locals=>mklocals(n, "en") end
 

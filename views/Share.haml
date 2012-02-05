@@ -4,11 +4,12 @@
     %title JUMLY Share
     = haml :"_head.html"
     = haml :"_bootstrap.html"
+    %link{href:"/assets/full_sequence",rel:"stylesheet"}
     :css
       body {margin-top:44px;}
       .alert {right:0px;margin:2px;position:fixed;top:40px;}
       .alert.alert-error .content {white-space:pre;font-family:Monaco,mono;font-size:9pt;}
-      .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
+      .bottombar {z-index:100;background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
       .diagram {margin: 0 auto 0 auto;}
   %body
     .navbar.navbar-fixed-top
@@ -21,12 +22,12 @@
     .container
       .diagram-container
       .alert.alert-info
-        %p.content
+        %a#link_to_edit{href:""}Click here to edit this.
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
     .alert.alert-block.alert-error.hide
-      %h2 Error
+      %h3.alert-heading Error
       %strong.message
       %p.content
       
@@ -41,12 +42,13 @@
     b[e[0]] = e[1] for e in (e.split("=") for e in location.search.replace(/^\?/, "").split("&"))
     switch b.t
       when 'raw' then directs = decodeURIComponent b.b
-      else directs = Base64.decode b.b
+      when 'url' then directs = $.ajax(url:b.b,async:false).responseText
+      else directs = Base64.decode (b.b || "")
     path = location.pathname.replace "Share", "TryJUMLY"
-    tryUrl = "\#{path}?b=\#{b.b}"
+    tryUrl = "\#{path}?b=\#{Base64.encode directs}"
     $ ->
       try
-        $(".alert.alert-info").find(".content").html "<a href='\#{tryUrl}'>Click here to edit this.<a>"
+        $("#link_to_edit").attr "href", tryUrl
         $(".diagram-container").jumlize "sequence", directs, ->
       catch ex
         $(".alert.alert-error")
