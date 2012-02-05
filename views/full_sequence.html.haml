@@ -40,23 +40,25 @@
                   d.database.iconify("entity").css("margin-left":-80)
                   d["http_session"].lost()
                 
-                @afterCompose (e, d) ->
-                  f = (e) -> $(e.currentTarget).addClass "focused-hovered"
-                  g = (e) -> $(e.currentTarget).removeClass "focused-hovered"
+                @afterCompose (e, diag)->
+                  f = (e)-> $(e.currentTarget).addClass "focused-hovered"
+                  g = (e)-> $(e.currentTarget).removeClass "focused-hovered"
                   $(".object .name, .message .name").hover f, g
-                  h()
+                  showTooltips diag
 
-              h = ->
-                $(".object:eq(0)").attr(title:"Found first<br/>Starts from here!").attr("data-placement":"right").tooltip("show")
-                $(".message:eq(0)").attr(title:"Basic message").attr("data-placement":"bottom").tooltip("show")
-                $(".create .name").attr(title:"Create message").attr("data-placement":"top").tooltip("show")
-                $(".loop").attr(title:"Kind of fragment for loop").attr("data-placement":"left").tooltip("show")
-                $(".object:eq(2) .icon-container").attr(title:"Iconified object").attr("data-placement":"right").tooltip("show")
-                $(".message:eq(4)").attr(title:"Self call message").attr("data-placement":"left").tooltip("show")
-                $(".return").css("margin-top":"-8px").attr(title:"Reply message").attr("data-placement":"top").tooltip("show")
-                $(".alt:eq(0)").attr(title:"Alt fragment for usually 'if'").attr("data-placement":"top").tooltip("show")
-                $(".ref").attr(title:"Refer to another sequence").attr("data-placement":"top").tooltip("show")
-                $(".occurrence:eq(10)").attr(title:"Start new interactions").attr("data-placement":"left").tooltip("show")
-                $(".lost .icon").attr(title:"Lost message").attr("data-placement":"left").tooltip("show")
-                $(".destroy").attr(title:"Destory message").attr("data-placement":"bottom").tooltip("show")
-
+              showTooltips = (diag)->
+                a = 
+                  ".object:eq(0)" : title:"Found first<br/>Starts from here!","data-placement":"right"
+                  ".message:eq(0)": title:"Basic message","data-placement":"bottom"
+                  ".create .name" : title:"Create message","data-placement":"top"
+                  ".loop"         : title:"Kind of fragment for loop","data-placement":"left"
+                  ".message:eq(4)": title:"Self call message","data-placement":"left"
+                  ".return"       : title:"Reply message","margin-top":"-8px","data-placement":"top"
+                  ".alt:eq(0)"    : title:"Alt fragment for usually 'if'","data-placement":"top"
+                  ".ref"          : title:"Refer to another sequence","data-placement":"top"
+                  ".occurrence    :eq(10)": title:"Start new interactions","data-placement":"left"
+                  ".lost .icon"   : title:"Lost message","data-placement":"left"
+                  ".destroy"      : title:"Destory message","data-placement":"bottom"
+                  ".object:eq(2) .icon-container": title:"Iconified object","data-placement":"right"
+                for p of a
+                  $(p, diag).attr(a[p]).tooltip('show')
