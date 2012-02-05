@@ -32,7 +32,7 @@
                   @reactivate "disconnect", "HTTP Server", ->
                     @destroy "HTTP Session"
 
-                @beforeCompose (e, d) ->
+                @before (e, d) ->
                   d.user.iconify "actor"
                   d.browser.iconify "view"
                   d["http_session"].iconify "controller"
@@ -40,7 +40,7 @@
                   d.database.iconify("entity").css("margin-left":-80)
                   d["http_session"].lost()
                 
-                @afterCompose (e, diag)->
+                @after (e, diag)->
                   f = (e)-> $(e.currentTarget).addClass "focused-hovered"
                   g = (e)-> $(e.currentTarget).removeClass "focused-hovered"
                   $(".object .name, .message .name").hover f, g
