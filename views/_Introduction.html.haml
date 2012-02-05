@@ -58,13 +58,14 @@
 %section#Getting_Started.row
   .span12
     %h2 Getting Started
-    %p To render in your HTML document, put below tags in your &lt;head>
+  .span6
+    %p To render in your HTML document, put below tags in your &lt;head> section.
     %pre{class: 'brush: html'}
       :preserve
-        &lt;link href='http://tmtk75.github.com/jumly/latest/jumly.min.css' rel="stylesheet"/>
-        &lt;script src='http://code.jquery.com/jquery-1.7.1.min.js'>&lt;/script>
-        &lt;script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'>&lt;/script>
-        &lt;script src='http://tmtk75.github.com/jumly/latest/jumly.min.js'>&lt;/script>
+        &lt;link href='jumly.min.css' rel="stylesheet"/>
+        &lt;script src='jquery.min.js'>&lt;/script>
+        &lt;script src='coffee-script.js'>&lt;/script>
+        &lt;script src='jumly.min.js'>&lt;/script>
     %p Put the next &lt;script> tag at the place you want to render. |
       The diagram will be inserted after ths script element. |
     %pre{class: 'brush: html'}
@@ -74,17 +75,16 @@
           @message "meet", "JUMLY"
         &lt;/script>
     %p
-      You'll get like the right diagram.
-      You are ready to use JUMLY.
-    %p  
+      You'll get a diagram like the right.
+      You are ready to use JUMLY =)
+  .span6
+    %p
       %script{type: 'text/jumly+sequence'}
         :plain
           @preferences compose_most_left: 0
           @found "You", ->
             @message "meet", "JUMLY"
-  
-  .span12
-    %p Here is a minimal working sample and <a href='/min-working.html'>download it from here</a>.
+    %p.center <a href='/min-working.html'>Here</a> is a minimal working sample.
       
 -# Did you have these experiences?  ===========================================
 %section#Did_you_have_these_experiences.row
