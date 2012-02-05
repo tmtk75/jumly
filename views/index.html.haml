@@ -6,11 +6,7 @@
     = haml :"_syntaxhighlighter.html"
     :css
       section {margin-bottom:4em;}
-      .diagram {
-        -border: 1px solid gray;
-        border-radius: 3px;
-      }
-      .diagram {width:338px;margin-left:auto;}
+      #Whats_JUMLY .diagram {width:338px;margin-left:auto;}
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -30,9 +26,9 @@
       .inner
         .container
           .row
-            %div.span4.columns
+            %div.span4
               %span.logo JUMLY
-            %div.span7.columns
+            %div.span7
               %p.lead Be concentrative into your idea with JUMLY.
               %p Latest version #{File.read "VERSION"}
   
@@ -56,7 +52,7 @@
         .page-header
           %h1 Contact
         .row
-          .span16.columns
+          .span12
             %p If you ask me, send your message in some ways.
             %address
               %a{href:'https://twitter.com/#!/jumly1'}@jumly1

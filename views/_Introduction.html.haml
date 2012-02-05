@@ -3,7 +3,7 @@
 
 -#-- What's JUMLY?  ===========================================================
 %section#Whats_JUMLY.row
-  .span12.columns
+  .span12
     %h2 What's JUMLY?
     %p JUMLY is a JavaScript library.
     %p Using JUMLY, you can easily embed UML diagram on your HTML document.  
@@ -13,12 +13,12 @@
       %li Modern browser like WebKit-base brwoser and Opera. |
           (now planning it works on other browsers, especially Firefox.) |
   .row
-    .span6.columns#we-think-something
+    .span6#we-think-something
       %script{type:'text/jumly+usecase'}
         @usecase 1:"Think something"
         @usecase "Render diagram":extend:[1]
         @actor "You":use:[1]
-    .span6.columns
+    .span6
       %pre{class: 'brush: html'}
         :preserve
           &lt;script type='text/jumly+usecase'>
@@ -27,7 +27,7 @@
             @actor "You":use:[1]
           &lt;/script>
   .row
-    .span6.columns#you-write-your-idea
+    .span6#you-write-your-idea
       %script{type: 'text/jumly+sequence'}
         :plain
           delete JUMLY.Diagram.isRefExisting
@@ -44,7 +44,7 @@
               d.css "line-height":1
               d.find(".create .name").css "margin-top":30, "margin-left":20
               d.find(".message:eq(1) .name").css "margin-top":15
-    .span6.columns
+    .span6
       %pre{class: 'brush: html'}
         :preserve
           &lt;script type='text/jumly+sequence'>
@@ -56,7 +56,7 @@
 
 -# Getting Started ============================================================
 %section#Getting_Started.row
-  .span12.columns
+  .span12
     %h2 Getting Started
     %p To render in your HTML document, put below tags in your &lt;head>
     %pre{class: 'brush: html'}
@@ -83,13 +83,13 @@
           @found "You", ->
             @message "meet", "JUMLY"
   
-  .span12.columns
+  .span12
     %p Here is a minimal working sample and <a href='/min-working.html'>download it from here</a>.
       
 -# Did you have these experiences?  ===========================================
 %section#Did_you_have_these_experiences.row
-  %h2.span12.columns Did you have these experiences?
-  .span12.columns
+  %h2.span12 Did you have these experiences?
+  .span12
     %ul
       %li Getting many small diagrams which have a few icons and relationships. |
         Then you launched an UML modeling tool, and create a new project, and make a model, ... |
@@ -101,8 +101,8 @@
 
 -# Why you use JUMLY ==========================================================
 %section#why-you-use-jumly.row
-  %h2.span12.columns Why you use JUMLY
-  .span12.columns
+  %h2.span12 Why you use JUMLY
+  .span12
     %dl
       %dt Fast for everything
       %dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.

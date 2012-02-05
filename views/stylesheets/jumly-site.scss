@@ -43,13 +43,7 @@ h1 {padding-top:#{36 + 4}px;} // 36 is the height of navbar of bootstrap framewo
       left:44px;  //FIXME: HaveToFix ingnoring this at r1798
     }
     .Styled-Node {
-      .name {
-        font-weight:bold;
-        padding-left:1em;
-        padding-right:1em;
-        @include border_radius(3px);
-        border-color:$BLUE;
-      }
+      .name {font-weight:bold;padding:0 1em;@include border_radius(3px);border-color:$BLUE;}
     }
   }
 }

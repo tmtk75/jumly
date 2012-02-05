@@ -3,13 +3,13 @@
 .row
   %p.span12
     Now, JUMLY supports three kinds of UML diagram, which are sequence,
-    usecase and class diagram. Other kinds will be supported soon.
+    usecase and class diagram. Other kinds will be supported in the future.
 
 -# Sequecne Diagram ===========================================================
 #Sequence_diagram.row
   .span12
     %h2 Sequence diagram
-  .span6.columns
+  .span6
     %script{type: 'text/jumly+sequence'}
       :plain
         @found "You", ->
@@ -22,7 +22,7 @@
             diag.you.iconify "view"
             diag.me .iconify "controller"
             diag.him.iconify "entity"
-  .span6.columns
+  .span6
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+sequence'>
@@ -37,19 +37,18 @@
             diag.me .iconify "controller"
             diag.him.iconify "entity"
         &lt;/script>
-    You can use most features for UML2 for sequence diagram.
 
 -# Use-case Diagram ===========================================================
 #Use_case_diagram.row
   .span12
     %h2 Use-case diagram
-  .span6.columns
+  .span6
     %script{type: 'text/jumly+usecase', "system-boundary-name"=>'JUMLY'}
       :plain
         @usecase 1:"Render Diagram"
         @usecase 2:"Arrange Diagram"
         @actor "You":use:[1, 2]
-  .span6.columns
+  .span6
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+usecase'
@@ -63,7 +62,7 @@
 #Class_diagram.row
   .span12
     %h2 Class diagram
-  .span6.columns
+  .span6
     %script{type: 'text/jumly+class'}
       :plain
         @def "You":
@@ -74,7 +73,7 @@
           stereotype:"library"
           attrs     :["version", "author"]
           methods   :["$.jumly", "$.jumly.DSL"]
-  .span6.columns
+  .span6
     %pre{class: 'brush: html'}
       :preserve
         &lt;script type='text/jumly+class'>
