@@ -6,25 +6,26 @@
     = haml :"_bootstrap.html"
     :css
       body {margin-top:44px;}
-      .alert-message {right:0px;margin:2px;position:fixed;top:40px;}
-      .alert-message.error .content {white-space:pre;font-family:Monaco,mono;font-size:9pt;}
+      .alert {right:0px;margin:2px;position:fixed;top:40px;}
+      .alert.alert-error .content {white-space:pre;font-family:Monaco,mono;font-size:9pt;}
       .bottombar {background-color:rgba(39,39,39,1.0);position:fixed;bottom:0;width:100%;padding:4px;color:#BFBFBF;}
       .diagram {margin: 0 auto 0 auto;}
   %body
-    .topbar
-      .topbar-inner
+    .navbar.navbar-fixed-top
+      .navbar-inner
         .container-fluid
-          %h3 <a href="/#">JUMLY</a>
-          %ul <li><a href="/TryJUMLY">TryJUMLY</a></li>
-          %ul <li><a href="/Reference.html">Reference</a></li>
+          %h3 <a href="/#" class="brand">JUMLY</a>
+          %ul.nav
+            <li><a href="/TryJUMLY">TryJUMLY</a></li>
+            <li><a href="/Reference.html">Reference</a></li>
     .container
       .diagram-container
-      .alert-message.info
+      .alert.alert-info
         %p.content
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
-    .alert-message.block-message.error.hide
+    .alert.alert-block.alert-error.hide
       %h2 Error
       %strong.message
       %p.content
@@ -45,10 +46,10 @@
     tryUrl = "\#{path}?b=\#{b.b}"
     $ ->
       try
-        $(".alert-message.info").find(".content").html "<a href='\#{tryUrl}'>Click here to edit this.<a>"
+        $(".alert.alert-info").find(".content").html "<a href='\#{tryUrl}'>Click here to edit this.<a>"
         $(".diagram-container").jumlize "sequence", directs, ->
       catch ex
-        $(".alert-message.error")
+        $(".alert.alert-error")
           .find(".message").text(ex.message).end()
           .find(".content").text(directs).end()
           .alert().fadeIn()
