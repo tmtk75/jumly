@@ -40,31 +40,7 @@
     .container
       %section#Introduction= haml :"_Introduction.html"
       %section#Overview= haml :"_Overview.html"
-      %section#Example
-        .page-header
-          %h1 Example
-        %ul.unstyled
-          %li <a href="full_sequence.html">Full feature sequence diagram</a>
-          %li <a href="full_usecase.html">Full feature usecase diagram</a>
-          %li <a href="full_class.html">Full feature class diagram</a>
-          %li <a href="demo_sequence.html">Examples for sequence diagram</a>
-          %li
-            Easy Quick Sharing! <a href="http://bit.ly/xuc8K1">http://bit.ly/xuc8K1</a>
-        .tabbable.tabs-left
-          %ul.tabs.nav.nav-tabs
-            %li.active
-              %a{href:"#home","data-toggle"=>"tab"}Home
-            %li
-              %a{href:"#profile","data-toggle"=>"tab"}Profile
-            %li
-              %a{href:"#messages","data-toggle"=>"tab"}Messages
-            %li
-              %a{href:"#settings","data-toggle"=>"tab"}Settings
-          .tab-content
-            .tab-pane.active#home ...A
-            .tab-pane#profile ...B
-            .tab-pane#messages ...C
-            .tab-pane#settings ...D
+      -#%section#Example= haml :"_Example.html"
       %section#License= haml :"_License.html"
       %section#Credit= haml :"_Credit.html"
       %section#Contact
