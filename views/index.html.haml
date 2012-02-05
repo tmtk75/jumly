@@ -5,6 +5,8 @@
     = haml :"_head.html"
     = haml :"_syntaxhighlighter.html"
     :css
+      .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
+      .syntaxhighlighter .toolbar { display: none; }
       section {margin-bottom:4em;}
       #Whats_JUMLY .diagram {width:338px;margin-left:auto;}
       #Getting_Started .diagram {margin:5em auto 0 auto;}
@@ -87,10 +89,13 @@
               all rights reserved &copy;
               %a{href: "http://www.tmtk.net"}Tomotaka Sakuma
               | Be concentrative into your idea
-  :javascript
+  :coffeescript
     SyntaxHighlighter.config.clipboardSwf = '/vendor/syntaxhighlighter_3.0.83/scripts/clipboard.swf';
     SyntaxHighlighter.config.toolbar = false;
     SyntaxHighlighter.all();
-  :css
-    .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
-    .syntaxhighlighter .toolbar { display: none; }
+  %script{src:"#{$js_dir}/knockout.js"}
+  :coffeescript
+    console.log ko
+    viewModel =
+      more_why_you_use_jumly: ko.observable false
+    ko.applyBindings viewModel, $("body")[0]
