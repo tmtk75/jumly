@@ -1,0 +1,40 @@
+.checkbox {
+  display:inline-block;
+  width:auto;height:auto;
+  input {display:none;}
+  label {
+    margin:0;padding:0;width:auto;height:auto;
+    border:1px solid #808080;
+    border-radius:3px;
+    $mc_from: #f0f0f0;
+    $mc_to  : #ffffff;
+    background-color: $mc_to;
+    background-repeat: no-repeat;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($mc_from), to($mc_to));
+    background-image: -webkit-linear-gradient($mc_from, $mc_to);
+  }
+  &.h {
+    .on, .off {display:inline-block;}
+  }
+  .on, .off {
+    min-width:40px;
+    text-align:center;
+    text-shadow:1px 0px #a0a0a0;
+    color:#606060;
+    margin:0;
+    font-weight:bold;
+    padding:2px; 
+    line-height:20px;
+    height:20px;
+    &.active {
+      color:white;
+      background-color:rgba(255,255,255,0);
+      $mc_from: #808080;
+      $mc_to  : #404040;
+      background-color: $mc_to;
+      background-repeat: no-repeat;
+      background-image: -webkit-gradient(linear, left top, left bottom, from($mc_from), to($mc_to));
+      background-image: -webkit-linear-gradient($mc_from, $mc_to);
+    }
+  }
+}
