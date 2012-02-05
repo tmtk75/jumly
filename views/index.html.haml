@@ -48,6 +48,20 @@
           %li <a href="demo_sequence.html">Examples for sequence diagram</a>
           %li
             Easy Quick Sharing! <a href="http://bit.ly/xuc8K1">http://bit.ly/xuc8K1</a>
+        .tabbable
+          %ul.tabs.nav.nav-tabs
+            <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+            <li><a href="#profile" data-toggle="tab">Profile</a></li>
+            <li><a href="#messages" data-toggle="tab">Messages</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+          .tab-content
+            <div class="tab-pane active" id="home">...A</div>
+            <div class="tab-pane" id="profile">...B</div>
+            <div class="tab-pane" id="messages">...C</div>
+            <div class="tab-pane" id="settings">...D</div>
+      :coffeescript
+        $ ->
+          $(".tabs").tab('show')
       %section#License= haml :"_License.html"
       %section#Credit= haml :"_Credit.html"
       %section#Contact
