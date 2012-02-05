@@ -47,6 +47,9 @@ h1 {padding-top:#{36 + 4}px;} // 36 is the height of navbar of bootstrap framewo
     }
   }
 }
+#Did_you_have_these_experiences, #why_you_use_jumly {
+  li,dd {margin-bottom:1.2em;}
+}
 
 /**
  Masthead and Footer
