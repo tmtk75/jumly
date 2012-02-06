@@ -48,19 +48,20 @@
     .container-fluid
       .page-header
         %h1 Try JUMLY <small>#{i18n._ 'Sandbox for sequence Diagram'}</small>
-        #3rd-party-buttons{style:"position:fixed;right:100px;top:44px;"}
-          %img{height:"20px",style:"margin-bottom:-4px",src:"/assets/ic_chats.png","data-bind"=>"click:want.toCommentOnDisqus"}
-          <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
-          <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
-          <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
-          <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
-        #jumly-buttons
-          %a#link-to-share.btn.primary{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
-            #{i18n._ 'Link To Share'}
       .row
+        .span1
+          %img{src:"/assets/ic_chats.png","data-bind"=>"click:want.toCommentOnDisqus"}
         .span5
           %textarea#jumlipt{"data-bind"=>"value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows:26,placeholder:"#{i18n._ 'Write JUMLIPT here, or click one of examples.'}"}
-        .span7.columns
+          #3rd-party-buttons
+            <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
+            <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
+            <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
+            <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
+          #jumly-buttons{style:"  position: absolute;right:0;top:40px;margin:2px;"}
+            %a#link-to-share.btn.primary{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
+              #{i18n._ 'Link To Share'}
+        .span6.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:jumly.success,error:jumly.error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
     .bottombar
