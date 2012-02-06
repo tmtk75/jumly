@@ -50,7 +50,12 @@
         %h2 Try JUMLY <small>#{i18n._ 'Sandbox for sequence diagram'}</small>
       .row
         .span1
-          %img{src:"/assets/ic_chats.png","data-bind"=>"click:want.toCommentOnDisqus"}
+          %a.btn{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
+            %i.icon-share-alt
+            <br>#{i18n._ 'Share'}
+          %a.btn{"data-bind"=>"click:want.toCommentOnDisqus"}
+            %i.icon-comment
+            <br>#{i18n._ 'Comment'}
         .span5
           -# DISQUS Thread
           #disqus_thread{"data-bind"=>"visible:disqusOpened()"}
@@ -61,10 +66,6 @@
             <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
             <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
             <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
-          #jumly-buttons{style:"  position: absolute;right:0;top:40px;margin:2px;"}
-            %a#link-to-share.btn{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
-              %i.icon-share-alt
-              #{i18n._ 'Share'}
         .span6.columns
           #diagram-container{"data-bind"=>"jumly:diagram,success:jumly.success,error:jumly.error"}
           = haml :"_TryJUMLYTutorial", :locals=>{i18n:i18n}
