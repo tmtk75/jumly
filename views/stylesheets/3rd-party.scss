@@ -4,9 +4,7 @@
 body {
   #disqus_thread {
     //background-color: rgba(64,64,64,0.33);
-    position:fixed;
-    left:1px;
-    bottom:17px;
+    position:absolute;
     padding:0.5em;
     border:2px solid #404040;
     border-radius:3px;
