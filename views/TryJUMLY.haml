@@ -51,8 +51,11 @@
       .row
         .span1#user-actions
           %a.btn{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
-            %i.icon-share-alt
+            %i.icon-share
             <br>#{i18n._ 'Share'}
+          %a.btn{"data-toggle"=>"modal",href:"#jumly-snippet"}
+            %i.icon-tag
+            <br>#{i18n._ 'Snippet'}
           %a.btn{"data-bind"=>"click:want.toCommentOnDisqus"}
             %i.icon-comment
             <br>#{i18n._ 'Comment'}
