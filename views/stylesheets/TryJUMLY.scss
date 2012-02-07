@@ -1,5 +1,5 @@
 #TryJUMLY .page-header {padding-bottom:0;margin-bottom:0;}
-#user-actions a.btn {width:60px;}
+#user-actions a.btn {width:57px;}
 #diagram-container > *:first-child {
   margin:auto;
 }
@@ -156,4 +156,10 @@ html.tutorial {
 }
 .unsupported {
   display:block;
+}
+
+#disqus_thread {
+  background-color: white;
+  opacity: 0.88;
+  z-index:100;
 }
