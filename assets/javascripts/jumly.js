@@ -6,8 +6,6 @@
 //= require usecase
 //= require class
 //= require sequence
-//= require component
-//= require deployment
 //= require jquery-jumly
 //= require knockout-jumly
 //= require lstorage
