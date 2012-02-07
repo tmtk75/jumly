@@ -38,6 +38,7 @@ Tutorial =
       hasShared: -> step() is stepn + 1
       hasFinished: -> step() >= stepn + 1
       isNotRun: $.cookie COOKEY
+    $("#btnToShowUrl").on "click", tutorial.share ## Go step
     tutorial.finish() if tutorial.hasShared()
     tutorial.resume() if 0 <= step() <= stepn
 

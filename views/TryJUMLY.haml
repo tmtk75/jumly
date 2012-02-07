@@ -50,7 +50,7 @@
         %h2 Try JUMLY <small>#{i18n._ 'Sandbox for sequence diagram'}</small>
       .row
         .span1#user-actions
-          %a.btn{"data-toggle"=>"modal",href:"#url-to-show","data-bind"=>"click:tutorial.share"}
+          %a.btn#btnToShowUrl{"data-toggle"=>"modal",href:"#url-to-show"}
             %i.icon-share
             <br>#{i18n._ 'Share'}
           %a.btn{"data-toggle"=>"modal",href:"#jumly-snippet"}

@@ -42,11 +42,11 @@ step2.d:
 step3.h: {en: Step3 <small>Getting URL to share.</small>, ja: ステップ3 <small>共有用URLを作成する</small>}
 step3.d:
   en: Last step, let you know how to share diagram you made.<br>
-    It's easy to share. <strong>Click the button at right-top</strong>, and
+    It's easy to share. <strong>Click the Share button at left-top</strong>, and
     a modal dialog shows two URLs. One of them is raw link and another one is shortened with bit.ly.<br>
     They are the URL to view diagram, and pass it to colleague!
   ja: 最後のステップでは、あなたが描いたダイアグラムを他の人に見せるための方法を紹介します。
-      とても簡単です。<strong>画面右上のボタンをクリックしてください</strong>。
+      とても簡単です。<strong>画面左上の共有ボタンをクリックしてください</strong>。
       モーダルダイアログに2つのURLが表示されます。ひとつは生のURLで、もうひとつはbit.lyによる短縮URLです。
       仲間にURLを教えて、あなたの描いたダイアグラムを共有しましょう！
 step1-1.h: {en: Step1-1, ja: ステップ1-1}
@@ -181,3 +181,6 @@ show-snippet.d:
   en: Copy this and paste in the place of your document where you want.
   ja: 下記のコードを表示したい場所にコピー＆ペーストしてください。
 show-snippet.btn.close.d: {en: Close, ja: 閉じる}
+share: {ja: 共有}
+#snippet: {ja: ...}
+comment: {ja: コメント}
