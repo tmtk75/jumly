@@ -19,17 +19,22 @@ class App < Sinatra::Base
   get '/spec'   do haml :"../spec/index.html" end
   get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
   get '/README' do markdown :"../README" end
-  get '/RBTAG' do
-    tagger = Brill::Tagger.new
-    s = "This capfile helps you to retrieve 10,000 lines of catalina.out for each server, teapkin, identity, identity-usergrid-gatewa, usergrid and sync-load-balancer."
-    tagger.tag(s).to_s
-  end
-  get '/examples/*' do |n|
-    content_type "text/jumly"
-    File.new("views/examples/#{n}").read
-  end
+  post '/matag' do Helper.matag_for self, request end
+  get '/examples/*' do |n| Helper.example_of self, n end
   get %r{/(.*?)\.([a-z]{2})$} do |bn, ext| haml :"#{bn}", :locals=>mklocals(bn, ext) end
   get '/*' do |n| haml :"#{n}", :locals=>mklocals(n, "en") end
+
+  class Helper
+    def self.example_of ctx, n
+      ctx.content_type "text/jumly"
+      File.new("views/examples/#{n}").read
+    end
+    def self.matag_for ctx, req
+      ctx.content_type "application/json"
+      tagger = Brill::Tagger.new
+      tagger.tag(req.body.read).to_s
+    end
+  end
 
   class I18N
     require 'yaml'
