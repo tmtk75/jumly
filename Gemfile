@@ -8,6 +8,7 @@ gem 'coffee-script'
 gem 'haml'
 gem 'haml-coffeescript', '0.1.0'
 gem "yui-compressor"
+gem "rbtagger"
 group :heroku do
   gem 'colorize'
   gem 'watchr'
