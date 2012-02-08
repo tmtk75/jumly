@@ -19,6 +19,11 @@ class App < Sinatra::Base
   get '/spec'   do haml :"../spec/index.html" end
   get '/spec/*' do |n| haml :"../spec/index.html", :locals=>{:scripts=>[n]} end
   get '/README' do markdown :"../README" end
+  get '/RBTAG' do
+    tagger = Brill::Tagger.new
+    s = "This capfile helps you to retrieve 10,000 lines of catalina.out for each server, teapkin, identity, identity-usergrid-gatewa, usergrid and sync-load-balancer."
+    tagger.tag(s).to_s
+  end
   get '/examples/*' do |n|
     content_type "text/jumly"
     File.new("views/examples/#{n}").read
