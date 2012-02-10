@@ -8,6 +8,5 @@
 //= require usecase
 //= require class
 //= require sequence
-//= require jquery-jumly
 //= require knockout-jumly
 //= require lstorage

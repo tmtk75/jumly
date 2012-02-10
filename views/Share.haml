@@ -49,7 +49,9 @@
     $ ->
       try
         $("#link_to_edit").attr "href", tryUrl
-        $(".diagram-container").jumlize "sequence", directs, ->
+        diag = (new JUMLY.SequenceDiagramBuilder).build directs
+        $(".diagram-container").html diag
+        diag.compose()
       catch ex
         $(".alert.alert-error")
           .find(".message").text(ex.message).end()
