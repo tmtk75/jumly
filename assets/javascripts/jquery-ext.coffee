@@ -44,20 +44,14 @@ jQuery.fn.cssAsInt = (name) ->
   a = @css(name)
   if a then parseInt a else 0
 
-jQuery.fn.cssLeft = -> @css("left").toInt()
-
 jQuery.fn.outerRight = -> @offset().left + @outerWidth()
 
 jQuery.fn.mostLeftRight = ->
-  left : @min (e) -> $(e).offset().left
-  right: @max (e) ->
+  left : @min (e)-> $(e).offset().left
+  right: @max (e)->
     t = $(e).offset().left + $(e).outerWidth()
     if t - 1 < 0 then 0 else t - 1
-  width: ->
-    if @right? and @left?
-      @right - @left + 1
-    else
-      0
+  width: -> if @right? and @left? then @right - @left + 1 else 0
 
 jQuery.fn.mostTopBottom = ->
   top   : @min (e)-> $(e).offset().top
