@@ -22,24 +22,6 @@ jQuery.fn.pickup2 = (f0, f1, f2) ->
       f1 prev, curr, i + 1
     prev = curr
 
-# This is wrap feature keeping own instance, wrop is that node is duplicated
-jQuery.fn.swallow = (_, f) ->
-	f = f or jQuery.fn.append
-	if _.length is 1
-		if _.index() is 0
-			_.parent().prepend this
-		else
-			@insertAfter _.prev()
-	else
-		#NOTE: In order to solve the case for object-lane.
-		#      You use closure if you want flexibility.
-		if _.index() is 0
-			@prependTo $(_[0]).parent()
-		else
-			@insertBefore _[0]
-	@append _.detach()
-	this
-
 jQuery.fn.outerRight = -> @offset().left + @outerWidth()
 
 jQuery.fn.mostLeftRight = ->
