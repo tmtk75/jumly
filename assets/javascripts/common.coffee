@@ -109,7 +109,7 @@ JUMLYObject::isRightAt = (a) ->
 # iconify
 JUMLYObject::iconify = (fixture, styles) ->
     unless typeof fixture is "function"
-        fixture = $.uml.icon["." + fixture] || $.uml.icon[".actor"]
+        fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
     canvas = $("<canvas>").addClass("icon")
     container = $("<div>").addClass("icon-container")
     @addClass("iconified")
@@ -228,7 +228,7 @@ JUMLYRelationship::render = ->
     $.g2d.arrow ctxt, s, t, style
     ctxt.restore()
 
-$.uml.def ".relationship", JUMLYRelationship
+$.jumly.def ".relationship", JUMLYRelationship
 _STYLES =
     radius       : 14    # Radius of each circle
     lineWidth    : 1.5
@@ -391,8 +391,8 @@ _render_controller = (canvas, styles) -> _render_icon canvas, _controller_render
 
 _render_entity = (canvas, args) -> _render_icon canvas, _entity_renderer, args
 
-$.uml.icon ?= {}
-$.extend $.uml.icon, {
+$.jumly.icon ?= {}
+$.extend $.jumly.icon, {
     ".actor"     : _render_actor
     ".view"      : _render_view
     ".controller": _render_controller

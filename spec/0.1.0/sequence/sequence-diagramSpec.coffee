@@ -124,7 +124,7 @@ description "sequence-diagram", ->
             @ll_a = obj_a.activate()
         
         then_it "the occurrence is contained in an interaction", ->
-            @iact = $.uml(ll_a.parents(".interaction"))[0]
+            @iact = $.jumly(ll_a.parents(".interaction"))[0]
             iact.length.shouldBe 1
         
         and_ "the source object for the interaction is null", ->
@@ -189,10 +189,10 @@ description "sequence-diagram", ->
             $("> .interaction .message", diagram).length.shouldBe 1
         
         and_ "the total number of interactions", ->
-            $.uml($(".interaction", diagram)).length.shouldBe 2
+            $.jumly($(".interaction", diagram)).length.shouldBe 2
         
         and_ "the number of interactions under occurrence", ->
-            $.uml($(".occurrence .interaction", diagram)).length.shouldBe 1
+            $.jumly($(".occurrence .interaction", diagram)).length.shouldBe 1
     
     scenario "guarantee DOM structure of 'create an object and activate it'", ->
         it_behaves_as "create an object and activate it"
@@ -229,7 +229,7 @@ description "sequence-diagram", ->
     
     scenario "valid occurrences", ->
         given "a diagram and 3 objects", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object")).append(@obj_b = $.uml(".object")).append(@obj_c = $.uml(".object"))
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object")).append(@obj_b = $.jumly(".object")).append(@obj_c = $.jumly(".object"))
         
         when_it "activating an object of two", ->
             @ll_a = obj_a.activate()
@@ -243,7 +243,7 @@ description "sequence-diagram", ->
             @ll_c = iact_b_c.gives(".occurrence").as(".actee")
         
         and_ "selecting interactions under occurrence", ->
-            @iacts = $.uml($(".occurrence .interaction", diagram))
+            @iacts = $.jumly($(".occurrence .interaction", diagram))
         
         then_it "ll_a has the diagram as the parent", ->
             ll_a.parents(".diagram").length.shouldBe 1
@@ -361,7 +361,7 @@ description "sequence-diagram", ->
     shared_behavior "a right message from obj_b to obj_c", ->
         it_behaves_as "size and location of occurrence to right"
         given "a new object which size is 100", ->
-            @obj_c = $.uml(".object").css(
+            @obj_c = $.jumly(".object").css(
                 width: 100
                 height: 33
             )
@@ -388,19 +388,19 @@ description "sequence-diagram", ->
     
     scenario "horizontal positional relation", ->
         given "3 objects", ->
-            @a = $.uml(".object").offset(
+            @a = $.jumly(".object").offset(
                 left: 0
                 top: 0
             )
-            @b = $.uml(".object").offset(
+            @b = $.jumly(".object").offset(
                 left: 100
                 top: 0
             )
-            @c = $.uml(".object").offset(
+            @c = $.jumly(".object").offset(
                 left: 200
                 top: 0
             )
-            @diagram = $.uml(".sequence-diagram").append(a).append(b).append(c)
+            @diagram = $.jumly(".sequence-diagram").append(a).append(b).append(c)
             $(".object", diagram).width 88
             $("body").append diagram
         
@@ -517,16 +517,16 @@ description "sequence-diagram", ->
     
     shared_behavior "4 objects flowing from left to right", ->
         given "a diagram and 4 objects", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 450).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 450).css(
                 width: 100
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 300).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 300).css(
                 width: 100
                 height: 33
-            )).append(@obj_c = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_c = $.jumly(".object").offset(left: 150).css(
                 width: 100
                 height: 33
-            )).append(@obj_d = $.uml(".object").offset(left: 0).css(
+            )).append(@obj_d = $.jumly(".object").offset(left: 0).css(
                 width: 100
                 height: 33
             ))
@@ -579,8 +579,8 @@ description "sequence-diagram", ->
     ## Pending because it ignores jquery-ui plugin.
     xscenario "simple definition of width for elements (especially, jQuery position habit)", ->
         given "two objects whose width is 1px", ->
-            @a = $.uml(".object").width(1)
-            @b = $.uml(".object").width(1)
+            @a = $.jumly(".object").width(1)
+            @b = $.jumly(".object").width(1)
         
         when_it "moving one of them with position() at the right of another", ->
             b.position 
@@ -602,11 +602,11 @@ description "sequence-diagram", ->
     
     shared_behavior "a->b", ->
         given "a->b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").css(
                 left: 0
                 width: 50
                 height: 33
-            )).append(@obj_b = $.uml(".object").css(
+            )).append(@obj_b = $.jumly(".object").css(
                 left: 150
                 width: 100
                 height: 33
@@ -642,11 +642,11 @@ description "sequence-diagram", ->
     
     shared_behavior "a<-b", ->
         given "a<-b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").css(
                 left: 16 * 8
                 width: 5
                 height: 33
-            )).append(@obj_b = $.uml(".object").css(
+            )).append(@obj_b = $.jumly(".object").css(
                 left: 16 * 8 + 16 * 2
                 width: 10
                 height: 33
@@ -674,14 +674,14 @@ description "sequence-diagram", ->
     shared_behavior "a->b->c", ->
         it_behaves_as "a->b"
         given "b->c", ->
-            diagram.append obj_c = $.uml(".object").css(
+            diagram.append obj_c = $.jumly(".object").css(
                 left: 250
                 width: 50
                 height: 33
             )
             @iact_bc = ll_b.interact(obj_c)
             @ll_c = iact_bc.gives(".occurrence").as(".actee")
-            @msg_bc = $.uml($(".message", iact_bc))[0]
+            @msg_bc = $.jumly($(".message", iact_bc))[0]
         
         when_it "composing", ->
             diagram.compose()
@@ -700,14 +700,14 @@ description "sequence-diagram", ->
     shared_behavior "c<-a<-b", ->
         it_behaves_as "a<-b"
         given "a->c", ->
-            diagram.append obj_c = $.uml(".object").css(
+            diagram.append obj_c = $.jumly(".object").css(
                 left: 16 * 6
                 width: 4
                 height: 33
             )
             @iact_ac = ll_a.interact(obj_c)
             @ll_c = iact_ac.gives(".occurrence").as(".actee")
-            @msg_ac = $.uml($(".message", iact_ac))[0]
+            @msg_ac = $.jumly($(".message", iact_ac))[0]
         
         when_it "composing", ->
             diagram.compose()
@@ -792,7 +792,7 @@ description "sequence-diagram", ->
     
     shared_behavior "a->a", ->
         given "a->a", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").css(
                 width: 100
                 height: 33
             ))
@@ -825,7 +825,7 @@ description "sequence-diagram", ->
             @ll_a2 = iact_aa.gives(".occurrence").as(".actee")
         
         and_ "the message to itself", ->
-            @msg_aa = $.uml(iact_aa.find(".message"))[0]
+            @msg_aa = $.jumly(iact_aa.find(".message"))[0]
         
         when_it "composing", ->
             diagram.compose()
@@ -863,7 +863,7 @@ description "sequence-diagram", ->
             @ll_b2 = iact_bb.gives(".occurrence").as(".actee")
         
         and_ "the message to itself", ->
-            @msg_bb = $.uml(iact_bb.find(".message"))[0]
+            @msg_bb = $.jumly(iact_bb.find(".message"))[0]
         
         when_it "composing", ->
             diagram.compose()
@@ -900,7 +900,7 @@ description "sequence-diagram", ->
             @ll_b3 = iact_bb2.gives(".occurrence").as(".actee")
         
         and_ "the message to itself", ->
-            @msg_bb3 = $.uml(iact_bb2.find(".message"))[0]
+            @msg_bb3 = $.jumly(iact_bb2.find(".message"))[0]
         
         when_it "composing", ->
             diagram.compose()
@@ -911,7 +911,7 @@ description "sequence-diagram", ->
     description "preferredWidth(legacy scenario)", ->
         scenario "for an object", ->
             given "an object", ->
-                @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").width(88))
+                @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").width(88))
                 diagram.appendTo $("body")
             
             when_it "compose", ->
@@ -926,7 +926,7 @@ description "sequence-diagram", ->
         
         scenario "for two objects", ->
             given "an object", ->
-                @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").width(88)).append(@obj_b = $.uml(".object").width(12))
+                @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").width(88)).append(@obj_b = $.jumly(".object").width(12))
                 diagram.appendTo $("body")
             
             when_it "compose", ->
@@ -938,7 +938,7 @@ description "sequence-diagram", ->
 
     description "preferredWidth(latest scenario)", ->
         newseqdiag = ->
-            diag = $.uml ".sequence-diagram"
+            diag = $.jumly ".sequence-diagram"
             diag.appendTo $ "body"
             diag
     
@@ -955,14 +955,14 @@ description "sequence-diagram", ->
     
         it "is same width to inside object", ->
             diag = newseqdiag()
-            diag.append obj = ($.uml ".object", "foobar")
+            diag.append obj = ($.jumly ".object", "foobar")
             diag.compose()
             diag.preferredWidth().shouldBe obj.outerWidth()
    
         new2 = ->
             diag = newseqdiag()
-            diag.append @a = ($.uml ".object", "foobar")
-            diag.append @b = ($.uml ".object", "fizbuz")
+            diag.append @a = ($.jumly ".object", "foobar")
+            diag.append @b = ($.jumly ".object", "fizbuz")
             diag
 
         it "is same width to the width of inside objects positioned with css", ->
@@ -992,7 +992,7 @@ description "sequence-diagram", ->
     
         it "is same width to the inside object", ->
             diag = newseqdiag()
-            diag.append (obj = $.uml ".object")
+            diag.append (obj = $.jumly ".object")
             diag.compose()
             diag.preferredWidth().shouldBe obj.outerWidth()
 

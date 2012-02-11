@@ -28,19 +28,19 @@ description "usecase.DSL", ->
 
     description "@usecase", ->
         scenario "register and identification", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             and_ "an usecase", ->
                 diag.boundary "1st boundary", ->
                     @usecase "Open File"
 
         scenario "having stereotypes in array declared with string", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             given "an usecase", ->
                 diag.boundary "2nd boundary", ->
                     @usecase "Close File":{extend:["Open File"]}
                 
         scenario "having stereotypes in array declared with array", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @usecase "Close File":{extend:["Open File", "Close Socket"]}
@@ -51,13 +51,13 @@ description "usecase.DSL", ->
                 
     description "@actor", ->
         scenario "register and identification", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             and_ "an actor", ->
                 diag.boundary "1st boundary", ->
                     @actor "Hiroshi"
 
         scenario "actor, too", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @actor "Manager":{extend:["User", "Viewer"]}
@@ -68,7 +68,7 @@ description "usecase.DSL", ->
                 
     description ".include", ->
         scenario "include for usecase", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             given "an usecase", ->
                 diag.boundary "a boundary", ->
                     @usecase "Open File":{include:["Find File"]}
@@ -79,10 +79,10 @@ description "usecase.DSL", ->
     description "@boundary", ->
 
         it 'should accept undefined', ->
-            ($.uml ".usecase-diagram").boundary undefined, ->
+            ($.jumly ".usecase-diagram").boundary undefined, ->
 
         scenario "", ->
-            given "a usecase diagram", -> @diag = $.uml ".usecase-diagram"
+            given "a usecase diagram", -> @diag = $.jumly ".usecase-diagram"
             given "some boundaries", ->
                 diag.boundary "aaaaa", ->
                     @boundary "bbbbb", ->

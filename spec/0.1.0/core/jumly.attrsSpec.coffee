@@ -1,6 +1,6 @@
 description "attr", ->
     it "has stereotype property to read/write", ->
-        diag = $.uml ".sequence-diagram"
+        diag = $.jumly ".sequence-diagram"
         diag.found "A", ->
             @create "B"
         msg = (diag.find ".message:last").self()
@@ -8,7 +8,7 @@ description "attr", ->
         #msg.data("uml:property").stereotypes().length.shouldBe 1
     
     it "has name property to read/write", ->
-        diag = $.uml ".sequence-diagram"
+        diag = $.jumly ".sequence-diagram"
         diag.found "A", ->
             @message "call", "B"
         msg = (diag.find ".message:last").self()
@@ -16,19 +16,19 @@ description "attr", ->
 
     scenario "a string at 2nd parameter in creation", ->
         given "a string at 2nd parameter", ->
-            @obj_a = $.uml(".object", "hello world")
+            @obj_a = $.jumly(".object", "hello world")
         then_it "the value is in nodes has .name", ->
             obj_a.find(".name:eq(0)").html().shouldBe "hello world"
     
     scenario "an object at 2nd parameter in creation", ->
         given "an object having 'name' at 2nd parameter", ->
-            @obj_a = $.uml(".object", name: "hello world2")
+            @obj_a = $.jumly(".object", name: "hello world2")
         then_it "the value of the name property for the object is in nodes has .name", ->
             obj_a.find(".name:eq(0)").html().shouldBe "hello world2"
     
     scenario "name method", ->
         given "an object", ->
-            @obj_a = $.uml(".object")
+            @obj_a = $.jumly(".object")
         and_ "an interaction", ->
             @iact_aa = obj_a.activate().interact(obj_a)
         when_it "set a value with name to obj_a", ->
@@ -46,12 +46,12 @@ description "attr", ->
     
     scenario "basic attributes", ->
         given "a fragment", ->
-            @diagram = $.uml(".sequence-diagram")
-                        .append(@obj_a = $.uml(".object").offset(left:  50).css(width: 88, height: 31))
-                        .append(@obj_b = $.uml(".object").offset(left: 150).css(width: 88, height: 31))
+            @diagram = $.jumly(".sequence-diagram")
+                        .append(@obj_a = $.jumly(".object").offset(left:  50).css(width: 88, height: 31))
+                        .append(@obj_b = $.jumly(".object").offset(left: 150).css(width: 88, height: 31))
             diagram.appendTo $("body")
             obj_a.activate().interact obj_b
-            @frag = $.uml(".fragment")
+            @frag = $.jumly(".fragment")
                      .enclose($("> .interaction:eq(0)", diagram))
                      .name("Loop-0")
                      .find(".condition").html("[person is empty]")
@@ -62,14 +62,14 @@ description "attr", ->
     
     shared_behavior "all elements", ->
         given "all elements", ->
-            @diagram = $.uml(".sequence-diagram")
-                        .append(@obj_a = $.uml(".object").offset(left:  50).css(width: 88, height: 31))
-                        .append(@obj_b = $.uml(".object").offset(left: 150).css(width: 88, height: 31))
+            @diagram = $.jumly(".sequence-diagram")
+                        .append(@obj_a = $.jumly(".object").offset(left:  50).css(width: 88, height: 31))
+                        .append(@obj_b = $.jumly(".object").offset(left: 150).css(width: 88, height: 31))
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_b)
                             .interact(obj_b)
                             .interact(obj_b)
-            @frag = $.uml(".fragment").enclose($("> .interaction:eq(0)", diagram))
+            @frag = $.jumly(".fragment").enclose($("> .interaction:eq(0)", diagram))
             diagram.compose()
   
     scenario "message stereotype", ->

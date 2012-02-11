@@ -2,8 +2,8 @@ xdescription "deployment-diagram", ->
     description "location", ->
         shared_behavior "is located to the dialog", ->
             given "an artifact", ->
-                @diag = $.uml ".deployment-diagram"
-                @art  = $.uml ".artifact", "foobar"
+                @diag = $.jumly ".deployment-diagram"
+                @art  = $.jumly ".artifact", "foobar"
                 diag.append art
                 diag.appendTo $ "body"
             then_it "composing", ->
@@ -29,10 +29,10 @@ xdescription "deployment-diagram", ->
         
         scenario "3 artifacts vertical", ->
             given "an artifact", ->
-                @diag = $.uml ".deployment-diagram"
-                diag.append @a = $.uml ".artifact", "foobar"
-                diag.append @b = $.uml ".artifact", "fizbuz"
-                diag.append @c = $.uml ".artifact", "rock'in roll"
+                @diag = $.jumly ".deployment-diagram"
+                diag.append @a = $.jumly ".artifact", "foobar"
+                diag.append @b = $.jumly ".artifact", "fizbuz"
+                diag.append @c = $.jumly ".artifact", "rock'in roll"
                 diag.appendTo $ "body"
             when_it "move all to", ->
                 a.moveTo top:300

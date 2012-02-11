@@ -1,9 +1,9 @@
 description "fragment", ->
     shared_behavior "2 objects(obj_a, obj_b)", ->
         given "2 objects, obj_a, obj_b", ->
-            @diagram = $.uml(".sequence-diagram")
-                        .append(@obj_a = $.uml(".object").offset(left: 50).css(width: 88, height: 33))
-                        .append(@obj_b = $.uml(".object").offset(left: 150).css(width: 88, height: 34))
+            @diagram = $.jumly(".sequence-diagram")
+                        .append(@obj_a = $.jumly(".object").offset(left: 50).css(width: 88, height: 33))
+                        .append(@obj_b = $.jumly(".object").offset(left: 150).css(width: 88, height: 34))
             diagram.appendTo $("body")
             obj_a.find(".name").html "obj-a"
             obj_b.find(".name").html "obj-b"
@@ -49,7 +49,7 @@ description "fragment", ->
         it_behaves_as "2 objects(obj_a, obj_b)"
         it_behaves_as "2 objects(obj_a, obj_b) activation(ll_a, iact_ab)"
         when_it "fragment", ->
-            @fragment = $.uml(".fragment").enclose($("> .interaction:eq(0)", diagram))
+            @fragment = $.jumly(".fragment").enclose($("> .interaction:eq(0)", diagram))
         
         and_ "composing", ->
             diagram.compose()
@@ -122,7 +122,7 @@ description "fragment", ->
             obj_a.activate().interact obj_b
         
         and_ "put them in fragment (if you'd like to enclose more than 2 interactions)", ->
-            $.uml(".fragment").enclose $("> .interaction", diagram)
+            $.jumly(".fragment").enclose $("> .interaction", diagram)
         
         and_ "composing", ->
             diagram.compose()
@@ -145,7 +145,7 @@ description "fragment", ->
     
     scenario "enclose throws exception when empty array is given", ->
         given "a fragment", ->
-            @fragment = $.uml(".fragment")
+            @fragment = $.jumly(".fragment")
         
         then_it "throwing an exception", ->
             expect(->
@@ -155,7 +155,7 @@ description "fragment", ->
     scenario "enclose returns itself", ->
         it_behaves_as "fragment over two interactions"
         given "a fragment", ->
-            @fragment = $.uml(".fragment")
+            @fragment = $.jumly(".fragment")
         
         when_it "", ->
             @iter = $(".interaction:eq(0)", diagram)
@@ -171,14 +171,14 @@ description "fragment", ->
         it_behaves_as "2 objects(obj_a, obj_b)"
         it_behaves_as "2 objects(obj_a, obj_b) activation(ll_a, iact_ab)"
         when_it "refering the parent of iact_ab", ->
-            @_parent = $.uml(iact_ab.parent())[0]
+            @_parent = $.jumly(iact_ab.parent())[0]
         
         and_ "apply fragment into iact_ab", ->
-            @fragment_ab = $.uml(".fragment").enclose(iact_ab)
+            @fragment_ab = $.jumly(".fragment").enclose(iact_ab)
         
         and_ "refers the root of fragment", ->
             @diag = fragment_ab.parents(".diagram")[0]
-            @fragment_ab_ances = $.uml(diag)[0]
+            @fragment_ab_ances = $.jumly(diag)[0]
     
     scenario "guarantee 'fragment replaces interaction and the identification' for the fragment parent", ->
         it_behaves_as "fragment replaces interaction and the identification"
@@ -189,7 +189,7 @@ description "fragment", ->
             (fragment_ab != null).shouldBe true
         
         and_ "it is same to the original parent of iact_ab", ->
-            ($.uml(fragment_ab.parent())[0] == _parent).shouldBe true
+            ($.jumly(fragment_ab.parent())[0] == _parent).shouldBe true
     
     scenario "guarantee 'fragment replaces interaction and the identification' for the fragment ancestor", ->
         it_behaves_as "fragment replaces interaction and the identification"
@@ -212,30 +212,30 @@ description "fragment", ->
     
     scenario "nested fragment horizontal relation", ->
         given "2 interactions", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 31
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 31
-            )).append(@obj_c = $.uml(".object").offset(left: 250).css(
+            )).append(@obj_c = $.jumly(".object").offset(left: 250).css(
                 width: 88
                 height: 31
             ))
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_b).gives(".occurrence").as(".actee").interact obj_c
-            @fragment_0 = $.uml(".fragment").enclose(diagram.find(".interaction:eq(0)"))
-            @fragment_1 = $.uml(".fragment").enclose(diagram.find(".interaction:eq(1)"))
-            @fragment_2 = $.uml(".fragment").enclose(diagram.find(".interaction:eq(2)"))
+            @fragment_0 = $.jumly(".fragment").enclose(diagram.find(".interaction:eq(0)"))
+            @fragment_1 = $.jumly(".fragment").enclose(diagram.find(".interaction:eq(1)"))
+            @fragment_2 = $.jumly(".fragment").enclose(diagram.find(".interaction:eq(2)"))
             diagram.compose()
 
     describe "misc", ->
         scenario "syntax error happens on UMLFragment::enclose", ->
             given "a diagram and 2 objects", ->
-                @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+                @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                     width: 88
                     height: 33
-                )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+                )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                     width: 88
                     height: 34
                 ))
@@ -251,7 +251,7 @@ description "fragment", ->
             
             and_ ->
                 @iters = $("> .interaction", diagram)
-                $.uml(".fragment").enclose iters
+                $.jumly(".fragment").enclose iters
             
             then_it "", ->
 
@@ -265,11 +265,11 @@ description "fragment", ->
     scenario "expanding width left/right horizontally", ->
         given "an fragment in an interaction", ->
             $("html").addClass $.client.os
-            @diagram = $.uml(".sequence-diagram")
-                       .append(customer = $.uml ".object", "Customer")
-                       .append(order = $.uml ".object", "Order")
-                       .append(menumanager = $.uml ".object", "Menu Manager")
-                       .append(database = $.uml ".object", "Database")
+            @diagram = $.jumly(".sequence-diagram")
+                       .append(customer = $.jumly ".object", "Customer")
+                       .append(order = $.jumly ".object", "Order")
+                       .append(menumanager = $.jumly ".object", "Menu Manager")
+                       .append(database = $.jumly ".object", "Database")
                        .appendTo($ "body").self()
           
             customer.activate().interact(order).name("End Order")
@@ -277,7 +277,7 @@ description "fragment", ->
                     .toward().interact(database).name("Commit")
                     .toward().destroy order
             @lp = diagram.find(".interaction:eq(2)").self().fragment name: "Loop", condition: "[until complete]"
-            $.uml(".ref", "Complete Order and Pay").appendTo diagram
+            $.jumly(".ref", "Complete Order and Pay").appendTo diagram
             menumanager.lost()
             $(".object", diagram).align "bottom"
             diagram.compose()
@@ -292,11 +292,11 @@ description "fragment", ->
     description "alt", ->
         scenario "building alt having 4 objects fromt left to right", ->
             given "4 objects", ->
-                @diagram = $.uml(".sequence-diagram")
-                            .append(@obj_a = $.uml ".object", "a")
-                            .append(@obj_b = $.uml ".object", "b")
-                            .append(@obj_c = $.uml ".object", "c")
-                            .append(@obj_d = $.uml ".object", "d")
+                @diagram = $.jumly(".sequence-diagram")
+                            .append(@obj_a = $.jumly ".object", "a")
+                            .append(@obj_b = $.jumly ".object", "b")
+                            .append(@obj_c = $.jumly ".object", "c")
+                            .append(@obj_d = $.jumly ".object", "d")
                 diagram.appendTo $("body")
             given "an interaction", ->
                 @occur = obj_a.activate()
@@ -331,9 +331,9 @@ description "fragment", ->
 
         scenario "two interactions in .alt, last one is only in .alt fragment", ->
             given "2 objects", ->
-                @diagram = $.uml(".sequence-diagram")
-                            .append(@obj_a = $.uml ".object", "a")
-                            .append(@obj_b = $.uml ".object", "b")
+                @diagram = $.jumly(".sequence-diagram")
+                            .append(@obj_a = $.jumly ".object", "a")
+                            .append(@obj_b = $.jumly ".object", "b")
                 diagram.appendTo $("body")
             when_it "append alt .fragment", ->
                 obj_a.activate().interact stereotype: ".alt", {

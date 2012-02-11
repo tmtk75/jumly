@@ -1,5 +1,5 @@
 description "uml:property", ->
-    u = $.uml
+    u = $.jumly
     shared_scenario "stereotype CRUD, Create/Read", ->
         given "an object", ->
             @a = u ".object"
@@ -29,7 +29,7 @@ description "uml:property", ->
 
     shared_scenario "found and create", ->
         given "some objects", ->
-            @diag = $.uml ".sequence-diagram"
+            @diag = $.jumly ".sequence-diagram"
             diag.found "A", ->
                 @create "B"
             @a = @diag.data "uml:property"
@@ -63,7 +63,7 @@ description "uml:property", ->
 
     description "streotype", ->
         it "has stereotype property", ->
-            diag = $.uml ".sequence-diagram"
+            diag = $.jumly ".sequence-diagram"
             diag.found "A", -> @create "B"
             msg = (diag.find ".message:last").self()
             (msg.hasClass "create").shouldBeTruthy()
@@ -71,7 +71,7 @@ description "uml:property", ->
         
     description "name", ->
         it "has name property", ->
-            diag = $.uml ".sequence-diagram"
+            diag = $.jumly ".sequence-diagram"
             diag.found "A", -> @message "call", "B"
             msg = (diag.find ".message:last").self()
             #msg.data("uml:property").name.shouldBe "call"

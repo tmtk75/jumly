@@ -1,7 +1,7 @@
 description "lifeline", ->
     shared_behavior "lifeline for 1 object", ->
         given "a diagram and 1 object", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 33
                 height: 32
             ))
@@ -26,13 +26,13 @@ description "lifeline", ->
     
     shared_behavior "lifelines for 3 objects", ->
         given "a diagram and 3 objects", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 33
                 height: 33
-            )).append(obj_b = $.uml(".object").offset(left: 100).css(
+            )).append(obj_b = $.jumly(".object").offset(left: 100).css(
                 width: 50
                 height: 34
-            )).append(obj_c = $.uml(".object").offset(left: 150).css(
+            )).append(obj_c = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 35
             ))
@@ -59,7 +59,7 @@ description "lifeline", ->
     
     shared_behavior "given a lifeline", ->
         given "a lifeline outside diagram", ->
-            @obj = $.uml(".object")
+            @obj = $.jumly(".object")
             @ll = obj.activate()
     
     scenario "should be 0 just after the creation outside diagram", ->
@@ -70,7 +70,7 @@ description "lifeline", ->
     shared_behavior "given a diagram", ->
         it_behaves_as "given a lifeline"
         given "a diagram outside document", ->
-            @diag = $.uml(".sequence-diagram")
+            @diag = $.jumly(".sequence-diagram")
     
     scenario "should be 0 if nodes are not in HTML document", ->
         it_behaves_as "given a diagram"
@@ -93,10 +93,10 @@ description "lifeline", ->
 
     shared_behavior "two creations and two usual interactions", ->
         given "three .object", ->
-            @diag = $.uml ".sequence-diagram"
-            @diag.append(@obj_a = $.uml ".object", "a")
-            @diag.append(@obj_d = $.uml ".object", "d")
-            @diag.append(@obj_e = $.uml ".object", "e")
+            @diag = $.jumly ".sequence-diagram"
+            @diag.append(@obj_a = $.jumly ".object", "a")
+            @diag.append(@obj_d = $.jumly ".object", "d")
+            @diag.append(@obj_e = $.jumly ".object", "e")
         when_it "create five messages", ->
             @iact_ab = @obj_a.activate()
                              .create(id:"obj_b", name:"b")
@@ -117,7 +117,7 @@ description "lifeline", ->
     description "lifecycle", ->
         scenario ".lifeline is created when composing", ->
             given "an .object", ->
-                @diag = $.uml(".sequence-diagram").append(@obj_a = $.uml ".object")
+                @diag = $.jumly(".sequence-diagram").append(@obj_a = $.jumly ".object")
                 diag.appendTo $ "body"
             when_it "compose", ->
                 diag.compose()
@@ -144,7 +144,7 @@ description "lifeline", ->
 
     scenario "lifeline length is aligned", ->
       given "a sequence", ->
-        @diag = $.uml(".sequence-diagram")
+        @diag = $.jumly(".sequence-diagram")
         diag.appendTo $ "body"
         diag.found "A-ll-0", ->
           @message "b", "B-ll-1", ->
@@ -162,7 +162,7 @@ description "lifeline", ->
 
     scenario "lifeline length for .stop", ->
       given "a", ->
-        @diag = $.uml(".sequence-diagram")
+        @diag = $.jumly(".sequence-diagram")
         diag.appendTo $ "body"
         diag.found "A-ll-4", ->
           @message "b", "B-ll-5", ->

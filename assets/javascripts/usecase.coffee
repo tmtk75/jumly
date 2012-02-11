@@ -21,16 +21,16 @@ UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
     t = T if t > T
     icon.css width:minwidth*t, height:minheight*t
 
-$.uml.def ".usecase", UMLUsecase
+$.jumly.def ".usecase", UMLUsecase
 
 class UMLActor
     constructor: (props, opts) ->
-        jQuery.extend this, $.uml ".object"
+        jQuery.extend this, $.jumly ".object"
         @iconify ".actor"
         @addClass "actor"
         this
 
-$.uml.def ".actor", UMLActor
+$.jumly.def ".actor", UMLActor
 
 
 class UMLSystemBoundary
@@ -41,7 +41,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-$.uml.def ".system-boundary", UMLSystemBoundary
+$.jumly.def ".system-boundary", UMLSystemBoundary
 
 
 class JUMLYUsecaseDiagram extends JUMLY.Diagram
@@ -70,7 +70,7 @@ bind_between = (nodes, diag) ->
     bind = (type) ->
       $(src.data("uml:property")[type]).each (i, e) ->
         return unless dst = find_with_id e
-        link = $.uml ".relationship", source:src, destination:dst
+        link = $.jumly ".relationship", source:src, destination:dst
         link.addClass type
         diag.append link
     bind "use"
@@ -103,7 +103,7 @@ JUMLYUsecaseDiagram::compose = ->
     @trigger "afterCompose", [this]
     this
     
-$.uml.def ".usecase-diagram", JUMLYUsecaseDiagram
+$.jumly.def ".usecase-diagram", JUMLYUsecaseDiagram
 
 
 
@@ -112,7 +112,7 @@ class JUMLYUsecaseDiagramBuilder extends JUMLY.DiagramBuilder
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     uname = $.jumly.normalize uname
-    a = $.uml type, uname
+    a = $.jumly type, uname
     $.extend a.data("uml:property"), uname
     a
 

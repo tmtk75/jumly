@@ -1,13 +1,13 @@
 description "fragment.alt", ->
     it "should return ownself", ->
-        occur = ($.uml ".object").activate()
-        frag = $.uml ".fragment"
+        occur = ($.jumly ".object").activate()
+        frag = $.jumly ".fragment"
         alt = frag.alter occur, {"[x > 0]":->}
         (alt is frag).shouldBe true
 
     scenario "a single fragment", ->
       given "2 objects and an interaction", ->
-        @diag = $.uml ".sequence-diagram"
+        @diag = $.jumly ".sequence-diagram"
         diag.found "A-frag-1", ->
           @message "call", "B-frag-2"
           @loop @message "call", "B-frag-3"
@@ -21,7 +21,7 @@ description "fragment.alt", ->
             
     scenario "three combined fragment", ->
       given "2 objects and an interaction", ->
-        @diag = $.uml ".sequence-diagram"
+        @diag = $.jumly ".sequence-diagram"
         diag.found "A-cf-1234", ->
           @message "call", "B-cf-1234"
           @alt
@@ -50,7 +50,7 @@ description "fragment.alt", ->
     
     scenario "alt for reactivation, which is a case the returning is null", ->
       given "2 objects and an interaction", ->
-        @diag = $.uml ".sequence-diagram"
+        @diag = $.jumly ".sequence-diagram"
         diag.found "A-alt-1", ->
           @alt "[x > 0]": ->
             @message "a->b", "B-alt-1"

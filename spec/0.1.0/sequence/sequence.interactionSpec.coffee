@@ -17,9 +17,9 @@ description "interaction", ->
     
     shared_behavior "simple interaction a->b", ->
         given "an interaction", ->
-            @diagram = $.uml(".sequence-diagram")
-                        .append(@obj_a = $.uml(".object").css(left: 50))
-                        .append(@obj_b = $.uml(".object").css(left: 200))
+            @diagram = $.jumly(".sequence-diagram")
+                        .append(@obj_a = $.jumly(".object").css(left: 50))
+                        .append(@obj_b = $.jumly(".object").css(left: 200))
                         .find(".object").width(100).height(33).end()
             diagram.appendTo $("body")
             @iact_ab = obj_a.activate()
@@ -107,11 +107,11 @@ description "interaction", ->
     
     shared_behavior "simple return message", ->
         given "a->b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").css(
                 left: 0
                 width: 50
                 height: 33
-            )).append(obj_b = $.uml(".object").css(
+            )).append(obj_b = $.jumly(".object").css(
                 left: 150
                 width: 100
                 height: 33
@@ -231,7 +231,7 @@ description "interaction", ->
     
     shared_behavior "name of self message", ->
         given "a self message", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").css(left: 50))
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").css(left: 50))
             diagram.appendTo($("body")).find(".object").width(100).height(33).end()
             @iact_ab = obj_a.activate().interact(obj_a).find(".name").html("a->a").end()
         
@@ -272,12 +272,12 @@ description "interaction", ->
         shared_behavior "make a diagram and five objects", ->
             given "a diagram and five objects", ->
                 @diagram =
-                   @diag = $.uml(".sequence-diagram")
-                            .append(@obj_a = $.uml ".object", "obj-a")
-                            .append(@obj_b = $.uml ".object", "obj-b")
-                            .append(@obj_c = $.uml ".object", "obj-c")
-                            .append(@obj_d = $.uml ".object", "obj-d")
-                            .append(@obj_e = $.uml ".object", "obj-e")
+                   @diag = $.jumly(".sequence-diagram")
+                            .append(@obj_a = $.jumly ".object", "obj-a")
+                            .append(@obj_b = $.jumly ".object", "obj-b")
+                            .append(@obj_c = $.jumly ".object", "obj-c")
+                            .append(@obj_d = $.jumly ".object", "obj-d")
+                            .append(@obj_e = $.jumly ".object", "obj-e")
         ###
         Message flow pattern b/w two interactions.
         -------------------------------------------------

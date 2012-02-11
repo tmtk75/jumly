@@ -1,7 +1,7 @@
 description "diagram", ->
     shared_behavior "a sequence diagram", ->
         given "a sequence diagram", ->
-            @diag = $.uml(".sequence-diagram")
+            @diag = $.jumly(".sequence-diagram")
             $("body").append(diag)
 
     scenario "width of an empty sequence diagram", ->
@@ -14,7 +14,7 @@ description "diagram", ->
     shared_behavior "a composed sequence diagram", ->
         it_behaves_as "a sequence diagram"
         given "an object",  ->
-            diag.append @obj_a = $.uml(".object")
+            diag.append @obj_a = $.jumly(".object")
         when_it "is composed", ->
             diag.compose()
     
@@ -26,9 +26,9 @@ description "diagram", ->
     description "width of sequence diagram", ->
         shared_behavior "two objects in sequence diagram", ->
             given "two objects in a diagram", ->
-                @diag  = $.uml(".sequence-diagram")
-                          .append(@obj_a = $.uml ".object", "a")
-                          .append(@obj_b = $.uml ".object", "b")
+                @diag  = $.jumly(".sequence-diagram")
+                          .append(@obj_a = $.jumly ".object", "a")
+                          .append(@obj_b = $.jumly ".object", "b")
                 @diag.appendTo $ "body"
     
         scenario "two objects in sequence diagram:0", ->
@@ -71,8 +71,8 @@ description "diagram", ->
         shared_behavior "four objects", ->
             it_behaves_as "two objects in sequence diagram", ->
             given "two objects in a diagram", ->
-                diag.append(@obj_c = $.uml ".object", "c")
-                    .append(@obj_d = $.uml ".object", "d")
+                diag.append(@obj_c = $.jumly ".object", "c")
+                    .append(@obj_d = $.jumly ".object", "d")
     
         scenario "four objects", ->
             it_behaves_as "four objects", ->

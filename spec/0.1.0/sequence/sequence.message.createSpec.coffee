@@ -1,8 +1,8 @@
 description "message.create", ->
     shared_scenario "a creation", ->
         given "an .object", ->
-            @diag = $.uml ".sequence-diagram"
-            @diag.append(@obj_a = $.uml ".object", "a")
+            @diag = $.jumly ".sequence-diagram"
+            @diag.append(@obj_a = $.jumly ".object", "a")
         when_it "create message", ->
             @iact_ab = @obj_a.activate().create id:"obj_b", name:"b"
         then_it "two object there", ->
@@ -93,10 +93,10 @@ description "message.create", ->
 
     scenario "centering name", ->
         given "an .object", ->
-            @diag = $.uml ".sequence-diagram"
-            @diag.append(@obj_a = $.uml ".object", "a")
-            @diag.append(@obj_d = $.uml ".object", "d")
-            @diag.append(@obj_e = $.uml ".object", "e")
+            @diag = $.jumly ".sequence-diagram"
+            @diag.append(@obj_a = $.jumly ".object", "a")
+            @diag.append(@obj_d = $.jumly ".object", "d")
+            @diag.append(@obj_e = $.jumly ".object", "e")
         when_it "create message", ->
             @iact_ab = @obj_a.activate()
                              .create(id:"obj_b", name:"b")

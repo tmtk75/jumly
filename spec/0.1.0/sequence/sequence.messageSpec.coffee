@@ -1,10 +1,10 @@
 description "message", ->
     shared_behavior "1 recursive call to right", ->
         given "2 objects, obj_a, obj_b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 33
             ))
@@ -18,11 +18,11 @@ description "message", ->
             obj_b.activate().interact(obj_a).toward().interact obj_b
         
         when_it "refering some elements", ->
-            @ll_b0 = $.uml($(".occurrence:eq(0)", diagram))[0]
-            @ll_a1 = $.uml($(".occurrence:eq(1)", diagram))[0]
-            @ll_b2 = $.uml($(".occurrence:eq(2)", diagram))[0]
-            @msg1st = $.uml($(".message", diagram)[0])[0]
-            @msg2nd = $.uml($(".message", diagram)[1])[0]
+            @ll_b0 = $.jumly($(".occurrence:eq(0)", diagram))[0]
+            @ll_a1 = $.jumly($(".occurrence:eq(1)", diagram))[0]
+            @ll_b2 = $.jumly($(".occurrence:eq(2)", diagram))[0]
+            @msg1st = $.jumly($(".message", diagram)[0])[0]
+            @msg2nd = $.jumly($(".message", diagram)[1])[0]
             diagram.find(".message").css "z-index", "100"
         
         and_ "composing", ->
@@ -31,14 +31,14 @@ description "message", ->
     shared_behavior "3 recursive calls to right", ->
         it_behaves_as "1 recursive call to right"
         when_it "interacting twice from the last", ->
-            $.uml($(".interaction:last", diagram))[0]
+            $.jumly($(".interaction:last", diagram))[0]
                 .toward().interact(obj_a).toward().interact obj_b
         
         and_ "refering new elements", ->
-            @ll_a3 = $.uml($(".occurrence:eq(3)", diagram))[0]
-            @ll_b4 = $.uml($(".occurrence:eq(4)", diagram))[0]
-            @msg3rd = $.uml($(".message", diagram)[2])[0]
-            @msg4th = $.uml($(".message", diagram)[3])[0]
+            @ll_a3 = $.jumly($(".occurrence:eq(3)", diagram))[0]
+            @ll_b4 = $.jumly($(".occurrence:eq(4)", diagram))[0]
+            @msg3rd = $.jumly($(".message", diagram)[2])[0]
+            @msg4th = $.jumly($(".message", diagram)[3])[0]
             diagram.find(".message").css "z-index", "100"
         
         and_ "composing", ->
@@ -54,13 +54,13 @@ description "message", ->
     
     shared_behavior "3 objects and 3 lost messages", ->
         given "3 objects", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 33
-            )).append(@obj_c = $.uml(".object").offset(left: 250).css(
+            )).append(@obj_c = $.jumly(".object").offset(left: 250).css(
                 width: 88
                 height: 33
             ))
@@ -99,10 +99,10 @@ description "message", ->
         given "2 objects, obj_a, obj_b", ->
             @OBJ_W = 88
             @LL_W = 10
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: OBJ_W
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: OBJ_W
                 height: 33
             ))
@@ -117,9 +117,9 @@ description "message", ->
             obj_b.activate().interact obj_a
         
         and_ "refering some elements", ->
-            @ll_b = $.uml($(".occurrence:eq(0)", diagram))[0]
-            @ll_a = $.uml($(".occurrence:eq(1)", diagram))[0]
-            @msg1st = $.uml($(".message", diagram)[0])[0]
+            @ll_b = $.jumly($(".occurrence:eq(0)", diagram))[0]
+            @ll_a = $.jumly($(".occurrence:eq(1)", diagram))[0]
+            @msg1st = $.jumly($(".message", diagram)[0])[0]
         
         and_ "composing", ->
             diagram.compose()
@@ -143,10 +143,10 @@ description "message", ->
     
     shared_behavior "1 recursive call to left", ->
         given "2 objects, obj_a, obj_b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 33
             ))
@@ -160,11 +160,11 @@ description "message", ->
             obj_a.activate().interact(obj_b).toward().interact obj_a
         
         when_it "refering some elements", ->
-            @ll_a0 = $.uml($(".occurrence:eq(0)", diagram))[0]
-            @ll_b1 = $.uml($(".occurrence:eq(1)", diagram))[0]
-            @ll_a2 = $.uml($(".occurrence:eq(2)", diagram))[0]
-            @msg1st = $.uml($(".message", diagram)[0])[0]
-            @msg2nd = $.uml($(".message", diagram)[1])[0]
+            @ll_a0 = $.jumly($(".occurrence:eq(0)", diagram))[0]
+            @ll_b1 = $.jumly($(".occurrence:eq(1)", diagram))[0]
+            @ll_a2 = $.jumly($(".occurrence:eq(2)", diagram))[0]
+            @msg1st = $.jumly($(".message", diagram)[0])[0]
+            @msg2nd = $.jumly($(".message", diagram)[1])[0]
             diagram.find(".message").css "z-index", "100"
         
         and_ "composing", ->
@@ -181,13 +181,13 @@ description "message", ->
     shared_behavior "3 recursive calls to left", ->
         it_behaves_as "1 recursive call to left"
         when_it "interacting twice from the last", ->
-            $.uml($(".interaction:last", diagram))[0].toward().interact(obj_b).toward().interact obj_a
+            $.jumly($(".interaction:last", diagram))[0].toward().interact(obj_b).toward().interact obj_a
         
         and_ "refering new elements", ->
-            @ll_b3 = $.uml($(".occurrence:eq(3)", diagram))[0]
-            @ll_a4 = $.uml($(".occurrence:eq(4)", diagram))[0]
-            @msg3rd = $.uml($(".message", diagram)[2])[0]
-            @msg4th = $.uml($(".message", diagram)[3])[0]
+            @ll_b3 = $.jumly($(".occurrence:eq(3)", diagram))[0]
+            @ll_a4 = $.jumly($(".occurrence:eq(4)", diagram))[0]
+            @msg3rd = $.jumly($(".message", diagram)[2])[0]
+            @msg4th = $.jumly($(".message", diagram)[3])[0]
             diagram.find(".message").css "z-index", "100"
         
         and_ "composing", ->
@@ -252,13 +252,13 @@ description "message", ->
     description "return-message, recursive-call, destroy-message, lost-message", ->
         shared_behavior "3 interactions", ->
             given "3 objects, obj_a, obj_b, obj_c", ->
-                @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+                @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                     width: 88
                     height: 31
-                )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+                )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                     width: 88
                     height: 31
-                )).append(@obj_c = $.uml(".object").offset(left: 250).css(
+                )).append(@obj_c = $.jumly(".object").offset(left: 250).css(
                     width: 88
                     height: 31
                 ))
@@ -272,8 +272,8 @@ description "message", ->
         scenario "guarantee '3 interactions'", ->
             it_behaves_as "3 interactions"
             when_it "refer", ->
-                @retmsg0 = $.uml($(".return", diagram)[0])[0]
-                @retmsg1 = $.uml($(".return", diagram)[1])[0]
+                @retmsg0 = $.jumly($(".return", diagram)[0])[0]
+                @retmsg1 = $.jumly($(".return", diagram)[1])[0]
             then_it "bottom of 1 return is above top of 2nd return", ->
                 #(retmsg0.offset().top + retmsg0.outerHeight()).shouldBeLessThan retmsg1.offset().top
             
@@ -285,8 +285,8 @@ description "message", ->
         
         shared_behavior "3 level recursive call", ->
             given "2 objects, obj_a, obj_b", ->
-                @diagram = $.uml(".sequence-diagram")
-                            .append(@obj_a = $.uml(".object").offset(left: 50)
+                @diagram = $.jumly(".sequence-diagram")
+                            .append(@obj_a = $.jumly(".object").offset(left: 50)
                                               .css(width: 88, height: 31))
                 diagram.appendTo $("body")
                 obj_a.activate()
@@ -316,10 +316,10 @@ description "message", ->
 
         shared_behavior "a destroy", ->
             given "2 objects", ->
-                @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+                @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                     width: 88
                     height: 31
-                )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+                )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                     width: 88
                     height: 31
                 ))
@@ -362,10 +362,10 @@ description "message", ->
 
         shared_behavior "lost message", ->
             given "3 objects", ->
-                @diagram = $.uml(".sequence-diagram")
-                            .append(@obj_a = $.uml(".object", "A"))
-                            .append(@obj_b = $.uml(".object", "B"))
-                            .append(@obj_c = $.uml(".object", "C"))
+                @diagram = $.jumly(".sequence-diagram")
+                            .append(@obj_a = $.jumly(".object", "A"))
+                            .append(@obj_b = $.jumly(".object", "B"))
+                            .append(@obj_c = $.jumly(".object", "C"))
                             .find(".object").css(width: 88, height: 31).end()
                 diagram.appendTo $("body")
             
@@ -410,10 +410,10 @@ description "message", ->
         
         shared_behavior "to test return-message for 3 objects and 2 interactions", ->
             given "a snapshot", ->
-                @diagram = $.uml(".sequence-diagram")
-                            .append(@customer    = $.uml(".object").css(left: 50 + 150 * 0).html("Customer"))
-                            .append(@order       = $.uml(".object").css(left: 50 + 150 * 1).html("Order"))
-                            .append(@menumanager = $.uml(".object").css(left: 50 + 150 * 2).html("Menu Manager"))
+                @diagram = $.jumly(".sequence-diagram")
+                            .append(@customer    = $.jumly(".object").css(left: 50 + 150 * 0).html("Customer"))
+                            .append(@order       = $.jumly(".object").css(left: 50 + 150 * 1).html("Order"))
+                            .append(@menumanager = $.jumly(".object").css(left: 50 + 150 * 2).html("Menu Manager"))
                             .find(".object").width(100).height(33).end()
                 diagram.appendTo $("body")
                 customer.activate()
@@ -434,8 +434,8 @@ description "message", ->
     description "self-calling two times", ->
         scenario "parallelly", ->
             given "two interactions", ->
-                @diag = $.uml(".sequence-diagram")
-                         .append(@obj_a = $.uml ".object")
+                @diag = $.jumly(".sequence-diagram")
+                         .append(@obj_a = $.jumly ".object")
                 obj_a.activate()
                      .interact(obj_a)
                      .awayfrom().interact(obj_a)
@@ -449,14 +449,14 @@ description "message", ->
                       .find("> .interaction:eq(0)")
                         .find("> .occurrence").end().end()
                       .find("> .interaction:eq(1)").expect (e) ->
-                          n = $.uml(e)[0].self()
+                          n = $.jumly(e)[0].self()
                           n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                           e = n.gives ".object"
                           e.as(".actor") is e.as(".actee")
         scenario "nest", ->
             given "two interactions", ->
-                @diag = $.uml(".sequence-diagram")
-                         .append(@obj_a = $.uml ".object")
+                @diag = $.jumly(".sequence-diagram")
+                         .append(@obj_a = $.jumly ".object")
                 obj_a.activate()
                      .interact(obj_a)
                      .toward().interact(obj_a)
@@ -470,15 +470,15 @@ description "message", ->
                       .find("> .interaction")
                         .find("> .occurrence").end().end()
                           .find("> .interaction").expect (e) ->
-                              n = $.uml(e)[0].self()
+                              n = $.jumly(e)[0].self()
                               n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                               e = n.gives ".object"
                               e.as(".actor") is e.as(".actee")
         scenario "next an usual message", ->
             given "two interactions", ->
-                @diag = $.uml(".sequence-diagram")
-                         .append(@obj_a = $.uml ".object")
-                         .append(@obj_b = $.uml ".object")
+                @diag = $.jumly(".sequence-diagram")
+                         .append(@obj_a = $.jumly ".object")
+                         .append(@obj_b = $.jumly ".object")
                 obj_a.activate()
                      .interact(obj_b)
                      .awayfrom().interact(obj_a)
@@ -492,15 +492,15 @@ description "message", ->
                       .find("> .interaction:eq(0)")
                         .find("> .occurrence").end().end()
                       .find("> .interaction:eq(1)").expect (e) ->
-                          n = $.uml(e)[0].self()
+                          n = $.jumly(e)[0].self()
                           n.find(".message").outerBottom().shouldBeLessThan n.find(".occurrence").outerBottom()
                           e = n.gives ".object"
                           e.as(".actor") is e.as(".actee")
         scenario "next an usual message and nest", ->
             given "three interactions", ->
-                @diag = $.uml(".sequence-diagram")
-                         .append(@obj_a = $.uml ".object")
-                         .append(@obj_b = $.uml ".object")
+                @diag = $.jumly(".sequence-diagram")
+                         .append(@obj_a = $.jumly ".object")
+                         .append(@obj_b = $.jumly ".object")
                 obj_a.activate()
                      .interact(obj_b)
                      .awayfrom().interact(obj_a)
@@ -526,8 +526,8 @@ description "message", ->
     description "create", ->
         scenario "creation in the flow", ->
             given "a .object", ->
-                @diag = $.uml ".sequence-diagram"
-                diag.append(@obj = $.uml ".object", name:"Customer")
+                @diag = $.jumly ".sequence-diagram"
+                diag.append(@obj = $.jumly ".object", name:"Customer")
             when_it "create an order", ->
                 @iact = obj.activate()
                            .create name:"Order", id:"newone"
@@ -546,8 +546,8 @@ description "message", ->
 
         shared_scenario "sync-self-call", ->
             given "an .object", ->
-                @diag = $.uml ".sequence-diagram"
-                diag.append(@obj = $.uml ".object", name:"a")
+                @diag = $.jumly ".sequence-diagram"
+                diag.append(@obj = $.jumly ".object", name:"a")
             when_it "call ownself in sync", ->
                 @iact = obj.activate()
                    .interact(obj)
@@ -581,7 +581,7 @@ description "message", ->
 
     scenario "creation just after found", ->
         given "", ->
-            @diag = $.uml(".sequence-diagram")
+            @diag = $.jumly(".sequence-diagram")
             diag.appendTo $ "body"
             diag.found "A", ->
                 @create "C"

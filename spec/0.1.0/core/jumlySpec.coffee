@@ -1,18 +1,18 @@
 description "jumly", ->
     shared_behavior "create an object and refers with 2ways", ->
         given "an object out from uml()", ->
-            @diagram = $.uml(".sequence-diagram")
-            @obj_a = $.uml(".object")
-            @obj_b = $.uml(".object")
+            @diagram = $.jumly(".sequence-diagram")
+            @obj_a = $.jumly(".object")
+            @obj_b = $.jumly(".object")
         
         when_it "append it into body", ->
             diagram.append obj_a
         
         and_ "get it again with jQuery selector", ->
-            @a0 = $.uml($(".object:last", diagram)[0])
+            @a0 = $.jumly($(".object:last", diagram)[0])
         
         and_ "get also it as jQueery object", ->
-            @a1 = $.uml($(".object:last", diagram))
+            @a1 = $.jumly($(".object:last", diagram))
     
     scenario "identification for single object (guarantee 'create an object and refers with 2ways')", ->
         it_behaves_as "create an object and refers with 2ways"
@@ -46,7 +46,7 @@ description "jumly", ->
             diagram.append obj_b.hide()
         
         and_ "selecting multiple objects", ->
-            @objs = $.uml($(".object", diagram))
+            @objs = $.jumly($(".object", diagram))
     
     scenario "identification for multiple objects (guarantee 'create 2nd object in the diagram')", ->
         it_behaves_as "create 2nd object in the diagram"
@@ -90,7 +90,7 @@ description "jumly", ->
     
     shared_behavior "activating an occurrence", ->
         given "an .object and occurrence", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object"))
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object"))
             @occurr_a = obj_a.activate()
             $("body").append diagram
     
@@ -110,7 +110,7 @@ description "jumly", ->
     scenario "interactions for the 1st occurrence", ->
         it_behaves_as "activating an occurrence"
         given "the 1st interaction", ->
-            @iact_a = $.uml($(".interaction:eq(0)", diagram))[0]
+            @iact_a = $.jumly($(".interaction:eq(0)", diagram))[0]
         
         then_it "no .interaction is as .actor", ->
             (iact_a.gives(".occurrence").as(".actor") == null).shouldBe true
@@ -121,16 +121,16 @@ description "jumly", ->
     shared_behavior "an interacting", ->
         it_behaves_as "activating an occurrence"
         given "an new .object", ->
-            @obj_b = $.uml(".object")
+            @obj_b = $.jumly(".object")
         
         and_ "an .interaction", ->
             @iact_ab = occurr_a.interact(obj_b)
         
         and_ "an new .occurrence which is created by interact", ->
-            @occurr_b = $.uml(iact_ab.find(".occurrence"))[0]
+            @occurr_b = $.jumly(iact_ab.find(".occurrence"))[0]
         
         and_ "an new .message which is created by interact", ->
-            @msg_ab = $.uml(iact_ab.find(".message"))[0]
+            @msg_ab = $.jumly(iact_ab.find(".message"))[0]
     
     scenario "an .interaction with the .object and .occurrence (ensure 'an interacting')", ->
         it_behaves_as "an interacting"
@@ -164,7 +164,7 @@ description "jumly", ->
             diagram.compose()
         
         and_ "taking a new lifeline", ->
-            @ll_a = $.uml(diagram.find(".lifeline:eq(0)"))[0]
+            @ll_a = $.jumly(diagram.find(".lifeline:eq(0)"))[0]
         
         then_it "the object gives/of the lifeline of itself", ->
             (diagram.gives(".lifeline").of(obj_a) == ll_a).shouldBe true
@@ -177,12 +177,12 @@ description "jumly", ->
     
     shared_behavior "create 2 divs into a diagram", ->
         given "a diagrma and 2 plain divs", ->
-            @diagram = $.uml(".sequence-diagram").append("<div>").append("<div>")
+            @diagram = $.jumly(".sequence-diagram").append("<div>").append("<div>")
     
     scenario "normal DOM node selection (guarantee 'create 2 divs into a diagram')", ->
         it_behaves_as "create 2 divs into a diagram"
         when_it "selecting all divs", ->
-            @objs = $.uml($("div", diagram))
+            @objs = $.jumly($("div", diagram))
         
         then_it "length is 2", ->
             objs.length.shouldBe 2
@@ -195,7 +195,7 @@ description "jumly", ->
     
     shared_behavior "3 objects and simple interactions", ->
         given "a diagram", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object")).append(@obj_b = $.uml(".object")).append(@obj_c = $.uml(".object"))
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object")).append(@obj_b = $.jumly(".object")).append(@obj_c = $.jumly(".object"))
             @ll_a = obj_a.activate()
             @ll_b = ll_a.interact(obj_b).gives(".occurrence").as(".actee")
             @ll_c = ll_b.interact(obj_c).gives(".occurrence").as(".actee")
@@ -223,7 +223,7 @@ description "jumly", ->
     narrative "fundamental capability"
     shared_behavior "create an object", ->
         given "an object", ->
-            @obj_a = $.uml(".object")
+            @obj_a = $.jumly(".object")
                       .name("foo")
                       .stereotype("bar")
     
@@ -318,9 +318,9 @@ description "jumly", ->
     narrative "stereotype"
     scenario "stereotype for .message in data", ->
         given "an object and an message", ->
-            @obj_a = $.uml(".object")
+            @obj_a = $.jumly(".object")
             @iact_aa = obj_a.activate().interact(obj_a)
-            @msg_a = $.uml($(".message:eq(0)", iact_aa))[0]
+            @msg_a = $.jumly($(".message:eq(0)", iact_aa))[0]
         
         when_it "set stereotype to obj_a", ->
             obj_a.stereotype "actor"
@@ -333,7 +333,7 @@ description "jumly", ->
     
     shared_behavior "four messages", ->
         given "messages", ->
-            @diagram = $.uml(".sequence-diagram").append(obj_a = $.uml(".object"))
+            @diagram = $.jumly(".sequence-diagram").append(obj_a = $.jumly(".object"))
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_a).gives(".occurrence").as(".actee").interact(obj_a).gives(".occurrence").as(".actee").interact(obj_a).gives(".occurrence").as(".actee").destroy obj_a
             @msg_a0 = diagram.$0(".message:eq(0)")
@@ -387,9 +387,9 @@ description "jumly", ->
     
     scenario "__proto__", ->
         given "some objects having different type each other", ->
-            @obj = $.uml(".object")
-            @msg = $.uml(".message")
-            @iact = $.uml(".interaction")
+            @obj = $.jumly(".object")
+            @msg = $.jumly(".message")
+            @iact = $.jumly(".interaction")
         
         then_it "they are not equal, obj & msg", ->
             (obj.__proto__ == msg.__proto__).shouldBe false

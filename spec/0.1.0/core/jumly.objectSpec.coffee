@@ -1,16 +1,16 @@
 before = ->
-        @diag = $.uml(".sequence-diagram")
-                 .append(@obj_a = $.uml(".object"))
-                 .append(@obj_b = $.uml(".object"))
-                 .append(@obj_c = $.uml(".object"))
+        @diag = $.jumly(".sequence-diagram")
+                 .append(@obj_a = $.jumly(".object"))
+                 .append(@obj_b = $.jumly(".object"))
+                 .append(@obj_c = $.jumly(".object"))
         @diag.appendTo($("body"))
         @occurr_a = @obj_a.activate()
-        @iact_a   = $.uml(@occurr_a.parents(".interaction"))[0]
+        @iact_a   = $.jumly(@occurr_a.parents(".interaction"))[0]
         @iact_ab  = @occurr_a.interact(@obj_b)
         @occurr_b = @iact_ab.gives(".occurrence").as(".actee")
         @iact_bc  = @occurr_b.interact(@obj_c)
         @occurr_c = @iact_bc.gives(".occurrence").as(".actee")
-        @fragment_ab = $.uml(".fragment").enclose(@iact_ab)
+        @fragment_ab = $.jumly(".fragment").enclose(@iact_ab)
     
 description 'object for sequence diagram', ->
     beforeEach -> before()
@@ -102,11 +102,11 @@ description 'object for sequence diagram', ->
     
     # ref
     it "should have an attr uml:property", ->
-        $.uml(".ref").data("uml:property").type.shouldBe ".ref"
+        $.jumly(".ref").data("uml:property").type.shouldBe ".ref"
     it "should have class 'ref'", ->
-        $.uml(".ref").hasClass("ref").shouldBe true
+        $.jumly(".ref").hasClass("ref").shouldBe true
     it "shodld have preferredWidth", ->
-        (typeof $.uml(".ref").preferredWidth).shouldBe "function"
+        (typeof $.jumly(".ref").preferredWidth).shouldBe "function"
     
     # diag.am
     it "should have an attr uml:property", ->
@@ -132,15 +132,15 @@ description 'object for sequence diagram', ->
     it 'should return the 3rd object', ->
         expect(diag.$0(".object:eq(2)")).toBe obj_c
     
-    # $.uml
+    # $.jumly
     it "should return the same instance for diag", ->
-        expect($.uml($("body > .diagram:last")[0])[0][0] is diag[0]).toBe true
+        expect($.jumly($("body > .diagram:last")[0])[0][0] is diag[0]).toBe true
     it "should have .diagram", ->
-        $.uml($("body > .diagram"))[0].hasClass("diagram").shouldBe true
-    it 'should be improved at accessibility to instances using $.uml', ->
+        $.jumly($("body > .diagram"))[0].hasClass("diagram").shouldBe true
+    it 'should be improved at accessibility to instances using $.jumly', ->
         
     it "should return the same object for selector", ->
-        expect($.uml($(".occurrence", iact_a))[0]).toBe occurr_a
+        expect($.jumly($(".occurrence", iact_a))[0]).toBe occurr_a
     it 'should store jQuery instance in self()', ->
         expect(occurr_b.self()).toBe occurr_b
     

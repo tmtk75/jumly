@@ -77,9 +77,7 @@ jumly.factory = (name, fact)-> jumly.factory[name] = factory:fact
 JUMLY.define = (name, type)-> jumly.factory name, (_, opts)-> new type _, opts
 jumly.def = JUMLY.define
 
-## Export uml module into $.
-$.uml = jumly
-$.jumly = $.uml
+$.jumly = jumly
 
 ##
 jumly.lang =

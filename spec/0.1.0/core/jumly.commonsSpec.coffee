@@ -1,7 +1,7 @@
 that = exports ? this
 describe "commons", ->
     beforeEach =>
-        that.obj = $.uml ".object"
+        that.obj = $.jumly ".object"
 
     it "should have name", ->
         expect(that.obj.name).toBeDefined()
@@ -43,12 +43,12 @@ describe "commons", ->
 
     describe "name, stereotype", ->
         it "should be function", ->
-            that.obj = $.uml(".object")
+            that.obj = $.jumly(".object")
             expect(typeof that.obj.name).toBe 'function'
             expect(typeof that.obj.stereotype).toBe 'function'
     
         beforeEach ->
-            that.obj = $.uml(".object")
+            that.obj = $.jumly(".object")
     
         it "shouldn't call other methods", ->
             that.obj.name('Taro')
@@ -67,7 +67,7 @@ describe "commons", ->
             expect(that.obj.stereotype()).toBe 'engineer'
         
         it "should call compose", ->
-            diag = $.uml(".sequence-diagram")
+            diag = $.jumly(".sequence-diagram")
             spyOn diag, "compose"
             diag.compose()
             expect(diag.compose).toHaveBeenCalledWith()
@@ -139,7 +139,7 @@ describe "commons", ->
     description "constructor", ->
         scenario "name by string", ->
             given "an object with a string at 2nd args", ->
-                @a = $.uml ".object", "foobar"
+                @a = $.jumly ".object", "foobar"
             then_it "name() is", ->
                 a.name().shouldBe 'foobar'
             then_it "should have a node", ->
@@ -147,7 +147,7 @@ describe "commons", ->
 
         scenario "name by object", ->
             given "an object with param", ->
-                @a = $.uml ".object", name:"foobar"
+                @a = $.jumly ".object", name:"foobar"
             then_it "name() is", ->
                 a.name().shouldBe 'foobar'
             then_it "should have a node", ->

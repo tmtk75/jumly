@@ -1,10 +1,10 @@
 description "icon", ->
     scenario "exact styles", ->
         given "an iconified .object", ->
-            @obj = ($.uml ".object", "Actor").iconify "actor",
+            @obj = ($.jumly ".object", "Actor").iconify "actor",
                 fillStyle  : 'blue'
                 strokeStyle: 'black'
-            @diag = $.uml(".sequence-diagram").append obj
+            @diag = $.jumly(".sequence-diagram").append obj
             $("body").append diag
             {@styles} = obj.renderIcon()
         ## NOTE: following specs are based on the actual executed result.
@@ -16,10 +16,10 @@ description "icon", ->
 
     scenario "icon style", ->
         given "some iconified .objects", ->
-            @view       = ($.uml ".object", "")      .iconify "view", strokeStyle:'blue', fillStyle:'#a0a0ff'
-            @controller = ($.uml ".object", "")      .iconify "controller", strokeStyle:'orange', fillStyle:'yellow'
-            @entity     = ($.uml ".object", "entity").iconify "entity", strokeStyle:'red', fillStyle:'#ffa0a0', shadowColor:'#aaa', shadowBlur:4
-            @actor      = ($.uml ".object", "")      .iconify "actor", strokeStyle:'green', fillStyle:'#a0ffa0'
+            @view       = ($.jumly ".object", "")      .iconify "view", strokeStyle:'blue', fillStyle:'#a0a0ff'
+            @controller = ($.jumly ".object", "")      .iconify "controller", strokeStyle:'orange', fillStyle:'yellow'
+            @entity     = ($.jumly ".object", "entity").iconify "entity", strokeStyle:'red', fillStyle:'#ffa0a0', shadowColor:'#aaa', shadowBlur:4
+            @actor      = ($.jumly ".object", "")      .iconify "actor", strokeStyle:'green', fillStyle:'#a0ffa0'
             @view      .appendTo $ "body"
             @controller.appendTo $ "body"
             @entity    .appendTo $ "body"
@@ -29,8 +29,8 @@ description "icon", ->
 
     scenario "exact styles", ->
         given "an iconified .object", ->
-            @obj = ($.uml ".object", "Actor").iconify "actor"
-            $("body").append $.uml(".sequence-diagram").append obj
+            @obj = ($.jumly ".object", "Actor").iconify "actor"
+            $("body").append $.jumly(".sequence-diagram").append obj
         then_it "icon is centered about 20pixels", ->
             (obj.find(".name").offset().left + 20).shouldBeLessThan obj.find(".icon-container").offset().left
 

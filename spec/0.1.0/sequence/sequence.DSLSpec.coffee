@@ -1,4 +1,4 @@
-uml = u = $.uml
+uml = u = $.jumly
 description "sequence-diagram.DSL", ->
 
     description "@beforeCompose", ->
@@ -114,7 +114,7 @@ description "sequence-diagram.DSL", ->
 
     description "complexity", ->
       scenario "reactivating with @message", ->
-        given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+        given "a diagram", -> @diagram = $.jumly ".sequence-diagram"
         when_it "a sequence starts", ->
           diagram.found "Aaaa-12341234", ->
             @message "call", "Bbbb-12341234", ->
@@ -131,7 +131,7 @@ description "sequence-diagram.DSL", ->
                      .find("> .interaction").expect(length: 1).end()
         
         scenario "reactivating", ->
-          given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+          given "a diagram", -> @diagram = $.jumly ".sequence-diagram"
           when_it "a sequence starts", ->
             diagram.found "Addd-1234", ->
               @message "b", "Bddd-1234", ->
@@ -148,7 +148,7 @@ description "sequence-diagram.DSL", ->
                        .find("> .interaction").expect(length: 1).end()
                 
         scenario "reactivating covered with @loop", ->
-          given "a diagram", -> @diagram = $.uml ".sequence-diagram"
+          given "a diagram", -> @diagram = $.jumly ".sequence-diagram"
           when_it "a sequence starts", ->
             diagram.found "Aeee-1324", ->
               @message "b", "Beee-1234", ->
@@ -207,7 +207,7 @@ description "sequence-diagram.DSL", ->
     description "@loop", ->
       scenario "2 objects A", ->
         given "2 objects and an interaction", ->
-          @diag = $.uml ".sequence-diagram"
+          @diag = $.jumly ".sequence-diagram"
           diag.found "A-loop-1", ->
             @loop @message "call", "B-loop-2"
         when_it "composing", ->
@@ -222,7 +222,7 @@ description "sequence-diagram.DSL", ->
 
       scenario "2 objects B", ->
         given "2 objects and an interaction", ->
-          @diag = $.uml ".sequence-diagram"
+          @diag = $.jumly ".sequence-diagram"
           diag.found "A-loop-3", ->
             @loop @message "call", "B-loop-4", ->
         when_it "composing", ->

@@ -2,10 +2,10 @@ description "sequence.ref", ->
 
     shared_behavior "2 objects", ->
         given "2 objects, obj_a, obj_b", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 33
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 33
             ))
@@ -18,7 +18,7 @@ description "sequence.ref", ->
     
     scenario "when ref is alone", ->
         given "a new found", ->
-            @diag = $.uml ".sequence-diagram"
+            @diag = $.jumly ".sequence-diagram"
             diag.found "A", ->
                 @ref "foobar <a href='http://www.yahoo.com'>yahoo</a>"
             diag.appendTo $ "body"
@@ -31,7 +31,7 @@ description "sequence.ref", ->
     
     scenario "when activated", ->
       given "a new found", ->
-        @diag = $.uml ".sequence-diagram"
+        @diag = $.jumly ".sequence-diagram"
         diag.found "A-act-0"
         diag.appendTo $ "body"
         @occurr = diag.find(".occurrence:last").self()
@@ -61,7 +61,7 @@ description "sequence.ref", ->
             @ll_a = obj_a.gives(".lifeline")
         
         and_ "add a ref", ->
-            $.uml(".ref", 
+            $.jumly(".ref", 
                 width: ".object"
                 buffer: 0
             ).appendTo diagram
@@ -112,7 +112,7 @@ description "sequence.ref", ->
     narrative "DOM structure for .object"
     shared_behavior "create an object to ensure DOM structure", ->
         given "an object", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 33
             ))
@@ -134,13 +134,13 @@ description "sequence.ref", ->
     narrative "fragment"
     shared_behavior "3 objects and 2 interactions", ->
         given "3 objects and 2 interactions", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 31
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 31
-            )).append(@obj_c = $.uml(".object").offset(left: 250).css(
+            )).append(@obj_c = $.jumly(".object").offset(left: 250).css(
                 width: 88
                 height: 31
             ))
@@ -150,7 +150,7 @@ description "sequence.ref", ->
     scenario "guarantee '3 objects and 2 interactions' for 1st interaction", ->
         it_behaves_as "3 objects and 2 interactions"
         when_it "fragment 2nd interaction", ->
-            $.uml(".fragment").enclose diagram.find(".interaction:eq(1)")
+            $.jumly(".fragment").enclose diagram.find(".interaction:eq(1)")
             diagram.compose().prepend "1st interaction"
         
         and_ "refer", ->
@@ -181,7 +181,7 @@ description "sequence.ref", ->
     scenario "guarantee '3 objects and 2 interactions' for 2nd interaction", ->
         it_behaves_as "3 objects and 2 interactions"
         when_it "fragment 3rd interaction", ->
-            $.uml(".fragment").enclose diagram.find(".interaction:eq(2)")
+            $.jumly(".fragment").enclose diagram.find(".interaction:eq(2)")
             diagram.compose().prepend "2nd interaction"
         
         and_ "refer", ->
@@ -211,7 +211,7 @@ description "sequence.ref", ->
     scenario "ref's width depends on the rectangle occupied with objects", ->
       it_behaves_as "2 objects"
       when_it "objects and ref", ->
-        diagram.append(@ref = $.uml(".ref", 
+        diagram.append(@ref = $.jumly(".ref", 
             width: ".object"
             buffer: 0
         ).find(".name").html("ref").end()).compose()
@@ -225,7 +225,7 @@ description "sequence.ref", ->
     scenario "ref's width in case of no occurrence", ->
         it_behaves_as "2 objects"
         when_it "objects and ref", ->
-            diagram.append(@ref = $.uml(".ref").find(".name").html("a ref").end()).compose()
+            diagram.append(@ref = $.jumly(".ref").find(".name").html("a ref").end()).compose()
         
         then_it "the width depends on the gap of the lines", ->
             ref.outerWidth().shouldBeGreaterThan $(".line", diagram).mostLeftRight().width()
@@ -234,10 +234,10 @@ description "sequence.ref", ->
     
     scenario "fragment return", ->
         given "an interaction", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object").offset(left: 50).css(
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object").offset(left: 50).css(
                 width: 88
                 height: 31
-            )).append(@obj_b = $.uml(".object").offset(left: 150).css(
+            )).append(@obj_b = $.jumly(".object").offset(left: 150).css(
                 width: 88
                 height: 31
             ))
@@ -258,7 +258,7 @@ description "sequence.ref", ->
     
     shared_behavior "fragment position in a node", ->
         given "3 interactions toward right", ->
-            @diagram = $.uml(".sequence-diagram").append(@obj_a = $.uml(".object", "a")).append(@obj_b = $.uml(".object", "b"))
+            @diagram = $.jumly(".sequence-diagram").append(@obj_a = $.jumly(".object", "a")).append(@obj_b = $.jumly(".object", "b"))
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_b).gives(".occurrence").as(".actor").interact(obj_b).gives(".occurrence").as(".actor").interact(obj_b).gives(".occurrence").as ".actor"
     
@@ -305,7 +305,7 @@ description "sequence.ref", ->
     
     scenario "fragment wrapping left interaction", ->
         given "left interaction wrapped by a fragment", ->
-            @diagram = $.uml(".sequence-diagram").append(obj_b = $.uml(".object", "b")).append(obj_a = $.uml(".object", "a"))
+            @diagram = $.jumly(".sequence-diagram").append(obj_b = $.jumly(".object", "b")).append(obj_a = $.jumly(".object", "a"))
             diagram.appendTo $("body")
             obj_a.activate().interact(obj_b).gives(".occurrence").as ".actor"
             @iter = diagram.find(".interaction:eq(1)")
