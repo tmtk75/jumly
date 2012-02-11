@@ -23,6 +23,8 @@ end
 namespace :unify do
   task :js do
     files = File.readlines("assets/javascripts/jumly.js")
+                .map do |e| if e.strip =~ %r#^//\= # then e.strip end end
+                .compact
                 .map do |e| e.strip.gsub(%r#//\= *?require[a-z_]* #, "") end
                 .map do |e| "#{JS_BUILD_DIR}/#{e}.js" end
     sh "cat #{files.compact.join ' '} > #{BUILD_DIR}/jumly.js"
