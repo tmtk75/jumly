@@ -9,4 +9,3 @@
 //= require class
 //= require sequence
 //= require knockout-jumly
-//= require lstorage

@@ -16,7 +16,8 @@ _error = (reason)->
   viewModel.jumly.errorReason reason
   $(".alert").hide().filter(".alert-error").show()
 
-storage = new JUMLY.LocalStorage ["jumlipt"]
+spawn = (key)-> (val)-> unless val then window.localStorage.getItem key else window.localStorage.setItem key, val
+storage = jumlipt:spawn "jumlipt"
 
 _toggleDisqus = -> @disqusOpened !@disqusOpened()
 
