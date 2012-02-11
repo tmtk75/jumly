@@ -255,6 +255,13 @@ description "fragment", ->
             
             then_it "", ->
 
+    jQuery.fn.align = (dir, base) ->
+      base = $(base || this[0])
+      switch dir
+        when 'bottom', 'south' then f = (i, e) -> top:base.outerHeight() - $(e).outerHeight()
+        else throw "unspported: " + dir
+      @each (i, e) -> $(e).offset f(i, e)
+
     scenario "expanding width left/right horizontally", ->
         given "an fragment in an interaction", ->
             $("html").addClass $.client.os

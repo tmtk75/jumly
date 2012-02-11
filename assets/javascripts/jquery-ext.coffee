@@ -70,15 +70,6 @@ jQuery.fn.mostTopBottom = ->
     else
         0
 
-jQuery.fn.align = (dir, base) ->
-	base = $(base || this[0])
-	switch dir
-    when 'bottom', 'south'
-      f = (i, e) -> top:base.outerHeight() - $(e).outerHeight()
-    else
-      throw "unspported: " + dir
-  @each (i, e) -> $(e).offset f(i, e)
-
 String.prototype.toInt = ->
   if this.length > 0
     parseInt this
