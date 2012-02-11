@@ -7,4 +7,4 @@
 //= require usecase
 //= require class
 //= require sequence
-//= require knockout-jumly
+//= require plugin
