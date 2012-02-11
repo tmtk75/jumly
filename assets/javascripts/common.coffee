@@ -89,7 +89,7 @@ class JUMLYObject
 
 # activate
 JUMLYObject::activate = ->
-    _as = uml.lang._as
+    _as = $.jumly.lang._as
     occurr = uml(type:".occurrence", ".object":this)
     iact = uml(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
     iact.addClass "activated"
@@ -130,7 +130,7 @@ JUMLYObject::lost = ->
     this.activate()
         .interact(null, {stereotype:".lost"})
 
-uml.def ".object", JUMLYObject
+$.jumly.def ".object", JUMLYObject
 class JUMLYRelationship
     constructor: (props, opts) ->
         @src = opts.source
@@ -406,4 +406,4 @@ JUMLYNote::_build_ = (div, a)->
     .append($("<div>").addClass("inner")
               .append($("<div>").addClass("content").html a))
 
-jQuery.uml.def ".note", JUMLYNote
+$.jumly.def ".note", JUMLYNote
