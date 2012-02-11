@@ -60,15 +60,11 @@ jQuery.fn.mostLeftRight = ->
       0
 
 jQuery.fn.mostTopBottom = ->
-  top   : @min (e) -> $(e).offset().top
-  bottom: @max (e) ->
+  top   : @min (e)-> $(e).offset().top
+  bottom: @max (e)->
     t = $(e).offset().top + $(e).outerHeight()
     if t - 1 < 0 then 0 else t - 1
-  height: ->
-    if @top? and @bottom?
-        @bottom - @top + 1
-    else
-        0
+  height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
         
 String.prototype.toInt = (z = 0)-> if this.length > 0 then parseInt this else z
 
