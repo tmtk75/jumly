@@ -40,10 +40,6 @@ jQuery.fn.swallow = (_, f) ->
 	@append _.detach()
 	this
 
-jQuery.fn.cssAsInt = (name) ->
-  a = @css(name)
-  if a then parseInt a else 0
-
 jQuery.fn.outerRight = -> @offset().left + @outerWidth()
 
 jQuery.fn.mostLeftRight = ->
@@ -60,6 +56,7 @@ jQuery.fn.mostTopBottom = ->
     if t - 1 < 0 then 0 else t - 1
   height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
         
+jQuery.fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
 String.prototype.toInt = (z = 0)-> if this.length > 0 then parseInt this else z
 
 ##
