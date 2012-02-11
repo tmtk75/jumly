@@ -69,12 +69,8 @@ jQuery.fn.mostTopBottom = ->
         @bottom - @top + 1
     else
         0
-
-String.prototype.toInt = ->
-  if this.length > 0
-    parseInt this
-  else
-    0
+        
+String.prototype.toInt = (z = 0)-> if this.length > 0 then parseInt this else z
 
 ##
 $.kindof = (that)->
