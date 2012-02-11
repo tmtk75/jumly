@@ -86,21 +86,6 @@ String.prototype.toInt = ->
     0
 
 ##
-## Alignment for left, right, above, below.
-##
-_align = (me, base, klass) ->
-  me.addClass klass
-  pos = base.offset()
-  switch klass
-    when "left"  then pos.left -= me.outerWidth()
-    when "right" then pos.left += base.outerWidth()
-    when "above" then pos.top  -= me.outerHeight()
-    when "below" then pos.top  += base.outerHeight()
-  me.offset(pos)
-
-jQuery.fn.alignAt = (base, pos) -> _align(this, base, pos)
-
-##
 $.kindof = (that)->
   return 'Null' if that is null
   return 'Undefined' if that is undefined 
