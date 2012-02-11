@@ -32,8 +32,8 @@ description "sequence-diagram", ->
             @_in_ = (a, x, b) ->
                 a < x and x < b
             
-            @a = jQuery.uml(".object")
-            @b = jQuery.uml(".object")
+            @a = $.jumly(".object")
+            @b = $.jumly(".object")
     
     shared_behavior "activate a", ->
         it_behaves_as "create two objects"
@@ -73,7 +73,7 @@ description "sequence-diagram", ->
     shared_behavior "interacting among 3 objects", ->
         it_behaves_as "a interacts to b"
         given "a new object -- c", ->
-            @c = jQuery.uml(".object")
+            @c = $.jumly(".object")
         
         when_it "interacting from the occurrence of b to c", ->
             @iact_b_c = iact_a_b.gives(".occurrence").as(".actee").interact(c)
@@ -118,7 +118,7 @@ description "sequence-diagram", ->
     
     scenario "a sequence starts from an unknown event source", ->
         given "an object", ->
-            @obj_a = jQuery.uml(".object")
+            @obj_a = $.jumly(".object")
         
         when_it "the soruce interacts to the object", ->
             @ll_a = obj_a.activate()
@@ -141,10 +141,10 @@ description "sequence-diagram", ->
     
     shared_behavior "create an object and activate it", ->
         given "a sequence-diagram", ->
-            @diagram = jQuery.uml(".sequence-diagram")
+            @diagram = $.jumly(".sequence-diagram")
         
         and_ "an object", ->
-            @obj_a = jQuery.uml(".object")
+            @obj_a = $.jumly(".object")
         
         when_it "add the object into the diagram", ->
             diagram.append obj_a
@@ -166,7 +166,7 @@ description "sequence-diagram", ->
     shared_behavior "create two objects, activate one of them and interact b/w 2", ->
         it_behaves_as "create an object and activate it"
         given "2nd object", ->
-            @obj_b = jQuery.uml(".object")
+            @obj_b = $.jumly(".object")
         
         and_ "add the both into the diagram", ->
             diagram.append obj_b

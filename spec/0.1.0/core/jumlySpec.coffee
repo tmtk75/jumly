@@ -1,6 +1,6 @@
 description "jumly", ->
     shared_behavior "create an object and refers with 2ways", ->
-        given "an object out from uml()", ->
+        given "an object out from jumly()", ->
             @diagram = $.jumly(".sequence-diagram")
             @obj_a = $.jumly(".object")
             @obj_b = $.jumly(".object")

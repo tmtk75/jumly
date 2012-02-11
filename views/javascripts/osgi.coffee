@@ -1,6 +1,6 @@
 $("html").addClass $.client.os
 uml = $.jumly
-diagram = uml(".sequence-diagram")
+diagram = $.jumly(".sequence-diagram")
             .append(osgi      = uml ".object", "&lt;&lt;interface>><br/>OSGi Framework::BundleContext")
             .append(dspcompo  = uml ".object", "&lt;&lt;interface>> dsp::DSPComponent")
             .append(activator = uml(".object", "platform::Activator").offset left:550)

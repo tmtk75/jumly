@@ -90,8 +90,8 @@ class JUMLYObject
 # activate
 JUMLYObject::activate = ->
     _as = $.jumly.lang._as
-    occurr = uml(type:".occurrence", ".object":this)
-    iact = uml(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
+    occurr = $.jumly(type:".occurrence", ".object":this)
+    iact = $.jumly(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
     iact.addClass "activated"
     iact.find(".message").remove()
     iact.append(occurr)

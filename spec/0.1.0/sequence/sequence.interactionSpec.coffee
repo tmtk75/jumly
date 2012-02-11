@@ -1,8 +1,8 @@
 description "interaction", ->
     scenario "create two objects", ->
         given "two objects -- a, b", ->
-            @a = jQuery.uml(".object").name("a")
-            @b = jQuery.uml(".object").name("b")
+            @a = $.jumly(".object").name("a")
+            @b = $.jumly(".object").name("b")
             @occurr = a.activate()
             @iact_a_b = occurr.interact(b)
         
