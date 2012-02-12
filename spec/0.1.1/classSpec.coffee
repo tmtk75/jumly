@@ -39,7 +39,7 @@ describe "class", ->
     diag.compose()
 
   describe "show-case", ->
-    diag = $.jumly.build mkscript "class", """
+    diag = (new JUMLY.ClassDiagramBuilder).build """
       @def dog:Dog:
         attrs:["age", "origin"]
         methods:["balk", "run"]
