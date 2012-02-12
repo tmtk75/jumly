@@ -63,8 +63,6 @@ $.fn.stereotype = (n)->
     when ".interaction" then @find(".message:eq(0)").self().stereotype n
     when ".message" then @addClass n
   this
-$.fn.right = -> @offset().left + @width() - 1
-$.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
 ## v0.1.1a
 JUMLY.Naming =
