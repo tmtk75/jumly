@@ -18,11 +18,9 @@ class JUMLYDiagram extends JUMLY.HTMLElement
     else
       false
         
-JUMLYDiagram::_build_ = (div)->
-    div.addClass "diagram"
+JUMLYDiagram::_build_ = (div)-> div.addClass "diagram"
     
-JUMLYDiagram::_def_ = (varname, e)->
-  eval "#{varname} = e"
+JUMLYDiagram::_def_ = (varname, e)-> eval "#{varname} = e"
     
 JUMLYDiagram::_regByRef_ = (id, obj)->
   ref = JUMLY.Naming.toRef id
@@ -33,10 +31,9 @@ JUMLYDiagram::_regByRef_ = (id, obj)->
 
 JUMLY.Diagram = JUMLYDiagram
 
-
 class DiagramBuilder
-  @selectHTMLScriptElements = (element)->
-    $("script", element).not(".ignored")
+  @selectHTMLScriptElements = (e)->
+    $("script", e).not(".ignored")
 
 DiagramBuilder::beforeCompose = (f)->
   @diagram.bind "beforeCompose", f
@@ -47,10 +44,10 @@ DiagramBuilder::afterCompose = (f)->
   this
 
 DiagramBuilder::before = -> @beforeCompose.apply this, arguments
+
 DiagramBuilder::after = -> @afterCompose.apply this, arguments
 
-DiagramBuilder::accept = (closure)->
-  closure.apply this, []
+DiagramBuilder::accept = (f)-> f.apply this, []
 
 DiagramBuilder::build = (jumlipt)->
   try
@@ -70,77 +67,58 @@ DiagramBuilder::note = (text)->
 
 JUMLY.DiagramBuilder = DiagramBuilder
 
+class JUMLYObject extends JUMLYHTMLElement
 
-uml = jQuery.uml
-###
-#JUMLYObject
-    activate()
-    isLeftAt()
-    isRightAt()
-    iconify(fixture)
-    message([incoming | outgoing])
-###
-class JUMLYObject
-    constructor: (props, opts) ->
-        jQuery.extend this, JUMLYObject.newNode()
-    @newNode = ->
-	     $("<div>").addClass("object")
-	               .append($("<div>").addClass("name"))
+JUMLYObject::_build_ = (div)->
+  div.addClass("object")
+     .append($("<div>").addClass("name"))
 
-# activate
 JUMLYObject::activate = ->
-    _as = $.jumly.lang._as
-    occurr = $.jumly(type:".occurrence", ".object":this)
-    iact = $.jumly(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
-    iact.addClass "activated"
-    iact.find(".message").remove()
-    iact.append(occurr)
-    @parent().append(iact)
-    occurr
+  _as = $.jumly.lang._as
+  occurr = $.jumly(type:".occurrence", ".object":this)
+  iact = $.jumly(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
+  iact.addClass "activated"
+  iact.find(".message").remove()
+  iact.append(occurr)
+  @parent().append(iact)
+  occurr
 
-# isLeftAt
-JUMLYObject::isLeftAt = (a) ->
-	@offset().left < a.offset().left
+JUMLYObject::isLeftAt = (a)-> @offset().left < a.offset().left
 
-# isRightAt
-JUMLYObject::isRightAt = (a) ->
-	(a.offset().left + a.width()) < @offset().left
+JUMLYObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
 
-# iconify
-JUMLYObject::iconify = (fixture, styles) ->
-    unless typeof fixture is "function"
-        fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
-    canvas = $("<canvas>").addClass("icon")
-    container = $("<div>").addClass("icon-container")
-    @addClass("iconified")
-        .prepend(container.append canvas)
+JUMLYObject::iconify = (fixture, styles)->
+  unless typeof fixture is "function"
+    fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
+  canvas = $("<canvas>").addClass("icon")
+  container = $("<div>").addClass("icon-container")
+  @addClass("iconified").prepend(container.append canvas)
 
-    {size, styles} = fixture canvas[0], styles
-    container.css height:size.height #, width:size.width ##FIXME: Way to decide the width.
-    render = =>
-        name = @find(".name")
-        styles.fillStyle   = name.css("background-color")
-        styles.strokeStyle = name.css("border-top-color")
-        fixture canvas[0], styles
-    this.renderIcon = -> render()
-    this
+  {size, styles} = fixture canvas[0], styles
+  container.css height:size.height #, width:size.width ##FIXME: Way to decide the width.
+  render = =>
+    name = @find(".name")
+    styles.fillStyle   = name.css("background-color")
+    styles.strokeStyle = name.css("border-top-color")
+    fixture canvas[0], styles
+  this.renderIcon = -> render()
+  this
 
-# Lost message
-JUMLYObject::lost = ->
-    this.activate()
-        .interact(null, {stereotype:".lost"})
+JUMLYObject::lost =-> @activate().interact(null, {stereotype:".lost"})
 
 JUMLY.def ".object", JUMLYObject
+
 class JUMLYRelationship
-    constructor: (props, opts) ->
-        @src = opts.source
-        @dst = opts.destination
-        jQuery.extend this, JUMLYRelationship.newNode()
-        this
-    @newNode = ->
-        $("<div>").addClass("relationship")
-                  .append($("<canvas>").addClass("icon"))
-                  .append($("<div>").addClass("name"))
+  constructor: (props, opts) ->
+      @src = opts.source
+      @dst = opts.destination
+      jQuery.extend this, JUMLYRelationship.newNode()
+      this
+  @newNode = ->
+      $("<div>").addClass("relationship")
+                .append($("<canvas>").addClass("icon"))
+                .append($("<div>").addClass("name"))
+
 MESSAGE_STYLE =
     width      : 1
     base       : 6
