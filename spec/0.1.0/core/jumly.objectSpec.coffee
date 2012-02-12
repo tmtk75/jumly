@@ -16,7 +16,7 @@ description 'object for sequence diagram', ->
     beforeEach -> before()
     # object
     it "should have an attr uml:property", ->
-        obj_a.data("uml:property").type.shouldBe ".object"
+        obj_a.jprops().type.shouldBe ".object"
     it "should have attr() as a jQuery object", ->
         (typeof obj_a.attr).shouldBe "function"
     it "should have .object", ->
@@ -38,7 +38,7 @@ description 'object for sequence diagram', ->
     
     # interaction
     it "should have an attr uml:property", ->
-        iact_a.data("uml:property").type.shouldBe ".interaction"
+        iact_a.jprops().type.shouldBe ".interaction"
     it "should have nothing as owner", ->
         (iact_a.gives(".object") is null).shouldBe true
     it "shouldn't have a occurrence of actor object", ->
@@ -63,9 +63,9 @@ description 'object for sequence diagram', ->
     
     # occurrence
     it "should have an attr uml:property", ->
-        occurr_a.data("uml:property").type.shouldBe ".occurrence"
+        occurr_a.jprops().type.shouldBe ".occurrence"
     it "should have an attr uml:property", ->
-        occurr_b.data("uml:property").type.shouldBe ".occurrence"
+        occurr_b.jprops().type.shouldBe ".occurrence"
     #NOTE: Can enable by improving 'interact'.
     #it "should have an interaction as actor", {'occurr_a.gives(".interaction").as("actor") === iact_a'.js_true()}
     it "should have an object as owner", ->
@@ -80,7 +80,7 @@ description 'object for sequence diagram', ->
         expect(occurr_c.preceding(obj_a)).toBe occurr_a
     # message
     it "should have an attr uml:property", ->
-        diag.find(".message").data("uml:property").type.shouldBe ".message"
+        diag.find(".message").jprops().type.shouldBe ".message"
     it "should be held by an interaction", ->
         expect(diag.$(".message")[0].gives(".interaction")).toBe iact_ab
     it "should be capable to point the direction", ->
@@ -92,7 +92,7 @@ description 'object for sequence diagram', ->
     
     # fragment
     it "should have an attr uml:property", ->
-        diag.$0(".fragment").data("uml:property").type.shouldBe ".fragment"
+        diag.$0(".fragment").jprops().type.shouldBe ".fragment"
     it "should be created", ->
         diag.$(".fragment")[0].hasClass("fragment").shouldBe true
     it "should have class 'fragment'", ->
@@ -102,7 +102,7 @@ description 'object for sequence diagram', ->
     
     # ref
     it "should have an attr uml:property", ->
-        $.jumly(".ref").data("uml:property").type.shouldBe ".ref"
+        $.jumly(".ref").jprops().type.shouldBe ".ref"
     it "should have class 'ref'", ->
         $.jumly(".ref").hasClass("ref").shouldBe true
     it "shodld have preferredWidth", ->
@@ -110,7 +110,7 @@ description 'object for sequence diagram', ->
     
     # diag.am
     it "should have an attr uml:property", ->
-        diag.data("uml:property").type.shouldBe ".sequence-diagram"
+        diag.jprops().type.shouldBe ".sequence-diagram"
     it "should be capable to find with selector", ->
         expect(diag.$(".interaction")[0].gives(".occurrence").as(".actee")).toBe occurr_a
     it "should return nothing for compose", ->

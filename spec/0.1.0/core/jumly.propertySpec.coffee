@@ -1,4 +1,4 @@
-description "uml:property", ->
+description "jprops", ->
     u = $.jumly
     shared_scenario "stereotype CRUD, Create/Read", ->
         given "an object", ->
@@ -7,18 +7,18 @@ description "uml:property", ->
         when_it "add a stereotype", ->
             @a.addClass "abstract"
         then_it "@a has the stereotype", ->
-            # LEGACY: @a.data("uml:property").stereotypes().length.shouldBe 1
+            # LEGACY: @a.jprops().stereotypes().length.shouldBe 1
             # LEGACY: @a.hasStereotype("abstract").shouldBeTruthy()
             @a.hasClass("abstract").shouldBeTruthy()
         then_it "@b doesn't have stereotype", ->
-            @b.data("uml:property").stereotypes().length.shouldBe 0
+            @b.jprops().stereotypes().length.shouldBe 0
 
     shared_scenario "stereotype CRUD, Add more", ->
         it_behaves_as "stereotype CRUD, Create/Read"
         when_it "add a stereotype", ->
             @a.addClass "mutable"
         then_it "@a has the multiple stereotypes()", ->
-            #@a.data("uml:property").stereotypes().length.shouldBe 2
+            #@a.jprops().stereotypes().length.shouldBe 2
         and_ ->
             # LEGACY: @a.hasStereotype("abstract").shouldBeTruthy()
             @a.hasClass("abstract").shouldBeTruthy()
@@ -32,10 +32,10 @@ description "uml:property", ->
             @diag = $.jumly ".sequence-diagram"
             diag.found "A", ->
                 @create "B"
-            @a = @diag.data "uml:property"
-            @b = @diag.A.data "uml:property"
-            @c = @diag.B.data "uml:property"
-            @d = @diag.find(".message:last").self().data "uml:property"
+            @a = @diag.jprops()
+            @b = @diag.A.jprops()
+            @c = @diag.B.jprops()
+            @d = @diag.find(".message:last").self().jprops()
         # then_it "has name for @a", -> expect(@a.name).toBeDefined()
         # and_    "has name for @b", -> expect(@b.name).toBeDefined()
         # and_    "has name for @c", -> expect(@c.name).toBeDefined()
@@ -67,12 +67,12 @@ description "uml:property", ->
             diag.found "A", -> @create "B"
             msg = (diag.find ".message:last").self()
             (msg.hasClass "create").shouldBeTruthy()
-            #msg.data("uml:property").stereotypes().length.shouldBe 1
+            #msg.jprops().stereotypes().length.shouldBe 1
         
     description "name", ->
         it "has name property", ->
             diag = $.jumly ".sequence-diagram"
             diag.found "A", -> @message "call", "B"
             msg = (diag.find ".message:last").self()
-            #msg.data("uml:property").name.shouldBe "call"
+            #msg.jprops().name.shouldBe "call"
 

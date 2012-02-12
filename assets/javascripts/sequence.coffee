@@ -482,8 +482,8 @@ jumly.preferences(".sequence-diagram:system-default", prefs_)
 JUMLYSequenceDiagram::$ = (sel) -> jumly($(sel, this))
 JUMLYSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 JUMLYSequenceDiagram::preferences = (a, b) ->
-    prefs = @data("uml:property").preferences
-    if !prefs then @data("uml:property").preferences = prefs = {}
+    prefs = @jprops().preferences
+    if !prefs then @jprops().preferences = prefs = {}
     width = ->
         objs  = $(".object", this)
         left  = objs.min((e) -> $(e).position().left) - @position().left

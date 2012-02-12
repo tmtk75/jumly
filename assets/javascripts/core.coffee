@@ -30,7 +30,8 @@ jumly = (arg, opts) ->
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 
-$.fn.self = -> @data("uml:property")?._self
+$.fn.jprops = -> @data("uml:property")
+$.fn.self = -> @jprops()?._self
 $.fn.selfEach = (f)-> @each (i, e)->
   e = $(e).self()
   throw new Error("self() returned undefined.", e) unless e?
@@ -54,15 +55,15 @@ preferences_ = (a, b)->
 jumly.preferences = preferences_
 
 $.fn.name = (n)->
-  return @data("uml:property")?.name if arguments.length is 0 or n is undefined
+  return @jprops()?.name if arguments.length is 0 or n is undefined
   @find(".name:eq(0)").html n
-  @data("uml:property")?.name = n
+  @jprops()?.name = n
   this
 $.fn.stereotype = (n)->
-  return @data("uml:property")?.stereotype if arguments.length is 0 or n is undefined
+  return @jprops()?.stereotype if arguments.length is 0 or n is undefined
   @find(".stereotype:eq(0)").html n
-  @data("uml:property")?.stereotype = n
-  switch @data("uml:property").type
+  @jprops()?.stereotype = n
+  switch @jprops().type
     when ".interaction" then @find(".message:eq(0)").self().stereotype n
     when ".message" then @addClass n
   this

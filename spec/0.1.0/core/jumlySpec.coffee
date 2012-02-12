@@ -237,7 +237,7 @@ description "jumly", ->
             obj_a.stereotype().shouldBe "bar"
         
         and_ "uml:property returns an object having all attributes", ->
-            @all = obj_a.data("uml:property")
+            @all = obj_a.jprops()
         
         and_ "name", ->
             all.name.shouldBe "foo"
@@ -260,7 +260,7 @@ description "jumly", ->
             obj_a.stereotype().shouldBe "buz"
         
         and_ "uml:property returns an object having all attributes", ->
-            @all = obj_a.data("uml:property")
+            @all = obj_a.jprops()
         
         and_ "name", ->
             all.name.shouldBe "fiz"

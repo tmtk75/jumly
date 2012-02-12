@@ -68,7 +68,7 @@ bind_between = (nodes, diag) ->
       if (t = $("#" + id, diag)).length > 0
         t
     bind = (type) ->
-      $(src.data("uml:property")[type]).each (i, e) ->
+      $(src.jprops()[type]).each (i, e) ->
         return unless dst = find_with_id e
         link = $.jumly ".relationship", source:src, destination:dst
         link.addClass type
@@ -113,7 +113,7 @@ class JUMLYUsecaseDiagramBuilder extends JUMLY.DiagramBuilder
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
     uname = $.jumly.normalize uname
     a = $.jumly type, uname
-    $.extend a.data("uml:property"), uname
+    $.extend a.jprops(), uname
     a
 
 JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->

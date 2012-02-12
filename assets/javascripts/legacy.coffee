@@ -48,7 +48,7 @@ jumly.lang =
     (unode)->
       n = nodes.filter (i, e)->
         e = jumly(e)[0]
-        s = e.gives(unode.data("uml:property").type)
+        s = e.gives(unode.jprops().type)
         if s is unode then e else null
       if n.length > 0 then jumly(n)[0] else []
 

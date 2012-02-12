@@ -46,8 +46,8 @@ description "usecase.DSL", ->
                     @usecase "Close File":{extend:["Open File", "Close Socket"]}
             then_it "has two extends", ->
                 a = diag.find(".usecase:eq(0)").self()
-                a.data("uml:property").extend[0].shouldBe "Open File"
-                a.data("uml:property").extend[1].shouldBe "Close Socket"
+                a.jprops().extend[0].shouldBe "Open File"
+                a.jprops().extend[1].shouldBe "Close Socket"
                 
     description "@actor", ->
         scenario "register and identification", ->
@@ -63,8 +63,8 @@ description "usecase.DSL", ->
                     @actor "Manager":{extend:["User", "Viewer"]}
             then_it "has two extends for .actor", ->
                 a = diag.find(".actor:eq(0)").self()
-                a.data("uml:property").extend[0].shouldBe "User"
-                a.data("uml:property").extend[1].shouldBe "Viewer"
+                a.jprops().extend[0].shouldBe "User"
+                a.jprops().extend[1].shouldBe "Viewer"
                 
     description ".include", ->
         scenario "include for usecase", ->
@@ -74,7 +74,7 @@ description "usecase.DSL", ->
                     @usecase "Open File":{include:["Find File"]}
             then_it "it has a include", ->
                 a = diag.find(".usecase:eq(0)").self()
-                a.data("uml:property").include[0].shouldBe "Find File"
+                a.jprops().include[0].shouldBe "Find File"
     
     description "@boundary", ->
 
@@ -125,7 +125,7 @@ description "usecase.DSL", ->
                 ctxt = u(".usecase-diagram").boundary "bound-003", ->
                     @usecase "a uc": use:uses, extend:exts, foobar:foobars
                 @uc_ = ctxt._diagram.find(".usecase:last").self()
-                @props = uc_.data("uml:property")
+                @props = uc_.jprops()
             then_it "props is defiened", ->
                 expect(props).toBeDefined()
             and_ "use in this:property", ->
@@ -166,7 +166,7 @@ description "usecase.DSL", ->
         #@deprecated: v0.1.0 feature
         xit "should be basic spec for @usecase identified by string", ->
             expect(uc.attr "id").toBe "this value is set in 'id' attribute"
-            props = uc.data("uml:property")
+            props = uc.jprops()
             expect(props.name).toBe "attr str"
             expect(props.a).toBe 1
             expect(props.b).toBe 2
@@ -186,22 +186,22 @@ description "usecase.DSL", ->
             then_it "identified with 1234", ->
                 expect(@u0.attr "id").toBe '1234'
             and_ ->
-                expect(@u0.data("uml:property").id).toBe 1234
+                expect(@u0.jprops().id).toBe 1234
             then_it "identified with 'TA-0'", ->
                 expect(@u1.attr "id").toBe 'TA-0'
             and_ ->
-                expect(@u1.data("uml:property").id).toBe 'TA-0'
+                expect(@u1.jprops().id).toBe 'TA-0'
             then_it "identified with 'AC-2'", ->
                 expect(@a0.attr "id").toBe 'AC-2'
             and_ ->
-                expect(@a0.data("uml:property").id).toBe 'AC-2'
+                expect(@a0.jprops().id).toBe 'AC-2'
 
         #@deprecated: v0.1.0 feature
         xit "should be created", ->
             uc = null
             $.jumly(".usecase-diagram").boundary "b", ->
                 uc = (@usecase(id:1234) "a uc 1": use:"--!").find(".usecase:eq(0)")
-            props = uc.data "uml:property"
+            props = uc.jprops()
             expect(uc).toBeDefined()
             expect(props).toBeDefined()
             expect(props.use).toBe "--!"
@@ -214,7 +214,7 @@ description "usecase.DSL", ->
             uc = null
             $.jumly(".usecase-diagram").boundary "b", ->
                 uc = (@usecase(id:1) "Take it", use:[2, 3], foo:[1]).find ".usecase:eq(0)"
-            props = uc.data "uml:property"
+            props = uc.jprops()
             props.name.shouldBe "Take it"
             props.use.length.shouldBe 2
             props.foo.length.shouldBe 1

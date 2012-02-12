@@ -5,14 +5,14 @@ description "attr", ->
             @create "B"
         msg = (diag.find ".message:last").self()
         (msg.hasClass "create").shouldBeTruthy()
-        #msg.data("uml:property").stereotypes().length.shouldBe 1
+        #msg.jprops().stereotypes().length.shouldBe 1
     
     it "has name property to read/write", ->
         diag = $.jumly ".sequence-diagram"
         diag.found "A", ->
             @message "call", "B"
         msg = (diag.find ".message:last").self()
-        #msg.data("uml:property").name.shouldBe "call"
+        #msg.jprops().name.shouldBe "call"
 
     scenario "a string at 2nd parameter in creation", ->
         given "a string at 2nd parameter", ->
