@@ -51,18 +51,7 @@ jumly.lang =
         if s is unode then e else null
       if n.length > 0 then jumly(n)[0] else []
 
-run_scripts_done = false
-
 jumly.runScript = jumly.run_script_
-
-run_scripts = ->
-  return null if run_scripts_done 
-  scripts = document.getElementsByTagName 'script'
-  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
-  for script in diagrams
-    jumly.run_script_ script
-  run_scripts_done = true
-  null
 
 jumly_preferences_ =
   run_script:
@@ -111,8 +100,17 @@ _dsl = (args) ->
 
 JUMLY.DSL = _dsl
 
+_run_scripts = ->
+  return null if _run_scripts.done 
+  scripts = document.getElementsByTagName 'script'
+  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
+  for script in diagrams
+    jumly.run_script_ script
+  _run_scripts.done = true
+  null
+
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
-  addEventListener 'DOMContentLoaded', run_scripts
+  addEventListener 'DOMContentLoaded', _run_scripts
 else
   throw "window.addEventListener is not supported"
