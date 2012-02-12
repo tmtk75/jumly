@@ -3,7 +3,7 @@
 //= require jquery-ext
 //= require jquery-g2d
 //= require core
-//= require legacy
+//= require 0.1.0
 //= require common
 //= require usecase
 //= require class
