@@ -867,7 +867,7 @@ JUMLYSequenceDiagramBuilder::afterCompose = (f)->
   this
   
 ##
-jumly.DSL type:'.sequence-diagram', compileScript: (script) ->
+JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->
   b = new JUMLYSequenceDiagramBuilder
   b.build script.html()
 

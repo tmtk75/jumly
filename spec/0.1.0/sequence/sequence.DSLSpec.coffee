@@ -250,7 +250,7 @@ description "sequence-diagram.DSL", ->
               @message "turn on", "Mobile-stag-1", ->
                   @message "connect to", "Basepoint"
           """
-        diag = $.jumly.DSL('.sequence-diagram').compileScript script
+        diag = JUMLY.DSL('.sequence-diagram').compileScript script
         diag.find(".interaction:not(.activated)").expect length:2
         diag.appendTo $ "body"
         diag.compose()

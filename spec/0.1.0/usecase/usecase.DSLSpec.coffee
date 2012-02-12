@@ -226,7 +226,7 @@ description "usecase.DSL", ->
                 @usecase "an usecase"
                 @usecase "another usecase"
                 """
-            diag = $.jumly.DSL('.usecase-diagram').compileScript script
+            diag = JUMLY.DSL('.usecase-diagram').compileScript script
             diag.find(".usecase").expect length:2
 
         #@deprecated: v0.1.0 feature
@@ -264,7 +264,7 @@ description "usecase.DSL", ->
               @boundary "an boundary-oob-4", ->
                   @usecase "an inner usecase-oob-5"
               """
-          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          diag = JUMLY.DSL('.usecase-diagram').compileScript script
           diag.find("> .out-of-bounds > .usecase").expect length:2
           diag.appendTo $ "body"
           diag.compose()
@@ -287,7 +287,7 @@ description "usecase.DSL", ->
           script = $("<script>").html """
               @actor "you-oob-6"
           """
-          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          diag = JUMLY.DSL('.usecase-diagram').compileScript script
           expect(diag.find("> .out-of-bounds").length).toBe 1
           expect(diag.find("> .system-boundary").length).toBe 0
 
@@ -295,7 +295,7 @@ description "usecase.DSL", ->
           script = $("<script system-boundary-name='a boundary'>").html """
               @actor "you-oob-7"
           """
-          diag = $.jumly.DSL('.usecase-diagram').compileScript script
+          diag = JUMLY.DSL('.usecase-diagram').compileScript script
           expect(diag.find("> .out-of-bounds").length).toBe 0
           expect(diag.find("> .system-boundary").length).toBe 1
           expect(diag.find("> .system-boundary > .name").text()).toBe "a boundary"

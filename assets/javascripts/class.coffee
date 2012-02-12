@@ -80,7 +80,7 @@ JUMLYClassDiagramBuilder::def = (props)->
 ##Deprecated
 JUMLYClassDiagramBuilder::start = (acts)-> acts.apply this, []
 
-$.jumly.DSL type:".class-diagram", compileScript: (script) ->
+JUMLY.DSL type:".class-diagram", compileScript: (script) ->
   b = new JUMLYClassDiagramBuilder
   b.build script.html()
 

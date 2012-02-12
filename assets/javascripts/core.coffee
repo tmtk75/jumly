@@ -66,17 +66,6 @@ $.fn.stereotype = (n)->
 $.fn.right = -> @offset().left + @width() - 1
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-DSL_ = {}
-DSL = (args) ->
-  throw "It MUST NOT be null." if args is null
-  return DSL_[args] if typeof args is "string"
-  throw "DSL can only accept an object." unless typeof args is "object" and not $.isArray args
-  throw "type property is required." unless args.type
-  throw "compileScript property is required." unless args.compileScript
-  DSL_[args.type] = {compileScript:args.compileScript, version:args.version}
-
-jumly.DSL = DSL
-
 ## v0.1.1a
 JUMLY.Naming =
   toID: (that)->

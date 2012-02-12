@@ -90,7 +90,7 @@ jumly.run_script_ = (script) ->
   type = script.attr("type")
   unless type then throw "Not found: type attribute in script"
   kind = toTypeString type
-  compiler = jumly.DSL ".#{kind}-diagram"
+  compiler = _dsl ".#{kind}-diagram"
   unless compiler then throw "Not found: compiler for '.#{kind}'"
   unless compiler.compileScript then throw "Not found: compileScript"
   diag = compiler.compileScript script
@@ -99,12 +99,6 @@ jumly.run_script_ = (script) ->
   target = prefs.determine_target script
   prefs.before_compose diag, target, script
   diag.compose()
-
-# Listen for window load, both in browsers and in IE.
-if window.addEventListener
-  addEventListener 'DOMContentLoaded', run_scripts
-else
-  throw "window.addEventListener is not supported"
 
 jumly.build = (script)->
   type = toTypeString script.attr "type"
@@ -115,3 +109,20 @@ jumly.build = (script)->
       when "sequence" then JUMLY.SequenceDiagramBuilder
   )
   (new builderType).build script.text()
+
+dsl_ = {}
+_dsl = (args) ->
+  throw "It MUST NOT be null." if args is null
+  return dsl_[args] if typeof args is "string"
+  throw "DSL can only accept an object." unless typeof args is "object" and not $.isArray args
+  throw "type property is required." unless args.type
+  throw "compileScript property is required." unless args.compileScript
+  dsl_[args.type] = {compileScript:args.compileScript, version:args.version}
+
+JUMLY.DSL = _dsl
+
+# Listen for window load, both in browsers and in IE.
+if window.addEventListener
+  addEventListener 'DOMContentLoaded', run_scripts
+else
+  throw "window.addEventListener is not supported"

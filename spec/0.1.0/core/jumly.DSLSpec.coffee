@@ -1,5 +1,5 @@
 u = $.jumly
-description "jumly.DSL", ->
+description "JUMLY.DSL", ->
 
     description "@beforeCompose", ->
 
@@ -81,9 +81,9 @@ description "jumly.DSL", ->
     shared_scenario 'registeration for a DSL', ->
         given "a compiler (which is just a function)", ->
         when_it "register it", ->
-            $.jumly.DSL type:'.hello-world', version:'0.0.1', compileScript: -> "Hello World"
+            JUMLY.DSL type:'.hello-world', version:'0.0.1', compileScript: -> "Hello World"
         then_it "return a result", ->
-            compiler = ($.jumly.DSL '.hello-world')
+            compiler = (JUMLY.DSL '.hello-world')
             a = compiler.compileScript "something"
             expect(compiler.version).toBe '0.0.1'
             expect(a).toBe 'Hello World'
@@ -91,9 +91,9 @@ description "jumly.DSL", ->
     scenario "latest DSL use", ->
         it_behaves_as "registeration for a DSL"
         when_it "register a new DSL", ->
-            $.jumly.DSL type:'.hello-world', version:'0.0.2', compileScript: -> "Stay hungry, Stay foolish"
+            JUMLY.DSL type:'.hello-world', version:'0.0.2', compileScript: -> "Stay hungry, Stay foolish"
         then_it "return a result", ->
-            compiler = ($.jumly.DSL '.hello-world')
+            compiler = (JUMLY.DSL '.hello-world')
             a = compiler.compileScript "something"
             expect(compiler.version).toBe '0.0.2'
             expect(a).toBe 'Stay hungry, Stay foolish'
@@ -101,14 +101,14 @@ description "jumly.DSL", ->
 
     description "irregular arguments", ->
 
-        it "can't accept null", -> expect(-> $.jumly.DSL null).toThrow("It MUST NOT be null.")
+        it "can't accept null", -> expect(-> JUMLY.DSL null).toThrow("It MUST NOT be null.")
         
-        it "can't accept undefined", -> expect(-> $.jumly.DSL undefined).toThrow()
+        it "can't accept undefined", -> expect(-> JUMLY.DSL undefined).toThrow()
 
-        it "can't accept boolean", -> expect(-> $.jumly.DSL true).toThrow()
+        it "can't accept boolean", -> expect(-> JUMLY.DSL true).toThrow()
         
-        it "can't accept Array", -> expect(-> $.jumly.DSL []).toThrow()
+        it "can't accept Array", -> expect(-> JUMLY.DSL []).toThrow()
         
-        it "can't accept number", -> expect(-> $.jumly.DSL 123).toThrow()
+        it "can't accept number", -> expect(-> JUMLY.DSL 123).toThrow()
 
 

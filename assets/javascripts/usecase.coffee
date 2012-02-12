@@ -162,7 +162,7 @@ JUMLYUsecaseDiagram::boundary = (name, acts)->
   ctxt.boundary name, acts
   ctxt
 
-$.jumly.DSL type:".usecase-diagram", compileScript: (script) ->
+JUMLY.DSL type:".usecase-diagram", compileScript: (script) ->
     diag = $.jumly ".usecase-diagram"
     sbname = $(script).attr "system-boundary-name"
     diag.boundary sbname, ->
