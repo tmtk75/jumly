@@ -1,6 +1,6 @@
 jumly = $.jumly
 
-## Deprecated.
+# ******** Deprecated Method ********
 jumly.identify = (e)->
   unless e then return null
   if (p for p of e).length is 1 and p is "id"
@@ -8,7 +8,7 @@ jumly.identify = (e)->
       when "number", "string" then e.id
       when "function" then e.id()
       else return null
-## Deprecated.
+# ******** Deprecated Method ********
 jumly.normalize = (a, b) ->
   return a if a is undefined or a is null
   switch typeof a
@@ -30,7 +30,7 @@ jumly.normalize = (a, b) ->
     attrs = r[key]
     delete r[key]
     $.extend r, attrs
-## Deprecated
+# ******** Deprecated Method ********
 jumly.lang =
   _gives: (a, dic)->
     gives = (query)->
@@ -52,3 +52,55 @@ jumly.lang =
         if s is unode then e else null
       if n.length > 0 then jumly(n)[0] else []
 
+# ******** Deprecated Method ********
+run_scripts_done = false
+run_scripts = ->
+  return null if run_scripts_done 
+  scripts = document.getElementsByTagName 'script'
+  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
+  for script in diagrams
+    jumly.run_script_ script
+  run_scripts_done = true
+  null
+# ******** Deprecated Method ********
+jumly_preferences_ =
+  run_script:
+    before_compose: (diag, target, script) ->
+      if target[0]?.localName is "head"
+        diag.appendTo $ "body"
+      else if script.attr("target-id")
+        target.html diag
+      else
+        diag.insertAfter script
+    determine_target: (script) ->
+      targetid = script.attr "target-id"
+      if targetid
+        $ "##{targetid}"
+      else
+        script.parent()
+# ******** Deprecated Method ********
+SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
+toTypeString = (type)->
+  unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
+  kind = RegExp.$1 + RegExp.$2 + RegExp.$3
+
+jumly.run_script_ = (script) ->
+  script = $ script
+  type = script.attr("type")
+  unless type then throw "Not found: type attribute in script"
+  kind = toTypeString type
+  compiler = jumly.DSL ".#{kind}-diagram"
+  unless compiler then throw "Not found: compiler for '.#{kind}'"
+  unless compiler.compileScript then throw "Not found: compileScript"
+  diag = compiler.compileScript script
+
+  prefs = jumly_preferences_.run_script
+  target = prefs.determine_target script
+  prefs.before_compose diag, target, script
+  diag.compose()
+# ******** Deprecated Method ********
+# Listen for window load, both in browsers and in IE.
+if window.addEventListener
+  addEventListener 'DOMContentLoaded', run_scripts
+else
+  throw "window.addEventListener is not supported"

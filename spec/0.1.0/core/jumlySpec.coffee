@@ -430,7 +430,6 @@ description "jumly", ->
     
     description "type of script, mime-type", ->
       it 'should accept text/jumly+<type>', ->
-        prefs = $.jumly[':preferences'].run_script
         script = $("<script>").attr(type:"text/jumly+usecase", "target-id":"script-tag-mime-type").html """
             @usecase 1:"an usecase"
             @actor "user":use:[1]
