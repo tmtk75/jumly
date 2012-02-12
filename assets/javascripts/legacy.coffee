@@ -104,3 +104,13 @@ if window.addEventListener
   addEventListener 'DOMContentLoaded', run_scripts
 else
   throw "window.addEventListener is not supported"
+# ******** Deprecated Method ********
+jumly.build = (script)->
+  type = toTypeString script.attr "type"
+  builderType = (
+    switch type
+      when "class"    then JUMLY.ClassDiagramBuilder
+      when "usecase"  then JUMLY.UsecaseDiagramBuilder
+      when "sequence" then JUMLY.SequenceDiagramBuilder
+  )
+  (new builderType).build script.text()

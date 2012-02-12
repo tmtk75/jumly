@@ -130,17 +130,6 @@ JUMLY.Identity =
         a[name] = mods
         a
 
-jumly.build = (script)->
-  type = toTypeString script.attr "type"
-  builderType = (
-    switch type
-      when "class"    then JUMLY.ClassDiagramBuilder
-      when "usecase"  then JUMLY.UsecaseDiagramBuilder
-      when "sequence" then JUMLY.SequenceDiagramBuilder
-  )
-  (new builderType).build script.text()
-
-
 class JUMLYDiagramLayout
 JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
 JUMLYDiagramLayout::layout = (diagram)->
