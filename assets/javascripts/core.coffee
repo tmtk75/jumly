@@ -37,19 +37,15 @@ $.fn.selfEach = (f)-> @each (i, e)->
   f e
   this
 
-
-## Provide a way to refer to ID.
+## Deprecated.
 jumly.identify = (e)->
-  unless e
-    return null
+  unless e then return null
   if (p for p of e).length is 1 and p is "id"
     switch typeof e.id
       when "number", "string" then e.id
       when "function" then e.id()
       else return null
-
-## Normalize as JUMLY Parameter
-##
+## Deprecated.
 jumly.normalize = (a, b) ->
   return a if a is undefined or a is null
   switch typeof a
