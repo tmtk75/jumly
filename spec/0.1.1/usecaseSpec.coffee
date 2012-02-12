@@ -11,8 +11,7 @@ describe "usecase", ->
               window.think = think
               window.user = user
               """
-    script    = mkscript "usecase", declare
-    diag      = $.jumly.build script
+    diag      = (new JUMLY.UsecaseDiagramBuilder).build declare
     think     = diag.find(".usecase:eq(0)").self()
     rendering = diag.find(".usecase:eq(1)").self()
     actor     = diag.find(".actor").self()

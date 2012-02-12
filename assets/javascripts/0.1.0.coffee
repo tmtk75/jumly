@@ -100,16 +100,6 @@ jumly.run_script_ = (script) ->
   prefs.before_compose diag, target, script
   diag.compose()
 
-jumly.build = (script)->
-  type = toTypeString script.attr "type"
-  builderType = (
-    switch type
-      when "class"    then JUMLY.ClassDiagramBuilder
-      when "usecase"  then JUMLY.UsecaseDiagramBuilder
-      when "sequence" then JUMLY.SequenceDiagramBuilder
-  )
-  (new builderType).build script.text()
-
 dsl_ = {}
 _dsl = (args) ->
   throw "It MUST NOT be null." if args is null
