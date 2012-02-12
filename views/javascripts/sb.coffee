@@ -10,7 +10,7 @@
         try
             script = $("<script>").attr(type:"text/jumly+sequence", "target-id":"preview-for-sequence-placeholder")
                                   .text $("#dsl").attr("value")
-            $.jumly.run_script_ script
+            JUMLY.evalHTMLScriptElement script
         catch ex
             notify "error", ex.message, 4000
     

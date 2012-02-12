@@ -255,13 +255,14 @@ description "sequence-diagram.DSL", ->
         diag.appendTo $ "body"
         diag.compose()
 
+      evalScript = JUMLY.evalHTMLScriptElement
       it 'should load script node', ->
         script = $("<script>").html """
           @found "User-stag-2", -> @message "turn on", "Mobile-stag-2", ->
           """
         script.attr "type", "text/jumly-sequence-diagram"
-        diag = $.jumly.run_script_ script
+        diag = evalScript script
         diag.find(".interaction:not(.activated)").expect length:1
 
       it 'should be thrown because no type', ->
-        expect(-> $.jumly.run_script_ $ "<script>").toThrow()
+        expect(-> evalScript $ "<script>").toThrow()

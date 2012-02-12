@@ -74,7 +74,7 @@ toTypeString = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
   kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
-jumly.run_script_ = (script) ->
+JUMLY.evalHTMLScriptElement = (script) ->
   script = $ script
   type = script.attr("type")
   unless type then throw "Not found: type attribute in script"
@@ -100,17 +100,17 @@ _dsl = (args) ->
 
 JUMLY.DSL = _dsl
 
-_run_scripts = ->
-  return null if _run_scripts.done 
+_runScripts = ->
+  return null if _runScripts.done 
   scripts = document.getElementsByTagName 'script'
   diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
   for script in diagrams
-    jumly.run_script_ script
-  _run_scripts.done = true
+    JUMLY.evalHTMLScriptElement script
+  _runScripts.done = true
   null
 
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
-  addEventListener 'DOMContentLoaded', _run_scripts
+  addEventListener 'DOMContentLoaded', _runScripts
 else
   throw "window.addEventListener is not supported"

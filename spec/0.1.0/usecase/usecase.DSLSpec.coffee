@@ -229,6 +229,7 @@ description "usecase.DSL", ->
             diag = JUMLY.DSL('.usecase-diagram').compileScript script
             diag.find(".usecase").expect length:2
 
+        evalScript = JUMLY.evalHTMLScriptElement
         #@deprecated: v0.1.0 feature
         xit 'is able to embed to a node with target-id attribute', ->
             script = $("<script>").attr(type:"text/jumly-usecase-diagram", "target-id":"placeholder-to-embed").html """
@@ -237,7 +238,7 @@ description "usecase.DSL", ->
                 """
             target = $("<div>").attr(id:"placeholder-to-embed")
             $("body").append target
-            diag = $.jumly.run_script_ script
+            diag = evalScript script
             target.find(".diagram").expect(length:1)
                   .find(".usecase").expect(length:1).end()
                   .find(".actor").expect(length:1).end()
@@ -252,7 +253,7 @@ description "usecase.DSL", ->
                 @afterCompose (e, d) ->
                     d.foobar = true
                 """
-            diag = $.jumly.run_script_ script
+            diag = evalScript script
             expect(diag.foobar).toBeTruthy()
             
         it 'is an .out-of-bounds', ->

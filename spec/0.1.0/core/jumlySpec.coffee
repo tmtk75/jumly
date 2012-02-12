@@ -408,6 +408,7 @@ description "jumly", ->
         xthen_it "has gives", ->
             (typeof b1.gives).shouldBe "function"
 
+    evalScript = JUMLY.evalHTMLScriptElement
     description "script tag", ->
         #@disabled: v0.1.0 feature.
         xit 'should TENTATIVELY change before-behavior', ->
@@ -423,7 +424,7 @@ description "jumly", ->
                                .append("<div>hello</div>")
             $("body").append target
 
-            diag = $.jumly.run_script_ script
+            diag = evalScript script
             expect(target.find("*:eq(0)").hasClass "diagram").toBeTruthy()  ## diag is prepended in the target.
    
             prefs.before_compose = save
@@ -437,5 +438,5 @@ description "jumly", ->
         target = $("<div>").attr(id:"script-tag-mime-type")
                            .append("<div>hello</div>")
         $("body").append target
-        diag = $.jumly.run_script_ script
+        diag = evalScript script
         expect(target.find("*:eq(0)").hasClass "diagram").toBeTruthy()  ## diag is prepended in the target.
