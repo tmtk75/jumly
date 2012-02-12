@@ -52,6 +52,9 @@ jumly.lang =
       if n.length > 0 then jumly(n)[0] else []
 
 run_scripts_done = false
+
+jumly.runScript = jumly.run_script_
+
 run_scripts = ->
   return null if run_scripts_done 
   scripts = document.getElementsByTagName 'script'

@@ -66,9 +66,6 @@ $.fn.stereotype = (n)->
 $.fn.right = -> @offset().left + @width() - 1
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-##
-jumly.runScript = jumly.run_script_
-
 DSL_ = {}
 DSL = (args) ->
   throw "It MUST NOT be null." if args is null
