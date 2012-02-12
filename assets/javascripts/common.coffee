@@ -130,7 +130,7 @@ JUMLYObject::lost = ->
     this.activate()
         .interact(null, {stereotype:".lost"})
 
-$.jumly.def ".object", JUMLYObject
+JUMLY.def ".object", JUMLYObject
 class JUMLYRelationship
     constructor: (props, opts) ->
         @src = opts.source
@@ -228,7 +228,7 @@ JUMLYRelationship::render = ->
     $.g2d.arrow ctxt, s, t, style
     ctxt.restore()
 
-$.jumly.def ".relationship", JUMLYRelationship
+JUMLY.def ".relationship", JUMLYRelationship
 _STYLES =
     radius       : 14    # Radius of each circle
     lineWidth    : 1.5
@@ -406,4 +406,4 @@ JUMLYNote::_build_ = (div, a)->
     .append($("<div>").addClass("inner")
               .append($("<div>").addClass("content").html a))
 
-$.jumly.def ".note", JUMLYNote
+JUMLY.def ".note", JUMLYNote

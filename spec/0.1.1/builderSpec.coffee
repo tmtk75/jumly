@@ -14,7 +14,7 @@ describe "JUMLY", ->
       class MyDiagramBuilder extends JUMLY.DiagramBuilder
       MyDiagramBuilder::run = -> this.ran = "abc"
       class MyDiagram extends JUMLY.Diagram
-      JUMLY.define ".my-diagram", MyDiagram
+      JUMLY.def ".my-diagram", MyDiagram
       builder = new MyDiagramBuilder
       builder.build '@run "A", "B"'
       expect(builder.ran).toBe "abc"

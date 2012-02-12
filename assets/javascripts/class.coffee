@@ -67,8 +67,8 @@ JUMLYClass::_build_ = (div)->
   div.addClass("object")
      .append(icon)
 
-JUMLY.define ".class-diagram", JUMLYClassDiagram
-JUMLY.define ".class", JUMLYClass
+JUMLY.def ".class-diagram", JUMLYClassDiagram
+JUMLY.def ".class", JUMLYClass
 
 
 class JUMLYClassDiagramBuilder extends JUMLY.DiagramBuilder

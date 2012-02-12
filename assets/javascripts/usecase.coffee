@@ -21,7 +21,7 @@ UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
     t = T if t > T
     icon.css width:minwidth*t, height:minheight*t
 
-$.jumly.def ".usecase", UMLUsecase
+JUMLY.def ".usecase", UMLUsecase
 
 class UMLActor
     constructor: (props, opts) ->
@@ -30,7 +30,7 @@ class UMLActor
         @addClass "actor"
         this
 
-$.jumly.def ".actor", UMLActor
+JUMLY.def ".actor", UMLActor
 
 
 class UMLSystemBoundary
@@ -41,7 +41,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-$.jumly.def ".system-boundary", UMLSystemBoundary
+JUMLY.def ".system-boundary", UMLSystemBoundary
 
 
 class JUMLYUsecaseDiagram extends JUMLY.Diagram
@@ -102,8 +102,8 @@ JUMLYUsecaseDiagram::compose = ->
     @height @mostTopBottom().height()
     @trigger "afterCompose", [this]
     this
-    
-$.jumly.def ".usecase-diagram", JUMLYUsecaseDiagram
+
+JUMLY.def ".usecase-diagram", JUMLYUsecaseDiagram
 
 
 

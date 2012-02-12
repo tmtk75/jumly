@@ -2,6 +2,8 @@
 if window.JUMLY then throw new Error "JUMLY already exists."
 window.JUMLY = {}
 
+_factory = (name, fact)-> _factory[name] = factory:fact
+JUMLY.def = (name, type)-> _factory name, (_, opts)-> new type _, opts
 jumly = (arg, opts) ->
   if (typeof arg is "object" && !arg.type)
     mapJqToJy = (arg) ->
@@ -14,13 +16,12 @@ jumly = (arg, opts) ->
     return mapJqToJy arg
   
   arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
-  meta = jumly.factory[arg.type]
+  meta = _factory[arg.type]
   if (meta is undefined)
     throw "unknown type '" + arg.type + "'"
   
-  factory = meta.factory
   opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
-  a = factory(arg, opts)
+  a = meta.factory(arg, opts)
   a.find(".name:eq(0)").html(opts.name)
   a.name(opts.name) if opts.name
   a.attr id:opts.id if opts.id
@@ -30,6 +31,8 @@ jumly = (arg, opts) ->
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 
+$.jumly = jumly
+
 $.fn.jprops = -> @data("uml:property")
 $.fn.self = -> @jprops()?._self
 $.fn.selfEach = (f)-> @each (i, e)->
@@ -37,13 +40,6 @@ $.fn.selfEach = (f)-> @each (i, e)->
   throw new Error("self() returned undefined.", e) unless e?
   f e
   this
-
-## Declaration for all attr keys of jQuery this library uses.
-jumly.factory = (name, fact)-> jumly.factory[name] = factory:fact
-JUMLY.define = (name, type)-> jumly.factory name, (_, opts)-> new type _, opts
-jumly.def = JUMLY.define
-
-$.jumly = jumly
 
 ##
 prefs_ = {}

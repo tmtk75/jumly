@@ -6,13 +6,13 @@ class JUMLYFragment extends JUMLY.HTMLElement
 class JUMLYSequenceDiagram extends JUMLY.Diagram
 class JUMLYRef extends JUMLY.HTMLElement
 jumly = $.jumly
-jumly.def ".message", JUMLYMessage
-jumly.def ".interaction", JUMLYInteraction
-jumly.def ".lifeline", JUMLYLifeline
-jumly.def ".occurrence", JUMLYOccurrence
-jumly.def ".fragment", JUMLYFragment
-jumly.def ".ref", JUMLYRef
-jumly.def ".sequence-diagram", JUMLYSequenceDiagram
+JUMLY.def ".message", JUMLYMessage
+JUMLY.def ".interaction", JUMLYInteraction
+JUMLY.def ".lifeline", JUMLYLifeline
+JUMLY.def ".occurrence", JUMLYOccurrence
+JUMLY.def ".fragment", JUMLYFragment
+JUMLY.def ".ref", JUMLYRef
+JUMLY.def ".sequence-diagram", JUMLYSequenceDiagram
 
 JUMLYMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")
