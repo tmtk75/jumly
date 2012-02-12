@@ -1,18 +1,20 @@
-class JUMLYMessage extends JUMLY.HTMLElement
-class JUMLYInteraction extends JUMLY.HTMLElement
-class JUMLYLifeline extends JUMLY.HTMLElement
-class JUMLYOccurrence extends JUMLY.HTMLElement
-class JUMLYFragment extends JUMLY.HTMLElement
+class JUMLYMessage         extends JUMLY.HTMLElement
+class JUMLYInteraction     extends JUMLY.HTMLElement
+class JUMLYLifeline        extends JUMLY.HTMLElement
+class JUMLYOccurrence      extends JUMLY.HTMLElement
+class JUMLYFragment        extends JUMLY.HTMLElement
+class JUMLYRef             extends JUMLY.HTMLElement
 class JUMLYSequenceDiagram extends JUMLY.Diagram
-class JUMLYRef extends JUMLY.HTMLElement
+types = 
+  ".message"         : JUMLYMessage
+  ".interaction"     : JUMLYInteraction
+  ".lifeline"        : JUMLYLifeline
+  ".occurrence"      : JUMLYOccurrence
+  ".fragment"        : JUMLYFragment
+  ".ref"             : JUMLYRef
+  ".sequence-diagram": JUMLYSequenceDiagram
+JUMLY.def e, types[e] for e of types
 jumly = $.jumly
-JUMLY.def ".message", JUMLYMessage
-JUMLY.def ".interaction", JUMLYInteraction
-JUMLY.def ".lifeline", JUMLYLifeline
-JUMLY.def ".occurrence", JUMLYOccurrence
-JUMLY.def ".fragment", JUMLYFragment
-JUMLY.def ".ref", JUMLYRef
-JUMLY.def ".sequence-diagram", JUMLYSequenceDiagram
 
 JUMLYMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")
