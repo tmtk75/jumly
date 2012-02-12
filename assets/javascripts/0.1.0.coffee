@@ -51,42 +51,33 @@ jumly.lang =
         if s is unode then e else null
       if n.length > 0 then jumly(n)[0] else []
 
-jumly.runScript = jumly.run_script_
-
-jumly_preferences_ =
-  run_script:
-    before_compose: (diag, target, script) ->
-      if target[0]?.localName is "head"
-        diag.appendTo $ "body"
-      else if script.attr("target-id")
-        target.html diag
-      else
-        diag.insertAfter script
-    determine_target: (script) ->
-      targetid = script.attr "target-id"
-      if targetid
-        $ "##{targetid}"
-      else
-        script.parent()
-
 SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
-toTypeString = (type)->
+_to_type_string = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
   kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
 JUMLY.evalHTMLScriptElement = (script) ->
   script = $ script
   type = script.attr("type")
-  unless type then throw "Not found: type attribute in script"
-  kind = toTypeString type
+  throw "Not found: type attribute in script" unless type 
+  kind = _to_type_string type
   compiler = _dsl ".#{kind}-diagram"
-  unless compiler then throw "Not found: compiler for '.#{kind}'"
-  unless compiler.compileScript then throw "Not found: compileScript"
+  throw "Not found: compiler for '.#{kind}'" unless compiler
+  throw "Not found: compileScript" unless compiler.compileScript 
   diag = compiler.compileScript script
 
-  prefs = jumly_preferences_.run_script
-  target = prefs.determine_target script
-  prefs.before_compose diag, target, script
+  _before = (diag, target, script)->
+    if target[0]?.localName is "head" then diag.appendTo $ "body"
+    else if script.attr("target-id") then target.html diag
+    else diag.insertAfter script
+  
+  _determine = (script)->
+    targetid = script.attr "target-id"
+    if targetid then $ "##{targetid}"
+    else script.parent()
+
+  target = _determine script
+  _before diag, target, script
   diag.compose()
 
 dsl_ = {}
