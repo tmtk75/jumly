@@ -44,4 +44,4 @@ showTooltips = (diag)->
     ".destroy"      : title:"Destory message","data-placement":"bottom"
     ".object:eq(2) .icon-container": title:"Iconified object","data-placement":"right"
   for p of a
-    $(p, diag).attr(a[p]).tooltip('show')
+    $(p, diag).attr(a[p]).attr("data-trigger","manual").tooltip('show')
