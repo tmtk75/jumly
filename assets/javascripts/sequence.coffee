@@ -27,9 +27,9 @@ JUMLYMessage::_lineToNextOccurr = (canvas) ->
     {src:{x:0, y:0}, dst:{x:400, y:0}}
   srcll = @_src_occurr()
   dstll = @_dst_occurr()
-  @_to_line srcll, dstll, canvas
+  @_toLine srcll, dstll, canvas
 
-JUMLYMessage::_to_line = (srcll, dstll, canvas) ->
+JUMLYMessage::_toLine = (srcll, dstll, canvas) ->
   # Lost message is always toward right.
   if !@parent().hasClass("lost") and @isTowardLeft()
     src:
@@ -56,7 +56,7 @@ JUMLYMessage::_prefferedCanvas = ->
     .css (width:@width(), height:@height())
 
 JUMLYMessage::_to_create_line = (canvas)->
-  e = @_to_line @_src_occurr(), @_dst_occurr().gives(".object"), canvas
+  e = @_toLine @_src_occurr(), @_dst_occurr().gives(".object"), canvas
   if @isTowardLeft()
     src = @_src_occurr()
     e.dst.x = src.gives(".object").outerRight() - src.offset().left
@@ -124,7 +124,7 @@ JUMLYMessage::repaint = (style) ->
   else if @gives ".actee"
     newsrc = @_findOccurr @gives ".actee"
     newdst = @_dst_occurr()
-    line = @_to_line newsrc, newdst, canvas
+    line = @_toLine newsrc, newdst, canvas
   else
     line = @_lineToNextOccurr canvas
       
@@ -159,7 +159,7 @@ JUMLYMessage::_composeLooksOfCreation = ->
      .gives(".interaction").gives(".occurrence").as(".actee")
       
   preffered_width = (msg) ->
-    l = msg._to_line srcoccur, dstoccur.gives(".object"), msg
+    l = msg._toLine srcoccur, dstoccur.gives(".object"), msg
     Math.abs l.src.x - l.dst.x
       
   centering_name = (msg, newwidth) ->
