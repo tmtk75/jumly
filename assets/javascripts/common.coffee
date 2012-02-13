@@ -108,16 +108,13 @@ JUMLYObject::lost =-> @activate().interact(null, {stereotype:".lost"})
 
 JUMLY.def ".object", JUMLYObject
 
-class JUMLYRelationship
-  constructor: (props, opts) ->
-      @src = opts.source
-      @dst = opts.destination
-      jQuery.extend this, JUMLYRelationship.newNode()
-      this
-  @newNode = ->
-      $("<div>").addClass("relationship")
-                .append($("<canvas>").addClass("icon"))
-                .append($("<div>").addClass("name"))
+class JUMLYRelationship extends JUMLY.HTMLElement
+
+JUMLYRelationship::_build_ = (div, a, opts)->
+  @src = opts.src
+  @dst = opts.dst
+  div.append($("<canvas>").addClass("icon"))
+     .append($("<div>").addClass("name"))
 
 MESSAGE_STYLE =
     width      : 1

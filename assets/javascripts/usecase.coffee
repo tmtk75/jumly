@@ -70,7 +70,7 @@ bind_between = (nodes, diag) ->
     bind = (type) ->
       $(src.jprops()[type]).each (i, e) ->
         return unless dst = find_with_id e
-        link = $.jumly ".relationship", source:src, destination:dst
+        link = $.jumly ".relationship", src:src, dst:dst
         link.addClass type
         diag.append link
     bind "use"
