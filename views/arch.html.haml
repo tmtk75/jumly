@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title JUMLY Reference
+    %title JUMLY How to work
     = haml :"_head.html"
     = haml :"_bootstrap.html"
     %link{type:'text/css', rel:'stylesheet', href:"#{$css_dir}/_sequence.css"}
@@ -21,7 +21,14 @@
       .row
       %script{type:"text/jumly+sequence"}
         :plain
-          @found "JUMLY", ->
-            @message "select script nodes", "HTMLHtmlElement"
+          @found "Browser", ->
+            @message "load", "JUMLY", ->
+              @message "addWindowListener 'DOMContentLoaded'", "DOMWindow"
+            @found "JUMLY", ->
+              @message "select script nodes", "HTMLHtmlElement"
+          @after ->
+            tip = (e,m,p)-> e.attr(title:m,"data-trigger":"manual","data-placement":p).tooltip("show")
+            tip jumly, "Hello", "right"
+            
 
       /= haml :"_copyright.html"
