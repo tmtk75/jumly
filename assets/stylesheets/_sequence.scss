@@ -1,26 +1,25 @@
 @import "_commons";
 /* */
 .sequence-diagram {
-    $min_width: 88;
-    $min_height: 31;
-
-    font-family: 'Tahoma';
-    .object-lane, .stop {
-    	position: relative;
+  $min_width: 88;
+  $min_height: 31;
+  font-family: Tahoma,Verdana;
+  .object-lane, .stop {
+  	position: relative;
+  }
+  /* ---------------- Object ---------------- */
+  .object {
+  	position: absolute;
+    .name {
+      @include primary_border;
+      text-align: center;
+	    min-width: #{$min_width}px;
+	    height: #{$min_height}px;
+      display: table-cell;
+      vertical-align: middle;
+      background-color: white;
     }
-    /* ---------------- Object ---------------- */
-    .object {
-    	position: absolute;
-        .name {
-            @include primary_border;
-            text-align: center;
-    	    min-width: #{$min_width}px;
-    	    height: #{$min_height}px;
-	        display: table-cell;
-	        vertical-align: middle;
-            background-color: white;
-        }
-    }
+  }
     /* ---------------- Lifeline ---------------- */
     .lifeline,
     .lifeline .line {
@@ -139,7 +138,6 @@
         padding-bottom: 1em;
     	background-color: white;
         border: solid 1px black;
-        //min-width: #{$min_width*1.414}px;
         .tag {
             color: black;
             font-weight: bold;
