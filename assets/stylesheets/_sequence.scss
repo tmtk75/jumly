@@ -13,8 +13,9 @@
     .name {
       @include primary_border;
       text-align: center;
-	    min-width: #{$min_width}px;
-	    height: #{$min_height}px;
+      min-width: #{$min_width}px;
+      padding: 0 4px;
+      height: #{$min_height}px;
       display: table-cell;
       vertical-align: middle;
       background-color: white;
