@@ -1,0 +1,26 @@
+!!! 5
+%html
+  %head
+    %title JUMLY Reference
+    = haml :"_head.html"
+    = haml :"_bootstrap.html"
+  %body
+    /
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            %h3
+              %a.brand{href:"/#"}JUMLY
+            %ul.nav
+              %li
+                %a{href:"/TryJUMLY"}TryJUMLY
+            %form.navbar-search.pull-right
+              %input.search-query{type:"text",placeholder:"Search"}
+    .container
+      .row
+      %script{type:"text/jumly+sequence"}
+        :plain
+          @found "JUMLY", ->
+            @message "select script nodes", "HTMLHtmlElement"
+
+      /= haml :"_copyright.html"
