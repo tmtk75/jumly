@@ -55,7 +55,7 @@ JUMLYMessage::_prefferedCanvas = ->
     .attr(width:@width(), height:@height())
     .css (width:@width(), height:@height())
 
-JUMLYMessage::_to_create_line = (canvas)->
+JUMLYMessage::_toCreateLine = (canvas)->
   e = @_toLine @_srcOccurr(), @_dstOccurr().gives(".object"), canvas
   if @isTowardLeft()
     src = @_srcOccurr()
@@ -120,7 +120,7 @@ JUMLYMessage::repaint = (style) ->
     return this
 
   if @hasClass "create"
-    line = @_to_create_line canvas
+    line = @_toCreateLine canvas
   else if @gives ".actee"
     newsrc = @_findOccurr @gives ".actee"
     newdst = @_dstOccurr()

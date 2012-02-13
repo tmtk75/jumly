@@ -63,7 +63,7 @@ description "message.create", ->
         then_it "to left edge", ->
             msg = @iact_ab.find(".message").self()
             can = msg._current_canvas
-            e = msg._to_create_line can
+            e = msg._toCreateLine can
             canx = $(can).offset().left
             @diag.obj_b.offset().left.shouldBe canx + e.dst.x
             @diag.hide()
@@ -85,7 +85,7 @@ description "message.create", ->
             @diag.compose()
         then_it "", ->
             msg = @iact_ab.find(".message").self()
-            e = msg._to_create_line msg._current_canvas
+            e = msg._toCreateLine msg._current_canvas
             can = $(msg._current_canvas)
             canr = can.offset().left + can.width()
             b = @diag.obj_b
