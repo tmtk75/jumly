@@ -2,8 +2,8 @@
 if window.JUMLY then throw new Error "JUMLY already exists."
 window.JUMLY = {}
 
-_factory = (name, fact)-> _factory[name] = factory:fact
-JUMLY.def = (name, type)-> _factory name, (_, opts)-> new type _, opts
+_factories = (name, fact)-> _factories[name] = factory:fact
+JUMLY.def = (name, type)-> _factories name, (_, opts)-> new type _, opts
 jumly = (arg, opts) ->
   if (typeof arg is "object" && !arg.type)
     mapJqToJy = (arg) ->
@@ -16,18 +16,17 @@ jumly = (arg, opts) ->
     return mapJqToJy arg
   
   arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
-  meta = _factory[arg.type]
-  if (meta is undefined)
-    throw "unknown type '" + arg.type + "'"
+  meta = _factories[arg.type]
+  throw "unknown type '" + arg.type + "'" if meta is undefined
   
-  opts = $.extend {name:null}, if typeof opts is "object" then opts else {name:opts}
-  a = meta.factory(arg, opts)
+  opts = $.extend arg, {name:null}, if typeof opts is "object" then opts else {name:opts}
+  a = meta.factory opts
   a.find(".name:eq(0)").html(opts.name)
   a.name(opts.name) if opts.name
   a.attr id:opts.id if opts.id
   
   # Common methods
-  a.gives = jumly.lang._gives(a, arg)
+  a.gives = jumly.lang._gives(a, opts)
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 

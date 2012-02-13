@@ -110,7 +110,7 @@ JUMLY.def ".object", JUMLYObject
 
 class JUMLYRelationship extends JUMLY.HTMLElement
 
-JUMLYRelationship::_build_ = (div, a, opts)->
+JUMLYRelationship::_build_ = (div, opts)->
   @src = opts.src
   @dst = opts.dst
   div.append($("<canvas>").addClass("icon"))
