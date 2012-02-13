@@ -19,16 +19,39 @@
               %input.search-query{type:"text",placeholder:"Search"}
     .container
       .row
-      %script{type:"text/jumly+sequence"}
-        :plain
-          @found "Browser", ->
-            @message "load", "JUMLY", ->
-              @message "addWindowListener 'DOMContentLoaded'", "DOMWindow"
-            @found "JUMLY", ->
-              @message "select script nodes", "HTMLHtmlElement"
-          @after ->
-            tip = (e,m,p)-> e.attr(title:m,"data-trigger":"manual","data-placement":p).tooltip("show")
-            tip jumly, "Hello", "right"
-            
+        .span12
+          %script{type:"text/jumly+usecase"}
+            :plain
+              @boundary "JUMLY", ->
+                @usecase 1:"Render UML diagram in HTML document"
+                @actor "User": use:[1]
+                @actor "Employee": extend:[user]
+                @actor "Manager": extend:[user]
+              @before (e, d)->
+                d.css height:256
+          %script{type:"text/jumly+sequence"}
+            :plain
+              @found "Browser", ->
+                @message "load", "JUMLY", ->
+                  @message "addWindowListener 'DOMContentLoaded'", "DOMWindow"
+                @found "JUMLY", ->
+                  @message "select &lt;script> nodes", "HTMLHtmlElement"
+                  @loop ->
+                    @message "evalHTMLScriptElement", ->
+                      @message "know the type", "HTMLScriptElement"
+                      @message "build", ->
+                        @create "Diagram"
+                        @message "compose", diagram
+              @before (e,d)->
+                htmlhtmlelement.css "margin-left":-20
+                htmlscriptelement.css "margin-left":-90, "margin-top":70
+                diagram.css "margin-left":-140
+              @after (e,d)->
+                tip = (e,m,p)-> d.find(e).attr(title:m,"data-trigger":"manual","data-placement":p).tooltip("show")
+                tip jumly,                  "This is me", "left"
+                tip ".occurrence:eq(3)",    "Actually this called by DOMWindow", "left"
+                tip ".message:eq(0)",       "with &lt;script>", "bottom"
+                tip ".message:eq(2) .name", "for having type 'text/jumly'", "top"
+                tip ".message:eq(5) .name", "with DiagramBuilder", "right"
 
       /= haml :"_copyright.html"
