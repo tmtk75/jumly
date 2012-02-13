@@ -47,7 +47,7 @@ description "message", ->
     scenario "guarantee '3 recursive calls to right' for mesasge to right", ->
         it_behaves_as "3 recursive calls to right"
         when_it "calculating line of msg4th", ->
-            @a = msg4th.to_line($(""))
+            @a = msg4th._lineToNextOccurr($(""))
         
         then_it "the message is up to ll_b4.left", ->
             a.dst.x.shouldBe ll_b4.offset().left - msg4th.offset().left
@@ -127,7 +127,7 @@ description "message", ->
     scenario "a basic arrow length and start/end point", ->
         it_behaves_as "left message b/w 2 objects(obj_a, obj_b)"
         when_it "refering a message", ->
-            @a = msg1st.to_line($(""))
+            @a = msg1st._lineToNextOccurr($(""))
         
         then_it "message left fit to the source occurrence's left on global coordinate", ->
             msg1st.offset().left.shouldBe ll_a.offset().left
@@ -173,7 +173,7 @@ description "message", ->
     scenario "guarantee '1 recursive call to left' for message to right", ->
         it_behaves_as "1 recursive call to left"
         when_it "calculating line of msg2nd", ->
-            @a = msg2nd.to_line($(""))
+            @a = msg2nd._lineToNextOccurr($(""))
         
         then_it "the message is up to ll_a2.left", ->
             a.dst.x.shouldBe ll_a2.outerWidth()
@@ -196,7 +196,7 @@ description "message", ->
     scenario "guarantee '3 recursive calls to left' for mesasge to right", ->
         it_behaves_as "3 recursive calls to left"
         when_it "calculating line of msg4th", ->
-            @a = msg4th.to_line($(""))
+            @a = msg4th._lineToNextOccurr($(""))
         
         then_it "the message is up to ll_a4.left", ->
             a.dst.x.shouldBe ll_a4.outerWidth()
@@ -239,7 +239,7 @@ description "message", ->
             diagram.compose()
         
         and_ "length of line for the message", ->
-            @a = msg1st.to_line($(""))
+            @a = msg1st._lineToNextOccurr($(""))
         
         then_ "for dst.x, " + that, ->
             a.dst.x.shouldBe ll_a.outerWidth()
@@ -379,7 +379,7 @@ description "message", ->
             
             when_it "to_line runs", ->
                 @lostmsg = diagram.$0(".lost .message")
-                @a = lostmsg.to_line($(".message canvas"))
+                @a = lostmsg._lineToNextOccurr($(".message canvas"))
             
             then_it "to_line work well for src", ->
                 a.src.x.shouldBeGreaterThan 0

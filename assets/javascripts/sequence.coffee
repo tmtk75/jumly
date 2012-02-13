@@ -20,9 +20,6 @@ JUMLYMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")
      .append($("<div>").addClass "name")
 
-JUMLYMessage::to_line = (canvas) ->  # For backward compatibility.
-  @_lineToNextOccurr canvas
-
 JUMLYMessage::_lineToNextOccurr = (canvas) ->
   if false #@hasClass("destroy")) {
     ##FIXME: Destroy message
