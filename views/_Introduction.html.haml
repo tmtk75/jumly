@@ -5,7 +5,7 @@
 %section#Whats_JUMLY.row
   .span12
     %h2 What's JUMLY?
-    %p JUMLY is a JavaScript library.
+    %p JUMLY is a JavaScript library, UML diagram rendering engine.
     %p Using JUMLY, you can easily embed UML diagram on your HTML document.  
     %p All you need are just two in order to use JUMLY.
     %ul
@@ -90,14 +90,24 @@
 %section#Did_you_have_these_experiences.row
   %h2.span12 Did you have these experiences?
   .span7
-    %ul
-      %li Getting many small diagrams which have a few icons and relationships. |
-        Then you launched an UML modeling tool, and create a new project, and make a model, ... |
-      %li Wanted to copy a string, like a class name and something phrase, from UML note icon.
-      %li There was something you don't like at diagram which application generated. |
-        For instance, color, size, line width, font, and so on. |
-      %li Couldn't understand difference b/w old diagram and updated one.
-      %li Couldn't open an application file on other computer you don't usually use.
+    %dl
+      %dt To do a lot
+      %dd Getting many small diagrams which have a few icons and relationships. |
+          Then you launched an UML modeling tool, and create a new project, and make a model, ... |
+      %dt Cannot reuse
+      %dd Wanted to copy a string, like a class name and something phrase, from UML note icon.
+      %dt Ugly looks 
+      %dd There was something you don't like at diagram which application generated. |
+          For instance, color, size, line width, font, and so on. |
+      %input#did_you_have_these_expr_more{type:"checkbox","data-bind"=>"checked:more_did_you_have_these_expr",style:"display:none"}
+      %label{for:"did_you_have_these_expr_more"}
+        %a More...
+      .more{"data-bind"=>"visible:more_did_you_have_these_expr"}
+        %dt What changed?
+        %dd Couldn't understand difference b/w old diagram and updated one.
+        %dt Cannot view
+        %dd Couldn't open an application file on other computer you don't usually use.
+      
 
 -# Why you use JUMLY =========  =================================================
 %section#why_you_use_jumly.row

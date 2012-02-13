@@ -73,5 +73,6 @@
   :coffeescript
     console.log ko
     viewModel =
+      more_did_you_have_these_expr: ko.observable false
       more_why_you_use_jumly: ko.observable false
     ko.applyBindings viewModel, $("body")[0]
