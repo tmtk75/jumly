@@ -25,8 +25,8 @@ JUMLYMessage::_lineToNextOccurr = (canvas) ->
     ##FIXME: Destroy message
     console.log "FIXME: to avoid runtime error."
     {src:{x:0, y:0}, dst:{x:400, y:0}}
-  srcll = @_src_occurr()
-  dstll = @_dst_occurr()
+  srcll = @_srcOccurr()
+  dstll = @_dstOccurr()
   @_toLine srcll, dstll, canvas
 
 JUMLYMessage::_toLine = (srcll, dstll, canvas) ->
@@ -46,9 +46,9 @@ JUMLYMessage::_toLine = (srcll, dstll, canvas) ->
       x: dstll.offset().left - srcll.offset().left
       y: canvas.outerHeight()/2
 
-JUMLYMessage::_src_occurr = -> @parents(".occurrence:eq(0)").self()
+JUMLYMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
 
-JUMLYMessage::_dst_occurr = -> (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this).self()
+JUMLYMessage::_dstOccurr = -> (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this).self()
 
 JUMLYMessage::_prefferedCanvas = ->
   @find("canvas:eq(0)")
@@ -56,9 +56,9 @@ JUMLYMessage::_prefferedCanvas = ->
     .css (width:@width(), height:@height())
 
 JUMLYMessage::_to_create_line = (canvas)->
-  e = @_toLine @_src_occurr(), @_dst_occurr().gives(".object"), canvas
+  e = @_toLine @_srcOccurr(), @_dstOccurr().gives(".object"), canvas
   if @isTowardLeft()
-    src = @_src_occurr()
+    src = @_srcOccurr()
     e.dst.x = src.gives(".object").outerRight() - src.offset().left
   e
 
@@ -112,7 +112,7 @@ JUMLYMessage::repaint = (style) ->
     gap = 2
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
-    llw = @_dst_occurr().outerWidth()
+    llw = @_dstOccurr().outerWidth()
     $.g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
     arrow.base = 0
     $.g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
@@ -123,7 +123,7 @@ JUMLYMessage::repaint = (style) ->
     line = @_to_create_line canvas
   else if @gives ".actee"
     newsrc = @_findOccurr @gives ".actee"
-    newdst = @_dst_occurr()
+    newdst = @_dstOccurr()
     line = @_toLine newsrc, newdst, canvas
   else
     line = @_lineToNextOccurr canvas
@@ -152,8 +152,8 @@ JUMLYMessage::isTowardRight = -> @isToward "right"
 JUMLYMessage::isTowardLeft = -> @isToward "left"
 
 JUMLYMessage::_composeLooksOfCreation = ->
-  srcoccur = @_src_occurr()
-  dstoccur = @_dst_occurr()
+  srcoccur = @_srcOccurr()
+  dstoccur = @_dstOccurr()
   render = (msg) ->
     msg.repaint()
      .gives(".interaction").gives(".occurrence").as(".actee")
