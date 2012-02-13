@@ -71,25 +71,24 @@ JUMLYMessage::_findOccurr = (actee)->
   occurr
 
 MESSAGE_STYLE =
-    width      : 1
-    base       : 6
-    height     : 10
-    lineWidth  : 1.5
-    shape      : "line2"
-    pattern    : [8, 8]
-    strokeStyle: 'gray'
-    fillStyle  : 'gray'
+  width      : 1
+  base       : 6
+  height     : 10
+  lineWidth  : 1.5
+  shape      : "line2"
+  pattern    : [8, 8]
+  strokeStyle: 'gray'
+  fillStyle  : 'gray'
 
 STEREOTYPE_STYLES =  # From streotype to style object 
-    create      : {shape: "dashed"}
-    asynchronous: {shape: "line"}
-    synchronous : {shape: "line2", fillStyle: 'gray'}
-    destroy     : {shape: "line2", fillStyle: 'gray'}
+  create      : {shape: "dashed"}
+  asynchronous: {shape: "line"}
+  synchronous : {shape: "line2", fillStyle: 'gray'}
+  destroy     : {shape: "line2", fillStyle: 'gray'}
 
 _determine_primary_stereotype = (jqnode) ->
-    for e in ["create", "asynchronous", "synchronous", "destroy"]
-        if jqnode.hasClass e
-            return e
+  for e in ["create", "asynchronous", "synchronous", "destroy"]
+    return e if jqnode.hasClass e
 
 JUMLYMessage::repaint = (style) ->
   arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
