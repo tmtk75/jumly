@@ -5,6 +5,7 @@
     = haml :"_head.html"
     = haml :"_bootstrap.html"
     %link{type:'text/css', rel:'stylesheet', href:"#{$css_dir}/_sequence.css"}
+    %link{type:'text/css', rel:'stylesheet', href:"#{$css_dir}/_usecase.css"}
   %body
     /
       .navbar.navbar-fixed-top
@@ -24,11 +25,14 @@
             :plain
               @boundary "JUMLY", ->
                 @usecase 1:"Render UML diagram in HTML document"
+                @usecase 2:"Share diagrams"
+                @boundary "Sequence Diagram", ->
+                  @usecase r3:"Render sequence diagram"
                 @actor "User": use:[1]
-                @actor "Employee": extend:[user]
+                @actor "Employee": extend:[user, r3, 2]
                 @actor "Manager": extend:[user]
               @before (e, d)->
-                d.css height:256
+                d.addClass("layout-a").css height:320
           %script{type:"text/jumly+sequence"}
             :plain
               @found "Browser", ->
