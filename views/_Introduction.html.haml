@@ -18,6 +18,7 @@
         @usecase 1:"Think something"
         @usecase "Render diagram":extend:[1]
         @actor "You":use:[1]
+        @before (e, d)-> d.addClass("layout-a")
     .span6
       %pre{class: 'brush: html'}
         :preserve
