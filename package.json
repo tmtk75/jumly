@@ -1,0 +1,29 @@
+{
+   "name": "jumly",
+   "description": "UML diagram rendering library",
+   "version": "0.1.2",
+   "homepage" : "http://github.com/tmtk75/jumly",
+   "engines": {"node": ">= 0.6.15"},
+   "author": "Tomotaka Sakuma <ktmtmks@gmail.com>",
+   "help": {
+      "web": "https://github.com/tmtk75/jumly/blob/master/README.md",
+      "cli": "./scripts/help.js"
+   },
+   "pm": "sm",
+   "dependencies": {
+      "node-jquery": "~0.1.0"
+   },
+   "devDependencies": {},
+   "mappings": {
+     "v8debug": ["npm", "https://github.com/ajaxorg/lib-v8debug/tarball/09ce2bef1c33add76ed5c52ce477df339101b435"]
+   },
+   "repository" : {
+     "type" : "git",
+     "url" : "git://github.com/tmtk75/jumly.git"
+   },
+   "licenses": [{
+   }],
+   "scripts": {
+     "start": "sh ./bin/jumly.sh"
+   }
+}
