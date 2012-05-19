@@ -56,7 +56,7 @@ _to_type_string = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
   kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
-JUMLY.evalHTMLScriptElement = (script) ->
+window.JUMLY.evalHTMLScriptElement = (script) ->
   script = $ script
   type = script.attr("type")
   throw "Not found: type attribute in script" unless type 
@@ -89,7 +89,7 @@ _dsl = (args) ->
   throw "compileScript property is required." unless args.compileScript
   dsl_[args.type] = {compileScript:args.compileScript, version:args.version}
 
-JUMLY.DSL = _dsl
+window.JUMLY.DSL = _dsl
 
 _runScripts = ->
   return null if _runScripts.done 
@@ -102,6 +102,6 @@ _runScripts = ->
 
 # Listen for window load, both in browsers and in IE.
 if window.addEventListener
-  addEventListener 'DOMContentLoaded', _runScripts
+  window.addEventListener 'DOMContentLoaded', _runScripts
 else
   throw "window.addEventListener is not supported"

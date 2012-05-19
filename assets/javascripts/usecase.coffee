@@ -1,3 +1,5 @@
+JUMLY = window.JUMLY
+
 class UMLUsecase
     constructor: (props, opts) ->
         jQuery.extend this, UMLUsecase.newNode()

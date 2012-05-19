@@ -1,6 +1,7 @@
 ## Reserved namespace
 if window.JUMLY then throw new Error "JUMLY already exists."
 window.JUMLY = {}
+JUMLY = window.JUMLY
 
 _factories = (name, fact)-> _factories[name] = factory:fact
 JUMLY.def = (name, type)-> _factories name, (_, opts)-> new type _, opts

@@ -1,3 +1,4 @@
+JUMLY = window.JUMLY
 class JUMLYMessage         extends JUMLY.HTMLElement
 class JUMLYInteraction     extends JUMLY.HTMLElement
 class JUMLYLifeline        extends JUMLY.HTMLElement

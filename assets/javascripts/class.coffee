@@ -1,4 +1,5 @@
 ##
+JUMLY = window.JUMLY
 class JUMLYClassDiagram extends JUMLY.Diagram
 
 JUMLYClassDiagram::member = (kind, clz, normval)->

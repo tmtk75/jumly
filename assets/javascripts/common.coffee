@@ -1,4 +1,5 @@
 ##
+JUMLY = window.JUMLY
 class JUMLYHTMLElement
   constructor: ->
     cls = JUMLY.Naming.toCSSClass @constructor.name
@@ -204,6 +205,8 @@ JUMLYRelationship::render = ->
     ctxt.restore()
 
 JUMLY.def ".relationship", JUMLYRelationship
+JUMLY.Relationship = JUMLYRelationship
+
 _STYLES =
     radius       : 14    # Radius of each circle
     lineWidth    : 1.5

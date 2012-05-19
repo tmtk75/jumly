@@ -8,3 +8,5 @@ require "#{dir}/usecase"
 require "#{dir}/class"
 require "#{dir}/sequence"
 require "#{dir}/plugin"
+
+#console.log "Loaded successfully."

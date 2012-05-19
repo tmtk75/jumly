@@ -1,3 +1,5 @@
+JUMLY = window.JUMLY
+
 describe "JUMLYHTMLElement", ->
 
   describe "JUMLYRelationship", ->

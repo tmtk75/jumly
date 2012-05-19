@@ -2,6 +2,7 @@
 ## Available Binds
 ## jumly:<diagram> [,success:<function>][,error:<function>]
 ##
+JUMLY = window.JUMLY
 jumlyBind =
   init: (elem, val, bindings, model)->
   update: (elem, val, bindings, model)->
