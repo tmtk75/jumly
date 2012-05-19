@@ -1,5 +1,5 @@
 ##
-require "coffee-script"
+CoffeeScript = require "coffee-script"
 JUMLY = window.JUMLY
 class JUMLYHTMLElement
   constructor: ->
