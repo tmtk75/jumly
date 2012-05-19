@@ -1,4 +1,5 @@
 ##
+require "coffee-script"
 JUMLY = window.JUMLY
 class JUMLYHTMLElement
   constructor: ->
