@@ -1,4 +1,4 @@
 require "node-jquery"
-require "../jumly.coffee"
+require "../jumly "
 require "./sequenceSpec"
 require "./JUMLYHTMLElementSpec"

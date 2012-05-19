@@ -1,3 +1,4 @@
+JUMLY = (require "../jumly").JUMLY
 describe "JUMLY", ->
   it "should be in window scope", ->
     expect(window.JUMLY).not.toBeUndefined()

@@ -1,3 +1,4 @@
+JUMLY = (require "../jumly").JUMLY
 describe "JUMLY", ->
   describe "DiagramBuilder", ->
     it "should have its own scope", ->

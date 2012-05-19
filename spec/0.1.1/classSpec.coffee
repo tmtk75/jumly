@@ -1,3 +1,4 @@
+JUMLY = (require "../jumly").JUMLY
 BODY = -> $("#TrivialReporter")
 describe "class", ->
   describe "JUMLYClassDiagram", ->

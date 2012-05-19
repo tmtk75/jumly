@@ -1,3 +1,4 @@
+JUMLY = (require "../jumly").JUMLY
 describe "JUMLYHTMLElement", ->
   
   it "should construct itself for extendee", ->

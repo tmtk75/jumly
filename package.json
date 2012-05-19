@@ -11,6 +11,7 @@
    },
    "pm": "sm",
    "dependencies": {
+      "underscore": "*",
       "node-jquery": "~0.1.0"
    },
    "devDependencies": {},

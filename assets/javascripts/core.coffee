@@ -145,3 +145,5 @@ JUMLY.Preferences = (a)->
 
 JUMLYPreferences.values =
   "document.id.validation.enable": false
+
+exports.JUMLY = JUMLY
