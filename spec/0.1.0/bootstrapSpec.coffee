@@ -6,5 +6,5 @@ specs = require("fs").readdirSync(__dirname).filter (e)->
   e.match(".*Spec.*") and not(e is "bootstrapSpec.coffee")
 
 require "../jasmine-story"
-require "./class-diagramSpec"
-#_.each specs, (e)-> require "./#{e}"
+#require "./class-diagramSpec"
+_.each specs, (e)-> require "./#{e}"

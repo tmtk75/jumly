@@ -12,3 +12,5 @@ require "#{dir}/plugin"
 console.log "Loaded successfully."
 
 exports.JUMLY = JUMLY 
+global.JUMLY = JUMLY
+global.CoffeeScript = require "coffee-script" 
