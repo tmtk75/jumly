@@ -6,3 +6,4 @@ tmp
 .project
 .settings
 node_modules
+.cache
