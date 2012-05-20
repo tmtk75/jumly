@@ -1,4 +1,6 @@
 JUMLY = (require "../jumly").JUMLY
+mkscript = (type, script)-> $("<script>").attr("type", "application/jumly+#{type}").text script
+
 describe "JUMLY", ->
   describe "DiagramBuilder", ->
     it "should have its own scope", ->
