@@ -214,3 +214,6 @@ $.fn.expect = (f) ->
     existing: ->
         expect(that.length).toBeGreaterThan 0
         that
+
+#global.description = that.description
+$.extend global, that

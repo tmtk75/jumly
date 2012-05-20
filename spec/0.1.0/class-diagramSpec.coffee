@@ -37,6 +37,3 @@ description "class-diagram", ->
 
 
     description "DSL", ->
-
-
-
