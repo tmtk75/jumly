@@ -215,5 +215,13 @@ $.fn.expect = (f) ->
         expect(that.length).toBeGreaterThan 0
         that
 
-#global.description = that.description
-$.extend global, that
+global.description = that.description
+global.and_ = that.and_
+global.shared_behavior = that.shared_behavior
+global.scenario = that.scenario
+global.given = that.given
+global.when_it = that.when_it
+global.it_behaves_as = that.it_behaves_as
+global.then_it = that.then_it
+global.xscenario = that.xscenario
+
