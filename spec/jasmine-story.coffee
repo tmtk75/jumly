@@ -224,4 +224,12 @@ global.when_it = that.when_it
 global.it_behaves_as = that.it_behaves_as
 global.then_it = that.then_it
 global.xscenario = that.xscenario
+global.shared_scenario = that.shared_scenario
+global.xdescription = that.xdescription
+global.narrative = that.narrative
+global.but_ = that.but_
+global.xand_ = that.xand_
+global.xthen_ = that.xthen_
+global.xthen_it = that.xthen_it
+
 
