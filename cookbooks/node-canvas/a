@@ -1,0 +1,208 @@
+#/bin/sh
+usage_kii_cloud() {
+cat<<EOF
+usage: `basename $0` <LDAP-username> <LDAP-password>
+Install kii-cloud on your local with default settings.
+
+In assumption, you are available to use sudo and have Kii LDAP account
+in order to use package manager like yum, apt-get, MacPorts and or so
+and retrieve a git repository from git.kii.com.
+
+EOF
+printf "\033[0;32m"
+cat<<EOF
+    $ curl $SETUP_SCRIPT_URL/kii-cloud.sh | bash -s <LDAP-usernmae> <LDAP-password>
+      or
+    $ wget -O - $SETUP_SCRIPT_URL/kii-cloud.sh | bash -s <LDAP-usernmae> <LDAP-password>
+EOF
+printf "\033[0m\n"
+}
+
+load_rvm() {
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+}
+
+usage_setup_chef_client() {
+cat<<EOF
+usage: `basename $0`
+Ensures chef-client in your host, where is installed /usr/local.
+
+EOF
+  exit
+}
+
+setup_chef_client_gems_ohai() {
+  #NOTE: This is for workaround on cygwin. If using 0.6.2 of ohai on cygwin, chef-solo doesn't work.
+  sudo=$1
+  if gem list ohai | sed '/0\.6\.10/d' | egrep "ohai"; then
+    $sudo gem uninstall -a ohai
+  fi
+  $sudo gem install ohai -v0.6.10 --no-rdoc --no-ri
+}
+
+setup_chef_client_gems() {
+  sudo=$1
+  setup_chef_client_gems_ohai $sudo
+  for e in chef capistrano capistrano_colors; do
+    echo
+    if ! (gem list $e | grep "^$e ") > /dev/null 2> /dev/null; then
+      printf "\033[0;33m$e is going to be installed. It may take a few minutes.\033[0m\n"
+      $sudo gem install $e --no-rdoc --no-ri
+    else
+      printf "\033[0;33m$e is installed.\033[0m"
+    fi
+  done
+  printf "\n"
+  printf "\033[0;32mCompleted installation for some gems.\033[0m\n"
+}
+
+setup_chef_client_centos() {
+  if ! which yum; then
+    printf "\033[0;31mERROR: yum is missing.\033[0m\n\n"
+    usage_setup_chef_client
+  fi
+  sudo yum install -y ruby rubygems ruby-devel gcc make git autoconf
+  setup_chef_client_gems sudo
+}
+
+setup_chef_client_ubuntu() {
+  if ! which apt-get; then
+    printf "\033[0;31mERROR: apt-get is missing.\033[0m\n\n"
+    usage_setup_chef_client
+  fi
+  sudo apt-get install -y ruby1.9.2-full openjdk-7-jre curl gcc make git autoconf libaio1
+  sudo /etc/init.d/mysql stop
+  sudo mv /etc/mysql /etc/mysql.1
+  setup_chef_client_gems sudo
+}
+
+setup_chef_client_mac_os_x() {
+  ruby_version=1.9.3
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+  if which ruby > /dev/null && ruby -v | grep '1\.9\.[23]' > /dev/null 2> /dev/null; then
+    printf "\033[0;32m1.9.2 or later are installed.\033[0m `which ruby`\n"
+  else
+    if ! which rvm; then
+      printf "\033[0;33mrvm is missing. Going to install.\033[0m\n"
+      curl -k https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
+    else
+      if ! rvm get stable; then
+        printf "\033[0;33mrvm is too old. Going to install the latest stable.\033[0m\n"
+        curl -k https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
+      fi
+    fi
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+    for e in openssl zlib;  do
+      if !(\ls ~/.rvm/src | sed 's/-//g' | egrep "^$e"); then
+        rvm pkg install $e
+      fi
+    done
+    if rvm list | grep '1\.9\.[23]' > /dev/null 2> /dev/null; then
+      printf "\033[0;32m1.9.2 or later are installed in rvm.\033[0m\n"
+    else
+      printf "\033[0;33mGoing to install $ruby_version.\033[0m\n"
+      rvm install $ruby_version
+    fi
+  fi
+  rvm use $ruby_version --default
+  setup_chef_client_gems
+}
+
+setup_chef_client_cygwin() {
+  setup_chef_client_mac_os_x
+}
+
+setup_chef_client() {
+  case `uname` in
+    Darwin) setup_chef_client_mac_os_x;;
+    *) if uname -av | egrep -i ubuntu; then
+         setup_chef_client_ubuntu;
+       elif uname -av | egrep -i cygwin; then
+         setup_chef_client_cygwin;
+       else
+         setup_chef_client_centos;
+       fi;;
+  esac
+  printf "\033[0;32mCompleted chef-client.\033[0m\n"
+}
+
+usage_setup_skyfrog() {
+cat<<EOF
+usage: `basename $0` <LDAP-username> <LDAP-password>
+Generates RSA key pair in ~/.ssh as id_rsa-cap.pub and id_rsa-cap.
+And also register the public key to git.kii.com as an authorized key
+in order to clone without password.
+
+EOF
+}
+
+setup_skyfrog() {
+  if [ -z "$2" ]; then usage_setup_skyfrog; exit 1; fi
+  if [ -z "$SKYFROG_HOME" ]; then usage_setup_skyfrog; exit 2; fi
+  if [ ! -d "$SKYFROG_HOME" ]; then
+    git clone ssh://$1@git.kii.com/var/git/skyfrog.git $SKYFROG_HOME
+  else
+    printf "\033[0;33m$SKYFROG_HOME already exists. pull up to date.\033[0m\n"
+    cd $SKYFROG_HOME; git pull origin master
+  fi
+}
+
+usage_setup_rsakey() {
+cat<<EOF
+usage: `basename $0` <LDAP-username> <LDAP-password>
+Generates RSA key-pair and register the public key to git.kii.com.
+
+EOF
+}
+
+setup_rsakey() {
+  if [ -z "$2" ]; then usage_setup_rsakey; exit; fi
+  
+  export KII_LDAP_USERNAME="$1"
+  export KII_LDAP_PASSWORD="$2"
+  run_list=`mktemp XXXXXXXX`
+cat<<EOF > $run_list
+{"run_list":["recipe[capistrano]"]}
+EOF
+  chef-solo -c $SKYFROG_SETUP_DIR/solo.rb -j $run_list
+  rm $run_list
+}
+
+usage_setup_kii_cloud() {
+cat<<EOF
+usage: `basename $0` <LDAP-username> <LDAP-password>
+
+EOF
+}
+
+setup_kii_cloud() {
+  if [ -z "$2" ]; then usage_setup_kii_cloud; exit; fi
+
+  export KII_LDAP_USERNAME="$1"
+  export KII_LDAP_PASSWORD="$2"
+  run_list=`mktemp XXXXXX`
+cat<<EOF > $run_list
+{"run_list":[
+  "recipe[git]",
+  "recipe[chef_client]",
+  "recipe[ufe]",
+  "recipe[ufo]",
+  "recipe[sync_load_balancer]",
+  "recipe[teapkin]",
+  "recipe[identity_usergrid_gateway]"
+]}
+EOF
+  chef-solo -c $SKYFROG_SETUP_DIR/solo.rb -j $run_list
+  rm $run_list
+}
+
+if [ -z "$2" ]; then usage_kii_cloud; exit; fi
+[[ -z "$SKYFROG_HOME" ]] && export SKYFROG_HOME=$HOME/skyfrog
+SETUP_SCRIPT_URL=http://chef.internal.kii.com/scripts/setup
+SKYFROG_SETUP_DIR=$SKYFROG_HOME/cookbooks/www/files/scripts/setup
+
+setup_chef_client $*
+setup_skyfrog $*
+setup_rsakey $*
+setup_kii_cloud $*
+
