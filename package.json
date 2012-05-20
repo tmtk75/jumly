@@ -1,10 +1,14 @@
 {
    "name": "jumly",
-   "description": "UML diagram rendering library",
    "version": "0.1.2",
-   "homepage" : "http://github.com/tmtk75/jumly",
    "engines": {"node": ">= 0.6.15"},
-   "author": "Tomotaka Sakuma <ktmtmks@gmail.com>",
+   "author": "Tomotaka Sakuma",
+   "scripts": {
+     "install": "bin/welcome.sh"
+   },
+   
+   "description": "UML diagram rendering library",
+   "homepage" : "http://github.com/tmtk75/jumly",
    "help": {
       "web": "https://github.com/tmtk75/jumly/blob/master/README.md",
       "cli": "./scripts/help.js"
@@ -25,7 +29,4 @@
    },
    "licenses": [{
    }],
-   "scripts": {
-     "start": "sh ./bin/jumly.sh"
-   }
 }
