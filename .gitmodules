@@ -4,3 +4,6 @@
 [submodule "vendor/bootstrap"]
 	path = vendor/bootstrap
 	url = https://github.com/twitter/bootstrap.git
+[submodule "vendor/node-canvas"]
+	path = vendor/node-canvas
+	url = https://github.com/LearnBoost/node-canvas
