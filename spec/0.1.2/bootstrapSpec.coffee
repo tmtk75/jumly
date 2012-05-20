@@ -1,4 +1,4 @@
 require "node-jquery"
-require "../jumly "
+require "#{__dirname}/../jumly"
 require "./sequenceSpec"
 require "./JUMLYHTMLElementSpec"
