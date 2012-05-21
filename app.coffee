@@ -1,6 +1,7 @@
 #!/usr/bin/env coffee
 fs = require "fs"
 express = require "express"
+assets = require "connect-assets"
 
 app = module.exports = express.createServer()
 app.configure ->
@@ -10,6 +11,9 @@ app.configure ->
   app.use express.methodOverride()
   app.use app.router
   app.use express.static __dirname + "/public"
+  conf = assets()
+  conf.src = "#{__dirname}/lib/jumly"
+  app.use conf
 
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
 
