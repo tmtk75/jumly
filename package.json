@@ -7,7 +7,12 @@
     "underscore": "*",
     "node-jquery": "*",
     "canvas": "*",
-    "express": "*"
+    "express": "*",
+    "knockout": ">=2.1.0",
+    "coffee-script": ">=1.3.3"
+  },
+  "devDependencies": {
+    "jasmine-node": "*"
   },
   "repository": {
     "type": "git",
