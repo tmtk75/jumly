@@ -1,3 +1,4 @@
+#!/usr/bin/env coffee
 express = require("express")
 routes = require("./routes")
 app = module.exports = express.createServer()
