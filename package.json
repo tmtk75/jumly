@@ -12,7 +12,8 @@
     "node-jquery": "*",
     "express": "*",
     "jade": "*",
-    "connect-assets": "*"
+    "connect-assets": "*",
+    "less": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"

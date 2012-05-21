@@ -3,9 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/bootstrap/docs/assets/css/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/style.less')
-    link(rel='stylesheet/less', href='/latest/jumly.min.css')
+    != css('jumly')
   body!= body
   script(src='/javascripts/jquery.js')
-  script(src='/javascripts/less.js')
   != js('class')
