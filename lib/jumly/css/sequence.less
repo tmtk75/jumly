@@ -1,50 +1,49 @@
-@import "_commons";
-/* */
+@import "commons";
 .sequence-diagram {
-  $min_width: 88;
-  $min_height: 31;
+  @min_width: 88px;
+  @min_height: 31px;
   font-family: Tahoma,Verdana;
   .object-lane, .stop {
   	position: relative;
   }
-  /* ---------------- Object ---------------- */
+  // ---------------- Object ---------------- 
   .object {
   	position: absolute;
     .name {
-      @include primary_border;
+      .primary_border;
       text-align: center;
-      min-width: #{$min_width}px;
+      min-width: @min_width;
       padding: 0 4px;
-      height: #{$min_height}px;
+      height: @min_height;
       display: table-cell;
       vertical-align: middle;
       background-color: white;
     }
   }
-    /* ---------------- Lifeline ---------------- */
+    // ---------------- Lifeline ----------------
     .lifeline,
     .lifeline .line {
     	position: absolute;
     }
     .lifeline .line {
         margin-left: 51%;
-        @include unimportant;
+        .unimportant;
         border-left: dashed 1px gray;
     }
-    /* ---------------- Occurrence ---------------- */
+    // ---------------- Occurrence ----------------
     .occurrence {
         position: relative;
         width: 12px;
         padding: 1em 0 1em 0;
 	    margin-top: 4px;
-        @include primary_border;
+        .primary_border;
         background-color: lightgray;
         z-index: 1;
     }
     .message.create + .occurrence {
         padding: 0.5em 0 0.5em 0;
     }
-    /* ---------------- Interaction ---------------- */
+    // ---------------- Interaction ----------------
     .interaction {
         position: relative;
     }
@@ -52,7 +51,7 @@
         .occurrence.icon {
           	height: 20px;
     	    width: 20px;
-            @include border_radius(20px);
+            .border_radius(20px);
     	    padding: 0;
     	    margin: 0;
     	    border-color: #999;
@@ -62,7 +61,7 @@
         	content: '';
         }
     }
-    /* ---------------- Message ---------------- */
+    // ---------------- Message ----------------
     .message,
     .message canvas {
         position: absolute;
@@ -86,7 +85,7 @@
     }
     .fragment {
         > .reply {
-            margin-bottom: 0.5em;  /* padding b/w .reply and .fragment inset. */
+            margin-bottom: 0.5em;  // padding b/w .reply and .fragment inset. 
         }
     }
     .message.return .name::before {
@@ -95,43 +94,39 @@
     .message.destroy .name::before {
     	content: '<<destroy>>';
     }
-    /* ---------------- Fragment ---------------- */
+    // ---------------- Fragment ----------------
     .fragment {
-        $inset_padding: 4px;
+        @inset_padding: 4px;
     	margin: 4px 4px 8px 4px;
-    	padding: $inset_padding;
+    	padding: @inset_padding;
         border: solid 1px #aaa;
-        @include border_radius(2px);
-        $condition_color: black;
-        $condition_font_weight: normal;
+        .border_radius(2px);
+        @condition_color: black;
+        @condition_font_weight: normal;
         .header {
             .name {
                 color: black;
                 font-weight: bold;
             }
             .condition {
-                color: $condition_color;
-                font-weight: $condition_font_weight;
+                color: @condition_color;
+                font-weight: @condition_font_weight;
             }
         }
         &.alt {
             > .condition {
-                color: $condition_color;
-                font-weight: $condition_font_weight;
+                color: @condition_color;
+                font-weight: @condition_font_weight;
                 //height: 0px;
                 margin-bottom: -0.5em;
             }
             div.divider {
                 border-bottom: 1px dashed #555;
-                margin: {
-                    top: 4px; bottom: 4px;
-                    left : -#{$inset_padding};
-                    right: -#{$inset_padding};
-                }
+                margin: 4px -@inset_padding 4px -@inset_padding;
             }
         }
     }
-    /* ---------------- Ref ---------------- */
+    // ---------------- Ref ----------------
     .ref {
         position: relative;
     	margin: 4px;
@@ -148,10 +143,10 @@
         }
     }
     .object .name, .occurrence, .ref {
-        @include box_shadow;
+        .box_shadow;
     }
     .object {
-        @include text_shadow;
+        .text_shadow;
     }
 }
 

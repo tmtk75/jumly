@@ -1,15 +1,15 @@
-@import "_commons";
+@import "commons";
 
 .usecase-diagram {
-  $h: 44*3;
-  $v: 17*3;
+  @h: 44*3px;
+  @v: 17*3px;
   .usecase {
     .icon {
-      min-width: #{$h}px;
-      min-height: #{$v}px;
-      @include primary_border;
-      @include border_radius(#{$h}px / #{$v}px);
-      @include box_shadow;
+      min-width: @h;
+      min-height: @v;
+      .primary_border;
+      .border_radius(@h / @v);
+      .box_shadow;
       background-color: white;
       .name {
         text-align: left;
@@ -21,14 +21,14 @@
   .extend  .name:before {content:'<<extend>>';}
   .include .name:before {content:'<<include>>';}
   .system-boundary {
-    @include primary_border;
-    @include box_shadow;
+    .primary_border;
+    .box_shadow;
     padding:4px;
     background-color: white;
     .system-boundary {
-      min-width: #{$h*1.5}px;
+      min-width: @h*1.5;
     }
   }
 }
 
-@import "_usecase-a";
+@import "usecase-a";

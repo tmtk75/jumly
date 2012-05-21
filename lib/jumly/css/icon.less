@@ -1,34 +1,34 @@
-@import "_commons";
+@import "commons";
 /*-------- icon.css --------*/
-@mixin icon-squaresize {
+.icon-squaresize {
 	width : 24px;
 	height: 24px;
 }
 .icon {
-    $bgcolor: gray;
-    .square {
-        @include icon-squaresize;
-        margin-left: 6px;
-        position: relative;
-        background-color: $bgcolor;
-        @include border_radius;
-        &.cross {
-            width: 4px;
-            margin-left: 4px;
-        }
-        &::before {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            @include transform_rotate(90deg);
-            background-color: $bgcolor;
-        }
+  @bgcolor: gray;
+  .square {
+    .icon-squaresize;
+    margin-left: 6px;
+    position: relative;
+    background-color: @bgcolor;
+    .border_radius;
+    &.cross {
+      width: 4px;
+      margin-left: 4px;
     }
-    .stop {
-        @include icon-squaresize;
-        .square.cross {
-            @include transform_rotate;
-        }
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      .transform_rotate(90deg);
+      background-color: @bgcolor;
     }
+  }
+  .stop {
+    .icon-squaresize;
+    .square.cross {
+      .transform_rotate;
+    }
+  }
 }
