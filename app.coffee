@@ -2,6 +2,16 @@
 fs = require "fs"
 express = require "express"
 assets = require "connect-assets"
+jade = require "jade"
+
+jumly = (str, type)->
+  str = str.replace(/\\n/g, '\n');
+  js = str.replace(/\\/g, '\\\\').replace(/\n/g, '\\n')
+  """<script type="text/jumly+#{type}">\\n#{js}</script>"""
+
+jade.filters["jumly_sequence"] = (str)-> jumly str, "sequence"
+jade.filters["jumly_class"]    = (str)-> jumly str, "class"
+jade.filters["jumly_usecase"]  = (str)-> jumly str, "usecase"
 
 app = module.exports = express.createServer()
 app.configure ->

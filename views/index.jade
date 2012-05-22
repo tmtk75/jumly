@@ -1,9 +1,18 @@
 .container
   h1= title
   p Welcome to #{title}
-  script(type="text/jumly+sequence")
-  :markdown
-    1st
-    ----
-        @found "hello", ->
-        @message "go", "world"
+
+  :jumly_sequence
+    @found "You", ->
+      @create "UML diagram"
+
+  :jumly_class
+    @def "You":
+      stereotype:"human"
+      attrs     :["age", "height"]
+      methods   :["run", "think"]
+
+  :jumly_usecase
+    @actor "You":use:[1, 2]
+    @usecase 1:"Render Diagram"
+    @usecase 2:"Arrange Diagram"
