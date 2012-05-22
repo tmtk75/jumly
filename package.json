@@ -13,7 +13,8 @@
     "express": "*",
     "jade": "*",
     "connect-assets": "*",
-    "less": "*"
+    "less": "*",
+    "markdown-js": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"

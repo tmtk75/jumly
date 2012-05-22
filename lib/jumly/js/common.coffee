@@ -1,6 +1,6 @@
 ##
-require = (-> CoffeeScript) unless require
-CoffeeScript = require "coffee-script"
+#require = (-> CoffeeScript) unless require
+#CoffeeScript = require "coffee-script"
 JUMLY = window.JUMLY
 class JUMLYHTMLElement
   constructor: ->
