@@ -18,14 +18,14 @@ app = module.exports = express.createServer()
 app.configure ->
   app.set "views", __dirname + "/views"
   app.set "view engine", "jade"
+  app.use stylus.middleware
+    src:"#{__dirname}/views/stylesheets"
+    dest:"#{__dirname}/public"
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use app.router
   app.use express.static __dirname + "/public"
   app.use assets src:"lib/jumly"
-  app.use stylus.middleware
-    src:"#{__dirname}/views/stylesheets"
-    dest:"#{__dirname}/public/stylesheets"
 
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
 
