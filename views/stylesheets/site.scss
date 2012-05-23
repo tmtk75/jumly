@@ -1,22 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Coda:800)
 @import "commons"
 
-.syntaxhighlighter.html .line.alt1,
-.syntaxhighlighter.html .line.alt2,
-.syntaxhighlighter.html {
-  background-image:none !important;
-  background-color:transparent !important;
-}
-.syntaxhighlighter.html .gutter .line {
-  border-right:3px solid rgba(0,107,159,0.5) !important;
-}
-.syntaxhighlighter.html {
-  background-color:whiteSmoke !important;
-  padding:8.5px;
-  margin:0 0 18px;
-  border:1px solid rgba(0, 0, 0, 0.15);
-  border-radius(3px);
-}
 
 .alert-message {opacity:0.94;}
 .site-color {site_color_0;}

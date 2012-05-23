@@ -22,7 +22,14 @@ html
       .center {text-align:center;}
     script(src='/javascripts/jquery.js')
     script(src='/javascripts/coffee-script.js')
-  body!= body
+  //body!= body
+  body
+    :code
+      &lt;script type='text/jumly+usecase'>
+        @usecase 1:"Think something"
+        @usecase "Render Diagram":extend:[1]
+        @actor "You":use:[1]
+      &lt;/script>
   != js('jumly')
   :coffeescript
     $ ->
