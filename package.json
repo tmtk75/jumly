@@ -14,7 +14,8 @@
     "jade": "*",
     "connect-assets": "*",
     "less": "*",
-    "markdown-js": "*"
+    "markdown-js": "*",
+    "stylus": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"

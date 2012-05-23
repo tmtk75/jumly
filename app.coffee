@@ -21,6 +21,7 @@ app.configure ->
   app.use express.methodOverride()
   app.use app.router
   app.use express.static __dirname + "/public"
+  app.use require('stylus').middleware src:"#{__dirname}/views/stylesheets"
   app.use assets src:"lib/jumly"
 
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
