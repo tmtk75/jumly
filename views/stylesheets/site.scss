@@ -1,0 +1,104 @@
+@import url(http://fonts.googleapis.com/css?family=Coda:800)
+@import "commons"
+
+// Hx elements
+h1, h2, h3, h4, h5, h6 {
+  font-family:'Coda', Tahoma, sans-serif;
+  font-weight:extra-bold;
+  small {
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+}
+body {
+  background:transparent url(/assets/grid_c.gif) !important;
+}
+.syntaxhighlighter.html .line.alt1,
+.syntaxhighlighter.html .line.alt2,
+.syntaxhighlighter.html {
+  background-image:none !important;
+  background-color:transparent !important;
+}
+.syntaxhighlighter.html .gutter .line {
+  border-right:3px solid rgba(0,107,159,0.5) !important;
+}
+.syntaxhighlighter.html {
+  background-color:whiteSmoke !important;
+  padding:8.5px;
+  margin:0 0 18px;
+  border:1px solid rgba(0, 0, 0, 0.15);
+  border-radius(3px);
+}
+
+h1 {padding-top:#{36 + 4}px;} // 36 is the height of navbar of bootstrap framework, and 4 is margin b/w navbar and h1
+.alert-message {opacity:0.94;}
+.site-color {site_color_0;}
+#Whats_JUMLY {
+  #we-think-something {
+    .usecase .name {text-align:center; margin-top:1.2em;}
+    .usecase:nth-child(2) {margin-top:6em; margin-left:6em;}
+    .actor:nth-child(1) {margin-top:3em;}
+  }
+  #you-write-your-idea {
+    .object:nth-child(2) {
+      left:44px;  //FIXME: HaveToFix ingnoring this at r1798
+    }
+    .Styled-Node {
+      .name {font-weight:bold;padding:0 1em;@include border_radius(3px);border-color:$BLUE;}
+    }
+  }
+}
+#Did_you_have_these_experiences, #why_you_use_jumly {
+  li,dd {margin-bottom:1.2em;}
+}
+
+/**
+ Masthead and Footer
+ ========================================================================
+ */
+header {
+  .logo {
+    // font-weight font-style font-variant font-size/line-height font-family;
+    font:bold normal small-caps 3.52rem/100% "Arial Black",helvetica,serif,verdana;
+    text-shadow:0 1px 2px rgba(0, 0, 0, .5);
+  }
+}
+
+#masthead, #footer {
+    $mc_from:#004D9F;
+    $mc_to  :#049cd9;
+    background-color:#049cd9;
+    background-repeat:no-repeat;
+    background-image:-webkit-gradient(linear, left top, left bottom, from($mc_from), to($mc_to));
+    background-image:-webkit-linear-gradient($mc_from, $mc_to);
+    /*
+    background-image:-moz-linear-gradient(#004D9F, #049cd9);
+    background-image:-o-linear-gradient(top, #004D9F, #049cd9);
+    background-image:-khtml-gradient(linear, left top, left bottom, from(#004D9F), to(#049cd9));
+    filter:progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#004D9F', EndColorStr='#049cd9', GradientType=0);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#004D9F', EndColorStr='#049cd9', GradientType=0))";
+    */
+}
+
+#masthead div.inner,
+#footer div.inner {
+    background:transparent url(/assets/bootstrap/docs/assets/img/grid-18px-masked.png) top center;
+    padding:45px 0;
+    -webkit-box-shadow:inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    //   -moz-box-shadow:inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    //        box-shadow:inset 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.logo, #masthead h1, #masthead p, #footer h1, #footer p {
+  color:#fff;
+  text-shadow:0 1px 1px rgba(0,0,0,.3);
+}
+#masthead p a, #footer p a {color:#fff; font-weight:bold;}
+#masthead {
+  margin-top:40px;
+  h1, p {text-align:center; margin-bottom:9px;}
+  p {
+    font-weight:300;
+    &.lead {font-size:20px; line-height:27px;}
+  }    
+}
+.logo, #masthead h1 {font-size:54px; line-height:1; text-shadow:0 1px 2px rgba(0,0,0,.5);}

@@ -25,7 +25,7 @@ app.configure ->
   app.use assets src:"lib/jumly"
   app.use stylus.middleware
     src:"#{__dirname}/views/stylesheets"
-    dest:"#{__dirname}/public"
+    dest:"#{__dirname}/public/stylesheets"
 
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
 
