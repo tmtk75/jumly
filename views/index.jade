@@ -18,9 +18,8 @@ header#masthead
           p.lead Be concentrative into your idea with JUMLY.
           p Latest version 0.1.2
 .container
-  h1= title
-  p Welcome to #{title}
-
+  section#Introduction
+    include Introduction
   :jumly_sequence
     @found "You", ->
       @create "UML diagram"
@@ -36,17 +35,16 @@ header#masthead
     @usecase 1:"Render Diagram"
     @usecase 2:"Arrange Diagram"
 
-  div#footer
-    .inner
-      .container
-        div
-          p
-            a(href="http://tmtk75.github.com/jumly") JUMLY
-        div
-          p
-            all rights reserved &copy;
-            a(href="http://tmtk75.github.com") Tomotaka Sakuma
-            | Be concentrative into your idea
+div#footer
+  .inner
+    .container
+      div
+        p
+          a(href="http://tmtk75.github.com/jumly") JUMLY
+      div
+        p all rights reserved &copy;
+          a(href="http://tmtk75.github.com") Tomotaka Sakuma
+          | Be concentrative into your idea
 script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
 script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
 script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")

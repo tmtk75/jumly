@@ -12,30 +12,6 @@
       #Getting_Started .diagram {margin:5em auto 0 auto;}
       .center {text-align:center;}
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          %h3
-            %a.brand{href:"/#"}JUMLY
-          %ul.nav
-            %li
-              %a{href:"TryJUMLY"} TryJUMLY
-            %li
-              %a{href:"Reference.html"} Reference
-          /%form.navbar-search.pull-right
-          /  %input.search-query{type:"text",placeholder:"Search"}
-  
-    -# Masthead ===============================================================
-    %header#masthead
-      .inner
-        .container
-          .row
-            %div.span4
-              %span.logo JUMLY
-            %div.span7
-              %p.lead Be concentrative into your idea with JUMLY.
-              %p Latest version #{File.read "VERSION"}
-  
     -# Root container =========================================================
     .container
       %section#Introduction= haml :"_Introduction.html"
