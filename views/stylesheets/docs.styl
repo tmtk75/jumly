@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Coda:800);
-@import "jumly-commons.scss";
+@import url(http://fonts.googleapis.com/css?family=Coda:800)
+@import "commons"
 
 // Hx elements
 h1, h2, h3, h4, h5, h6 {
@@ -26,12 +26,12 @@ body {
   padding:8.5px;
   margin:0 0 18px;
   border:1px solid rgba(0, 0, 0, 0.15);
-  @include border-radius(3px);
+  border-radius(3px);
 }
 
 h1 {padding-top:#{36 + 4}px;} // 36 is the height of navbar of bootstrap framework, and 4 is margin b/w navbar and h1
 .alert-message {opacity:0.94;}
-.site-color {@include site_color_0;}
+.site-color {site_color_0;}
 #Whats_JUMLY {
   #we-think-something {
     .usecase .name {text-align:center; margin-top:1.2em;}

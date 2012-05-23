@@ -8,7 +8,6 @@
           a(href="TryJUMLY") TryJUMLY
         li
           a(href="Reference.html") Reference
-.container
 header#masthead
   .inner
     .container
@@ -18,8 +17,8 @@ header#masthead
         div.span7
           p.lead Be concentrative into your idea with JUMLY.
           p Latest version 0.1.2
-
-h1= title
+.container
+  h1= title
   p Welcome to #{title}
 
   :jumly_sequence
@@ -36,3 +35,28 @@ h1= title
     @actor "You":use:[1, 2]
     @usecase 1:"Render Diagram"
     @usecase 2:"Arrange Diagram"
+
+  div#footer
+    .inner
+      .container
+        div
+          p
+            a(href="http://tmtk75.github.com/jumly") JUMLY
+        div
+          p
+            all rights reserved &copy;
+            a(href="http://tmtk75.github.com") Tomotaka Sakuma
+            | Be concentrative into your idea
+script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
+script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
+script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
+script(src="/javascripts/knockout.js")
+:coffeescript
+  SyntaxHighlighter.config.clipboardSwf = '/javascripts/syntaxhighlighter/scripts/clipboard.swf'
+  SyntaxHighlighter.config.toolbar = false
+  SyntaxHighlighter.all()
+:coffeescript
+  viewModel =
+    more_did_you_have_these_expr: ko.observable false
+    more_why_you_use_jumly: ko.observable false
+  ko.applyBindings viewModel, $("body")[0]

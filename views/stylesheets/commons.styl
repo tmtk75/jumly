@@ -6,11 +6,11 @@
  * YELLOW: #ffd320, rgba(255, 211,  32, 1.0)
  */
 // Soft RGB
-$RED   : #c5000b;
-$GREEN : #008000;
-$BLUE  : #0084d1;
-$ORANGE: #ff5900;
-$YELLOW: #ffd320;
+RED   = #c5000b
+GREEN = #008000
+BLUE  = #0084d1
+ORANGE= #ff5900
+YELLOW= #ffd320
 
 /*
 font-family: 'Hammersmith One', sans-serif;
@@ -21,16 +21,16 @@ font-family: 'Coda', sans-serif;
 //@import url(http://fonts.googleapis.com/css?family=Hammersmith+One|Bowlby+One|Coda:800);
 
 // Color Scheme: http://colorschemedesigner.com/#3q21TMLOcw0w0
-$PRIMARY_COLOR  : #049cd9;
-$SECONDARY_COLOR: #ff8c00;
+PRIMARY_COLOR   = #049cd9
+SECONDARY_COLOR = #ff8c00
 
 // Majar Ratios
-$GOLDEN_RATIO: 100*(1+2.2360679)/2;
-$SILVER_RATIO: 100*1.4142;
-$GOLDEN_R: #{$GOLDEN_RATIO}#{"%"};
-$SILVER_R: #{$SILVER_RATIO}#{"%"};
+GOLDEN_RATIO = 100*(1+2.2360679)/2;
+SILVER_RATIO = 100*1.4142
+//GOLDEN_R = GOLDEN_RATIO %
+//SILVER_R = SILVER_RATIO %
 
-@mixin border-radius($n: 4px) {
+border-radius(n = 4px) {
     -webkit-border-radius: $n;
        -moz-border-radius: $n;
          -o-border-radius: $n;
@@ -38,17 +38,17 @@ $SILVER_R: #{$SILVER_RATIO}#{"%"};
 }
 
 // Image color of this site.
-@mixin site_color_0($_from: $PRIMARY_COLOR, $_to: darken($PRIMARY_COLOR, 10%)) {
+site_color_0(_from = PRIMARY_COLOR, _to = darken(PRIMARY_COLOR, 10%)) {
     color: white;
     background-color: transparent;
     text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
     line-height: 100%;
-    background-image: -webkit-gradient(linear, left top, right top, from($_from), to($_to));
+    background-image: -webkit-gradient(linear, left top, right top, from(_from), to(_to));
     //background-image: -webkit-linear-gradient($_from, $_to);
 
 }
-@mixin bg_accsent($_c: $SECONDARY_COLOR) {
-    @include site_color_0($_c, darken($_c, 7%))
+bg_accsent(_c = SECONDARY_COLOR) {
+    site_color_0(_c, darken(_c, 7%))
 }
 
 /*
