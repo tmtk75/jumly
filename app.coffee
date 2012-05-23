@@ -3,6 +3,7 @@ fs = require "fs"
 express = require "express"
 assets = require "connect-assets"
 jade = require "jade"
+stylus = require('stylus')
 
 jumly = (str, type)->
   str = str.replace(/\\n/g, '\n');
@@ -21,8 +22,10 @@ app.configure ->
   app.use express.methodOverride()
   app.use app.router
   app.use express.static __dirname + "/public"
-  app.use require('stylus').middleware src:"#{__dirname}/views/stylesheets"
   app.use assets src:"lib/jumly"
+  app.use stylus.middleware
+    src:"#{__dirname}/views/stylesheets"
+    dest:"#{__dirname}/public"
 
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
 
