@@ -6,6 +6,12 @@ html
     meta(name="viewport", content="width=device-width,initial-scale=1.0")
     link(rel='stylesheet', href='/bootstrap/docs/assets/css/bootstrap.css')
     link(rel='stylesheet', href="docs.css")
+    link(rel="stylesheet",href="/javascripts/syntaxhighlighter/styles/shCore.css")
+    link(rel="sytlesheet",href="/javascripts/syntaxhighlighter/styles/shThemeDefault.css")
+    script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
+    script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
+    script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
+    script(src="/javascripts/knockout.js")
     != css('jumly')
     :less
       .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
@@ -18,3 +24,9 @@ html
     script(src='/javascripts/coffee-script.js')
   body!= body
   != js('jumly')
+  :coffeescript
+    $ ->
+      SyntaxHighlighter.config.clipboardSwf = '/javascripts/syntaxhighlighter/scripts/clipboard.swf'
+      SyntaxHighlighter.config.toolbar = false
+      SyntaxHighlighter.all()
+

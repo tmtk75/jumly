@@ -45,18 +45,8 @@ div#footer
         p all rights reserved &copy;
           a(href="http://tmtk75.github.com") Tomotaka Sakuma
           | Be concentrative into your idea
-link(rel="stylesheet",href="/javascripts/syntaxhighlighter/styles/shCore.css")
-link(rel="sytlesheet",href="/javascripts/syntaxhighlighter/styles/shThemeDefault.css")
-script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
-script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
-script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
-script(src="/javascripts/knockout.js")
 :coffeescript
-  SyntaxHighlighter.config.clipboardSwf = '/javascripts/syntaxhighlighter/scripts/clipboard.swf'
-  SyntaxHighlighter.config.toolbar = false
-  SyntaxHighlighter.all()
-:coffeescript
-  viewModel =
-    more_did_you_have_these_expr: ko.observable false
-    more_why_you_use_jumly: ko.observable false
-  ko.applyBindings viewModel, $("body")[0]
+    viewModel =
+      more_did_you_have_these_expr: ko.observable false
+      more_why_you_use_jumly: ko.observable false
+    ko.applyBindings viewModel, $("body")[0]
