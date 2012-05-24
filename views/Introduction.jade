@@ -25,7 +25,7 @@ section#Whats_JUMLY.row
     .span6#you-write-your-idea
       :jumly_sequence
         delete JUMLY.Diagram.isRefExisting
-        @preferences compose_most_left=0, compose_span=32
+        @preferences compose_most_left:0, compose_span:32
         @found "You", ->
           @message "Think", ->
             @message "Write<br/>your idea", "JUMLY", ->
@@ -33,11 +33,11 @@ section#Whats_JUMLY.row
           @beforeCompose (e, diag) ->
             diag["styled_node"].find(".name").addClass("site-color").end()
                                .addClass("Styled-Node")
-                               .css("margin-left"=-30)
+                               .css("margin-left":-30)
           @afterCompose (e, d) ->
-            d.css "line-height"=1
-            d.find(".create .name").css "margin-top"=30, "margin-left"=20
-            d.find(".message=eq(1) .name").css "margin-top"=15
+            d.css "line-height":1
+            d.find(".create .name").css "margin-top":30, "margin-left":20
+            d.find(".message:eq(1) .name").css "margin-top":15
     .span6
       :code
         &lt;script type='text/jumly+sequence'>
@@ -60,7 +60,7 @@ section#Getting_Started.row
       &lt;script src='jumly.min.js'>&lt;/script>
     p Put the next &lt;script> tag at the place you want to render. |
       The diagram will be inserted after ths script element. |
-    :jumly_sequence
+    :code
       &lt;script type='text/jumly+sequence'>
       @found "You", ->
         @message "meet", "JUMLY"
@@ -70,8 +70,8 @@ section#Getting_Started.row
       You are ready to use JUMLY.
   .span6
     p
-      :jumly_sequence
-        @preferences compose_most_left= 0
+      :jumly_usecase
+        @preferences compose_most_left:0
         @found "You", ->
           @message "meet", "JUMLY"
     p.center <a href='/min-working.html'>Here</a> is a minimal working sample.
@@ -89,10 +89,10 @@ section#Did_you_have_these_experiences.row
       dt Ugly looks 
       dd There was something you don't like at diagram which application generated. |
           For instance, color, size, line width, font, and so on. |
-      input#did_you_have_these_expr_more(type="checkbox","data-bind"="checked=more_did_you_have_these_expr",style="display=none")
+      input#did_you_have_these_expr_more(type="checkbox","data-bind"="checked:more_did_you_have_these_expr",style="display:none")
       label(for="did_you_have_these_expr_more")
         a More...
-      .more("data-bind"="visible=more_did_you_have_these_expr")
+      .more("data-bind"="visible:more_did_you_have_these_expr")
         dt What changed?
         dd Couldn't understand difference b/w old diagram and updated one.
         dt Cannot view
@@ -111,10 +111,10 @@ section#why_you_use_jumly.row
       dd You need only a web browser and a text editor you get used to.
       dt Fast for everything
       dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.
-      input#why_you_use_jumly_more(type="checkbox","data-bind"="checked=more_why_you_use_jumly",style="display=none")
+      input#why_you_use_jumly_more(type="checkbox","data-bind"="checked:more_why_you_use_jumly",style="display:none")
       label(for="why_you_use_jumly_more")
         a More...
-      .more("data-bind"="visible=more_why_you_use_jumly")
+      .more("data-bind"="visible:more_why_you_use_jumly")
         dt High quality
         dd You can get keen designed diagrams, especially on MacOSX
         dt Concentrative
