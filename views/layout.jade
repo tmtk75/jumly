@@ -6,12 +6,7 @@ html
     meta(name="viewport", content="width=device-width,initial-scale=1.0")
     link(rel='stylesheet', href='/bootstrap/docs/assets/css/bootstrap.css')
     link(rel='stylesheet', href="docs.css")
-    link(rel="stylesheet",href="/javascripts/syntaxhighlighter/styles/shCore.css")
-    link(rel="sytlesheet",href="/javascripts/syntaxhighlighter/styles/shThemeDefault.css")
-    script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
-    script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
-    script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
-    script(src="/javascripts/knockout.js")
+    link(rel="stylesheet", href="sh.css")
     != css('jumly')
     :less
       .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
@@ -22,7 +17,11 @@ html
       .center {text-align:center;}
     script(src='/javascripts/jquery.js')
     script(src='/javascripts/coffee-script.js')
+    script(src="/javascripts/knockout.js")
   body!= body
+  script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
+  script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
+  script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
   != js('jumly')
   :coffeescript
     $ ->

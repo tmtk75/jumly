@@ -46,7 +46,7 @@ div#footer
           a(href="http://tmtk75.github.com") Tomotaka Sakuma
           | Be concentrative into your idea
 :coffeescript
-    viewModel =
-      more_did_you_have_these_expr: ko.observable false
-      more_why_you_use_jumly: ko.observable false
-    ko.applyBindings viewModel, $("body")[0]
+  viewModel =
+    more_did_you_have_these_expr: ko.observable false
+    more_why_you_use_jumly: ko.observable false
+  ko.applyBindings viewModel, $("body")[0]
