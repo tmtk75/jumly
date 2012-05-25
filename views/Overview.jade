@@ -1,0 +1,84 @@
+.page-header
+  h1 Overview <small> Getting you know diagrams JUMLY supports</small>
+.row
+  .span7
+    p
+      Now, JUMLY supports three kinds of UML diagram, which are sequence,
+      usecase and class diagram. Other kinds will be supported in the future.
+
+//-# Sequecne Diagram ===========================================================
+section#Sequence_diagram.row
+  .span12
+    h2 Sequence diagram
+  .span6
+    :jumly_sequence
+      @found "You", ->
+        @message "contact", "Me", ->
+          @loop @message "mail", "Him", ->
+            @message "read", ->
+            @reply "reply", "Me"
+          @reply "", "You"
+        @beforeCompose (e, diag) ->
+          diag.you.iconify "view"
+          diag.me .iconify "controller"
+          diag.him.iconify "entity"
+  .span6
+    :code
+      &lt;script type='text/jumly+sequence'>
+      @found "You", ->
+        @message "contact", "Me", ->
+          @loop @message "mail", "Him", ->
+            @message "read", ->
+              @reply "reply", "Me"
+          @reply "", "You"
+        @beforeCompose (e, diag) ->
+          diag.you.iconify "view"
+          diag.me .iconify "controller"
+          diag.him.iconify "entity"
+      &lt;/script>
+
+//-# Use-case Diagram ===========================================================
+section#Use_case_diagram.row
+  .span12
+    h2 Use-case diagram
+  .span6
+    :jumly_usecase
+      @usecase 1:"Render Diagram"
+      @usecase 2:"Arrange Diagram"
+      @actor "You":use:[1, 2]
+      @before (e, d)-> d.addClass("layout-a")
+  .span6
+    :code
+      &lt;script type='text/jumly+usecase'
+              system-boundary-name='JUMLY'>
+      @usecase 1:"Render Diagram"
+      @usecase 2:"Arrange Diagram"
+      @actor "You":use:[1, 2]
+      &lt;/script>
+
+//-# Class Diagram ==============================================================
+section#Class_diagram.row
+  .span12
+    h2 Class diagram
+  .span6
+    :jumly_class
+      @def "You":
+        stereotype:"human"
+        attrs     :["name", "age", "length"]
+        methods   :["walk", "read", "run", "think"]
+      @def "JUMLY":
+        stereotype:"library"
+        attrs     :["version", "author"]
+        methods   :["$.jumly", "$.jumly.DSL"]
+  .span6
+    :code
+      &lt;script type='text/jumly+class'>
+      @def "You":
+        stereotype:"human"
+        attrs     :["name", "age", "length"]
+        methods   :["walk", "read", "run", "think"]
+      @def "JUMLY":
+        stereotype:"library"
+        attrs     :["version", "author"]
+        methods   :["$.jumly", "$.jumly.DSL"]
+      &lt;/script>

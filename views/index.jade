@@ -20,21 +20,8 @@ header#masthead
 .container
   section#Introduction
     include Introduction
-  :jumly_sequence
-    @found "You", ->
-      @create "UML diagram"
-
-  :jumly_class
-    @def "You":
-      stereotype:"human"
-      attrs     :["age", "height"]
-      methods   :["run", "think"]
-
-  :jumly_usecase
-    @actor "You":use:[1, 2]
-    @usecase 1:"Render Diagram"
-    @usecase 2:"Arrange Diagram"
-
+  section#Overview
+    include Overview
 div#footer
   .inner
     .container
