@@ -37,7 +37,8 @@ app.configure "development", -> app.use express.errorHandler dumpExceptions: tru
 app.configure "production", -> app.use express.errorHandler()
 
 
-app.get "/", (req, res)-> res.render 'index', title:'Express'
+app.get "/", (req, res)-> res.render 'index'
+app.get "/reference", (req, res)-> res.render 'reference', body:require("markdown-js").parse fs.readFileSync("views/reference.md").toString()
 
 app.listen 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
