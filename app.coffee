@@ -51,6 +51,7 @@ app.get "/", (req, res)-> res.render 'index', args
 get "/reference", title:"Reference"
 get "/tryjumly", title:"Try JUMLY", layout:false
 
+console.log "process.env.NODE_ENV:%s", process.env.NODE_ENV
 port = 3000
 if process.env.NODE_ENV is "production"
   port = process.env.PORT
