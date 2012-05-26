@@ -25,18 +25,16 @@
   strong= i18n._('ask.tutorial.start')
   a.btn.small.cancel("data-bind"="click:tutorial.enable")= i18n._('ask.yes.d')
   a.btn.small.cancel("data-bind"="visible:!tutorial.hasStarted()")= i18n._('ask.later.d')
-  a.btn.small.cancel("data-bind"="click:tutorial.finish,text:(tutorial.hasStarted()?'#(i18n._('ask.no.d')':'#(i18n._('ask.skip.d')')")
+  a.btn.small.cancel("data-bind"="click:tutorial.finish,text:(tutorial.hasStarted()?'#{i18n._('ask.no.d')}':'#{i18n._('ask.skip.d')}')")
       
 
 .instructions.hide("data-bind"="click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))")
-  - [[0,1,2,3,4,5,6], [1,2,3,4,5], []].each(function(steps, i) {
+  - [[0,1,2,3,4,5,6], [1,2,3,4,5], []].forEach(function(steps, i) {
     - step = i + 1
-    - steps.each(function(sub) {
-      .instruction("data-bind"="css:(active:tutorial.isIn(#(step),#(sub)))")
-        h4
-          = i18n._("step#(step)-#(sub).h")
-        p
-          = i18n._("step#(step)-#(sub).d")
+    - steps.forEach(function(sub) {
+      .instruction("data-bind"="css:(active:tutorial.isIn(#{step},#{sub}))")
+        h4= i18n._("step" + step + "-" + sub + ".h")
+        p= i18n._("step" + step + "-" + sub + ".d")
     - });
   - });
           
