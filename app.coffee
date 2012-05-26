@@ -31,14 +31,20 @@ app.configure ->
   app.use app.router
   app.use express.static __dirname + "/public"
   app.use assets src:"lib/jumly"
-
 app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
-
 app.configure "production", -> app.use express.errorHandler()
 
 
-app.get "/", (req, res)-> res.render 'index'
-app.get "/reference", (req, res)-> res.render 'reference', body:require("markdown-js").parse fs.readFileSync("views/reference.md").toString()
+args =
+  VERSION: "0.1.2"
+  markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
+get = (path, a)->
+  a ?= path.replace /^\//, ""
+  app.get path, (req, res)-> res.render a, args
+
+app.get "/", (req, res)-> res.render 'index', args
+get "/reference"
+get "/tryjumly"
 
 app.listen 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env

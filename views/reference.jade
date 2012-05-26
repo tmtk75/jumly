@@ -3,17 +3,7 @@
   ul#table-of-contents {list-style:none; margin-left:2px;margin-top:40px;}
   li.h2 {margin-left:1em;}
   li.h3 {margin-left:1.8em;}
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container-fluid
-      h3
-        a.brand(href="/#") JUMLY
-      ul.nav
-        li
-          a(href="/TryJUMLY") TryJUMLY
-      form.navbar-search.pull-right
-        input.search-query(type="text",placeholder="Search")
-    .container-fluid
+include _navbar
 .row-fluid
   .span2
     ul#table-of-contents
@@ -24,5 +14,5 @@
             a = $("<a>").attr("href", "#" + e.id).html($(e).text())
             p.append $("<li>").addClass(e.nodeName.toLowerCase()).append a
   .span10.content
-    h1 Reference <small>0.1.2</small>
-    != body
+    h1 Reference <small>#{VERSION}</small>
+    != markdown("views/reference.md")
