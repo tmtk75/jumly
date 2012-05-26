@@ -47,7 +47,7 @@ get = (path, param)->
 
 app.get "/", (req, res)-> res.render 'index', args
 get "/reference", title:"Reference"
-get "/tryjumly", title:"Try JUMLY"
+get "/tryjumly", title:"Try JUMLY", layout:false
 
 app.listen 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
