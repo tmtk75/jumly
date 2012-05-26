@@ -31,13 +31,16 @@ html
       .row
         .span1#user-actions
           a.btn#btnToShowUrl("data-toggle"="modal",href="#url-to-show")
-            i.icon-share <br>
+            i.icon-share
+            <br>
             =i18n._('Share')
           a.btn("data-toggle"="modal",href="#jumly-snippet")
-            i.icon-tag <br>
+            i.icon-tag
+            <br>
             =i18n._('Snippet')
           a.btn("data-bind"="click:want.toCommentOnDisqus")
-            i.icon-comment <br>
+            i.icon-comment
+            <br>
             =i18n._('Comment')
         .span5
           //-# DISQUS Thread
@@ -50,4 +53,7 @@ html
             <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
             <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
             <script type="text/javascript" src="http://growbutton.com/javascripts/button.js?apikey=0d26ac70-3a17-012f-064b-12313f00aced&shape=rectangle"></script>
+        .span6.columns
+          #diagram-container("data-bind"="jumly:diagram,success:jumly.success,error:jumly.error")
+          include tutorial
 

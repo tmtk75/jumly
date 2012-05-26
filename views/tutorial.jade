@@ -1,0 +1,46 @@
+- i18n = {}
+- i18n._ = function() {return arguments[0];}
+//-------- Tutorial --------
+#tutorial.hide("data-bind"="visible:(tutorial.hasStarted() && !tutorial.hasFinished())")
+  h2= i18n._('3-Step Tutorial')
+  .content("data-bind"="click:tutorial.toNext")
+    .welcome("data-bind"="css:(active:tutorial.chap() == 0)")
+      h3= i18n._('welcome.h')
+      = i18n._('welcome.d')
+
+    .step1("data-bind"="css:(active:tutorial.chap() == 1)")
+      h3= i18n._('step1.h')
+      = i18n._('step1.d')
+      
+    .step2("data-bind"="css:(active:tutorial.chap() == 2)")
+      h3= i18n._('step2.h')
+      = i18n._('step2.d')
+  
+    .step3("data-bind"="css:(active:tutorial.chap() == 3)")
+      h3= i18n._('step3.h')
+      = i18n._('step3.d')
+
+
+#tutorial-ask.alert.alert-info.hide
+  strong= i18n._('ask.tutorial.start')
+  a.btn.small.cancel("data-bind"="click:tutorial.enable")= i18n._('ask.yes.d')
+  a.btn.small.cancel("data-bind"="visible:!tutorial.hasStarted()")= i18n._('ask.later.d')
+  a.btn.small.cancel("data-bind"="click:tutorial.finish,text:(tutorial.hasStarted()?'#(i18n._('ask.no.d')':'#(i18n._('ask.skip.d')')")
+      
+
+.instructions.hide("data-bind"="click:tutorial.toNext,visible:(tutorial.hasStarted() && (tutorial.hasShared() || !tutorial.hasFinished()))")
+  - [[0,1,2,3,4,5,6], [1,2,3,4,5], []].each(function(steps, i) {
+    - step = i + 1
+    - steps.each(function(sub) {
+      .instruction("data-bind"="css:(active:tutorial.isIn(#(step),#(sub)))")
+        h4
+          = i18n._("step#(step)-#(sub).h")
+        p
+          = i18n._("step#(step)-#(sub).d")
+    - });
+  - });
+          
+  .instruction("data-bind"="css:(active:tutorial.hasShared())")
+    h4= i18n._('step3.finished.h')
+    p= i18n._('step3.finished.d')
+    a.btn("data-bind"="click:tutorial.finish")= i18n._('finished.btn.d')
