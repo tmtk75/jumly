@@ -160,18 +160,19 @@ html
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       ))();
 
-  script(src="#($js_dir)/btn.js")
-  <script>!function(d,s,id)(var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id))(js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);))(document,"script","twitter-wjs");</script>
-  <script src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js' type='text/javascript'></script><script type='text/javascript' charset='utf-8'>tfb.account='jumly1';tfb.label='follow-me';tfb.color='#404040';tfb.side ='r';tfb.top=136;tfb.showbadge();</script>
+  script(src="javascripts/btn.js")
+  script(src="javascripts/tw.js")
+  script(src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js',type='text/javascript')
+  script(src="javascripts/twb.js")
   script(src="http://static.evernote.com/noteit.js")
-  script(src="#($js_dir)/base64.js")
-  script(src="#($js_dir)/bitly.js")
-  script(src="#($js_dir)/TryJUMLY.Tutorial.js")
-  script(src="#($js_dir)/TryJUMLY.utils.js")
-  script(src="#($js_dir)/TryJUMLY.Tutorial.sample.js")
+  script(src="javascripts/base64.js")
+  script(src="javascripts/bitly.js")
+  script(src="javascripts/TryJUMLY.Tutorial.js")
+  script(src="javascripts/TryJUMLY.utils.js")
+  script(src="javascripts/TryJUMLY.Tutorial.sample.js")
   :coffeescript
     JUMLY.TryJUMLY.lang = "#(i18n.ext)"
-  script(src="#($js_dir)/TryJUMLY.js")
+  script(src="javascripts/TryJUMLY.js")
 
 /
   Change History
