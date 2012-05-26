@@ -41,9 +41,11 @@ args =
   VERSION: "0.1.2"
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
   title: "JUMLY"
+  layout: true
+
 get = (path, param)->
   a = path.replace /^\//, ""
-  app.get path, (req, res)-> res.render a, _.extend args, param
+  app.get path, (req, res)-> res.render a, _.extend {}, args, param
 
 app.get "/", (req, res)-> res.render 'index', args
 get "/reference", title:"Reference"
