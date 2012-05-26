@@ -5,6 +5,7 @@ html
     meta(charset='utf-8')
     meta(name="viewport",content="width=device-width,initial-scale=1.0")
     link(type='text/css',rel='stylesheet',href="#{bootstrap_dir}/css/bootstrap.css")
+    link(rel="stylesheet",href="docs.css")
     link(rel="stylesheet",href="tryjumly.css")
     link(rel="stylesheet",href="3rd-party.css")
     script(src="javascripts/jquery.js")
@@ -16,3 +17,9 @@ html
     script(src="#{bootstrap_dir}js/bootstrap-dropdown.js")
     != js('jumly')
     title!=title
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          h3 <a class="brand" href="/#">JUMLY</a>
+
