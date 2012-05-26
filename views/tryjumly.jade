@@ -1,6 +1,18 @@
 !!! 5
 html
   head
+    - bootstrap_dir = "bootstrap/docs/assets/"
+    meta(charset='utf-8')
+    meta(name="viewport",content="width=device-width,initial-scale=1.0")
+    link(type='text/css',rel='stylesheet',href="#{bootstrap_dir}/css/bootstrap.css")
     link(rel="stylesheet",href="tryjumly.css")
     link(rel="stylesheet",href="3rd-party.css")
+    script(src="javascripts/jquery.js")
+    script(src="javascripts/coffee-script.js")
+    script(src="javascripts/knockout.js")
+    script(src="#{bootstrap_dir}js/bootstrap-alert.js")
+    script(src="#{bootstrap_dir}js/bootstrap-tooltip.js")
+    script(src="#{bootstrap_dir}js/bootstrap-modal.js")
+    script(src="#{bootstrap_dir}js/bootstrap-dropdown.js")
+    != js('jumly')
     title!=title
