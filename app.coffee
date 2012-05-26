@@ -51,6 +51,8 @@ app.get "/", (req, res)-> res.render 'index', args
 get "/reference", title:"Reference"
 get "/tryjumly", title:"Try JUMLY", layout:false
 
-port = process.env.PORT
+port = 3000
+if process.env.NODE_ENV is "production"
+  port = process.env.PORT
 app.listen port, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
