@@ -52,6 +52,7 @@ get "/reference", title:"Reference"
 get "/tryjumly", title:"Try JUMLY", layout:false
 
 console.log "process.env.NODE_ENV:%s", process.env.NODE_ENV
+console.log process.env
 port = 3000
 if process.env.NODE_ENV is "production"
   port = process.env.PORT
