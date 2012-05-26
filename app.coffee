@@ -3,7 +3,8 @@ fs = require "fs"
 express = require "express"
 assets = require "connect-assets"
 jade = require "jade"
-stylus = require('stylus')
+stylus = require 'stylus'
+_ = require 'underscore'
 
 jumly = (str, type)->
   str = str.replace /\\n/g, '\n'
@@ -39,13 +40,14 @@ app.configure "production", -> app.use express.errorHandler()
 args =
   VERSION: "0.1.2"
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
-get = (path, a)->
-  a ?= path.replace /^\//, ""
-  app.get path, (req, res)-> res.render a, args
+  title: "JUMLY"
+get = (path, param)->
+  a = path.replace /^\//, ""
+  app.get path, (req, res)-> res.render a, _.extend args, param
 
 app.get "/", (req, res)-> res.render 'index', args
-get "/reference"
-get "/tryjumly"
+get "/reference", title:"Reference"
+get "/tryjumly", title:"Try JUMLY"
 
 app.listen 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
