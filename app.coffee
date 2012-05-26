@@ -21,6 +21,7 @@ jade.filters["code"]  = (str)->
 
 app = module.exports = express.createServer()
 app.configure ->
+  #app.set 'view options', layout: false  ## off if you
   app.set "views", __dirname + "/views"
   app.set "view engine", "jade"
   app.use stylus.middleware
