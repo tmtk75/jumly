@@ -2,38 +2,40 @@
 html
   head
     title Try JUMLY
-    link(rel="stylesheet",href="TryJUMLY.css")
-    link(rel="stylesheet",href="3rd-party.css")
+    //link(rel="stylesheet",href="TryJUMLY.css")
+    //link(rel="stylesheet",href="3rd-party.css")
   body#TryJUMLY
     .navbar.navbar-fixed-top
       .navbar-inner
         .container-fluid
           h3 <a class="brand" href="/#">JUMLY</a>
+          - i18n = {}
+          - i18n._ = function() {return "i18n-dummy"}
           - function _sr(n, t) {return "<a id='sample-#{n)' data-bind='click:want.toRequireSampleJumlipt'>#{t)</a>"}
           - function _tr(n0, n1, t) {return "<a id='tutorial-#{n0)-#{n1)' data-step='#{n0)' data-sub='#{n1)' data-bind='click:want.toRequireJumliptOfTutorial'>#{t)</a>"}
           ul.nav
-            li #{_sr 1, i18n._('Example-1')}
-            li #{_sr 2, i18n._('Example-2')}
-            li #{_sr 3, i18n._('Example-3')}
-            li.dropdown("data-dropdown"=>"dropdown")
-              a.dropdown-toggle("data-toggle"=>"dropdown")
+            li #{_sr(1, i18n._('Example-1'))}
+            li #{_sr(2, i18n._('Example-2'))}
+            li #{_sr(3, i18n._('Example-3'))}
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
                 #{i18n._('Other examples')}
                 b.caret
               ul.dropdown-menu
-                li #{_sr 4, i18n._('Shorten w/ bit.ly')}
-                li #{_sr 5, i18n._("Using <img>")}
-                - [1,2,3,4].each do |e|
-                  li #{_tr "data1", e-1, "#{i18n._('Tutorial step')}1-#{e)")
-                - [1,2,3,4].each do |e|
-                  li #{_tr "data2", e-1, "#{i18n._('Tutorial step')}2-#{e)")
+                li #{_sr(4, i18n._('Shorten w/ bit.ly'))}
+                li #{_sr(5, i18n._("Using <img>"))}
+                //- [1,2,3,4].each do |e|
+                //  li = _tr("data1", e-1, "#{i18n._('Tutorial step')}1-#{e}"
+                //- [1,2,3,4].each do |e|
+                //  li = _tr("data2", e-1, "#{i18n._('Tutorial step')}2-#{e}"
                 li #{_tr "data3", 0, "#{i18n._('Tutorial step')}3-1"}
                 li.divider
                 li
                   a(href="/Share?t=url&b=/examples/full-feature-sequence") Full feature sequence
             li <a href="/Reference.html">#{i18n._('Reference')}</a>
             li <a href="#" data-bind="click:askTutorial">#{i18n._('Tutorial')}</a>
-            li.dropdown("data-dropdown"=>"dropdown")
-              a.dropdown-toggle("data-toggle"=>"dropdown")
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
                 #{i18n._('Languages')}
                 b.caret
               ul.dropdown-menu
@@ -48,20 +50,20 @@ html
         h2 Try JUMLY <small>#{i18n._('Sandbox for sequence diagram')}</small>
       .row
         .span1#user-actions
-          a.btn#btnToShowUrl("data-toggle"=>"modal",href="#url-to-show")
+          a.btn#btnToShowUrl("data-toggle"="modal",href="#url-to-show")
             i.icon-share
             <br>#{i18n._('Share')}
-          a.btn("data-toggle"=>"modal",href="#jumly-snippet")
+          a.btn("data-toggle"="modal",href="#jumly-snippet")
             i.icon-tag
             <br>#{i18n._('Snippet')}
-          a.btn("data-bind"=>"click:want.toCommentOnDisqus")
+          a.btn("data-bind"="click:want.toCommentOnDisqus")
             i.icon-comment
             <br>#{i18n._('Comment')}
         .span5
           -# DISQUS Thread
-          #disqus_thread("data-bind"=>"visible:disqusOpened()")
+          #disqus_thread("data-bind"="visible:disqusOpened()")
 
-          textarea#jumlipt("data-bind"=>"value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows=26,placeholder="#{i18n._('Write JUMLIPT here, or click one of examples.')}")
+          textarea#jumlipt("data-bind"="value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows=26,placeholder="#{i18n._('Write JUMLIPT here, or click one of examples.')}")
           #3rd-party-buttons
             <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
             <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip((contentId:'diagram-container',providerName:'Try JUMLY')}; return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
@@ -70,7 +72,7 @@ html
             <script type="text/javascript" src="http://growbutton.com/javascripts/button.js?apikey=0d26ac70-3a17-012f-064b-12313f00aced&shape=rectangle"></script>
         .span6.columns
           #diagram-container("data-bind"="jumly:diagram,success:jumly.success,error:jumly.error")
-          = haml :"_TryJUMLYTutorial", :locals=>(i18n:i18n)
+          = haml :"_TryJUMLYTutorial", :locals=(i18n:i18n)
     .bottombar
       = $copyright_html
       JUMLY v#{File.read "VERSION"}
@@ -81,7 +83,7 @@ html
           h2 #{i18n._('Caution.')}
           p #{i18n._('caution.browser.d')}
 
-    .alert.alert-block.alert-error.notice.hide("data-bind"=>'template:(name:"alert-error",data:jumly.errorReason)')
+    .alert.alert-block.alert-error.notice.hide("data-bind"='template:(name:"alert-error",data:jumly.errorReason)')
     script#alert-error(type="text/html")
       h3 Error
       p
@@ -111,7 +113,7 @@ html
       .modal-footer
         a.btn.cancel #{i18n._('show-url.btn.close.d')}
 
-    #jumly-snippet.modal.hide("data-bind"=>"template:(name:'show-snippet',data:jumly)")
+    #jumly-snippet.modal.hide("data-bind"="template:(name:'show-snippet',data:jumly)")
     script#show-snippet(type=text"text/html")
       .modal-header
         h2 #{i18n._('show-snippet.h')}
