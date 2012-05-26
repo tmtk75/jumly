@@ -56,4 +56,14 @@ html
         .span6.columns
           #diagram-container("data-bind"="jumly:diagram,success:jumly.success,error:jumly.error")
           include tutorial
+    .bottombar
+      |copyright...
+      |JUMLY v#{VERSION}
+    
+    .lightbox-background.hide("data-bind"="css:cssStylesOfBrowser")
+      .fixed.messagebox
+        .inner
+          h2= i18n._('Caution.')
+          p= i18n._('caution.browser.d')
+
 
