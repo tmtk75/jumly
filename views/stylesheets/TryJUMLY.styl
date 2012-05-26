@@ -61,32 +61,32 @@ textarea#jumlipt {
   }
 }
 
-$bg0:80;
-$bg1:128;
-$bg2:240;
-@mixin _active {
-  background-color: rgba($bg2,$bg2,$bg2,1.0);
+bg0 = 80
+bg1 = 128
+bg2 = 240
+_active() {
+  background-color: rgba(bg2,bg2,bg2,1.0);
   color:#404040;
   text-shadow:1px 1px white;
 }
 #tutorial {
   z-index:10;
   position:fixed;
-  bottom:#{2+18+4*2}px;
-  width:520px;
-  background-color: rgba($bg0,$bg0,$bg0,0.5);
+  bottom: 2 + 18 + 4*2px;
+  width: 520px;
+  background-color: rgba(bg0,bg0,bg0,0.5);
   padding:0.5em;
   border-radius:3px;
   right:-192px;
   opacity:0.77;
   .welcome, .step1, .step2, .step3 {
-    background-color: rgba($bg1,$bg1,$bg1,0.7);
+    background-color: rgba(bg1,bg1,bg1,0.7);
     border-radius:4px;
     padding:0.5em;
     margin-bottom:2px;
   }
   .active {
-    @include _active;
+    _active();
   }
 }
 .tutorial-0-0 #tutorial,
@@ -108,12 +108,12 @@ html.tutorial {
   .instructions {
     .instruction {
       z-index:10;
-      background-color: rgba($bg0,$bg0,$bg0,0.5);
+      background-color: rgba(bg0,bg0,bg0,0.5);
       padding:0.5em;
       border-radius:3px;
       font-weight:normal;
       p {
-        @include _active;
+        _active();
         border-radius:4px;
         padding:0.5em;
         margin-bottom:1px;
