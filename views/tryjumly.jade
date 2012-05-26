@@ -84,4 +84,17 @@ html
     #auto-save-message.alert.alert-info.hide(style="position:fixed;left:2px;top:42px;")
       .alert-heading= i18n._('notify.save.d')
 
+    #url-to-show.modal.hide("data-bind"="template:(name:'show-URL',data:urlToShare)")
+    script#show-URL(type="text/html")
+      .modal-header
+        h2= i18n._('show-url.h')
+      .modal-body
+        h3= i18n._('show-url.short.h')
+        .short
+          a(href='${short}',target='shortURL') ${short}
+        h3= i18n._('show-url.raw.h')
+        .long
+          a(href='${long}',target='rawURL') ${long}
+      .modal-footer
+        a.btn.cancel= i18n._('show-url.btn.close.d')
 
