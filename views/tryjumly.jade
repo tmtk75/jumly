@@ -18,8 +18,28 @@ html
     != js('jumly')
     title!=title
   body
+    - i18n = {}
+    - i18n._ = function() {return arguments[0];}
     .navbar.navbar-fixed-top
       .navbar-inner
         .container-fluid
           h3 <a class="brand" href="/#">JUMLY</a>
+    .container-fluid
+      .page-header(style="margin-top:40px")
+        h2 Try JUMLY
+          small= i18n._('Sandbox for sequence diagram')
+      .row
+        .span1#user-actions
+          a.btn#btnToShowUrl("data-toggle"="modal",href="#url-to-show")
+            i.icon-share
+            <br>
+            =i18n._('Share')
+          a.btn("data-toggle"="modal",href="#jumly-snippet")
+            i.icon-tag
+            <br>
+            =i18n._('Snippet')
+          a.btn("data-bind"="click:want.toCommentOnDisqus")
+            i.icon-comment
+            <br>
+            =i18n._('Comment')
 
