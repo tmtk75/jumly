@@ -97,4 +97,41 @@ html
           a(href='${long}',target='rawURL') ${long}
       .modal-footer
         a.btn.cancel= i18n._('show-url.btn.close.d')
+    
+    #jumly-snippet.modal.hide("data-bind"="template:(name:'show-snippet',data:jumly)")
+    script#show-snippet(type="text/html")
+      .modal-header
+        h2= i18n._('show-snippet.h')
+      .modal-body
+       = i18n._('show-snippet.d')
+        textarea(style="width:100;",rows=16,readonly="")
+      .modal-footer
+        a.btn.cancel= i18n._('show-snippet.btn.close.d')
+
+    #tryjumly-help.modal.hide
+      .modal-body
+        img(src="/assets/TryJUMLY-overview.png",width="100")
+      .modal-body.description
+        = i18n._('help.d')
+      .modal-footer
+        a.btn.cancel= i18n._("help.btn.close.d")
+
+    #tryjumly-feedback.modal.hide
+      .modal-header
+        h3= i18n._('feedback.h')
+        = i18n._('feedback.d')
+      .modal-body
+        dl
+          dt Twitter
+          dd
+            a(href="http://twitter.com/#!/jumly1",target="twitter") @jumly1
+          dt Gmail
+          dd
+            a(href="mailto:jumly2gmail.com",target="gmail") jumly2@gmail.com
+          dt github issue
+          dd
+            a(href="https://github.com/tmtk75/jumly-core/issues",target="github.com") github.com/tmtk75/jumly-core
+      .modal-footer
+        a.btn.cancel Cancel
+        
 
