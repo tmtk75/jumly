@@ -47,13 +47,16 @@ conf =
   layout: true
 
 i18n =
-  _: (key, lang="en")->
+  value: (key, lang="en")->
     a = lang_resources[key.toLowerCase()]
     return key unless a
     a[lang] || key
 
+mkparams = (req, opts)-> _.extend {}, conf, {i18n:_:(key)->i18n.value key, req.params[1]}, opts
+
 app.get "/", (req, res)-> res.render 'index', conf
-app.get /\/tryjumly(;([a-z]+))/, (req, res)-> res.render "tryjumly", _.extend {}, conf, layout:false, i18n:_:(key)->i18n._ key, req.params[1]
+app.get /\/tryjumly(;([a-z]+))?$/, (req, res)-> res.render "tryjumly", mkparams req, layout:false
+app.get /\/reference(;([a-z]+))?$/, (req, res)-> res.render "reference", mkparams req
 
 port = 3000
 if process.env.NODE_ENV is "heroku"
