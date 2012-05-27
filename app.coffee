@@ -5,7 +5,7 @@ assets = require "connect-assets"
 jade = require "jade"
 stylus = require 'stylus'
 _ = require 'underscore'
-props = require 'props'
+yaml = require 'js-yaml'
 
 jumly = (str, type)->
   str = str.replace /\\n/g, '\n'
@@ -44,7 +44,7 @@ args =
   title: "JUMLY"
   layout: true
   tryjumly:
-    i18n: props fs.readFileSync("views/tryjumly.i18n").toString()
+    i18n: yaml.load(fs.readFileSync("views/tryjumly.i18n").toString())
 
 get = (path, param)->
   a = path.replace /^\//, ""
