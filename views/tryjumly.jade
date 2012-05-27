@@ -8,6 +8,7 @@ html
     link(rel="stylesheet",href="docs.css")
     link(rel="stylesheet",href="tryjumly.css")
     link(rel="stylesheet",href="3rd-party.css")
+    != css('jumly')
     script(src="javascripts/jquery.js")
     script(src="javascripts/jquery.cookie.js")
     script(src="javascripts/jquery.typing.min.js")
@@ -113,7 +114,7 @@ html
 
     #tryjumly-help.modal.hide
       .modal-body
-        img(src="/assets/TryJUMLY-overview.png",width="100")
+        img(src="images/TryJUMLY-overview.png",width="100")
       .modal-body.description
         = i18n._('help.d')
       .modal-footer
