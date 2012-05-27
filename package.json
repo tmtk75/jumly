@@ -16,7 +16,8 @@
     "connect-assets": "*",
     "less": "*",
     "markdown-js": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "js-yaml": "*"
   },
   "devDependencies": {
     "canvas": "*",

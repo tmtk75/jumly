@@ -5,6 +5,7 @@ assets = require "connect-assets"
 jade = require "jade"
 stylus = require 'stylus'
 _ = require 'underscore'
+props = require 'props'
 
 jumly = (str, type)->
   str = str.replace /\\n/g, '\n'
@@ -42,6 +43,8 @@ args =
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
   title: "JUMLY"
   layout: true
+  tryjumly:
+    i18n: props fs.readFileSync("views/tryjumly.i18n").toString()
 
 get = (path, param)->
   a = path.replace /^\//, ""
