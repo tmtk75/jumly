@@ -77,7 +77,7 @@ $("textarea").typing delay:5000, stop:saveAndNotice
 $ ->
   ko.applyBindings viewModel, $("body")[0]
   JUMLY.TryJUMLY.Tutorial.start viewModel, givenJumlipt
-
+  console.log "Try JUMLY successfully loaded"
 
   jwerty.key 'esc', ->
     if viewModel.disqusOpened()
