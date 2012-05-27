@@ -27,6 +27,29 @@ html
       .navbar-inner
         .container-fluid
           h3 <a class="brand" href="/#">JUMLY</a>
+          - function _sr(n, t) {return "<a id='sample-#{n}' data-bind='click:want.toRequireSampleJumlipt'>#{t}</a>";}
+          - function _tr(n0, n1, t) {return "<a id='tutorial-#{n0}-#{n1}' data-step='#{n0}' data-sub='#{n1}' data-bind='click:want.toRequireJumliptOfTutorial'>#{t}</a>";}
+          ul.nav
+            li= _sr(1, i18n._('Example-1'))
+            li= _sr(2, i18n._('Example-2'))
+            li= _sr(3, i18n._('Example-3'))
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
+               = i18n._('Other examples')
+                b.caret
+              ul.dropdown-menu
+                li= _sr(4, i18n._('Shorten w/ bit.ly'))
+                li= _sr(5, i18n._("Using <img>"))
+                - [1,2,3,4].forEach(function(e) {
+                  li= _tr("data1", e-1, i18n._('Tutorial step') + "1-" + e)
+                - })
+                - [1,2,3,4].forEach(function(e) {
+                  li= _tr("data2", e-1, i18n._('Tutorial step') + "2-" + e)
+                - })
+                li= _tr("data3", 0, i18n._('Tutorial step') + "3-1")
+                li.divider
+                li
+                  a(href="/Share?t=url&b=/examples/full-feature-sequence") Full feature sequence
     .container-fluid
       .page-header(style="margin-top:40px")
         h2 Try JUMLY
