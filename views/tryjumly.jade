@@ -38,17 +38,20 @@ html
                = i18n._('Other examples')
                 b.caret
               ul.dropdown-menu
-                li= _sr(4, i18n._('Shorten w/ bit.ly'))
-                li= _sr(5, i18n._("Using <img>"))
-                - [1,2,3,4].forEach(function(e) {
-                  li= _tr("data1", e-1, i18n._('Tutorial step') + "1-" + e)
-                - })
-                - [1,2,3,4].forEach(function(e) {
-                  li= _tr("data2", e-1, i18n._('Tutorial step') + "2-" + e)
-                - })
-                li= _tr("data3", 0, i18n._('Tutorial step') + "3-1")
+                li!= _sr(4, i18n._('Shorten w/ bit.ly'))
+                li!= _sr(5, i18n._("Using <img>"))
                 li.divider
-                li
+                - [1,2,3,4].forEach(function(e) {
+                  li!= _tr("data1", e-1, i18n._('Tutorial step') + "1-" + e)
+                - })
+                li.divider
+                - [1,2,3,4].forEach(function(e) {
+                  li!= _tr("data2", e-1, i18n._('Tutorial step') + "2-" + e)
+                - })
+                li.divider
+                li!= _tr("data3", 0, i18n._('Tutorial step') + "3-1")
+                //li.divider
+                //li
                   a(href="/Share?t=url&b=/examples/full-feature-sequence") Full feature sequence
     .container-fluid
       .page-header(style="margin-top:40px")
