@@ -39,23 +39,21 @@ app.configure "production", -> app.use express.errorHandler()
 
 
 lang_resources = yaml.load fs.readFileSync("views/tryjumly.i18n").toString()
-args =
+
+conf =
   VERSION: "0.1.2"
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
   title: "JUMLY"
   layout: true
-  i18n:
-    _: (key)->
-      a = lang_resources[key.toLowerCase()]
-      if (a is undefined || a is null)
-        return key
-      if (a.ja)
-        return a.ja
-      a.en
 
-app.get "/", (req, res)-> res.render 'index', args
-app.get /tryjumly(;([a-z]+))/, (req, res)-> res.render "tryjumly", _.extend {}, args, title:"Try JUMLY", layout:false; console.log req.params
-app.get /reference(;([a-z]+))/, (req, res)-> res.render "reference", title:"Reference"
+i18n =
+  _: (key, lang="en")->
+    a = lang_resources[key.toLowerCase()]
+    return key unless a
+    a[lang] || key
+
+app.get "/", (req, res)-> res.render 'index', conf
+app.get /\/tryjumly(;([a-z]+))/, (req, res)-> res.render "tryjumly", _.extend {}, conf, layout:false, i18n:_:(key)->i18n._ key, req.params[1]
 
 port = 3000
 if process.env.NODE_ENV is "heroku"
