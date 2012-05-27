@@ -30,9 +30,9 @@ html
           - function _sr(n, t) {return "<a id='sample-" + n + "' data-bind='click:want.toRequireSampleJumlipt'>" + t + "</a>";}
           - function _tr(n0, n1, t) {return "<a id='tutorial-" + n0 + "-" + n1 + "' data-step='" + n0 + "' data-sub='" + n1 + "' data-bind='click:want.toRequireJumliptOfTutorial'>" + t + "</a>";}
           ul.nav
-            li= _sr(1, i18n._('Example-1'))
-            li= _sr(2, i18n._('Example-2'))
-            li= _sr(3, i18n._('Example-3'))
+            li!= _sr(1, i18n._('Example-1'))
+            li!= _sr(2, i18n._('Example-2'))
+            li!= _sr(3, i18n._('Example-3'))
             li.dropdown("data-dropdown"="dropdown")
               a.dropdown-toggle("data-toggle"="dropdown")
                = i18n._('Other examples')
