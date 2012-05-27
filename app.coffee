@@ -43,8 +43,15 @@ args =
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
   title: "JUMLY"
   layout: true
-  tryjumly:
-    i18n: yaml.load(fs.readFileSync("views/tryjumly.i18n").toString())
+  i18n:
+    resources: yaml.load(fs.readFileSync("views/tryjumly.i18n").toString())
+    _: (key)->
+      a = this.resources[key.toLowerCase()]
+      if (a is undefined || a is null)
+        return key
+      if (a.ja)
+        return a.ja
+      a.en
 
 get = (path, param)->
   a = path.replace /^\//, ""

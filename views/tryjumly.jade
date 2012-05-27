@@ -23,8 +23,6 @@ html
     != js('jumly')
     title!=title
   body
-    - i18n = {}
-    - i18n._ = function() {return arguments[0];}
     .navbar.navbar-fixed-top
       .navbar-inner
         .container-fluid
@@ -34,7 +32,6 @@ html
         h2 Try JUMLY
           small= i18n._('Sandbox for sequence diagram')
       .row
-        = tryjumly.i18n['example-1'].ja
         .span1#user-actions
           a.btn#btnToShowUrl("data-toggle"="modal",href="#url-to-show")
             i.icon-share
