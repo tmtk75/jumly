@@ -133,3 +133,4 @@ Tutorial =
              ,"border-color":"rgba(0,128,192,0.8)")'''
              
 JUMLY.TryJUMLY.Tutorial = Tutorial
+console.log "Try JUMLY tutorial successfully loaded."
