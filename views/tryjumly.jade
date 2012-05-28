@@ -53,6 +53,25 @@ html
                 //li.divider
                 //li
                   a(href="/Share?t=url&b=/examples/full-feature-sequence") Full feature sequence
+            li
+              a(href="/Reference.html")= i18n._('Reference')
+            li
+              a(href="#",data-bind="click:askTutorial")= i18n._('Tutorial')
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
+                = i18n._('Languages')
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="tryjumly;en")= i18n._('lang.english')
+                li
+                  a(href="tryjumly;ja")= i18n._('lang.japanese')
+            li
+              a(href="#tryjumly-help",data-toggle='modal')= i18n._('Help')
+            li
+              a(href="#tryjumly-feedback",data-toggle='modal')= i18n._('Feedback')
+          form.navbar-search.pull-right
+            input.search-query(type="text",placeholder="Search")
     .container-fluid
       .page-header(style="margin-top:40px")
         h2 Try JUMLY
