@@ -70,7 +70,7 @@ html
               a(href="#tryjumly-help",data-toggle='modal')= i18n._('Help')
             li
               a(href="#tryjumly-feedback",data-toggle='modal')= i18n._('Feedback')
-          form.navbar-search.pull-right
+          //form.navbar-search.pull-right
             input.search-query(type="text",placeholder="Search")
     .container-fluid
       .page-header(style="margin-top:40px")
@@ -150,17 +150,15 @@ html
     script#show-snippet(type="text/html")
       .modal-header
         h2= i18n._('show-snippet.h')
-      .modal-body
-       = i18n._('show-snippet.d')
+      .modal-body= i18n._('show-snippet.d')
         textarea(style="width:100;",rows=16,readonly="")
       .modal-footer
         a.btn.cancel= i18n._('show-snippet.btn.close.d')
 
     #tryjumly-help.modal.hide
       .modal-body
-        img(src="images/TryJUMLY-overview.png",width="100")
-      .modal-body.description
-        = i18n._('help.d')
+        img(src="images/TryJUMLY-overview.png",width="100%")
+      .modal-body.description= i18n._('help.d')
       .modal-footer
         a.btn.cancel= i18n._("help.btn.close.d")
 
@@ -178,7 +176,7 @@ html
             a(href="mailto:jumly2gmail.com",target="gmail") jumly2@gmail.com
           dt github issue
           dd
-            a(href="https://github.com/tmtk75/jumly-core/issues",target="github.com") github.com/tmtk75/jumly-core
+            a(href="https://github.com/tmtk75/jumly/issues",target="github.com") github.com/tmtk75/jumly
       .modal-footer
         a.btn.cancel Cancel
         
