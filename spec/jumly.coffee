@@ -1,4 +1,4 @@
-dir = "../assets/javascripts"
+dir = "../lib/jumly/js"
 require "#{dir}/jquery-ext"
 require "#{dir}/jquery-g2d"
 JUMLY = (require "#{dir}/core").JUMLY
