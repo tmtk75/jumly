@@ -6,12 +6,13 @@ html
     script(type="text/javascript", src="javascripts/jasmine/jasmine.js")
     script(type="text/javascript", src="javascripts/jasmine/jasmine-html.js")
     script(type="text/javascript", src="javascripts/jquery.js")
+    script(type="text/javascript", src="javascripts/coffee-script.js")
     != css("jumly")
     != js("jumly")
     != js("spec/helper")
     != js("spec/0.1.0/spec")
-    != js("spec/0.1.1/spec")
-    != js("spec/0.1.2/spec")
+    //!= js("spec/0.1.1/spec")
+    //!= js("spec/0.1.2/spec")
     :less
       #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
