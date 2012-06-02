@@ -19,6 +19,7 @@ html
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
   body
   :coffeescript
-    env = jasmine.getEnv()
-    env.addReporter new jasmine.TrivialReporter
-    env.execute()
+    $ ->
+      env = jasmine.getEnv()
+      env.addReporter new jasmine.TrivialReporter
+      env.execute()

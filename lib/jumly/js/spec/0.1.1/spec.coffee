@@ -4,6 +4,5 @@
 #= require elementSpec
 #= require referingSpec
 #= require usecaseSpec
-# require sequenceSpec
-# require builderSpec
-
+#= require sequenceSpec
+#= require builderSpec

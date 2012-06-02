@@ -1,3 +1,3 @@
 #= require ../helper
 #= require JUMLYHTMLElementSpec
-# require sequenceSpec
+#= require sequenceSpec
