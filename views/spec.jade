@@ -8,14 +8,15 @@ html
     script(type="text/javascript", src="javascripts/jquery.js")
     != css("jumly")
     != js("jumly")
-    - versions = ["0.1.0", "0.1.1", "0.1.2"];
-    - scripts = versions.map(function(e) {return "<script type='application/javascript' src='/spec/" + e + "/spec.js'></script>"});
-    != scripts.join("\n");
+    != js("spec/helper")
+    != js("spec/0.1.0/spec")
+    != js("spec/0.1.1/spec")
+    != js("spec/0.1.2/spec")
     :less
       #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
-    :coffeescript
-      env = jasmine.getEnv()
-      env.addReporter new jasmine.TrivialReporter
-      env.execute()
   body
+  :coffeescript
+    env = jasmine.getEnv()
+    env.addReporter new jasmine.TrivialReporter
+    env.execute()

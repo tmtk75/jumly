@@ -54,8 +54,9 @@ i18n =
 mkparams = (req, opts)-> _.extend {}, conf, {i18n:_:(key)->i18n.value key, req.params[1]}, opts
 
 app.get "/", (req, res)-> res.render 'index', conf
-app.get /\/tryjumly(;([a-z]+))?$/, (req, res)-> res.render "tryjumly", mkparams req, layout:false
-app.get /\/reference(;([a-z]+))?$/, (req, res)-> res.render "reference", mkparams req
+app.get /^\/spec$/, (req, res)-> res.render "spec", mkparams req, layout:false
+app.get /^\/tryjumly(;([a-z]+))?$/, (req, res)-> res.render "tryjumly", mkparams req, layout:false
+app.get /^\/reference(;([a-z]+))?$/, (req, res)-> res.render "reference", mkparams req
 
 port = 3000
 if process.env.NODE_ENV is "heroku"
