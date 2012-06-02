@@ -1,8 +1,5 @@
 is_running_on_ = (expr)-> ->
-  try
-    eval(expr)
-    true
-  catch ex
+  try eval(expr); true; catch ex
     false
 is_running_on_browser = is_running_on_ "window"
 is_running_on_nodejs  = is_running_on_ "global"
