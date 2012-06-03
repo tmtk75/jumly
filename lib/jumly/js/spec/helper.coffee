@@ -9,15 +9,12 @@ console.log "has_window:", has_window
 if has_window
   console.log "running on browser"
   window.global = window
-  window.require = (a)->
-    console.log a
-    if a.match(/jumly$/)
-      JUMLY:JUMLY
+  window.exports = global
+  window.require = (a)-> console.log "require", a, "ignored"
 else
   console.log "running on Node.js"
 
   coffee = require "coffee-script" 
-  _ = require "underscore"
   require "node-jquery"
   require "./jasmine-story"
 
@@ -38,4 +35,4 @@ else
   global.JUMLY = core.JUMLY
 
   specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
-  _.each specs, (e)-> require "./#{e}"
+  (require "underscore").each specs, (e)-> require "./#{e}"
