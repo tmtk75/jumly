@@ -26,7 +26,8 @@
     "muffin": "*",
     "temp": "*",
     "glob": "*",
-    "path": "*"
+    "path": "*",
+    "q": "*"
   },
   "repository": {
     "type": "git",

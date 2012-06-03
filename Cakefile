@@ -24,10 +24,17 @@ concat = (opts)->
   muffin.writeFile "build/jumly.js", bodies.join ""
 
 minify = (opts)->
-  muffin.minifyScript "build/jumly.js"
+  q = require "q"
+  _q = muffin.minifyScript "build/jumly.js"
+  _q.then ->
+    body = fs.readFileSync "build/jumly.min.js"
+    _q = muffin.writeFile "build/jumly.min.js", "//alskdjf\n" + body.toString()
+    console.log _q
 
 task "compile", "compile *.coffee in ./build", compile
 task "concat",  "concatenate ./build/*.js", concat
-task "minify",  "minify ./build/jumly.js", minify
+task "minify",  "minify ./build/jumly.js", (opts)->
+  invoke "concat" if path.existsSync "build/jumly.js"
+  minify opts
 #task "doc", "", (opts)-> muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
 
