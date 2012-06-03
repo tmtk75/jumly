@@ -21,12 +21,11 @@ else
   require "node-jquery"
   require "#{__dirname}/jasmine-story"
   
-  specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
 
   dir = "../../../../lib/jumly/js"
   require "#{dir}/jquery-ext"
   require "#{dir}/jquery-g2d"
-  require "#{dir}/core"
+  core = (require "#{dir}/core.coffee")
   require "#{dir}/0.1.0"
   require "#{dir}/common"
   require "#{dir}/usecase"
@@ -34,9 +33,8 @@ else
   require "#{dir}/sequence"
   require "#{dir}/plugin"
 
-  #exports.JUMLY = JUMLY
-  #global.JUMLY = JUMLY
-  console.log "Loaded successfully.", JUMLY
+  global.JUMLY = core.JUMLY
+  console.log "Load successfully."
 
+  specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
   _.each specs, (e)-> require "./#{e}"
-
