@@ -3,6 +3,7 @@ fs     = require "fs"
 path   = require "path"
 muffin = require "muffin"
 glob   = require "glob"
+_      = require "underscore"
 
 compile = (opts)->
   muffin.run
@@ -15,11 +16,17 @@ compile = (opts)->
         dst = "#{tmpdir}/#{matches[1]}.js"
         a = (fs.statSync src).mtime
         b = (fs.statSync dst).mtime if path.existsSync dst
-        dirty = a > b
+        dirty = a > b or not(a and b)
         muffin.compileScript src, dst, bare:false if dirty
 
 concat = (opts)->
+  bodies = _.map (glob.sync "build/*"), (e)-> (fs.readFileSync e).toString()
+  muffin.writeFile "build/jumly.js", bodies.join ""
 
-task "compile", "", compile
-task "concat", "", (opts)->
-  concat opts
+minify = (opts)-> muffin.minifyScript "build/jumly.js"
+
+task "compile", "compile *.coffee in ./build", compile
+task "concat",  "concatenate ./build/*.js", concat
+task "minify",  "minify ./build/jumly.js", minify
+task "doc", "", (opts)-> #muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
+
