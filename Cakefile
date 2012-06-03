@@ -29,5 +29,5 @@ minify = (opts)->
 task "compile", "compile *.coffee in ./build", compile
 task "concat",  "concatenate ./build/*.js", concat
 task "minify",  "minify ./build/jumly.js", minify
-task "doc", "", (opts)-> #muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
+#task "doc", "", (opts)-> muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
 
