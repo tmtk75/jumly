@@ -34,8 +34,7 @@ task "concat", "concatenate", ->
 
 #option "-w", "--watch", "How do I specify argument?"
 
-task "minify", "minify", (options)->
-  console.log options
+task "minify", "minify", ->
   muffin.run
     files: [dstpath]
     options: {}
@@ -47,5 +46,5 @@ task "minify", "minify", (options)->
 
 #task "doc", "", (opts)-> muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
 
-task "test", "test", ->
+task "test", "print command line to run spec", ->
   console.log "jasmine-node --coffee lib/jumly/js/spec"
