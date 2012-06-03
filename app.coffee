@@ -57,6 +57,7 @@ app.get /^\/([^;.]+)(;([a-z]+))?$/, (req, res)->
   name = req.params[0]
   layouts =
     tryjumly :false
+    spec     :false
     reference:true
   res.render name, mkparams req, layout:layouts[name]
 
