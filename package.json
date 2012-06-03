@@ -22,7 +22,8 @@
   "devDependencies": {
     "canvas": "*",
     "node-jquery": "*",
-    "jasmine-node": "*"
+    "jasmine-node": "*",
+    "muffin": "*"
   },
   "repository": {
     "type": "git",
