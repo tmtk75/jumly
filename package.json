@@ -24,7 +24,9 @@
     "node-jquery": "*",
     "jasmine-node": "*",
     "muffin": "*",
-    "temp": "*"
+    "temp": "*",
+    "glob": "*",
+    "path": "*"
   },
   "repository": {
     "type": "git",
