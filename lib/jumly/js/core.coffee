@@ -148,3 +148,4 @@ JUMLYPreferences.values =
 
 exports = window unless exports
 exports.JUMLY = JUMLY
+global.JUMLY = JUMLY

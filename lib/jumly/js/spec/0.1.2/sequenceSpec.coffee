@@ -1,7 +1,7 @@
 $ ->
   appose = (a)-> $("body").append a; a.compose(); a.css("z-index":100)
 
-  Builder = window.JUMLY.SequenceDiagramBuilder
+  Builder = JUMLY.SequenceDiagramBuilder
   describe "sequence", ->
     describe "@note", ->
       it "should create a .note", ->

@@ -1,4 +1,3 @@
-JUMLY = (require "../jumly").JUMLY
 describe "JUMLYDiagram", ->
   enable = (b)-> JUMLY.Preferences "document.id.validation.enable":b
   

@@ -1,4 +1,3 @@
-JUMLY = (require "../jumly").JUMLY
 $ ->
   append = (a)-> $("body").append a
   describe "sequence", ->

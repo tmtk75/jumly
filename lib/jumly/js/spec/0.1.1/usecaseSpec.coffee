@@ -1,4 +1,3 @@
-JUMLY = (require "../jumly").JUMLY
 BODY = -> $("#TrivialReporter")
 describe "usecase", ->
   describe "show-case", ->

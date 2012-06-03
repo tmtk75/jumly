@@ -1,4 +1,3 @@
-JUMLY = (require "../jumly").JUMLY
 xdescribe "pending,", ->
   jumly = $.jumly
   
