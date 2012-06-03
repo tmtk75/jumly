@@ -44,3 +44,5 @@ task "minify", "minify", ->
 
 #task "doc", "", (opts)-> muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
 
+task "test", "test", ->
+  console.log "jasmine-node --coffee lib/jumly/js/spec"
