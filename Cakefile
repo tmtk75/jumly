@@ -23,7 +23,8 @@ concat = (opts)->
   bodies = _.map (glob.sync "build/*"), (e)-> (fs.readFileSync e).toString()
   muffin.writeFile "build/jumly.js", bodies.join ""
 
-minify = (opts)-> muffin.minifyScript "build/jumly.js"
+minify = (opts)->
+  muffin.minifyScript "build/jumly.js"
 
 task "compile", "compile *.coffee in ./build", compile
 task "concat",  "concatenate ./build/*.js", concat
