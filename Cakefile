@@ -32,7 +32,10 @@ task "concat", "concatenate", ->
   bodies = _.map (glob.sync "#{tmpdir}/*.js"), (e)-> (fs.readFileSync e).toString()
   muffin.writeFile dstpath, [header].concat(bodies).join ""
 
-task "minify", "minify", ->
+#option "-w", "--watch", "How do I specify argument?"
+
+task "minify", "minify", (options)->
+  console.log options
   muffin.run
     files: [dstpath]
     options: {}
