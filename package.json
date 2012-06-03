@@ -23,7 +23,8 @@
     "canvas": "*",
     "node-jquery": "*",
     "jasmine-node": "*",
-    "muffin": "*"
+    "muffin": "*",
+    "temp": "*"
   },
   "repository": {
     "type": "git",
