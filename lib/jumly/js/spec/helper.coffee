@@ -16,11 +16,10 @@ if has_window
 else
   console.log "running on Node.js"
 
-  global.CoffeeScript = require "coffee-script" 
+  coffee = require "coffee-script" 
   _ = require "underscore"
   require "node-jquery"
-  require "#{__dirname}/jasmine-story"
-  
+  require "./jasmine-story"
 
   dir = "../../../../lib/jumly/js"
   require "#{dir}/jquery-ext"
@@ -33,8 +32,10 @@ else
   require "#{dir}/sequence"
   require "#{dir}/plugin"
 
-  global.JUMLY = core.JUMLY
   console.log "Load successfully."
+  
+  global.CoffeeScript = coffee
+  global.JUMLY = core.JUMLY
 
   specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
   _.each specs, (e)-> require "./#{e}"
