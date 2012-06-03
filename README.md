@@ -54,6 +54,12 @@ Tomotaka Sakuma 2011-2012 copyright(c), all rights reserved.
 ## Changelog
 
 ### 0.1.2
+- Re-write site and spec in coffee-script on Node.js
+- Configure for heroku
+
+### 0.1.2a
+- No feature improvement
+- Refine directory layout
 
 ### 0.1.1
 - Implement JUMLY root namespace.

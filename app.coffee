@@ -40,7 +40,7 @@ app.configure "production", -> app.use express.errorHandler()
 lang_resources = yaml.load fs.readFileSync("views/tryjumly.i18n").toString()
 
 conf =
-  VERSION: "0.1.2"
+  VERSION: fs.readFileSync("lib/jumly/version").toString()
   markdown: (path)-> require("markdown-js").parse fs.readFileSync(path).toString()
   title: "JUMLY"
   layout: true
