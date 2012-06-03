@@ -4,7 +4,6 @@ has_window = (->
     true
   catch ex
     false)()
-console.log "has_window:", has_window
 
 if has_window
   console.log "running on browser"
@@ -34,5 +33,5 @@ else
   global.CoffeeScript = coffee
   global.JUMLY = core.JUMLY
 
-  specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
-  (require "underscore").each specs, (e)-> require "./#{e}"
+  #specs = require("fs").readdirSync(__dirname).filter (e)-> e.match ".*Spec.*"
+  #(require "underscore").each specs, (e)-> require "./#{e}"
