@@ -51,12 +51,14 @@ i18n =
     return key unless a
     a[lang] || key
 
-mkparams = (req, opts)-> _.extend {}, conf, {i18n:_:(key)->i18n.value key, req.params[1]}, opts
-
 app.get "/", (req, res)-> res.render 'index', conf
-app.get /^\/spec$/, (req, res)-> res.render "spec", mkparams req, layout:false
-app.get /^\/tryjumly(;([a-z]+))?$/, (req, res)-> res.render "tryjumly", mkparams req, layout:false
-app.get /^\/reference(;([a-z]+))?$/, (req, res)-> res.render "reference", mkparams req
+app.get /^\/([^;.]+)(;([a-z]+))?$/, (req, res)->
+  mkparams = (req, opts)-> _.extend {}, conf, {i18n:_:(key)->i18n.value key, req.params[2]}, opts
+  name = req.params[0]
+  layouts =
+    tryjumly :false
+    reference:true
+  res.render name, mkparams req, layout:layouts[name]
 
 port = 3000
 if process.env.NODE_ENV is "heroku"
