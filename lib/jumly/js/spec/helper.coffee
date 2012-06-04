@@ -7,9 +7,6 @@ has_window = (->
 
 if has_window
   console.log "running on browser"
-  window.global = window
-  window.exports = global
-  window.require = (a)-> console.log "require", a, "ignored"
 else
   console.log "running on Node.js"
 

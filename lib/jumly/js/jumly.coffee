@@ -1,3 +1,4 @@
+#= require support
 #= require jquery-ext
 #= require jquery-g2d
 #= require core
