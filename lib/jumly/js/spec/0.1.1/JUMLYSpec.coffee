@@ -28,7 +28,7 @@ describe "JUMLY", ->
         div = $("<div>").attr id:id
         expect(toID div).toBe id
 
-      it "should return 'undefined' for not identified HTMLElement", ->
+      it "should return 'undefined' for not identified HTMLElement -- FAILED ON NODEJS", ->
         div = $("<div>")
         expect(toID div).toBe undefined
 
@@ -164,7 +164,7 @@ describe "JUMLY", ->
         expect(a.name).toBe "update file"
         expect(a.use).not.toBeUndefined()
 
-      it "should return 'undefined' for jQuery object which doesn't have 'id' and 'name' HTMLElement", ->
+      it "should return 'undefined' for jQuery object which doesn't have 'id' and 'name' HTMLElement -- FAILED ON NODEJS", ->
         norm = normalize $("<div>")
         expect(norm).toBeUndefined()
         
@@ -173,7 +173,7 @@ describe "JUMLY", ->
         expect(norm.id).toBe "Identified Object" 
         expect(norm.name).toBeUndefined()
 
-      it "should return an object for jQuery object which has 'name' HTMLElement", ->
+      it "should return an object for jQuery object which has 'name' HTMLElement -- FAILED ON NODEJS", ->
         norm = normalize $("<div>").append $("<span>").addClass("name").html "Trickster"
         expect(norm.id).toBeUndefined()
         expect(norm.name).toBe "Trickster"

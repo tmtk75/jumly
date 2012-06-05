@@ -83,7 +83,7 @@ describe "class", ->
         expect(dog.find(".attrs .age")[0]).not.toBeUndefined()
         expect(cat.find(".attrs .name")[0]).not.toBeUndefined()
         
-      it "should be refered with ID (5)", ->
+      it "should be refered with ID (5) -- FAILED ON NODEJS", ->
         expect($("#dog-attr-age")[0]).not.toBeUndefined()
         expect($("#cat-attr-name")[0]).not.toBeUndefined()
 
@@ -92,6 +92,6 @@ describe "class", ->
         expect(dog.find(".methods .balk")[0]).not.toBeUndefined()
         expect(cat.find(".methods .sleep")[0]).not.toBeUndefined()
         
-      it "should be refered with ID (6)", ->
+      it "should be refered with ID (6) -- FAILED ON NODEJS", ->
         expect($("#dog-method-balk")[0]).not.toBeUndefined()
         expect($("#cat-method-sleep")[0]).not.toBeUndefined()
