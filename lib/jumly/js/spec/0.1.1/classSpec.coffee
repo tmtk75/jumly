@@ -60,16 +60,16 @@ describe "class", ->
     it "should be findable for cat by ID", ->
       expect(c2nd).toBe cat
 
-    it "should be refered for dog by property", ->
+    it "should be refered for dog by property (1)", ->
       expect(diag.dog).toBe dog
 
-    it "should be refered for cat by property", ->
+    it "should be refered for cat by property (2)", ->
       expect(diag.cat).toBe cat
 
-    it "should be refered for dog as a local variable", ->
+    it "should be refered for dog as a local variable (3)", ->
       expect(diag.dog).toBe window.dog
 
-    it "should be refered for cat as a local variable", ->
+    it "should be refered for cat as a local variable (4)", ->
       expect(diag.cat).toBe window.cat
 
     it "should be able to be composed", ->
@@ -83,7 +83,7 @@ describe "class", ->
         expect(dog.find(".attrs .age")[0]).not.toBeUndefined()
         expect(cat.find(".attrs .name")[0]).not.toBeUndefined()
         
-      it "should be refered with ID", ->
+      it "should be refered with ID (5)", ->
         expect($("#dog-attr-age")[0]).not.toBeUndefined()
         expect($("#cat-attr-name")[0]).not.toBeUndefined()
 
@@ -92,6 +92,6 @@ describe "class", ->
         expect(dog.find(".methods .balk")[0]).not.toBeUndefined()
         expect(cat.find(".methods .sleep")[0]).not.toBeUndefined()
         
-      it "should be refered with ID", ->
+      it "should be refered with ID (6)", ->
         expect($("#dog-method-balk")[0]).not.toBeUndefined()
         expect($("#cat-method-sleep")[0]).not.toBeUndefined()

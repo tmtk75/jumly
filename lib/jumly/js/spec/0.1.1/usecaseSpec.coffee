@@ -28,13 +28,13 @@ describe "usecase", ->
     it "should equal for actor", ->
       expect(diag.user).toBe actor
       
-    it "should be refered for rendering by local variable", ->
+    it "should be refered for rendering by local variable (a)", ->
       expect(diag.rendering).toBe rendering
       
-    it "should be refered for think by local variable", ->
+    it "should be refered for think by local variable (b)", ->
       expect(diag.think).toBe think
       
-    it "should be refered for user by local variable", ->
+    it "should be refered for user by local variable (c)", ->
       expect(diag.user).toBe user
       
     it "should be able to be composed", ->
