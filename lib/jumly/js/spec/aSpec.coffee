@@ -1,20 +1,21 @@
 ###
 https://en.wikipedia.org/wiki/Unified_Modeling_Language
 Structural
-  Class
-  Component
-  Composite structure
-  Deployment
-  Object
-  Package
-  Profile
+  class                cla
+  component            com
+  composite structure  com
+  deployment           dep
+  object               obj
+  package              pac
+  profile              pro
 Behavioural
-  Activity
-  Communication
+  activity             act
+  communication        com
 Interaction
-  Sequence
-  State
-  Timing
-  Use-case
+  sequence             seq
+  state                sta
+  timing               tim
+  use-case             use
 ###
 describe "JUMLY", ->
+  describe ""
