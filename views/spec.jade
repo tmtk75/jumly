@@ -8,12 +8,12 @@ html
     script(type="text/javascript", src="javascripts/jquery.js")
     script(type="text/javascript", src="javascripts/coffee-script.js")
     != css("jumly")
-    != js("spec/helper")
+    != js("legacy/helper")
     != js("jumly")
-    != js("spec/legacy/jasmine-story")
-    != js("spec/legacy/0.1.0/spec")
-    != js("spec/legacy/0.1.1/spec")
-    != js("spec/legacy/0.1.2/spec")
+    != js("legacy/jasmine-story")
+    != js("legacy/0.1.0/spec")
+    != js("legacy/0.1.1/spec")
+    != js("legacy/0.1.2/spec")
     :less
       #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}

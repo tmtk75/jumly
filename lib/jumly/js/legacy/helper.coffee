@@ -14,7 +14,7 @@ else
   require "node-jquery"
   require "./jasmine-story"
 
-  dir = "../../../../../lib/jumly/js"
+  dir = "../../../../lib/jumly/js"
   require "#{dir}/jquery-ext"
   require "#{dir}/jquery-g2d"
   core = (require "#{dir}/core.coffee")
