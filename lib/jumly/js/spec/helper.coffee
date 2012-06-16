@@ -1,13 +1,11 @@
-lib = "../../js"
-has_window = (-> try
+has_window = (->
+  try
     eval("window")
-    true
-  catch ex
-    false)()
-
+  catch ex)()
 unless has_window
   coffee = require "coffee-script" 
   require "node-jquery"
+  lib = "../../js"
   #require "#{lib}/jquery-ext"
   #require "#{lib}/jquery-g2d"
   #core = (require "#{lib}/core.coffee")
