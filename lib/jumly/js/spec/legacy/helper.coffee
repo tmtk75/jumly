@@ -12,9 +12,9 @@ else
 
   coffee = require "coffee-script" 
   require "node-jquery"
-  require "./legacy/jasmine-story"
+  require "./jasmine-story"
 
-  dir = "../../../../lib/jumly/js"
+  dir = "../../../../../lib/jumly/js"
   require "#{dir}/jquery-ext"
   require "#{dir}/jquery-g2d"
   core = (require "#{dir}/core.coffee")
