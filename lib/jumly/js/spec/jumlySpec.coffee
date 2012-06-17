@@ -1,21 +1,25 @@
 ###
 https://en.wikipedia.org/wiki/Unified_Modeling_Language
-Structural
+structural
   class                cla
   component            com
-  composite structure  com
+  composite-structure  com
   deployment           dep
   object               obj
   package              pac
   profile              pro
-Behavioural
+behavioural
   activity             act
   communication        com
-Interaction
+interaction
   sequence             seq
   state                sta
   timing               tim
   use-case             use
 ###
 describe "JUMLY", ->
-  describe ""
+  describe "diagram", ->
+    describe "structural", ->
+    describe "behavioural", ->
+    describe "interaction", ->
+      describe "sequence", ->

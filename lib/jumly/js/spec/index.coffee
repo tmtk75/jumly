@@ -1,2 +1,3 @@
 #= require helper
-#= require aSpec 
+# require jumlySpec 
+#= require builderSpec 
