@@ -1,3 +1,7 @@
-describe "pos", ->
+describe "position", ->
   it "should be", ->
-    expect(1).toBe 2
+    $("body").append (new JUMLY.SequenceDiagramBuilder).build """
+    @found "Boy", ->
+      @message "call", "Mother", ->
+    """
+    $(".diagram").self().compose()
