@@ -1,7 +1,5 @@
 describe "Builder", ->
   it "should", ->
-    script = """
-    <script>
-    </script>
-    """
-    $(script)
+    b = new JUMLY.SequenceDiagramBuilder
+    a = b.build '@found "actor"'
+    $("body").append a
