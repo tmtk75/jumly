@@ -1,12 +1,9 @@
 describe "meta", ->
   describe "jQuery", ->
-    it "should", ->
-      b = new JUMLY.SequenceDiagramBuilder
-      a = b.build '@found "actor"'
-      $("body").append a
-      a.compose()
-      expect(a.find(".object").length).toBe 1
-      expect(a.find(".lifeline").length).toBe 1
+    it "should be supported", ->
+      $("body").append $("<span>").addClass ".meta.jQuery"
+      a = $("body .meta.jQuery")
+      expect(a.length).toBe 1
 
   describe "jsdom", ->
     a = $("<span>")
