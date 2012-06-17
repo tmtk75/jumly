@@ -1,7 +1,7 @@
 describe "meta", ->
   describe "jQuery", ->
     it "should be supported", ->
-      $("body").append $("<span>").addClass ".meta.jQuery"
+      $("body").append $("<span>").addClass("meta").addClass("jQuery")
       a = $("body .meta.jQuery")
       expect(a.length).toBe 1
 
