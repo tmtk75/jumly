@@ -13,7 +13,7 @@ describe "meta", ->
       expect(a.css "left").toBe "123px"
 
     it "doesn't support offset", ->
-      expect(a.offset().left).toBeUndefined()
+      expect(a.offset().left).not.toBe 123
     
     it "doesn't support position", ->
       expect(a.position().left).not.toBe 123
