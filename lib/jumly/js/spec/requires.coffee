@@ -1,4 +1,2 @@
-#= require helper
-#= require jumlySpec 
-#= require builderSpec 
-#= require notationSpec 
+#= require_tree position
+#= require_tree struct

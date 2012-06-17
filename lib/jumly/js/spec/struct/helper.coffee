@@ -5,7 +5,7 @@ has_window = (->
 unless has_window
   coffee = require "coffee-script" 
   require "node-jquery"
-  lib = "../../js"
+  lib = "../../../js"
   require "#{lib}/jquery.ext"
   require "#{lib}/jquery.g2d"
   core = (require "#{lib}/core.coffee")
