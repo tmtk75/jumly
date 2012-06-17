@@ -51,9 +51,13 @@ task "minify", "minify", ->
 task "spec", "print command line to run spec", ->
   invoke "spec::struct"
 
-task "spec::struct", "print command line to run spec", ->
-  console.log "jasmine-node --coffee lib/jumly/js/spec/struct"
+cmd = "jasmine-node --coffee lib/jumly/js"
+task "spec::struct", "print command line to run spec::struct", ->
+  console.log "#{cmd}/spec/struct"
 
-task "spec::legacy", "print command line to run legacy spec", ->
-  console.log "jasmine-node --coffee lib/jumly/js/legacy"
+task "spec::position", "print command line to run spec::position", ->
+  console.log "#{cmd}/spec/position"
+
+task "spec::legacy", "print command line to run legacy spec::legacy", ->
+  console.log "#{cmd}/legacy"
 
