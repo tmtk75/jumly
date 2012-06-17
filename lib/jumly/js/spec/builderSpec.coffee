@@ -6,4 +6,4 @@ describe "Builder", ->
     a.compose()
     expect(a.find(".object").length).toBe 1
     expect(a.find(".lifeline").length).toBe 1
-
+    a.find(".object").css("left").to_i()
