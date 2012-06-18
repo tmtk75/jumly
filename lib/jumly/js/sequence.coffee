@@ -526,14 +526,23 @@ SequenceDiagramLayout::_layout_ = ->
   @render_icons()
   @diagram.width @diagram.preferredWidth()
   
+SequenceDiagramLayout::query_layout = (dir, kind, src, dst) ->
+  $("<span>").width(150 - (88 + 4))
+             .addClass(dir)
+             .addClass(kind)
+
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is "auto"
       a.css left:@prefs.compose_most_left
   f1 = (a, b)=>
     if b.css("left") is "auto"
-      l = a.position().left + a.outerWidth() + @prefs.compose_span
-      b.css left:l
+      packing = @query_layout("horizontal", "packing", a, b)
+      l = a.position().left + a.outerWidth()
+      packing.offset left:l, top:a.position().top
+      packing.height a.height() - 2
+      a.after packing
+      b.css left:l + packing.width()
   @_q(".object").pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
@@ -551,7 +560,7 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
 
 SequenceDiagramLayout::pack_object_lane_vertically = ()->
   return if @_q(".object-lane").length > 0
-  objs = @_q(".object")
+  objs = @_q(".object, .packing")
   mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
   mostheight ?= 0
   $("<div>").addClass("object-lane")
