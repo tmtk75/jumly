@@ -48,6 +48,16 @@ task "minify", "minify", ->
 
 #task "doc", "", (opts)-> muffin.doccoFile("./lib/jumly/js/core.coffee", opts)
 
-task "test", "print command line to run spec", ->
-  console.log "jasmine-node --coffee lib/jumly/js/spec"
+task "spec", "print command line to run spec", ->
+  invoke "spec::struct"
+
+cmd = "jasmine-node --coffee lib/jumly/js"
+task "spec::struct", "print command line to run spec::struct", ->
+  console.log "#{cmd}/spec/struct"
+
+task "spec::position", "print command line to run spec::position", ->
+  console.log "#{cmd}/spec/position"
+
+task "spec::legacy", "print command line to run legacy spec::legacy", ->
+  console.log "#{cmd}/legacy"
 

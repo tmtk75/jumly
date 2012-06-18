@@ -59,6 +59,7 @@ app.get /^\/([^;.]+)(;([a-z]+))?$/, (req, res)->
     tryjumly :false
     spec     :false
     reference:true
+    legacy   :false
   res.render name, mkparams req, layout:layouts[name]
 
 port = 3000

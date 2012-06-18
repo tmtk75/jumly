@@ -8,13 +8,16 @@ html
     script(type="text/javascript", src="javascripts/jquery.js")
     script(type="text/javascript", src="javascripts/coffee-script.js")
     != css("jumly")
+    != js("legacy/helper")
     != js("jumly")
-    != js("spec/requires")
+    != js("legacy/jasmine-story")
+    != js("legacy/0.1.0/spec")
+    != js("legacy/0.1.1/spec")
+    != js("legacy/0.1.2/spec")
     :less
       #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
       body {font-size:10pt;}
-      .diagram {z-index:16;}
   body
   :coffeescript
     $ ->
