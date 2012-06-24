@@ -4,7 +4,7 @@ describe "JUMLY", ->
     it "is stuff to position node"
 
     describe "", ->
-      setup = (css)->
+      _setup = (css)->
         diag = new JUMLY.Diagram
         a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute")
         b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", "background-color":"#cfc", opacity:0.77, position:"absolute")
@@ -14,11 +14,15 @@ describe "JUMLY", ->
         $("body").append diag
         diag:diag, src:a, dst:b
 
-      it "should be", ->
-        p = setup "pos-test-1-diagram"
+      setup_diagram = (id, styles)->
+        p = _setup "#{id}-diagram"
         style = $("head style")
-        style.text style.text() + " " + ".pos-test-1-position {width:123px}"
-        pos = new JUMLY.Position.RightLeft css:"pos-test-1-position", src:p.src, dst:p.dst
+        style.text style.text() + " " + ".#{id}-position {#{styles}}"
+        $.extend p, css:"#{id}-position"
+
+      it "should be", ->
+        p = setup_diagram "pos-test-1", "width:123px"
+        pos = new JUMLY.Position.RightLeft p
         p.src.css left:8, top:10
         pos.apply()
 
