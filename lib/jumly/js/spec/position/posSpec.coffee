@@ -6,8 +6,8 @@ describe "JUMLY", ->
     describe "", ->
       setup_diagram = (css)->
         diag = new JUMLY.Diagram
-        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute")
-        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", "background-color":"#cfc", opacity:0.77, position:"absolute")
+        a = $("<div>").css width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute"
+        b = a.clone().css "border-color":"#8e8", "background-color":"#cfc"
         diag.addClass(css)
             .append(a)
             .append(b)
