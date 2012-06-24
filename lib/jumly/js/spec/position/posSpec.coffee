@@ -42,7 +42,7 @@ describe "JUMLY", ->
 
     describe "LeftRight", ->
       it "should be", ->
-        {css, diag} = setup "pos-leftright", "width:160px"
+        {css, diag} = setup "pos-leftright-160", "width:160px"
         pos = new JUMLY.Position.LeftRight css:css, src:diag.src, dst:diag.dst
         diag.src.css left:400, top:10
         diag.dst.css width:30 - (4*2 + 2*2)
@@ -51,7 +51,13 @@ describe "JUMLY", ->
         expect(400           ).toBe diag.src.position().left
         expect(400 - 160 - 30).toBe diag.dst.position().left
 
-        expect("same test").toBe "RightLeft"
+        css = setup_style "pos-leftright-0", "width:0px"
+        pos = new JUMLY.Position.LeftRight css:css, src:diag.src, dst:diag.ext
+        pos.apply()
+        
+        margin_left = parseInt $("body").css("margin-left")
+        expect(NaN).toBe diag.ext.position().left
+        expect(-(50 + 4*2 + 2*2) + margin_left + 400).toBe diag.ext.offset().left
 
     describe "Left", ->
       it "should be", ->
@@ -62,7 +68,7 @@ describe "JUMLY", ->
         pos.apply()
 
         expect(321).toBe diag.dst.position().left
-        expect(0  ).toBe diag.ext.position().left
+        expect(NaN).toBe diag.ext.position().left
 
 
     xdescribe "horizontal", ->

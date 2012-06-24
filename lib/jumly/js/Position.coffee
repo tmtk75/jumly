@@ -10,16 +10,14 @@ JUMLYPositionRightLeft::apply = ->
   src = @attrs.src
   src.after @div
   @div.offset left:src.offset().left + src.outerWidth()
-
-  dx = @div.offsetParent().offset().left - @attrs.dst.offsetParent().offset().left
-
   @attrs.dst.offset left:@div.offset().left + @div.outerWidth()
 
 JUMLYPositionLeftRight::apply = ->
   src = @attrs.src
   dst = @attrs.dst
   src.after @div
-  @attrs.dst.css left:src.offset().left - (@div.outerWidth() + dst.outerWidth()) - src.offsetParent().offset().left
+  @div.offset left:src.offset().left - @div.outerWidth()
+  @attrs.dst.offset left:@div.offset().left - @attrs.dst.outerWidth()
 
 JUMLYPositionLeft::apply = ->
   dst = @attrs.dst
