@@ -77,6 +77,26 @@ describe "jQuery", ->
       expect(margin_left + 16).toBe a.offset().left
       expect(              16).toBe a.position().left
 
+    it "should be", ->
+      a = $("<div>").css(width:100, top:10, position:"absolute", "border":"solid 2px #48f")
+      b = $("<div>").css(width:110, top:20, position:"absolute", "border":"solid 2px #4f8")
+      c = $("<div>").css(width:120, top:30, position:"absolute", "border":"solid 2px #84f")
+      d = $("<div>").css(width:130, top:40, position:"absolute", "border":"solid 2px #8f4")
+      $("body").append(a)
+      a.append(b)
+       .append(c)
+      c.append(d)
+      
+      margin_left = parseInt $("body").css("margin-left")
+      expect(margin_left).toBe a.position().left
+      expect(margin_left).toBe a.offset().left
+
+      b.css(left:20)
+      c.offset(left:20)
+      expect(20                    ).toBe b.position().left
+      expect(20 - (2 + margin_left)).toBe c.position().left  ## 2 is thick of border-left
+      expect(margin_left + 2 + 20).toBe b.offset().left
+      expect(                  20).toBe c.offset().left
 
   describe "width,innerWidth,outerWidth", ->
     it "should be", ->
