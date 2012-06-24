@@ -13,6 +13,7 @@ describe "JUMLY", ->
         $("body").append diag
         pos = new JUMLY.Position
 
+
     xdescribe "horizontal", ->
       it "should be correct", ->
         $("body").append (new JUMLY.SequenceDiagramBuilder).build """
