@@ -4,13 +4,17 @@ describe "JUMLY", ->
     it "is stuff to position node"
 
     describe "", ->
-      it "should be", ->
+      setup = ->
         diag = new JUMLY.Diagram
-        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888", position:"absolute")
-        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888", position:"absolute")
+        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", position:"absolute")
+        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", position:"absolute")
         diag.append(a)
             .append(b)
         $("body").append diag
+        diag:diag, a:a, b:b
+
+      it "should be", ->
+        p = setup 
         pos = new JUMLY.Position
 
 
