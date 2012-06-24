@@ -112,6 +112,12 @@ describe "jQuery", ->
       expect(100 - (a.offset().left + 2)).toBe b.position().left
       expect(100 - (20 + 2)             ).toBe d.position().left
 
+      c.offset(left:200)
+      e.css(left:50)
+      expect(          50).toBe e.position().left
+      expect(200 + 2 + 50).toBe e.offset().left
+
+
 
   describe "width,innerWidth,outerWidth", ->
     it "should be", ->
