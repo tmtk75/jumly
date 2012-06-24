@@ -57,7 +57,7 @@ describe "JUMLY", ->
         
         margin_left = parseInt $("body").css("margin-left")
         expect(margin_left + 400 - (diag.dst.offset().left + 2) - (50 + 4*2 + 2*2)).toBe diag.ext.position().left
-        expect(-(50 + 4*2 + 2*2) + margin_left + 400).toBe diag.ext.offset().left
+        expect(margin_left + 400                                - (50 + 4*2 + 2*2)).toBe diag.ext.offset().left
 
     describe "Left", ->
       it "should be", ->
@@ -67,8 +67,9 @@ describe "JUMLY", ->
         pos = new JUMLY.Position.Left css:css, dst:diag.ext
         pos.apply()
 
-        expect(321).toBe diag.dst.position().left
-        expect(NaN).toBe diag.ext.position().left
+        margin_left = parseInt $("body").css("margin-left")
+        expect(-margin_left + 321            ).toBe diag.dst.position().left
+        expect(               321 - (321 + 2)).toBe diag.ext.position().left
 
 
     xdescribe "horizontal", ->

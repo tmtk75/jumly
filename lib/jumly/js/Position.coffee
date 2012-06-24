@@ -22,7 +22,7 @@ JUMLYPositionLeftRight::apply = ->
 JUMLYPositionLeft::apply = ->
   dst = @attrs.dst
   dst.before @div
-  @attrs.dst.css left:(@div.outerWidth())
+  @attrs.dst.offset left:(@div.outerWidth())
 
 JUMLYPosition.RightLeft = JUMLYPositionRightLeft
 JUMLYPosition.LeftRight = JUMLYPositionLeftRight
