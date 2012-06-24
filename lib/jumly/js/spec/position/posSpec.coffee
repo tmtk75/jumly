@@ -30,7 +30,7 @@ describe "JUMLY", ->
 
 
 describe "jQuery", ->
-  describe "position", ->
+  describe "offset,position", ->
     it "should be", ->
       a = $("<div>").css(width:1, height:1, border:"solid 1px #888", position:"absolute")
       diag = new JUMLY.Diagram
