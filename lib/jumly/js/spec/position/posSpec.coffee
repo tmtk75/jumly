@@ -6,9 +6,12 @@ describe "JUMLY", ->
     describe "", ->
       it "should be", ->
         diag = new JUMLY.Diagram
-        diag.append $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888")
+        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888", position:"absolute")
+        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888", position:"absolute")
+        diag.append(a)
+            .append(b)
         $("body").append diag
-        #pos = new JUMLY.Position
+        pos = new JUMLY.Position
 
     xdescribe "horizontal", ->
       it "should be correct", ->
