@@ -56,7 +56,7 @@ describe "JUMLY", ->
         pos.apply()
         
         margin_left = parseInt $("body").css("margin-left")
-        expect(NaN).toBe diag.ext.position().left
+        expect(margin_left + 400 - (diag.dst.offset().left + 2) - (50 + 4*2 + 2*2)).toBe diag.ext.position().left
         expect(-(50 + 4*2 + 2*2) + margin_left + 400).toBe diag.ext.offset().left
 
     describe "Left", ->
