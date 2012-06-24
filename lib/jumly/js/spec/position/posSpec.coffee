@@ -17,10 +17,9 @@ describe "JUMLY", ->
       it "should be", ->
         p = setup "pos-test-1-diagram"
         style = $("head style")
-        style.text style.text() + ".pos-test-1 {width:123px}"
-        pos = new JUMLY.Position.RightLeft css:"pos-test-1", src:p.src, dst:p.dst
-
-        p.src.css left:8
+        style.text style.text() + " " + ".pos-test-1-position {width:123px}"
+        pos = new JUMLY.Position.RightLeft css:"pos-test-1-position", src:p.src, dst:p.dst
+        p.src.css left:8, top:10
         pos.apply()
 
         expect(8      ).toBe p.src.position().left

@@ -6,7 +6,7 @@ class JUMLYPositionRightLeft extends JUMLYPosition
 
 JUMLYPositionRightLeft::apply = ->
   src = @attrs.src
-  src.offsetParent().append @div
+  src.offsetParent().after @div
   @attrs.dst.css left:src.position().left + src.outerWidth() + @div.outerWidth()
 
 JUMLYPosition.RightLeft = JUMLYPositionRightLeft
