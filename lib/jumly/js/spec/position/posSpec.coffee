@@ -5,11 +5,10 @@ describe "JUMLY", ->
 
     describe "", ->
       it "should be", ->
-        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888")
         diag = new JUMLY.Diagram
-        diag.append(a)
+        diag.append $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #888")
         $("body").append diag
-        pos = new JUMLY.Position
+        #pos = new JUMLY.Position
 
     xdescribe "horizontal", ->
       it "should be correct", ->
@@ -26,7 +25,7 @@ describe "JUMLY", ->
 
 describe "jQuery", ->
   describe "width,innerWidth,outerWidth", ->
-    it "should return each value", ->
+    it "should be", ->
       a = $("<div>").css(width:64, height:50, padding:4, border:"solid 2px #888")
       expect(        64        ).toBe a.width()
       expect(    4 + 64 + 4    ).toBe a.innerWidth()
