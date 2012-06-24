@@ -31,14 +31,6 @@ describe "JUMLY", ->
         expect(8                          ).toBe diag.src.position().left
         expect(8 + (2*2 + 4*2 + 100) + 123).toBe diag.dst.position().left
 
-    describe "Left", ->
-      it "should be", ->
-        {css, diag} = setup "pos-left", "left:0px; width:321px"
-        pos = new JUMLY.Position.Left css:css, dst:diag.dst
-        pos.apply()
-
-        expect(321).toBe diag.dst.position().left
-
     describe "LeftRight", ->
       it "should be", ->
         {css, diag} = setup "pos-leftright", "width:160px"
@@ -49,6 +41,14 @@ describe "JUMLY", ->
 
         expect(400           ).toBe diag.src.position().left
         expect(400 - 160 - 30).toBe diag.dst.position().left
+
+    describe "Left", ->
+      it "should be", ->
+        {css, diag} = setup "pos-left", "left:0px; width:321px"
+        pos = new JUMLY.Position.Left css:css, dst:diag.dst
+        pos.apply()
+
+        expect(321).toBe diag.dst.position().left
 
 
     xdescribe "horizontal", ->
