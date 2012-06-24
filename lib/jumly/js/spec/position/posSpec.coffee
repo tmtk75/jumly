@@ -21,16 +21,19 @@ describe "JUMLY", ->
         style.text style.text() + " " + ".#{id}-position {#{styles}}"
         "#{id}-position"
 
-      it "should be", ->
-        id = "pos-test-1"
+      setup = (id, style)->
         diag = setup_diagram id
-        css = setup_style id, "width:123px"
-        pos = new JUMLY.Position.RightLeft css:css, src:diag.src, dst:diag.dst
-        diag.src.css left:8, top:10
+        css = setup_style id, style
+        css:css, diag:diag
+
+      it "should be", ->
+        ctx = setup "pos-test-1", "width:123px"
+        pos = new JUMLY.Position.RightLeft css:ctx.css, src:ctx.diag.src, dst:ctx.diag.dst
+        ctx.diag.src.css left:8, top:10
         pos.apply()
 
-        expect(8      ).toBe diag.src.position().left
-        expect(8 + 2 + 4 + 100 + 4 + 2 + 123).toBe diag.dst.position().left
+        expect(8      ).toBe ctx.diag.src.position().left
+        expect(8 + 2 + 4 + 100 + 4 + 2 + 123).toBe ctx.diag.dst.position().left
 
 
     xdescribe "horizontal", ->
