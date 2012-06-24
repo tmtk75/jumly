@@ -6,16 +6,24 @@ describe "JUMLY", ->
     describe "", ->
       setup = ->
         diag = new JUMLY.Diagram
-        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", position:"absolute")
-        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", position:"absolute")
+        a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute")
+        b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", "background-color":"#cfc", opacity:0.77, position:"absolute")
         diag.append(a)
             .append(b)
         $("body").append diag
-        diag:diag, a:a, b:b
+        diag:diag, src:a, dst:b
 
       it "should be", ->
-        p = setup 
-        pos = new JUMLY.Position
+        p = setup()
+        style = $("head style")
+        style.text style.text() + ".pos-test-1 {width:123px}"
+        pos = new JUMLY.Position.RightLeft css:"pos-test-1", src:p.src, dst:p.dst
+
+        p.src.css left:8
+        pos.apply()
+
+        expect(8      ).toBe p.src.position().left
+        expect(8 + 123).toBe p.dst.position().left
 
 
     xdescribe "horizontal", ->
