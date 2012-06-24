@@ -32,13 +32,13 @@ describe "JUMLY", ->
 describe "jQuery", ->
   describe "offset,position", ->
     it "should be", ->
-      a = $("<div>").css(width:1, height:1, border:"solid 1px #888", position:"absolute")
-      diag = new JUMLY.Diagram
-      $("body").append diag.css(padding:3).append a
+      a = $("<div>").css(width:240, height:1, border:"solid 2px #88e", position:"absolute")
+      diag = (new JUMLY.Diagram).addClass "offset-position"
+      $("body").append diag.css(padding:16).append a
       margin_left = parseInt $("body").css("margin-left")
 
-      expect(margin_left + 3).toBe a.offset().left
-      expect(3).toBe a.position().left
+      expect(margin_left + 16).toBe a.offset().left
+      expect(              16).toBe a.position().left
 
 
   describe "width,innerWidth,outerWidth", ->
