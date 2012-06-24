@@ -8,13 +8,9 @@ describe "JUMLY", ->
         diag = new JUMLY.Diagram
         a = $("<div>").css width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute"
         b = a.clone().css "border-color":"#8e8", "background-color":"#cfc"
-        diag.addClass(css)
-            .append(a)
-            .append(b)
+        diag.addClass(css).append(a).append(b)
         $("body").append diag
-        diag.src = a
-        diag.dst = b
-        diag
+        $.extend diag, src:a, dst:b
 
       setup_style = (id, styles)->
         style = $("head style")
