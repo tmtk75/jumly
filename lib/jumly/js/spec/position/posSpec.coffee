@@ -28,7 +28,7 @@ describe "JUMLY", ->
         diag.src.css left:8, top:10
         pos.apply()
 
-        expect(8      ).toBe diag.src.position().left
+        expect(8                            ).toBe diag.src.position().left
         expect(8 + 2 + 4 + 100 + 4 + 2 + 123).toBe diag.dst.position().left
 
     describe "LeftRight", ->
