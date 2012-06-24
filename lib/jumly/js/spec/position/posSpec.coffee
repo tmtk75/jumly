@@ -61,7 +61,7 @@ describe "JUMLY", ->
 
     describe "Left", ->
       it "should be", ->
-        {css, diag} = setup "pos-left", "left:0px; width:321px"
+        {css, diag} = setup "pos-left-321", "left:0px; width:321px"
         pos = new JUMLY.Position.Left css:css, dst:diag.dst
         pos.apply()
         pos = new JUMLY.Position.Left css:css, dst:diag.ext
