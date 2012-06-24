@@ -4,17 +4,18 @@ describe "JUMLY", ->
     it "is stuff to position node"
 
     describe "", ->
-      setup = ->
+      setup = (css)->
         diag = new JUMLY.Diagram
         a = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute")
         b = $("<div>").css(width:100, height:50, padding:4, border:"solid 2px #8e8", "background-color":"#cfc", opacity:0.77, position:"absolute")
-        diag.append(a)
+        diag.addClass(css)
+            .append(a)
             .append(b)
         $("body").append diag
         diag:diag, src:a, dst:b
 
       it "should be", ->
-        p = setup()
+        p = setup "pos-test-1-diagram"
         style = $("head style")
         style.text style.text() + ".pos-test-1 {width:123px}"
         pos = new JUMLY.Position.RightLeft css:"pos-test-1", src:p.src, dst:p.dst
@@ -23,7 +24,7 @@ describe "JUMLY", ->
         pos.apply()
 
         expect(8      ).toBe p.src.position().left
-        expect(8 + 123).toBe p.dst.position().left
+        expect(8 + 2 + 4 + 100 + 4 + 2 + 123).toBe p.dst.position().left
 
 
     xdescribe "horizontal", ->
