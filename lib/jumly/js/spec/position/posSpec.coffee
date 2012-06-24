@@ -37,7 +37,7 @@ describe "JUMLY", ->
         pos.apply()
         
         margin_left = parseInt $("body").css("margin-left")
-        expect(-1).toBe diag.ext.position().left
+        expect(-(123 + 2)).toBe diag.ext.position().left  ## 123 is width and 2 is border
         expect(margin_left + 8 + (2*2 + 4*2 + 100) + 0).toBe diag.ext.offset().left
 
     describe "LeftRight", ->
