@@ -11,10 +11,8 @@ html
     != js("jumly")
     != js("spec/requires")
     :less
-      #TrivialReporter {z-index:10;}
       .suite .suite > .description, .jasmine_reporter > .suite > .description {background-color:transparent;}
       body {font-size:10pt;}
-      .diagram {z-index:16;}
   body
   :coffeescript
     $ ->
