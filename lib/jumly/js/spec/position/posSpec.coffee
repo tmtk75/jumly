@@ -100,7 +100,26 @@ describe "JUMLY", ->
           margin_left = parseInt $("body").css("margin-left")
           expect(margin_left + 55).toBe diag.dst.offset().left
           expect(margin_left + 55).toBe diag.ext.offset().left
-          
+
+    describe "Top", ->
+      it "should be", ->
+        {css, diag} = setup "pos-top-321", "top:0px; top:77px"
+        pos = new JUMLY.Position.Top css:css, dst:diag.dst
+        pos.apply()
+        pos = new JUMLY.Position.Top css:css, dst:diag.ext
+        pos.apply()
+
+        margin_top = parseInt $("body").css("margin-top")
+        expect(margin_top + 77         ).toBe diag.dst.offset().top
+        expect(margin_top + 77 + 2 + 77).toBe diag.ext.offset().top
+
+        diag.css top:50
+        pos = new JUMLY.Position.Top css:css, dst:diag.dst
+        pos.apply()
+        pos = new JUMLY.Position.Top css:css, dst:diag.ext
+        pos.apply()
+        expect(margin_top + 50 + 77         ).toBe diag.dst.offset().top
+        expect(margin_top + 50 + 77 + 2 + 77).toBe diag.ext.offset().top
 
 
     xdescribe "horizontal", ->

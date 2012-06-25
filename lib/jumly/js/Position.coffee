@@ -11,6 +11,7 @@ JUMLYPosition::_coordinate = (target)->
 class JUMLYPositionRightLeft extends JUMLYPosition
 class JUMLYPositionLeftRight extends JUMLYPosition
 class JUMLYPositionLeft      extends JUMLYPosition
+class JUMLYPositionTop       extends JUMLYPosition
 
 JUMLYPositionRightLeft::apply = ->
   src = @attrs.src
@@ -30,8 +31,15 @@ JUMLYPositionLeft::apply = ->
   @_coordinate dst
   @attrs.dst.offset left:(@div.offset().left + @div.outerWidth())
 
+JUMLYPositionTop::apply = ->
+  dst = @attrs.dst
+  @_coordinate dst
+  @attrs.dst.offset top:(@div.offset().top + @div.outerHeight())
+
+
 JUMLYPosition.RightLeft = JUMLYPositionRightLeft
 JUMLYPosition.LeftRight = JUMLYPositionLeftRight
 JUMLYPosition.Left      = JUMLYPositionLeft
+JUMLYPosition.Top       = JUMLYPositionTop
 
 JUMLY.Position = JUMLYPosition
