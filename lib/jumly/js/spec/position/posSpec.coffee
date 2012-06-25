@@ -79,7 +79,6 @@ describe "JUMLY", ->
         expect(margin_left + 50 + 321          ).toBe diag.dst.offset().left
         expect(margin_left + 50 + 321 + 2 + 321).toBe diag.ext.offset().left
 
-
       it "should be", ->
         {css, diag} = setup "pos-left-110", "left:68px; width:13px; background-color:#222; height:10px"
         diag.offset left:205
@@ -90,6 +89,18 @@ describe "JUMLY", ->
         expect(205 + 50              ).toBe diag.dst.offset().left
         expect(205 + 50 + 2 + 68     ).toBe diag.dst.find(".pos-left-110-position").offset().left
         expect(205 + 50 + 2 + 68 + 13).toBe diag.ext.offset().left
+
+
+      describe "coordinate", ->
+        it "should set coordinate", ->
+          {css, diag} = setup "pos-left-coordinate-55", "left:0px; width:55px; background-color:#222; height:10px"
+          (new JUMLY.Position.Left css:css, dst:diag.dst).apply()
+          (new JUMLY.Position.Left css:css, dst:diag.ext, coordinate:diag).apply()
+
+          margin_left = parseInt $("body").css("margin-left")
+          expect(margin_left + 55).toBe diag.dst.offset().left
+          expect(margin_left + 55).toBe diag.ext.offset().left
+          
 
 
     xdescribe "horizontal", ->
