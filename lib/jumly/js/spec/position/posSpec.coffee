@@ -6,7 +6,7 @@ describe "JUMLY", ->
     setup_diagram = (css)->
       diag = new JUMLY.Diagram
       a = $("<div>").css width:100, height:50, padding:4, border:"solid 2px #e88", "background-color":"#fcc", opacity:0.77, position:"absolute"
-      b = a.clone().css "border-color":"#8e8", "background-color":"#cfc"
+      b = a.clone().css "border-color":"#8e8", "background-color":"#cfc", height:25, top:10
       c = a.clone().css width:50, height:20, "border-color":"#88e", "background-color":"#ccf"
       diag.addClass(css).append(a).append(b.append(c))
       $("body").append diag
@@ -68,8 +68,28 @@ describe "JUMLY", ->
         pos.apply()
 
         margin_left = parseInt $("body").css("margin-left")
-        expect(-margin_left + 321            ).toBe diag.dst.position().left
-        expect(               321 - (321 + 2)).toBe diag.ext.position().left
+        expect(margin_left + 321          ).toBe diag.dst.offset().left
+        expect(margin_left + 321 + 2 + 321).toBe diag.ext.offset().left
+
+        diag.css left:50
+        pos = new JUMLY.Position.Left css:css, dst:diag.dst
+        pos.apply()
+        pos = new JUMLY.Position.Left css:css, dst:diag.ext
+        pos.apply()
+        expect(50 + 321).toBe diag.dst.offset().left
+        expect(50 + 321).toBe diag.ext.offset().left
+
+
+      it "should be", ->
+        {css, diag} = setup "pos-left-110", "left:68px; width:13px; background-color:#222; height:10px"
+        diag.offset left:205
+        diag.dst.css left:50
+        pos = new JUMLY.Position.Left css:css, dst:diag.ext
+        pos.apply()
+
+        expect(205 + 50              ).toBe diag.dst.offset().left
+        expect(205 + 50 + 2 + 68     ).toBe diag.dst.find(".pos-left-110-position").offset().left
+        expect(205 + 50 + 2 + 68 + 13).toBe diag.ext.offset().left
 
 
     xdescribe "horizontal", ->

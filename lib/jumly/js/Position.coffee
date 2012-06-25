@@ -1,6 +1,7 @@
 class JUMLYPosition
   constructor: (@attrs)->
-    @div = $("<div>").addClass @attrs.css
+    @div = $("<div>").addClass(@attrs.css)
+                     .css position:"absolute"
     
 class JUMLYPositionRightLeft extends JUMLYPosition
 class JUMLYPositionLeftRight extends JUMLYPosition
@@ -22,7 +23,7 @@ JUMLYPositionLeftRight::apply = ->
 JUMLYPositionLeft::apply = ->
   dst = @attrs.dst
   dst.before @div
-  @attrs.dst.offset left:(@div.outerWidth())
+  @attrs.dst.offset left:(@div.offset().left + @div.outerWidth())
 
 JUMLYPosition.RightLeft = JUMLYPositionRightLeft
 JUMLYPosition.LeftRight = JUMLYPositionLeftRight
