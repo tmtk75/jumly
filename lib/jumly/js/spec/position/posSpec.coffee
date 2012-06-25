@@ -76,8 +76,8 @@ describe "JUMLY", ->
         pos.apply()
         pos = new JUMLY.Position.Left css:css, dst:diag.ext
         pos.apply()
-        expect(50 + 321).toBe diag.dst.offset().left
-        expect(50 + 321).toBe diag.ext.offset().left
+        expect(margin_left + 50 + 321          ).toBe diag.dst.offset().left
+        expect(margin_left + 50 + 321 + 2 + 321).toBe diag.ext.offset().left
 
 
       it "should be", ->
