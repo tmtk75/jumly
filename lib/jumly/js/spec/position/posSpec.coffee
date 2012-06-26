@@ -133,6 +133,17 @@ describe "JUMLY", ->
         expect(205 + 50 + 2 + 47 + 16).toBe diag.ext.offset().top
 
 
+      describe "coordinate", ->
+        it "should set coordinate", ->
+          {css, diag} = setup "pos-top-coordinate-55", "top:0px; height:55px; background-color:#222; width:10px"
+          (new JUMLY.Position.Top css:css, dst:diag.dst).apply()
+          (new JUMLY.Position.Top css:css, dst:diag.ext, coordinate:diag).apply()
+
+          margin_top = diag.offset().top
+          expect(margin_top + 55).toBe diag.dst.offset().top
+          expect(margin_top + 55).toBe diag.ext.offset().top
+
+
     xdescribe "horizontal", ->
       it "should be correct", ->
         $("body").append (new JUMLY.SequenceDiagramBuilder).build """
