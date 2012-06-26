@@ -109,7 +109,7 @@ describe "JUMLY", ->
         pos = new JUMLY.Position.Top css:css, dst:diag.ext
         pos.apply()
 
-        margin_top = diag.offset().top + diag.outerHeight()
+        margin_top = diag.offset().top
         expect(margin_top + 77         ).toBe diag.dst.offset().top
         expect(margin_top + 77 + 2 + 77).toBe diag.ext.offset().top
 
