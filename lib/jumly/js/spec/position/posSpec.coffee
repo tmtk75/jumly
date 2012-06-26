@@ -103,7 +103,7 @@ describe "JUMLY", ->
 
     describe "Top", ->
       it "should be", ->
-        {css, diag} = setup "pos-top-321", "top:0px; top:77px"
+        {css, diag} = setup "pos-top-77", "top:0px; top:77px"
         pos = new JUMLY.Position.Top css:css, dst:diag.dst
         pos.apply()
         pos = new JUMLY.Position.Top css:css, dst:diag.ext
@@ -120,6 +120,17 @@ describe "JUMLY", ->
         pos.apply()
         expect(margin_top + 50 + 77         ).toBe diag.dst.offset().top
         expect(margin_top + 50 + 77 + 2 + 77).toBe diag.ext.offset().top
+
+      it "should be", ->
+        {css, diag} = setup "pos-top-47", "left:68px; width:13px; top:47px; height:16px; background-color:#222; height:10px"
+        diag.offset top:205
+        diag.dst.css top:50
+        pos = new JUMLY.Position.Top css:css, dst:diag.ext
+        pos.apply()
+
+        expect(205 + 50              ).toBe diag.dst.offset().top
+        expect(205 + 50 + 2 + 47     ).toBe diag.dst.find(".pos-top-47-position").offset().top
+        expect(205 + 50 + 2 + 47 + 16).toBe diag.ext.offset().top
 
 
     xdescribe "horizontal", ->
