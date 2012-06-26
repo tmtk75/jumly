@@ -122,7 +122,7 @@ describe "JUMLY", ->
         expect(margin_top + 50 + 77 + 2 + 77).toBe diag.ext.offset().top
 
       it "should be", ->
-        {css, diag} = setup "pos-top-47", "left:68px; width:13px; top:47px; height:16px; background-color:#222; height:10px"
+        {css, diag} = setup "pos-top-47", "left:68px; width:13px; top:47px; height:16px; background-color:#222;"
         diag.offset top:205
         diag.dst.css top:50
         pos = new JUMLY.Position.Top css:css, dst:diag.ext
