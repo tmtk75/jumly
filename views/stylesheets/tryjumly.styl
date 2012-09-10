@@ -1,0 +1,165 @@
+#TryJUMLY .page-header {padding-bottom:0;margin-bottom:0;}
+#user-actions a.btn {width:57px;}
+#diagram-container > *:first-child {
+  margin:auto;
+}
+textarea#jumlipt {
+  width: 100%;
+  font-family: Monaco, 'Courier New';
+  font-size: 9pt;
+  border: 1px rgba(160,160,160,0.8) solid;
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.2);
+}
+#url-to-show .short, #url-to-show .long {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.alert.alert-block {
+  position: fixed;
+  width: 100%;
+  left: 0px;
+  margin: 0px;
+}
+.alert.alert-block.notice {
+  bottom: 0px;
+}
+#tutorial-ask {
+  position:fixed;
+  left:0;
+  top:0;
+  margin:2px;
+  bottom:auto;
+  margin-top:42px;
+}
+.tutorial .alert.alert-block {
+  visibility: hidden;
+}
+.bottombar {
+  background-color: rgba(39,39,39,1.0);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 4px;
+  color: #BFBFBF;
+}
+#tryjumly-help {
+  img {
+    border: solid 1px rgba(128,128,128,0.7);
+    box-shadow: 3px 2px 3px 2px rgba(128,128,128,0.7);
+  }
+  .modal-body {
+    padding-bottom:4px;
+  }
+  .modal-body.description {
+    padding-top:0;
+    padding-bottom:8px;
+  }
+  .modal-footer {
+    padding-top:4px;
+    padding-bottom:4px;
+  }
+}
+
+bg0 = 80
+bg1 = 128
+bg2 = 240
+_active() {
+  background-color: rgba(bg2,bg2,bg2,1.0);
+  color:#404040;
+  text-shadow:1px 1px white;
+}
+#tutorial {
+  z-index:10;
+  position:fixed;
+  bottom: 2 + 18 + 4*2px;
+  width: 520px;
+  background-color: rgba(bg0,bg0,bg0,0.5);
+  padding:0.5em;
+  border-radius:3px;
+  right:-192px;
+  opacity:0.77;
+  .welcome, .step1, .step2, .step3 {
+    background-color: rgba(bg1,bg1,bg1,0.7);
+    border-radius:4px;
+    padding:0.5em;
+    margin-bottom:2px;
+  }
+  .active {
+    _active();
+  }
+}
+.tutorial-0-0 #tutorial,
+.tutorial-1-0 #tutorial,
+.tutorial-2-0 #tutorial,
+.tutorial-3-0 #tutorial {
+  opacity:1;
+  right:-2px; 
+}
+  
+
+.top-right {
+  right:0;
+  top:0;
+  margin:4px 4px 0 0;
+}
+
+html.tutorial {
+  .instructions {
+    .instruction {
+      z-index:10;
+      background-color: rgba(bg0,bg0,bg0,0.5);
+      padding:0.5em;
+      border-radius:3px;
+      font-weight:normal;
+      p {
+        _active();
+        border-radius:4px;
+        padding:0.5em;
+        margin-bottom:1px;
+      }
+      display:none;
+      &.active {display:block;}
+    }
+  }
+  &.tutorial-1-1 {
+    textarea#jumlipt {
+      background-color: rgba(0,128,192,0.25);
+    }
+  }
+  &.tutorial-1-0 {
+    .instruction {visibility:hidden;}
+  }
+}
+
+.lightbox-background {
+  background-color:rgba(64,64,64,0.8);
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:10000;
+  .fixed.messagebox {
+    color:white;
+    font-weight:normal;
+    //text-shadow:1px 0px gray;
+    margin-top:128px;
+    .inner {
+      h1,h2,h3 {color:white;}
+      padding:1em;
+      border-radius:5px;
+      margin:auto;
+      width:512px;
+      height:128px;
+      background-color:rgba(32,32,32,1);
+      box-shadow: 3px 3px 3px rgba(16,16,16,0.5);
+    }
+  }
+}
+.unsupported {
+  display:block;
+}
+
+#disqus_thread {
+  background-color: white;
+  opacity: 0.88;
+  z-index:100;
+}

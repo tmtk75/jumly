@@ -1,0 +1,34 @@
+@import "../_commons";
+
+$c0: #527bc6;
+$c1: lighten($c0, 10%);
+$c2: lighten($c1, 10%);
+$c3: lighten($c2, 10%);
+$c4: lighten($c3, 10%);
+
+.sequence-diagram.theme-cool {
+    .object .name {
+        color: white;
+        text-shadow: rgba(0,0,0,0.8) 3px 0px 2px;
+        font-weight: bold;
+        white-space: nowrap;
+        padding: {
+            left: 0.5em;
+            right: 0.5em;
+        }
+        &:hover {
+            color: complement($c0);
+        }
+    }
+    .object .name, .occurrence {
+        background-color: $c0;
+        @include border_radius(4px);
+        white-space: nowrap;
+    }
+    .message .name {
+        &:hover {
+            color: invert($c0);
+        }
+    }
+}
+

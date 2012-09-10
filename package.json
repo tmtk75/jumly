@@ -1,0 +1,39 @@
+{
+  "name": "jumly",
+  "version": "0.1.2",
+  "author": "Tomotaka Sakuma",
+  "description": "Library to render UML diagram",
+  "engines": {
+    "node": "0.6.19"
+  },
+  "dependencies": {
+    "underscore": "*",
+    "coffee-script": "1.3.3",
+    "knockout": "2.1.0",
+    "jwerty": "0.3.1",
+    "express": "2.5.11",
+    "jade": "0.27.0",
+    "connect-assets": "2.2.1",
+    "less": "1.3.0",
+    "markdown-js": "0.0.3",
+    "stylus": "0.28.2",
+    "js-yaml": "1.0.2"
+  },
+  "devDependencies": {
+    "canvas": "*",
+    "node-jquery": "*",
+    "jasmine-node": "*",
+    "muffin": "*",
+    "temp": "*",
+    "glob": "*",
+    "path": "*",
+    "q": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmtk75/jumly.git"
+  },
+  "directories": {
+    "lib": "./lib/jumly"
+  }
+}

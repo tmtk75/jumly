@@ -1,0 +1,59 @@
+.border_radius(@pd: 2px) {
+     -moz-border-radius: @pd;
+  -webkit-border-radius: @pd;
+       -o-border-radius: @pd;
+          border-radius: @pd;
+}
+.transform_rotate(@deg: 45deg) {
+     -moz-transform: rotate(@deg);
+  -webkit-transform: rotate(@deg);
+       -o-transform: rotate(@deg);
+          transform: rotate(@deg);
+}
+
+@black_half: rgba(0, 0, 0, 0.33);
+.box_shadow {
+  -webkit-box-shadow: 10px 5px 5px @black_half;
+     -moz-box-shadow: 10px 5px 5px @black_half;
+       -o-box-shadow: 10px 5px 5px @black_half;
+          box-shadow: 10px 5px 5px @black_half;
+}
+.box_shadow2 {
+  -webkit-box-shadow: 5px 2.5px 2.5px @black_half;
+     -moz-box-shadow: 5px 2.5px 2.5px @black_half;
+       -o-box-shadow: 5px 2.5px 2.5px @black_half;
+          box-shadow: 5px 2.5px 2.5px @black_half;
+}
+.text_shadow {
+  -text-shadow: rgba(0,0,0,0.33) 1px 0px 0px;
+  -text-shadow: 1px 0px 0px rgba(0,0,0,0.33);
+  -text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+}
+.centering {
+  margin-left: auto;
+  margin-right: auto;
+}
+@unimportant_z_index: 0;
+.unimportant {
+  z-index: @unimportant_z_index;
+}
+@primary_border_width: 2px;
+@primary_border_color: gray;
+@primary_border_style: solid;
+.primary_border {
+  border: @primary_border_width @primary_border_style @primary_border_color;
+}
+@golden_ratio: (1 + 2.2360679)/2;
+@silver_ratio: (1.41421356);
+
+
+// I think helvetical is the best... :-)
+//@import url(http://fonts.googleapis.com/css?family=Numans|Carme|Michroma|Varela|Open+Sans:400,800);
+/*
+font-family: 'Numans', sans-serif;
+font-family: 'Questrial', sans-serif;
+font-family: 'Carme', sans-serif;
+font-family: 'Michroma', sans-serif;
+font-family: 'Varela', sans-serif;
+font-family: 'Open Sans', sans-serif;
+*/

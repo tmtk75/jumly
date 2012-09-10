@@ -1,0 +1,121 @@
+@import "../_object";
+@import "../_relationship";
+
+.component-diagram {
+    $min_width: 88*2;
+    $min_height: $min_width*5/8;
+    $r: 16;
+
+    .component {
+        > .frame {
+            padding-top: 0.5em;
+            padding-left: 1em;
+            @include primary_border;
+            min-width: #{$min_width}px;
+            min-height: #{$min_height}px;
+            @include box_shadow;
+            margin-left: #{$r*2 + $primary_border_width}px;  // Space to put interfaces
+            margin-right: #{$r*2 + $primary_border_width}px;  // Space to put interfaces
+            background-color: white;
+            -webkit-border-radius: 4px;
+            > .stereotype {
+                text-align: center;
+            }
+            > .name {
+                text-align: center;
+                font-weight: bold;
+            }
+            > .icon {
+                $t: $r;
+                width: #{$t*8/5}px;
+                height: #{$t*8/5}px;
+                margin-left: auto;
+                margin-right: 1em;
+                @include primary_border;
+                @include box_shadow2;
+                &:before, &:after {
+                    content: ' ';
+                    position: absolute;
+                    width: #{$t}px;
+                    height: #{$t/2}px;
+                    @include primary_border;
+                    margin-top :  #{$primary_border_width}px;
+                    margin-left: -#{$t/2 + $primary_border_width}px;
+                    background-color: white;
+                }
+                &:after {
+                    margin-top: #{$t*8/5 - $t/2 - $primary_border_width*3}px;
+                }
+            }
+        }
+        .provided-interface, .required-interface {
+            position: absolute;
+            -z-index: -1;  // ignore in order to show whole of name.
+            > .icon {
+                width: #{$r*2}px;
+                height: #{$r + $primary_border_width*2}px;
+                > * {
+                    position: absolute;
+                    @include box_shadow;
+                }
+                &:before, &:after {  // 'after' is line.
+                    content: ' ';
+                    position: absolute;
+                    width: #{$r}px;
+                }
+                &:before {
+                    height: #{$r}px;
+                    @include box_shadow;
+                }
+                &:after {
+                    border-top: #{$primary_border_width}px $primary_border_style $primary_border_color;
+                    margin-top: #{$r/2}px;
+                    margin-left: #{$r+$primary_border_width}px;
+                }
+            }
+            &.to-right .name {
+                margin-left: 1em;
+            }
+        }
+        .provided-interface > .icon {
+            &:before {
+                @include primary_border;
+                background-color: white;
+                -webkit-border-radius: #{$r}px;
+            }
+        }
+        .required-interface > .icon {  // 'U' shape icon
+            &:before {
+                border-right: #{$primary_border_width}px $primary_border_style $primary_border_color;
+                border-top: #{$primary_border_width}px $primary_border_style $primary_border_color;
+                border-bottom: #{$primary_border_width}px $primary_border_style $primary_border_color;
+                -webkit-border-top-right-radius   : #{$r}px;
+                -webkit-border-bottom-right-radius: #{$r}px;
+            }
+        }
+        .port {
+            display: none;
+            > .icon {
+                width: #{$r*3/4}px;
+                height: #{$r*3/4}px;
+                @include primary_border;
+            }
+        }
+    }
+    .component {
+        $mg: 10%;
+        &:nth-child(odd) {
+            float: left;
+            margin-right: $mg;
+            margin-left: $mg;
+            margin-top: 8px;
+        }
+        &:nth-child(even) {
+            float: right;
+            margin-left: $mg;
+            margin-right: $mg;
+            margin-top: 24px;
+        }
+    }
+}
+

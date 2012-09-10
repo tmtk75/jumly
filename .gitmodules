@@ -1,0 +1,9 @@
+[submodule "vendor/slippy"]
+	path = vendor/slippy
+	url = https://github.com/Seldaek/slippy.git
+[submodule "vendor/node-canvas"]
+	path = vendor/node-canvas
+	url = https://github.com/LearnBoost/node-canvas
+[submodule "public/bootstrap"]
+	path = public/bootstrap
+	url = https://github.com/twitter/bootstrap.git

@@ -1,0 +1,18 @@
+:less
+  .content h1,.content h2,.content h3,.content h4,.content h5,.content h6 {font-family:Helvetica,sans-serif;}
+  ul#table-of-contents {list-style:none; margin-left:2px;margin-top:40px;}
+  li.h2 {margin-left:1em;}
+  li.h3 {margin-left:1.8em;}
+include _navbar
+.row-fluid
+  .span2
+    ul#table-of-contents
+      :coffeescript
+        $ ->
+          p = $("#table-of-contents") 
+          $("h1,h2,h3", $(".content")).each (i, e)->
+            a = $("<a>").attr("href", "#" + e.id).html($(e).text())
+            p.append $("<li>").addClass(e.nodeName.toLowerCase()).append a
+  .span10.content
+    h1 Reference <small>#{VERSION}</small>
+    != markdown("views/reference.md")

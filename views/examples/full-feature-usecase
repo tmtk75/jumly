@@ -1,0 +1,11 @@
+@actor "An user": use:[1,2]
+@actor "An employee"
+@actor "A manager"
+@usecase 2:"Close editing file."
+@usecase 1:"Open existing file."
+@diagram = @_diagram  #WORKAROUND: Need refactoring for usecase builder.
+@afterCompose (e, d) ->
+    d.find(".relationship").attr(title:"relationship").twipsy(trigger:'manual',placement:"below").twipsy('show')
+    d.find(".actor:eq(1)").attr(title:"actor").twipsy(trigger:'manual',placement:"above").twipsy('show')
+    d.find(".usecase:eq(1)").attr(title:"usecase").twipsy(trigger:'manual',placement:"above").twipsy('show')
+    d.find(".system-boundary").attr(title:"system-boundary").twipsy(trigger:'manual',placement:"below").twipsy('show')

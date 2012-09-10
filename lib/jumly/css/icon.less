@@ -1,0 +1,34 @@
+@import "commons";
+/*-------- icon.css --------*/
+.icon-squaresize {
+	width : 24px;
+	height: 24px;
+}
+.icon {
+  @bgcolor: gray;
+  .square {
+    .icon-squaresize;
+    margin-left: 6px;
+    position: relative;
+    background-color: @bgcolor;
+    .border_radius;
+    &.cross {
+      width: 4px;
+      margin-left: 4px;
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      .transform_rotate(90deg);
+      background-color: @bgcolor;
+    }
+  }
+  .stop {
+    .icon-squaresize;
+    .square.cross {
+      .transform_rotate;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+!!! 5
+%html
+  %head
+    %title JUMLY How to work
+    = haml :"_head.html"
+    = haml :"_bootstrap.html"
+    %link{type:'text/css', rel:'stylesheet', href:"#{$css_dir}/_sequence.css"}
+    %link{type:'text/css', rel:'stylesheet', href:"#{$css_dir}/_usecase.css"}
+  %body
+    /
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            %h3
+              %a.brand{href:"/#"}JUMLY
+            %ul.nav
+              %li
+                %a{href:"/TryJUMLY"}TryJUMLY
+            %form.navbar-search.pull-right
+              %input.search-query{type:"text",placeholder:"Search"}
+    .container
+      .row
+        .span12
+          %script{type:"text/jumly+usecase"}
+            :plain
+              @boundary "JUMLY", ->
+                @usecase 1:"Render UML diagram in HTML document"
+                @usecase 2:"Share diagrams"
+                @boundary "Sequence Diagram", ->
+                  @usecase r3:"Render sequence diagram"
+                @actor "User": use:[1]
+                @actor "Employee": extend:[user, r3, 2]
+                @actor "Manager": extend:[user]
+              @before (e, d)->
+                d.addClass("layout-a").css height:320
+          %script{type:"text/jumly+sequence"}
+            :plain
+              @found "Browser", ->
+                @message "load", "JUMLY", ->
+                  @message "addWindowListener 'DOMContentLoaded'", "DOMWindow"
+                @found "JUMLY", ->
+                  @message "select &lt;script> nodes", "HTMLHtmlElement"
+                  @loop ->
+                    @message "evalHTMLScriptElement", ->
+                      @message "know the type", "HTMLScriptElement"
+                      @message "build", ->
+                        @create "Diagram"
+                        @message "compose", diagram
+              @before (e,d)->
+                htmlhtmlelement.css "margin-left":-20
+                htmlscriptelement.css "margin-left":-90, "margin-top":70
+                diagram.css "margin-left":-140
+              @after (e,d)->
+                tip = (e,m,p)-> d.find(e).attr(title:m,"data-trigger":"manual","data-placement":p).tooltip("show")
+                tip jumly,                  "This is me", "left"
+                tip ".occurrence:eq(3)",    "Actually this called by DOMWindow", "left"
+                tip ".message:eq(0)",       "with &lt;script>", "bottom"
+                tip ".message:eq(2) .name", "for having type 'text/jumly'", "top"
+                tip ".message:eq(5) .name", "with DiagramBuilder", "right"
+
+      /= haml :"_copyright.html"

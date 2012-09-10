@@ -1,0 +1,40 @@
+- require "./views/demodata.rb"
+!!! 5
+%html
+  %head
+    %title JUMLY 
+    = haml :"_head.html"
+    - [:monotone, :pop, :cool].each do |e|
+      %link{rel: "stylesheet", type: "text/css", href: "#{$css_dir}/theme/#{e}.css"}
+  %body
+    = haml :_topbar
+
+    /================================================================================================
+    .container
+      %section#Demo_sequence_diagram
+        .page-header
+          %h1 Demo <small>sequence diagram</small>
+        .row
+          .span16.columns
+            %h2 Basic sample
+            %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:httpreqres]
+
+          /.span16.columns
+          /  %h2 Applying theme
+          /  %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:applytheme]
+
+          /.span16.columns
+          /  %h2 OSGi
+          /  %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:osgi]
+          /  <img src="http://netbeams.googlecode.com/svn/branches/marcello/persistence/docs/marcello-dissertation/diagrams/From-OSGi-DSP-Platform-Start-to-All-Components-Sequence-Diagram.png"/>
+
+          .span16.columns
+            %h2 Restaurant
+            %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:restaurant]
+                
+          .span16.columns
+            %h2 Order
+            %script{type:"text/jumly+sequence"}= Jumly::Demo::Sequence::COFFEE[:order]
+            
+            <img src="http://i.msdn.microsoft.com/dynimg/IC267823.png"/>
+

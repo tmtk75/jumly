@@ -1,0 +1,59 @@
+/*
+ * ORANGE: #ff5900, rgba(255,  89,   0, 1.0)
+ * BLUE  : #0069D6, rgba(  0, 105, 214, 1.0)
+ * RED   : #c5000b, rgba(255,   0,  11, 1.0)
+ * GREEN : #008000, rgba(  0, 128,   0, 1.0)
+ * YELLOW: #ffd320, rgba(255, 211,  32, 1.0)
+ */
+// Soft RGB
+RED    = #c5000b
+GREEN  = #008000
+BLUE   = #0084d1
+ORANGE = #ff5900
+YELLOW = #ffd320
+
+/*
+font-family: 'Hammersmith One', sans-serif;
+font-family: 'Bowlby One', sans-serif;
+font-family: 'Coda', sans-serif;
+*/
+//@import url(http://fonts.googleapis.com/css?family=Hammersmith+One|Droid+Sans+Mono|Numans|Open+Sans:400,600|Nunito|Droid+Sans|Cabin|Arimo|Nobile|Bowlby+One+SC);
+//@import url(http://fonts.googleapis.com/css?family=Hammersmith+One|Bowlby+One|Coda:800);
+
+// Color Scheme: http://colorschemedesigner.com/#3q21TMLOcw0w0
+PRIMARY_COLOR   = #049cd9
+SECONDARY_COLOR = #ff8c00
+
+// Majar Ratios
+GOLDEN_RATIO = 100*(1+2.2360679)/2;
+SILVER_RATIO = 100*1.4142
+//GOLDEN_R = GOLDEN_RATIO %
+//SILVER_R = SILVER_RATIO %
+
+border-radius(n = 4px) {
+    -webkit-border-radius: n;
+       -moz-border-radius: n;
+         -o-border-radius: n;
+            border-radius: n;
+}
+
+// Image color of this site.
+site_color_0(_from = PRIMARY_COLOR, _to = darken(PRIMARY_COLOR, 10%)) {
+    color: white;
+    background-color: transparent;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+    line-height: 100%;
+    background-image: -webkit-gradient(linear, left top, right top, from(_from), to(_to));
+    //background-image: -webkit-linear-gradient($_from, $_to);
+
+}
+bg_accsent(_c = SECONDARY_COLOR) {
+    site_color_0(_c, darken(_c, 7%))
+}
+
+/*
+ * JUMLY Web Framework
+ */
+.align-left   {text-align: left;}
+.align-center {text-align: center;}
+.align-right  {text-align: right;}

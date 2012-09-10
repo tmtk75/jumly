@@ -1,0 +1,210 @@
+!!! 5
+html
+  head
+    - bootstrap_dir = "bootstrap/docs/assets/"
+    meta(charset='utf-8')
+    meta(name="viewport",content="width=device-width,initial-scale=1.0")
+    link(type='text/css',rel='stylesheet',href="#{bootstrap_dir}/css/bootstrap.css")
+    link(rel="stylesheet",href="docs.css")
+    link(rel="stylesheet",href="tryjumly.css")
+    link(rel="stylesheet",href="3rd-party.css")
+    != css('jumly')
+    script(src="javascripts/jquery.js")
+    script(src="javascripts/jquery.tmpl.min.js")
+    script(src="javascripts/jquery.cookie.js")
+    script(src="javascripts/jquery.typing.min.js")
+    script(src="javascripts/jwerty.js")
+    script(src="javascripts/coffee-script.js")
+    script(src="javascripts/knockout.js")
+    script(src="#{bootstrap_dir}js/bootstrap-alert.js")
+    script(src="#{bootstrap_dir}js/bootstrap-tooltip.js")
+    script(src="#{bootstrap_dir}js/bootstrap-modal.js")
+    script(src="#{bootstrap_dir}js/bootstrap-dropdown.js")
+    != js('jumly')
+    title!=title
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          h3 <a class="brand" href="/#">JUMLY</a>
+          - function _sr(n, t) {return "<a id='sample-" + n + "' data-bind='click:want.toRequireSampleJumlipt'>" + t + "</a>";}
+          - function _tr(n0, n1, t) {return "<a id='tutorial-" + n0 + "-" + n1 + "' data-step='" + n0 + "' data-sub='" + n1 + "' data-bind='click:want.toRequireJumliptOfTutorial'>" + t + "</a>";}
+          ul.nav
+            li!= _sr(1, i18n._('Example-1'))
+            li!= _sr(2, i18n._('Example-2'))
+            li!= _sr(3, i18n._('Example-3'))
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
+               = i18n._('Other examples')
+                b.caret
+              ul.dropdown-menu
+                li!= _sr(4, i18n._('Shorten w/ bit.ly'))
+                li!= _sr(5, i18n._("Using <img>"))
+                li.divider
+                - [1,2,3,4].forEach(function(e) {
+                  li!= _tr("data1", e-1, i18n._('Tutorial step') + "1-" + e)
+                - })
+                li.divider
+                - [1,2,3,4].forEach(function(e) {
+                  li!= _tr("data2", e-1, i18n._('Tutorial step') + "2-" + e)
+                - })
+                li.divider
+                li!= _tr("data3", 0, i18n._('Tutorial step') + "3-1")
+                //li.divider
+                //li
+                  a(href="/Share?t=url&b=/examples/full-feature-sequence") Full feature sequence
+            li
+              a(href="/Reference.html")= i18n._('Reference')
+            li
+              a(href="#",data-bind="click:askTutorial")= i18n._('Tutorial')
+            li.dropdown("data-dropdown"="dropdown")
+              a.dropdown-toggle("data-toggle"="dropdown")
+                = i18n._('Languages')
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="tryjumly;en")= i18n._('lang.english')
+                li
+                  a(href="tryjumly;ja")= i18n._('lang.japanese')
+            li
+              a(href="#tryjumly-help",data-toggle='modal')= i18n._('Help')
+            li
+              a(href="#tryjumly-feedback",data-toggle='modal')= i18n._('Feedback')
+          //form.navbar-search.pull-right
+            input.search-query(type="text",placeholder="Search")
+    .container-fluid
+      .page-header(style="margin-top:40px")
+        h2 Try JUMLY
+          small= i18n._('Sandbox for sequence diagram')
+      .row
+        .span1#user-actions
+          a.btn#btnToShowUrl("data-toggle"="modal",href="#url-to-show")
+            i.icon-share
+            <br>
+            =i18n._('Share')
+          a.btn("data-toggle"="modal",href="#jumly-snippet")
+            i.icon-tag
+            <br>
+            =i18n._('Snippet')
+          a.btn("data-bind"="click:want.toCommentOnDisqus")
+            i.icon-comment
+            <br>
+            =i18n._('Comment')
+        .span5
+          //-# DISQUS Thread
+          #disqus_thread("data-bind"="visible:disqusOpened()")
+
+          textarea#jumlipt("data-bind"="value:jumly.jumlipt,valueUpdate:'afterkeydown'",rows=26,placeholder="#{i18n._('Write JUMLIPT here, or click one of examples.')}")
+          #3rd-party-buttons
+            <div class="fb-like" data-send="true" data-layout="button_count" data-width="0" data-show-faces="false"></div>
+            <a style='margin-left:-38px;' href="#" onclick="Evernote.doClip({contentId:'diagram-container',providerName:'Try JUMLY'}); return false;"><img src="http://static.evernote.com/article-clipper.png" alt="Clip to Evernote"/></a>
+            <div class="g-plusone" data-size="medium" data-href="http://jumly.heroku.com/TryJUMLY"></div>
+            <a style='margin-left:-20px;' href="https://twitter.com/share" class="twitter-share-button" data-via="jumly1" data-related="jumly1" data-hashtags="jumly">Tweet</a>
+            <script type="text/javascript" src="http://growbutton.com/javascripts/button.js?apikey=0d26ac70-3a17-012f-064b-12313f00aced&shape=rectangle"></script>
+        .span6.columns
+          #diagram-container("data-bind"="jumly:diagram,success:jumly.success,error:jumly.error")
+          include _tutorial
+    .bottombar
+      |copyright...
+      |JUMLY v#{VERSION}
+    
+    .lightbox-background.hide("data-bind"="css:cssStylesOfBrowser")
+      .fixed.messagebox
+        .inner
+          h2!= i18n._('Caution.')
+          p!= i18n._('caution.browser.d')
+
+    .alert.alert-block.alert-error.notice.hide("data-bind"='template:{name:"alert-error",data:jumly.errorReason}')
+    script#alert-error(type="text/html")
+      h3 Error
+      p
+        strong type: ${type}
+        ${message}
+      p
+        strong message:
+        span.message ${cause}
+
+    .alert.alert-block.alert-success.notice.hide
+      a.close x
+      h3.alert-heading Success
+      Rendering was succeeded.
+
+    #auto-save-message.alert.alert-info.hide(style="position:fixed;left:2px;top:42px;")
+      .alert-heading!= i18n._('notify.save.d')
+
+    #url-to-show.modal.hide("data-bind"="template:{name:'show-URL',data:urlToShare}")
+    script#show-URL(type="text/html")
+      .modal-header
+        h2!= i18n._('show-url.h')
+      .modal-body
+        h3!= i18n._('show-url.short.h')
+        .short
+          a(href='${short}',target='shortURL') ${short}
+        h3!= i18n._('show-url.raw.h')
+        .long
+          a(href='${long}',target='rawURL') ${long}
+      .modal-footer
+        a.btn.cancel!= i18n._('show-url.btn.close.d')
+    
+    #jumly-snippet.modal.hide("data-bind"="template:{name:'show-snippet',data:jumly}")
+    script#show-snippet(type="text/html")
+      .modal-header
+        h2!= i18n._('show-snippet.h')
+      .modal-body!= i18n._('show-snippet.d')
+        textarea(style="width:100;",rows=16,readonly="")
+      .modal-footer
+        a.btn.cancel!= i18n._('show-snippet.btn.close.d')
+
+    #tryjumly-help.modal.hide
+      .modal-body
+        img(src="images/TryJUMLY-overview.png",width="100%")
+      .modal-body.description!= i18n._('help.d')
+      .modal-footer
+        a.btn.cancel!= i18n._("help.btn.close.d")
+
+    #tryjumly-feedback.modal.hide
+      .modal-header
+        h3!= i18n._('feedback.h')
+        != i18n._('feedback.d')
+      .modal-body
+        dl
+          dt Twitter
+          dd
+            a(href="http://twitter.com/#!/jumly1",target="twitter") @jumly1
+          dt Gmail
+          dd
+            a(href="mailto:jumly2gmail.com",target="gmail") jumly2@gmail.com
+          dt github issue
+          dd
+            a(href="https://github.com/tmtk75/jumly/issues",target="github.com") github.com/tmtk75/jumly
+      .modal-footer
+        a.btn.cancel Cancel
+        
+    // Facebook Like button
+    #fb-root
+    
+    :coffeescript
+      #/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      disqus_shortname = 'jumly'; #// required: replace example with your forum shortname
+      #/* * * DON'T EDIT BELOW THIS LINE * * */
+      dsq = document.createElement('script')
+      dsq.type = 'text/javascript'
+      dsq.async = true
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js'
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+
+  - js_dir = "javascripts"
+  script(src="#{js_dir}/btn.js")
+  script !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  script(src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js',type='text/javascript')
+  script(type='text/javascript',charset='utf-8') tfb.account='jumly1';tfb.label='follow-me';tfb.color='#404040';tfb.side ='r';tfb.top=136;tfb.showbadge();
+  script(src="http://static.evernote.com/noteit.js")
+  script(src="#{js_dir}/base64.js",type="text/javascript")
+  script(src="#{js_dir}/bitly.coffee",type="text/coffeescript")
+  script(src="#{js_dir}/TryJUMLY.Tutorial.coffee",type="text/coffeescript")
+  script(src="#{js_dir}/TryJUMLY.utils.coffee",type="text/coffeescript")
+  script(src="#{js_dir}/TryJUMLY.Tutorial.sample.coffee",type="text/coffeescript")
+  //:coffeescript
+  //  JUMLY.TryJUMLY.lang = "#{i18n.ext}"
+  script(src="#{js_dir}/tryjumly.coffee",type="text/coffeescript")
+
