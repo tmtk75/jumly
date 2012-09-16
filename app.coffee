@@ -1,4 +1,9 @@
 #!/usr/bin/env coffee
+express = require "express"
+jade = require "jade"
+
+app = 
+###
 fs = require "fs"
 express = require "express"
 assets = require "connect-assets"
@@ -68,3 +73,4 @@ if process.env.NODE_ENV is "heroku"
   port = process.env.PORT
 app.listen port, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env
+###
