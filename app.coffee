@@ -2,15 +2,7 @@
 express = require "express"
 jade = require "jade"
 assets = require "connect-assets"
-
-jumly = (body, attrs)->
-  type = attrs.type or "sequence"
-  body = body.replace /\\n/g, '\n'
-  js = body.replace(/\\/g, '\\\\').replace /\n/g, '\\n'
-  """<script type="text/jumly+#{type}">\\n#{js}</script>"""
-
-jade.filters.jumly = jumly
-
+require "jumly-jade"
 
 app = express()
 app.set "view engine", "jade"

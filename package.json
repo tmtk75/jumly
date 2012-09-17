@@ -26,7 +26,8 @@
     "temp": "0.4.0",
     "glob": "3.1.12",
     "path": "0.4.9",
-    "q": "0.8.8"
+    "q": "0.8.8",
+    "jumly-jade": "*"
   },
   "repository": {
     "type": "git",
