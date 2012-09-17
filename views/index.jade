@@ -1,5 +1,7 @@
 extends layout
 block content
+  !=css('jumly')
+  !=js('jumly')
   .container-fluid
     .row-fluid
       .span2
@@ -14,14 +16,20 @@ block content
             li Why you use JUMLY
       .span10
         h1 What's JUMLY?
-        p JUMLY is a JavaScript library, UML diagram rendering engine.
-        p Using JUMLY, you can easily embed UML diagram on your HTML document.  
-        p All you need are just two in order to use JUMLY.
+        :jumly(type=sequence)
+          @found "You", ->
+            @message "Think", ->
+              @message "Write your idea", "JUMLY", ->
+                @create "Styled Node"
+        p
+          | JUMLY is a JavaScript library, UML diagram rendering engine.
+          | Using JUMLY, you can easily embed UML diagram on your HTML document.  
+          | All you need are just two in order to use JUMLY.
         ul
           li Text editor you get used to use.
           li Modern browser like WebKit-base brwoser and Opera.<br>(now planning it works on other browsers, especially Firefox.)
 
-        h1 did you have these experiences?
+        h1 Did you have these experiences?
         dl
           dt To do a lot
           dd

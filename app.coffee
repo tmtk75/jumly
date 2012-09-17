@@ -1,10 +1,21 @@
 #!/usr/bin/env coffee
 express = require "express"
 jade = require "jade"
+assets = require "connect-assets"
+
+jumly = (body, attrs)->
+  type = attrs.type or "sequence"
+  body = body.replace /\\n/g, '\n'
+  js = body.replace(/\\/g, '\\\\').replace /\n/g, '\\n'
+  """<script type="text/jumly+#{type}">\\n#{js}</script>"""
+
+jade.filters.jumly = jumly
+
 
 app = express()
 app.set "view engine", "jade"
 app.use express.static "#{__dirname}/views/static"
+app.use assets src:"lib/jumly"
 
 app.get "/", (req,res)->
   res.render "index"
