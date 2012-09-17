@@ -33,10 +33,10 @@ block content
           dd
             | There was something you don't like at diagram which application generated.
             | For instance, color, size, line width, font, and so on.
-          input#did_you_have_these_expr_more(type="checkbox","data-bind"="checked:more_did_you_have_these_expr",style="display:none")
-          label(for="did_you_have_these_expr_more")
+          input#read_more_did_you_have(type="checkbox","data-bind"="checked:read_more.did_you_have",style="display:none")
+          label(for="read_more_did_you_have")
             a More...
-          .more("data-bind"="visible:more_did_you_have_these_expr")
+          .more("data-bind"="visible:read_more.did_you_have")
             dt What changed?
             dd Couldn't understand difference b/w old diagram and updated one.
             dt Cannot view
@@ -53,10 +53,10 @@ block content
           dd You need only a web browser and a text editor you get used to.
           dt Fast for everything
           dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.
-          input#why_you_use_jumly_more(type="checkbox","data-bind"="checked:more_why_you_use_jumly",style="display:none")
-          label(for="why_you_use_jumly_more")
+          input#read_more_why_you_use_jumly(type="checkbox","data-bind"="checked:read_more.why_you_use_jumly",style="display:none")
+          label(for="read_more_why_you_use_jumly")
             a More...
-          .more("data-bind"="visible:more_why_you_use_jumly")
+          .more("data-bind"="visible:read_more.why_you_use_jumly")
             dt High quality
             dd You can get keen designed diagrams, especially on MacOSX
             dt Concentrative
@@ -71,4 +71,10 @@ block content
             dd
               | Now the size of script is 56KB, and the size of stylesheet is 16KB.
               | They are relatively lighter than the UML modeling tools =)
-            
+  :coffeescript
+    viewModel =
+      read_more:
+        why_you_use_jumly: ko.observable false
+        did_you_have: ko.observable false
+    ko.applyBindings viewModel, document.body
+
