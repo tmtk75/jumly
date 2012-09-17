@@ -16,6 +16,8 @@
     "jwerty": "0.3.1",
     "express": "3.0.0rc4",
     "jade": "0.27.0",
+    "jumly-jade": "*",
+    "jade-filters": "*",
     "connect-assets": "2.2.1",
     "markdown-js": "0.0.3",
     "stylus": "0.28.2",
@@ -26,8 +28,7 @@
     "temp": "0.4.0",
     "glob": "3.1.12",
     "path": "0.4.9",
-    "q": "0.8.8",
-    "jumly-jade": "*"
+    "q": "0.8.8"
   },
   "repository": {
     "type": "git",

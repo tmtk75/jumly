@@ -3,6 +3,7 @@ express = require "express"
 jade = require "jade"
 assets = require "connect-assets"
 require "jumly-jade"
+require "jade-filters"
 
 app = express()
 app.set "view engine", "jade"
