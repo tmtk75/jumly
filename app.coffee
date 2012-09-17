@@ -2,7 +2,16 @@
 express = require "express"
 jade = require "jade"
 
-app = 
+app = express()
+app.set "view engine", "jade"
+app.use express.static "#{__dirname}/views/static"
+
+app.get "/", (req,res)->
+  res.render "index"
+
+app.listen port = 3000
+console.log "Listening at #{port}"
+
 ###
 fs = require "fs"
 express = require "express"

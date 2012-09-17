@@ -17,6 +17,13 @@ header   = """
 #option "-w", "--watch", "How do I specify argument?"
 
 
+task "watch", "watch all", ->
+  invoke "css"
+
+task "css", "compile *.styl and watch them", ->
+  require("child_process").exec "stylus -w views -o views/static", (err,stdout,stderr)->
+    console.log err, stdout, stderr
+
 task "compile", "compile *.coffee", ->
   muffin.run
     files: ["./lib/jumly/js/*.coffee"]
@@ -60,4 +67,3 @@ task "spec::position", "print command line to run spec::position", ->
 
 task "spec::legacy", "print command line to run legacy spec::legacy", ->
   console.log "#{cmd}/legacy"
-

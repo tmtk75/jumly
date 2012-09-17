@@ -1,31 +1,9 @@
-!!!
-html
+doctype 5
+html(lang="en")
   head
-    title #{title}
     meta(charset='utf-8')
     meta(name="viewport", content="width=device-width,initial-scale=1.0")
-    link(rel='stylesheet', href='/bootstrap/docs/assets/css/bootstrap.css')
-    link(rel='stylesheet', href="docs.css")
-    link(rel="stylesheet", href="sh.css")
-    != css('jumly')
-    :less
-      .syntaxhighlighter { overflow: hidden !important; font-size: 10pt !important; }
-      .syntaxhighlighter .toolbar { display: none; }
-      section {margin-bottom:4em;}
-      #Whats_JUMLY .diagram {width:338px;margin-left:auto;}
-      #Getting_Started .diagram {margin:5em auto 0 auto;}
-      .center {text-align:center;}
-    script(src='/javascripts/jquery.js')
-    script(src='/javascripts/coffee-script.js')
-    script(src="/javascripts/knockout.js")
-  body!= body
-  script(src="/javascripts/syntaxhighlighter/scripts/shCore.js")
-  script(src="/javascripts/syntaxhighlighter/scripts/shBrushJScript.js")
-  script(src="/javascripts/syntaxhighlighter/scripts/shBrushXml.js")
-  != js('jumly')
-  :coffeescript
-    $ ->
-      SyntaxHighlighter.config.clipboardSwf = '/javascripts/syntaxhighlighter/scripts/clipboard.swf'
-      SyntaxHighlighter.config.toolbar = false
-      SyntaxHighlighter.all()
+    link(rel='stylesheet', href="styles.css")
+  body
+    block content
 
