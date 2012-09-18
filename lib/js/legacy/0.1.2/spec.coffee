@@ -1,2 +1,0 @@
-#= require JUMLYHTMLElementSpec
-#= require sequenceSpec

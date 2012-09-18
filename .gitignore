@@ -1,4 +1,4 @@
 .project
 node_modules
-public/*.css
+views/static/*.css
 *.swp
