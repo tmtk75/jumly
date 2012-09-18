@@ -5,12 +5,12 @@ html(lang="en")
     meta(name="viewport", content="width=device-width,initial-scale=1.0")
     link(rel='stylesheet', href="styles.css")
     script(src='coffee-script.js')
+    script(src='jquery.js')
+    script(src="knockout.js")
   body
     block content
   :coffeescript
     delete window.require  # workaround
-  script(src='jquery.js')
-  script(src="knockout.js")
   script(src='syntaxhighlighter/scripts/shCore.js')
   script(src='syntaxhighlighter/scripts/shBrushJScript.js')
   script(src='syntaxhighlighter.js')
