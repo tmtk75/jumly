@@ -7,6 +7,10 @@ html(lang="en")
     script(src='jquery.js')
     script(src='coffee-script.js')
     script(src="knockout.js")
-   body
+  body
     block content
-
+  :coffeescript
+    delete window.require  # workaround
+  script(src='syntaxhighlighter/scripts/shCore.js')
+  script(src='syntaxhighlighter/scripts/shBrushJScript.js')
+  script(src='syntaxhighlighter.js')
