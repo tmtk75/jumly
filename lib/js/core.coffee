@@ -1,10 +1,11 @@
-## Reserved namespace
-if window.JUMLY then throw new Error "JUMLY already exists."
-window.JUMLY = {}
-JUMLY = window.JUMLY
+JUMLY = {}
+exportee = JUMLY
 
 _factories = (name, fact)-> _factories[name] = factory:fact
+
 JUMLY.def = (name, type)-> _factories name, (_, opts)-> new type _, opts
+
+
 jumly = (arg, opts) ->
   if (typeof arg is "object" && !arg.type)
     mapJqToJy = (arg) ->
@@ -146,4 +147,9 @@ JUMLY.Preferences = (a)->
 JUMLYPreferences.values =
   "document.id.validation.enable": false
 
-exports.JUMLY = JUMLY
+if typeof module != 'undefined' and module.exports
+  module.exports = exportee
+else
+  window.JUMLY = exportee
+  window.require = (name)->
+    exportee[name] or exportee
