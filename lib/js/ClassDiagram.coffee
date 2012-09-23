@@ -1,15 +1,16 @@
 ##
-JUMLY = window.JUMLY
-class JUMLYClassDiagram extends JUMLY.Diagram
+Diagram = require "./Diagram"
 
-JUMLYClassDiagram::member = (kind, clz, normval)->
+class ClassDiagram extends Diagram
+
+ClassDiagram::member = (kind, clz, normval)->
   holder = clz.find(".#{kind}s")
   $(normval["#{kind}s"]).each (i, e)->
     id = "#{normval.id}-#{kind}-#{e}"
     throw new Error("Already exists #{e}") if holder.find(".#{e}").length > 0
     holder.append $("<li>").addClass(e).attr("id", id).html e
 
-JUMLYClassDiagram::declare = (normval) ->
+ClassDiagram::declare = (normval) ->
   clz = $.jumly ".class", normval
   if normval.stereotype
     clz.find(".stereotype").html normval.stereotype
@@ -22,13 +23,13 @@ JUMLYClassDiagram::declare = (normval) ->
   eval "#{ref} = clz"
   @append clz
 
-JUMLYClassDiagram::preferredWidth = ->
+ClassDiagram::preferredWidth = ->
   @find(".class .icon").mostLeftRight().width() + 16 ##WORKAROUND: 16 is magic number.
 
-JUMLYClassDiagram::preferredHeight = ->
+ClassDiagram::preferredHeight = ->
   @find(".class .icon").mostTopBottom().height()
 
-JUMLYClassDiagram::compose = ->
+ClassDiagram::compose = ->
   @trigger "beforeCompose", [this]
   ## Resize for looks
   @find(".class .icon").each (i, e) ->
@@ -57,8 +58,9 @@ JUMLYClassDiagram::compose = ->
   </ul>
 </div>
 ###
-class JUMLYClass extends JUMLY.HTMLElement
-JUMLYClass::_build_ = (div)->
+HTMLElement = require "HTMLElement"
+class Class extends HTMLElement
+Class::_build_ = (div)->
   icon = $("<div>")
            .addClass("icon")
            .append($("<div>").addClass "stereotype")
@@ -68,21 +70,12 @@ JUMLYClass::_build_ = (div)->
   div.addClass("object")
      .append(icon)
 
-JUMLY.def ".class-diagram", JUMLYClassDiagram
-JUMLY.def ".class", JUMLYClass
+def = ->
+def ".class-diagram", ClassDiagram
+def ".class", Class
 
 
-class JUMLYClassDiagramBuilder extends JUMLY.DiagramBuilder
-  constructor: (@diagram) ->
-
-JUMLYClassDiagramBuilder::def = (props)->
-  @diagram.declare JUMLY.Identity.normalize props
-
-##Deprecated
-JUMLYClassDiagramBuilder::start = (acts)-> acts.apply this, []
-
-JUMLY.DSL type:".class-diagram", compileScript: (script) ->
-  b = new JUMLYClassDiagramBuilder
-  b.build script.html()
-
-JUMLY.ClassDiagramBuilder = JUMLYClassDiagramBuilder
+if typeof module != 'undefined' and module.exports
+  module.exports = ClassDiagram
+else
+  core.ClassDiagram = ClassDiagram

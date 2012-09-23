@@ -1,4 +1,3 @@
-JUMLY = window.JUMLY
 
 class DiagramBuilder
   @selectHTMLScriptElements = (e)->
@@ -29,11 +28,13 @@ DiagramBuilder::build = (jumlipt)->
     @diagram
   catch ex
     console.error ex.stack, jumlipt
-    throw new JUMLY.Error "failed_to_build", "Failed to build", [], ex, jumlipt
+    throw new Error "failed_to_build", "Failed to build", [], ex, jumlipt
 
 DiagramBuilder::note = (text)->
   $.jumly(".note").find(".content").html(text).end().appendTo @diagram
 
-JUMLY.DiagramBuilder = DiagramBuilder
 
-
+if typeof module != 'undefined' and module.exports
+  module.exports = DiagramBuilder
+else
+  core.DiagramBuilder = DiagramBuilder
