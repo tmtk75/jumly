@@ -8,7 +8,7 @@ ClassDiagramBuilder::def = (props)->
 
 ##Deprecated
 ClassDiagramBuilder::start = (acts)-> acts.apply this, []
-DSL =->
+
 DSL type:".class-diagram", compileScript: (script) ->
   b = new ClassDiagramBuilder
   b.build script.html()
