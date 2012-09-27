@@ -37,4 +37,4 @@ DiagramBuilder::note = (text)->
 if typeof module != 'undefined' and module.exports
   module.exports = DiagramBuilder
 else
-  core.DiagramBuilder = DiagramBuilder
+  require("core").DiagramBuilder = DiagramBuilder

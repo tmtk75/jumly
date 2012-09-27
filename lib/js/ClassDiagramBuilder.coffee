@@ -9,13 +9,14 @@ ClassDiagramBuilder::def = (props)->
 ##Deprecated
 ClassDiagramBuilder::start = (acts)-> acts.apply this, []
 
+DSL = ->
 DSL type:".class-diagram", compileScript: (script) ->
   b = new ClassDiagramBuilder
   b.build script.html()
 
 
 if typeof module != 'undefined' and module.exports
-  module.exports = ClassDiagram
+  module.exports = ClassDiagramBuilder
 else
-  core.ClassDiagram = ClassDiagram
+  require("core").ClassDiagramBuilder = ClassDiagramBuilder
 

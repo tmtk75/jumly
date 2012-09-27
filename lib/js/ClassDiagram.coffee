@@ -45,4 +45,4 @@ ClassDiagram::compose = ->
 if typeof module != 'undefined' and module.exports
   module.exports = ClassDiagram
 else
-  core.ClassDiagram = ClassDiagram
+  require("core").ClassDiagram = ClassDiagram

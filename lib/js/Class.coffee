@@ -31,10 +31,10 @@ Class::_build_ = (div)->
      .append(icon)
 
 def = ->
-def ".class-diagram", ClassDiagram
+#def ".class-diagram", ClassDiagram
 def ".class", Class
 
 if typeof module != 'undefined' and module.exports
   module.exports = Class
 else
-  core.Class = Class
+  require("core").Class = Class

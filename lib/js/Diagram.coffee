@@ -23,4 +23,4 @@ Diagram::_regByRef_ = (id, obj)->
 if typeof module != 'undefined' and module.exports
   module.exports = Diagram
 else
-  core.Diagram = Diagram
+  require("core").Diagram = Diagram
