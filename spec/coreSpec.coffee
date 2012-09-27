@@ -8,7 +8,8 @@ describe "core", ->
   describe "require", ->
 
     it "should return what to be exported", ->
-      class Foo
-      core.exports Foo
-      foo = core.require "Foo"
-      expect(foo).toBe Foo
+      if !core.env.is_node
+        class Foo
+        core.exports Foo
+        foo = require "Foo"
+        expect(foo).toBe Foo
