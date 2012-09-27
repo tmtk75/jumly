@@ -26,7 +26,7 @@ namespace "spec", ->
     brownie.jasmine "spec"
 
   task "compile", "compile *.coffee", ->
-    brownie.compile srcdir:"spec", tmpdir:"build/.spec", suffix:"Sepc"
+    brownie.compile srcdir:"spec", tmpdir:"build/.spec", suffix:"Spec"
 
 task "app::run", "run app", ->
   brownie.exec "./app.coffee"
