@@ -7,7 +7,7 @@ class Diagram extends HTMLElement
       $("##{id}").length > 0
     else
       false
-        
+
 Diagram::_build_ = (div)-> div.addClass "diagram"
     
 Diagram::_def_ = (varname, e)-> eval "#{varname} = e"
@@ -20,7 +20,8 @@ Diagram::_regByRef_ = (id, obj)->
   ref
 
 
-if typeof module != 'undefined' and module.exports
+core = require "core"
+if core.env.is_node
   module.exports = Diagram
 else
-  require("core").Diagram = Diagram
+  core.exports Diagram

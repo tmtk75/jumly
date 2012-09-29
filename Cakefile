@@ -10,13 +10,8 @@ brownie.configure
   basename: "build/jumly"
 
 task "compile", "compile *.coffee", ->
-  _f = (them)->
-    prior = ["core", "jquery.g2d", "jquery.ext"]
-    them = them.filter (e)-> not _.include prior, require("path").basename(e, ".js")
-    _.union prior.map((e)->"build/.js/#{e}.js"), them
-
   brownie.exec "touch lib/js/jumly.coffee"
-  brownie.compile sort:_f
+  brownie.compile order:["core", "jquery.g2d", "jquery.ext", "HTMLElement"]
 
 task "minify", "minify jumly.js", ->
   brownie.minify header:copyright

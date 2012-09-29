@@ -42,7 +42,8 @@ ClassDiagram::compose = ->
   this
 
 
-if typeof module != 'undefined' and module.exports
+core = require "core"
+if core.env.is_node
   module.exports = ClassDiagram
 else
-  require("core").ClassDiagram = ClassDiagram
+  core.exports ClassDiagram

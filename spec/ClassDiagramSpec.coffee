@@ -1,4 +1,3 @@
-require "node-jquery"
 ClassDiagram = require "ClassDiagram"
 
 describe "ClassDiagram", ->
