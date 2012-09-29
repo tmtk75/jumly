@@ -150,15 +150,19 @@ core = {}
 core.env =
   is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
 
+JUMLY =
+  env: core.env
+
 if core.env.is_node
-  global.JUMLY =
-    env: core.env
+  global.JUMLY = JUMLY
   module.exports = core
 else
+  window.JUMLY = JUMLY
+
   exported = {}
+
   window.require = (name)->
     exported[name] or core
+
   core.exports = (func)->
     exported[func.name] = func
-  window.core = core
-
