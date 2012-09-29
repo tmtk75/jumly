@@ -155,8 +155,10 @@ if core.env.is_node
     env: core.env
   module.exports = core
 else
+  exported = {}
   window.require = (name)->
-    core[name] or core
+    exported[name] or core
   core.exports = (func)->
+    exported[func.name] = func
   window.core = core
 
