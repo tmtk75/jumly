@@ -1,5 +1,3 @@
-core = require "core"
-
 class HTMLElement
   constructor: ->
     #cls = JUMLY.Naming.toCSSClass @constructor.name
@@ -10,7 +8,8 @@ class HTMLElement
     #@_build_?.apply this, a
     this
 
-if typeof module != 'undefined' and module.exports
+core = require "core"
+if core.env.is_node
   module.exports = HTMLElement
 else
-  core.HTMLElement = HTMLElement
+  core.exports HTMLElement

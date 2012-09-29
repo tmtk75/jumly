@@ -13,5 +13,8 @@ JUMLYHorizontalSpacing::apply = ->
   @offset left:a.offset().left + a.outerWidth(), top:a.offset().top
   b.offset left:@offset().left + @outerWidth() + 1
 
-JUMLY.HorizontalSpacing = JUMLYHorizontalSpacing
 
+if typeof module != 'undefined' and module.exports
+  module.exports = JUMLYHorizontalSpacing
+else
+  (require "core").exports JUMLYHorizontalSpacing

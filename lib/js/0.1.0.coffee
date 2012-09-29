@@ -56,7 +56,7 @@ _to_type_string = (type)->
   unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
   kind = RegExp.$1 + RegExp.$2 + RegExp.$3
 
-window.JUMLY.evalHTMLScriptElement = (script) ->
+evalHTMLScriptElement = (script) ->
   script = $ script
   type = script.attr("type")
   throw "Not found: type attribute in script" unless type 
@@ -89,7 +89,7 @@ _dsl = (args) ->
   throw "compileScript property is required." unless args.compileScript
   dsl_[args.type] = {compileScript:args.compileScript, version:args.version}
 
-window.JUMLY.DSL = _dsl
+DSL = _dsl
 
 _runScripts = ->
   return null if _runScripts.done 

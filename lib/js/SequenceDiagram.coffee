@@ -1,10 +1,11 @@
-JUMLY = window.JUMLY
-class JUMLYMessage         extends JUMLY.HTMLElement
-class JUMLYInteraction     extends JUMLY.HTMLElement
-class JUMLYLifeline        extends JUMLY.HTMLElement
-class JUMLYOccurrence      extends JUMLY.HTMLElement
-class JUMLYFragment        extends JUMLY.HTMLElement
-class JUMLYRef             extends JUMLY.HTMLElement
+HTMLElement = require "HTMLElement"
+
+class JUMLYMessage     extends HTMLElement
+class JUMLYInteraction extends HTMLElement
+class JUMLYLifeline    extends HTMLElement
+class JUMLYOccurrence  extends HTMLElement
+class JUMLYFragment    extends HTMLElement
+class JUMLYRef         extends HTMLElement
 types = 
   ".message"         : JUMLYMessage
   ".interaction"     : JUMLYInteraction
@@ -12,7 +13,7 @@ types =
   ".occurrence"      : JUMLYOccurrence
   ".fragment"        : JUMLYFragment
   ".ref"             : JUMLYRef
-JUMLY.def e, types[e] for e of types
+#JUMLY.def e, types[e] for e of types
 jumly = $.jumly
 
 JUMLYMessage::_build_ = (div)->
@@ -463,12 +464,13 @@ JUMLYRef::preferredWidth = ->
     most.width = most.width()
     most
 
-class JUMLYSequenceDiagram extends JUMLY.Diagram
+
+class JUMLYSequenceDiagram extends require("Diagram")
   constructor: ->
     super()
     @append $("<div>").addClass("object-lane")
 
-JUMLY.def ".sequence-diagram", JUMLYSequenceDiagram
+#JUMLY.def ".sequence-diagram", JUMLYSequenceDiagram
     
 JUMLYSequenceDiagram::gives = (query)->
   e = @find(query)

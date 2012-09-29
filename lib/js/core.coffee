@@ -1,5 +1,4 @@
 JUMLY = {}
-core = JUMLY
 
 _factories = (name, fact)-> _factories[name] = factory:fact
 
@@ -147,12 +146,17 @@ JUMLY.Preferences = (a)->
 JUMLYPreferences.values =
   "document.id.validation.enable": false
 
+core = {}
 core.env =
-  is_node: typeof module != 'undefined' and module.exports
+  is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
 
 if core.env.is_node
+  global.JUMLY =
+    env: core.env
   module.exports = core
 else
-  window.JUMLY = core
   window.require = (name)->
     core[name] or core
+  core.exports = (func)->
+  window.core = core
+

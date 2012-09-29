@@ -1,11 +1,12 @@
-JUMLY = window.JUMLY
-class JUMLYObject extends JUMLY.HTMLElement
+HTMLElement = require "HTMLElement"
 
-JUMLYObject::_build_ = (div)->
+class HTMLObject extends HTMLElement
+
+HTMLObject::_build_ = (div)->
   div.addClass("object")
      .append($("<div>").addClass("name"))
 
-JUMLYObject::activate = ->
+HTMLObject::activate = ->
   _as = $.jumly.lang._as
   occurr = $.jumly(type:".occurrence", ".object":this)
   iact = $.jumly(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
@@ -15,11 +16,11 @@ JUMLYObject::activate = ->
   @parent().append(iact)
   occurr
 
-JUMLYObject::isLeftAt = (a)-> @offset().left < a.offset().left
+HTMLObject::isLeftAt = (a)-> @offset().left < a.offset().left
 
-JUMLYObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
+HTMLObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
 
-JUMLYObject::iconify = (fixture, styles)->
+HTMLObject::iconify = (fixture, styles)->
   unless typeof fixture is "function"
     fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
   canvas = $("<canvas>").addClass("icon")
@@ -36,8 +37,5 @@ JUMLYObject::iconify = (fixture, styles)->
   this.renderIcon = -> render()
   this
 
-JUMLYObject::lost =-> @activate().interact(null, {stereotype:".lost"})
-
-JUMLY.def ".object", JUMLYObject
-
+HTMLObject::lost =-> @activate().interact(null, {stereotype:".lost"})
 

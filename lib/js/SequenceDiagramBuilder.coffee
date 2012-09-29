@@ -1,6 +1,5 @@
-JUMLY = window.JUMLY
-jumly = $.jumly
-class JUMLYSequenceDiagramBuilder extends JUMLY.DiagramBuilder
+DiagramBuilder = require "DiagramBuilder"
+class JUMLYSequenceDiagramBuilder extends DiagramBuilder
   constructor: (props, @_diagram) ->
     $.extend this, props
 
@@ -211,11 +210,11 @@ JUMLYSequenceDiagramBuilder::afterCompose = (f)->
   this
   
 ##
-JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->
-  b = new JUMLYSequenceDiagramBuilder
-  b.build script.html()
+#JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->
+#  b = new JUMLYSequenceDiagramBuilder
+#  b.build script.html()
 
-JUMLY.SequenceDiagramBuilder = JUMLYSequenceDiagramBuilder
+#JUMLY.SequenceDiagramBuilder = JUMLYSequenceDiagramBuilder
 
 ##
 # This is wrap feature keeping own instance, jQuery.wrap makes child node duplicated.

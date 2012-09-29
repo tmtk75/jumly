@@ -1,8 +1,3 @@
-##
-## Available Binds
-## jumly:<diagram> [,success:<function>][,error:<function>]
-##
-JUMLY = window.JUMLY
 jumlyBind =
   init: (elem, val, bindings, model)->
   update: (elem, val, bindings, model)->
@@ -17,9 +12,9 @@ jumlyBind =
       bindings().error? ($.extend ex, {type:ex.constructor.name, diagram:diag, ko:koarg})
 
 name2builder =
-  sequence: JUMLY.SequenceDiagramBuilder
+  sequence: "SequenceDiagramBuilder"
 
-JUMLY.ko =
+ko =
   ## observableJumlipt: string wrapped with ko.observable.
   ## builder: DiagramBuilder or string.
   dependentObservable: (observableJumlipt, builder)->

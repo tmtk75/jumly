@@ -1,13 +1,12 @@
-JUMLY = window.JUMLY
 
 class UMLUsecase
-    constructor: (props, opts) ->
-        jQuery.extend this, UMLUsecase.newNode()
-        this
-    @newNode = ->
-        $("<div>").addClass("usecase")
-                  .append($("<div>").addClass("icon")
-                                    .append($("<div>").addClass("name")))
+  constructor: (props, opts) ->
+    jQuery.extend this, UMLUsecase.newNode()
+    this
+  @newNode = ->
+    $("<div>").addClass("usecase")
+              .append($("<div>").addClass("icon")
+                                .append($("<div>").addClass("name")))
 
 UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
     icon = @find(".icon")
@@ -23,17 +22,12 @@ UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
     t = T if t > T
     icon.css width:minwidth*t, height:minheight*t
 
-JUMLY.def ".usecase", UMLUsecase
-
 class UMLActor
     constructor: (props, opts) ->
         jQuery.extend this, $.jumly ".object"
         @iconify ".actor"
         @addClass "actor"
         this
-
-JUMLY.def ".actor", UMLActor
-
 
 class UMLSystemBoundary
     constructor: (props, opts) ->
@@ -43,10 +37,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-JUMLY.def ".system-boundary", UMLSystemBoundary
-
-
-class JUMLYUsecaseDiagram extends JUMLY.Diagram
+class JUMLYUsecaseDiagram extends require("Diagram")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -105,11 +96,11 @@ JUMLYUsecaseDiagram::compose = ->
     @trigger "afterCompose", [this]
     this
 
-JUMLY.def ".usecase-diagram", JUMLYUsecaseDiagram
+#JUMLY.def ".usecase-diagram", JUMLYUsecaseDiagram
 
 
 
-class JUMLYUsecaseDiagramBuilder extends JUMLY.DiagramBuilder
+class JUMLYUsecaseDiagramBuilder extends require("DiagramBuilder")
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
@@ -164,15 +155,15 @@ JUMLYUsecaseDiagram::boundary = (name, acts)->
   ctxt.boundary name, acts
   ctxt
 
-JUMLY.DSL type:".usecase-diagram", compileScript: (script) ->
-    diag = $.jumly ".usecase-diagram"
-    sbname = $(script).attr "system-boundary-name"
-    diag.boundary sbname, ->
-        unless sbname
-            @_boundary.addClass("out-of-bounds").removeClass("system-boundary")
-                      .find(".name").remove()
-        eval CoffeeScript.compile script.html()
-    diag
+#JUMLY.DSL type:".usecase-diagram", compileScript: (script) ->
+#    diag = $.jumly ".usecase-diagram"
+#    sbname = $(script).attr "system-boundary-name"
+#    diag.boundary sbname, ->
+#        unless sbname
+#            @_boundary.addClass("out-of-bounds").removeClass("system-boundary")
+#                      .find(".name").remove()
+#        eval CoffeeScript.compile script.html()
+#    diag
 
 
-JUMLY.UsecaseDiagramBuilder = JUMLYUsecaseDiagramBuilder
+#UsecaseDiagramBuilder = JUMLYUsecaseDiagramBuilder

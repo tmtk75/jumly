@@ -1,7 +1,7 @@
-JUMLY = window.JUMLY
-class JUMLYRelationship extends JUMLY.HTMLElement
+HTMLElement = require "HTMLElement"
+class Relationship extends HTMLElement
 
-JUMLYRelationship::_build_ = (div, opts)->
+Relationship::_build_ = (div, opts)->
   @src = opts.src
   @dst = opts.dst
   div.append($("<canvas>").addClass("icon"))
@@ -25,7 +25,7 @@ Math.sign = (x) ->
         return 1
     return -1
 
-JUMLYRelationship::render = ->
+Relationship::render = ->
     margin_left = $("body").cssAsInt "margin-left"
     margin_top  = $("body").cssAsInt "margin-top"
     pt = (obj) ->
@@ -94,6 +94,10 @@ JUMLYRelationship::render = ->
     $.g2d.arrow ctxt, s, t, style
     ctxt.restore()
 
-JUMLY.def ".relationship", JUMLYRelationship
-JUMLY.Relationship = JUMLYRelationship
+
+core = require "core"
+if core.env.is_node
+  module.exports = Relationship
+else
+  core.exports Relationship
 
