@@ -1,3 +1,4 @@
+require "node-jquery"
 HTMLElement = require "HTMLElement"
 
 describe "HTMLElement", ->

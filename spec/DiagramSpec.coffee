@@ -1,3 +1,4 @@
+require "node-jquery"
 Diagram = require "Diagram"
 
 describe "Diagram", ->
