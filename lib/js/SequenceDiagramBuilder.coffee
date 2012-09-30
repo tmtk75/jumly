@@ -210,13 +210,6 @@ SequenceDiagramBuilder::compose = (opts) ->
 SequenceDiagramBuilder::preferences = ->
   @diagram.preferences.apply @diagram, arguments
 
-SequenceDiagramBuilder::beforeCompose = (f)->
-  @diagram.bind "beforeCompose", f
-  this
-SequenceDiagramBuilder::afterCompose = (f)->
-  @diagram.bind "afterCompose", f
-  this
-  
 ##
 #JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->
 #  b = new SequenceDiagramBuilder

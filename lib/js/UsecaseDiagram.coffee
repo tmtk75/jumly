@@ -85,7 +85,6 @@ JUMLYUsecaseDiagram::render = ->
         $(e).self().render()
 
 JUMLYUsecaseDiagram::compose = ->
-    @trigger "beforeCompose", [this]
     set_min_size @find(".usecase .icon")
     shift_usecase_down_to_above @find(".system-boundary")
     bind_between @find(".usecase, .actor"), this
@@ -93,7 +92,6 @@ JUMLYUsecaseDiagram::compose = ->
     @render()
     #@width @mostLeftRight().width()
     @height @mostTopBottom().height()
-    @trigger "afterCompose", [this]
     this
 
 #JUMLY.def ".usecase-diagram", JUMLYUsecaseDiagram

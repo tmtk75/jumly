@@ -29,13 +29,11 @@ ClassDiagram::preferredHeight = ->
   @find(".class .icon").mostTopBottom().height()
 
 ClassDiagram::compose = ->
-  @trigger "beforeCompose", [this]
   ## Resize for looks
   @find(".class .icon").each (i, e) ->
     e = $ e
     return null if e.width() > e.height()
     e.width e.height() * (1 + Math.sqrt 2)/2
-  @trigger "afterCompose", [this]
   @width @preferredWidth()
   @height @preferredHeight()
   this

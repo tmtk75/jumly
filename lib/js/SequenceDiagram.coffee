@@ -310,9 +310,7 @@ SequenceDiagram::preferences = (a, b) ->
 
 SequenceDiagram::compose = (props) ->
   try
-    @trigger "beforeCompose", [this]
     (new JUMLY.SequenceDiagramLayout).layout this
-    @trigger "afterCompose", [this]
     this
   catch ex
     causemsg = switch ex.type

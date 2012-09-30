@@ -14,14 +14,6 @@ DiagramBuilder::build = (script)->
   @_accept -> eval CoffeeScript.compile script
   @diagram
 
-DiagramBuilder::beforeCompose = (f)->
-  @diagram.bind "beforeCompose", f
-  this
-
-DiagramBuilder::afterCompose = (f)->
-  @diagram.bind "afterCompose", f
-  this
-
 if core.env.is_node
   module.exports = DiagramBuilder
 else
