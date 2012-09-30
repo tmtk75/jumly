@@ -31,6 +31,8 @@ jumly = (arg, opts) ->
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 
+$ =
+  fn: {}
 $.jumly = jumly
 
 $.fn.jprops = -> @data("uml:property")
@@ -66,50 +68,83 @@ $.fn.stereotype = (n)->
 
 ## v0.1.1a
 JUMLY.Naming =
-  toID: (that)->
-    return that.attr("id") if that.constructor is jQuery
-    that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
-  toRef: (s)->
-    if s.match /^[0-9].*/
-      '_' + s
-    else
-      s.replace(/^[0-9]|-/g, '_')
   toCSSClass: (s)->s.replace(/^JUMLY/, "").replace(/Diagram$/, "-Diagram").toLowerCase()
+
+
+core = {}
+
+core._to_id = (that)->
+  return that.attr("id") if that.constructor is jQuery
+  that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
+
+core._to_ref = (s)->
+  if s.match /^[0-9].*/
+    '_' + s
+  else
+    s.replace(/^[0-9]|-/g, '_')
+
+core.kindof = (that)->
+  return 'Null' if that is null
+  return 'Undefined' if that is undefined 
+  tc = that.constructor
+  toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
+  if typeof(tc) is 'function' then toName(tc) else tc # [object HTMLDocumentConstructor]
   
-JUMLY.Identity =
-  normalize: (that)->
-    toID = JUMLY.Naming.toID
-    switch $.kindof that
-      when "String" then return id:toID(that), name:that
-      when "Object" then ## Through down
-      else
-        if that and that.constructor is jQuery
-          id = toID(that)
-          name = that.find(".name")
-          if id? or (name.length > 0)
-            return id:id, name: (if name.html() then name.html() else undefined)
-          else
-            return undefined
-        console.error "Cannot recognize kind:", that
-        throw new Error "Cannot recognize kind: '#{$.kindof that}'"
-    keys = (p for p of that)
-    return that if keys.length > 1
+core._normalize = (that)->
+  toID = core._to_id
+  switch core.kindof that
+    when "String" then return id:toID(that), name:that
+    when "Object" then ## Through down
+    else
+      if that and that.constructor is jQuery
+        id = toID(that)
+        name = that.find(".name")
+        if id? or (name.length > 0)
+          return id:id, name: (if name.html() then name.html() else undefined)
+        else
+          return undefined
+      console.error "Cannot recognize kind:", that
+      throw new Error "Cannot recognize kind: '#{$.kindof that}'"
+  keys = (p for p of that)
+  return that if keys.length > 1
 
-    id = keys[0]
-    it = that[keys[0]]
-    return {id:id, name:it} if $.kindof(it) is "String"
+  id = keys[0]
+  it = that[keys[0]]
+  return {id:id, name:it} if $.kindof(it) is "String"
 
-    keys = (p for p of it)
-    return $.extend {}, it, {id:toID(id), name:id} if keys.length > 1
+  keys = (p for p of it)
+  return $.extend {}, it, {id:toID(id), name:id} if keys.length > 1
 
-    name = keys[0]
-    mods = it[keys[0]]
-    switch $.kindof(mods)
-      when "Object" then $.extend {id:id, name:name}, mods
-      when "Array", "Function"
-        a = {id:toID(id), name:id}
-        a[name] = mods
-        a
+  name = keys[0]
+  mods = it[keys[0]]
+  switch $.kindof(mods)
+    when "Object" then $.extend {id:id, name:name}, mods
+    when "Array", "Function"
+      a = {id:toID(id), name:id}
+      a[name] = mods
+      a
+
+core.lang =
+  _gives: (a, dic)->
+    gives = (query)->
+          r = dic[query]
+          if r then r else null
+    if !a.gives then return gives
+    f = a.gives
+    (query)->
+      r = f(query)
+      if r.length > 0 or r.of or r.as
+          return r
+      gives(query)
+  _as: (m)-> as:(e)-> m[e]
+  _of: (nodes, query)->
+    (unode)->
+      n = nodes.filter (i, e)->
+        e = jumly(e)[0]
+        s = e.gives(unode.jprops().type)
+        if s is unode then e else null
+      if n.length > 0 then jumly(n)[0] else []
+
 
 class JUMLYDiagramLayout
 JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
@@ -146,7 +181,6 @@ JUMLY.Preferences = (a)->
 JUMLYPreferences.values =
   "document.id.validation.enable": false
 
-core = {}
 core.env =
   is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
 

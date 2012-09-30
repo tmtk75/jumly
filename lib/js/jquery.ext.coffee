@@ -44,10 +44,3 @@ _fn.mostTopBottom = ->
 _fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
 String.prototype.toInt = (z = 0)-> if this.length > 0 then parseInt this else z
 
-##
-$.kindof = (that)->
-  return 'Null' if that is null
-  return 'Undefined' if that is undefined 
-  tc = that.constructor
-  toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
-  if typeof(tc) is 'function' then toName(tc) else tc # [object HTMLDocumentConstructor]

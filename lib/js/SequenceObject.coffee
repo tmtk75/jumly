@@ -1,26 +1,30 @@
 HTMLElement = require "HTMLElement"
 
-class HTMLObject extends HTMLElement
+class SequenceObject extends HTMLElement
 
-HTMLObject::_build_ = (div)->
+SequenceObject::_build_ = (div)->
   div.addClass("object")
      .append($("<div>").addClass("name"))
 
-HTMLObject::activate = ->
-  _as = $.jumly.lang._as
-  occurr = $.jumly(type:".occurrence", ".object":this)
-  iact = $.jumly(type:".interaction", ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr)
+core = require "core"
+SequenceOccurrence = require "SequenceOccurrence"
+SequenceInteraction = require "SequenceInteraction"
+
+SequenceObject::activate = ->
+  _as = core.lang._as
+  occurr = new SequenceOccurrence object:this
+  iact = new SequenceInteraction ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr
   iact.addClass "activated"
   iact.find(".message").remove()
   iact.append(occurr)
   @parent().append(iact)
   occurr
 
-HTMLObject::isLeftAt = (a)-> @offset().left < a.offset().left
+SequenceObject::isLeftAt = (a)-> @offset().left < a.offset().left
 
-HTMLObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
+SequenceObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
 
-HTMLObject::iconify = (fixture, styles)->
+SequenceObject::iconify = (fixture, styles)->
   unless typeof fixture is "function"
     fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
   canvas = $("<canvas>").addClass("icon")
@@ -37,5 +41,10 @@ HTMLObject::iconify = (fixture, styles)->
   this.renderIcon = -> render()
   this
 
-HTMLObject::lost =-> @activate().interact(null, {stereotype:".lost"})
+SequenceObject::lost =-> @activate().interact(null, {stereotype:".lost"})
 
+core = require "core"
+if core.env.is_node
+  module.exports = SequenceObject
+else
+  core.exports SequenceObject

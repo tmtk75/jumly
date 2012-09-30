@@ -1,16 +1,12 @@
 HTMLElement = require "HTMLElement"
 
 class JUMLYMessage     extends HTMLElement
-class JUMLYInteraction extends HTMLElement
 class JUMLYLifeline    extends HTMLElement
-class JUMLYOccurrence  extends HTMLElement
 class JUMLYFragment    extends HTMLElement
 class JUMLYRef         extends HTMLElement
 types = 
   ".message"         : JUMLYMessage
-  ".interaction"     : JUMLYInteraction
   ".lifeline"        : JUMLYLifeline
-  ".occurrence"      : JUMLYOccurrence
   ".fragment"        : JUMLYFragment
   ".ref"             : JUMLYRef
 #JUMLY.def e, types[e] for e of types
@@ -188,202 +184,12 @@ JUMLYMessage::_composeLooksOfCreation = ->
   centering_name this, w
   shift_down_lifeline created
 
-JUMLYInteraction::_build_ = (div, props)->
-  msg = jumly type:".message", ".interaction":this
-  props[".message"] = msg  ## FIXME: Can I remove this?
-  div.append(msg)
 
-JUMLYInteraction::interact = (obj) -> @awayfrom().interact obj
-JUMLYInteraction::forward = (obj) -> @toward()
-
-JUMLYInteraction::to = (func) ->
-  occurrs = @gives(".occurrence")
-  tee = occurrs.as(".actee")
-  tor = occurrs.as(".actor")
-  func(tee, tor)
-
-JUMLYInteraction::forwardTo = -> @gives(".occurrence").as ".actee"
-JUMLYInteraction::backwardTo = -> @gives(".occurrence").as ".actor"
-JUMLYInteraction::toward = -> @forwardTo()
-JUMLYInteraction::awayfrom = (obj) ->
-  return @backwardTo() unless obj
-  for e in @parents(".occurrence").not(".activated")
-    e = $(e).self()
-    return e if e?.gives(".object") is obj
-  obj.activate()
-
-JUMLYInteraction::_compose_ = ->
-  that = this
-  src = that.gives(".occurrence").as ".actor"
-  dst = that.gives(".occurrence").as ".actee"
-  msg = jumly($ "> .message", that)[0]
-  # Self-invokation case
-  if @isToSelf()
-    @_buildSelfInvocation src, dst, msg
-    return
-
-  # Determine the width of interaction for normal message
-  w = src.offset().left - (dst.offset().left + $(".occurrence:eq(0)", that).width())
-  if @hasClass("lost")
-    msg.height dst.outerHeight()
-  else if msg.isTowardLeft()
-    w = dst.offset().left - (src.offset().left + $(".occurrence:eq(0)", that).width())
-  msg.width(Math.abs(w))
-     .offset(left:Math.min(src.offset().left, dst.offset().left))
-     .repaint()
-
-  # Locate the name of message
-  # Normal message
-  #TODO: Move this centering logic for name to .message class. 
-
-  # Return message
-  rmsg = $("> .message.return:last", that).self()
-  if rmsg
-    x = msg.offset().left
-    actee = rmsg.gives ".actee"
-    if actee
-      newdst = rmsg._findOccurr actee
-      unless newdst
-        console.error "Not found occurrence for", actee
-        throw new Error("Not found occurrence #{actee.html()}")
-      w = dst.offset().left - newdst.offset().left
-      x = Math.min dst.offset().left, newdst.offset().left
-    rmsg.width(Math.abs w)
-        .offset(left:x)
-        .repaint(reverse:true)
-
-JUMLYInteraction::_buildSelfInvocation = (a, b, msg) ->
-  w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
-  dx = w*2
-  dy = w*1
-  b.css top:0 + dy          # Shift the actee occurrence to y-positive
-  @css "padding-bottom":dy  # To expand the height of occurrence of actor
-
-  msg.css(top:0)
-     .width(b.width() + dx)
-     .height(b.offset().top - msg.offset().top + dy + w/8)
-     .offset left:b.offset().left
-  
-  msg.repaint self:true
-
-  arrow = msg.find ".arrow"
-  msg.find(".name").offset
-      left: arrow.offset().left + arrow.outerWidth()
-      top : arrow.offset().top
-
-JUMLYInteraction::reply = (p) ->
-    @addClass "reply"
-    a = jumly(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
-        .insertAfter @children ".occurrence:eq(0)"
-    if p?.name
-        a.name p.name
-    this
-
-JUMLYInteraction::fragment = (attrs, opts) ->
-    frag = jumly(type:".fragment")
-    frag.enclose(this)
-   
-JUMLYInteraction::isToSelf = ->
-    a = @gives(".occurrence").as ".actor"
-    b = @gives(".occurrence").as ".actee"
-    unless a && b
-        return false
-    a.gives(".object") is b.gives(".object")
-
-JUMLYInteraction::is_to_itself = -> @isToSelf()
 
 JUMLYLifeline::_build_ = (div, props)->
   div.append($("<div>").addClass("line").height(128))
 	   .width(props[".object"].width())
 	   .height(128)
-
-JUMLYOccurrence::interact = (_, opts) ->
-    _as = jumly.lang._as
-    if opts?.stereotype is ".lost"
-        occurr = jumly(type:".occurrence").addClass "icon"
-        iact   = jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
-        iact.addClass "lost"
-    else if opts?.stereotype is ".destroy"
-        #NOTE: Destroy message building
-    else if _?.stereotype is ".alt"
-        alt = jumly ".fragment", name:"alt"
-        alt.alter this, opts
-        return this
-    else
-        occurr = jumly type:".occurrence", ".object":_
-        iact   = jumly
-                    "type"       : ".interaction"
-                    ".occurrence": _as(".actor":this, ".actee":occurr)
-                    ".object"    : _as(".actor":@gives(".object"), ".actee":_)
-                    ".actor"     : this
-                    ".actee"     : occurr
-    iact.append(occurr).appendTo this
-    iact
-
-JUMLYOccurrence::create = (objsrc) ->
-  obj = jumly ".object", objsrc.name
-  obj.attr "id", objsrc.id
-  @parents(".sequence-diagram").self()[JUMLY.Naming.toRef objsrc.id] = obj
-  @gives(".object").parent().append obj
-  iact = (@interact obj).stereotype "create"
-  iact
-
-JUMLYOccurrence::moveHorizontally =->
-  if @parent().hasClass "lost"
-    @offset left:@parents(".diagram").find(".object").mostLeftRight().right
-    return this 
-  if not @isOnOccurrence()
-    left = @gives(".object").offset().left + (@gives(".object").width() - @width())/2
-  else
-    left = @parentOccurrence().offset().left
-  left += @width()*@shiftToParent()/2
-  @offset left:left
-
-JUMLYOccurrence::isOnOccurrence =-> not (@parentOccurrence() is null)
-
-JUMLYOccurrence::parentOccurrence = ->
-    lls = jumly(@parents(".occurrence"))
-    return null if lls.length is 0
-
-    for i in [0..lls.length - 1]
-        if @gives(".object") is lls[i].gives(".object")
-            return lls[i]
-    null
-
-JUMLYOccurrence::shiftToParent = ->
-    return 0 if not @isOnOccurrence()
-    # find a message contained in the same interaction together.
-    a = jumly(@parent().find ".message:eq(0)")[0]
-    return 0  if a is undefined
-    return -1 if a.isTowardRight()
-    return 1  if a.isTowardLeft()
-    # in case of self-invokation below
-    return 1
-
-JUMLYOccurrence::preceding = (obj) ->
-    f = (ll) ->
-        a = jumly(ll.parents ".occurrence:eq(0)")[0]
-        return null if !a
-        return a    if a.gives(".object") is obj
-        return f a
-    f this
-
-JUMLYOccurrence::destroy = (actee) ->
-    #NOTE: expecting interface
-    #return @interact(actee, {stereotype:"destroy"})
-    #Tentative deprecated implementation.
-    occur = @interact(actee)
-                .stereotype("destroy")
-                .gives(".occurrence").as(".actee")
-    if occur.isOnOccurrence()
-        occur = occur.parentOccurrence()
-		
-    $("<div>").addClass("stop")
-              .append($("<div>").addClass("icon")
-                                .addClass("square")
-                                .addClass("cross"))
-              .insertAfter(occur)
-    occur
 
 JUMLYFragment::_build_ = (div)->
   div.append($("<div>").addClass("header")
@@ -464,15 +270,16 @@ JUMLYRef::preferredWidth = ->
     most.width = most.width()
     most
 
+Diagram = require "Diagram"
 
-class JUMLYSequenceDiagram extends require("Diagram")
+class SequenceDiagram extends Diagram
   constructor: ->
     super()
     @append $("<div>").addClass("object-lane")
 
-#JUMLY.def ".sequence-diagram", JUMLYSequenceDiagram
+#JUMLY.def ".sequence-diagram", SequenceDiagram
     
-JUMLYSequenceDiagram::gives = (query)->
+SequenceDiagram::gives = (query)->
   e = @find(query)
   f = jumly.lang._of e, query
   {of: f}
@@ -481,12 +288,10 @@ prefs_ =
     compose_most_left: 0
     WIDTH : null
     HEIGHT: 50
-jumly.preferences(".sequence-diagram", prefs_)
-jumly.preferences(".sequence-diagram:system-default", prefs_)
 
-JUMLYSequenceDiagram::$ = (sel) -> jumly($(sel, this))
-JUMLYSequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
-JUMLYSequenceDiagram::preferences = (a, b) ->
+SequenceDiagram::$ = (sel) -> jumly($(sel, this))
+SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
+SequenceDiagram::preferences = (a, b) ->
     prefs = @jprops().preferences
     if !prefs then @jprops().preferences = prefs = {}
     width = ->
@@ -503,7 +308,7 @@ JUMLYSequenceDiagram::preferences = (a, b) ->
     #console.log "setter", prefs
     $.extend prefs, a
 
-JUMLYSequenceDiagram::compose = (props) ->
+SequenceDiagram::compose = (props) ->
   try
     @trigger "beforeCompose", [this]
     (new JUMLY.SequenceDiagramLayout).layout this
@@ -515,7 +320,7 @@ JUMLYSequenceDiagram::compose = (props) ->
     console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
     throw ex
 
-JUMLYSequenceDiagram::preferredWidth = () ->
+SequenceDiagram::preferredWidth = () ->
   bw = @css("border-right-width").toInt() + @css("border-left-width").toInt()
   nodes = $(".object, .ref, .fragment", this)
   return 0 + bw if nodes.length is 0
@@ -523,3 +328,11 @@ JUMLYSequenceDiagram::preferredWidth = () ->
   return 0 + bw if a.left is a.right
   left = nodes.choose ((e)-> $(e).css("left").toInt()), ((x, t)-> x < t)
   a.right - a.left + bw + 1
+
+
+core = require "core"
+if core.env.is_node
+  module.exports = SequenceDiagram
+else
+  core.exports SequenceDiagram
+
