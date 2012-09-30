@@ -11,7 +11,7 @@ brownie.configure
 
 task "compile", "compile *.coffee", ->
   brownie.exec "touch lib/js/jumly.coffee"
-  brownie.compile order:["core", "jquery.g2d", "jquery.ext", "HTMLElement"]
+  brownie.compile order:["core", "jquery.g2d", "jquery.ext", "HTMLElement", "Diagram"]
 
 task "minify", "minify jumly.js", ->
   brownie.minify header:copyright

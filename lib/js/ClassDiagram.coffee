@@ -1,5 +1,4 @@
-##
-Diagram = require "./Diagram"
+Diagram = require "Diagram"
 
 class ClassDiagram extends Diagram
 
