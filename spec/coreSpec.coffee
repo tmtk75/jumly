@@ -18,9 +18,9 @@ describe "core", ->
   
     describe "string", ->
 
-      it "returns object has type and name", ->
+      it "returns object has id and name", ->
         e = core._normalize "foo"
-        expect(e).toEqual type:"foo", name:"foo"
+        expect(e).toEqual id:"foo", name:"foo"
 
 
   describe "JUMLY", ->
