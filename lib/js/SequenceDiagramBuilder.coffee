@@ -2,7 +2,15 @@ DiagramBuilder = require "DiagramBuilder"
 
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (ctx) ->
+    super()
     $.extend this, ctx
+
+SequenceDiagramBuilder::found = (something, callback)->
+  actor = @_find_or_create something
+  actor.addClass "found"
+  @_currOccurr = actor.activate()
+  @last = callback?.apply this, [this]
+  this
 
 SequenceDiagram = require "SequenceDiagram"
 SequenceDiagramBuilder::_new_diagram = ->
@@ -11,20 +19,20 @@ SequenceDiagramBuilder::_new_diagram = ->
 core = require "core"
 SequenceObject = require "SequenceObject"
 
-SequenceDiagramBuilder::_find_or_create = (e) ->
-  a = core._normalize e
+SequenceDiagramBuilder::_find_or_create = (sth) ->
+  a = core._normalize sth
   r = core._to_ref a.id
   return @diagram[r] if @diagram[r]
   obj = new SequenceObject a
   @diagram._reg_by_ref a.id, obj
   @diagram.append obj
-  switch typeof e
+  switch typeof sth
     when "string"
       @diagram._def_ r, obj
     when "object"
       @diagram._def_ JUMLY.Naming.toRef(a.id), obj
     else
-      console.error "It must be string or object for", e
+      console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
   obj
 
@@ -192,13 +200,6 @@ SequenceDiagramBuilder::_note = (a, b, c) ->
     note.attach nodes, opts
   else
     nodes.append note
-
-SequenceDiagramBuilder::found = (something, callback)->
-  actor = @_find_or_create something
-  actor.addClass "found"
-  @_currOccurr = actor.activate()
-  @last = callback?.apply this, [this]
-  this
 
 SequenceDiagramBuilder::compose = (opts) ->
   if typeof opts is "function"

@@ -86,18 +86,17 @@ core._to_ref = (s)->
 core.kindof = (that)->
   return 'Null' if that is null
   return 'Undefined' if that is undefined 
-  tc = that.constructor
+  ctor = that.constructor
   toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
-  if typeof(tc) is 'function' then toName(tc) else tc # [object HTMLDocumentConstructor]
+  if typeof(ctor) is 'function' then toName(ctor) else tc # [object HTMLDocumentConstructor]
   
 core._normalize = (that)->
-  toID = core._to_id
   switch core.kindof that
-    when "String" then return id:toID(that), name:that
+    when "String" then return id:core._to_id(that), name:that
     when "Object" then ## Through down
     else
       if that and that.constructor is jQuery
-        id = toID(that)
+        id = core._to_id(that)
         name = that.find(".name")
         if id? or (name.length > 0)
           return id:id, name: (if name.html() then name.html() else undefined)
@@ -113,14 +112,14 @@ core._normalize = (that)->
   return {id:id, name:it} if $.kindof(it) is "String"
 
   keys = (p for p of it)
-  return $.extend {}, it, {id:toID(id), name:id} if keys.length > 1
+  return $.extend {}, it, {id:core._to_id(id), name:id} if keys.length > 1
 
   name = keys[0]
   mods = it[keys[0]]
   switch $.kindof(mods)
     when "Object" then $.extend {id:id, name:name}, mods
     when "Array", "Function"
-      a = {id:toID(id), name:id}
+      a = {id:core._to_id(id), name:id}
       a[name] = mods
       a
 

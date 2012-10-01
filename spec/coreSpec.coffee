@@ -14,6 +14,15 @@ describe "core", ->
         foo = require "Foo"
         expect(foo).toBe Foo
 
+  describe "_normalize", ->
+  
+    describe "string", ->
+
+      it "returns object has type and name", ->
+        e = core._normalize "foo"
+        expect(e).toEqual type:"foo", name:"foo"
+
+
   describe "JUMLY", ->
     
     it "is root object"
