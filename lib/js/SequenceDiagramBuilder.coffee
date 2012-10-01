@@ -5,14 +5,15 @@ class SequenceDiagramBuilder extends DiagramBuilder
     super()
     $.extend this, ctx
 
-SequenceDiagramBuilder::found = (something, callback)->
-  actor = @_find_or_create something
+SequenceDiagramBuilder::found = (sth, callback)->
+  actor = @_find_or_create sth
   actor.addClass "found"
   @_currOccurr = actor.activate()
   @last = callback?.apply this, [this]
   this
 
 SequenceDiagram = require "SequenceDiagram"
+
 SequenceDiagramBuilder::_new_diagram = ->
   new SequenceDiagram
 
