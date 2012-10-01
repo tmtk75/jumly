@@ -4,6 +4,7 @@ describe "SequenceDiagramBuilder", ->
 
   beforeEach ->
     @builder = new SequenceDiagramBuilder
+    @builder.diagram = @builder._new_diagram()
 
   describe "build", ->
 
