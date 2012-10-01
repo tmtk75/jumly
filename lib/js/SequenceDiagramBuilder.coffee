@@ -29,9 +29,9 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
   @diagram.append obj
   switch typeof sth
     when "string"
-      @diagram._def_ r, obj
+      @diagram._def r, obj
     when "object"
-      @diagram._def_ JUMLY.Naming.toRef(a.id), obj
+      @diagram._def JUMLY.Naming.toRef(a.id), obj
     else
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
@@ -108,12 +108,12 @@ SequenceDiagramBuilder::create = (a, b, c) ->
   occurr.gives(".object").attr("id", id).addClass "created-by"
   ctxt = new SequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
-  @_def_ id, occurr.gives(".object")
+  @_def id, occurr.gives(".object")
   ctxt
 
-SequenceDiagramBuilder::_def_ = (varname, refobj)->
+SequenceDiagramBuilder::_def = (varname, refobj)->
   ref = JUMLY.Naming.toRef varname
-  @diagram._def_ ref, refobj
+  @diagram._def ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
   @_currOccurr.destroy @_find_or_create a
