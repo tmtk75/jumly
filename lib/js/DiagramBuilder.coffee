@@ -1,8 +1,5 @@
 class DiagramBuilder
 
-DiagramBuilder::_accept = (f)->
-  f.apply this, []
-
 core = require "core"
 if core.env.is_node
   CoffeeScript = require "coffee-script"
@@ -11,7 +8,7 @@ else
 
 DiagramBuilder::build = (script)->
   @diagram = @_new_diagram()
-  @_accept -> eval CoffeeScript.compile script
+  (-> eval CoffeeScript.compile script).apply this, []
   @diagram
 
 if core.env.is_node
