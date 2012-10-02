@@ -161,8 +161,8 @@ _render_controller = (canvas, styles) -> _render_icon canvas, _controller_render
 
 _render_entity = (canvas, args) -> _render_icon canvas, _entity_renderer, args
 
-$.jumly.icon ?= {}
-$.extend $.jumly.icon, {
+icon = {}
+$.extend icon, {
     ".actor"     : _render_actor
     ".view"      : _render_view
     ".controller": _render_controller
