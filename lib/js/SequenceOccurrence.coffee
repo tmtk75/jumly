@@ -1,8 +1,8 @@
 HTMLElement = require "HTMLElement"
 
-class JUMLYOccurrence  extends HTMLElement
+class SequenceOccurrence  extends HTMLElement
 
-JUMLYOccurrence::interact = (_, opts) ->
+SequenceOccurrence::interact = (_, opts) ->
     _as = jumly.lang._as
     if opts?.stereotype is ".lost"
         occurr = jumly(type:".occurrence").addClass "icon"
@@ -25,7 +25,7 @@ JUMLYOccurrence::interact = (_, opts) ->
     iact.append(occurr).appendTo this
     iact
 
-JUMLYOccurrence::create = (objsrc) ->
+SequenceOccurrence::create = (objsrc) ->
   obj = jumly ".object", objsrc.name
   obj.attr "id", objsrc.id
   @parents(".sequence-diagram").self()[JUMLY.Naming.toRef objsrc.id] = obj
@@ -33,7 +33,7 @@ JUMLYOccurrence::create = (objsrc) ->
   iact = (@interact obj).stereotype "create"
   iact
 
-JUMLYOccurrence::moveHorizontally =->
+SequenceOccurrence::moveHorizontally =->
   if @parent().hasClass "lost"
     @offset left:@parents(".diagram").find(".object").mostLeftRight().right
     return this 
@@ -44,9 +44,9 @@ JUMLYOccurrence::moveHorizontally =->
   left += @width()*@shiftToParent()/2
   @offset left:left
 
-JUMLYOccurrence::isOnOccurrence =-> not (@parentOccurrence() is null)
+SequenceOccurrence::isOnOccurrence =-> not (@parentOccurrence() is null)
 
-JUMLYOccurrence::parentOccurrence = ->
+SequenceOccurrence::parentOccurrence = ->
     lls = jumly(@parents(".occurrence"))
     return null if lls.length is 0
 
@@ -55,7 +55,7 @@ JUMLYOccurrence::parentOccurrence = ->
             return lls[i]
     null
 
-JUMLYOccurrence::shiftToParent = ->
+SequenceOccurrence::shiftToParent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
     a = jumly(@parent().find ".message:eq(0)")[0]
@@ -65,7 +65,7 @@ JUMLYOccurrence::shiftToParent = ->
     # in case of self-invokation below
     return 1
 
-JUMLYOccurrence::preceding = (obj) ->
+SequenceOccurrence::preceding = (obj) ->
     f = (ll) ->
         a = jumly(ll.parents ".occurrence:eq(0)")[0]
         return null if !a
@@ -73,7 +73,7 @@ JUMLYOccurrence::preceding = (obj) ->
         return f a
     f this
 
-JUMLYOccurrence::destroy = (actee) ->
+SequenceOccurrence::destroy = (actee) ->
     #NOTE: expecting interface
     #return @interact(actee, {stereotype:"destroy"})
     #Tentative deprecated implementation.
@@ -92,6 +92,6 @@ JUMLYOccurrence::destroy = (actee) ->
 
 core = require "core"
 if core.env.is_node
-  module.exports = JUMLYOccurrence
+  module.exports = SequenceOccurrence
 else
-  core.exports JUMLYOccurrence
+  core.exports SequenceOccurrence

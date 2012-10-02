@@ -1,6 +1,6 @@
-DiagramLayout = require DiagramLayout
+DiagramLayout = require "DiagramLayout"
+
 class SequenceDiagramLayout extends DiagramLayout
-#JUMLY.SequenceDiagramLayout = SequenceDiagramLayout
 
 SequenceDiagramLayout::_layout_ = ->
   @align_objects_horizontally()

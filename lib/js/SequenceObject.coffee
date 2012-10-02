@@ -43,7 +43,6 @@ SequenceObject::iconify = (fixture, styles)->
 
 SequenceObject::lost =-> @activate().interact(null, {stereotype:".lost"})
 
-core = require "core"
 if core.env.is_node
   module.exports = SequenceObject
 else
