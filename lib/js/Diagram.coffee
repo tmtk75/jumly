@@ -5,7 +5,8 @@ class Diagram extends HTMLElement
     super()
     @addClass "diagram"
     
-Diagram::_def = (varname, e)-> eval "#{varname} = e"
+Diagram::_def = (varname, e)->
+  eval "#{varname} = e"
 
 core = require "core"
 

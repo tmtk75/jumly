@@ -31,7 +31,7 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
     when "string"
       @diagram._def r, obj
     when "object"
-      @diagram._def JUMLY.Naming.toRef(a.id), obj
+      @diagram._def core._to_ref(a.id), obj
     else
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
