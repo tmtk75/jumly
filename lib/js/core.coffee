@@ -145,15 +145,6 @@ core.lang =
       if n.length > 0 then jumly(n)[0] else []
 
 
-class JUMLYDiagramLayout
-JUMLYDiagramLayout::_q = (sel)-> $ sel, @diagram
-JUMLYDiagramLayout::layout = (diagram)->
-  @diagram = diagram
-  @prefs = diagram.preferences()
-  @_layout_?()
-
-JUMLY.DiagramLayout = JUMLYDiagramLayout
-
 
 class JUMLYError extends Error
   constructor: (@type, @message, @arguments, @cause, @jumlipt)->
