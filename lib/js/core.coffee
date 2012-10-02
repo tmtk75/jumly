@@ -183,10 +183,15 @@ if core.env.is_node
 else
   window.JUMLY = JUMLY
 
-  exported = {}
+  exported =
+    core: core
+    "node-jquery": {}  ## suppress warning for "node-jquery"
 
   window.require = (name)->
-    exported[name] or core
+    if name is undefined or name is null
+      throw new Error "#{name} was given"
+    console.warn "not found:", name unless exported[name]
+    exported[name]
 
   core.exports = (func)->
     exported[func.name] = func
