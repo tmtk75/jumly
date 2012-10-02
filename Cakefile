@@ -36,4 +36,4 @@ order = ->
 core = ["core", "jquery.g2d", "jquery.ext"]
 common = ["HTMLElement"]
 diagram = ["Diagram", "DiagramBuilder", "DiagramLayout"]
-sequence = ["SequenceObject", "SequenceInteraction", "SequenceOccurrence"]
+sequence = ["SequenceInteraction", "SequenceOccurrence", "SequenceObject"]
