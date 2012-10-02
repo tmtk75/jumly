@@ -11,7 +11,7 @@ brownie.configure
 
 task "compile", "compile *.coffee", ->
   brownie.exec "touch lib/js/jumly.coffee"
-  brownie.compile order:["core", "jquery.g2d", "jquery.ext", "HTMLElement", "Diagram"]
+  brownie.compile order:order()
 
 task "minify", "minify jumly.js", ->
   brownie.minify header:copyright
@@ -30,3 +30,10 @@ task "app::run", "run app", ->
 task "css::watch", "compile *.styl and watch them", ->
   brownie.exec "stylus -w views -o views/static"
 
+order = ->
+  [].concat core, common, diagram, sequence
+
+core = ["core", "jquery.g2d", "jquery.ext"]
+common = ["HTMLElement"]
+diagram = ["Diagram", "DiagramBuilder", "DiagramLayout"]
+sequence = ["SequenceObject", "SequenceInteraction", "SequenceOccurrence"]
