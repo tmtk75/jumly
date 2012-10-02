@@ -12,6 +12,11 @@ describe "SequenceDiagramBuilder", ->
       node = @builder.build ""
       expect(node.hasClass "diagram").toBeTruthy()
 
+    it "", ->
+      diag = @builder.build "@found 'hello'"
+      $("body").append diag
+      expect($("body .diagram").length).toBe 1
+
   describe "found", ->
 
     it "returns itself", ->

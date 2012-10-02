@@ -66,11 +66,6 @@ $.fn.stereotype = (n)->
     when ".message" then @addClass n
   this
 
-## v0.1.1a
-JUMLY.Naming =
-  toCSSClass: (s)->s.replace(/^JUMLY/, "").replace(/Diagram$/, "-Diagram").toLowerCase()
-
-
 core = {}
 
 core._to_id = (that)->

@@ -8,6 +8,9 @@ class HTMLElement
     #@_build_?.apply this, a
     this
 
+  @to_css_name: (s)->
+    s.replace(/JUMLY/, "").replace(/Diagram$/, "-Diagram").toLowerCase()
+
 core = require "core"
 if core.env.is_node
   module.exports = HTMLElement
