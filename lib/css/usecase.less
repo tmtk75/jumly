@@ -1,4 +1,4 @@
-@import "commons";
+@import "./commons.less";
 
 .usecase-diagram {
   @h: 44*3px;
@@ -8,7 +8,7 @@
       min-width: @h;
       min-height: @v;
       .primary_border;
-      .border_radius(~"@{h}px / @{v}px");
+      .border_radius("@{h}px / @{v}px");
       .box_shadow;
       background-color: white;
       .name {
@@ -31,4 +31,4 @@
   }
 }
 
-@import "usecase-a";
+@import "./usecase-a.less";

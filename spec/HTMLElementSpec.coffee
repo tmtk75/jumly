@@ -9,7 +9,15 @@ describe "HTMLElement", ->
     expect(elem.data).toEqual $("<div>").data
  
   describe "to_css_name", ->
+    f = HTMLElement.to_css_name
 
     it "returns css class name for given function", ->
-      f = HTMLElement.to_css_name
       expect(f "SequenceObject").toBe "object"
+      expect(f "SequenceInteraction").toBe "interaction"
+      expect(f "SequenceOccurrence").toBe "occurrence"
+      
+      expect(f "HTMLElement").toBe "htmlelement"
+
+    it "has Diagram get a hyphenated suffixthe", ->
+      expect(f "SequenceDiagram").toBe "sequence-diagram"
+      

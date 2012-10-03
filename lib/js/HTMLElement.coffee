@@ -1,7 +1,6 @@
 class HTMLElement
   constructor: ->
-    #cls = JUMLY.Naming.toCSSClass @constructor.name
-    cls = @constructor.name
+    cls = HTMLElement.to_css_name @constructor.name
     p = $.extend this, $("<div>").addClass cls
     #a = Array.prototype.slice.apply arguments
     #a.unshift p
@@ -9,7 +8,11 @@ class HTMLElement
     this
 
   @to_css_name: (s)->
-    s.replace(/JUMLY/, "").replace(/Diagram$/, "-Diagram").toLowerCase()
+    (if s.match /Diagram$/
+      s.replace(/Diagram$/, "-Diagram")
+    else
+      s.replace(/^[A-Z][a-z]+/, ""))
+    .toLowerCase()
 
 core = require "core"
 if core.env.is_node

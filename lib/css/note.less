@@ -1,8 +1,8 @@
-@import "_commons";
+@import "./commons.less";
 
-$default-note-width: 192;
+@default-note-width: 192;
 /* $golden_ratio: 1.618; */
-$default-min-height: $default-note-width/1.618/1.618;
+@default-min-height: @default-note-width/1.618/1.618;
 @mixin default-note-size {
     width: #{$default-note-width}px;
     min-height: #{$default-min-height}px;
