@@ -1,2 +1,10 @@
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+/*
+font-family: 'Numans', sans-serif;
+font-family: 'Questrial', sans-serif;
+font-family: 'Carme', sans-serif;
+font-family: 'Michroma', sans-serif;
+font-family: 'Varela', sans-serif;
+font-family: 'Open Sans', sans-serif;
+*/
 .box_shadow{-webkit-box-shadow:10px 5px 5px rgba(0,0,0,.33);-moz-box-shadow:10px 5px 5px rgba(0,0,0,.33);-o-box-shadow:10px 5px 5px rgba(0,0,0,.33);box-shadow:10px 5px 5px rgba(0,0,0,.33)}.box_shadow2{-webkit-box-shadow:5px 2.5px 2.5px rgba(0,0,0,.33);-moz-box-shadow:5px 2.5px 2.5px rgba(0,0,0,.33);-o-box-shadow:5px 2.5px 2.5px rgba(0,0,0,.33);box-shadow:5px 2.5px 2.5px rgba(0,0,0,.33)}.text_shadow{-text-shadow:rgba(0,0,0,.33) 1px 0 0;-text-shadow:1px 0 0 rgba(0,0,0,.33);-text-shadow:4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,.15)}.centering{margin-left:auto;margin-right:auto}.unimportant{z-index:0}.primary_border{border:2px solid #808080}.class-diagram .class .icon{border:2px solid #808080;-webkit-box-shadow:10px 5px 5px rgba(0,0,0,.33);-moz-box-shadow:10px 5px 5px rgba(0,0,0,.33);-o-box-shadow:10px 5px 5px rgba(0,0,0,.33);box-shadow:10px 5px 5px rgba(0,0,0,.33);-moz-border-radius:3px;-webkit-border-radius:3px;-o-border-radius:3px;border-radius:3px;float:left;min-width:120px;background-color:#fff;margin-left:2px;margin-bottom:2px}.class-diagram .class .icon .stereotype,.class-diagram .class .icon .name{display:block;text-align:center}.class-diagram .class .icon .stereotype:before{content:'<<'}.class-diagram .class .icon .stereotype:after{content:'>>'}.class-diagram .class .icon .name{margin:.2em .5em .2em .5em;font-weight:700}.class-diagram .class .icon .attrs,.class-diagram .class .icon .methods{border-top:solid 2px gray;min-height:8px}.class-diagram .class .icon .attrs>*,.class-diagram .class .icon .methods>*{display:block;margin:0;padding:0}.class-diagram .class .icon ul{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0;padding-left:1em;padding-right:1em}
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
