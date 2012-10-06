@@ -1,7 +1,7 @@
 DiagramBuilder = require "DiagramBuilder"
 
 class SequenceDiagramBuilder extends DiagramBuilder
-  constructor: (ctx) ->
+  constructor: ->
     super()
     @_diagram = new SequenceDiagram
 
