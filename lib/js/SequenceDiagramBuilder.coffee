@@ -3,7 +3,7 @@ DiagramBuilder = require "DiagramBuilder"
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (ctx) ->
     super()
-    $.extend this, ctx
+    @_diagram = new SequenceDiagram
 
 SequenceDiagramBuilder::found = (sth, callback)->
   actor = @_find_or_create sth
@@ -13,9 +13,6 @@ SequenceDiagramBuilder::found = (sth, callback)->
   this
 
 SequenceDiagram = require "SequenceDiagram"
-
-SequenceDiagramBuilder::_new_diagram = ->
-  new SequenceDiagram
 
 core = require "core"
 SequenceObject = require "SequenceObject"

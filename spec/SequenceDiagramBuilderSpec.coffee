@@ -4,8 +4,12 @@ describe "SequenceDiagramBuilder", ->
 
   beforeEach ->
     @builder = new SequenceDiagramBuilder
-    @builder._diagram = @builder._new_diagram()
 
+  describe "diagram", ->
+
+    it "returns diagram", ->
+      expect(@builder.diagram().hasClass "diagram").toBeTruthy()
+  
   describe "build", ->
 
     it "should return node has class .diagram", ->
@@ -18,14 +22,3 @@ describe "SequenceDiagramBuilder", ->
       b = @builder.found "foo"
       expect(b).toBe @builder
       
-    describe "_find_or_create", ->
-
-      it "returns node having data", ->
-        foo = @builder._find_or_create "foo"
-        expect(typeof foo.data).toBe 'function'
-  
-  describe "diagram", ->
-
-    it "returns diagram", ->
-      diag = (@builder.found "hello").diagram()
-      expect(diag.hasClass "diagram").toBeTruthy()

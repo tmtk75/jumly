@@ -7,7 +7,6 @@ else
   CoffeeScript = window.CoffeeScript
 
 DiagramBuilder::build = (script)->
-  @_diagram = @_new_diagram()
   (-> eval CoffeeScript.compile script).apply this, []
   @_diagram
 
