@@ -24,11 +24,11 @@ namespace "spec", ->
   task "compile", "compile *.coffee", ->
     brownie.compile srcdir:"spec", tmpdir:"build/.spec", suffix:"Spec"
 
-task "app::run", "run app", ->
+task "app:run", "run app", ->
   brownie.exec "./app.coffee"
 
-task "css::watch", "compile *.styl and watch them", ->
-  brownie.exec "stylus -w views -o views/static"
+task "css:watch", "compile *.styl and watch them", ->
+  brownie.exec "stylus -w lib/css -o lib/css"
 
 order = ->
   [].concat core, common, diagram, sequence
