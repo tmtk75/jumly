@@ -23,15 +23,15 @@ SequenceObject = require "SequenceObject"
 SequenceDiagramBuilder::_find_or_create = (sth) ->
   a = core._normalize sth
   r = core._to_ref a.id
-  return @diagram[r] if @diagram[r]
+  return @_diagram[r] if @_diagram[r]
   obj = new SequenceObject a
-  @diagram._reg_by_ref a.id, obj
-  @diagram.append obj
+  @_diagram._reg_by_ref a.id, obj
+  @_diagram.append obj
   switch typeof sth
     when "string"
-      @diagram._def r, obj
+      @_diagram._def r, obj
     when "object"
-      @diagram._def core._to_ref(a.id), obj
+      @_diagram._def core._to_ref(a.id), obj
     else
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
@@ -73,7 +73,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
       .stereotype(stereotype)
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
-  b = new SequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
+  b = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
   callback?.apply b, []
   b
 
@@ -106,14 +106,14 @@ SequenceDiagramBuilder::create = (a, b, c) ->
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
   occurr.gives(".object").attr("id", id).addClass "created-by"
-  ctxt = new SequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
+  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
   callback?.apply ctxt, []
   @_def id, occurr.gives(".object")
   ctxt
 
 SequenceDiagramBuilder::_def = (varname, refobj)->
   ref = JUMLY.Naming.toRef varname
-  @diagram._def ref, refobj
+  @_diagram._def ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
   @_currOccurr.destroy @_find_or_create a
@@ -123,7 +123,7 @@ SequenceDiagramBuilder::reply = (a, b) ->
   obj = b
   if typeof b is "string"
     ref = JUMLY.Naming.toRef JUMLY.Naming.toID(b)
-    obj = @diagram[ref] if @diagram[ref]
+    obj = @_diagram[ref] if @_diagram[ref]
   @_currOccurr
     .parents(".interaction:eq(0)").self()
     .reply name:a, ".actee":obj
@@ -184,7 +184,7 @@ SequenceDiagramBuilder::reactivate = (a, b, c) ->
     @_actor().activate().append e
     return a
   occurr = @_actor().activate()
-  ctxt = new SequenceDiagramBuilder(diagram:@diagram, _currOccurr:occurr)
+  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
   ctxt.message(a, b, c)
   ctxt
 
@@ -204,13 +204,13 @@ SequenceDiagramBuilder::_note = (a, b, c) ->
 
 SequenceDiagramBuilder::compose = (opts) ->
   if typeof opts is "function"
-    opts @diagram
+    opts @_diagram
   else
-    opts?.append @diagram
-  @diagram.compose opts
+    opts?.append @_diagram
+  @_diagram.compose opts
 
 SequenceDiagramBuilder::preferences = ->
-  @diagram.preferences.apply @diagram, arguments
+  @_diagram.preferences.apply @_diagram, arguments
 
 ##
 #JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->

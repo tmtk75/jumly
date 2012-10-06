@@ -7,9 +7,12 @@ else
   CoffeeScript = window.CoffeeScript
 
 DiagramBuilder::build = (script)->
-  @diagram = @_new_diagram()
+  @_diagram = @_new_diagram()
   (-> eval CoffeeScript.compile script).apply this, []
-  @diagram
+  @_diagram
+
+DiagramBuilder::diagram = ->
+  @_diagram
 
 if core.env.is_node
   module.exports = DiagramBuilder

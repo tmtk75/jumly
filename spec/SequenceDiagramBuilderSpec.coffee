@@ -4,24 +4,28 @@ describe "SequenceDiagramBuilder", ->
 
   beforeEach ->
     @builder = new SequenceDiagramBuilder
-    @builder.diagram = @builder._new_diagram()
+    @builder._diagram = @builder._new_diagram()
 
   describe "build", ->
 
     it "should return node has class .diagram", ->
       node = @builder.build ""
       expect(node.hasClass "diagram").toBeTruthy()
-
-    it "", ->
-      diag = @builder.build "@found 'hello'"
-      $("body").append diag
-      expect($("body .diagram").length).toBe 1
-
+    
   describe "found", ->
 
     it "returns itself", ->
-      builder = @builder.found "foo"
-      foo = builder._find_or_create "foo"
+      b = @builder.found "foo"
+      expect(b).toBe @builder
+      
+    describe "_find_or_create", ->
 
-      expect(builder).toBe @builder
-      expect(typeof foo.data).toBe 'function'
+      it "returns node having data", ->
+        foo = @builder._find_or_create "foo"
+        expect(typeof foo.data).toBe 'function'
+  
+  describe "diagram", ->
+
+    it "returns diagram", ->
+      diag = (@builder.found "hello").diagram()
+      expect(diag.hasClass "diagram").toBeTruthy()
