@@ -6,9 +6,11 @@ describe "SequenceDiagram", ->
 
   describe "SequenceObject", ->
     SequenceObject = require "SequenceObject"
+    beforeEach ->
+      @object = new SequenceObject "user"
     
-    it "has name", ->
-      obj = new SequenceObject "user"
-      expect(obj.find(".name").text()).toBe "user"
-    
+    it "has .object", ->
+      expect(@object).haveClass "object"
       
+    it "has name", ->
+      expect(@object.find(".name").text()).toBe "user"
