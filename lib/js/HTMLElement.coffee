@@ -1,11 +1,11 @@
 class HTMLElement
-  constructor: ->
+  constructor: (args, f)->
     cls = HTMLElement.to_css_name @constructor.name
-    p = $.extend this, $("<div>").addClass cls
-    #a = Array.prototype.slice.apply arguments
-    #a.unshift p
-    #@_build_?.apply this, a
-    this
+    me = $.extend this, root = $("<div>").addClass cls
+    @append inner = $ "<div>"
+    f? inner
+    me.find(".name").text args
+    me
 
   @to_css_name: (s)->
     (if s.match /Diagram$/

@@ -1,10 +1,10 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceObject extends HTMLElement
-
-SequenceObject::_build_ = (div)->
-  div.addClass("object")
-     .append($("<div>").addClass("name"))
+  constructor: (args)->
+    super args, (me)->
+      me.addClass("object")
+         .append($("<div>").addClass("name"))
 
 core = require "core"
 SequenceOccurrence = require "SequenceOccurrence"
