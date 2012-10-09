@@ -1,12 +1,12 @@
+require "./jasmine-matchers"
+
 describe "SequenceDiagram", ->
   SequenceDiagram = require "SequenceDiagram"
 
   beforeEach ->
     @diagram = new SequenceDiagram "hello"
-    @addMatchers
-      haveClass: (expected)->
-        @actual.hasClass expected
-
+    jasmine_matchers.matchers this
+  
   describe "SequenceObject", ->
     SequenceObject = require "SequenceObject"
     beforeEach ->

@@ -181,10 +181,11 @@ else
   exported =
     core: core
     "node-jquery": {}  ## suppress warning for "node-jquery"
+    "./jasmine-matchers": {}  ## suppress warning for "./
 
   window.require = (name)->
     if name is undefined or name is null
-      throw new Error "#{name} was given"
+      throw new Error "#{name} was not properly given"
     console.warn "not found:", name unless exported[name]
     exported[name]
 
