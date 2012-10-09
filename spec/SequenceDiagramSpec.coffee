@@ -3,6 +3,9 @@ describe "SequenceDiagram", ->
 
   beforeEach ->
     @diagram = new SequenceDiagram "hello"
+    @addMatchers
+      haveClass: (expected)->
+        @actual.hasClass expected
 
   describe "SequenceObject", ->
     SequenceObject = require "SequenceObject"
