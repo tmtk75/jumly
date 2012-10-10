@@ -27,8 +27,8 @@ namespace "spec", ->
 task "app:run", "run app", ->
   brownie.exec "./app.coffee"
 
-task "css:watch", "compile *.styl and watch them", ->
-  brownie.exec "stylus -w lib/css -o lib/css"
+task "css:watch", "compile lib/css/*.styl and watch them", ->
+  brownie.exec "(stylus -w lib/css -o lib/css & stylus -w views -o views/static)"
 
 order = ->
   [].concat core, common, diagram, sequence
