@@ -1,24 +1,30 @@
-#= require support
-#= require jquery.ext
-#= require jquery.g2d
 #= require core
-#= require Position
-#= require 0.1.0
+#= require jquery.g2d
+#= require jquery.ext
 
 #= require HTMLElement
 #= require Diagram
 #= require DiagramBuilder
-#= require Object
-#= require Relationship
-#= require icon
-#= require Note
+#= require DiagramLayout
 
-#= require UsecaseDiagram
-#= require ClassDiagram
+#= require SequenceInteraction
+#= require SequenceOccurrence
+#= require SequenceObject
 
-#= require SequenceDiagram
-#= require SequenceDiagramBuilder
-#= require SequenceDiagramLayout
-
-#= require plugin
-#= require ElementLayout
+#= 0.1.0
+#= Class
+#= ClassDiagram
+#= ClassDiagramBuilder
+#= HTMLElementLayout
+#= Position
+#= Relationship
+#= SequenceDiagram
+#= SequenceDiagramBuilder
+#= SequenceDiagramLayout
+#= UsecaseDiagram
+#= core
+#= icon
+#= jquery.ext
+#= jquery.g2d
+#= jumly
+#= plugin
