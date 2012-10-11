@@ -22,7 +22,10 @@ task "minify", "minify jumly.js and jumly.css", ->
     """
 
 task "clean", "clean", ->
-  brownie.exec "rm -rf build"
+  brownie.exec """
+    rm -rf build
+    rm lib/css/*.css
+    """
 
 namespace "css", ->
   
@@ -45,6 +48,7 @@ namespace "spec", ->
 
 task "app:run", "run app", ->
   brownie.exec "./app.coffee"
+  brownie.exec "touch lib/js/jumly.coffee"
 
 order = ->
   [].concat core, common, diagram, sequence
