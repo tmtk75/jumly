@@ -10,25 +10,41 @@ brownie.configure
   basename: "build/jumly"
 
 task "compile", "compile *.coffee", ->
-  brownie.exec "touch lib/js/jumly.coffee"
   brownie.compile order:order()
+  invoke "css:compile"
 
-task "minify", "minify jumly.js", ->
-  brownie.minify header:copyright
+task "minify", "minify jumly.js and jumly.css", ->
+  brownie.minify minified_files:["build/jumly.js"], header:copyright
+  brownie.exec """
+    mkdir -p build/.css
+    stylus -c lib/css/jumly.styl -o build/.css
+    cp build/.css/jumly.css build/jumly.min.css
+    """
+
+task "clean", "clean", ->
+  brownie.exec "rm -rf build"
+
+namespace "css", ->
+  
+  task "compile", "compile lib/css/*.styl", ->
+    brownie.exec """
+      mkdir -p build/.css
+      stylus lib/css -o build/.css
+      cp build/.css/jumly.css build
+      """
+  task "watch", "compile lib/css/*.styl and watch them", ->
+    brownie.exec "(stylus -w lib/css -o lib/css & stylus -w views -o views/static)"
 
 namespace "spec", ->
-
-  task "run", "run spec with jasmine-node", ->
-    brownie.jasmine "spec"
 
   task "compile", "compile *.coffee", ->
     brownie.compile srcdir:"spec", tmpdir:"build/.spec", suffix:"Spec"
 
+  task "run", "run spec with jasmine-node", ->
+    brownie.jasmine "spec"
+
 task "app:run", "run app", ->
   brownie.exec "./app.coffee"
-
-task "css:watch", "compile lib/css/*.styl and watch them", ->
-  brownie.exec "(stylus -w lib/css -o lib/css & stylus -w views -o views/static)"
 
 order = ->
   [].concat core, common, diagram, sequence
