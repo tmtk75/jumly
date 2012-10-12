@@ -9,9 +9,11 @@ copyright = """
 brownie.configure
   basename: "build/jumly"
 
+task "build", "", ->
+  invoke e for e in ["compile", "css:compile"]
+
 task "compile", "compile *.coffee", ->
   brownie.compile order:order()
-  invoke "css:compile"
 
 task "minify", "minify jumly.js and jumly.css", ->
   brownie.minify minified_files:["build/jumly.js"], header:copyright
