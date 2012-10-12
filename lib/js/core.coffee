@@ -189,5 +189,5 @@ else
     console.warn "not found:", name unless exported[name]
     exported[name]
 
-  core.exports = (func)->
-    exported[func.name] = func
+  core.exports = (func, name)->
+    exported[func.name or name] = func

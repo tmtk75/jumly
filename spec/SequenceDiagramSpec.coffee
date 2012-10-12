@@ -1,10 +1,10 @@
 require "./jasmine-matchers"
+utils = require "./spec-utils"
 
 describe "SequenceDiagram", ->
   SequenceDiagram = require "SequenceDiagram"
 
-  div = $("<div>").addClass("sequence-diagram").addClass("spec")
-  $("body").append div
+  div = utils.setup this
 
   beforeEach ->
     jasmine_matchers.matchers this
