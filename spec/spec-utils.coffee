@@ -4,7 +4,7 @@ HTMLElement = require "HTMLElement"
 root =
   setup: (self)->
     klass = HTMLElement.to_css_name self.description
-    div = $("<div>").addClass(klass).addClass("spec")
+    div = $("<div>").attr("id", klass + "-container").addClass("spec")
     $("body").append div
     div
 
