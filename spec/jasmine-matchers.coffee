@@ -1,11 +1,12 @@
 root =
-  matchers: (suite)->
+  setup: (suite)->
     suite.addMatchers
       haveClass: (expected)->
         @actual.hasClass expected
 
-if typeof module != 'undefined' and module.exports
+core = require "core"
+if core.env.is_node
   global.jasmine_matchers = root
   module.exports = root
 else
-  window.jasmine_matchers = root
+  core.exports root, "./jasmine-matchers"
