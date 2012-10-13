@@ -9,6 +9,12 @@ describe "SequenceDiagram", ->
     utils.matchers this
     div.append @diagram = new SequenceDiagram "hello"
 
+  it "has .diagram and .sequence-diagram", ->
+    expect(@diagram).haveClass "diagram"
+    expect(@diagram).haveClass "sequence-diagram"
+
+  it "has no elements just after creation", ->
+    expect(@diagram.find("*").length).toBe 0
   
   describe "SequenceObject", ->
     SequenceObject = require "SequenceObject"
@@ -23,3 +29,4 @@ describe "SequenceDiagram", ->
     
     it "", ->
       @diagram.append @object
+      expect(@object.width()).toBeGreaterThan 0

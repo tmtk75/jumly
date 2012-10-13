@@ -275,7 +275,6 @@ Diagram = require "Diagram"
 class SequenceDiagram extends Diagram
   constructor: ->
     super()
-    @append $("<div>").addClass("object-lane")
 
 #JUMLY.def ".sequence-diagram", SequenceDiagram
     

@@ -2,10 +2,8 @@ class HTMLElement
   constructor: (args, f)->
     cls = HTMLElement.to_css_name @constructor.name
     me = $.extend this, root = $("<div>").addClass cls
-    @append inner = $ "<div>"
-    f? inner
+    f? me
     me.find(".name").text args
-    me
 
   @to_css_name: (s)->
     (if s.match /Diagram$/
