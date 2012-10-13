@@ -1,6 +1,8 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceInteraction extends HTMLElement
+  constructor: (@actor, @actee)->
+    super()
 
 SequenceInteraction::_build_ = (div, props)->
   msg = jumly type:".message", ".interaction":this
