@@ -43,6 +43,7 @@ describe "SequenceDiagramBuilder", ->
       iter = @diagram.find "> .interaction"
       expect(iter.length).toBe 1
       expect(iter.find("> .occurrence").length).toBe 1
+      expect(@diagram.find("> .interaction > .occurrence > .interaction").length).toBe 1
 
   describe "create", ->
 
