@@ -27,6 +27,7 @@ describe "SequenceDiagram", ->
     it "has name", ->
       expect(@object.find(".name").text()).toBe "user"
     
-    it "", ->
+    it "has size", ->
       @diagram.append @object
       expect(@object.width()).toBeGreaterThan 0
+      expect(@object.height()).toBeGreaterThan 0
