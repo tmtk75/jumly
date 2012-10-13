@@ -33,3 +33,10 @@ describe "SequenceDiagram", ->
         @diagram.append @object
         expect(@object.width()).toBeGreaterThan 0
         expect(@object.height()).toBeGreaterThan 0
+  
+  describe "SequenceOccurrence", ->
+
+    it "has .occurrence", ->
+      SequenceOccurrence = require "SequenceOccurrence"
+      beforeEach ->
+        @occurr = new SequenceOccurrence

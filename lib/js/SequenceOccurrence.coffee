@@ -2,8 +2,11 @@ HTMLElement = require "HTMLElement"
 
 class SequenceOccurrence  extends HTMLElement
 
+core = require "core"
+SequenceInteraction = require "SequenceInteraction"
+
 SequenceOccurrence::interact = (_, opts) ->
-    _as = jumly.lang._as
+    _as = core.lang._as
     if opts?.stereotype is ".lost"
         occurr = jumly(type:".occurrence").addClass "icon"
         iact   = jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
@@ -15,15 +18,9 @@ SequenceOccurrence::interact = (_, opts) ->
         alt.alter this, opts
         return this
     else
-        occurr = jumly type:".occurrence", ".object":_
-        iact   = jumly
-                    "type"       : ".interaction"
-                    ".occurrence": _as(".actor":this, ".actee":occurr)
-                    ".object"    : _as(".actor":@gives(".object"), ".actee":_)
-                    ".actor"     : this
-                    ".actee"     : occurr
+      occurr = new SequenceOccurrence
+      iact = new SequenceInteraction this, occurr
     iact.append(occurr).appendTo this
-    iact
 
 SequenceOccurrence::create = (objsrc) ->
   obj = jumly ".object", objsrc.name
@@ -90,7 +87,6 @@ SequenceOccurrence::destroy = (actee) ->
               .insertAfter(occur)
     occur
 
-core = require "core"
 if core.env.is_node
   module.exports = SequenceOccurrence
 else
