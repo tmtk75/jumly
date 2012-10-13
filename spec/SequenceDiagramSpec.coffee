@@ -1,4 +1,5 @@
 utils = require "./jasmine-utils"
+is_node = require("core").env.is_node
 
 describe "SequenceDiagram", ->
   SequenceDiagram = require "SequenceDiagram"
@@ -26,8 +27,9 @@ describe "SequenceDiagram", ->
       
     it "has name", ->
       expect(@object.find(".name").text()).toBe "user"
-    
-    it "has size", ->
-      @diagram.append @object
-      expect(@object.width()).toBeGreaterThan 0
-      expect(@object.height()).toBeGreaterThan 0
+   
+    unless is_node
+      it "has size", ->
+        @diagram.append @object
+        expect(@object.width()).toBeGreaterThan 0
+        expect(@object.height()).toBeGreaterThan 0
