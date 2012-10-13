@@ -1,13 +1,12 @@
-matchers = require "./jasmine-matchers"
-utils = require "./spec-utils"
+utils = require "./jasmine-utils"
 
 describe "SequenceDiagram", ->
   SequenceDiagram = require "SequenceDiagram"
 
-  div = utils.setup this
+  div = utils.div this
 
   beforeEach ->
-    matchers.setup this
+    utils.matchers this
     div.append @diagram = new SequenceDiagram "hello"
 
   

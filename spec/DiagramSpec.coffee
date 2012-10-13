@@ -1,11 +1,11 @@
 require "node-jquery"
-matchers = require "./jasmine-matchers"
+utils = require "./jasmine-utils"
 
 describe "Diagram", ->
   Diagram = require "Diagram"
   beforeEach ->
     @diagram = new Diagram
-    matchers.setup this
+    utils.matchers this
 
   it "has data() of jQuery", ->
     expect(@diagram.data).toBeDefined()

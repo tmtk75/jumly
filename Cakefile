@@ -25,8 +25,7 @@ task "minify", "minify jumly.js and jumly.css", ->
 
 task "clean", "clean", ->
   brownie.exec """
-    rm -rf build
-    rm lib/css/*.css
+    rm -rf build lib/css/*.css
     """
 
 namespace "css", ->
