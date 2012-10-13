@@ -37,6 +37,12 @@ describe "SequenceDiagramBuilder", ->
   
     it "returns itself", ->
       expect(@builder.found("foo").message "call").toBe @builder
+    
+    it "gives an interaction and an occurrence", ->
+      div.prepend @diagram
+      iter = @diagram.find "> .interaction"
+      expect(iter.length).toBe 1
+      expect(iter.find("> .occurrence").length).toBe 1
 
   describe "create", ->
 

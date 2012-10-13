@@ -8,7 +8,7 @@ class SequenceDiagramBuilder extends DiagramBuilder
 SequenceDiagramBuilder::found = (sth, callback)->
   actor = @_find_or_create sth
   actor.addClass "found"
-  @_currOccurr = actor.activate()
+  @_curr_occurr = actor.activate()
   @last = callback?.apply this, [this]
   this
 
@@ -34,12 +34,13 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
       throw new Error "Unrecognized argument: #{e}"
   obj
 
-SequenceDiagramBuilder::_actor = -> @_currOccurr.gives ".object"
+SequenceDiagramBuilder::_curr_actor = ->
+  @_curr_occurr._actor
 
 SequenceDiagramBuilder::message = (a, b, c) ->
   actname  = a
   if typeof b is "function" or b is undefined
-    actee = @_actor()
+    actee = @_curr_actor()
     callback = b
   else if typeof a is "string" and typeof b is "string"
     if typeof c is "function"
@@ -65,12 +66,12 @@ SequenceDiagramBuilder::message = (a, b, c) ->
     console.error "SequenceDiagramBuilder::message", msg, a, b, c
     throw new Error(msg, a, b, c)
       
-  iact = @_currOccurr.interact actee
+  iact = @_curr_occurr.interact actee
   iact.find(".name").text(actname).end()
       .find(".stereotype").text(stereotype)
   
   occurr = iact._actee
-  b = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
+  b = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
   callback?.apply b, []
   b
 
@@ -98,12 +99,12 @@ SequenceDiagramBuilder::create = (a, b, c) ->
     norm = JUMLY.Identity.normalize a
     id = norm.id
     actee = norm.name
-  iact = @_currOccurr.create id:id, name:actee
+  iact = @_curr_occurr.create id:id, name:actee
   iact.name name if name 
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
   occurr.gives(".object").attr("id", id).addClass "created-by"
-  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
+  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
   callback?.apply ctxt, []
   @_def id, occurr.gives(".object")
   ctxt
@@ -113,7 +114,7 @@ SequenceDiagramBuilder::_def = (varname, refobj)->
   @_diagram._def ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
-  @_currOccurr.destroy @_find_or_create a
+  @_curr_occurr.destroy @_find_or_create a
   null
 
 SequenceDiagramBuilder::reply = (a, b) ->
@@ -121,33 +122,33 @@ SequenceDiagramBuilder::reply = (a, b) ->
   if typeof b is "string"
     ref = JUMLY.Naming.toRef JUMLY.Naming.toID(b)
     obj = @_diagram[ref] if @_diagram[ref]
-  @_currOccurr
+  @_curr_occurr
     .parents(".interaction:eq(0)").self()
     .reply name:a, ".actee":obj
   null
 
 SequenceDiagramBuilder::ref = (a) ->
-  (jumly ".ref", a).insertAfter @_currOccurr.parents(".interaction:eq(0)")
+  (jumly ".ref", a).insertAfter @_curr_occurr.parents(".interaction:eq(0)")
   null
 
 SequenceDiagramBuilder::lost = (a) ->
-  @_currOccurr.lost()
+  @_curr_occurr.lost()
   null
 
 ## A kind of fragment
 SequenceDiagramBuilder::loop = (a, b, c) ->
   ## NOTE: Should this return null in case of no context
   if a.constructor is this.constructor  ## First one is DSL
-    frag = a._currOccurr
+    frag = a._curr_occurr
      .parents(".interaction:eq(0)").self()
      .fragment(name:"Loop")
      .addClass "loop"
   else
     last = [].slice.apply(arguments).pop()  ## Last one is Function
     if $.isFunction(last)
-      kids = @_currOccurr.find("> *")
+      kids = @_curr_occurr.find("> *")
       last.apply this, []
-      newones = @_currOccurr.find("> *").not(kids)
+      newones = @_curr_occurr.find("> *").not(kids)
       if newones.length > 0
         frag = jumly(".fragment").addClass("loop").enclose newones
         frag.find(".name:first").html "Loop"
@@ -164,10 +165,10 @@ SequenceDiagramBuilder::alt = (ints, b, c) ->
     _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
       what = act.apply self
       unless what then return what
-      what._currOccurr
+      what._curr_occurr
           .parent(".interaction:eq(0)")
     iacts[name] = _new_act(name, act)
-  @_currOccurr.interact stereotype:".alt", iacts
+  @_curr_occurr.interact stereotype:".alt", iacts
   this
 
 ###
@@ -177,18 +178,18 @@ Examples:
 ###
 SequenceDiagramBuilder::reactivate = (a, b, c) ->
   if a.constructor is this.constructor
-    e = a._currOccurr.parents(".interaction:eq(0)")
-    @_actor().activate().append e
+    e = a._curr_occurr.parents(".interaction:eq(0)")
+    @_curr_actor().activate().append e
     return a
-  occurr = @_actor().activate()
-  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
+  occurr = @_curr_actor().activate()
+  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
   ctxt.message(a, b, c)
   ctxt
 
 SequenceDiagramBuilder::_note = (a, b, c) ->
-  nodes = @_currOccurr.find("> .interaction:eq(0)")
+  nodes = @_curr_occurr.find("> .interaction:eq(0)")
   if nodes.length is 0
-    nodes = @_currOccurr.parents ".interaction:eq(0):not(.activated)"
+    nodes = @_curr_occurr.parents ".interaction:eq(0):not(.activated)"
 
   ##TENTATIVE: because DSL notation is not decided.
   text = a

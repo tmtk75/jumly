@@ -1,7 +1,7 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceInteraction extends HTMLElement
-  constructor: (@actor, @actee)->
+  constructor: (@_actor, @_actee)->
     super()
 
 SequenceInteraction::_build_ = (div, props)->

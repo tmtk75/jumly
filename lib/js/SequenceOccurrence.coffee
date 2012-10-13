@@ -1,11 +1,13 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceOccurrence  extends HTMLElement
+  constructor: (@_actor)->
+    super()
 
 core = require "core"
 SequenceInteraction = require "SequenceInteraction"
 
-SequenceOccurrence::interact = (_, opts) ->
+SequenceOccurrence::interact = (actor, opts) ->
     _as = core.lang._as
     if opts?.stereotype is ".lost"
         occurr = jumly(type:".occurrence").addClass "icon"
@@ -13,12 +15,12 @@ SequenceOccurrence::interact = (_, opts) ->
         iact.addClass "lost"
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
-    else if _?.stereotype is ".alt"
+    else if actor?.stereotype is ".alt"
         alt = jumly ".fragment", name:"alt"
         alt.alter this, opts
         return this
     else
-      occurr = new SequenceOccurrence
+      occurr = new SequenceOccurrence actor
       iact = new SequenceInteraction this, occurr
     iact.append(occurr).appendTo this
 
