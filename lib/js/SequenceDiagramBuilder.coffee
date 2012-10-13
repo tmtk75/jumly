@@ -4,12 +4,22 @@ class SequenceDiagramBuilder extends DiagramBuilder
   constructor: ->
     super()
     @_diagram = new SequenceDiagram
+    @_occurrs = []
+
+SequenceDiagramBuilder::_save_curr_occurr = (occurr)->
+  @_occurrs.unshift occurr
+
+SequenceDiagramBuilder::_curr_occurr = ->
+  @_occurrs[0]
+
+SequenceDiagramBuilder::_curr_actor = ->
+  @_curr_occurr()._actor
 
 SequenceDiagramBuilder::found = (sth, callback)->
   actor = @_find_or_create sth
   actor.addClass "found"
-  @_curr_occurr = actor.activate()
-  @last = callback?.apply this, [this]
+  @_save_curr_occurr actor.activate()
+  callback?.apply this, [this]
   this
 
 SequenceDiagram = require "SequenceDiagram"
@@ -33,9 +43,6 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
   obj
-
-SequenceDiagramBuilder::_curr_actor = ->
-  @_curr_occurr._actor
 
 SequenceDiagramBuilder::message = (a, b, c) ->
   actname  = a
@@ -66,14 +73,13 @@ SequenceDiagramBuilder::message = (a, b, c) ->
     console.error "SequenceDiagramBuilder::message", msg, a, b, c
     throw new Error(msg, a, b, c)
       
-  iact = @_curr_occurr.interact actee
+  iact = @_curr_occurr().interact actee
   iact.find(".name").text(actname).end()
       .find(".stereotype").text(stereotype)
   
-  occurr = iact._actee
-  b = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
-  callback?.apply b, []
-  b
+  @_save_curr_occurr iact._actee
+  callback?.apply this, []
+  this
 
 SequenceDiagramBuilder::create = (a, b, c) ->
   if typeof a is "string" and typeof b is "function"
