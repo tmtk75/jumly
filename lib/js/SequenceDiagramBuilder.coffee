@@ -66,8 +66,8 @@ SequenceDiagramBuilder::message = (a, b, c) ->
     throw new Error(msg, a, b, c)
       
   iact = @_currOccurr.interact actee
-  iact.name(actname)
-      .stereotype(stereotype)
+  iact.find(".name").text(actname).end()
+      .find(".stereotype").text(stereotype)
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact.gives ".actee"
   b = new SequenceDiagramBuilder(diagram:@_diagram, _currOccurr:occurr)
