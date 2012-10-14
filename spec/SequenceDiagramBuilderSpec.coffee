@@ -1,10 +1,7 @@
 utils = require "./jasmine-utils"
-is_node = require("core").env.is_nod
 
 describe "SequenceDiagramBuilder", ->
   SequenceDiagramBuilder = require "SequenceDiagramBuilder"
-
-  div = utils.div this
 
   beforeEach ->
     @builder = new SequenceDiagramBuilder
@@ -43,7 +40,6 @@ describe "SequenceDiagramBuilder", ->
       expect(@builder.found("foo").message "call").toBe @builder
     
     it "gives an interaction and an occurrence", ->
-      div.prepend @diagram
       iter = @diagram.find "> .interaction"
       expect(iter.length).toBe 1
       expect(iter.find("> .occurrence").length).toBe 1

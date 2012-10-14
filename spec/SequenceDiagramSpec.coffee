@@ -3,12 +3,11 @@ is_node = require("core").env.is_node
 
 describe "SequenceDiagram", ->
   SequenceDiagram = require "SequenceDiagram"
-
   div = utils.div this
 
   beforeEach ->
     utils.matchers this
-    div.append @diagram = new SequenceDiagram "hello"
+    @diagram = new SequenceDiagram "hello"
 
   it "has .diagram and .sequence-diagram", ->
     expect(@diagram).haveClass "diagram"
@@ -30,6 +29,7 @@ describe "SequenceDiagram", ->
    
     unless is_node
       it "has size", ->
+        div.append @diagram
         @diagram.append @object
         expect(@object.width()).toBeGreaterThan 0
         expect(@object.height()).toBeGreaterThan 0
