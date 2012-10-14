@@ -31,7 +31,7 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
   a = core._normalize sth
   r = core._to_ref a.id
   return @_diagram[r] if @_diagram[r]
-  obj = new SequenceObject a
+  obj = new SequenceObject sth
   @_diagram._reg_by_ref a.id, obj
   @_diagram.append obj
   switch typeof sth
