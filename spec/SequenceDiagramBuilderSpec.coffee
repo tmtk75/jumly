@@ -27,8 +27,11 @@ describe "SequenceDiagramBuilder", ->
     it "returns itself", ->
       expect(@builder.found "foo").toBe @builder
 
-    it "gives an object", ->
-      expect(@diagram.find(".object").length).toBe 1
+    it "gives an object having .found", ->
+      @builder.found "bar"
+      obj = @diagram.find ".object"
+      expect(obj.length).toBe 1
+      expect(obj).haveClass "found"
 
   describe "message", ->
     beforeEach ->
