@@ -12,6 +12,3 @@ if core.env.is_node
   module.exports = DiagramLayout
 else
   core.exports DiagramLayout
-
-
-

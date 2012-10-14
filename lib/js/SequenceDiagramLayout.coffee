@@ -130,3 +130,9 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
 
 SequenceDiagramLayout::render_icons = ->
   @_q(".object").selfEach (e)-> e.renderIcon?()
+
+core = require "core"
+if core.env.is_node
+  module.exports = SequenceDiagramLayout
+else
+  core.exports SequenceDiagramLayout
