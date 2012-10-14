@@ -1,8 +1,10 @@
+require "core"
+require "jquery.ext"
+SequenceDiagramLayout = require "SequenceDiagramLayout"
+SequenceDiagram = require "SequenceDiagram"
+SequenceObject = require "SequenceObject"
 
 describe "SequenceDiagramLayout", ->
-  SequenceDiagramLayout = require "SequenceDiagramLayout"
-  SequenceDiagram = require "SequenceDiagram"
-  SequenceObject = require "SequenceObject"
 
   beforeEach ->
     @layout = new SequenceDiagramLayout

@@ -31,8 +31,6 @@ jumly = (arg, opts) ->
   a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
   a
 
-$ =
-  fn: {}
 $.jumly = jumly
 
 $.fn.jprops = -> @data("uml:property")

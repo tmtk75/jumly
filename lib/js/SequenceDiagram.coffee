@@ -115,8 +115,7 @@ prefs_ =
 SequenceDiagram::$ = (sel) -> jumly($(sel, this))
 SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 SequenceDiagram::preferences = (a, b) ->
-    prefs = @jprops().preferences
-    if !prefs then @jprops().preferences = prefs = {}
+    prefs = {}
     width = ->
         objs  = $(".object", this)
         left  = objs.min((e) -> $(e).position().left) - @position().left
@@ -124,7 +123,7 @@ SequenceDiagram::preferences = (a, b) ->
         left + (right - left) + left
     ## Return preferences
     if (!b and typeof a is "string") or (!a and !b)
-        r = $.extend {}, jumly.preferences(".sequence-diagram"), prefs
+        r = $.extend {}, prefs, prefs_
         r.WIDTH = width.apply this
         return r
     ## Overrite instance preferences
