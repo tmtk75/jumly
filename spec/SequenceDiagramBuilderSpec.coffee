@@ -32,7 +32,8 @@ describe "SequenceDiagramBuilder", ->
       obj = @diagram.find ".object"
       expect(obj.length).toBe 1
       expect(obj).haveClass "found"
-
+      expect(obj.find(".name").text()).toBe "bar"
+    
   describe "message", ->
     beforeEach ->
       @builder.found("foo")
