@@ -9,7 +9,11 @@ root =
     klass = HTMLElement.to_css_name self.description
     div = $("<div>").attr("id", klass + "-container")
                     .addClass("spec-diagram-container")
-    $("body").append div
+    cont = $("body > #diagram-containers")
+    if cont .length is 0
+      cont = $("<div>").attr("id", "diagram-containers")
+      $("body").append cont
+    cont.append div
     div
 
 core = require "core"
