@@ -7,7 +7,8 @@ root =
   div: (self)->
     HTMLElement = require "HTMLElement"
     klass = HTMLElement.to_css_name self.description
-    div = $("<div>").attr("id", klass + "-container").addClass("spec")
+    div = $("<div>").attr("id", klass + "-container")
+                    .addClass("spec-diagram-container")
     $("body").append div
     div
 
