@@ -1,3 +1,16 @@
-#spec-diagram-container {
-  height: 0px;
+#diagram-containers {
+  position: absolute;
+  width: 768px;
+  right: 8px;
+  padding: 8px;
+  border-radius: 3px;
+  background-color: #DDD;
+  opacity: 0.85;
+}
+
+#diagram-containers .spec-diagram-container {
+  padding: 4px;
+  border-radius: 3px;
+  border: solid 1px gray;
+  margin-bottom: 2px;
 }
