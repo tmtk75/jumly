@@ -50,7 +50,7 @@ SequenceLifeline = require "SequenceLifeline"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   $(".object", @diagram).each (i, e)->
-    obj = $(e).data()
+    obj = $(e).data "self"
     a = new SequenceLifeline obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
