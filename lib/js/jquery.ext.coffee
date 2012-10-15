@@ -42,5 +42,4 @@ _fn.mostTopBottom = ->
   height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
         
 _fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
-String.prototype.toInt = (z = 0)-> if this.length > 0 then parseInt this else z
 

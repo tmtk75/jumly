@@ -133,13 +133,18 @@ SequenceDiagram::compose = (props) ->
     console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
     throw ex
 
-SequenceDiagram::preferredWidth = () ->
-  bw = @css("border-right-width").toInt() + @css("border-left-width").toInt()
+_css = (self, name)->
+  a = self.css name
+  return 0 unless a
+  parseInt a
+
+SequenceDiagram::preferredWidth = ()->
+  bw = _css(this, "border-right-width") + _css(this, "border-left-width")
   nodes = $(".object, .ref, .fragment", this)
   return 0 + bw if nodes.length is 0
   a = nodes.mostLeftRight()
   return 0 + bw if a.left is a.right
-  left = nodes.choose ((e)-> $(e).css("left").toInt()), ((x, t)-> x < t)
+  left = nodes.choose ((e)-> _css($(e), "left")), ((x, t)-> x < t)
   a.right - a.left + bw + 1
 
 
