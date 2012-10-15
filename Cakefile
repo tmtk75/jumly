@@ -57,4 +57,4 @@ order = ->
 core = ["core", "jquery.g2d", "jquery.ext"]
 common = ["HTMLElement"]
 diagram = ["Diagram", "DiagramBuilder", "DiagramLayout"]
-sequence = ["SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceObject"]
+sequence = ["SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceObject"]
