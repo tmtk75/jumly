@@ -1,19 +1,12 @@
 HTMLElement = require "HTMLElement"
 
-class JUMLYLifeline    extends HTMLElement
 class JUMLYFragment    extends HTMLElement
 class JUMLYRef         extends HTMLElement
 types = 
-  ".lifeline"        : JUMLYLifeline
   ".fragment"        : JUMLYFragment
   ".ref"             : JUMLYRef
 #JUMLY.def e, types[e] for e of types
 jumly = $.jumly
-
-JUMLYLifeline::_build_ = (div, props)->
-  div.append($("<div>").addClass("line").height(128))
-	   .width(props[".object"].width())
-	   .height(128)
 
 JUMLYFragment::_build_ = (div)->
   div.append($("<div>").addClass("header")

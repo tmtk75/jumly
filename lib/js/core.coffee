@@ -33,14 +33,6 @@ jumly = (arg, opts) ->
 
 $.jumly = jumly
 
-$.fn.jprops = -> @data("uml:property")
-$.fn.self = -> @jprops()?._self
-$.fn.selfEach = (f)-> @each (i, e)->
-  e = $(e).self()
-  throw new Error("self() returned undefined.", e) unless e?
-  f e
-  this
-
 ##
 prefs_ = {}
 preferences_ = (a, b)->

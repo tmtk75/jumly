@@ -1,7 +1,5 @@
 class DiagramLayout
 
-DiagramLayout::_q = (sel)-> $ sel, @diagram
-
 DiagramLayout::layout = (diagram)->
   @diagram = diagram
   @prefs = diagram.preferences()

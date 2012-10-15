@@ -1,6 +1,17 @@
 DiagramLayout = require "DiagramLayout"
 
+$.fn.jprops = -> @data("uml:property")
+$.fn.self = -> @jprops()?._self
+$.fn.selfEach = (f)-> @each (i, e)->
+  e = $(e).self()
+  throw new Error("self() returned undefined.", e) unless e?
+  f e
+  this
+
 class SequenceDiagramLayout extends DiagramLayout
+
+SequenceDiagramLayout::_q = (sel)->
+  $ sel, @diagram
 
 SequenceDiagramLayout::_layout_ = ->
   @align_objects_horizontally()
@@ -35,10 +46,12 @@ SequenceDiagramLayout::compose_interactions = ->
 
 jumly = $.jumly
 
+SequenceLifeline = require "SequenceLifeline"
+
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
-  @_q(".lifeline").remove()
-  @_q(".object").selfEach (obj)->
-    a = jumly type:".lifeline", ".object":obj
+  $(".object", @diagram).each (i, e)->
+    obj = $(e).data()
+    a = new SequenceLifeline obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
 
