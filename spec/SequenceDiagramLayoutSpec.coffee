@@ -1,5 +1,6 @@
 require "core"
 require "jquery.ext"
+utils = require "./jasmine-utils"
 SequenceDiagramLayout = require "SequenceDiagramLayout"
 SequenceDiagram = require "SequenceDiagram"
 SequenceObject = require "SequenceObject"

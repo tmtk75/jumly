@@ -17,7 +17,6 @@ SequenceDiagramLayout::_layout_ = ->
   @align_occurrences_horizontally()
   @compose_interactions()
   @generate_lifelines_and_align_horizontally()
-  @pack_object_lane_vertically()
   @pack_refs_horizontally()
   @pack_fragments_horizontally()
   @align_creation_message_horizontally()
@@ -53,12 +52,6 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
     a = new SequenceLifeline obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
-
-SequenceDiagramLayout::pack_object_lane_vertically = ()->
-  objs = @_q(".object")
-  mostheight = jQuery.max objs, (e) -> $(e).outerHeight()
-  mostheight ?= 0
-  $(".object-lane").height(mostheight).swallow(objs)
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
   refs = @_q(".ref")
