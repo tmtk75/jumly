@@ -4,7 +4,7 @@ class HTMLElement
     me = $.extend this, root = $("<div>").addClass cls
     f? me
     me.find(".name").text args
-    me.data "self", me
+    me.data "_self", me
 
   @to_css_name: (s)->
     (if s.match /Diagram$/

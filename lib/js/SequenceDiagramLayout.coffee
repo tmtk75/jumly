@@ -1,10 +1,9 @@
 DiagramLayout = require "DiagramLayout"
 
-$.fn.jprops = -> @data("uml:property")
-$.fn.self = -> @jprops()?._self
+$.fn.self = -> @data "_self"
 $.fn.selfEach = (f)-> @each (i, e)->
   e = $(e).self()
-  throw new Error("self() returned undefined.", e) unless e?
+  throw new Error("_self have nothing ", e) unless e?
   f e
   this
 
@@ -50,7 +49,7 @@ SequenceLifeline = require "SequenceLifeline"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   $(".object", @diagram).each (i, e)->
-    obj = $(e).data "self"
+    obj = $(e).self()
     a = new SequenceLifeline obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
     a.insertAfter obj
