@@ -7,15 +7,19 @@ SequenceObject = require "SequenceObject"
 
 describe "SequenceDiagramLayout", ->
 
+  div = utils.div this
+
   beforeEach ->
     @layout = new SequenceDiagramLayout
 
   it "has layout", ->
     expect(typeof @layout.layout).toBe "function"
   
-  it "determines the size", ->
-    diag = new SequenceDiagram
-    diag.append new SequenceObject "foobar"
-    @layout.layout diag
-    expect(diag.width()).toBeGreaterThan 0
-    expect(diag.height()).toBeGreaterThan 0
+  utils.unless_node ->
+    it "determines the size", ->
+      diag = new SequenceDiagram
+      diag.append obj = new SequenceObject "foobar"
+      div.append diag
+      @layout.layout diag
+      expect(diag.width()).toBeGreaterThan 0
+      expect(diag.height()).toBeGreaterThan 0

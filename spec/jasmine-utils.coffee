@@ -1,3 +1,5 @@
+core = require "core"
+
 root =
   matchers: (suite)->
     suite.addMatchers
@@ -16,7 +18,9 @@ root =
     cont.append div
     div
 
-core = require "core"
+  unless_node: (f)->
+    f() unless core.env.is_node
+
 if core.env.is_node
   module.exports = root
 else
