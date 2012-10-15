@@ -1,10 +1,11 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceLifeline extends HTMLElement
-  constructor: (obj)->
+  constructor: (@_object)->
+    self = this
     super null, (me)->
       me.append($("<div>").addClass("line").height(128))
-        .width(obj.width())
+        .width(self._object.width())
         .height(128)
 
 core = require "core"

@@ -102,9 +102,8 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
                        .not(".interaction.lost .occurrence")
                        .max (e) -> $(e).outerBottom()
   @_q(".lifeline").selfEach (a) ->
-    obj = a.gives(".object")
-    y = obj.outerBottom() + 1
-    a.offset left:obj.offset().left, top:y
+    y = a._object.outerBottom() + 1
+    a.offset left:a._object.offset().left, top:y
     h = mostbottom - y + 16
     a.height h
     a.find(".line").css(top:0).height h
