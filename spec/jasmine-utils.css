@@ -8,6 +8,12 @@
   opacity: 0.85;
 }
 
+#diagram-containers .description {
+  font-size: 11;
+  font-family: Monaco,mono,monospace;
+  text-align: right;
+}
+
 #diagram-containers .spec-diagram-container {
   padding: 4px;
   border-radius: 3px;

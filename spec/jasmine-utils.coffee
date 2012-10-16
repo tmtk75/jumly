@@ -11,6 +11,7 @@ root =
     klass = HTMLElement.to_css_name self.description
     div = $("<div>").attr("id", klass + "-container")
                     .addClass("spec-diagram-container")
+                    .prepend($("<div>").addClass("description").text self.description)
     cont = $("body > #diagram-containers")
     if cont .length is 0
       cont = $("<div>").attr("id", "diagram-containers")
