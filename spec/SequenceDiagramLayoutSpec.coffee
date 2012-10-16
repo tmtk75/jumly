@@ -4,6 +4,7 @@ utils = require "./jasmine-utils"
 SequenceDiagramLayout = require "SequenceDiagramLayout"
 SequenceDiagram = require "SequenceDiagram"
 SequenceObject = require "SequenceObject"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
 describe "SequenceDiagramLayout", ->
 
@@ -23,3 +24,13 @@ describe "SequenceDiagramLayout", ->
       @layout.layout diag
       expect(diag.width()).toBeGreaterThan 0
       expect(diag.height()).toBeGreaterThan 0
+
+  beforeEach ->
+    @builder = new SequenceDiagramBuilder
+
+  describe "found", ->
+
+    it "", ->
+      div.append @builder.build "@found 'foundee'"
+      expect(true).toBeFalthy()
+      
