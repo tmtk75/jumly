@@ -174,7 +174,7 @@ SequenceDiagramBuilder::alt = (ints, b, c) ->
       what._curr_occurr
           .parent(".interaction:eq(0)")
     iacts[name] = _new_act(name, act)
-  @_curr_occurr.interact stereotype:".alt", iacts
+  @_curr_occurr().interact stereotype:".alt", iacts
   this
 
 ###

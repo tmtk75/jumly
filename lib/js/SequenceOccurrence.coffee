@@ -10,8 +10,8 @@ SequenceInteraction = require "SequenceInteraction"
 SequenceOccurrence::interact = (actor, opts) ->
     _as = core.lang._as
     if opts?.stereotype is ".lost"
-        occurr = jumly(type:".occurrence").addClass "icon"
-        iact   = jumly type:".interaction", ".occurrence":_as(".actor":this, ".actee":occurr), ".actor":this, ".actee":occurr
+        occurr = new SequenceOccurrence().addClass "icon"
+        iact   = new SequenceInteraction this, occurr
         iact.addClass "lost"
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
