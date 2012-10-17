@@ -34,3 +34,15 @@ describe "SequenceDiagramLayout", ->
       it "looks centering" #, ->
         #div.append @builder.build "@found 'foundee'"
         #@layout.layout diag = @builder.diagram()
+
+"""
+@found "You", ->
+  @message "open", "Front Cover"
+  @loop ->
+    @alt
+      "[page > 0]": -> @message "flip", "Page"
+      "[page = 0]": -> @message "stop reading"
+    @message "read", "Page"
+  @message "close", "Front Cover"
+  @ref "Tidy up book at shelf"
+"""
