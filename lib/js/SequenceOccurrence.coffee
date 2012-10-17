@@ -25,10 +25,11 @@ SequenceOccurrence::interact = (actor, opts) ->
     iact.append(occurr).appendTo this
 
 SequenceOccurrence::create = (objsrc) ->
-  obj = jumly ".object", objsrc.name
+  SequenceObject = require "SequenceObject"
+  obj = new SequenceObject objsrc.name
   obj.attr "id", objsrc.id
-  @parents(".sequence-diagram").self()[JUMLY.Naming.toRef objsrc.id] = obj
-  @gives(".object").parent().append obj
+  @parents(".sequence-diagram").self()[core._to_ref objsrc.id] = obj
+  @_actor.parent().append obj
   iact = (@interact obj).stereotype "create"
   iact
 

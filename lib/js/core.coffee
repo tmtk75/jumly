@@ -47,11 +47,12 @@ $.fn.name = (n)->
   @find(".name:eq(0)").html n
   @jprops()?.name = n
   this
+
 $.fn.stereotype = (n)->
-  return @jprops()?.stereotype if arguments.length is 0 or n is undefined
+  return @data("stereotype") if arguments.length is 0 or n is undefined
   @find(".stereotype:eq(0)").html n
-  @jprops()?.stereotype = n
-  switch @jprops().type
+  @data("stereotype", n)
+  switch @data("type")
     when ".interaction" then @find(".message:eq(0)").self().stereotype n
     when ".message" then @addClass n
   this
