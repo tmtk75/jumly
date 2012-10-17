@@ -14,7 +14,7 @@
   "devDependencies": {
     "knockout": "2.1.0",
     "jwerty": "0.3.1",
-    "express": "3.0.0rc4",
+    "express": "3.0.0rc5",
     "jade": "0.27.0",
     "jumly-jade": "*",
     "jade-filters": "*",
