@@ -29,8 +29,8 @@ describe "SequenceDiagramLayout", ->
     @builder = new SequenceDiagramBuilder
 
   describe "found", ->
+    utils.unless_node ->
 
-    it "", ->
-      div.append @builder.build "@found 'foundee'"
-      expect(true).toBeFalthy()
-      
+      it "looks centering" #, ->
+        #div.append @builder.build "@found 'foundee'"
+        #@layout.layout diag = @builder.diagram()

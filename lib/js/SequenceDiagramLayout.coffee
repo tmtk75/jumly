@@ -37,7 +37,7 @@ SequenceDiagramLayout::align_objects_horizontally = ->
   @_q(".object").pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
-   @_q(".occurrence").selfEach (e)-> e.moveHorizontally()
+   @_q(".occurrence").selfEach (e)-> e._move_horizontally()
 
 SequenceDiagramLayout::compose_interactions = ->
   @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
@@ -82,7 +82,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
                 occurr = jumly(occurr)[0]
-                occurr.moveHorizontally()
+                occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
   @_q(".occurrence > .fragment")
@@ -123,7 +123,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
     
     occurr = iact.css("padding-bottom", 0)
                  .find("> .occurrence").self()
-                 .moveHorizontally()
+                 ._move_horizontally()
                  .css("top", 0)
 
     msg = iact.find(".message").self()

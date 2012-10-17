@@ -6,7 +6,6 @@ class SequenceLifeline extends HTMLElement
     super null, (me)->
       me.append($("<div>").addClass("line").height(128))
         .width(self._object.width())
-        .height(128)
 
 core = require "core"
 if core.env.is_node

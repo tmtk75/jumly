@@ -32,26 +32,26 @@ SequenceOccurrence::create = (objsrc) ->
   iact = (@interact obj).stereotype "create"
   iact
 
-SequenceOccurrence::moveHorizontally =->
+SequenceOccurrence::_move_horizontally =->
   if @parent().hasClass "lost"
     @offset left:@parents(".diagram").find(".object").mostLeftRight().right
     return this 
   if not @isOnOccurrence()
-    left = @gives(".object").offset().left + (@gives(".object").width() - @width())/2
+    left = @_actor.offset().left + (@_actor.width() - @width())/2
   else
-    left = @parentOccurrence().offset().left
+    left = @_parent_occurr().offset().left
   left += @width()*@shiftToParent()/2
   @offset left:left
 
-SequenceOccurrence::isOnOccurrence =-> not (@parentOccurrence() is null)
+SequenceOccurrence::isOnOccurrence =-> not (@_parent_occurr() is null)
 
-SequenceOccurrence::parentOccurrence = ->
-    lls = jumly(@parents(".occurrence"))
-    return null if lls.length is 0
+SequenceOccurrence::_parent_occurr = ->
+    occurrs = @parents(".occurrence")
+    return null if occurrs.length is 0
 
-    for i in [0..lls.length - 1]
-        if @gives(".object") is lls[i].gives(".object")
-            return lls[i]
+    for i in [0..occurrs.length - 1]
+      if @_actor is $(occurrs[i])._self()._actor
+        return occurrs[i]
     null
 
 SequenceOccurrence::shiftToParent = ->
@@ -80,7 +80,7 @@ SequenceOccurrence::destroy = (actee) ->
                 .stereotype("destroy")
                 .gives(".occurrence").as(".actee")
     if occur.isOnOccurrence()
-        occur = occur.parentOccurrence()
+        occur = occur._parent_occurr()
 		
     $("<div>").addClass("stop")
               .append($("<div>").addClass("icon")

@@ -43,3 +43,13 @@ _fn.mostTopBottom = ->
         
 _fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
 
+$.fn._d = (p)->
+  e = @find(p).data "_self"
+  a = e.offset()
+  a.right = a.left + e.width() - 1
+  a.bottom = a.top + e.height() - 1
+  a.width = e.width()
+  a.center = a.left + (Math.round e.width()/2)
+  a.middle = a.top + (Math.round e.height()/2)
+  a
+
