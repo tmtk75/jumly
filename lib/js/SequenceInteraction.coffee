@@ -87,9 +87,12 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
       left: arrow.offset().left + arrow.outerWidth()
       top : arrow.offset().top
 
+SequenceMessage = require "SequenceMessage"
+
 SequenceInteraction::reply = (p) ->
     @addClass "reply"
-    a = jumly(type:".message", ".interaction":this, ".actee":p?[".actee"]).addClass("return")
+    a = new SequenceMessage(this, p?[".actee"]) #jumly(type:".message", ".interaction":this, ".actee":p?[".actee"])
+        .addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
     if p?.name
         a.name p.name

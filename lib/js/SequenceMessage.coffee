@@ -1,6 +1,8 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceMessage extends HTMLElement
+  constructor: (@_iact, @_actee)->
+    super()
 
 SequenceMessage::_build_ = (div)->
   div.append($("<canvas>").addClass "arrow")

@@ -126,9 +126,9 @@ SequenceDiagramBuilder::destroy = (a) ->
 SequenceDiagramBuilder::reply = (a, b) ->
   obj = b
   if typeof b is "string"
-    ref = JUMLY.Naming.toRef JUMLY.Naming.toID(b)
+    ref = core._to_ref core._to_id b
     obj = @_diagram[ref] if @_diagram[ref]
-  @_curr_occurr
+  @_curr_occurr()
     .parents(".interaction:eq(0)").self()
     .reply name:a, ".actee":obj
   null
