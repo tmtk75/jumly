@@ -190,9 +190,8 @@ SequenceDiagramBuilder::reactivate = (a, b, c) ->
     @_curr_actor().activate().append e
     return a
   occurr = @_curr_actor().activate()
-  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
-  ctxt.message(a, b, c)
-  ctxt
+  @_save_curr_occurr occurr
+  @message(a, b, c)
 
 SequenceDiagramBuilder::_note = (a, b, c) ->
   nodes = @_curr_occurr.find("> .interaction:eq(0)")
