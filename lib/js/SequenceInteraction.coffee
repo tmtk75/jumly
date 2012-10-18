@@ -99,7 +99,8 @@ SequenceInteraction::reply = (p) ->
     this
 
 SequenceInteraction::fragment = (attrs, opts) ->
-    frag = jumly(type:".fragment")
+    SequenceFragment = require "SequenceFragment"
+    frag = new SequenceFragment()
     frag.enclose(this)
    
 SequenceInteraction::isToSelf = ->

@@ -1,11 +1,11 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceFragment extends HTMLElement
-
-SequenceFragment::_build_ = (div)->
-  div.append($("<div>").addClass("header")
-                       .append($("<div>").addClass("name"))
-                       .append($("<div>").addClass("condition")))
+  constructor: ()->
+    super null, (me)->
+      me.append($("<div>").addClass("header")
+                          .append($("<div>").addClass("name"))
+                          .append($("<div>").addClass("condition")))
 
 SequenceFragment::enclose = (_) ->
     if not _? or _.length is 0

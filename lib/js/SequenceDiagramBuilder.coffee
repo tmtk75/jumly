@@ -145,16 +145,16 @@ SequenceDiagramBuilder::lost = (a) ->
 SequenceDiagramBuilder::loop = (a, b, c) ->
   ## NOTE: Should this return null in case of no context
   if a.constructor is this.constructor  ## First one is DSL
-    frag = a._curr_occurr
+    frag = a._curr_occurr()
      .parents(".interaction:eq(0)").self()
      .fragment(name:"Loop")
      .addClass "loop"
   else
     last = [].slice.apply(arguments).pop()  ## Last one is Function
     if $.isFunction(last)
-      kids = @_curr_occurr.find("> *")
+      kids = @_curr_occurr().find("> *")
       last.apply this, []
-      newones = @_curr_occurr.find("> *").not(kids)
+      newones = @_curr_occurr().find("> *").not(kids)
       if newones.length > 0
         frag = jumly(".fragment").addClass("loop").enclose newones
         frag.find(".name:first").html "Loop"
@@ -171,7 +171,7 @@ SequenceDiagramBuilder::alt = (ints, b, c) ->
     _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
       what = act.apply self
       unless what then return what
-      what._curr_occurr
+      what._curr_occurr()
           .parent(".interaction:eq(0)")
     iacts[name] = _new_act(name, act)
   @_curr_occurr().interact stereotype:".alt", iacts
