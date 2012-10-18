@@ -1,9 +1,5 @@
 HTMLElement = require "HTMLElement"
 
-class JUMLYRef         extends HTMLElement
-types = 
-  ".ref"             : JUMLYRef
-#JUMLY.def e, types[e] for e of types
 jumly = $.jumly
 
 ## This is wrap feature keeping own instance, jQuery.wrap makes child node duplicated.
@@ -16,31 +12,6 @@ jQuery.fn.swallow = (_, f) ->
     if _.index() is 0 then @prependTo $(_[0]).parent() else @insertBefore _[0]
   @append _.detach()
   this
-
-JUMLYRef::_build_ = (div)->
-  div.append($("<div>").addClass("header")
-                       .append($("<div>").addClass("tag")
-                                         .html "ref"))
-     .append $("<div>").addClass "name"
-
-# preferredWidth
-JUMLYRef::preferredWidth = ->
-    diag = @parents(".sequence-diagram:eq(0)")
-    iact = @prevAll(".interaction:eq(0)")
-
-    if iact.length is 0
-        lines = $(".lifeline .line", diag)
-        most = lines.mostLeftRight()
-        most.width = most.width()
-        return most
-   
-    dh = diag.self()
-            .find(".occurrence:eq(0)").width()
-    occurs = iact.find(".occurrence")
-    most = occurs.mostLeftRight()
-    most.left -= dh
-    most.width = most.width()
-    most
 
 Diagram = require "Diagram"
 
