@@ -16,7 +16,8 @@ SequenceOccurrence::interact = (actor, opts) ->
     else if opts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if actor?.stereotype is ".alt"
-        alt = jumly ".fragment", name:"alt"
+        SequenceFragment = require "SequenceFragment"
+        alt = new SequenceFragment name:"alt"
         alt.alter this, opts
         return this
     else
