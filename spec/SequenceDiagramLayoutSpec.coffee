@@ -67,7 +67,8 @@ describe "SequenceDiagramLayout", ->
             @ref "Rendering page"
             @reactivate "disconnect", "HTTP Server", ->
               @destroy "HTTP Session"
-
+          
+          ###
           @before (e, d) ->
             d.user.iconify "actor"
             d.browser.iconify "view"
@@ -80,5 +81,6 @@ describe "SequenceDiagramLayout", ->
             f = (e)-> $(e.currentTarget).addClass "focused-hovered"
             g = (e)-> $(e.currentTarget).removeClass "focused-hovered"
             $(".object .name, .message .name").hover f, g
+          ###
         """
 
