@@ -125,10 +125,8 @@ SequenceMessage::repaint = (style) ->
   this
 
 SequenceMessage::isToward = (dir) ->
-  iact = @_iact
-  see = (a)-> iact.gives(".occurrence").as(a).gives(".object")
-  actor = see ".actor"
-  actee = see ".actee"
+  actor = @_iact._actor._actor
+  actee = @_iact._actee._actor
   if "right" is dir
     actor.isLeftAt(actee)
   else if "left" is dir
