@@ -2,11 +2,9 @@ HTMLElement = require "HTMLElement"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
-    super()
-
-SequenceMessage::_build_ = (div)->
-  div.append($("<canvas>").addClass "arrow")
-     .append($("<div>").addClass "name")
+    super null, (me)->
+      me.append($("<canvas>").addClass "arrow")
+        .append($("<div>").addClass "name")
 
 SequenceMessage::_lineToNextOccurr = (canvas) ->
   if false #@hasClass("destroy")) {

@@ -13,12 +13,6 @@ describe "SequenceDiagramBuilder", ->
     it "returns diagram", ->
       expect(@builder.diagram()).haveClass "diagram"
   
-  describe "build", ->
-
-    it "should return node has class .diagram", ->
-      node = @builder.build ""
-      expect(node).haveClass "diagram"
-    
   describe "found", ->
 
     it "returns itself", ->
@@ -40,10 +34,10 @@ describe "SequenceDiagramBuilder", ->
       expect(@builder.found("foo").message "call").toBe @builder
     
     it "gives an interaction and an occurrence", ->
-      iter = @diagram.find "> .interaction"
-      expect(iter.length).toBe 1
-      expect(iter.find("> .occurrence").length).toBe 1
-      expect(@diagram.find("> .interaction > .occurrence > .interaction").length).toBe 1
+      iact = @diagram.find "> .interaction"
+      expect(iact.length).toBe 1
+      expect(iact.find("> .occurrence").length).toBe 1
+      expect(iact.find(".occurrence > .interaction").length).toBe 1
 
   describe "create", ->
 
@@ -60,3 +54,17 @@ describe "SequenceDiagramBuilder", ->
   describe "reactivate", ->
 
   describe "lost", ->
+  
+  describe "build", ->
+
+    it "should return node has class .diagram", ->
+      node = @builder.build ""
+      expect(node).haveClass "diagram"
+
+    describe "found", ->
+
+      it "gives an interaction and an occurrence", ->
+        @builder.build """@found 'sth'"""
+        iact = @diagram.find ".interaction:eq(0)"
+        expect(iact.length).toBe 1
+    

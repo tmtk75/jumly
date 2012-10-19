@@ -30,9 +30,9 @@ SequenceInteraction::awayfrom = (obj) ->
 
 SequenceInteraction::_compose_ = ->
   that = this
-  src = that.gives(".occurrence").as ".actor"
-  dst = that.gives(".occurrence").as ".actee"
-  msg = jumly($ "> .message", that)[0]
+  src = @_actor
+  dst = @_actee
+  msg = that.find("> .message").data("_self")
   # Self-invokation case
   if @isToSelf()
     @_buildSelfInvocation src, dst, msg
@@ -104,11 +104,11 @@ SequenceInteraction::fragment = (attrs, opts) ->
     frag.enclose(this)
    
 SequenceInteraction::isToSelf = ->
-    a = @gives(".occurrence").as ".actor"
-    b = @gives(".occurrence").as ".actee"
+    a = @_actor
+    b = @_actee
     unless a && b
         return false
-    a.gives(".object") is b.gives(".object")
+    a._actor is b._actor
 
 SequenceInteraction::is_to_itself = -> @isToSelf()
 
