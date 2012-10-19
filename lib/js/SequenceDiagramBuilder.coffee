@@ -120,7 +120,7 @@ SequenceDiagramBuilder::_def = (varname, refobj)->
   @_diagram._def ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
-  @_curr_occurr.destroy @_find_or_create a
+  @_curr_occurr().destroy @_find_or_create a
   null
 
 SequenceDiagramBuilder::reply = (a, b) ->

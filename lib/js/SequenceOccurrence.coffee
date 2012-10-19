@@ -45,14 +45,15 @@ SequenceOccurrence::_move_horizontally =->
   left += @width()*@shiftToParent()/2
   @offset left:left
 
-SequenceOccurrence::isOnOccurrence =-> not (@_parent_occurr() is null)
+SequenceOccurrence::isOnOccurrence =->
+  not (@_parent_occurr() is null)
 
 SequenceOccurrence::_parent_occurr = ->
     occurrs = @parents(".occurrence")
     return null if occurrs.length is 0
 
     for i in [0..occurrs.length - 1]
-      if @_actor is $(occurrs[i])._self()._actor
+      if @_actor is $(occurrs[i]).data("_self")._actor
         return occurrs[i]
     null
 
@@ -80,7 +81,7 @@ SequenceOccurrence::destroy = (actee) ->
     #Tentative deprecated implementation.
     occur = @interact(actee)
                 .stereotype("destroy")
-                .gives(".occurrence").as(".actee")
+                .data("_self")._actee
     if occur.isOnOccurrence()
         occur = occur._parent_occurr()
 		
