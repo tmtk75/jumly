@@ -83,4 +83,6 @@ describe "SequenceDiagramLayout", ->
             $(".object .name, .message .name").hover f, g
           ###
         """
+      div.append diag
+      @layout.layout diag
 

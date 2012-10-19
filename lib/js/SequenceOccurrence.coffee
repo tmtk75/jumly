@@ -42,22 +42,22 @@ SequenceOccurrence::_move_horizontally =->
     left = @_actor.offset().left + (@_actor.width() - @width())/2
   else
     left = @_parent_occurr().offset().left
-  left += @width()*@shiftToParent()/2
+  left += @width()*@_shift_to_parent()/2
   @offset left:left
 
 SequenceOccurrence::isOnOccurrence =->
   not (@_parent_occurr() is null)
 
 SequenceOccurrence::_parent_occurr = ->
-    occurrs = @parents(".occurrence")
+    occurrs = @parents ".occurrence"
     return null if occurrs.length is 0
 
     for i in [0..occurrs.length - 1]
       if @_actor is $(occurrs[i]).data("_self")._actor
-        return occurrs[i]
+        return $(occurrs[i]).data("_self")
     null
 
-SequenceOccurrence::shiftToParent = ->
+SequenceOccurrence::_shift_to_parent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
     a = jumly(@parent().find ".message:eq(0)")[0]

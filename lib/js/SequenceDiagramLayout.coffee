@@ -25,14 +25,16 @@ SequenceDiagramLayout::_layout_ = ->
   @rebuild_asynchronous_self_calling()
   @render_icons()
   @diagram.width @diagram.preferredWidth()
-  
+
+HTMLElementLayout = require "HTMLElementLayout"
+
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is "auto"
       a.css left:@prefs.compose_most_left
   f1 = (a, b)=>
     if b.css("left") is "auto"
-      spacing = new JUMLY.HorizontalSpacing(a, b)
+      spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
   @_q(".object").pickup2 f0, f1
 
