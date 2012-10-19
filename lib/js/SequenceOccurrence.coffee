@@ -60,7 +60,7 @@ SequenceOccurrence::_parent_occurr = ->
 SequenceOccurrence::_shift_to_parent = ->
     return 0 if not @isOnOccurrence()
     # find a message contained in the same interaction together.
-    a = jumly(@parent().find ".message:eq(0)")[0]
+    a = @parent().find(".message:eq(0)").data("_self")
     return 0  if a is undefined
     return -1 if a.isTowardRight()
     return 1  if a.isTowardLeft()
