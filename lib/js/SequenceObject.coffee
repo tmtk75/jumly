@@ -10,9 +10,8 @@ SequenceOccurrence = require "SequenceOccurrence"
 SequenceInteraction = require "SequenceInteraction"
 
 SequenceObject::activate = ->
-  _as = core.lang._as
   occurr = new SequenceOccurrence this
-  iact = new SequenceInteraction ".occurrence":_as(".actor":null, ".actee":occurr), ".actor":null, ".actee":occurr
+  iact = new SequenceInteraction null, occurr
   iact.addClass "activated"
   iact.find(".message").remove()
   iact.append(occurr)
