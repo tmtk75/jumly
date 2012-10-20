@@ -51,13 +51,21 @@ describe "SequenceDiagramLayout", ->
 
     describe "self-message", ->
 
-      it "works", ->
+      it "works without args after 2nd", ->
         diag = @builder.build """
           @found "a", ->
             @message "msg to myself"
           """
         div.append diag
         @layout.layout diag
+
+    it "works", ->
+      diag = @builder.build """
+        @found "That", ->
+          @message "finds", "it"
+        """
+      div.append diag
+      @layout.layout diag
 
   describe "showcase", ->
   
