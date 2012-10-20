@@ -51,8 +51,8 @@ SequenceMessage::_toCreateLine = (canvas)->
 SequenceMessage::_findOccurr = (actee)->
   occurr = null
   @parents(".occurrence").each (i, e)=>
-    e = $(e).self()
-    if e.gives(".object") is actee
+    e = $(e).data "_self"
+    if e._actor is actee
       occurr = e
   occurr
 

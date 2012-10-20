@@ -50,10 +50,10 @@ SequenceInteraction::_compose_ = ->
   #TODO: Move this centering logic for name to .message class. 
 
   # Return message
-  rmsg = $("> .message.return:last", that).self()
+  rmsg = $("> .message.return:last", that).data "_self"
   if rmsg
     x = msg.offset().left
-    actee = rmsg.gives ".actee"
+    actee = rmsg._actee
     if actee
       newdst = rmsg._findOccurr actee
       unless newdst
