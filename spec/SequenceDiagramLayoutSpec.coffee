@@ -35,18 +35,6 @@ describe "SequenceDiagramLayout", ->
         #div.append @builder.build "@found 'foundee'"
         #@layout.layout diag = @builder.diagram()
 
-  """
-  @found "You", ->
-    @message "open", "Front Cover"
-    @loop ->
-      @alt
-        "[page > 0]": -> @message "flip", "Page"
-        "[page = 0]": -> @message "stop reading"
-      @message "read", "Page"
-    @message "close", "Front Cover"
-    @ref "Tidy up book at shelf"
-  """
-
   describe "message", ->
 
     describe "self-message", ->
@@ -106,3 +94,17 @@ describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
 
+    it "has @loop, @alt and @ref", ->
+      diag = @builder.build """
+        @found "You", ->
+          @message "open", "Front Cover"
+          @loop ->
+            @alt
+              "[page > 0]": -> @message "flip", "Page"
+              "[page = 0]": -> @message "stop reading"
+            @message "read", "Page"
+          @message "close", "Front Cover"
+          @ref "Tidy up book at shelf"
+        """
+      div.append diag
+      @layout.layout diag
