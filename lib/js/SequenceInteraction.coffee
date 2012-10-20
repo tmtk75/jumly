@@ -2,10 +2,9 @@ HTMLElement = require "HTMLElement"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
-    actee = @_actee
     self = this
     super null, (me)->
-      me.append new SequenceMessage self, actee
+      me.append new SequenceMessage self
 
 SequenceInteraction::interact = (obj) -> @awayfrom().interact obj
 SequenceInteraction::forward = (obj) -> @toward()
