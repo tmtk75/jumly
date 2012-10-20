@@ -106,8 +106,8 @@ SequenceMessage::repaint = (style) ->
 
   if @hasClass "create"
     line = @_toCreateLine canvas
-  else if @gives ".actee"
-    newsrc = @_findOccurr @gives ".actee"
+  else if @_actee
+    newsrc = @_findOccurr @_actee
     newdst = @_dstOccurr()
     line = @_toLine newsrc, newdst, canvas
   else

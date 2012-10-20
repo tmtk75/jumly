@@ -88,7 +88,7 @@ SequenceMessage = require "SequenceMessage"
 
 SequenceInteraction::reply = (p) ->
     @addClass "reply"
-    a = new SequenceMessage(this, p?[".actee"]) #jumly(type:".message", ".interaction":this, ".actee":p?[".actee"])
+    a = new SequenceMessage(this, p?[".actee"])
         .addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
     if p?.name
