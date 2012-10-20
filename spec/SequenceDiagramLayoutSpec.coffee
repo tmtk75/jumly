@@ -47,9 +47,21 @@ describe "SequenceDiagramLayout", ->
     @ref "Tidy up book at shelf"
   """
 
+  describe "message", ->
+
+    describe "self-message", ->
+
+      it "works", ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "msg to myself"
+          """
+        div.append diag
+        @layout.layout diag
+
   describe "showcase", ->
   
-    it "", ->
+    it "has full functions", ->
       diag = @builder.build """
         @found "User", ->
           @message "search", "Browser", ->

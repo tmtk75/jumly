@@ -2,12 +2,10 @@ HTMLElement = require "HTMLElement"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
-    super()
-
-SequenceInteraction::_build_ = (div, props)->
-  msg = jumly type:".message", ".interaction":this
-  props[".message"] = msg  ## FIXME: Can I remove this?
-  div.append(msg)
+    actee = @_actee
+    self = this
+    super null, (me)->
+      me.append new SequenceMessage self, actee
 
 SequenceInteraction::interact = (obj) -> @awayfrom().interact obj
 SequenceInteraction::forward = (obj) -> @toward()
