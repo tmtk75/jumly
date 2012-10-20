@@ -1,6 +1,7 @@
 #diagram-containers {
   position: absolute;
   min-width: 192px;
+  max-width: 386px;
   right: 8px;
   padding: 8px;
   border-radius: 3px;
