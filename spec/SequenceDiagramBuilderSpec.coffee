@@ -67,4 +67,4 @@ describe "SequenceDiagramBuilder", ->
         @builder.build """@found 'sth'"""
         iact = @diagram.find ".interaction:eq(0)"
         expect(iact.length).toBe 1
-    
+        expect(iact.find(".occurrence").length).toBe 1
