@@ -56,15 +56,31 @@ describe "SequenceDiagramLayout", ->
       it "is 0 for left of first .object", ->
         expect(@obj1.position().left).toBe 0
       
+      ## 60px is defined in .styl
       it "is a span 60px btw 1st and 2nd of .object", ->
-        ## 60px is defined in .styl
         x = @obj1.position().left + @obj1.preferred_width() + 60
         expect(x).toBe @obj2.position().left
 
       it "is a span 60px btw 2nd and 3rd of .object", ->
-        ## 60px is defined in .styl
         x = @obj2.position().left + @obj3.preferred_width() + 60
         expect(x).toBe @obj3.position().left
+
+  describe "lifeline", ->
+
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "lifeline"
+        """
+      div.append @diagram
+      @layout.layout @diagram
+      @obj = @diagram.find(".object:eq(0)").data "_self"
+      @lifeline = @diagram.find(".lifeline:eq(0)").data "_self"
+
+    describe "left", ->
+
+      it "is at the center of object", ->
+        c = @obj.offset().left + @obj.preferred_width()/2 + 1
+        expect(@lifeline.find(".line").offset().left).toBe c
 
   describe "found", ->
     utils.unless_node ->
