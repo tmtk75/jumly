@@ -34,18 +34,18 @@ SequenceOccurrence::create = (objsrc) ->
   iact = (@interact obj).stereotype "create"
   iact
 
-SequenceOccurrence::_move_horizontally =->
+SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"
-    @offset left:@parents(".diagram").find(".object").mostLeftRight().right
-    return this 
-  if not @isOnOccurrence()
-    left = @_actor.offset().left + (@_actor.width() - @width())/2
+    offset left:@parents(".diagram").find(".object").mostLeftRight().right
+    return this
+  if not @is_on_another()
+    left = @_actor.offset().left + (@_actor.preferred_width() - @width())/2
   else
     left = @_parent_occurr().offset().left
   left += @width()*@_shift_to_parent()/2
   @offset left:left
 
-SequenceOccurrence::isOnOccurrence =->
+SequenceOccurrence::is_on_another =->
   not (@_parent_occurr() is null)
 
 SequenceOccurrence::_parent_occurr = ->
@@ -58,7 +58,7 @@ SequenceOccurrence::_parent_occurr = ->
     null
 
 SequenceOccurrence::_shift_to_parent = ->
-    return 0 if not @isOnOccurrence()
+    return 0 if not @is_on_another()
     # find a message contained in the same interaction together.
     a = @parent().find(".message:eq(0)").data("_self")
     return 0  if a is undefined
@@ -82,7 +82,7 @@ SequenceOccurrence::destroy = (actee) ->
     occur = @interact(actee)
                 .stereotype("destroy")
                 .data("_self")._actee
-    if occur.isOnOccurrence()
+    if occur.is_on_another()
         occur = occur._parent_occurr()
 		
     $("<div>").addClass("stop")

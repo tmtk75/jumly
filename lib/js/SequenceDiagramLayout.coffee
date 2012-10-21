@@ -41,7 +41,8 @@ SequenceDiagramLayout::align_objects_horizontally = ->
   @_q(".object").pickup2 f0, f1
 
 SequenceDiagramLayout::align_occurrences_horizontally = ->
-   @_q(".occurrence").selfEach (e)-> e._move_horizontally()
+   @_q(".occurrence").each (i, e)->
+     $(e).data("_self")._move_horizontally()
 
 SequenceDiagramLayout::compose_interactions = ->
   @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
