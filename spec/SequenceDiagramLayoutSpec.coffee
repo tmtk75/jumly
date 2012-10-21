@@ -82,6 +82,23 @@ describe "SequenceDiagramLayout", ->
         c = @obj.offset().left + @obj.preferred_width()/2 + 1
         expect(@lifeline.find(".line").offset().left).toBe c
 
+  describe "occurrence", ->
+
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "occurrence"
+        """
+      div.append @diagram
+      @layout.layout @diagram
+      @obj = @diagram.find(".object:eq(0)").data "_self"
+      @occurr = @diagram.find(".occurrence:eq(0)").data "_self"
+
+    describe "left", ->
+
+      it "is at left of the center of object", ->
+        c = @obj.offset().left + @obj.preferred_width()/2 + 1
+        expect(@occurr.offset().left).toBeLessThan c
+
   describe "found", ->
     utils.unless_node ->
 
