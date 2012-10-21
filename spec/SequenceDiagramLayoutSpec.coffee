@@ -41,6 +41,9 @@ describe "SequenceDiagramLayout", ->
       @obj2 = @diagram.find(".object:eq(1)").data "_self"
       @obj3 = @diagram.find(".object:eq(2)").data "_self"
 
+    afterEach ->
+      #[@diagram.hide()
+
     describe "left top", ->
 
       it "looks at same top for all", ->
@@ -54,8 +57,14 @@ describe "SequenceDiagramLayout", ->
         expect(@obj1.position().left).toBe 0
       
       it "is a span 60px btw 1st and 2nd of .object", ->
-        x = @obj1.position().left + @obj1.preferred_width()
+        ## 60px is defined in .styl
+        x = @obj1.position().left + @obj1.preferred_width() + 60
         expect(x).toBe @obj2.position().left
+
+      it "is a span 60px btw 2nd and 3rd of .object", ->
+        ## 60px is defined in .styl
+        x = @obj2.position().left + @obj3.preferred_width() + 60
+        expect(x).toBe @obj3.position().left
 
   describe "found", ->
     utils.unless_node ->
