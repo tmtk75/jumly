@@ -33,7 +33,7 @@ HTMLElementLayout = require "HTMLElementLayout"
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is "auto"
-      a.css left:@prefs.compose_most_left
+      a.css left:0
   f1 = (a, b)=>
     if b.css("left") is "auto"
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)

@@ -13,6 +13,9 @@ class HTMLElement
       s.replace(/^[A-Z][a-z]+/, ""))
     .toLowerCase()
 
+HTMLElement::preferred_width = ->
+  @find("> *:eq(0)").outerWidth()
+
 core = require "core"
 if core.env.is_node
   module.exports = HTMLElement

@@ -27,7 +27,6 @@ SequenceDiagram::gives = (query)->
   {of: f}
 
 prefs_ =
-    compose_most_left: 0
     WIDTH : null
     HEIGHT: 50
 

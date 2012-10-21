@@ -36,11 +36,14 @@ describe "SequenceDiagramLayout", ->
             @message "2", "c"
         """
       div.append @diagram
+      @layout.layout @diagram
+      @obj1 = @diagram.find(".object:eq(0)").data "_self"
+      @obj2 = @diagram.find(".object:eq(1)").data "_self"
+      @obj3 = @diagram.find(".object:eq(2)").data "_self"
 
     describe "left top", ->
 
       it "looks at same top for all", ->
-        @layout.layout @diagram
         a = @diagram.find ".object:eq(0)"
         b = @diagram.find ".object:eq(1)"
         c = @diagram.find ".object:eq(2)"
@@ -48,7 +51,11 @@ describe "SequenceDiagramLayout", ->
         expect(c.offset().top).toBe b.offset().top
       
       it "is 0 for left of first .object", ->
-        expect(@diagram.find(".object:eq(0)").position().left).toBe 0
+        expect(@obj1.position().left).toBe 0
+      
+      it "is a span 58px btw 1st and 2nd of .object", ->
+        x = @obj1.position().left + @obj1.preferred_width()
+        expect(x).toBe @obj2.position().left
 
   describe "found", ->
     utils.unless_node ->
