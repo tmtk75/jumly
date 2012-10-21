@@ -28,6 +28,24 @@ describe "SequenceDiagramLayout", ->
   beforeEach ->
     @builder = new SequenceDiagramBuilder
 
+  describe "object", ->
+  
+    describe "top", ->
+
+      it "looks at same top", ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c"
+          """
+        div.append diag
+        @layout.layout diag
+        a = diag.find ".object:eq(0)"
+        b = diag.find ".object:eq(1)"
+        c = diag.find ".object:eq(2)"
+        expect(b.offset().top).toBe a.offset().top
+        expect(c.offset().top).toBe b.offset().top
+
   describe "found", ->
     utils.unless_node ->
 
