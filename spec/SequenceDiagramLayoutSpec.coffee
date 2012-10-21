@@ -53,7 +53,7 @@ describe "SequenceDiagramLayout", ->
       it "is 0 for left of first .object", ->
         expect(@obj1.position().left).toBe 0
       
-      it "is a span 58px btw 1st and 2nd of .object", ->
+      it "is a span 60px btw 1st and 2nd of .object", ->
         x = @obj1.position().left + @obj1.preferred_width()
         expect(x).toBe @obj2.position().left
 
