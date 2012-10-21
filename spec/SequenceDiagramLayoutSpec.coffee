@@ -39,7 +39,7 @@ describe "SequenceDiagramLayout", ->
 
     describe "self-message", ->
 
-      it "works without args after 2nd", ->
+      utils.unless_node -> it "works without args after 2nd", ->
         diag = @builder.build """
           @found "a", ->
             @message "msg to myself"
@@ -47,7 +47,7 @@ describe "SequenceDiagramLayout", ->
         div.append diag
         @layout.layout diag
 
-    it "works", ->
+    utils.unless_node -> it "works for an one interaction", ->
       diag = @builder.build """
         @found "That", ->
           @message "finds", "it"
@@ -57,7 +57,7 @@ describe "SequenceDiagramLayout", ->
 
   describe "showcase", ->
   
-    it "has full functions", ->
+    utils.unless_node -> it "has full functions", ->
       diag = @builder.build """
         @found "User", ->
           @message "search", "Browser", ->
@@ -94,7 +94,7 @@ describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
 
-    it "has @loop, @alt and @ref", ->
+    utils.unless_node -> it "has @loop, @alt and @ref", ->
       diag = @builder.build """
         @found "You", ->
           @message "open", "Front Cover"
