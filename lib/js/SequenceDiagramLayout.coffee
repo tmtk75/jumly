@@ -13,6 +13,8 @@ SequenceDiagramLayout::_q = (sel)->
   $ sel, @diagram
 
 SequenceDiagramLayout::_layout_ = ->
+  objs = $(".object:eq(0) ~ .object", @diagram)
+  $(".object:eq(0)", @diagram).after objs
   @align_objects_horizontally()
   @align_occurrences_horizontally()
   @compose_interactions()
@@ -49,11 +51,12 @@ jumly = $.jumly
 SequenceLifeline = require "SequenceLifeline"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
+  diag = @diagram
   $(".object", @diagram).each (i, e)->
     obj = $(e).self()
     a = new SequenceLifeline obj
     a.offset left:obj.offset().left, top:obj.outerBottom() + 1
-    a.insertAfter obj
+    diag.append a
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
   refs = @_q(".ref")
