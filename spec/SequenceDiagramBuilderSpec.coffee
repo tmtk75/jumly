@@ -26,6 +26,7 @@ describe "SequenceDiagramBuilder", ->
       expect(obj.find(".name").text()).toBe "biz"
     
   describe "message", ->
+
     beforeEach ->
       @builder.found("foo")
               .message "call", "bar"
@@ -47,6 +48,10 @@ describe "SequenceDiagramBuilder", ->
   describe "reply", ->
 
   describe "ref", ->
+
+    it "returns itself", ->
+      a = @builder.ref "i'm ref"
+      expect(a).toBe @builder
 
   describe "loop", ->
 
