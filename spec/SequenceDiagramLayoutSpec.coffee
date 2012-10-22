@@ -12,6 +12,7 @@ describe "SequenceDiagramLayout", ->
 
   beforeEach ->
     @layout = new SequenceDiagramLayout
+    @builder = new SequenceDiagramBuilder
 
   it "has layout", ->
     expect(typeof @layout.layout).toBe "function"
@@ -25,8 +26,21 @@ describe "SequenceDiagramLayout", ->
       expect(diag.width()).toBeGreaterThan 0
       expect(diag.height()).toBeGreaterThan 0
 
-  beforeEach ->
-    @builder = new SequenceDiagramBuilder
+  describe "height", ->
+
+    it "is 0 for empty", ->
+      @layout.layout diag = new SequenceDiagram
+      expect(diag.height()).toBe 0
+
+    it "depends on min top and max bottom", ->
+      diag = @builder.build """
+        @found "height-a"
+        """
+      div.append diag
+      @layout.layout diag
+      a = diag.find("*").min f = (e)-> $(e).offset().top
+      b = diag.find("*").max g = (e)-> $(e).offset().top + $(e).outerHeight()
+      expect(diag.height()).toBe Math.round(b - a)
 
   describe "object", ->
     beforeEach ->
