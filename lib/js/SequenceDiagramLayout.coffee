@@ -101,12 +101,11 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
   mostbottom = @diagram.find(".occurrence")
                        .not(".interaction.lost .occurrence")
                        .max (e) -> $(e).outerBottom()
-  @_q(".lifeline").selfEach (a) ->
-    y = a._object.outerBottom() + 1
-    a.offset left:a._object.offset().left, top:y
-    h = mostbottom - y + 16
-    a.height h
-    a.find(".line").css(top:0).height h
+  mh = @diagram.find(".interaction:eq(0)").height()
+  @_q(".lifeline").each (i, e) ->
+    a = $(e).data "_self"
+    a.offset left:a._object.offset().left
+    a.height mh + 16
 
 SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
   $(".stop", @diagram).each (i, e) ->
