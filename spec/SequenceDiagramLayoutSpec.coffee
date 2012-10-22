@@ -38,6 +38,7 @@ describe "SequenceDiagramLayout", ->
         """
       div.append diag
       @layout.layout diag
+      diag.css "border":"1px solid #008000"
       a = diag.find("*").min f = (e)-> $(e).offset().top
       b = diag.find("*").max g = (e)-> $(e).offset().top + $(e).outerHeight()
       expect(diag.height()).toBe Math.round(b - a)
@@ -95,6 +96,18 @@ describe "SequenceDiagramLayout", ->
       it "is at the center of object", ->
         c = @obj.offset().left + @obj.preferred_width()/2 + 1
         expect(@lifeline.find(".line").offset().left).toBe c
+
+    describe "top", ->
+      
+      it "is btw .object and its .occurrence", ->
+        obj = @diagram.find ".object:eq(0)"
+        line = @diagram.find ".lifeline:eq(0) .line"
+        occurr = @diagram.find ".occurrence:eq(0)"
+        y0 = obj.offset().top + obj.outerHeight()
+        y1 = line.offset().top
+        y2 = occurr.offset().top
+        expect(y1).toBeGreaterThan y0
+        expect(y2).toBeGreaterThan y1
 
   describe "occurrence", ->
 
