@@ -6,7 +6,7 @@ SequenceDiagram = require "SequenceDiagram"
 SequenceObject = require "SequenceObject"
 SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
-describe "SequenceDiagramLayout", ->
+utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   div = utils.div this
 
@@ -17,14 +17,13 @@ describe "SequenceDiagramLayout", ->
   it "has layout", ->
     expect(typeof @layout.layout).toBe "function"
   
-  utils.unless_node ->
-    it "determines the size", ->
-      diag = new SequenceDiagram
-      diag.append obj = new SequenceObject "foobar"
-      div.append diag
-      @layout.layout diag
-      expect(diag.width()).toBeGreaterThan 0
-      expect(diag.height()).toBeGreaterThan 0
+  it "determines the size", ->
+    diag = new SequenceDiagram
+    diag.append obj = new SequenceObject "foobar"
+    div.append diag
+    @layout.layout diag
+    expect(diag.width()).toBeGreaterThan 0
+    expect(diag.height()).toBeGreaterThan 0
 
   describe "height", ->
 
@@ -127,17 +126,16 @@ describe "SequenceDiagramLayout", ->
         expect(@occurr.offset().left).toBeLessThan c
 
   describe "found", ->
-    utils.unless_node ->
 
-      it "looks centering" #, ->
-        #div.append @builder.build "@found 'foundee'"
-        #@layout.layout diag = @builder.diagram()
+    it "looks centering" #, ->
+      #div.append @builder.build "@found 'foundee'"
+      #@layout.layout diag = @builder.diagram()
 
   describe "message", ->
 
     describe "self-message", ->
 
-      utils.unless_node -> it "works without args after 2nd", ->
+      it "works without args after 2nd", ->
         diag = @builder.build """
           @found "a", ->
             @message "msg to myself"
@@ -145,7 +143,7 @@ describe "SequenceDiagramLayout", ->
         div.append diag
         @layout.layout diag
 
-    utils.unless_node -> it "works for an one interaction", ->
+    it "works for an one interaction", ->
       diag = @builder.build """
         @found "That", ->
           @message "finds", "it"
@@ -155,7 +153,7 @@ describe "SequenceDiagramLayout", ->
 
   describe "showcase", ->
   
-    utils.unless_node -> it "has full functions", ->
+    it "has full functions", ->
       diag = @builder.build """
         @found "User", ->
           @message "search", "Browser", ->
@@ -192,7 +190,7 @@ describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
 
-    utils.unless_node -> it "has @loop, @alt and @ref", ->
+    it "has @loop, @alt and @ref", ->
       diag = @builder.build """
         @found "You", ->
           @message "open", "Front Cover"
