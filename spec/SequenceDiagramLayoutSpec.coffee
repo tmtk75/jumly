@@ -151,6 +151,31 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
 
+  describe "ref", ->
+    
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "sth"
+        @ref "other"
+        """
+      div.append @diagram
+      @layout.layout @diagram
+      @obj = @diagram.find(".object:eq(0)").data "_self"
+      @ref = @diagram.find(".ref:eq(0)").data "_self"
+
+    it "can be first element", ->
+      diag = @builder.build """
+        @ref 'to another'
+        """
+      div.append diag
+      @layout.layout diag
+      expect(@ref.find(".name").text()).toBe "to another"
+
+    it "can be second element", ->
+      y0 = _bottom @obj
+      y1 = _top @ref
+      expect(y0).toBeGreaterThan y1
+
   describe "showcase", ->
   
     it "has full functions", ->
