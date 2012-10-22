@@ -1,12 +1,12 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceRef extends HTMLElement
-
-SequenceRef::_build_ = (div)->
-  div.append($("<div>").addClass("header")
-                       .append($("<div>").addClass("tag")
-                                         .html "ref"))
-     .append $("<div>").addClass "name"
+  constructor: (args)->
+    super args, (div)->
+      div.append($("<div>").addClass("header")
+                  .append($("<div>").addClass("tag")
+                           .html "ref"))
+         .append $("<div>").addClass "name"
 
 # preferredWidth
 SequenceRef::preferredWidth = ->
