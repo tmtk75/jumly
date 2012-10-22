@@ -6,6 +6,9 @@ SequenceDiagram = require "SequenceDiagram"
 SequenceObject = require "SequenceObject"
 SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
+_bottom = (e)-> e.offset().top + e.outerHeight() - 1
+_top = (e)-> e.offset().top
+
 utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   div = utils.div this
@@ -102,7 +105,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         obj = @diagram.find ".object:eq(0)"
         line = @diagram.find ".lifeline:eq(0) .line"
         occurr = @diagram.find ".occurrence:eq(0)"
-        y0 = obj.offset().top + obj.outerHeight()
+        y0 = _bottom obj
         y1 = line.offset().top
         y2 = occurr.offset().top
         expect(y1).toBeGreaterThan y0
@@ -163,13 +166,16 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj = @diagram.find(".object:eq(0)").data "_self"
       @ref = @diagram.find(".ref:eq(0)").data "_self"
 
+    it "has given name", ->
+      expect(@diagram.find(".ref .name").text()).toBe "other"
+    
     it "can be first element", ->
-      diag = @builder.build """
+      @diagram.remove()
+      diag = new SequenceDiagramBuilder().build """
         @ref 'to another'
         """
       div.append diag
       @layout.layout diag
-      expect(@ref.find(".name").text()).toBe "to another"
 
     it "can be second element", ->
       y0 = _bottom @obj
