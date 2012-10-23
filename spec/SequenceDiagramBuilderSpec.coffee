@@ -129,6 +129,16 @@ describe "SequenceDiagramBuilder", ->
       diag = @builder.build """
         @found "a", ->
           @message "1", "b"
+        """
+      expect(@builder._curr_occurr()).toBe diag.find("""
+        > .interaction:eq(0)
+          > .occurrence:eq(0)
+        """).data "_self"
+
+    it "is at the destination occurrence from the @message", ->
+      diag = @builder.build """
+        @found "a", ->
+          @message "1", "b"
           @message "2", "c"
         """
       expect(@builder._curr_occurr()).toBe diag.find("""
