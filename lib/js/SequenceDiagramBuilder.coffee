@@ -129,7 +129,7 @@ SequenceDiagramBuilder::reply = (a, b) ->
     ref = core._to_ref core._to_id b
     obj = @_diagram[ref] if @_diagram[ref]
   @_curr_occurr()
-    .parents(".interaction:eq(0)").self()
+    .parents(".interaction:eq(0)").data("_self")
     .reply name:a, ".actee":obj
   null
 
