@@ -125,6 +125,18 @@ describe "SequenceDiagramBuilder", ->
       @builder.message "do", "bar"
       expect(@builder._curr_occurr()).toBe that.find(".occurrence:eq(0)").data "_self"
 
+    it "is at the destination occurrence from the @message", ->
+      diag = @builder.build """
+        @found "a", ->
+          @message "1", "b"
+          @message "2", "c"
+        """
+      expect(@builder._curr_occurr()).toBe diag.find("""
+        > .interaction:eq(0)
+          > .interaction:eq(1)
+            > .occurrence:eq(0)
+        """).data "_self"
+
     it "is changed by @create"
 
     it "is changed by @reactivate"
