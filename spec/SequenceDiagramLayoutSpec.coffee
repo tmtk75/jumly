@@ -182,7 +182,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
     it "can be second element", ->
       y0 = _bottom @obj
       y1 = _top @ref
-      expect(y0).toBeGreaterThan y1
+      expect(y0).toBeLessThan y1
 
   describe "showcase", ->
   
