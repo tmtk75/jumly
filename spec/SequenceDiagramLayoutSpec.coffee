@@ -181,9 +181,6 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj = @diagram.find(".object:eq(0)").data "_self"
       @ref = @diagram.find(".ref:eq(0)").data "_self"
 
-    it "has given name", ->
-      expect(@diagram.find(".ref .name").text()).toBe "other"
-    
     it "can be first element", ->
       @diagram.remove()
       diag = new SequenceDiagramBuilder().build """

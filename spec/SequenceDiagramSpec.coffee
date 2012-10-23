@@ -40,3 +40,16 @@ describe "SequenceDiagram", ->
       SequenceOccurrence = require "SequenceOccurrence"
       beforeEach ->
         @occurr = new SequenceOccurrence
+
+  describe "SequenceRef", ->
+
+    SequenceRef = require "SequenceRef"
+    beforeEach ->
+      @ref = new SequenceRef "another sequence"
+
+    it "has .ref", ->
+      expect(@ref).haveClass "ref"
+
+    it "has given name", ->
+      expect(@ref.find(".name").text()).toBe "another sequence"
+    
