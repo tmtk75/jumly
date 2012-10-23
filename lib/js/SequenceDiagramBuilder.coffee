@@ -6,7 +6,7 @@ class SequenceDiagramBuilder extends DiagramBuilder
     @_diagram = new SequenceDiagram
     @_occurrs = []
 
-SequenceDiagramBuilder::_save_curr_occurr = (occurr)->
+SequenceDiagramBuilder::_push_curr_occurr = (occurr)->
   @_occurrs.unshift occurr
 
 SequenceDiagramBuilder::_curr_occurr = ->
@@ -18,7 +18,7 @@ SequenceDiagramBuilder::_curr_actor = ->
 SequenceDiagramBuilder::found = (sth, callback)->
   actor = @_find_or_create sth
   actor.addClass "found"
-  @_save_curr_occurr actor.activate()
+  @_push_curr_occurr actor.activate()
   callback?.apply this, [this]
   this
 
@@ -77,7 +77,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
   iact.find(".name").text(actname).end()
       .find(".stereotype").text(stereotype)
   
-  @_save_curr_occurr iact._actee
+  @_push_curr_occurr iact._actee
   callback?.apply this, []
   this
 
@@ -194,7 +194,7 @@ SequenceDiagramBuilder::reactivate = (a, b, c) ->
     @_curr_actor().activate().append e
     return a
   occurr = @_curr_actor().activate()
-  @_save_curr_occurr occurr
+  @_push_curr_occurr occurr
   @message(a, b, c)
 
 SequenceDiagramBuilder::_note = (a, b, c) ->
