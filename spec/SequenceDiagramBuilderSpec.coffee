@@ -109,3 +109,22 @@ describe "SequenceDiagramBuilder", ->
         iact = @diagram.find ".interaction:eq(0)"
         expect(iact.length).toBe 1
         expect(iact.find("> .occurrence").length).toBe 1
+
+  describe "_curr_occurr", ->
+
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "sth"
+        """
+      @occurr = @diagram.find(".occurrence:eq(0)").data "_self"
+
+    it "is changed by @found, @message", ->
+      expect(@builder._curr_occurr()).toBe @occurr
+      @builder.message "do", "foo"
+      expect(@builder._curr_occurr()).toBe @occurr.find(".occurrence:eq(0)").data "_self"
+
+    it "is changed by @create"
+
+    it "is changed by @reactivate"
+
+    it "is not changed by the others"
