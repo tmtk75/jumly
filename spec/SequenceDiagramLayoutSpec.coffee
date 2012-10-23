@@ -155,10 +155,9 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @layout.layout diag
 
   describe "loop", ->
+    
     beforeEach ->
       utils.matchers this
-
-    beforeEach ->
       @diagram = @builder.build """
         @found "mouse"
         @loop @message "rotate", "wheel"
@@ -171,6 +170,26 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
     it "has .loop", ->
       expect(@loop).haveClass "loop"
       
+  describe "alt", ->
+
+    beforeEach ->
+      utils.matchers this
+      @diagram = @builder.build """
+        @found "open", ->
+          @alt {
+            "[found]": -> @message "write", "File"
+            "[missing]": -> @message "close", "File"
+          }
+        """
+      div.append @diagram
+      @layout.layout @diagram
+      @alt = @diagram.find(".alt:eq(0)").data "_self"
+
+    it "has .alt", ->
+      expect(@alt).haveClass "alt"
+    
+    it "doesn't have .name's value", ->
+      expect(@alt.find(".name:eq(0)").text()).toBe ""
 
   describe "ref", ->
     
