@@ -270,3 +270,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append diag
       @layout.layout diag
+
+    it "has @reply", ->
+      diag = @builder.build """
+        @found "You", ->
+          @message "contact", "Me", ->
+            @loop @message "mail", "Him", ->
+              @message "read", ->
+                @reply "reply", "Me"
+            @reply "", "You"
+        """
+      div.append diag
+      @layout.layout diag
