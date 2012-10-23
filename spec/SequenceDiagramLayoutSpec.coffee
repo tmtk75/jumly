@@ -176,6 +176,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append diag
       @layout.layout diag
+      ref = diag.find ".ref"
+      expect(ref.outerWidth()).toBeGreaterThan 88*1.41
 
     it "can be second element", ->
       y0 = _bottom @obj
