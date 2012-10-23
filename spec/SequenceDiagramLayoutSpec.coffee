@@ -185,11 +185,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @layout.layout @diagram
       @alt = @diagram.find(".alt:eq(0)").data "_self"
 
-    it "has .alt", ->
-      expect(@alt).haveClass "alt"
-    
-    it "doesn't have .name's value", ->
-      expect(@alt.find(".name:eq(0)").text()).toBe ""
+    it "has two .messages which are same length", ->
+      m0 = @alt.find ".message:eq(0)"
+      m1 = @alt.find ".message:eq(1)"
+      expect(m0.outerWidth()).toBe m1.outerWidth()
 
   describe "ref", ->
     
