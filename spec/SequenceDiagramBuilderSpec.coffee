@@ -71,7 +71,7 @@ describe "SequenceDiagramBuilder", ->
       expect(@alt.length).toBe 1
 
     it "has empty .name", ->
-      expect(@alt.find(".name:eq(0)").text()).toBe ''
+      expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
 
   describe "reactivate", ->
 

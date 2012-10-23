@@ -167,7 +167,7 @@ SequenceDiagramBuilder::loop = (a, b, c) ->
   this
 
 ## A kind of fragment
-SequenceDiagramBuilder::alt = (ints, b, c) ->
+SequenceDiagramBuilder::alt = (ints) ->
   iacts = {}
   self = this
   for name of ints
