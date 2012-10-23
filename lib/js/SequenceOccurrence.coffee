@@ -8,7 +8,6 @@ core = require "core"
 SequenceInteraction = require "SequenceInteraction"
 
 SequenceOccurrence::interact = (actor, opts) ->
-    _as = core.lang._as
     if opts?.stereotype is ".lost"
         occurr = new SequenceOccurrence().addClass "icon"
         iact   = new SequenceInteraction this, occurr

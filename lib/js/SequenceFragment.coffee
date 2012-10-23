@@ -35,7 +35,7 @@ SequenceFragment::extendWidth = (opts) ->
     frag.width(frag.outerWidth() + drw)
 
 ###
-  opts: expected {"[condiaion-1]": <action>, "[condition-1]": <action}
+  opts: expected {"[condiaion-1]": <action>, "[condition-1]": <action>}
 ###
 SequenceFragment::alter = (occurr, opts) ->
     alt = this
