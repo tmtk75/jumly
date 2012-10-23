@@ -112,18 +112,13 @@ describe "SequenceDiagramBuilder", ->
 
   describe "_curr_occurr", ->
 
-    beforeEach ->
-      @diagram = @builder.build """
+    it "is at first occurrence of @found", ->
+      diag = @builder.build """
         @found "sth"
         """
-      @occurr = @diagram.find(".occurrence:eq(0)").data "_self"
-
-    it "is changed by @found, @message", ->
-      expect(@builder._curr_occurr()).toBe @occurr
-      @builder.message "do", "foo"
-      expect(@builder._curr_occurr()).toBe that = @occurr.find(".occurrence:eq(0)").data "_self"
-      @builder.message "do", "bar"
-      expect(@builder._curr_occurr()).toBe that.find(".occurrence:eq(0)").data "_self"
+      expect(@builder._curr_occurr()).toBe diag.find("""
+        .occurrence:eq(0)
+        """).data "_self"
 
     it "is at the destination occurrence from the @message", ->
       diag = @builder.build """
