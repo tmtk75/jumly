@@ -134,10 +134,14 @@ SequenceDiagramBuilder::reply = (a, b) ->
   null
 
 SequenceDiagramBuilder::ref = (a) ->
-  #(jumly ".ref", a).insertAfter @_curr_occurr.parents(".interaction:eq(0)")
   SequenceRef = require "SequenceRef"
-  new SequenceRef(a).insertAfter @_curr_occurr().parents(".interaction:eq(0)")
-  null
+  occur = @_curr_occurr()
+  ref = new SequenceRef a
+  if occur
+    ref.insertAfter occur.parents(".interaction:eq(0)")
+  else
+    @diagram().append ref
+  this
 
 SequenceDiagramBuilder::lost = (a) ->
   @_curr_occurr.lost()
