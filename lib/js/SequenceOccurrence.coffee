@@ -7,17 +7,17 @@ class SequenceOccurrence  extends HTMLElement
 core = require "core"
 SequenceInteraction = require "SequenceInteraction"
 
-SequenceOccurrence::interact = (actor, opts) ->
-    if opts?.stereotype is ".lost"
+SequenceOccurrence::interact = (actor, acts) ->
+    if acts?.stereotype is ".lost"
         occurr = new SequenceOccurrence().addClass "icon"
         iact   = new SequenceInteraction this, occurr
         iact.addClass "lost"
-    else if opts?.stereotype is ".destroy"
+    else if acts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if actor?.stereotype is ".alt"
         SequenceFragment = require "SequenceFragment"
         alt = new SequenceFragment "alt"
-        alt.alter this, opts
+        alt.alter this, acts
         return this
     else
       occurr = new SequenceOccurrence actor
