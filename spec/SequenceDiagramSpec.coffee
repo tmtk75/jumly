@@ -41,6 +41,18 @@ describe "SequenceDiagram", ->
       beforeEach ->
         @occurr = new SequenceOccurrence
 
+  describe "SequenceFragment", ->
+
+    SequenceFragment = require "SequenceFragment"
+    beforeEach ->
+      @fragment = new SequenceFragment "treat all"
+
+    it "has .fragment", ->
+      expect(@fragment).haveClass "fragment"
+
+    it "has given name", ->
+      expect(@fragment.find(".name").text()).toBe "treat all"
+
   describe "SequenceRef", ->
 
     SequenceRef = require "SequenceRef"

@@ -1,8 +1,8 @@
 HTMLElement = require "HTMLElement"
 
 class SequenceFragment extends HTMLElement
-  constructor: ()->
-    super null, (me)->
+  constructor: (args)->
+    super args, (me)->
       me.append($("<div>").addClass("header")
                           .append($("<div>").addClass("name"))
                           .append($("<div>").addClass("condition")))

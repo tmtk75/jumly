@@ -155,6 +155,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @layout.layout diag
 
   describe "loop", ->
+    beforeEach ->
+      utils.matchers this
 
     beforeEach ->
       @diagram = @builder.build """
@@ -166,7 +168,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj = @diagram.find(".object:eq(0)").data "_self"
       @loop = @diagram.find(".loop:eq(0)").data "_self"
 
-    it "wraps child action", ->
+    it "has .loop", ->
+      expect(@loop).haveClass "loop"
       
 
   describe "ref", ->
