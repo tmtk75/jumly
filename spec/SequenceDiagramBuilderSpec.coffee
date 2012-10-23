@@ -41,6 +41,25 @@ describe "SequenceDiagramBuilder", ->
       expect(iact.find("> .occurrence > .interaction").length).toBe 1
       expect(iact.find("> .occurrence > .interaction > .message").length).toBe 1
 
+    describe "nest", ->
+
+      it "returns back to previous occurrence", ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "1-1", "b-1", ->
+            @message "2", "c", ->
+              @message "1-1", "c-1", ->
+          """
+        root = diag.find "> .interaction"
+        iacts = diag.find "> .interaction > .occurrence > .interaction"
+        expect(root.length).toBe 1
+        expect(iacts.length).toBe 2
+        kid0 = iacts.find "> .occurrence:eq(0) > .interaction"
+        kid1 = iacts.find "> .occurrence:eq(1) > .interaction"
+        expect(kid0.length).toBe 1
+        expect(kid1.length).toBe 1
+
   describe "create", ->
 
   describe "destroy", ->
