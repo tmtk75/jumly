@@ -41,7 +41,7 @@ describe "SequenceDiagramBuilder", ->
       expect(iact.find("> .occurrence > .interaction").length).toBe 1
       expect(iact.find("> .occurrence > .interaction > .message").length).toBe 1
 
-    describe "nest", ->
+    describe "nesting", ->
 
       it "returns back to previous occurrence", ->
         diag = @builder.build """

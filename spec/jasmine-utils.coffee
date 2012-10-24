@@ -22,6 +22,12 @@ root =
   unless_node: (f)->
     f() unless core.env.is_node
 
+  glance: (diag)->
+    $("body").prepend diag
+    L = require "SequenceDiagramLayout"
+    new L().layout diag
+
+
 if core.env.is_node
   module.exports = root
 else
