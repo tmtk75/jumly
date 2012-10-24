@@ -72,10 +72,10 @@ SequenceDiagramBuilder::message = (a, b, c) ->
   iact = @_curr_occurr().interact actee
   iact.find(".name").text(actname).end()
       .find(".stereotype").text(stereotype)
-  
-  @_occurr = iact._actee
-  callback?.apply this, []
-  this
+
+  it = (new SequenceDiagramBuilder @_diagram, iact._actee)
+  callback?.apply it, []
+  it
 
 SequenceDiagramBuilder::create = (a, b, c) ->
   if typeof a is "string" and typeof b is "function"
