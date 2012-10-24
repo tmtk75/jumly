@@ -1,12 +1,14 @@
 utils = require "./jasmine-utils"
 
-describe "SequenceDiagramBuilder", ->
+prepare_builder = ->
   SequenceDiagramBuilder = require "SequenceDiagramBuilder"
+  @builder = new SequenceDiagramBuilder
+  @diagram = @builder.diagram()
+  utils.matchers this
 
-  beforeEach ->
-    @builder = new SequenceDiagramBuilder
-    @diagram = @builder.diagram()
-    utils.matchers this
+describe "SequenceDiagramBuilder", ->
+
+  beforeEach prepare_builder
 
   describe "diagram", ->
 
@@ -43,6 +45,8 @@ describe "SequenceDiagramBuilder", ->
 
     describe "nesting", ->
 
+      beforeEach prepare_builder
+
       it "returns back to previous occurrence", ->
         diag = @builder.build """
           @found "a", ->
@@ -59,11 +63,11 @@ describe "SequenceDiagramBuilder", ->
         kid1 = iacts.find "> .occurrence:eq(1) > .interaction"
         expect(kid0.length).toBe 1
         expect(kid1.length).toBe 1
+        utils.glance diag
 
     describe "twice", ->
 
-      beforeEach ->
-        @builder = new SequenceDiagramBuilder
+      beforeEach prepare_builder
 
       it "makes two interactions", ->
         diag = @builder.build """
