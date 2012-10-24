@@ -83,7 +83,6 @@ describe "SequenceDiagramBuilder", ->
               > .interaction:eq(1)
                 > .message .name
           """).text()
-        utils.glance diag
 
   describe "create", ->
 
