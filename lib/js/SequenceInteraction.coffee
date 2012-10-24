@@ -87,7 +87,6 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
 SequenceMessage = require "SequenceMessage"
 
 SequenceInteraction::reply = (p) ->
-    console.warn "FIXME: reply is not supported yet"
     @addClass "reply"
     a = new SequenceMessage(this, p?[".actee"])
         .addClass("return")

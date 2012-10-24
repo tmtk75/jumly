@@ -100,6 +100,46 @@ describe "SequenceDiagramBuilder", ->
   describe "destroy", ->
 
   describe "reply", ->
+  
+    describe "returning back to the caller", ->
+ 
+      beforeEach ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c", ->
+                @reply "2'", "b"
+              @reply "1'", "a"
+          """
+        @iact1 = diag.find "> .interaction:eq(0) > .occurrence:eq(0) > .interaction:eq(0)"
+        @iact2 = @iact1.find "> .occurrence:eq(0) > .interaction:eq(0)"
+     
+      it "makes a new .message with .return", ->
+        expect(@iact1.find("> .message:eq(0)").text()).toBe "1"
+        expect(@iact1.find("> .message:eq(1)")).haveClass "return"
+        
+        expect(@iact2.find("> .message:eq(0)").text()).toBe "2"
+        expect(@iact2.find("> .message:eq(1)")).haveClass "return"
+
+    describe "returning back to the ancestor", ->
+
+      beforeEach ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c", ->
+                @reply "2'", "a"
+              @reply "1'", "a"
+          """
+        @iact1 = diag.find "> .interaction:eq(0) > .occurrence:eq(0) > .interaction:eq(0)"
+        @iact2 = @iact1.find "> .occurrence:eq(0) > .interaction:eq(0)"
+    
+      it "makes a new .message with .return", ->
+        expect(@iact1.find("> .message:eq(0)").text()).toBe "1"
+        expect(@iact1.find("> .message:eq(1)")).haveClass "return"
+        
+        expect(@iact2.find("> .message:eq(0)").text()).toBe "2"
+        expect(@iact2.find("> .message:eq(1)")).haveClass "return"
 
   describe "ref", ->
 

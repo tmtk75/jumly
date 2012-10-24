@@ -16,6 +16,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
   beforeEach ->
     @layout = new SequenceDiagramLayout
     @builder = new SequenceDiagramBuilder
+    utils.matchers this
 
   it "has layout", ->
     expect(typeof @layout.layout).toBe "function"
@@ -219,29 +220,37 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   describe "reply", ->
 
-    it "returns back to the caller", ->
-      diag = @builder.build """
-        @found "a", ->
-          @message "1", "b", ->
-            @message "2", "c", ->
-              @reply "2'", "b"
-            @reply "1'", "a"
-        """
-      div.append diag
-      @layout.layout diag
-      expect(false).toBeTruthy()
+    describe "returning back to the caller", ->
 
-    it "returns back to the ancestor", ->
-      diag = @builder.build """
-        @found "a", ->
-          @message "1", "b", ->
-            @message "2", "c", ->
-              @reply "2'", "a"
-            @reply "1'", "a"
-        """
-      div.append diag
-      @layout.layout diag
-      expect(false).toBeTruthy()
+      beforeEach ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c", ->
+                @reply "2'", "b"
+              @reply "1'", "a"
+          """
+        div.append diag
+        @layout.layout diag
+
+      it "should be TODO", ->
+        expect(false).toBe true
+
+    describe "returning back to the ancestor", ->
+      
+      beforeEach ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c", ->
+                @reply "2'", "a"
+              @reply "1'", "a"
+          """
+        div.append diag
+        @layout.layout diag
+
+      it "should be TODO", ->
+        expect(false).toBe true
 
   describe "showcase", ->
   
