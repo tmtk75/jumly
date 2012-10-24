@@ -17,9 +17,6 @@ describe "SequenceDiagramBuilder", ->
   
   describe "found", ->
 
-    it "returns itself", ->
-      expect(@builder.found "fiz").toBe @builder
-
     it "gives an object having .found", ->
       @builder.found "biz"
       obj = @diagram.find ".object"
@@ -34,7 +31,7 @@ describe "SequenceDiagramBuilder", ->
               .message "call", "bar"
   
     it "returns itself", ->
-      expect(@builder.found("foo").message "call").toBe @builder
+      expect(@builder.found("foo").message "call").toBeDefined()
     
     it "gives an interaction and an occurrence", ->
       iact = @diagram.find "> .interaction"
