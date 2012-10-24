@@ -158,7 +158,8 @@ SequenceDiagramBuilder::loop = (a, b, c) ->
       last.apply this, []
       newones = @_curr_occurr().find("> *").not(kids)
       if newones.length > 0
-        frag = jumly(".fragment").addClass("loop").enclose newones
+        SequenceFragment = require "SequenceFragment"
+        frag = new SequenceFragment().addClass("loop").enclose newones
         frag.find(".name:first").html "Loop"
   this
 
