@@ -252,6 +252,23 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "should be TODO", ->
         expect(false).toBe true
 
+    describe "returning back from self-called occurrence", ->
+
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "Me", ->
+            @message "mail", "Him", ->
+              @message "read", ->
+                @reply "reply", "Me"
+          """
+        div.append diag
+        @layout.layout diag
+        @retmsg = diag.find ".return"
+
+      it "TODO", ->
+        expect(false).toBe true
+
+
   describe "showcase", ->
   
     it "has full functions", ->
