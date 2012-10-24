@@ -23,6 +23,7 @@ SequenceOccurrence::interact = (actor, acts) ->
       occurr = new SequenceOccurrence actor
       iact = new SequenceInteraction this, occurr
     iact.append(occurr).appendTo this
+    iact
 
 SequenceOccurrence::create = (objsrc) ->
   SequenceObject = require "SequenceObject"
