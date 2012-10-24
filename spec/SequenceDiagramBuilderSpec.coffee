@@ -55,15 +55,19 @@ describe "SequenceDiagramBuilder", ->
             @message "2", "c", ->
               @message "2-1", "c-1", ->
           """
-        root = diag.find "> .interaction"
-        iacts = diag.find "> .interaction > .occurrence > .interaction"
-        expect(root.length).toBe 1
-        expect(iacts.length).toBe 2
-        kid0 = iacts.find "> .occurrence:eq(0) > .interaction"
-        kid1 = iacts.find "> .occurrence:eq(1) > .interaction"
-        expect(kid0.length).toBe 1
-        expect(kid1.length).toBe 1
-        utils.glance diag
+        
+        expect((diag.find "> .interaction").length).toBe 1
+        expect((iacts = diag.find """
+          > .interaction
+            > .occurrence
+              > .interaction
+          """).length).toBe 2  ## including msg 1 and 2
+
+        occur0 = iacts.filter(":eq(0)").find "> .occurrence"
+        occur1 = iacts.filter(":eq(1)").find "> .occurrence"
+        expect(occur0.find("> .interaction > .message").text()).toBe "1-1"
+        expect(occur1.find("> .interaction > .message").text()).toBe "2-1"
+        #utils.glance diag
 
     describe "twice", ->
 
