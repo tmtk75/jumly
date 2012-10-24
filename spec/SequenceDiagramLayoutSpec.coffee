@@ -217,6 +217,32 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       y1 = _top @ref
       expect(y0).toBeLessThan y1
 
+  describe "reply", ->
+
+    it "returns back to the caller", ->
+      diag = @builder.build """
+        @found "a", ->
+          @message "1", "b", ->
+            @message "2", "c", ->
+              @reply "2'", "b"
+            @reply "1'", "a"
+        """
+      div.append diag
+      @layout.layout diag
+      expect(false).toBeTruthy()
+
+    it "returns back to the ancestor", ->
+      diag = @builder.build """
+        @found "a", ->
+          @message "1", "b", ->
+            @message "2", "c", ->
+              @reply "2'", "a"
+            @reply "1'", "a"
+        """
+      div.append diag
+      @layout.layout diag
+      expect(false).toBeTruthy()
+
   describe "showcase", ->
   
     it "has full functions", ->
