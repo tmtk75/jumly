@@ -60,6 +60,31 @@ describe "SequenceDiagramBuilder", ->
         expect(kid0.length).toBe 1
         expect(kid1.length).toBe 1
 
+    describe "twice", ->
+
+      beforeEach ->
+        @builder = new SequenceDiagramBuilder
+
+      it "makes two interactions", ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b"
+            @message "2", "c"
+          """
+        expect("1").toBe diag.find("""
+          > .interaction:eq(0)
+            > .occurrence:eq(0)
+              > .interaction:eq(0)
+                > .message .name
+          """).text()
+        expect("2").toBe diag.find("""
+          > .interaction:eq(0)
+            > .occurrence:eq(0)
+              > .interaction:eq(1)
+                > .message .name
+          """).text()
+        utils.glance diag
+
   describe "create", ->
 
   describe "destroy", ->
@@ -110,40 +135,3 @@ describe "SequenceDiagramBuilder", ->
         expect(iact.length).toBe 1
         expect(iact.find("> .occurrence").length).toBe 1
 
-  describe "_curr_occurr", ->
-
-    it "is at first occurrence of @found", ->
-      diag = @builder.build """
-        @found "sth"
-        """
-      expect(@builder._curr_occurr()).toBe diag.find("""
-        .occurrence:eq(0)
-        """).data "_self"
-
-    it "is at the destination occurrence from the @message", ->
-      diag = @builder.build """
-        @found "a", ->
-          @message "1", "b"
-        """
-      expect(@builder._curr_occurr()).toBe diag.find("""
-        > .interaction:eq(0)
-          > .occurrence:eq(0)
-        """).data "_self"
-
-    it "is at the destination occurrence from the @message", ->
-      diag = @builder.build """
-        @found "a", ->
-          @message "1", "b"
-          @message "2", "c"
-        """
-      expect(@builder._curr_occurr()).toBe diag.find("""
-        > .interaction:eq(0)
-          > .interaction:eq(1)
-            > .occurrence:eq(0)
-        """).data "_self"
-
-    it "is changed by @create"
-
-    it "is changed by @reactivate"
-
-    it "is not changed by the others"
