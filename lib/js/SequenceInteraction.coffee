@@ -92,8 +92,7 @@ SequenceInteraction::reply = (p) ->
     a = new SequenceMessage(this, p?[".actee"])
         .addClass("return")
         .insertAfter @children ".occurrence:eq(0)"
-    if p?.name
-        a.name p.name
+    $(a).find(".name:eq(0)").text $(p).find(".name:eq(0)").text()
     this
 
 SequenceInteraction::fragment = (attrs, opts) ->
