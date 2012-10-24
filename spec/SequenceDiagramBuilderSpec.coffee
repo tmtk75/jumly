@@ -70,24 +70,30 @@ describe "SequenceDiagramBuilder", ->
 
       beforeEach prepare_builder
 
-      it "makes two interactions", ->
+      it "makes two parallel interactions", ->
         diag = @builder.build """
           @found "a", ->
             @message "1", "b"
             @message "2", "c"
           """
-        expect("1").toBe diag.find("""
+        sel = "> .interaction:eq(0) > .occurrence:eq(0)"
+        expect("1").toBe diag.find("#{sel} > .interaction:eq(0) > .message .name").text()
+        expect("2").toBe diag.find("#{sel} > .interaction:eq(1) > .message .name").text()
+
+      it "makes two nested interations", ->
+        diag = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @message "2", "c"
+          """
+        expect("2").toBe diag.find("
           > .interaction:eq(0)
             > .occurrence:eq(0)
               > .interaction:eq(0)
-                > .message .name
-          """).text()
-        expect("2").toBe diag.find("""
-          > .interaction:eq(0)
-            > .occurrence:eq(0)
-              > .interaction:eq(1)
-                > .message .name
-          """).text()
+                > .occurrence:eq(0)
+                  > .interaction:eq(0)
+                    > .message .name
+          ").text()
 
   describe "create", ->
 
