@@ -53,7 +53,7 @@ describe "SequenceDiagramBuilder", ->
             @message "1", "b", ->
               @message "1-1", "b-1", ->
             @message "2", "c", ->
-              @message "1-1", "c-1", ->
+              @message "2-1", "c-1", ->
           """
         root = diag.find "> .interaction"
         iacts = diag.find "> .interaction > .occurrence > .interaction"
