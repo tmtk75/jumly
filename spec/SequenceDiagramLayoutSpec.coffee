@@ -288,8 +288,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @diagram = diag = @builder.build """
           @found "Me", ->
             @message "mail", "Him", ->
-              @message "read", -> @message "again", -> @message "and again", ->
-                @reply "reply", "Me"
+              @message "read", ->
+                @message "again", ->
+                  @message "and again", ->
+                    @reply "reply", "Me"
           """
         div.append diag
         @layout.layout diag
