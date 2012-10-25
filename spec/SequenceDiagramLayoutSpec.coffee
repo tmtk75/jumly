@@ -232,9 +232,17 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append diag
         @layout.layout diag
+        @ret1 = diag.find ".return:eq(1)"
+        @ret2 = diag.find ".return:eq(0)"
 
-      it "should be TODO", ->
-        expect(false).toBe true
+      it "is as offset.left as the sibling", ->
+        m1 = @ret1.parent().find(".message:eq(0)")
+        expect(m1.text()).toBe "1"
+        expect(@ret1.offset().left).toBe m1.offset().left
+
+        m2 = @ret2.parent().find(".message:eq(0)")
+        expect(m2.text()).toBe "2"
+        expect(@ret2.offset().left).toBe m2.offset().left
 
     describe "returning back to the ancestor", ->
       
@@ -248,9 +256,14 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append diag
         @layout.layout diag
+        @ret1 = diag.find ".return:eq(1)"
+        @ret2 = diag.find ".return:eq(0)"
 
-      it "should be TODO", ->
-        expect(false).toBe true
+      it "is as offset.left as the sibling", ->
+        m1 = @ret1.parent().find(".message:eq(0)")
+        expect(m1.text()).toBe "1"
+        expect(@ret1.offset().left).toBe m1.offset().left
+        expect(@ret2.offset().left).toBe m1.offset().left
 
     describe "returning back from self-called occurrence", ->
 
