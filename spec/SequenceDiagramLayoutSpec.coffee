@@ -280,7 +280,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @occurr = diag.find(".return:eq(0)").parents(".occurrence:eq(0)")
 
       it "is as left as its source occurrence", ->
-        expect(@ret.offset().left).toBeLessThan @occurr.offset().left
+        expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
 
 
   describe "showcase", ->
