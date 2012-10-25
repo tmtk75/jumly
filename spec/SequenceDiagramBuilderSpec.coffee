@@ -97,6 +97,16 @@ describe "SequenceDiagramBuilder", ->
 
   describe "create", ->
 
+    beforeEach ->
+      diag = @builder.build """
+        @found 'a', ->
+          @create 'b'
+        """
+      @create = diag.find(".create").data "_self"
+
+    it "makes a .create", ->
+      expect(@create.length).toBe 1
+
   describe "destroy", ->
 
   describe "reply", ->
