@@ -276,10 +276,11 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append diag
         @layout.layout diag
-        @retmsg = diag.find ".return"
+        @ret = diag.find ".return:eq(0)"
+        @occurr = diag.find(".return:eq(0)").parents(".occurrence:eq(0)")
 
-      it "TODO", ->
-        expect(false).toBe true
+      it "is as left as its source occurrence", ->
+        expect(@ret.offset().left).toBeLessThan @occurr.offset().left
 
 
   describe "showcase", ->
