@@ -139,12 +139,9 @@ SequenceMessage::isTowardLeft = ->
 SequenceMessage::_composeLooksOfCreation = ->
   srcoccur = @_srcOccurr()
   dstoccur = @_dstOccurr()
-  render = (msg) ->
-    msg.repaint()
-     .gives(".interaction").gives(".occurrence").as(".actee")
       
   preffered_width = (msg) ->
-    l = msg._toLine srcoccur, dstoccur.gives(".object"), msg
+    l = msg._toLine srcoccur, dstoccur._actor, msg
     Math.abs l.src.x - l.dst.x
       
   centering_name = (msg, newwidth) ->
@@ -167,10 +164,10 @@ SequenceMessage::_composeLooksOfCreation = ->
     dy = iact.outerBottom() - dstoccur.outerBottom() - parseInt dstoccur.css "margin-top"
     iact.css "margin-bottom", (Math.abs dy) 
   
-  created = dstoccur.gives ".object"
+  created = dstoccur._actor
   w = preffered_width this
   shift_downward this
-  render this
+  @repaint()
   centering_name this, w
   shift_down_lifeline created
 

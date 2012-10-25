@@ -301,6 +301,24 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is as left as its source occurrence", ->
         expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
 
+  describe "create", ->
+
+    beforeEach ->
+      diag = @builder.build """
+        @found 'a', ->
+          @create 'b'
+        """
+      div.append diag
+      @layout.layout diag
+      @obj = diag.find ".object:eq(0)"
+      @msg = diag.find ".create > .message"
+
+    describe "right", ->
+
+      it "is at left from the left of actee object", ->
+        expect(@msg.offset().left + @msg.outerWidth()).toBeLessThan @obj.offset().left
+
+
   describe "showcase", ->
   
     it "has full functions", ->
