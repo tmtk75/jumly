@@ -118,7 +118,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
     e.offset left:occurr.offset().left
 
 SequenceDiagramLayout::align_creation_message_horizontally = ->
-  @_q(".message.create").selfEach (e)->
+  @_q(".create > .message").selfEach (e)->
     e._composeLooksOfCreation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->

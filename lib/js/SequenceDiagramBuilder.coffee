@@ -101,12 +101,12 @@ SequenceDiagramBuilder::create = (a, b, c) ->
     norm = JUMLY.Identity.normalize a
     id = norm.id
     actee = norm.name
+
   iact = @_curr_occurr().create id:id, name:actee
   iact.name name if name 
   ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact._actee
-  occurr._actor.attr("id", id).addClass "created-by"
-  ctxt = new SequenceDiagramBuilder(diagram:@_diagram, _curr_occurr:occurr)
+  ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []
   @_def id, occurr._actor
   ctxt

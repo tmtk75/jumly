@@ -103,6 +103,7 @@ describe "SequenceDiagramBuilder", ->
           @create 'b'
         """
       @create = diag.find(".create").data "_self"
+      utils.glance diag
 
     it "makes a .create", ->
       expect(@create.length).toBe 1
