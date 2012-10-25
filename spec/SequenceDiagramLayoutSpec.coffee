@@ -265,7 +265,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         expect(@ret1.offset().left).toBe m1.offset().left
         expect(@ret2.offset().left).toBe m1.offset().left
 
-    describe "returning back from self-called occurrence", ->
+    describe "returning back from one self-called occurrence", ->
 
       beforeEach ->
         @diagram = diag = @builder.build """
@@ -282,6 +282,22 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is as left as its source occurrence", ->
         expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
 
+    describe "returning back from multiple self-called occurrences", ->
+
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "Me", ->
+            @message "mail", "Him", ->
+              @message "read", -> @message "again", -> @message "and again", ->
+                @reply "reply", "Me"
+          """
+        div.append diag
+        @layout.layout diag
+        @ret = diag.find ".return:eq(0)"
+        @occurr = diag.find(".return:eq(0)").parents(".occurrence:eq(0)")
+
+      it "is as left as its source occurrence", ->
+        expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
 
   describe "showcase", ->
   
