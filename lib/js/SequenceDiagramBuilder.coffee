@@ -124,8 +124,11 @@ SequenceDiagramBuilder::reply = (a, b) ->
   if typeof b is "string"
     ref = core._to_ref core._to_id b
     obj = @_diagram[ref] if @_diagram[ref]
+
+  f = (occur, n)-> if occur.is_on_another() then f(occur._parent_occurr(), n + 1) else n
+  n = f @_curr_occurr(), 0
   @_curr_occurr()
-    .parents(".interaction:eq(0)").data("_self")
+    .parents(".interaction:eq(#{n})").data("_self")
     .reply name:a, ".actee":obj
   null
 
