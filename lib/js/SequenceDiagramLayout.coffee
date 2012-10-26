@@ -119,7 +119,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
 
 SequenceDiagramLayout::align_creation_message_horizontally = ->
   @_q(".create > .message").selfEach (e)->
-    e._composeLooksOfCreation()
+    e._to_be_creation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
   @diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->

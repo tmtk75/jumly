@@ -136,7 +136,7 @@ SequenceMessage::isTowardRight = ->
 SequenceMessage::isTowardLeft = ->
   @isToward "left"
 
-SequenceMessage::_composeLooksOfCreation = ->
+SequenceMessage::_to_be_creation = ->
   srcoccur = @_srcOccurr()
   dstoccur = @_dstOccurr()
       
