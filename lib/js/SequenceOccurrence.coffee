@@ -29,9 +29,11 @@ SequenceOccurrence::create = (objsrc) ->
   SequenceObject = require "SequenceObject"
   obj = new SequenceObject(objsrc.name)
               .addClass "created-by"
-  it = @parents(".sequence-diagram").data "_self"
   @_actor.parent().append obj
-  iact = (@interact obj).addClass "create"
+  iact = (@interact obj)
+           .find(".message")
+           .addClass("create")
+           .end()
 
 SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"

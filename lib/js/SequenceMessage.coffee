@@ -42,10 +42,10 @@ SequenceMessage::_prefferedCanvas = ->
     .css (width:@width(), height:@height())
 
 SequenceMessage::_toCreateLine = (canvas)->
-  e = @_toLine @_srcOccurr(), @_dstOccurr().gives(".object"), canvas
+  e = @_toLine @_srcOccurr(), @_dstOccurr()._actor, canvas
   if @isTowardLeft()
     src = @_srcOccurr()
-    e.dst.x = src.gives(".object").outerRight() - src.offset().left
+    e.dst.x = src._actor.outerRight() - src.offset().left
   e
 
 SequenceMessage::_findOccurr = (actee)->
@@ -77,7 +77,8 @@ _determine_primary_stereotype = (jqnode) ->
     return e if jqnode.hasClass e
 
 SequenceMessage::repaint = (style) ->
-  arrow = jQuery.extend {}, MESSAGE_STYLE, style, STEREOTYPE_STYLES[_determine_primary_stereotype this]
+  shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
+  arrow = jQuery.extend {}, MESSAGE_STYLE, style, shape
   # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
   # So if you don't set same value to both, the rendered result may be inconsistent.
   canvas = @_current_canvas = @_prefferedCanvas()
@@ -149,13 +150,6 @@ SequenceMessage::_to_be_creation = ->
     newleft = srcoccur.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
     msg.find(".name").offset(left:newleft)
       
-  shift_down_lifeline = (obj) ->
-    diag = obj.parents ".sequence-diagram"
-    ll = $ ".lifeline .line:eq(1)", diag  # Should be derrived from obj. 
-    prevtop = ll.offset().top
-    ll.offset(top:obj.offset().top + obj.outerHeight())
-    ll.height ll.height() - (ll.offset().top - prevtop)
-  
   shift_downward = (msg) ->
     created.offset top:msg.offset().top - created.height()/3
     y = created.outerBottom() + parseInt dstoccur.css "margin-top"
@@ -163,13 +157,11 @@ SequenceMessage::_to_be_creation = ->
     iact = msg.parents(".interaction:eq(0)")
     dy = iact.outerBottom() - dstoccur.outerBottom() - parseInt dstoccur.css "margin-top"
     iact.css "margin-bottom", (Math.abs dy) 
-  
+
   created = dstoccur._actor
   w = preffered_width this
   shift_downward this
-  @repaint()
   centering_name this, w
-  shift_down_lifeline created
 
 core = require "core"
 if core.env.is_node
