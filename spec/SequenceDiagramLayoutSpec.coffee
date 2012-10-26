@@ -304,20 +304,27 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
   describe "create", ->
 
     beforeEach ->
-      diag = @builder.build """
+      @diagram = diag = @builder.build """
         @found 'a', ->
           @create 'b'
         """
       div.append diag
       @layout.layout diag
-      @obj = diag.find ".object:eq(0)"
-      @msg = diag.find ".create > .message"
+      @obj = diag.find ".object.created-by"
+      @msg = diag.find(".create > .message").data "_self"
 
-    describe "right", ->
+    describe "message", ->
+      describe "right", ->
 
-      it "is at left from the left of actee object", ->
-        expect(@msg.offset().left + @msg.outerWidth()).toBeLessThan @obj.offset().left
+        it "is at left from the left of actee object", ->
+          expect(@msg.offset().left + @msg.preferred_width()).toBeLessThan @obj.offset().left
 
+    describe "object", ->
+      describe "top", ->
+
+        it "is at bottom of the bottom of actor object", ->
+          act = @diagram.find ".object:eq(0)"
+          expect(@obj.offset().top).toBeGreaterThan act.offset().top + act.outerHeight()
 
   describe "showcase", ->
   
