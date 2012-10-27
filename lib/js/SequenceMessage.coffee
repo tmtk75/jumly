@@ -17,20 +17,16 @@ SequenceMessage::_lineToNextOccurr = (canvas) ->
 
 SequenceMessage::_toLine = (src, dst, canvas) ->
   # Lost message is always toward right.
-  if !@parent().hasClass("lost") and @isTowardLeft()
-    src:
-      x: src.offset().left - @offset().left
-      y: canvas.outerHeight()/2
-    dst:
-      x: dst.outerWidth()
-      y: canvas.outerHeight()/2
+  e = if !@parent().hasClass("lost") and @isTowardLeft()
+    src: x: src.offset().left - @offset().left
+    dst: x: dst.outerWidth()
   else
-    src:
-      x: src.outerWidth()
-      y: canvas.outerHeight()/2
-    dst:
-      x: dst.offset().left - src.offset().left
-      y: canvas.outerHeight()/2
+    src: x: src.outerWidth()
+    dst: x: dst.offset().left - src.offset().left
+  y = canvas.outerHeight()/2
+  e.src.y = y
+  e.dst.y = y
+  e
 
 SequenceMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
 
@@ -160,6 +156,7 @@ SequenceMessage::_to_be_creation = ->
 
   created = dst._actor
   w = preffered_width this
+  @width w
   shift_downward this
   centering_name this, w
 
