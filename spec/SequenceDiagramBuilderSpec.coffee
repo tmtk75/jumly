@@ -107,6 +107,12 @@ describe "SequenceDiagramBuilder", ->
     it "makes a .create", ->
       expect(@create.length).toBe 1
 
+    describe "message", ->
+      describe "name", ->
+
+        it "is ''", ->
+          expect(@create.find(".name").text()).toBe ""
+
   describe "destroy", ->
 
   describe "reply", ->
