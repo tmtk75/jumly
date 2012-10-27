@@ -319,6 +319,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         it "is at left from the left of actee object", ->
           expect(@msg.offset().left + @msg.preferred_width()).toBeLessThan @obj.offset().left
 
+        it "is same for the both of left", ->
+          occur = @diagram.find ".occurrence:eq(0)"
+          expect(@msg.offset().left).toBe occur.offset().left
+
     describe "object", ->
       describe "top", ->
 

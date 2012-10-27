@@ -156,7 +156,6 @@ SequenceMessage::_to_be_creation = ->
 
   created = dst._actor
   w = preffered_width this
-  @width w
   shift_downward this
   centering_name this, w
 
