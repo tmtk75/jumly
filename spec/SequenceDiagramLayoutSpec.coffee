@@ -346,6 +346,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
             expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
 
+    describe "lifeline", ->
+      describe "bottom", ->
+
+        it "is at the same", ->
+          a = @diagram.find ".lifeline:eq(0)"
+          b = @diagram.find ".lifeline:eq(1)"
+          expect(a.offset().top + a.outerHeight()).toBe b.offset().top + b.outerHeight()
+          
+
   describe "showcase", ->
   
     it "has full functions", ->
