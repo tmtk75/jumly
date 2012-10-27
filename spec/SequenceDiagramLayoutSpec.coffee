@@ -311,7 +311,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
       @obj = diag.find ".object.created-by"
-      @msg = diag.find(".create > .message").data "_self"
+      @msg = diag.find(".create.message").data "_self"
 
     describe "message", ->
       describe "right", ->
