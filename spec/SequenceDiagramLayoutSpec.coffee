@@ -330,6 +330,22 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           act = @diagram.find ".object:eq(0)"
           expect(@obj.offset().top).toBeGreaterThan act.offset().top + act.outerHeight()
 
+        describe "twice", ->
+          it "is at bottom than previous ones", ->
+            @diagram.remove()
+            diag = (new SequenceDiagramBuilder()).build """
+              @found 'a', ->
+                @create 'b', ->
+                  @create 'c', ->
+              """
+            div.append diag
+            @layout.layout diag
+            obj0 = diag.find ".object:eq(0)"
+            obj1 = diag.find ".object:eq(1)"
+            obj2 = diag.find ".object:eq(2)"
+            expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
+            expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
+
   describe "showcase", ->
   
     it "has full functions", ->
