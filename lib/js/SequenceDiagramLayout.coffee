@@ -16,7 +16,7 @@ SequenceDiagramLayout::_layout_ = ->
   objs = $(".object:eq(0) ~ .object", @diagram)
   $(".object:eq(0)", @diagram).after objs
   @align_objects_horizontally()
-  @align_occurrences_horizontally()
+  @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
   @compose_interactions()
   @generate_lifelines_and_align_horizontally()
   @pack_refs_horizontally()
@@ -39,10 +39,6 @@ SequenceDiagramLayout::align_objects_horizontally = ->
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
   @_q(".object").pickup2 f0, f1
-
-SequenceDiagramLayout::align_occurrences_horizontally = ->
-   @_q(".occurrence").each (i, e)->
-     $(e).data("_self")._move_horizontally()
 
 SequenceDiagramLayout::compose_interactions = ->
   @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
