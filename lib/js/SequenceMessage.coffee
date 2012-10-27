@@ -15,21 +15,21 @@ SequenceMessage::_lineToNextOccurr = (canvas) ->
   dstll = @_dstOccurr()
   @_toLine srcll, dstll, canvas
 
-SequenceMessage::_toLine = (srcll, dstll, canvas) ->
+SequenceMessage::_toLine = (src, dst, canvas) ->
   # Lost message is always toward right.
   if !@parent().hasClass("lost") and @isTowardLeft()
     src:
-      x: srcll.offset().left - @offset().left
+      x: src.offset().left - @offset().left
       y: canvas.outerHeight()/2
     dst:
-      x: dstll.outerWidth()
+      x: dst.outerWidth()
       y: canvas.outerHeight()/2
   else
     src:
-      x: srcll.outerWidth()
+      x: src.outerWidth()
       y: canvas.outerHeight()/2
     dst:
-      x: dstll.offset().left - srcll.offset().left
+      x: dst.offset().left - src.offset().left
       y: canvas.outerHeight()/2
 
 SequenceMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
@@ -138,27 +138,27 @@ SequenceMessage::isTowardLeft = ->
   @isToward "left"
 
 SequenceMessage::_to_be_creation = ->
-  srcoccur = @_srcOccurr()
-  dstoccur = @_dstOccurr()
+  src = @_srcOccurr()
+  dst = @_dstOccurr()
       
   preffered_width = (msg) ->
-    l = msg._toLine srcoccur, dstoccur._actor, msg
+    l = msg._toLine src, dst._actor, msg
     Math.abs l.src.x - l.dst.x
       
   centering_name = (msg, newwidth) ->
     return if msg.isTowardLeft()
-    newleft = srcoccur.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
+    newleft = src.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
     msg.find(".name").offset(left:newleft)
       
   shift_downward = (msg) ->
     created.offset top:msg.offset().top - created.height()/3
-    y = created.outerBottom() + parseInt dstoccur.css "margin-top"
-    dstoccur.offset(top:y)
+    y = created.outerBottom() + parseInt dst.css "margin-top"
+    dst.offset(top:y)
     iact = msg.parents(".interaction:eq(0)")
-    dy = iact.outerBottom() - dstoccur.outerBottom() - parseInt dstoccur.css "margin-top"
+    dy = iact.outerBottom() - dst.outerBottom() - parseInt dst.css "margin-top"
     iact.css "margin-bottom", (Math.abs dy) 
 
-  created = dstoccur._actor
+  created = dst._actor
   w = preffered_width this
   shift_downward this
   centering_name this, w
