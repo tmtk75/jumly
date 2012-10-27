@@ -317,7 +317,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       describe "right", ->
 
         it "is at left from the left of actee object", ->
-          expect(@msg.offset().left + @msg.preferred_width()).toBeLessThan @obj.offset().left
+          expect(@msg.offset().left + @msg.outerWidth()).toBeLessThan @obj.offset().left
 
         it "is same for the both of left", ->
           occur = @diagram.find ".occurrence:eq(0)"
