@@ -21,7 +21,7 @@ SequenceDiagramLayout::_layout_ = ->
   @generate_lifelines_and_align_horizontally()
   @pack_refs_horizontally()
   @pack_fragments_horizontally()
-  @align_creation_message_horizontally()
+  @_q(".create.message").selfEach (e)-> e._to_be_creation()
   @align_lifelines_vertically()
   @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling()
@@ -116,10 +116,6 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
     e = $(e)
     occurr = e.prev(".occurrence")
     e.offset left:occurr.offset().left
-
-SequenceDiagramLayout::align_creation_message_horizontally = ->
-  @_q(".create.message").selfEach (e)->
-    e._to_be_creation()
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
   @diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
