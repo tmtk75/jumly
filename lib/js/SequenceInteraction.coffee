@@ -42,12 +42,8 @@ SequenceInteraction::_compose_ = ->
   else if msg.isTowardLeft()
     w = dst.offset().left - (src.offset().left + $(".occurrence:eq(0)", that).width())
   msg.width(Math.abs(w))
-     .offset(left:Math.min(src.offset().left, dst.offset().left))
+     .offset(left:Math.min(src.offset().left, dst.offset().left)) #TODO: remove me?
      .repaint()
-
-  # Locate the name of message
-  # Normal message
-  #TODO: Move this centering logic for name to .message class. 
 
   # Return message
   rmsg = $("> .message.return:last", that).data "_self"
