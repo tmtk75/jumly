@@ -137,27 +137,21 @@ SequenceMessage::_to_be_creation = ->
   src = @_srcOccurr()
   dst = @_dstOccurr()
       
-  preffered_width = (msg) ->
+  line_width = (msg) ->
     l = msg._toLine src, dst._actor, msg
     Math.abs l.src.x - l.dst.x
       
-  centering_name = (msg, newwidth) ->
-    return if msg.isTowardLeft()
-    newleft = src.outerWidth() + msg.offset().left + (newwidth - msg.find(".name").outerWidth())/2
-    msg.find(".name").offset(left:newleft)
-      
   shift_downward = (msg) ->
-    created.offset top:msg.offset().top - created.height()/3
-    y = created.outerBottom() + parseInt dst.css "margin-top"
-    dst.offset(top:y)
-    iact = msg.parents(".interaction:eq(0)")
-    dy = iact.outerBottom() - dst.outerBottom() - parseInt dst.css "margin-top"
+    obj = dst._actor
+    obj.offset top:msg.offset().top - obj.height()/3
+    mt = parseInt dst.css "margin-top"
+    dst.offset top:obj.outerBottom() + mt
+    iact = msg.parents ".interaction:eq(0)"
+    dy = iact.outerBottom() - dst.outerBottom() - mt
     iact.css "margin-bottom", (Math.abs dy) 
 
-  created = dst._actor
-  w = preffered_width this
+  @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this
-  centering_name this, w
 
 core = require "core"
 if core.env.is_node
