@@ -3,7 +3,7 @@ class HTMLElement
     cls = HTMLElement.to_css_name @constructor.name
     me = $.extend this, root = $("<div>").addClass cls
     f? me
-    me.find(".name").text args
+    me.find(".name").text args if args
     me.data "_self", me
 
   @to_css_name: (s)->
