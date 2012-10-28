@@ -125,6 +125,26 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         expect(y1).toBeGreaterThan y0
         expect(y2).toBeGreaterThan y1
 
+    describe "bottom", ->
+
+      beforeEach ->
+        @diagram.remove()
+        @diagram = diag = (new SequenceDiagramBuilder).build """
+          @found 'a', ->
+            @message '1', 'b', ->
+              @message '2', 'c'
+          """
+        div.append diag
+        @layout.layout diag
+      
+      it "is at mostbottom than the others", ->
+        lines = @diagram.find ".lifeline"
+        occurs = @diagram.find ".occurrence"
+        g = (e)-> e = $(e); e.offset().top + e.outerHeight()
+        a = lines.max g
+        b = occurs.max g
+        expect(a).toBeGreaterThan b
+
   describe "occurrence", ->
 
     beforeEach ->
