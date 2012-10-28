@@ -53,3 +53,12 @@ $.fn._d = (p)->
   a.middle = a.top + (Math.round e.height()/2)
   a
 
+$.fold = (list, init, func)->
+  l = init
+  for e in list
+    l = func.apply null, [l, e]
+  l
+
+$.reduce = (list, func)->
+  return undefined if list.length is 0
+  $.fold list[1..], list[0], func
