@@ -87,13 +87,14 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is 0 for left of first .object", ->
         expect(@obj1.position().left).toBe 0
       
-      ## 60px is defined in .styl
-      it "is a span 60px btw 1st and 2nd of .object", ->
-        x = @obj1.position().left + @obj1.preferred_width() + 60
+      ## 40px is defined in .styl
+      span = 40
+      it "is a span #{span}px btw 1st and 2nd of .object", ->
+        x = @obj1.position().left + @obj1.preferred_width() + span
         expect(x).toBe @obj2.position().left
 
-      it "is a span 60px btw 2nd and 3rd of .object", ->
-        x = @obj2.position().left + @obj3.preferred_width() + 60
+      it "is a span #{span}px btw 2nd and 3rd of .object", ->
+        x = @obj2.position().left + @obj3.preferred_width() + span
         expect(x).toBe @obj3.position().left
 
   describe "lifeline", ->
