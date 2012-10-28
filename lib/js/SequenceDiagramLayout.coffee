@@ -100,12 +100,15 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
   else
     mh = @diagram.find(".interaction:eq(0)").height()
 
+  min = @diagram.find(".object").min (e)-> $(e).offset().top
+
   @_q(".lifeline").each (i, e) ->
     a = $(e).data "_self"
     a.offset left:a._object.offset().left
     a.height mh + 16
 
-    y = a._object.offset().top + a._object.outerHeight()
+    ot = a._object.offset().top
+    y = ot + a._object.outerHeight() - (ot - min)
     mt = a.offset().top - (y + 1)
     a.css "margin-top":"-#{mt}px"
 
