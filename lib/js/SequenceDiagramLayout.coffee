@@ -93,7 +93,13 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
 SequenceDiagramLayout::align_lifelines_vertically = ->
   nodes = @diagram.find(".interaction, .ref")
   return if nodes.length is 0
-  mh = nodes.filter(":last").offset().top + nodes.filter(":last").outerHeight() - nodes.filter(":first").offset().top
+  
+  if nodes.filter(".ref").length > 0
+    last = nodes.filter(":last")
+    mh = last.offset().top + last.outerHeight() - nodes.filter(":first").offset().top
+  else
+    mh = @diagram.find(".interaction:eq(0)").height()
+
   @_q(".lifeline").each (i, e) ->
     a = $(e).data "_self"
     a.offset left:a._object.offset().left
