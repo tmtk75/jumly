@@ -6,8 +6,8 @@ SequenceDiagram = require "SequenceDiagram"
 SequenceObject = require "SequenceObject"
 SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
-_bottom = (e)-> e.offset().top + e.outerHeight() - 1
-_top = (e)-> e.offset().top
+_bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
+_top = (e)-> Math.round e.offset().top
 
 utils.unless_node -> describe "SequenceDiagramLayout", ->
 
