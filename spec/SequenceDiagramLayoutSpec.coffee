@@ -140,7 +140,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is at mostbottom than the others", ->
         lines = @diagram.find ".lifeline"
         occurs = @diagram.find ".occurrence"
-        g = (e)-> e = $(e); e.offset().top + e.outerHeight()
+        g = (e)-> _bottom $(e)
         a = lines.max g
         b = occurs.max g
         expect(a).toBeGreaterThan b
@@ -380,12 +380,20 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
+      describe "top", ->
+
+        it "is at the bottom of its .object", ->
+          a = @diagram.find(".lifeline:eq(0)").data "_self"
+          b = @diagram.find(".lifeline:eq(1)").data "_self"
+          expect(_top a).toBeGreaterThan _bottom a._object
+          expect(_top b).toBeGreaterThan _bottom b._object
+
       describe "bottom", ->
 
         it "is at the same", ->
           a = @diagram.find ".lifeline:eq(0)"
           b = @diagram.find ".lifeline:eq(1)"
-          expect(a.offset().top + a.outerHeight()).toBe b.offset().top + b.outerHeight()
+          expect(_bottom a).toBe _bottom b
           
 
   describe "showcase", ->
