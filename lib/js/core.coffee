@@ -1,47 +1,16 @@
-JUMLY = {}
-
-_factories = (name, fact)-> _factories[name] = factory:fact
-
-JUMLY.def = (name, type)-> _factories name, (_, opts)-> new type _, opts
-
-
 jumly = (arg, opts) ->
-  if (typeof arg is "object" && !arg.type)
-    mapJqToJy = (arg) ->
-      if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
-        arg = $(arg)  # regard as a DOM node
-      for i in [0..arg.length-1]
-        a = $(arg[i]).self()
-        arg[i] = if !a then null else a
-      arg
-    return mapJqToJy arg
-  
-  arg = $.extend({}, if typeof arg is "string" then {type:arg} else arg)
-  meta = _factories[arg.type]
-  throw "unknown type '" + arg.type + "'" if meta is undefined
-  
-  opts = $.extend arg, {name:null}, if typeof opts is "object" then opts else {name:opts}
-  a = meta.factory opts
-  a.find(".name:eq(0)").html(opts.name)
-  a.name(opts.name) if opts.name
-  a.attr id:opts.id if opts.id
-  
-  # Common methods
-  a.gives = jumly.lang._gives(a, opts)
-  a.data "uml:property", _self:a, type:arg.type, name: opts.name, stereotypes: -> []
-  a
+  mapJqToJy = (arg) ->
+    if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
+      arg = $(arg)  # regard as a DOM node
+    for i in [0..arg.length-1]
+      a = $(arg[i]).self()
+      arg[i] = if !a then null else a
+    arg
+  mapJqToJy arg
 
 $.jumly = jumly
 
 ##
-prefs_ = {}
-preferences_ = (a, b)->
-  if !b and typeof a is "string"
-    return prefs_[a]
-  prefs_[a] = $.extend prefs_[a], b
-
-jumly.preferences = preferences_
-
 $.fn.stereotype = (n)-> this
 
 core = {}
@@ -95,54 +64,6 @@ core._normalize = (that)->
       a = {id:core._to_id(id), name:id}
       a[name] = mods
       a
-
-core.lang =
-  _gives: (a, dic)->
-    gives = (query)->
-          r = dic[query]
-          if r then r else null
-    if !a.gives then return gives
-    f = a.gives
-    (query)->
-      r = f(query)
-      if r.length > 0 or r.of or r.as
-          return r
-      gives(query)
-  _as: (m)-> as:(e)-> m[e]
-  _of: (nodes, query)->
-    (unode)->
-      n = nodes.filter (i, e)->
-        e = jumly(e)[0]
-        s = e.gives(unode.jprops().type)
-        if s is unode then e else null
-      if n.length > 0 then jumly(n)[0] else []
-
-
-
-class JUMLYError extends Error
-  constructor: (@type, @message, @arguments, @cause, @jumlipt)->
-    if typeof @type is "object"
-      @type = p.type
-      @message = p.message
-      @arguments = p.arguments
-JUMLY.Error = JUMLYError
-
-
-class JUMLYPreferences
-  @put = (a, b)-> JUMLYPreferences.values[a] = b
-  @get = (a)->
-    e = JUMLYPreferences.values[a]
-    if typeof e is "function" then e() else e
-
-JUMLY.Preferences = (a)->
-  if typeof a is "string"
-    JUMLYPreferences.get a
-  else
-    k = (e for e of a)[0]
-    JUMLYPreferences.put k, a[k]
-
-JUMLYPreferences.values =
-  "document.id.validation.enable": false
 
 core.env =
   is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
