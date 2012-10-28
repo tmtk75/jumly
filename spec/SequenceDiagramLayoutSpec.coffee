@@ -46,6 +46,19 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       b = diag.find("*").max g = (e)-> $(e).offset().top + $(e).outerHeight()
       expect(diag.height()).toBe Math.round(b - a)
 
+    describe "including .ref", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth"
+          @ref "to"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "is longer than the sum of all ones", ->
+        t = @diagram.find(".object, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
+        expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
+
   describe "object", ->
     beforeEach ->
       @diagram = @builder.build """
