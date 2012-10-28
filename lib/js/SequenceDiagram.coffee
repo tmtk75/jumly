@@ -48,16 +48,6 @@ SequenceDiagram::preferences = (a, b) ->
     #console.log "setter", prefs
     $.extend prefs, a
 
-SequenceDiagram::compose = (props) ->
-  try
-    (new JUMLY.SequenceDiagramLayout).layout this
-    this
-  catch ex
-    causemsg = switch ex.type
-                 when "non_object_property_load" then "It may be not loaded completely for DOM tree.\n"
-    console.error "JUMLY caught an exception: #{causemsg}", ex.stack, "\n", ex, {arguments:ex.arguments, stack:ex.stack, type:ex.type, message:ex.message, name:ex.name}
-    throw ex
-
 _css = (self, name)->
   a = self.css name
   return 0 unless a

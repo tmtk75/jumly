@@ -90,3 +90,51 @@ else
 
   core.exports = (func, name)->
     exported[func.name or name] = func
+
+
+SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
+
+_to_type_string = (type)->
+  unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
+  kind = RegExp.$1 + RegExp.$2 + RegExp.$3
+
+_evalHTMLScriptElement = (script) ->
+  script = $ script
+  type = script.attr("type")
+  throw "Not found: type attribute in script" unless type
+  
+  kind = _to_type_string type
+  compiler = _compilers[".#{kind}-diagram"]
+  layout = _layouts[".#{kind}-diagram"]
+
+  throw "Not found: compiler for '.#{kind}'" unless compiler
+  throw "Not found: layout for '.#{kind}'" unless layout
+
+  diag = compiler script
+  diag.insertAfter script
+  layout diag
+
+_compilers =
+  '.sequence-diagram': (script)->
+      Builder = require "SequenceDiagramBuilder"
+      (new Builder).build script.html()
+
+_layouts =
+  '.sequence-diagram': (diagram)->
+      Layout = require "SequenceDiagramLayout"
+      (new Layout).layout diagram
+
+_runScripts = ->
+  return null if _runScripts.done
+  scripts = document.getElementsByTagName 'script'
+  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
+  for script in diagrams
+    _evalHTMLScriptElement script
+  _runScripts.done = true
+  null
+
+# Listen for window load, both in browsers and in IE.
+if window.addEventListener
+  window.addEventListener 'DOMContentLoaded', _runScripts
+else
+  throw "window.addEventListener is not supported"
