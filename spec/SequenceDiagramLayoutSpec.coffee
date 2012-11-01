@@ -58,6 +58,19 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is longer than the sum of all ones", ->
         t = @diagram.find(".object, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
         expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
+  
+  describe "width", ->
+    beforeEach ->
+      @diagram = diag = @builder.build """
+        @found "a", -> @message "b", "c"
+        """
+      div.append diag
+      @layout.layout diag
+
+    it "is auto for width of css", ->
+      expect(@diagram.css "width").toBe "auto"
+      expect(@diagram.css "min-width").toBe "auto"
+      expect(@diagram.css "max-width").toBe "auto"
 
   describe "object", ->
     beforeEach ->
