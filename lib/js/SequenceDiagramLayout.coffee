@@ -26,7 +26,6 @@ SequenceDiagramLayout::_layout_ = ->
   @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling()
   @render_icons()
-  @diagram.width @diagram.preferredWidth()
 
 HTMLElementLayout = require "HTMLElementLayout"
 

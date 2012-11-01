@@ -48,20 +48,6 @@ SequenceDiagram::preferences = (a, b) ->
     #console.log "setter", prefs
     $.extend prefs, a
 
-_css = (self, name)->
-  a = self.css name
-  return 0 unless a
-  parseInt a
-
-SequenceDiagram::preferredWidth = ()->
-  bw = _css(this, "border-right-width") + _css(this, "border-left-width")
-  nodes = $(".object, .ref, .fragment", this)
-  return 0 + bw if nodes.length is 0
-  a = nodes.mostLeftRight()
-  return 0 + bw if a.left is a.right
-  left = nodes.choose ((e)-> _css($(e), "left")), ((x, t)-> x < t)
-  a.right - a.left + bw + 1
-
 
 core = require "core"
 if core.env.is_node
