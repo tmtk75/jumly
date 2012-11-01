@@ -67,10 +67,11 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
 
-    it "is auto for width of css", ->
-      expect(@diagram.css "width").toBe "auto"
-      expect(@diagram.css "min-width").toBe "auto"
-      expect(@diagram.css "max-width").toBe "auto"
+    it "is 0px for css min-width", ->
+      expect(@diagram.css "min-width").toBe "0px"
+
+    it "is none for css max-width", ->
+      expect(@diagram.css "max-width").toBe "none"
 
   describe "object", ->
     beforeEach ->
