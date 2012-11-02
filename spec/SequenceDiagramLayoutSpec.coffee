@@ -89,6 +89,25 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
     afterEach ->
       #[@diagram.hide()
 
+    describe "top", ->
+
+      it "is aligned", ->
+        expect(@obj1.offset().top).toBe @obj2.offset().top
+        expect(@obj2.offset().top).toBe @obj3.offset().top
+      
+      it "is aligned for two objects", ->
+        @diagram.remove()
+        builder = new SequenceDiagramBuilder()
+        diag = builder.build """
+            @found "You", ->
+              @message "use", "JUMLY"
+          """
+        div.append diag
+        @layout.layout diag
+        a = diag.find(".object:eq(0)").data "_self"
+        b = diag.find(".object:eq(1)").data "_self"
+        expect(a.offset().top).toBe b.offset().top
+
     describe "left top", ->
 
       it "looks at same top for all", ->
