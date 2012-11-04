@@ -7,8 +7,15 @@ _box-shadow(a, b, c)
 box-shadow()
   _box-shadow(10px, 5px, .33)
 
+border_width = 2px
+obj_inner_width  = 88px
+obj_inner_height = 31px
+obj_wpadding = 0px
+obj_vpadding = 4px
+obj_outer_width = (border_width + obj_wpadding)*2 + obj_inner_width
+
 primary-border()
-  border 2px solid #808080
+  border border_width solid #808080
 
 .sequence-diagram
   font-family Tahoma,Verdana
@@ -18,18 +25,17 @@ primary-border()
 
 .sequence-diagram .object
   position relative
+  width obj_outer_width
   .name
     primary-border()
     text-align center
-    min-width 88px
-    padding 0 4px
-    height 31px
-    display table-cell
-    vertical-align middle
+    padding obj_wpadding obj_vpadding
+    min-width obj_inner_width
+    height    obj_inner_height
     background-color #fff
 
 .sequence-diagram .object:not(:first-child)
-  margin-top -31px
+  margin-top -(border_width*2 + obj_inner_height)
 
 .sequence-diagram .lifeline,.sequence-diagram .lifeline .line
   position relative
