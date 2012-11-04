@@ -105,7 +105,7 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
     a = $(e).data "_self"
     a.offset left:a._object.offset().left
 
-    ot = a._object.offset().top
+    ot = Math.ceil a._object.offset().top
     dh = ot - min
     a.height mh - dh + 16
 
