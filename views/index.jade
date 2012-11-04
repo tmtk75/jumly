@@ -7,13 +7,15 @@ block content
       .span2
         h1.logo
           .brand JUMLY
-          small Be concentrative into your idea with JUMLY
-        nav
+          //small Be concentrative into your idea with JUMLY
+        //nav
           ul
             li What's JUMLY?
             li Getting Started
             li Did you have these experiences?
             li Why you use JUMLY
+      :jumly
+        @found "a"
       .span10
         h1 What's JUMLY?
         :jumly(type=sequence)
@@ -85,11 +87,6 @@ block content
             dd
               | Now the size of script is 56KB, and the size of stylesheet is 16KB.
               | They are relatively lighter than the UML modeling tools =)
-
-        h1 JUMLY Family
-        dl
-          dt jade-jumly
-          dd provide jade filter
 
   :coffeescript
     viewModel =
