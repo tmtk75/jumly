@@ -86,8 +86,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj2 = @diagram.find(".object:eq(1)").data "_self"
       @obj3 = @diagram.find(".object:eq(2)").data "_self"
 
-    afterEach ->
-      #[@diagram.hide()
+    describe "height", ->
+
+      it "is 35px", ->
+        expect(@obj1.outerHeight()).toBe 35
 
     describe "top", ->
 
