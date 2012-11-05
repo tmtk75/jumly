@@ -27,7 +27,7 @@ core._to_ref = (s)->
 
 core.kindof = (that)->
   return 'Null' if that is null
-  return 'Undefined' if that is undefined 
+  return 'Undefined' if that is undefined
   ctor = that.constructor
   toName = (f)-> if 'name' in f then f.name else (''+f).replace(/^function\s+([^\(]*)[\S\s]+$/im, '$1')
   if typeof(ctor) is 'function' then toName(ctor) else tc # [object HTMLDocumentConstructor]
