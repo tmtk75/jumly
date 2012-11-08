@@ -86,6 +86,11 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj2 = @diagram.find(".object:eq(1)").data "_self"
       @obj3 = @diagram.find(".object:eq(2)").data "_self"
 
+    describe "width", ->
+
+      it "is 100px", ->
+        expect(@obj1.outerWidth()).toBe 100
+
     describe "height", ->
 
       it "is 35px", ->
