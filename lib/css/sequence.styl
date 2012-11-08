@@ -10,9 +10,9 @@ box-shadow()
 border_width = 2px
 obj_inner_width  = 88px
 obj_inner_height = 31px
-obj_wpadding = 0px
-obj_vpadding = 4px
-obj_outer_width = (border_width + obj_wpadding)*2 + obj_inner_width
+obj_hpadding = 4px
+obj_vpadding = 0px
+obj_outer_width = (border_width + obj_hpadding)*2 + obj_inner_width
 
 primary-border()
   border border_width solid #808080
@@ -29,7 +29,7 @@ primary-border()
   .name
     primary-border()
     text-align center
-    padding obj_wpadding obj_vpadding
+    padding obj_vpadding obj_hpadding
     min-width obj_inner_width
     height    obj_inner_height
     line-height obj_inner_height

@@ -27,6 +27,11 @@ SequenceDiagramLayout::_layout_ = ->
   @rebuild_asynchronous_self_calling()
   @render_icons()
 
+  objs = @diagram.find(".object")
+  l = objs.min (e)-> $(e).offset().left
+  r = objs.max (e)-> $(e).offset().left + $(e).outerWidth() - 1
+  @diagram.width r - l + 1
+
 HTMLElementLayout = require "HTMLElementLayout"
 
 SequenceDiagramLayout::align_objects_horizontally = ->
