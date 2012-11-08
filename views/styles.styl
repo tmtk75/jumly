@@ -1,32 +1,71 @@
 @import url("http://fonts.googleapis.com/css?family=Coda:800|Questrial|Michroma")
 @import url("bootstrap/docs/assets/css/bootstrap.css")
-@import url("bootstrap/docs/assets/css/bootstrap-responsive.css")
+//@import url("bootstrap/docs/assets/css/bootstrap-responsive.css")
 @import url("syntaxhighlighter.css")
 @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-regular.ttf')
 
 h1.logo
   font-family Coda,Tahoma,sans-serif
   font-weight extra-bold
-  small
-    font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+  text-align center
+
+h2
+  font-family Coda,Tahoma,sans-serif
 
 a
   color #690
 
-h2
-  font-family Questrial
-
-.syntaxhighlighter .string, .syntaxhighlighter .string a
-  color #690 !important
-.syntaxhighlighter .gutter .line
-  border-right 3px solid rgba(6*16/2, 9*16/2, 0, 0.5) !important
+.syntaxhighlighter
+  width auto !important
+  .gutter .line
+    border-right 3px solid rgba(6*16/2, 9*16/2, 0, 0.5) !important
+  .string, .string a
+    color #690 !important
 
 body
+  background-color #f8f8f8
   //font-family mplus-1p-regular
   //font-family "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Verdana,Tahoma,sans-serif
   //line-height 180%
+  border-top solid 6px #8cc84b
 
 //(max-width:767px) or (min-width:768px) or (max-width:979px) or (min-width:1200px)
 @media (max-width:480px)
   h1,h2,h3,h4,h5,h6
     font-size 100%
+
+#intro
+  line-height 180%
+
+#example-1
+  .diagram
+    margin-left auto
+    margin-right auto
+
+#links
+  margin-top 20px
+  margin-bottom 30px
+  .download.button
+    display block
+    width 200px
+    margin-left auto
+    margin-right auto
+    text-align center
+    padding 12px 0
+    border-radius 2px
+    background-color #8bc84b
+    -webkit-transition background-color 0.2s ease-in-out
+    &:hover
+      background-color darken(#8bc84b, 14%)
+    a
+      color #46483e
+
+#bg-why
+  h2
+    font-size 18px
+  dd
+    margin-bottom 14px
+
+#showcase
+  background-color #46483e
+  color #d2d8ba
