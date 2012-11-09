@@ -50,25 +50,22 @@ body
   .buttons
     text-align center
     margin-top 2px
-    .github.button, .apidocs.button
+    a.github.button, a.apidocs.button
       display inline-block
-      width 100px 
+      width 99px 
       background-color darken(white, 25%)
       text-align center
       padding 8px 0
       border-radius 2px
-      a
-        //color darken(white, 66%)
-        color #46483e
-    .github.button
-      margin-right 1px
-    .apidocs.button
-      margin-right 1px
-    .button
+      color #46483e
       -webkit-transition background-color 0.2s ease-in-out
       &:hover
         background-color darken(darken(white, 25%), 14%)
-  .download.button
+    .github.button
+      margin-right 1px
+    .apidocs.button
+      margin-left 1px
+  a.download.button
     display block
     width 200px
     margin-left auto
@@ -80,8 +77,7 @@ body
     -webkit-transition background-color 0.2s ease-in-out
     &:hover
       background-color darken(#8bc84b, 14%)
-    a
-      color #46483e
+    color #46483e
 
 #bg-why
   h2
