@@ -45,13 +45,36 @@ body
 #links
   margin-top 20px
   margin-bottom 30px
+  a
+    text-decoration none
+  .buttons
+    text-align center
+    margin-top 2px
+    .github.button, .apidocs.button
+      display inline-block
+      width 100px 
+      background-color darken(white, 25%)
+      text-align center
+      padding 8px 0
+      border-radius 2px
+      a
+        //color darken(white, 66%)
+        color #46483e
+    .github.button
+      margin-right 1px
+    .apidocs.button
+      margin-right 1px
+    .button
+      -webkit-transition background-color 0.2s ease-in-out
+      &:hover
+        background-color darken(darken(white, 25%), 14%)
   .download.button
     display block
     width 200px
     margin-left auto
     margin-right auto
     text-align center
-    padding 12px 0
+    padding 8px 0
     border-radius 2px
     background-color #8bc84b
     -webkit-transition background-color 0.2s ease-in-out
