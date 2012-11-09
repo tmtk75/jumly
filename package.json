@@ -1,10 +1,11 @@
 {
   "name": "jumly",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "author": "Tomotaka Sakuma",
-  "description": "Library to render UML diagram",
+  "description": "library to render UML diagram",
   "engines": {
-    "node": "0.8.14"
+    "node": "0.9.3",
+    "npm": "1.1.64"
   },
   "dependencies": {
     "underscore": "1.3.3",
@@ -32,6 +33,6 @@
     "url": "git://github.com/tmtk75/jumly.git"
   },
   "directories": {
-    "lib": "./lib/jumly"
+    "lib": "./lib"
   }
 }
