@@ -13,5 +13,6 @@ app.use assets src:"lib"
 app.get "/", (req,res)->
   res.render "index"
 
-app.listen port = 3000
+port = process.env.PORT || 3000
+app.listen port
 console.log "Listening at #{port}"
