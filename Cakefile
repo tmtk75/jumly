@@ -37,7 +37,7 @@ namespace "css", ->
       cp build/.css/jumly.css build
       """
   task "watch", "compile lib/css/*.styl and watch them", ->
-    brownie.exec "(stylus -w lib/css -o lib/css & stylus -w views -o views/static)"
+    brownie.exec "stylus -w lib/css -o lib/css"
 
 namespace "spec", ->
 
