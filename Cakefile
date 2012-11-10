@@ -33,6 +33,7 @@ task "release", "", ->
     cp build/jumly.css #{verdir}/jumly.css
     git add #{verdir}/jumly.js
     git add #{verdir}/jumly.css
+    git add lib/version
     """
   console.log "release #{verdir}"
 
