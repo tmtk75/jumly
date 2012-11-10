@@ -28,7 +28,7 @@ block content
                 @message "Write your idea", "JUMLY", ->
                   @create "Diagram"
           
-          :code(type:JScript)
+          :code(type=javascript)
             @found "You", ->
               @message "Think", ->
                 @message "Write your idea", "JUMLY", ->
@@ -36,12 +36,18 @@ block content
 
         #getting-started
           h2 Getting Started
+          p
+            <a href='http://jquery.com/'>jQuery</a> and 
+            | <a href='http://coffeescript.org/'>CoffeeScript</a>
+            | are needed.
 
-          p Two libraries are needed.
-          ul
-            li <a href='http://jquery.com/'>jQuery</a>
-            li <a href='http://coffeescript.org/'>CoffeeScript</a>
-          
+          :code(type=xml)
+            !doctype html>
+            &lt;head>
+            &lt;/head>
+            <sc
+            @found "You", -> @message "Think"
+
         #bg-why.row
           .span4
             h2 These things before?
@@ -100,14 +106,18 @@ block content
       .row
         .span2
         .span8
-          #requirements
-            p JUMLY is tested on jQuery 1.7.3 and CoffeeScript 1.3.3 and they or later are recommended on you.
-
-          #license
-            h2 License
-            p
-              | JUMLY v0.1.0 is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
-              small Perhapse, license may be changed to another one in the future.
+          .row
+            .span4
+              #requirement
+                h2 Requirement
+                p JUMLY is tested on jQuery 1.7.3 and CoffeeScript 1.3.3,
+                  | and they or later are recommended on you.
+            .span4
+              #license
+                h2 License
+                p
+                  | JUMLY v0.1.0 is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
+                  | Perhapse, license may be changed to another one in the future.
           
           footer
             .copyright
