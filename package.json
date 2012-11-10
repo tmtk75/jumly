@@ -24,7 +24,7 @@
     "jwerty": "0.3.1",
     "markdown-js": "0.0.3",
     "js-yaml": "1.0.2",
-    "node-jquery": "0.1.0",
+    "node-jquery": "0.1.1",
     "jasmine-node": "1.0.26",
     "brownie": "*",
     "temp": "0.4.0",
