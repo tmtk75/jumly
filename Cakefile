@@ -1,5 +1,6 @@
-_       = require("underscore")
-brownie = require("brownie")
+_       = require "underscore"
+fs      = require "fs"
+brownie = require "brownie"
 
 version  = brownie.read("lib/version").trim() #replace /\n/, ""
 copyright = """
@@ -14,6 +15,26 @@ task "build", "", ->
 
 task "compile", "compile *.coffee", ->
   brownie.compile order:order()
+
+task "release", "", ->
+  js = "build/jumly.js"
+  css = "build/jumly.css"
+  unless fs.existsSync js
+    console.warn "#{js} is missing. run `cake build`"
+    return
+  unless fs.existsSync css
+    console.warn "#{css} is missing. run `cake build`"
+    return
+  verdir = "views/static/release/#{version}"
+  brownie.exec """
+    rm -rf #{verdir}
+    mkdir -p #{verdir}
+    cp build/jumly.js #{verdir}/jumly.js
+    cp build/jumly.css #{verdir}/jumly.css
+    git add #{verdir}/jumly.js
+    git add #{verdir}/jumly.css
+    """
+  console.log "release #{verdir}"
 
 task "minify", "minify jumly.js and jumly.css", ->
   brownie.minify minified_files:["build/jumly.js"], header:copyright
