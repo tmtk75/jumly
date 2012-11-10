@@ -4,6 +4,7 @@ jade = require "jade"
 assets = require "connect-assets"
 stylus = require "stylus"
 nib = require "nib"
+fs = require "fs"
 require "jumly-jade"
 require "jade-filters"
 
@@ -22,7 +23,7 @@ app.use stylus.middleware {
 app.use express.static "#{__dirname}/views/static"
 app.use assets src:"lib"
 app.get "/", (req,res)->
-  res.render "index"
+  res.render "index", VERSION:fs.readFileSync("lib/version").toString().trim()
 
 port = process.env.PORT || 3000
 app.listen port
