@@ -8,25 +8,24 @@
     "npm": "1.1.65"
   },
   "dependencies": {
-    "coffee-script": "1.3.3",
-    "express": "3.0.0rc5",
-    "jade": "0.27.0",
-    "stylus": "0.28.2",
+    "coffee-script": "1.4.0",
+    "express": "3.0.2",
+    "jade": "0.27.7",
+    "stylus": "0.30.1",
     "nib": "0.8.2",
-    "connect-assets": "2.2.1",
+    "connect-assets": "2.3.3",
     "jumly-jade": "0.0.2",
     "jade-filters": "0.0.1"
   },
   "devDependencies": {
-    "underscore": "1.3.3",
-    "less": "1.3.0",
+    "underscore": "1.4.2",
     "knockout": "2.1.0",
     "jwerty": "0.3.1",
     "markdown-js": "0.0.3",
-    "js-yaml": "1.0.2",
+    "js-yaml": "1.0.3",
     "jasmine-node": "1.0.26",
     "temp": "0.4.0",
-    "glob": "3.1.12",
+    "glob": "3.1.14",
     "path": "0.4.9",
     "node-jquery": "0.1.1",
     "brownie": "0.1.2"
