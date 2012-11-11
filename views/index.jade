@@ -151,11 +151,12 @@ block content
               | copyright 2010-#{2012}, all rights reserved ©Tomotaka Sakuma
 
   :coffeescript
-    viewModel =
+    model =
       read_more:
         why_you_like: _visible: ko.observable false
         there_things: _visible: ko.observable false
-    viewModel.read_more.why_you_like.text = ko.dependentObservable -> if viewModel.read_more.why_you_like._visible() then "Hide" else "More..."
-    viewModel.read_more.there_things.text = ko.dependentObservable -> if viewModel.read_more.there_things._visible() then "Hide" else "More..."
-    ko.applyBindings viewModel, document.body
+    f = (g)-> ko.dependentObservable -> if g() then "Hide" else "More..."
+    model.read_more.why_you_like.text = f model.read_more.why_you_like._visible
+    model.read_more.there_things.text = f model.read_more.there_things._visible
+    ko.applyBindings model, document.body
 
