@@ -21,7 +21,7 @@ block content
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs API DOCS
        
-        #example1("data-bind"="css:{normal:false,simple:true,flush:false}")
+        #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,flush:example1.flush}")
           :jumly(type=sequence)
             @found "You", ->
               @message "Think", ->
@@ -36,14 +36,14 @@ block content
 
           .buttons
             label(for="example1-styles-a")
-              a.button("data-bind"="css:{selected:false}") normal
+              a.button("data-bind"="css:{selected:example1.normal}") normal
             label(for="example1-styles-b")
-              a.button("data-bind"="css:{selected:true}") simple
+              a.button("data-bind"="css:{selected:example1.simple}") simple
             label(for="example1-styles-c")
-              a.button("data-bind"="css:{selected:false}") flush
-            input#example1-styles-a(type="radio",name="example1_styles","data-bind"="checked:false",style="display:none")
-            input#example1-styles-b(type="radio",name="example1_styles","data-bind"="checked:true",style="display:none")
-            input#example1-styles-c(type="radio",name="example1_styles","data-bind"="checked:false",style="display:none")
+              a.button("data-bind"="css:{selected:example1.flush}") flush
+            input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
+            input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
+            input#example1-styles-c(type="radio",name="example1_styles",value="flush","data-bind"="checked:example1.styles",style="display:none")
 
         #getting-started
           h2 Getting Started
@@ -173,8 +173,15 @@ block content
       read_more:
         why_you_like: _visible: ko.observable false
         there_things: _visible: ko.observable false
+      example1:
+        styles: ko.observable "normal"
+    
     f = (g)-> ko.dependentObservable -> if g() then "Hide" else "More..."
     model.read_more.why_you_like.text = f model.read_more.why_you_like._visible
     model.read_more.there_things.text = f model.read_more.there_things._visible
+    model.example1.normal = ko.dependentObservable -> model.example1.styles() is 'normal'
+    model.example1.simple = ko.dependentObservable -> model.example1.styles() is 'simple'
+    model.example1.flush = ko.dependentObservable -> model.example1.styles() is 'flush'
+
     ko.applyBindings model, document.body
 
