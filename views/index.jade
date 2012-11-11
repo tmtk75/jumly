@@ -21,7 +21,7 @@ block content
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs API DOCS
        
-        #example-1
+        #example1("data-bind"="css:{normal:false,simple:true,flush:false}")
           :jumly(type=sequence)
             @found "You", ->
               @message "Think", ->
@@ -33,6 +33,17 @@ block content
               @message "Think", ->
                 @message "Write your idea", "JUMLY", ->
                   @create "Diagram"
+
+          .buttons
+            label(for="example1-styles-a")
+              a.button("data-bind"="css:{selected:false}") normal
+            label(for="example1-styles-b")
+              a.button("data-bind"="css:{selected:true}") simple
+            label(for="example1-styles-c")
+              a.button("data-bind"="css:{selected:false}") flush
+            input#example1-styles-a(type="radio",name="example1_styles","data-bind"="checked:false",style="display:none")
+            input#example1-styles-b(type="radio",name="example1_styles","data-bind"="checked:true",style="display:none")
+            input#example1-styles-c(type="radio",name="example1_styles","data-bind"="checked:false",style="display:none")
 
         #getting-started
           h2 Getting Started
@@ -85,8 +96,8 @@ block content
               dd
                 | There was something you don't like at diagram which application generated.
                 | For instance, color, size, line width, font, and so on.
-              input#read_more_there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
-              label(for="read_more_there_things")
+              input#read_more-there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
+              label(for="read_more-there_things")
                 a("data-bind"="text:read_more.there_things.text")
               .more("data-bind"="visible:read_more.there_things._visible")
                 dt What changed?
@@ -105,8 +116,8 @@ block content
               dd You need only a web browser and a text editor you get used to.
               dt Fast for everything
               dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.
-              input#read_more_why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
-              label(for="read_more_why_you_like")
+              input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
+              label(for="read_more-why_you_like")
                 a More...
               .more("data-bind"="visible:read_more.why_you_like._visible")
                 dt High quality
@@ -123,6 +134,13 @@ block content
                 dd
                   | Now the size of script is 56KB, and the size of stylesheet is 16KB.
                   | They are relatively lighter than the UML modeling tools =)
+
+  #example-showcase
+    .container
+      .row
+        .span2
+        .span8
+          h2 Examples
 
   #information
     .container

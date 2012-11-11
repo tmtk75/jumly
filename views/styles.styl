@@ -35,16 +35,43 @@ body
   h1,h2,h3,h4,h5,h6
     font-size 100%
 
+.buttons
+  text-align center
+  margin-top 2px
+  a
+    text-decoration none
+  label
+    display inline-block
+  .button
+    display inline-block
+    padding 8px 0
+    border-radius 2px
+    background-color darken(white, 25%)
+    color #46483e
+    text-align center
+
 #intro
   line-height 180%
 
-#example-1
+#example1
   .diagram
     margin-left auto
     margin-right auto
   div.sequence-diagram.diagram ~ div
     margin-left 80px
     margin-right 80px
+  .buttons
+    .button
+      padding 4px 0
+      width 152px
+      -webkit-transition background-color 0.2s ease-in-out
+      &:hover
+        background-color darken(darken(white, 25%), 14%)
+      &.selected
+        background-color #8bc84b
+    label:nth-child(1), label:nth-child(2)
+      a
+        margin-right: 2px
 
 #getting-started
   margin-top 60px
@@ -59,28 +86,19 @@ body
 #links
   margin-top 20px
   margin-bottom 30px
-  a
-    text-decoration none
   .buttons
-    text-align center
-    margin-top 2px
     a.github.button, a.apidocs.button
-      display inline-block
       width 99px 
-      background-color darken(white, 25%)
-      text-align center
-      padding 8px 0
-      border-radius 2px
-      color #46483e
       -webkit-transition background-color 0.2s ease-in-out
       &:hover
         background-color darken(darken(white, 25%), 14%)
-    .github.button
+    .github
       margin-right 1px
-    .apidocs.button
+    .apidocs
       margin-left 1px
   a.download.button
     display block
+    text-decoration none
     width 200px
     margin-left auto
     margin-right auto
@@ -97,6 +115,11 @@ body
   margin-top 60px
   dd
     margin-bottom 14px
+
+#example-showcase
+  background-color #33342d
+  color #d2d8ba
+  padding-bottom 60px
 
 #information
   background-color #46483e
