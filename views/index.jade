@@ -85,10 +85,10 @@ block content
               dd
                 | There was something you don't like at diagram which application generated.
                 | For instance, color, size, line width, font, and so on.
-              input#read_more_did_you_have(type="checkbox","data-bind"="checked:read_more.did_you_have",style="display:none")
-              label(for="read_more_did_you_have")
-                a More...
-              .more("data-bind"="visible:read_more.did_you_have")
+              input#read_more_there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
+              label(for="read_more_there_things")
+                a("data-bind"="text:read_more.there_things.text")
+              .more("data-bind"="visible:read_more.there_things._visible")
                 dt What changed?
                 dd Couldn't understand difference b/w old diagram and updated one.
                 dt Cannot view
@@ -105,10 +105,10 @@ block content
               dd You need only a web browser and a text editor you get used to.
               dt Fast for everything
               dd The time you get a diagram since you want it. The time JUMLY render diagram. The time you know JUMLY.
-              input#read_more_why_you_use_jumly(type="checkbox","data-bind"="checked:read_more.why_you_use_jumly",style="display:none")
-              label(for="read_more_why_you_use_jumly")
+              input#read_more_why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
+              label(for="read_more_why_you_like")
                 a More...
-              .more("data-bind"="visible:read_more.why_you_use_jumly")
+              .more("data-bind"="visible:read_more.why_you_like._visible")
                 dt High quality
                 dd You can get keen designed diagrams, especially on MacOSX
                 dt Concentrative
@@ -153,7 +153,9 @@ block content
   :coffeescript
     viewModel =
       read_more:
-        why_you_use_jumly: ko.observable false
-        did_you_have: ko.observable false
+        why_you_like: _visible: ko.observable false
+        there_things: _visible: ko.observable false
+    viewModel.read_more.why_you_like.text = ko.dependentObservable -> if viewModel.read_more.why_you_like._visible() then "Hide" else "More..."
+    viewModel.read_more.there_things.text = ko.dependentObservable -> if viewModel.read_more.there_things._visible() then "Hide" else "More..."
     ko.applyBindings viewModel, document.body
 
