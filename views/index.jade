@@ -37,28 +37,39 @@ block content
         #getting-started
           h2 Getting Started
           p
-            <a href='http://jquery.com/'>jQuery</a> and 
-            | <a href='http://coffeescript.org/'>CoffeeScript</a>
-            | are needed.
+            | Let's say you already have a document.
+            | In case you put a sequence diagram into it, put next four lines in your &lt;head>.
 
           :code(type=xml)
-            &lt;!doctype html>
-            &lt;head>
-              &lt;link href='https://jumly.herokuapp.com/release/#{VERSION}/jumly.css' rel='stylesheet'/>
-              &lt;script src='http://code.jquery.com/jquery-1.8.2.min.js'>&lt;/script>
-              &lt;script src='http://coffeescript.org/extras/coffee-script.js'>&lt;/script>
-              &lt;script src='https://jumly.herokuapp.com/release/#{VERSION}/jumly.js'>&lt;/script>
-            &lt;/head>
-            &lt;body>
-              &lt;script type='text/jumly+sequence'>
-              @found "You", ->
-                @message "get", "JUMLY"
-              &lt;/script>
-            &lt;/body>
+            &lt;link href='https://jumly.herokuapp.com/release/#{VERSION}/jumly.css' rel='stylesheet'/>
+            &lt;script src='http://code.jquery.com/jquery-1.8.2.min.js'>&lt;/script>
+            &lt;script src='http://coffeescript.org/extras/coffee-script.js'>&lt;/script>
+            &lt;script src='https://jumly.herokuapp.com/release/#{VERSION}/jumly.js'>&lt;/script>
+
+          p
+            | Then, put a next &lt;script> element into the place where you want to put at.
+
+          :code(type=xml)
+            &lt;script type='text/jumly+sequence'>
+            @found "You", ->
+              @message "get", "JUMLY"
+            &lt;/script>
+
+          p
+            | That's all.
+            | It's easy, isn't it?
 
           :jumly(type=sequence)
             @found "You", ->
               @message "get", "JUMLY"
+
+          p
+            | You'll get the above one there. To get it, you only write just eight-lines.
+            | It's certainly that you can add another or more diagrams.
+
+          p
+            | Here is a HTML file for <a href="examples/simple.html">one of simplest examples</a>.
+            | Take a look at the source.
 
         #bg-why.row
           .span4
@@ -122,14 +133,18 @@ block content
             .span4
               #requirement
                 h2 Requirement
-                p JUMLY is tested on jQuery 1.7.3 and CoffeeScript 1.3.3,
+                p
+                  | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> 1.7.3
+                  | and <a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3,
                   | and they or later are recommended on you.
+
             .span4
               #license
                 h2 License
                 p
                   | JUMLY v0.1.0 is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
-                  | Perhapse, license may be changed to another one in the future.
+                  | Perhapse, license for newer versions may be changed to another one in the future.
+                  | In that case, you can still use old version's JUMLY with MIT license.
           
           footer
             .copyright
