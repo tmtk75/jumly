@@ -21,7 +21,7 @@ block content
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs API DOCS
        
-        #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,flush:example1.flush}")
+        #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
             @found "You", ->
               @message "Think", ->
@@ -40,10 +40,10 @@ block content
             label(for="example1-styles-b")
               a.button("data-bind"="css:{selected:example1.simple}") simple
             label(for="example1-styles-c")
-              a.button("data-bind"="css:{selected:example1.flush}") flush
+              a.button("data-bind"="css:{selected:example1.funcy}") funcy
             input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
-            input#example1-styles-c(type="radio",name="example1_styles",value="flush","data-bind"="checked:example1.styles",style="display:none")
+            input#example1-styles-c(type="radio",name="example1_styles",value="funcy","data-bind"="checked:example1.styles",style="display:none")
 
         #getting-started
           h2 Getting Started
@@ -181,7 +181,7 @@ block content
     model.read_more.there_things.text = f model.read_more.there_things._visible
     model.example1.normal = ko.dependentObservable -> model.example1.styles() is 'normal'
     model.example1.simple = ko.dependentObservable -> model.example1.styles() is 'simple'
-    model.example1.flush = ko.dependentObservable -> model.example1.styles() is 'flush'
+    model.example1.funcy = ko.dependentObservable -> model.example1.styles() is 'funcy'
 
     ko.applyBindings model, document.body
 
