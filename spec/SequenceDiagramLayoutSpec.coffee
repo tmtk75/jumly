@@ -375,6 +375,17 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is as left as its source occurrence", ->
         expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
 
+    describe "semantic errors", ->
+
+      describe "no target for reply", ->
+
+        it "", ->
+          @layout.layout @builder.build """
+            @found "User", ->
+              @message "search", "Browser", ->
+                @reply "", "Browser"
+            """
+
   describe "create", ->
 
     beforeEach ->
