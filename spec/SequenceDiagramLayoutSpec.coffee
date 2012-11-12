@@ -366,7 +366,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
                 @message "again", ->
                   @message "and again", ->
                     @reply "reply", "Me"
-          """
+            """
         div.append diag
         @layout.layout diag
         @ret = diag.find ".return:eq(0)"
@@ -379,12 +379,23 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
       describe "no target for reply", ->
 
-        it "", ->
-          @layout.layout @builder.build """
-            @found "User", ->
-              @message "search", "Browser", ->
-                @reply "", "Browser"
-            """
+        it "throws an Error for no target", ->
+          layout = new SequenceDiagramLayout
+          builder = new SequenceDiagramBuilder
+          f = ->
+            diag = builder.build """
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @reply "", "Browser"
+              """
+            div.append diag
+            layout.layout diag
+          expect(f).toThrow()
+          try
+            f()
+            expect("").toBe "never come"
+          catch err
+            expect(err.message).toBe "SemanticError: it wasn't able to reply back to 'Browser'"
 
   describe "create", ->
 

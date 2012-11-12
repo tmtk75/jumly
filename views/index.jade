@@ -141,8 +141,13 @@ block content
         .span2
         .span8
           h2 Examples
-            :jumly
-              @found "a"
+          :jumly
+            @found "a"
+          :jumly
+            @found "User", ->
+              @message "search", "Browser", ->
+                @reply "", "Browser"
+
 
   #document-support-information
     .container
