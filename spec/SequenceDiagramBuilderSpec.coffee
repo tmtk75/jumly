@@ -113,6 +113,16 @@ describe "SequenceDiagramBuilder", ->
         it "is ''", ->
           expect(@create.find(".name").text()).toBe ""
 
+      describe "to the created object just after @create", ->
+        it "creates an .object", ->
+          @builder.diagram().find("*").remove()
+          diag = @builder.build """
+            @found "HTTP Server", ->
+              @create "HTTP Session"
+              @message "save state", "HTTP Session"
+            """
+          expect(diag.find(".object").length).toBe 2
+
   describe "destroy", ->
 
   describe "reply", ->
