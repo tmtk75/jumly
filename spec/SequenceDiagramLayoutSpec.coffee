@@ -395,7 +395,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             f()
             expect("").toBe "never come"
           catch err
-            expect(err.message).toBe "SemanticError: it wasn't able to reply back to 'Browser'"
+            expect(err.message).toBe "SemanticError: it wasn't able to reply back to 'Browser' which is missing"
 
   describe "create", ->
 
