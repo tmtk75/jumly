@@ -230,21 +230,44 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @layout.layout diag
 
   describe "loop", ->
-    
-    beforeEach ->
-      utils.matchers this
-      @diagram = @builder.build """
-        @found "mouse"
-        @loop @message "rotate", "wheel"
-        """
-      div.append @diagram
-      @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
-      @loop = @diagram.find(".loop:eq(0)").data "_self"
 
-    it "has .loop", ->
-      expect(@loop).haveClass "loop"
-      
+    describe "@message is given", ->
+      beforeEach ->
+        utils.matchers this
+        @diagram = @builder.build """
+          @found "mouse"
+          @loop @message "rotate", "wheel"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @loop = @diagram.find(".loop:eq(0)").data "_self"
+
+      it "has .loop", ->
+        expect(@loop).haveClass "loop"
+
+      it "has 'Loop' .name", ->
+        expect(@loop.find(".header .name").text()).toBe "Loop"
+
+    describe "function is given", ->
+      beforeEach ->
+        utils.matchers this
+        @diagram = @builder.build """
+          @found "mouse"
+          @loop ->
+            @message "rotate", "wheel"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @loop = @diagram.find(".loop:eq(0)").data "_self"
+
+      it "has .loop", ->
+        expect(@loop).haveClass "loop"
+
+      it "has 'Loop' .name", ->
+        expect(@loop.find(".header .name").text()).toBe "Loop"
+
   describe "alt", ->
 
     beforeEach ->

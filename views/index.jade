@@ -143,11 +143,33 @@ block content
           h2 Examples
           :jumly
             @found "a"
+          
           :jumly
             @found "User", ->
               @message "search", "Browser", ->
-                @reply "", "Browser"
+                @reply "", "User"
 
+          :jumly
+            @found "You", ->
+              @loop @message "request resources", "HTTP Server"
+
+          :jumly
+            @found "User", ->
+              @message "search", "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session"
+                  @message "save state", "HTTP Session"
+                  @message "do something"
+                  @message "query", "Database", ->
+                  @reply "", "Browser"
+                @loop -> @message "request resources", "HTTP Server", ->
+                  @alt {
+                    "[found]": -> @message "update", "Database"
+                    "[missing]": -> @message "scratch", "HTTP Session"
+                  }
+                @ref "Rendering page"
+                @reactivate "disconnect", "HTTP Server", ->
+                  @destroy "HTTP Session"
 
   #document-support-information
     .container
