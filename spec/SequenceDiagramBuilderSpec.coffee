@@ -23,6 +23,15 @@ describe "SequenceDiagramBuilder", ->
       expect(obj.length).toBe 1
       expect(obj).haveClass "found"
       expect(obj.find(".name").text()).toBe "biz"
+
+    #describe "_id",->
+    #  it "is given", ->
+    #    expect((@builder.build "@found 'a b'").find("#a-b").length).toBe 1
+
+    describe "_ref", ->
+      it "is given", ->
+        expect(@diagram['a_b']).toBeUndefined()
+
     
   describe "message", ->
 
