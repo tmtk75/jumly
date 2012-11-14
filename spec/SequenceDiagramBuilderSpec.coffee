@@ -30,8 +30,12 @@ describe "SequenceDiagramBuilder", ->
 
     describe "_ref", ->
       it "is given", ->
-        expect(@diagram['a_b']).toBeUndefined()
-
+        @builder.build """
+          @found 'a b'
+          @_name = a_b.find(".name").text()
+          """
+        expect(@diagram['a_b']).toBeDefined()
+        expect(@builder._name).toBe 'a b'
     
   describe "message", ->
 
@@ -73,7 +77,6 @@ describe "SequenceDiagramBuilder", ->
         occur1 = iacts.filter(":eq(1)").find "> .occurrence"
         expect(occur0.find("> .interaction > .message").text()).toBe "1-1"
         expect(occur1.find("> .interaction > .message").text()).toBe "2-1"
-        #utils.glance diag
 
     describe "twice", ->
 
