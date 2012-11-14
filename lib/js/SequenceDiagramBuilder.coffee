@@ -109,6 +109,7 @@ SequenceDiagramBuilder::create = (a, b, c) ->
   ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []
   @_var id, occurr._actor
+  @_diagram._reg_by_ref id, occurr._actor
   ctxt
 
 SequenceDiagramBuilder::_var = (varname, refobj)->
