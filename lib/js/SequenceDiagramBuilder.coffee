@@ -32,9 +32,9 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
   @_diagram.append obj
   switch typeof sth
     when "string"
-      @_diagram._def r, obj
+      @_diagram._var r, obj
     when "object"
-      @_diagram._def core._to_ref(a.id), obj
+      @_diagram._var core._to_ref(a.id), obj
     else
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
@@ -108,12 +108,12 @@ SequenceDiagramBuilder::create = (a, b, c) ->
   occurr = iact._actee
   ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []
-  @_def id, occurr._actor
+  @_var id, occurr._actor
   ctxt
 
-SequenceDiagramBuilder::_def = (varname, refobj)->
+SequenceDiagramBuilder::_var = (varname, refobj)->
   ref = core._to_ref varname
-  @_diagram._def ref, refobj
+  @_diagram._var ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
   @_curr_occurr().destroy @_find_or_create a
