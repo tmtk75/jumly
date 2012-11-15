@@ -145,7 +145,7 @@ block content
           :jumly
             @found "User", ->
               @message "search", "Browser", ->
-                @message asynchronous:"connect", "Web Server"
+                @create asynchronous:"connect", "Web Server"
                 @reply "", "User"
 
           :jumly
