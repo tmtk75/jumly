@@ -135,6 +135,16 @@ describe "SequenceDiagramBuilder", ->
             """
           expect(diag.find(".object").length).toBe 2
 
+      describe "asynchronous", ->
+        it "has .asynchronous", ->
+          @diagram.remove()
+          diag = @builder.build """
+            @found "a", ->
+              @create asynchronous:"c", "b"
+            """
+          expect(diag.find(".asynchronous").length).toBe 1
+
+
   describe "destroy", ->
 
   describe "reply", ->
