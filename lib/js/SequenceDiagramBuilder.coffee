@@ -147,27 +147,20 @@ SequenceDiagramBuilder::lost = (a) ->
   @_curr_occurr.lost()
   null
 
-## A kind of fragment
 SequenceDiagramBuilder::loop = (a, b, c) ->
-  ## NOTE: Should this return null in case of no context
-  if a.constructor is this.constructor  ## First one is DSL
-    frag = a._curr_occurr()
-     .parents(".interaction:eq(0)").self()
-     .fragment(name:"Loop")
-     .addClass "loop"
-  else
-    last = [].slice.apply(arguments).pop()  ## Last one is Function
-    if $.isFunction(last)
-      kids = @_curr_occurr().find("> *")
-      last.apply this, []
-      newones = @_curr_occurr().find("> *").not(kids)
-      if newones.length > 0
-        SequenceFragment = require "SequenceFragment"
-        frag = new SequenceFragment().addClass("loop").enclose newones
-        frag.find(".name:first").html "Loop"
+  last = [].slice.apply(arguments).pop()  ## Last one is Function
+  if $.isFunction(last)
+    kids = @_curr_occurr().find("> *")
+    last.apply this, []
+    newones = @_curr_occurr().find("> *").not(kids)
+    if newones.length > 0
+      SequenceFragment = require "SequenceFragment"
+      frag = new SequenceFragment().addClass("loop").enclose newones
+      frag.find(".name:first").html "Loop"
+    if typeof a is "string"
+      frag.find(".condition").html a
   this
 
-## A kind of fragment
 SequenceDiagramBuilder::alt = (ints) ->
   iacts = {}
   self = this
