@@ -46,13 +46,17 @@ SequenceFragment::alter = (occurr, opts) ->
         act = opts[name]
         unless typeof act is "function"
             throw "#{name} is not function"
+        console.log act
         iact = act occurr  ## expect iact type is ".interaction"
-        if iact is null or iact is undefined then break
+        if iact is null or iact is undefined
+          break
         unless iact
             throw "#{iact} of #{name}'s action returned is not appendable into .alt.fragment"
-        alt.append($("<div>").addClass("condition").html name)
-           .append(iact)
-           .append $("<div>").addClass("divider")
+        a = alt.append($("<div>").addClass("condition").html name)
+        console.log name, a.attr("class")
+        console.log name, iact.attr("class")
+        b = a.append(iact)
+        b.append $("<div>").addClass("divider")
     alt.find(".divider:last").remove()
     alt
 
