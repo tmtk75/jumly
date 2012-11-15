@@ -196,6 +196,12 @@ describe "SequenceDiagramBuilder", ->
       expect(a).toBe @builder
 
   describe "loop", ->
+    it "returns the child", ->
+      @builder.build """
+        @found "open", ->
+          this.from_loop = @loop -> @message "write", "File"
+        """
+      expect(@builder.from_loop.find(".message .name").text()).toBe "write"
 
   describe "alt", ->
 
@@ -221,8 +227,7 @@ describe "SequenceDiagramBuilder", ->
         @diagram = @builder.build """
           @found "open", ->
             @alt {
-              "[found]": -> @loop ->
-                @message "write", "File"
+              "[found]": -> @loop -> @message "write", "File"
               "[missing]": -> @message "close", "File"
             }
           """
