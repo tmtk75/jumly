@@ -231,12 +231,13 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   describe "loop", ->
 
-    describe "@message is given", ->
+    describe "condition is given", ->
       beforeEach ->
         utils.matchers this
         @diagram = @builder.build """
-          @found "mouse"
-          @loop @message "rotate", "wheel"
+          @found "mouse", ->
+            @loop "i < 10", ->
+              @message "rotate", "wheel"
           """
         div.append @diagram
         @layout.layout @diagram
@@ -248,6 +249,9 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
       it "has 'Loop' .name", ->
         expect(@loop.find(".header .name").text()).toBe "Loop"
+
+      it "has 'i < 10' .condition", ->
+        expect(@loop.find(".condition").text()).toBe "i < 10"
 
     describe "function is given", ->
       beforeEach ->
