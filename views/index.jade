@@ -145,13 +145,21 @@ block content
           :jumly
             @found "User", ->
               @message "search", "Browser", ->
-                @create asynchronous:"connect", "Web Server"
+                @create asynchronous:"connection", "Web Server"
+                @message "GET", "Web Server", ->
+                  @message "find the resource", -> @reply ""
                 @reply "", "User"
 
           :jumly
             @found "You", ->
               @loop ->
                 @message "request resources", "HTTP Server"
+              @alt {
+                "[found]": ->
+                  @message "update", "Database"
+                "[missing]": -> @message "scratch", "HTTP Session"
+              }
+              @ref "Render page"
 
           :jumly
             @found "User", ->
