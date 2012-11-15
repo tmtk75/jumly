@@ -199,21 +199,36 @@ describe "SequenceDiagramBuilder", ->
 
   describe "alt", ->
 
-    beforeEach ->
-      @diagram = @builder.build """
-        @found "open", ->
-          @alt {
-            "[found]": -> @message "write", "File"
-            "[missing]": -> @message "close", "File"
-          }
-        """
-      @alt = @diagram.find(".alt").data "_self"
+    describe ".alt and .name", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": -> @message "write", "File"
+              "[missing]": -> @message "close", "File"
+            }
+          """
+        @alt = @diagram.find(".alt").data "_self"
 
-    it "has .alt", ->
-      expect(@alt.length).toBe 1
+      it "has .alt", ->
+        expect(@alt.length).toBe 1
 
-    it "has empty .name", ->
-      expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
+      it "has empty .name", ->
+        expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
+
+    describe "containing @loop", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": -> @loop ->
+                @message "write", "File"
+              "[missing]": -> @message "close", "File"
+            }
+          """
+
+      it "works properly", ->
+        expect(@diagram.find(".loop").length).toBe 1
 
   describe "reactivate", ->
 
