@@ -446,6 +446,18 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           occur = @diagram.find ".occurrence:eq(0)"
           expect(@msg.offset().left).toBe occur.offset().left
 
+      describe "asynchronous", ->
+
+        it "has .asynchronous", ->
+          @diagram.remove()
+          diag = (new SequenceDiagramBuilder()).build """
+            @found 'a', ->
+              @message asynchronous:"up", "b"
+            """
+          div.append diag
+          @layout.layout diag
+          expect(diag.find(".asynchronous").length).toBe 1
+
     describe "object", ->
       describe "top", ->
 
