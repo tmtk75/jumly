@@ -91,14 +91,14 @@ SequenceDiagramBuilder::create = (a, b, c) ->
     actee    = a
     callback = null
   else if typeof a is "object" and typeof b is "function"
-    e = JUMLY.Identity.normalize a
+    e = core._normalize a
     actee    = e.name
     callback = b
   
   if typeof a is "string"
     id = core._to_id(actee)
   else
-    norm = JUMLY.Identity.normalize a
+    norm = core._normalize a
     id = norm.id
     actee = norm.name
 
