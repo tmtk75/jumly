@@ -59,7 +59,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
       switch e
         when "asynchronous"
           actname = a[e]
-          stereotype = "asynchronous" 
+          stereotype = "asynchronous"
   else if typeof a is "string" and typeof b is "object"
     norm = JUMLY.Identity.normalize b
     actee = @_find_or_create norm
@@ -71,7 +71,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
       
   iact = @_curr_occurr().interact actee
   iact.find(".name").text(actname).end()
-      .find(".stereotype").text(stereotype)
+      .find(".message").addClass(stereotype)
 
   it = (new SequenceDiagramBuilder @_diagram, iact._actee)
   callback?.apply it, []
