@@ -159,7 +159,8 @@ SequenceDiagramBuilder::loop = (a, b, c) ->
       frag.find(".name:first").html "Loop"
     if typeof a is "string"
       frag.find(".condition").html a
-  this
+    frag
+  
 
 SequenceDiagramBuilder::alt = (ints) ->
   iacts = {}
