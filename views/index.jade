@@ -141,8 +141,6 @@ block content
         .span2
         .span8
           h2 Examples
-          :jumly
-            @found "a"
           
           :jumly
             @found "User", ->
@@ -151,7 +149,8 @@ block content
 
           :jumly
             @found "You", ->
-              @loop @message "request resources", "HTTP Server"
+              @loop ->
+                @message "request resources", "HTTP Server"
 
           :jumly
             @found "User", ->
@@ -162,12 +161,13 @@ block content
                   @message "do something"
                   @message "query", "Database", ->
                   @reply "", "Browser"
-                @loop -> @message "request resources", "HTTP Server", ->
+                @loop ->
+                  @message "request resources", "HTTP Server", ->
                   @alt {
                     "[found]": -> @message "update", "Database"
                     "[missing]": -> @message "scratch", "HTTP Session"
                   }
-                @ref "Rendering page"
+                @ref "Render page"
                 @reactivate "disconnect", "HTTP Server", ->
                   @destroy "HTTP Session"
 
