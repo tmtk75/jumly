@@ -201,7 +201,9 @@ describe "SequenceDiagramBuilder", ->
         @found "open", ->
           this.from_loop = @loop -> @message "write", "File"
         """
-      expect(@builder.from_loop.find(".message .name").text()).toBe "write"
+      that = @builder.from_loop
+      expect(that.find(".message .name").text()).toBe "write"
+      expect(that).toBe that.data "_self"
 
   describe "alt", ->
 

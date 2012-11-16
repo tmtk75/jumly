@@ -46,7 +46,6 @@ SequenceFragment::alter = (occurr, opts) ->
         act = opts[name]
         unless typeof act is "function"
             throw "#{name} is not function"
-        console.log act
         iact = act occurr  ## expect iact type is ".interaction"
         if iact is null or iact is undefined
           break
