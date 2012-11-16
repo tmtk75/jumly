@@ -172,8 +172,11 @@ SequenceDiagramBuilder::alt = (ints) ->
     _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
       what = act.apply self
       unless what then return what
-      what._curr_occurr()
-          .parent(".interaction:eq(0)")
+      if what.constructor is SequenceDiagramBuilder
+        what._curr_occurr()
+            .parent(".interaction:eq(0)")
+      else
+        what
     iacts[name] = _new_act(name, act)
   @_curr_occurr().interact stereotype:".alt", iacts
   this

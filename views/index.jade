@@ -152,11 +152,10 @@ block content
 
           :jumly
             @found "You", ->
-              @loop ->
-                @message "request resources", "HTTP Server"
               @alt {
                 "[found]": ->
-                  @message "update", "Database"
+                  @loop ->
+                    @message "request resources", "HTTP Server"
                 "[missing]": -> @message "scratch", "HTTP Session"
               }
               @ref "Render page"
