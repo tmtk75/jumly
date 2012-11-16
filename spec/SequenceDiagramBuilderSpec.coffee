@@ -237,6 +237,21 @@ describe "SequenceDiagramBuilder", ->
       it "works properly", ->
         expect(@diagram.find(".loop").length).toBe 1
 
+    describe "containing @ref", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": -> @loop -> @message "write", "File"
+              "[missing]": ->
+                @message "close", "File"
+                @ref "that func"
+            }
+          """
+
+      it "works properly", ->
+        expect(@diagram.find(".ref").length).toBe 1
+
   describe "reactivate", ->
 
   describe "lost", ->

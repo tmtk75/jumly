@@ -52,8 +52,6 @@ SequenceFragment::alter = (occurr, opts) ->
         unless iact
             throw "#{iact} of #{name}'s action returned is not appendable into .alt.fragment"
         a = alt.append($("<div>").addClass("condition").html name)
-        console.log name, a.attr("class")
-        console.log name, iact.attr("class")
         b = a.append(iact)
         b.append $("<div>").addClass("divider")
     alt.find(".divider:last").remove()
