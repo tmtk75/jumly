@@ -34,21 +34,15 @@ SequenceFragment::extendWidth = (opts) ->
            .css("margin-left", dlw)
     frag.width(frag.outerWidth() + drw)
 
-###
-  opts: expected {"[condiaion-1]": <action>, "[condition-1]": <action>}
-###
-SequenceFragment::alter = (occurr, opts) ->
+SequenceFragment::alter = (occurr, acts) ->
     alt = this
     alt.addClass("alt")
        .find(".condition").remove()  # because each interaction has each condition
     occurr.append alt
-    for name of opts
-        act = opts[name]
-        unless typeof act is "function"
-            throw "#{name} is not function"
-        iact = act occurr
+    for name of acts
+        iact = acts[name] occurr
         if iact is null or iact is undefined
-          break
+            break
         unless iact
             throw "#{iact} of #{name}'s action returned is not appendable into .alt.fragment"
         alt.append($("<div>").addClass("condition").html name)

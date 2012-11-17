@@ -260,7 +260,7 @@ describe "SequenceDiagramBuilder", ->
               "[found]": ->
                 @message "exists?", "File"
                 @message "write", "File"
-              "[missing]": -> @message "close", "File"
+              "[missing]": ->
             }
           """
 

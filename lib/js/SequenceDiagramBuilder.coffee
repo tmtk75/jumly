@@ -168,16 +168,17 @@ SequenceDiagramBuilder::alt = (ints) ->
   for name of ints
     unless typeof ints[name] is "function"
       break
-    act = ints[name]
-    _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
+    
+    _new_act = (name, act)-> ->  ## Double '->' is in order to bind name & act in this loop.
       what = act.apply self
-      unless what then return what
+      unless what then return null
       if what.constructor is SequenceDiagramBuilder
-        what._curr_occurr()
-            .parent(".interaction:eq(0)")
+        node = what._curr_occurr().parent(".interaction:eq(0)")
       else
-        what
-    iacts[name] = _new_act(name, act)
+        node = what
+
+    iacts[name] = _new_act name, ints[name]
+
   @_curr_occurr().interact stereotype:".alt", iacts
   this
 
