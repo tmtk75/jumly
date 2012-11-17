@@ -170,12 +170,17 @@ SequenceDiagramBuilder::alt = (ints) ->
       break
     
     _new_act = (name, act)-> ->  ## Double '->' is in order to bind name & act in this loop.
-      what = act.apply self
+      what = act.apply {
+        message: -> self.message.apply self, arguments
+        _curr_actor: -> self._curr_actor.apply self, arguments
+      }
       unless what then return null
       if what.constructor is SequenceDiagramBuilder
         node = what._curr_occurr().parent(".interaction:eq(0)")
       else
         node = what
+      console.log node
+      node
 
     iacts[name] = _new_act name, ints[name]
 
