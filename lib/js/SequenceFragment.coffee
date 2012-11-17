@@ -37,16 +37,13 @@ SequenceFragment::extendWidth = (opts) ->
 SequenceFragment::alter = (occurr, acts) ->
     alt = this
     alt.addClass("alt")
-       .find(".condition").remove()  # because each interaction has each condition
+       .find(".condition").remove()
     occurr.append alt
     for name of acts
-        iact = acts[name] occurr
-        if iact is null or iact is undefined
-            break
-        unless iact
-            throw "#{iact} of #{name}'s action returned is not appendable into .alt.fragment"
+        nodes = acts[name]()
+        continue if nodes.length is 0
         alt.append($("<div>").addClass("condition").html name)
-        alt.append(iact)
+        alt.append(nodes)
         alt.append $("<div>").addClass("divider")
     alt.find(".divider:last").remove()
     alt

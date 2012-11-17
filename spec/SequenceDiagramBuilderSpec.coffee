@@ -258,17 +258,23 @@ describe "SequenceDiagramBuilder", ->
           @found "open", ->
             @alt {
               "[found]": ->
-                @message "exists?", "File"
-                @message "write", "File"
+                @message "open", "Cache"
+                @message "write", "Cache"
               "[missing]": ->
+                @message "query", "Database"
             }
           """
+        utils.glance @diagram
 
       it "has two .messages", ->
-        msgs = @diagram.find(".condition:eq(0) ~ .interaction:eq(0) .message")
-        expect(msgs.length).toBe 2
-        expect(msgs.filter(":eq(0)").text()).toBe "exists?"
-        expect(msgs.filter(":eq(1)").text()).toBe "write"
+        found   = @diagram.find(".condition:eq(0) ~ .interaction")
+        missing = @diagram.find(".condition:eq(1) ~ .interaction")
+        expect(found.length).toBe 3
+        expect(missing.length).toBe 1
+        expect(found.filter(":eq(0)").text()).toBe "open"
+        expect(found.filter(":eq(1)").text()).toBe "write"
+        expect(found.filter(":eq(2)").text()).toBe "query"
+        expect(missing.filter(":eq(0)").text()).toBe "query"
 
     describe "containing @loop", ->
       beforeEach ->
