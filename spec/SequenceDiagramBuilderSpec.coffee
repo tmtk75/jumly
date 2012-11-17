@@ -190,13 +190,17 @@ describe "SequenceDiagramBuilder", ->
         expect(@iact2.find("> .message:eq(1)")).haveClass "return"
 
   describe "ref", ->
-
-    it "returns itself", ->
-      a = @builder.ref "i'm ref"
-      expect(a).toBe @builder
+    
+    it "contains all kids", ->
+      diag = @builder.build """
+        @found "open", ->
+          @ref "see"
+        """
+      expect(diag.find(".interaction + .ref").length).toBe 1
 
   describe "loop", ->
-    it "returns the child", ->
+    
+    it "contains all kids", ->
       diag = @builder.build """
         @found "open", ->
           @loop ->
