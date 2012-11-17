@@ -197,13 +197,15 @@ describe "SequenceDiagramBuilder", ->
 
   describe "loop", ->
     it "returns the child", ->
-      @builder.build """
+      diag = @builder.build """
         @found "open", ->
-          this.from_loop = @loop -> @message "write", "File"
+          @loop ->
+            @message "exists?", "File"
+            @message "write", "File"
         """
-      that = @builder.from_loop
-      expect(that.find(".message .name").text()).toBe "write"
-      expect(that).toBe that.data "_self"
+      expect(diag.find(".loop .message").length).toBe 2
+      expect(diag.find(".loop .message:eq(0)").text()).toBe "exists?"
+      expect(diag.find(".loop .message:eq(1)").text()).toBe "write"
 
   describe "alt", ->
 
@@ -242,10 +244,9 @@ describe "SequenceDiagramBuilder", ->
         @diagram = @builder.build """
           @found "open", ->
             @alt {
-              "[found]": -> @loop -> @message "write", "File"
               "[missing]": ->
-                @message "close", "File"
                 @ref "that func"
+              "[found]": -> @message "write", "File"
             }
           """
 
