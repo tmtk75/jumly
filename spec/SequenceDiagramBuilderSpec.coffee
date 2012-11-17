@@ -226,6 +226,38 @@ describe "SequenceDiagramBuilder", ->
       it "has empty .name", ->
         expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
 
+    describe "containing three parts", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[a]": -> @message "exists?", "File"
+              "[b]": -> @message "open", "File"
+              "[c]": -> @message "close", "File"
+            }
+          """
+
+      it "has three .messages", ->
+        expect(@diagram.find(".message").length).toBe 3
+
+    describe "containing two .messages", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": ->
+                @message "exists?", "File"
+                @message "write", "File"
+              "[missing]": -> @message "close", "File"
+            }
+          """
+
+      it "has two .messages", ->
+        msgs = @diagram.find(".condition:eq(0) ~ .interaction:eq(0) .message")
+        expect(msgs.length).toBe 2
+        expect(msgs.filter(":eq(0)").text()).toBe "exists?"
+        expect(msgs.filter(":eq(1)").text()).toBe "write"
+
     describe "containing @loop", ->
       beforeEach ->
         @diagram = @builder.build """
