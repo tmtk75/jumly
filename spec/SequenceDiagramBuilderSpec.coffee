@@ -264,7 +264,6 @@ describe "SequenceDiagramBuilder", ->
                 @message "query", "Database"
             }
           """
-        utils.glance @diagram
 
       it "has two .messages", ->
         found   = @diagram.find(".condition:eq(0) ~ .interaction")
@@ -281,13 +280,17 @@ describe "SequenceDiagramBuilder", ->
         @diagram = @builder.build """
           @found "open", ->
             @alt {
-              "[found]": -> @loop -> @message "write", "File"
+              "[found]": ->
+                @loop -> @message "write", "File"
+                @message "move", "File"
               "[missing]": -> @message "close", "File"
             }
           """
 
       it "works properly", ->
         expect(@diagram.find(".loop").length).toBe 1
+        expect(@diagram.find(".loop ~ .interaction .message:eq(0)").text()).toBe "move"
+        expect(@diagram.find(".loop ~ .interaction .message:eq(1)").text()).toBe "close"
 
     describe "containing @ref", ->
       beforeEach ->

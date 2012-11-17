@@ -180,6 +180,7 @@ SequenceDiagramBuilder::alt = (ints) ->
       act.apply {
         _curr_actor: -> self._curr_actor.apply self, arguments
         message: -> _ (self.message.apply self, arguments)
+        loop: -> _ (self.loop.apply self, arguments)
       }
       nodes
 
