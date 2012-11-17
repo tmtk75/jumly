@@ -226,6 +226,18 @@ describe "SequenceDiagramBuilder", ->
       it "has empty .name", ->
         expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
 
+    describe "NOP function", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": ->
+            }
+            """
+      
+      it "has .alt", ->
+        expect(@diagram.find(".alt").length).toBe 1
+
     describe "containing three parts", ->
       beforeEach ->
         @diagram = @builder.build """
@@ -240,7 +252,7 @@ describe "SequenceDiagramBuilder", ->
       it "has three .messages", ->
         expect(@diagram.find(".message").length).toBe 3
 
-    describe "containing two .messages", ->
+    describe "containing two .messages in a part", ->
       beforeEach ->
         @diagram = @builder.build """
           @found "open", ->
