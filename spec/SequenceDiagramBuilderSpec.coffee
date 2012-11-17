@@ -107,6 +107,17 @@ describe "SequenceDiagramBuilder", ->
                     > .message .name
           ").text()
 
+    describe "asynchronous", ->
+      it "has one .asynchronous", ->
+        @diagram.remove()
+        diag = @builder.build """
+          @found "a", ->
+            @message asynchronous:"a", "b"
+          """
+        utils.glance diag
+        a = diag.find(".asynchronous")
+        expect(a.length).toBe 1
+
   describe "create", ->
 
     beforeEach ->
@@ -136,14 +147,15 @@ describe "SequenceDiagramBuilder", ->
           expect(diag.find(".object").length).toBe 2
 
       describe "asynchronous", ->
-        it "has .asynchronous", ->
+        it "has one .asynchronous", ->
           @diagram.remove()
           diag = @builder.build """
             @found "a", ->
               @create asynchronous:"c", "b"
             """
-          expect(diag.find(".asynchronous").length).toBe 1
-
+          utils.glance diag
+          a = diag.find(".asynchronous")
+          expect(a.length).toBe 1
 
   describe "destroy", ->
 
