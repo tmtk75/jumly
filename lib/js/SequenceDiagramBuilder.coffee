@@ -141,7 +141,7 @@ SequenceDiagramBuilder::ref = (a) ->
     ref.insertAfter occur.parents(".interaction:eq(0)")
   else
     @diagram().append ref
-  this
+  ref
 
 SequenceDiagramBuilder::lost = (a) ->
   @_curr_occurr.lost()
@@ -181,6 +181,7 @@ SequenceDiagramBuilder::alt = (ints) ->
         _curr_actor: -> self._curr_actor.apply self, arguments
         message: -> _ (self.message.apply self, arguments)
         loop: -> _ (self.loop.apply self, arguments)
+        ref: -> _ (self.ref.apply self, arguments)
       }
       nodes
 

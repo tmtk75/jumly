@@ -299,7 +299,6 @@ describe "SequenceDiagramBuilder", ->
             @alt {
               "[missing]": ->
                 @ref "that func"
-              "[found]": -> @message "write", "File"
             }
           """
 
