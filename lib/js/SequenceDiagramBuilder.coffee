@@ -90,10 +90,11 @@ SequenceDiagramBuilder::create = (a, b, c) ->
     name     = null
     actee    = a
     callback = null
-  else if typeof a is "object" and typeof b is "function"
+  else if typeof a is "object"
     e = core._normalize a
-    actee    = e.name
-    callback = b
+    actee = e.name
+    async = a.asynchronous?
+    callback = b if typeof b is "function"
   
   if typeof a is "string"
     id = core._to_id(actee)
@@ -104,6 +105,7 @@ SequenceDiagramBuilder::create = (a, b, c) ->
 
   iact = @_curr_occurr().create id:id, name:actee
   iact.name name if name
+  iact.find(".message:eq(0)").addClass "asynchronous" if async
   occurr = iact._actee
   ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []

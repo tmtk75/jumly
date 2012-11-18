@@ -149,11 +149,9 @@ describe "SequenceDiagramBuilder", ->
         it "has one .asynchronous", ->
           diag = (new SequenceDiagramBuilder).build """
             @found "a", ->
-              @create asynchronous:"c", "b"
+              @create asynchronous:"b"
             """
-          console.log diag.find(".object").data "_self"
-          utils.glance diag
-          a = diag.find(".asynchronous")
+          a = diag.find(".message.asynchronous")
           expect(a.length).toBe 1
 
   describe "destroy", ->
