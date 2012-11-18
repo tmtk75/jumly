@@ -88,7 +88,7 @@
           }
         }
         console.error("Cannot recognize kind:", that);
-        throw new Error("Cannot recognize kind: '" + ($.kindof(that)) + "'");
+        throw new Error("Cannot recognize kind: '" + (core.kindof(that)) + "'");
     }
     keys = (function() {
       var _results;
@@ -103,7 +103,7 @@
     }
     id = keys[0];
     it = that[keys[0]];
-    if ($.kindof(it) === "String") {
+    if (core.kindof(it) === "String") {
       return {
         id: id,
         name: it
@@ -125,7 +125,7 @@
     }
     name = keys[0];
     mods = it[keys[0]];
-    switch ($.kindof(mods)) {
+    switch (core.kindof(mods)) {
       case "Object":
         return $.extend({
           id: id,
@@ -773,7 +773,7 @@ This is capable to render followings:
 
   })(HTMLElement);
 
-  Diagram.prototype._def = function(varname, e) {
+  Diagram.prototype._var = function(varname, e) {
     return eval("" + varname + " = e");
   };
 
@@ -1235,7 +1235,7 @@ This is capable to render followings:
   };
 
   SequenceInteraction.prototype._compose_ = function() {
-    var actee, dst, msg, newdst, rmsg, src, that, w, x;
+    var actee, dst, errmsg, msg, newdst, rmsg, src, that, w, x;
     that = this;
     src = this._actor;
     dst = this._actee;
@@ -1260,8 +1260,8 @@ This is capable to render followings:
       if (actee) {
         newdst = rmsg._findOccurr(actee);
         if (!newdst) {
-          console.error("Not found occurrence for", actee);
-          throw new Error("Not found occurrence " + (actee.html()));
+          errmsg = "SemanticError: it wasn't able to reply back to '" + (actee.find('.name').text()) + "' which is missing";
+          throw new Error(errmsg);
         }
         w = dst.offset().left - newdst.offset().left;
         x = Math.min(dst.offset().left, newdst.offset().left);
@@ -2255,10 +2255,10 @@ This is capable to render followings:
     this._diagram.append(obj);
     switch (typeof sth) {
       case "string":
-        this._diagram._def(r, obj);
+        this._diagram._var(r, obj);
         break;
       case "object":
-        this._diagram._def(core._to_ref(a.id), obj);
+        this._diagram._var(core._to_ref(a.id), obj);
         break;
       default:
         console.error("It must be string or object for", eth);
@@ -2301,7 +2301,7 @@ This is capable to render followings:
       throw new Error(msg, a, b, c);
     }
     iact = this._curr_occurr().interact(actee);
-    iact.find(".name").text(actname).end().find(".stereotype").text(stereotype);
+    iact.find(".name").text(actname).end().find(".message").addClass(stereotype);
     it = new SequenceDiagramBuilder(this._diagram, iact._actee);
     if (callback != null) {
       callback.apply(it, []);
@@ -2310,7 +2310,7 @@ This is capable to render followings:
   };
 
   SequenceDiagramBuilder.prototype.create = function(a, b, c) {
-    var actee, callback, ctxt, e, iact, id, name, norm, occurr;
+    var actee, async, callback, ctxt, e, iact, id, name, norm, occurr;
     if (typeof a === "string" && typeof b === "function") {
       name = null;
       actee = a;
@@ -2323,15 +2323,18 @@ This is capable to render followings:
       name = null;
       actee = a;
       callback = null;
-    } else if (typeof a === "object" && typeof b === "function") {
-      e = JUMLY.Identity.normalize(a);
+    } else if (typeof a === "object") {
+      e = core._normalize(a);
       actee = e.name;
-      callback = b;
+      async = a.asynchronous != null;
+      if (typeof b === "function") {
+        callback = b;
+      }
     }
     if (typeof a === "string") {
       id = core._to_id(actee);
     } else {
-      norm = JUMLY.Identity.normalize(a);
+      norm = core._normalize(a);
       id = norm.id;
       actee = norm.name;
     }
@@ -2342,19 +2345,23 @@ This is capable to render followings:
     if (name) {
       iact.name(name);
     }
+    if (async) {
+      iact.find(".message:eq(0)").addClass("asynchronous");
+    }
     occurr = iact._actee;
     ctxt = new SequenceDiagramBuilder(this._diagram, occurr);
     if (callback != null) {
       callback.apply(ctxt, []);
     }
-    this._def(id, occurr._actor);
+    this._var(id, occurr._actor);
+    this._diagram._reg_by_ref(id, occurr._actor);
     return ctxt;
   };
 
-  SequenceDiagramBuilder.prototype._def = function(varname, refobj) {
+  SequenceDiagramBuilder.prototype._var = function(varname, refobj) {
     var ref;
     ref = core._to_ref(varname);
-    return this._diagram._def(ref, refobj);
+    return this._diagram._var(ref, refobj);
   };
 
   SequenceDiagramBuilder.prototype.destroy = function(a) {
@@ -2396,7 +2403,7 @@ This is capable to render followings:
     } else {
       this.diagram().append(ref);
     }
-    return this;
+    return ref;
   };
 
   SequenceDiagramBuilder.prototype.lost = function(a) {
@@ -2406,46 +2413,62 @@ This is capable to render followings:
 
   SequenceDiagramBuilder.prototype.loop = function(a, b, c) {
     var SequenceFragment, frag, kids, last, newones;
-    if (a.constructor === this.constructor) {
-      frag = a._curr_occurr().parents(".interaction:eq(0)").self().fragment({
-        name: "Loop"
-      }).addClass("loop");
-    } else {
-      last = [].slice.apply(arguments).pop();
-      if ($.isFunction(last)) {
-        kids = this._curr_occurr().find("> *");
-        last.apply(this, []);
-        newones = this._curr_occurr().find("> *").not(kids);
-        if (newones.length > 0) {
-          SequenceFragment = require("SequenceFragment");
-          frag = new SequenceFragment().addClass("loop").enclose(newones);
-          frag.find(".name:first").html("Loop");
-        }
+    last = [].slice.apply(arguments).pop();
+    if ($.isFunction(last)) {
+      kids = this._curr_occurr().find("> *");
+      last.apply(this, []);
+      newones = this._curr_occurr().find("> *").not(kids);
+      if (newones.length > 0) {
+        SequenceFragment = require("SequenceFragment");
+        frag = new SequenceFragment().addClass("loop").enclose(newones);
+        frag.find(".name:first").html("Loop");
       }
+      if (typeof a === "string") {
+        frag.find(".condition").html(a);
+      }
+      return frag;
     }
-    return this;
   };
 
   SequenceDiagramBuilder.prototype.alt = function(ints) {
-    var act, iacts, name, self, _new_act;
+    var iacts, name, self, _new_act;
     iacts = {};
     self = this;
     for (name in ints) {
       if (typeof ints[name] !== "function") {
         break;
       }
-      act = ints[name];
       _new_act = function(name, act) {
         return function() {
-          var what;
-          what = act.apply(self);
-          if (!what) {
-            return what;
-          }
-          return what._curr_occurr().parent(".interaction:eq(0)");
+          var nodes, _;
+          nodes = [];
+          _ = function(it) {
+            var node;
+            if ((it != null ? it.constructor : void 0) === SequenceDiagramBuilder) {
+              node = it._curr_occurr().parent(".interaction:eq(0)");
+            } else {
+              node = it;
+            }
+            return nodes.push(node);
+          };
+          act.apply({
+            _curr_actor: function() {
+              return self._curr_actor.apply(self, arguments);
+            },
+            message: function() {
+              return _(self.message.apply(self, arguments));
+            },
+            loop: function() {
+              return _(self.loop.apply(self, arguments));
+            },
+            ref: function() {
+              return _(self.ref.apply(self, arguments));
+            }
+          });
+          return nodes;
         };
       };
-      iacts[name] = _new_act(name, act);
+      iacts[name] = _new_act(name, ints[name]);
     }
     this._curr_occurr().interact({
       stereotype: ".alt"
@@ -2623,14 +2646,9 @@ This is capable to render followings:
   };
 
   SequenceDiagramLayout.prototype.pack_refs_horizontally = function() {
-    var refs;
-    refs = this._q(".ref");
-    if (refs.length === 0) {
-      return;
-    }
-    return $(refs).selfEach(function(ref) {
+    return this._q(".ref").selfEach(function(ref) {
       var pw;
-      pw = ref.preferredWidth();
+      pw = ref.preferred_left_and_width();
       return ref.offset({
         left: pw.left
       }).width(pw.width);
@@ -2666,7 +2684,7 @@ This is capable to render followings:
 
   SequenceDiagramLayout.prototype.align_lifelines_vertically = function() {
     var last, mh, min, nodes;
-    nodes = this.diagram.find(".interaction, .ref");
+    nodes = this.diagram.find(".interaction, > .ref");
     if (nodes.length === 0) {
       return;
     }
@@ -2800,29 +2818,19 @@ This is capable to render followings:
     return frag.width(frag.outerWidth() + drw);
   };
 
-  /*
-    opts: expected {"[condiaion-1]": <action>, "[condition-1]": <action>}
-  */
-
-
-  SequenceFragment.prototype.alter = function(occurr, opts) {
-    var act, alt, iact, name;
+  SequenceFragment.prototype.alter = function(occurr, acts) {
+    var alt, name, nodes;
     alt = this;
     alt.addClass("alt").find(".condition").remove();
     occurr.append(alt);
-    for (name in opts) {
-      act = opts[name];
-      if (typeof act !== "function") {
-        throw "" + name + " is not function";
+    for (name in acts) {
+      nodes = acts[name]();
+      if (nodes.length === 0) {
+        continue;
       }
-      iact = act(occurr);
-      if (iact === null || iact === void 0) {
-        break;
-      }
-      if (!iact) {
-        throw "" + iact + " of " + name + "'s action returned is not appendable into .alt.fragment";
-      }
-      alt.append($("<div>").addClass("condition").html(name)).append(iact).append($("<div>").addClass("divider"));
+      alt.append($("<div>").addClass("condition").html(name));
+      alt.append(nodes);
+      alt.append($("<div>").addClass("divider"));
     }
     alt.find(".divider:last").remove();
     return alt;
@@ -2858,8 +2866,8 @@ This is capable to render followings:
 
   })(HTMLElement);
 
-  SequenceRef.prototype.preferredWidth = function() {
-    var dh, diag, iact, lines, most, occurs;
+  SequenceRef.prototype.preferred_left_and_width = function() {
+    var alt, d, dh, diag, dl, iact, it, l, left, lines, most, objs, occurs, r, w;
     diag = this.parents(".sequence-diagram:eq(0)");
     iact = this.prevAll(".interaction:eq(0)");
     if (iact.length === 0) {
@@ -2867,6 +2875,38 @@ This is capable to render followings:
       most = lines.mostLeftRight();
       most.width = most.width();
       return most;
+    }
+    objs = diag.find(".object");
+    if (objs.length === 0) {
+      return {};
+    }
+    if (objs.length === 1) {
+      it = objs.filter(":eq(0)");
+      w = parseInt(this.css("min-width") || this.css("max-width") || this.css("width"));
+      l = it.offset().left - (w - it.outerWidth()) / 2;
+      if ((dl = l - it.offset().left) < 0) {
+        this.css({
+          "margin-left": dl
+        });
+        diag.css({
+          "margin-left": -dl
+        });
+      }
+      return {
+        left: "auto"
+      };
+    }
+    if ((alt = this.parents(".alt:eq(0)")).length === 1) {
+      left = alt.parents(".occurrence");
+      l = left.offset().left + left.outerWidth() - 1;
+      r = this.parent().find(".occurrence").max(function(e) {
+        return $(e).offset().left + $(e).outerWidth() / 2;
+      });
+      d = left.outerWidth() / 2 - 1;
+      return {
+        left: l - d,
+        width: r - l
+      };
     }
     dh = diag.self().find(".occurrence:eq(0)").width();
     occurs = iact.find(".occurrence");
