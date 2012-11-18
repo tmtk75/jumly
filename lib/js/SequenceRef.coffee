@@ -8,8 +8,7 @@ class SequenceRef extends HTMLElement
                            .html "ref"))
          .append $("<div>").addClass "name"
 
-# preferredWidth
-SequenceRef::preferredWidth = ->
+SequenceRef::preferred_left_and_width = ->
     diag = @parents(".sequence-diagram:eq(0)")
     iact = @prevAll(".interaction:eq(0)")
 
