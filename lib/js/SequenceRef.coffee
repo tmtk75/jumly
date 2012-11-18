@@ -17,9 +17,20 @@ SequenceRef::preferred_left_and_width = ->
         most = lines.mostLeftRight()
         most.width = most.width()
         return most
-   
+
+    objs = diag.find(".object")
+    if objs.length is 0
+        return left:"auto", width:"auto"
+    if objs.length is 1
+        it = objs.filter(":eq(0)")
+        l = it.offset().left - (@outerWidth() - it.outerWidth())/4
+        if (dl = l - it.offset().left) < 0
+          @css "margin-left":dl
+          diag.css "margin-left":-dl
+        return left:"auto", width:"auto"
+
     dh = diag.self()
-            .find(".occurrence:eq(0)").width()
+             .find(".occurrence:eq(0)").width()
     occurs = iact.find(".occurrence")
     most = occurs.mostLeftRight()
     most.left -= dh
