@@ -75,7 +75,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout diag
 
       it "is longer than the sum of all ones", ->
-        expect("fixing").toBe null
+        expect(_bottom @diagram).toBe (@diagram.find("*").max (e)-> _bottom $(e))
 
   describe "width", ->
     beforeEach ->
