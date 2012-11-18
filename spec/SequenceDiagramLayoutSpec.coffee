@@ -9,6 +9,7 @@ SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
 _right = (e)-> Math.round e.offset().left + e.outerWidth() - 1
+_left = (e)-> Math.round e.offset().left
 
 utils.unless_node -> describe "SequenceDiagramLayout", ->
 
@@ -325,6 +326,44 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout diag
         ref = diag.find ".ref"
         expect(ref.outerWidth()).toBeGreaterThan 88*1.41
+
+    describe "in .alt", ->
+      describe "two .objects", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth", ->
+              @alt {
+                "[abc]": ->
+                  @message "to", "futher"
+                  @ref "efg"
+              }
+            """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "fit to .alt", ->
+          alt = @diagram.find ".alt"
+          ref = @diagram.find ".ref"
+          expect(_left ref).toBeGreaterThan _left alt
+          expect(_right ref).toBeLessThan _right alt
+
+      describe "one object", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth", ->
+              @alt {
+                "[abc]": ->
+                  @ref "efg"
+              }
+            """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "fit to .alt", ->
+          alt = @diagram.find ".alt"
+          ref = @diagram.find ".ref"
+          expect(_left ref).toBeGreaterThan _left alt
+          expect(_right ref).toBeLessThan _right alt
 
   describe "reply", ->
 

@@ -20,14 +20,15 @@ SequenceRef::preferred_left_and_width = ->
 
     objs = diag.find(".object")
     if objs.length is 0
-        return left:"auto", width:"auto"
+        return {}
     if objs.length is 1
         it = objs.filter(":eq(0)")
-        l = it.offset().left - (@outerWidth() - it.outerWidth())/4
+        w = parseInt (@css("min-width") or @css("max-width") or @css("width"))
+        l = it.offset().left - (w - it.outerWidth())/2
         if (dl = l - it.offset().left) < 0
           @css "margin-left":dl
           diag.css "margin-left":-dl
-        return left:"auto", width:"auto"
+        return left:"auto"
 
     dh = diag.self()
              .find(".occurrence:eq(0)").width()
