@@ -142,75 +142,79 @@ block content
         .span8
           h2 Examples
           
-          :jumly
-            @found "User", ->
-              @message "search", "Browser", ->
-                @create asynchronous:"connection", "Web Server"
-                @message "GET", "Web Server", ->
-                  @message "find the resource", -> @reply ""
-                @reply "", "User"
-          :code
-            @found "User", ->
-              @message "search", "Browser", ->
-                @create asynchronous:"connection", "Web Server"
-                @message "GET", "Web Server", ->
-                  @message "find the resource", -> @reply ""
-                @reply "", "User"
+          .example
+            :jumly
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
+            :code
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
 
-          :jumly
-            @found "You", ->
-              @alt {
-                "[found]": ->
-                  @loop ->
-                    @message "request", "HTTP Server"
-                "[missing]": ->
-                  @message "new", "HTTP Session"
-              }
-              @ref "respond resource"
-           :code
-            @found "You", ->
-              @alt {
-                "[found]": ->
-                  @loop ->
-                    @message "request", "HTTP Server"
-                "[missing]": ->
-                  @message "new", "HTTP Session"
-              }
-              @ref "respond resource"
+          .example
+            :jumly
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
+             :code
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
 
-          :jumly
-            @found "Browser", ->
-              @message "http request", "HTTP Server", ->
-                @create "HTTP Session", ->
-                  @message "init"
-                  @message "aquire lock", "Database"
-                @message "do something"
-                @message "release lock", "Database"
-                @reply "", "Browser"
-          :code
-            @found "Browser", ->
-              @message "http request", "HTTP Server", ->
-                @create "HTTP Session", ->
-                  @message "init"
-                  @message "aquire lock", "Database"
-                @message "do something"
-                @message "release lock", "Database"
-                @reply "", "Browser"
+          .example
+            :jumly
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "do something"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
+            :code
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "do something"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
 
-          :jumly
-            @found "Browser", ->
-              @alt {
-                "[200]": -> @message "GET href resources", "HTTP Server"
-                "[301]": -> @ref "GET the moved page"
-                "[404]": -> @ref "show NOT FOUND"
-              }
-          :code
-            @found "Browser", ->
-              @alt {
-                "[200]": -> @message "GET href resources", "HTTP Server"
-                "[301]": -> @ref "GET the moved page"
-                "[404]": -> @ref "show NOT FOUND"
-              }
+          .example
+            :jumly
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
+            :code
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
 
   #document-support-information
     .container
