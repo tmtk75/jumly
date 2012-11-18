@@ -93,7 +93,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
     .selfEach(fixwidth)
 
 SequenceDiagramLayout::align_lifelines_vertically = ->
-  nodes = @diagram.find(".interaction, .ref")
+  nodes = @diagram.find(".interaction, > .ref")
   return if nodes.length is 0
   
   if nodes.filter(".ref").length > 0
