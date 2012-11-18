@@ -61,6 +61,22 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         t = @diagram.find(".object, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
         expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
   
+    describe "including .ref in .alt", ->
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "it"
+          @alt {
+            "a": ->
+              @message "do", "b"
+              @ref "to them"
+          }
+          """
+        div.append diag
+        @layout.layout diag
+
+      it "is longer than the sum of all ones", ->
+        expect("fixing").toBe null
+
   describe "width", ->
     beforeEach ->
       @diagram = diag = @builder.build """
