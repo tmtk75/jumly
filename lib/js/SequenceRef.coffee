@@ -34,7 +34,7 @@ SequenceRef::preferred_left_and_width = ->
     if (alt = @parents(".alt:eq(0)")).length is 1
       left = alt.parents(".occurrence")
       l = left.offset().left + left.outerWidth() - 1
-      r = @parent().find(".occurrence").max (e)-> $(e).offset().left
+      r = @parent().find(".occurrence").max (e)-> $(e).offset().left + $(e).outerWidth()/2
       d = left.outerWidth()/2 - 1
       return left:l - d, width:(r - l)
 
