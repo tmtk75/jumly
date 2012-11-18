@@ -58,10 +58,8 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
     diag.append a
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
-  refs = @_q(".ref")
-  return if refs.length is 0
-  $(refs).selfEach (ref) ->
-    pw = ref.preferredWidth()
+  @_q(".ref").selfEach (ref) ->
+    pw = ref.preferred_left_and_width()
     ref.offset(left:pw.left)
        .width(pw.width)
 
@@ -95,7 +93,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
     .selfEach(fixwidth)
 
 SequenceDiagramLayout::align_lifelines_vertically = ->
-  nodes = @diagram.find(".interaction, .ref")
+  nodes = @diagram.find(".interaction, > .ref")
   return if nodes.length is 0
   
   if nodes.filter(".ref").length > 0

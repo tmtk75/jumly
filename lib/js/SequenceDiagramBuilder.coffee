@@ -32,9 +32,9 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
   @_diagram.append obj
   switch typeof sth
     when "string"
-      @_diagram._def r, obj
+      @_diagram._var r, obj
     when "object"
-      @_diagram._def core._to_ref(a.id), obj
+      @_diagram._var core._to_ref(a.id), obj
     else
       console.error "It must be string or object for", eth
       throw new Error "Unrecognized argument: #{e}"
@@ -59,7 +59,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
       switch e
         when "asynchronous"
           actname = a[e]
-          stereotype = "asynchronous" 
+          stereotype = "asynchronous"
   else if typeof a is "string" and typeof b is "object"
     norm = JUMLY.Identity.normalize b
     actee = @_find_or_create norm
@@ -71,7 +71,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
       
   iact = @_curr_occurr().interact actee
   iact.find(".name").text(actname).end()
-      .find(".stereotype").text(stereotype)
+      .find(".message").addClass(stereotype)
 
   it = (new SequenceDiagramBuilder @_diagram, iact._actee)
   callback?.apply it, []
@@ -90,30 +90,32 @@ SequenceDiagramBuilder::create = (a, b, c) ->
     name     = null
     actee    = a
     callback = null
-  else if typeof a is "object" and typeof b is "function"
-    e = JUMLY.Identity.normalize a
-    actee    = e.name
-    callback = b
+  else if typeof a is "object"
+    e = core._normalize a
+    actee = e.name
+    async = a.asynchronous?
+    callback = b if typeof b is "function"
   
   if typeof a is "string"
     id = core._to_id(actee)
   else
-    norm = JUMLY.Identity.normalize a
+    norm = core._normalize a
     id = norm.id
     actee = norm.name
 
   iact = @_curr_occurr().create id:id, name:actee
-  iact.name name if name 
-  ## unless callback then return null  ##NOTE: In progress for this spec.
+  iact.name name if name
+  iact.find(".message:eq(0)").addClass "asynchronous" if async
   occurr = iact._actee
   ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []
-  @_def id, occurr._actor
+  @_var id, occurr._actor
+  @_diagram._reg_by_ref id, occurr._actor
   ctxt
 
-SequenceDiagramBuilder::_def = (varname, refobj)->
+SequenceDiagramBuilder::_var = (varname, refobj)->
   ref = core._to_ref varname
-  @_diagram._def ref, refobj
+  @_diagram._var ref, refobj
 
 SequenceDiagramBuilder::destroy = (a) ->
   @_curr_occurr().destroy @_find_or_create a
@@ -140,46 +142,52 @@ SequenceDiagramBuilder::ref = (a) ->
     ref.insertAfter occur.parents(".interaction:eq(0)")
   else
     @diagram().append ref
-  this
+  ref
 
 SequenceDiagramBuilder::lost = (a) ->
   @_curr_occurr.lost()
   null
 
-## A kind of fragment
 SequenceDiagramBuilder::loop = (a, b, c) ->
-  ## NOTE: Should this return null in case of no context
-  if a.constructor is this.constructor  ## First one is DSL
-    frag = a._curr_occurr()
-     .parents(".interaction:eq(0)").self()
-     .fragment(name:"Loop")
-     .addClass "loop"
-  else
-    last = [].slice.apply(arguments).pop()  ## Last one is Function
-    if $.isFunction(last)
-      kids = @_curr_occurr().find("> *")
-      last.apply this, []
-      newones = @_curr_occurr().find("> *").not(kids)
-      if newones.length > 0
-        SequenceFragment = require "SequenceFragment"
-        frag = new SequenceFragment().addClass("loop").enclose newones
-        frag.find(".name:first").html "Loop"
-  this
+  last = [].slice.apply(arguments).pop()  ## Last one is Function
+  if $.isFunction(last)
+    kids = @_curr_occurr().find("> *")
+    last.apply this, []
+    newones = @_curr_occurr().find("> *").not(kids)
+    if newones.length > 0
+      SequenceFragment = require "SequenceFragment"
+      frag = new SequenceFragment().addClass("loop").enclose newones
+      frag.find(".name:first").html "Loop"
+    if typeof a is "string"
+      frag.find(".condition").html a
+    frag
+  
 
-## A kind of fragment
 SequenceDiagramBuilder::alt = (ints) ->
   iacts = {}
   self = this
   for name of ints
     unless typeof ints[name] is "function"
       break
-    act = ints[name]
-    _new_act = (name, act) -> ->  ## Double '->' is in order to bind name & act in this loop.
-      what = act.apply self
-      unless what then return what
-      what._curr_occurr()
-          .parent(".interaction:eq(0)")
-    iacts[name] = _new_act(name, act)
+    
+    _new_act = (name, act)-> ->  ## Double '->' is in order to bind name & act in this loop.
+      nodes = []
+      _ = (it)->
+        if it?.constructor is SequenceDiagramBuilder
+          node = it._curr_occurr().parent(".interaction:eq(0)")
+        else
+          node = it
+        nodes.push node
+      act.apply {
+        _curr_actor: -> self._curr_actor.apply self, arguments
+        message: -> _ (self.message.apply self, arguments)
+        loop: -> _ (self.loop.apply self, arguments)
+        ref: -> _ (self.ref.apply self, arguments)
+      }
+      nodes
+
+    iacts[name] = _new_act name, ints[name]
+
   @_curr_occurr().interact stereotype:".alt", iacts
   this
 

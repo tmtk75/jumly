@@ -45,20 +45,20 @@ core._normalize = (that)->
         else
           return undefined
       console.error "Cannot recognize kind:", that
-      throw new Error "Cannot recognize kind: '#{$.kindof that}'"
+      throw new Error "Cannot recognize kind: '#{core.kindof that}'"
   keys = (p for p of that)
   return that if keys.length > 1
 
   id = keys[0]
   it = that[keys[0]]
-  return {id:id, name:it} if $.kindof(it) is "String"
+  return {id:id, name:it} if core.kindof(it) is "String"
 
   keys = (p for p of it)
   return $.extend {}, it, {id:core._to_id(id), name:id} if keys.length > 1
 
   name = keys[0]
   mods = it[keys[0]]
-  switch $.kindof(mods)
+  switch core.kindof(mods)
     when "Object" then $.extend {id:id, name:name}, mods
     when "Array", "Function"
       a = {id:core._to_id(id), name:id}

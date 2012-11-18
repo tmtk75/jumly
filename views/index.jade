@@ -15,7 +15,7 @@ block content
             | Using JUMLY, you can easily embed stylish UML diagrams on your HTML document.  
             | You need nothing to use JUMLY except for modern browser.
 
-        #links 
+        #popular-links 
           a.button.download DOWNLOAD v0.1.0
           .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
@@ -135,14 +135,95 @@ block content
                   | Now the size of script is 56KB, and the size of stylesheet is 16KB.
                   | They are relatively lighter than the UML modeling tools =)
 
-  #example-showcase
+  #examples
     .container
       .row
         .span2
         .span8
           h2 Examples
+          
+          .example
+            :jumly
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
+            :code
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
 
-  #information
+          .example
+            :jumly
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
+             :code
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
+
+          .example
+            :jumly
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "do something"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
+            :code
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "do something"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
+
+          .example
+            :jumly
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
+            :code
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
+
+  #document-support-information
+    .container
+      .row
+        .span2
+        .span8
+          h2 Document
+
+  #meta-information
     .container
       .row
         .span2
@@ -155,6 +236,9 @@ block content
                   | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> 1.7.3
                   | and <a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3,
                   | and they or later are recommended on you.
+                p
+                  | WebKit-base browser like Google Chrome and Safari, or Opera
+                  | are recommended. Now JUMLY doesn't work on Firefox.
 
             .span4
               #license

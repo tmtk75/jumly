@@ -53,8 +53,8 @@ SequenceInteraction::_compose_ = ->
     if actee
       newdst = rmsg._findOccurr actee
       unless newdst
-        console.error "Not found occurrence for", actee
-        throw new Error("Not found occurrence #{actee.html()}")
+        errmsg = "SemanticError: it wasn't able to reply back to '#{actee.find('.name').text()}' which is missing"
+        throw new Error errmsg
       w = dst.offset().left - newdst.offset().left
       x = Math.min dst.offset().left, newdst.offset().left
     rmsg.width(Math.abs w)

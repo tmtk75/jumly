@@ -8,8 +8,7 @@ class SequenceRef extends HTMLElement
                            .html "ref"))
          .append $("<div>").addClass "name"
 
-# preferredWidth
-SequenceRef::preferredWidth = ->
+SequenceRef::preferred_left_and_width = ->
     diag = @parents(".sequence-diagram:eq(0)")
     iact = @prevAll(".interaction:eq(0)")
 
@@ -18,9 +17,29 @@ SequenceRef::preferredWidth = ->
         most = lines.mostLeftRight()
         most.width = most.width()
         return most
-   
+
+    objs = diag.find(".object")
+    if objs.length is 0
+        return {}
+
+    if objs.length is 1
+        it = objs.filter(":eq(0)")
+        w = parseInt (@css("min-width") or @css("max-width") or @css("width"))
+        l = it.offset().left - (w - it.outerWidth())/2
+        if (dl = l - it.offset().left) < 0
+          @css "margin-left":dl
+          diag.css "margin-left":-dl
+        return left:"auto"
+
+    if (alt = @parents(".alt:eq(0)")).length is 1
+      left = alt.parents(".occurrence")
+      l = left.offset().left + left.outerWidth() - 1
+      r = @parent().find(".occurrence").max (e)-> $(e).offset().left + $(e).outerWidth()/2
+      d = left.outerWidth()/2 - 1
+      return left:l - d, width:(r - l)
+
     dh = diag.self()
-            .find(".occurrence:eq(0)").width()
+             .find(".occurrence:eq(0)").width()
     occurs = iact.find(".occurrence")
     most = occurs.mostLeftRight()
     most.left -= dh

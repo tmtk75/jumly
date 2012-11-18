@@ -1,7 +1,8 @@
 utils = require "./jasmine-utils"
 
+SequenceDiagramBuilder = require "SequenceDiagramBuilder"
+
 prepare_builder = ->
-  SequenceDiagramBuilder = require "SequenceDiagramBuilder"
   @builder = new SequenceDiagramBuilder
   @diagram = @builder.diagram()
   utils.matchers this
@@ -23,6 +24,19 @@ describe "SequenceDiagramBuilder", ->
       expect(obj.length).toBe 1
       expect(obj).haveClass "found"
       expect(obj.find(".name").text()).toBe "biz"
+
+    #describe "_id",->
+    #  it "is given", ->
+    #    expect((@builder.build "@found 'a b'").find("#a-b").length).toBe 1
+
+    describe "_ref", ->
+      it "is given", ->
+        @builder.build """
+          @found 'a b'
+          @_name = a_b.find(".name").text()
+          """
+        expect(@diagram['a_b']).toBeDefined()
+        expect(@builder._name).toBe 'a b'
     
   describe "message", ->
 
@@ -64,7 +78,6 @@ describe "SequenceDiagramBuilder", ->
         occur1 = iacts.filter(":eq(1)").find "> .occurrence"
         expect(occur0.find("> .interaction > .message").text()).toBe "1-1"
         expect(occur1.find("> .interaction > .message").text()).toBe "2-1"
-        #utils.glance diag
 
     describe "twice", ->
 
@@ -95,6 +108,15 @@ describe "SequenceDiagramBuilder", ->
                     > .message .name
           ").text()
 
+    describe "asynchronous", ->
+      it "has one .asynchronous", ->
+        diag = (new SequenceDiagramBuilder).build """
+          @found "a", ->
+            @message asynchronous:"c", "b"
+          """
+        a = diag.find(".asynchronous")
+        expect(a.length).toBe 1
+
   describe "create", ->
 
     beforeEach ->
@@ -112,6 +134,25 @@ describe "SequenceDiagramBuilder", ->
 
         it "is ''", ->
           expect(@create.find(".name").text()).toBe ""
+
+      describe "to the created object just after @create", ->
+        it "creates an .object", ->
+          @builder.diagram().find("*").remove()
+          diag = @builder.build """
+            @found "HTTP Server", ->
+              @create "HTTP Session"
+              @message "save state", "HTTP Session"
+            """
+          expect(diag.find(".object").length).toBe 2
+
+      describe "asynchronous", ->
+        it "has one .asynchronous", ->
+          diag = (new SequenceDiagramBuilder).build """
+            @found "a", ->
+              @create asynchronous:"b"
+            """
+          a = diag.find(".message.asynchronous")
+          expect(a.length).toBe 1
 
   describe "destroy", ->
 
@@ -158,30 +199,124 @@ describe "SequenceDiagramBuilder", ->
         expect(@iact2.find("> .message:eq(1)")).haveClass "return"
 
   describe "ref", ->
-
-    it "returns itself", ->
-      a = @builder.ref "i'm ref"
-      expect(a).toBe @builder
+    
+    it "contains all kids", ->
+      diag = @builder.build """
+        @found "open", ->
+          @ref "see"
+        """
+      expect(diag.find(".interaction + .ref").length).toBe 1
 
   describe "loop", ->
+    
+    it "contains all kids", ->
+      diag = @builder.build """
+        @found "open", ->
+          @loop ->
+            @message "exists?", "File"
+            @message "write", "File"
+        """
+      expect(diag.find(".loop .message").length).toBe 2
+      expect(diag.find(".loop .message:eq(0)").text()).toBe "exists?"
+      expect(diag.find(".loop .message:eq(1)").text()).toBe "write"
 
   describe "alt", ->
 
-    beforeEach ->
-      @diagram = @builder.build """
-        @found "open", ->
-          @alt {
-            "[found]": -> @message "write", "File"
-            "[missing]": -> @message "close", "File"
-          }
-        """
-      @alt = @diagram.find(".alt").data "_self"
+    describe ".alt and .name", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": -> @message "write", "File"
+              "[missing]": -> @message "close", "File"
+            }
+          """
+        @alt = @diagram.find(".alt").data "_self"
 
-    it "has .alt", ->
-      expect(@alt.length).toBe 1
+      it "has .alt", ->
+        expect(@alt.length).toBe 1
 
-    it "has empty .name", ->
-      expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
+      it "has empty .name", ->
+        expect(@alt.find(".name:eq(0)").text()).toBe 'alt'
+
+    describe "NOP function", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": ->
+            }
+            """
+      
+      it "has .alt", ->
+        expect(@diagram.find(".alt").length).toBe 1
+
+    describe "containing three parts", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[a]": -> @message "exists?", "File"
+              "[b]": -> @message "open", "File"
+              "[c]": -> @message "close", "File"
+            }
+          """
+
+      it "has three .messages", ->
+        expect(@diagram.find(".message").length).toBe 3
+
+    describe "containing two .messages in a part", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": ->
+                @message "open", "Cache"
+                @message "write", "Cache"
+              "[missing]": ->
+                @message "query", "Database"
+            }
+          """
+
+      it "has two .messages", ->
+        found   = @diagram.find(".condition:eq(0) ~ .interaction")
+        missing = @diagram.find(".condition:eq(1) ~ .interaction")
+        expect(found.length).toBe 3
+        expect(missing.length).toBe 1
+        expect(found.filter(":eq(0)").text()).toBe "open"
+        expect(found.filter(":eq(1)").text()).toBe "write"
+        expect(found.filter(":eq(2)").text()).toBe "query"
+        expect(missing.filter(":eq(0)").text()).toBe "query"
+
+    describe "containing @loop", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[found]": ->
+                @loop -> @message "write", "File"
+                @message "move", "File"
+              "[missing]": -> @message "close", "File"
+            }
+          """
+
+      it "works properly", ->
+        expect(@diagram.find(".loop").length).toBe 1
+        expect(@diagram.find(".loop ~ .interaction .message:eq(0)").text()).toBe "move"
+        expect(@diagram.find(".loop ~ .interaction .message:eq(1)").text()).toBe "close"
+
+    describe "containing @ref", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "open", ->
+            @alt {
+              "[missing]": ->
+                @ref "that func"
+            }
+          """
+
+      it "works properly", ->
+        expect(@diagram.find(".ref").length).toBe 1
 
   describe "reactivate", ->
 

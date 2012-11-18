@@ -8,6 +8,8 @@ SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
+_right = (e)-> Math.round e.offset().left + e.outerWidth() - 1
+_left = (e)-> Math.round e.offset().left
 
 utils.unless_node -> describe "SequenceDiagramLayout", ->
 
@@ -59,6 +61,22 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         t = @diagram.find(".object, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
         expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
   
+    describe "including .ref in .alt", ->
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "it"
+          @alt {
+            "a": ->
+              @message "do", "b"
+              @ref "to them"
+          }
+          """
+        div.append diag
+        @layout.layout diag
+
+      it "is longer than the sum of all ones", ->
+        expect(_bottom @diagram).toBe (@diagram.find("*").max (e)-> _bottom $(e))
+
   describe "width", ->
     beforeEach ->
       @diagram = diag = @builder.build """
@@ -230,21 +248,48 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @layout.layout diag
 
   describe "loop", ->
-    
-    beforeEach ->
-      utils.matchers this
-      @diagram = @builder.build """
-        @found "mouse"
-        @loop @message "rotate", "wheel"
-        """
-      div.append @diagram
-      @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
-      @loop = @diagram.find(".loop:eq(0)").data "_self"
 
-    it "has .loop", ->
-      expect(@loop).haveClass "loop"
-      
+    describe "condition is given", ->
+      beforeEach ->
+        utils.matchers this
+        @diagram = @builder.build """
+          @found "mouse", ->
+            @loop "i < 10", ->
+              @message "rotate", "wheel"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @loop = @diagram.find(".loop:eq(0)").data "_self"
+
+      it "has .loop", ->
+        expect(@loop).haveClass "loop"
+
+      it "has 'Loop' .name", ->
+        expect(@loop.find(".header .name").text()).toBe "Loop"
+
+      it "has 'i < 10' .condition", ->
+        expect(@loop.find(".condition").text()).toBe "i < 10"
+
+    describe "function is given", ->
+      beforeEach ->
+        utils.matchers this
+        @diagram = @builder.build """
+          @found "mouse"
+          @loop ->
+            @message "rotate", "wheel"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @loop = @diagram.find(".loop:eq(0)").data "_self"
+
+      it "has .loop", ->
+        expect(@loop).haveClass "loop"
+
+      it "has 'Loop' .name", ->
+        expect(@loop.find(".header .name").text()).toBe "Loop"
+
   describe "alt", ->
 
     beforeEach ->
@@ -266,31 +311,75 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       expect(m0.outerWidth()).toBe m1.outerWidth()
 
   describe "ref", ->
+    describe "one object and it's second element", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth"
+          @ref "other"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @ref = @diagram.find(".ref:eq(0)").data "_self"
+
+      it "can be second element", ->
+        y0 = _bottom @obj
+        y1 = _top @ref
+        expect(y0).toBeLessThan y1
     
-    beforeEach ->
-      @diagram = @builder.build """
-        @found "sth"
-        @ref "other"
-        """
-      div.append @diagram
-      @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
-      @ref = @diagram.find(".ref:eq(0)").data "_self"
+      it "is at left to the left of object", ->
+        expect(@ref.offset().left).toBeLessThan @obj.offset().left
+      
+      it "is at right to the right of object", ->
+        expect(_right @ref).toBeGreaterThan _right @obj
 
-    it "can be first element", ->
-      @diagram.remove()
-      diag = new SequenceDiagramBuilder().build """
-        @ref 'to another'
-        """
-      div.append diag
-      @layout.layout diag
-      ref = diag.find ".ref"
-      expect(ref.outerWidth()).toBeGreaterThan 88*1.41
+    describe "first element", ->
+      it "can be first element", ->
+        diag = new SequenceDiagramBuilder().build """
+          @ref 'to another'
+          """
+        div.append diag
+        @layout.layout diag
+        ref = diag.find ".ref"
+        expect(ref.outerWidth()).toBeGreaterThan 88*1.41
 
-    it "can be second element", ->
-      y0 = _bottom @obj
-      y1 = _top @ref
-      expect(y0).toBeLessThan y1
+    describe "in .alt", ->
+      describe "two .objects", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth", ->
+              @alt {
+                "[abc]": ->
+                  @message "to", "futher"
+                  @ref "efg"
+              }
+            """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "fit to .alt", ->
+          alt = @diagram.find ".alt"
+          ref = @diagram.find ".ref"
+          expect(_left ref).toBeGreaterThan _left alt
+          expect(_right ref).toBeLessThan _right alt
+
+      describe "one object", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth", ->
+              @alt {
+                "[abc]": ->
+                  @ref "efg"
+              }
+            """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "fit to .alt", ->
+          alt = @diagram.find ".alt"
+          ref = @diagram.find ".ref"
+          expect(_left ref).toBeGreaterThan _left alt
+          expect(_right ref).toBeLessThan _right alt
 
   describe "reply", ->
 
@@ -366,7 +455,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
                 @message "again", ->
                   @message "and again", ->
                     @reply "reply", "Me"
-          """
+            """
         div.append diag
         @layout.layout diag
         @ret = diag.find ".return:eq(0)"
@@ -374,6 +463,28 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
       it "is as left as its source occurrence", ->
         expect(@ret.offset().left).not.toBeGreaterThan @occurr.offset().left
+
+    describe "semantic errors", ->
+
+      describe "no target for reply", ->
+
+        it "throws an Error for no target", ->
+          layout = new SequenceDiagramLayout
+          builder = new SequenceDiagramBuilder
+          f = ->
+            diag = builder.build """
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @reply "", "Browser"
+              """
+            div.append diag
+            layout.layout diag
+          expect(f).toThrow()
+          try
+            f()
+            expect("").toBe "never come"
+          catch err
+            expect(err.message).toBe "SemanticError: it wasn't able to reply back to 'Browser' which is missing"
 
   describe "create", ->
 
@@ -396,6 +507,18 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         it "is same for the both of left", ->
           occur = @diagram.find ".occurrence:eq(0)"
           expect(@msg.offset().left).toBe occur.offset().left
+
+      describe "asynchronous", ->
+
+        it "has .asynchronous", ->
+          @diagram.remove()
+          diag = (new SequenceDiagramBuilder()).build """
+            @found 'a', ->
+              @message asynchronous:"up", "b"
+            """
+          div.append diag
+          @layout.layout diag
+          expect(diag.find(".asynchronous").length).toBe 1
 
     describe "object", ->
       describe "top", ->
