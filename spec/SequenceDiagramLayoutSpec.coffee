@@ -8,6 +8,7 @@ SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
+_right = (e)-> Math.round e.offset().left + e.outerWidth() - 1
 
 utils.unless_node -> describe "SequenceDiagramLayout", ->
 
@@ -293,31 +294,37 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       expect(m0.outerWidth()).toBe m1.outerWidth()
 
   describe "ref", ->
+    describe "one object and it's second element", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth"
+          @ref "other"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @ref = @diagram.find(".ref:eq(0)").data "_self"
+
+      it "can be second element", ->
+        y0 = _bottom @obj
+        y1 = _top @ref
+        expect(y0).toBeLessThan y1
     
-    beforeEach ->
-      @diagram = @builder.build """
-        @found "sth"
-        @ref "other"
-        """
-      div.append @diagram
-      @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
-      @ref = @diagram.find(".ref:eq(0)").data "_self"
+      it "is at left to the left of object", ->
+        expect(@ref.offset().left).toBeLessThan @obj.offset().left
+      
+      it "is at right to the right of object", ->
+        expect(_right @ref).toBeGreaterThan _right @obj
 
-    it "can be first element", ->
-      @diagram.remove()
-      diag = new SequenceDiagramBuilder().build """
-        @ref 'to another'
-        """
-      div.append diag
-      @layout.layout diag
-      ref = diag.find ".ref"
-      expect(ref.outerWidth()).toBeGreaterThan 88*1.41
-
-    it "can be second element", ->
-      y0 = _bottom @obj
-      y1 = _top @ref
-      expect(y0).toBeLessThan y1
+    describe "first element", ->
+      it "can be first element", ->
+        diag = new SequenceDiagramBuilder().build """
+          @ref 'to another'
+          """
+        div.append diag
+        @layout.layout diag
+        ref = diag.find ".ref"
+        expect(ref.outerWidth()).toBeGreaterThan 88*1.41
 
   describe "reply", ->
 
