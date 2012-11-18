@@ -1,7 +1,8 @@
 utils = require "./jasmine-utils"
 
+SequenceDiagramBuilder = require "SequenceDiagramBuilder"
+
 prepare_builder = ->
-  SequenceDiagramBuilder = require "SequenceDiagramBuilder"
   @builder = new SequenceDiagramBuilder
   @diagram = @builder.diagram()
   utils.matchers this
@@ -109,12 +110,10 @@ describe "SequenceDiagramBuilder", ->
 
     describe "asynchronous", ->
       it "has one .asynchronous", ->
-        @diagram.remove()
-        diag = @builder.build """
+        diag = (new SequenceDiagramBuilder).build """
           @found "a", ->
-            @message asynchronous:"a", "b"
+            @message asynchronous:"c", "b"
           """
-        utils.glance diag
         a = diag.find(".asynchronous")
         expect(a.length).toBe 1
 
@@ -148,11 +147,11 @@ describe "SequenceDiagramBuilder", ->
 
       describe "asynchronous", ->
         it "has one .asynchronous", ->
-          @diagram.remove()
-          diag = @builder.build """
+          diag = (new SequenceDiagramBuilder).build """
             @found "a", ->
               @create asynchronous:"c", "b"
             """
+          console.log diag.find(".object").data "_self"
           utils.glance diag
           a = diag.find(".asynchronous")
           expect(a.length).toBe 1

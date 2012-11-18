@@ -104,7 +104,6 @@ SequenceDiagramBuilder::create = (a, b, c) ->
 
   iact = @_curr_occurr().create id:id, name:actee
   iact.name name if name
-  ## unless callback then return null  ##NOTE: In progress for this spec.
   occurr = iact._actee
   ctxt = new SequenceDiagramBuilder(@_diagram, occurr)
   callback?.apply ctxt, []
