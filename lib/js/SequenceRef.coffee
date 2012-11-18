@@ -21,6 +21,7 @@ SequenceRef::preferred_left_and_width = ->
     objs = diag.find(".object")
     if objs.length is 0
         return {}
+
     if objs.length is 1
         it = objs.filter(":eq(0)")
         w = parseInt (@css("min-width") or @css("max-width") or @css("width"))
@@ -29,6 +30,13 @@ SequenceRef::preferred_left_and_width = ->
           @css "margin-left":dl
           diag.css "margin-left":-dl
         return left:"auto"
+
+    if (alt = @parents(".alt:eq(0)")).length is 1
+      left = alt.parents(".occurrence")
+      l = left.offset().left + left.outerWidth() - 1
+      r = @parent().find(".occurrence").max (e)-> $(e).offset().left
+      d = left.outerWidth()/2 - 1
+      return left:l - d, width:(r - l)
 
     dh = diag.self()
              .find(".occurrence:eq(0)").width()
