@@ -155,29 +155,26 @@ block content
               @alt {
                 "[found]": ->
                   @loop ->
-                    @message "request resources", "HTTP Server"
-                "[missing]": -> @message "scratch", "HTTP Session"
+                    @message "request", "HTTP Server"
+                "[missing]": ->
+                  @message "new", "HTTP Session"
               }
-              @ref "Render page"
+              @ref "respond resource"
 
           :jumly
-            @found "User", ->
-              @message "search", "Browser", ->
+              @found "Browser", ->
                 @message "http request", "HTTP Server", ->
-                  @create "HTTP Session"
-                  @message "save state", "HTTP Session"
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
                   @message "do something"
-                  @message "query", "Database", ->
+                  @message "release lock", "Database"
                   @reply "", "Browser"
-                @loop ->
-                  @message "request resources", "HTTP Server", ->
-                  @alt {
-                    "[found]": -> @message "update", "Database"
-                    "[missing]": -> @message "scratch", "HTTP Session"
-                  }
-                @ref "Render page"
-                @reactivate "disconnect", "HTTP Server", ->
-                  @destroy "HTTP Session"
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
 
   #document-support-information
     .container
