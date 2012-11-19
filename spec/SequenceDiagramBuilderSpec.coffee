@@ -379,3 +379,15 @@ describe "SequenceDiagramBuilder", ->
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".ref:eq(0)").data "_self"
+  
+  describe "css", ->
+    beforeEach ->
+      @diagram = @builder.build """
+        @ref 'var-ref'
+        @css color:"blue", "font-weight":"bold"
+        """
+
+    it "applies styles to diagram", ->
+      expect(@diagram.css "color").toBe "blue"
+      expect(@diagram.css "font-weight").toBe "bold"
+      
