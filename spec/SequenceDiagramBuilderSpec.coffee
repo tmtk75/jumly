@@ -336,3 +336,47 @@ describe "SequenceDiagramBuilder", ->
         expect(iact.length).toBe 1
         expect(iact.find("> .occurrence").length).toBe 1
 
+  describe "var", ->
+    describe "found", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found 'var-found'
+          @that = var_found
+          """
+
+      it "can be referred", ->
+        expect(@builder.that).toBe @diagram.find(".object:eq(0)").data "_self"
+      
+    describe "message", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found 'sth', ->
+            @message "var-message", "ano"
+          @that = var_ano
+          @it   = var_message
+          """
+
+      it "can be referred", ->
+        expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+        expect(@builder.it  ).toBe @diagram.find(".message:eq(0)").data "_self"
+      
+    describe "create", ->
+      beforeEach ->
+        @builder.build """
+          @found 'sth', ->
+            @create "var-create"
+          @that = var_create
+          """
+
+      it "can be referred", ->
+        expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+
+    describe "ref", ->
+      beforeEach ->
+        @builder.build """
+          @ref 'var-ref'
+          @that = var_ref
+          """
+
+      it "can be referred", ->
+        expect(@builder.that).toBe @diagram.find(".ref:eq(0)").data "_self"
