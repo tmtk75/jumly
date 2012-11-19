@@ -351,7 +351,7 @@ describe "SequenceDiagramBuilder", ->
       beforeEach ->
         @diagram = @builder.build """
           @found 'sth', ->
-            @message "var-message", "ano"
+            @message "var-message", "var ano"
           @that = var_ano
           @it   = var_message
           """
