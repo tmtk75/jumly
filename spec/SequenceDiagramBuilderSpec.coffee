@@ -328,6 +328,10 @@ describe "SequenceDiagramBuilder", ->
     it "should return node has class .diagram", ->
       node = @builder.build ""
       expect(node).haveClass "diagram"
+    
+    it "should return what equal to @diagram()", ->
+      node = @builder.build ""
+      expect(node).toBe @builder.diagram()
 
     describe "found", ->
 
@@ -347,6 +351,7 @@ describe "SequenceDiagramBuilder", ->
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".object:eq(0)").data "_self"
+        expect(@diagram.var_found).toBe @builder.that
       
     describe "message", ->
       beforeEach ->
@@ -358,10 +363,11 @@ describe "SequenceDiagramBuilder", ->
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+        expect(@diagram.var_ano).toBe @builder.that
       
     describe "create", ->
       beforeEach ->
-        @builder.build """
+        @diagram = @builder.build """
           @found 'sth', ->
             @create "var-create"
           @that = var_create
@@ -369,16 +375,18 @@ describe "SequenceDiagramBuilder", ->
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+        expect(@diagram.var_ano).toBe @builder.that
 
     describe "ref", ->
       beforeEach ->
-        @builder.build """
+        @diagram = @builder.build """
           @ref 'var-ref'
           @that = var_ref
           """
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".ref:eq(0)").data "_self"
+        expect(@diagram.var_ref).toBe @builder.that
   
   describe "css", ->
     beforeEach ->
