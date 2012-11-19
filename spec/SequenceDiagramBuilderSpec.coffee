@@ -353,12 +353,10 @@ describe "SequenceDiagramBuilder", ->
           @found 'sth', ->
             @message "var-msg", "var ano"
           @that = var_ano
-          @it   = var_msg
           """
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
-        expect(@builder.it  ).toBe @diagram.find(".message:eq(0)").data "_self"
       
     describe "create", ->
       beforeEach ->
