@@ -142,6 +142,8 @@ SequenceDiagramBuilder::ref = (a) ->
     ref.insertAfter occur.parents(".interaction:eq(0)")
   else
     @diagram().append ref
+  r = core._to_ref (core._normalize a).id
+  @_diagram._var r, ref
   ref
 
 SequenceDiagramBuilder::lost = (a) ->
