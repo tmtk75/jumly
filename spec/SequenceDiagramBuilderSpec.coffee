@@ -380,13 +380,28 @@ describe "SequenceDiagramBuilder", ->
     describe "ref", ->
       beforeEach ->
         @diagram = @builder.build """
-          @ref 'var-ref'
+          @ref 'var ref'
           @that = var_ref
           """
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".ref:eq(0)").data "_self"
         expect(@diagram.var_ref).toBe @builder.that
+
+      describe "in .alt", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "Browser", ->
+              @alt {
+                "[200]": -> @message "GET href resources", "HTTP Server"
+                "[301]": -> @ref "GET the moved page"
+                "[404]": -> @ref "show NOT FOUND"
+              }
+            @that = get_the_moved_page
+            """
+
+        it "can be referred by id", ->
+          expect(@diagram.get_the_moved_page).toBe @builder.that
   
   describe "css", ->
     beforeEach ->
