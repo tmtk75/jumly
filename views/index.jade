@@ -16,7 +16,7 @@ block content
             | You need nothing to use JUMLY except for modern browser.
 
         #popular-links 
-          a.button.download DOWNLOAD v0.1.0
+          a.button.download DOWNLOAD v#{VERSION}
           .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs API DOCS
@@ -52,10 +52,10 @@ block content
             | In case you put a sequence diagram into it, put next four lines in your &lt;head>.
 
           :code(type=xml)
-            &lt;link href='https://jumly.herokuapp.com/release/#{VERSION}/jumly.css' rel='stylesheet'/>
+            &lt;link href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.css' rel='stylesheet'/>
             &lt;script src='http://code.jquery.com/jquery-1.8.2.min.js'>&lt;/script>
             &lt;script src='http://coffeescript.org/extras/coffee-script.js'>&lt;/script>
-            &lt;script src='https://jumly.herokuapp.com/release/#{VERSION}/jumly.js'>&lt;/script>
+            &lt;script src='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.js'>&lt;/script>
 
           p
             | Then, put a next &lt;script> element into the place where you want to put at.
