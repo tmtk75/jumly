@@ -388,15 +388,17 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
                   """
         b = @builder.build """
                   @ref 'to you'
-                  to_you.css width:160
+                  to_you.css width:80, "min-width":0
                   """
         div.append a
         div.append b
         @layout.layout a
         @layout.layout b
 
-        expect(a.to_me.width() + "px").toBe a.to_me.css("min-width")
-        expect(b.to_you.width()).toBe 160
+        expect(b.to_you.width()).toBe 80
+        ## depends on other nodes metrics
+        expect(a.to_me.width()).toBeGreaterThan parseInt a.to_me.css("min-width")
+        expect(a.to_me.width()).toBeLessThan a.outerWidth()
 
   describe "reply", ->
 
