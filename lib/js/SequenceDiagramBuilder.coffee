@@ -212,6 +212,9 @@ SequenceDiagramBuilder::reactivate = (a, b, c) ->
 SequenceDiagramBuilder::css = (styles) ->
   @_diagram.css styles
 
+SequenceDiagramBuilder::find = (selector) ->
+  @_diagram.find selector
+
 SequenceDiagramBuilder::_note = (a, b, c) ->
   nodes = @_curr_occurr.find("> .interaction:eq(0)")
   if nodes.length is 0

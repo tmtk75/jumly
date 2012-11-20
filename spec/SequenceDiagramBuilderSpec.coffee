@@ -413,4 +413,13 @@ describe "SequenceDiagramBuilder", ->
     it "applies styles to diagram", ->
       expect(@diagram.css "color").toBe "blue"
       expect(@diagram.css "font-weight").toBe "bold"
-      
+ 
+  describe "find", ->
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "hi"
+        @that = @find(".object:eq(0)").data "_self"
+        """
+
+    it "equals to $.find", ->
+      expect(@diagram.hi).toBe @builder.that
