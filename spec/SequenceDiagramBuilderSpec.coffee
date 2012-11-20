@@ -375,7 +375,7 @@ describe "SequenceDiagramBuilder", ->
 
       it "can be referred", ->
         expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
-        expect(@diagram.var_ano).toBe @builder.that
+        expect(@diagram.var_create).toBe @builder.that
 
     describe "ref", ->
       beforeEach ->
