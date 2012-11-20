@@ -61,7 +61,7 @@ SequenceDiagramLayout::pack_refs_horizontally = ->
   @_q(".ref").selfEach (ref) ->
     pw = ref.preferred_left_and_width()
     ref.offset(left:pw.left)
-       .width(pw.width)
+       .width((parseInt ref.css "width") or pw.width)
 
 SequenceDiagramLayout::pack_fragments_horizontally = ->
   # fragments just under this diagram.
