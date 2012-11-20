@@ -381,6 +381,23 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(_left ref).toBeGreaterThan _left alt
           expect(_right ref).toBeLessThan _right alt
 
+    describe "width", ->
+      it "is given if it's used", ->
+        a = @builder.build """
+                  @ref 'to me'
+                  """
+        b = @builder.build """
+                  @ref 'to you'
+                  to_you.css width:160
+                  """
+        div.append a
+        div.append b
+        @layout.layout a
+        @layout.layout b
+
+        expect(a.to_me.width() + "px").toBe a.to_me.css("min-width")
+        expect(b.to_you.width()).toBe 160
+
   describe "reply", ->
 
     describe "returning back to the caller", ->
