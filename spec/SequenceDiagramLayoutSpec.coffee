@@ -382,40 +382,55 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(_right ref).toBeLessThan _right alt
 
     describe "width", ->
-      it "is given if it's used", ->
-        a = @builder.build """
-                  @ref 'to me'
+      describe "initialy", ->
+        beforeEach ->
+          @diagram = @builder.build """
+                       @ref 'im ref'
+                       """
+        it "is 0px", ->
+          expect(@diagram.find(".ref").css "width").toBe "0px"
+        
+        it "has a value after layout", ->
+          a = @diagram
+          div.append a
+          @layout.layout a
+          expect(a.find(".ref").css "width").not.toBe "0px"
+
+      describe "auto or manual", ->
+        it "is given if it's used", ->
+          a = @builder.build """
+                    @ref 'to me'
+                    """
+          b = @builder.build """
+                    @ref 'to you'
+                    to_you.css width:80, "min-width":0
+                    """
+          div.append a
+          div.append b
+          @layout.layout a
+          @layout.layout b
+
+          expect(b.to_you.width()).toBe 80
+          ## depends on other nodes metrics
+          expect(a.to_me.width()).toBeGreaterThan parseInt a.to_me.css("min-width")
+          expect(a.to_me.width()).toBeLessThan a.outerWidth()
+
+        it "fits to lifelines", ->
+          diag = @builder.build """
+                @found "You", ->
+                  @message "pass", "Me", ->
+                    @message "pass", "Him"
+                  @ref "respond resource"
                   """
-        b = @builder.build """
-                  @ref 'to you'
-                  to_you.css width:80, "min-width":0
-                  """
-        div.append a
-        div.append b
-        @layout.layout a
-        @layout.layout b
+          div.append diag
+          @layout.layout diag
 
-        expect(b.to_you.width()).toBe 80
-        ## depends on other nodes metrics
-        expect(a.to_me.width()).toBeGreaterThan parseInt a.to_me.css("min-width")
-        expect(a.to_me.width()).toBeLessThan a.outerWidth()
-
-      it "fits to lifelines", ->
-        diag = @builder.build """
-              @found "You", ->
-                @message "pass", "Me", ->
-                  @message "pass", "Him"
-                @ref "respond resource"
-                """
-        div.append diag
-        @layout.layout diag
-
-        ref   = diag.find ".ref"
-        occur = diag.find ".occurrence:eq(2)"
-        obj   = diag.find ".object:eq(2)"
-        expect(_left occur).toBeLessThan _right ref
-        expect(_right occur).toBeLessThan _right ref
-        expect(_right ref).toBeLessThan _right obj
+          ref   = diag.find ".ref"
+          occur = diag.find ".occurrence:eq(2)"
+          obj   = diag.find ".object:eq(2)"
+          expect(_left occur).toBeLessThan _right ref
+          expect(_right occur).toBeLessThan _right ref
+          expect(_right ref).toBeLessThan _right obj
 
   describe "reply", ->
 
