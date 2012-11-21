@@ -201,12 +201,19 @@ describe "SequenceDiagramBuilder", ->
 
     describe "ref", ->
       
-      it "contains all kids", ->
+      it "equals to .interaction", ->
+        diag = @builder.build """
+          @found "open", ->
+          @ref "see"
+          """
+        expect(diag.see).toBe diag.find(".interaction + .ref:eq(0)").data "_self"
+
+      it "can be in .interaction", ->
         diag = @builder.build """
           @found "open", ->
             @ref "see"
           """
-        expect(diag.find(".interaction + .ref").length).toBe 1
+        expect(diag.see).toBe diag.find(".interaction > .ref:eq(0)").data "_self"
 
     describe "loop", ->
       
