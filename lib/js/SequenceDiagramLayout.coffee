@@ -61,7 +61,21 @@ SequenceDiagramLayout::pack_refs_horizontally = ->
   @_q(".ref").selfEach (ref) ->
     pw = ref.preferred_left_and_width()
     ref.offset(left:pw.left)
-       .width((parseInt ref.css "width") or pw.width)
+
+    ## workaround for checking width of css is defined
+    idx = ref.index()
+    parent = ref.parent()
+    ref.detach()
+    not_defined = ref.css("width") is "0px"
+    if idx is 0
+      parent.prepend ref
+    else
+      ref.insertAfter parent.find("> *:eq(#{idx-1})")
+
+    if not_defined
+      ref.width pw.width
+    else
+      ref.width parseInt ref.css "width"
 
 SequenceDiagramLayout::pack_fragments_horizontally = ->
   # fragments just under this diagram.
