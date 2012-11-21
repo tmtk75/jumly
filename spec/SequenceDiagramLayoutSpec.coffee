@@ -398,10 +398,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
       describe "auto or manual", ->
         it "is given if it's used", ->
-          a = @builder.build """
+          a = (new SequenceDiagramBuilder).build """
                     @ref 'to me'
                     """
-          b = @builder.build """
+          b = (new SequenceDiagramBuilder).build """
                     @ref 'to you'
                     to_you.css width:80, "min-width":0
                     """
@@ -433,6 +433,36 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(_left occur).toBeLessThan _right ref
           expect(_right occur).toBeLessThan _right ref
           expect(_right ref).toBeLessThan _right obj
+
+    describe "index", -> 
+      it "keeps the position", ->
+        a = (new SequenceDiagramBuilder).build """
+                  @found "g", -> 
+                    @ref 'to me'
+                  """
+        b = (new SequenceDiagramBuilder).build """
+                  @found "g", -> 
+                    @message "a", "b"
+                    @ref 'to you'
+                    @message "c", "d"
+                  """
+        c = (new SequenceDiagramBuilder).build """
+                  @found "g", -> 
+                    @message "a", "b"
+                    @message "c", "d"
+                    @ref 'to him'
+                    @message "e", "f"
+                  """
+        div.append a
+        div.append b
+        div.append c
+        @layout.layout a
+        @layout.layout b
+        @layout.layout c
+
+        expect(a.find(".ref").index()).toBe 0
+        expect(b.find(".ref").index()).toBe 1
+        expect(c.find(".ref").index()).toBe 2
 
   describe "reply", ->
 
