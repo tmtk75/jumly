@@ -400,6 +400,23 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         expect(a.to_me.width()).toBeGreaterThan parseInt a.to_me.css("min-width")
         expect(a.to_me.width()).toBeLessThan a.outerWidth()
 
+      it "fits to lifelines", ->
+        diag = @builder.build """
+              @found "You", ->
+                @message "pass", "Me", ->
+                  @message "pass", "Him"
+                @ref "respond resource"
+                """
+        div.append diag
+        @layout.layout diag
+
+        ref   = diag.find ".ref"
+        occur = diag.find ".occurrence:eq(2)"
+        obj   = diag.find ".object:eq(2)"
+        expect(_left occur).toBeLessThan _right ref
+        expect(_right occur).toBeLessThan _right ref
+        expect(_right ref).toBeLessThan _right obj
+
   describe "reply", ->
 
     describe "returning back to the caller", ->
