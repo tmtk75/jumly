@@ -16,6 +16,7 @@ SequenceDiagramBuilder::found = (sth, callback)->
   actor.addClass "found"
   @_occurr = actor.activate()
   callback?.apply this, [this]
+  @_occurr = null
   this
 
 SequenceDiagram = require "SequenceDiagram"
@@ -139,7 +140,7 @@ SequenceDiagramBuilder::ref = (a) ->
   occur = @_curr_occurr()
   ref = new SequenceRef a
   if occur
-    ref.insertAfter occur.parents(".interaction:eq(0)")
+    occur.append ref
   else
     @diagram().append ref
   id = core._normalize(a).id
