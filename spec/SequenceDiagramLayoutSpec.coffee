@@ -381,6 +381,28 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(_left ref).toBeGreaterThan _left alt
           expect(_right ref).toBeLessThan _right alt
 
+    describe "left", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "You", ->
+            @alt {
+              "[found]": ->
+                @loop ->
+                  @message "request", "HTTP Server"
+              "[missing]": ->
+                @message "new", "HTTP Session"
+            }
+            @ref "respond resource"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "is at right to the 1st .occurrence", ->
+        expect(false).toBe 1
+      
+      it "is at left to the right of 3rd .object", ->
+        expect(false).toBe 1
+
     describe "width", ->
       describe "initialy", ->
         beforeEach ->

@@ -192,7 +192,6 @@ describe "SequenceDiagramBuilder", ->
           @found "open", ->
           @ref "see"
           """
-        utils.glance diag
         expect(diag.see).toBe diag.find(".interaction + .ref:eq(0)").data "_self"
 
       it "can be in .interaction", ->
