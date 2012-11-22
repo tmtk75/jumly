@@ -45,9 +45,6 @@ describe "SequenceDiagramBuilder", ->
         @builder.found("foo")
                 .message "call", "bar"
     
-      it "returns itself", ->
-        expect(@builder.found("foo").message "call").toBeDefined()
-      
       it "gives an interaction and an occurrence", ->
         iact = @diagram.find "> .interaction"
         expect(iact.length).toBe 1
