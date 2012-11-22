@@ -41,17 +41,6 @@ describe "SequenceDiagramBuilder", ->
       
     describe "message", ->
 
-      beforeEach ->
-        @builder.found("foo")
-                .message "call", "bar"
-    
-      it "gives an interaction and an occurrence", ->
-        iact = @diagram.find "> .interaction"
-        expect(iact.length).toBe 1
-        expect(iact.find("> .occurrence").length).toBe 1
-        expect(iact.find("> .occurrence > .interaction").length).toBe 1
-        expect(iact.find("> .occurrence > .interaction > .message").length).toBe 1
-
       describe "nesting", ->
 
         beforeEach prepare_builder
