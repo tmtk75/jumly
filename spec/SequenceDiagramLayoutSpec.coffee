@@ -382,7 +382,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(_right ref).toBeLessThan _right alt
 
     describe "left", ->
-      describe "next of .alt"
+      describe "next of .alt", ->
         beforeEach ->
           @diagram = @builder.build """
             @found "You", ->
