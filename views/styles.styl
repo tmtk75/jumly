@@ -4,14 +4,32 @@
 //@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-regular.ttf')
 @import url("syntaxhighlighter.css")
 
+lb-w-text-shadow(a = 1)
+  text-shadow -1px 1px 0 rgba(255,255,255,a)
+rt-b-text-shadow(a = 1)
+  text-shadow 1px -1px 0 rgba(0,0,0,a)
+
 h1.logo
   font-family Coda,Tahoma,sans-serif
   font-weight extra-bold
   text-align center
+  lb-w-text-shadow()
 
 h2,h3,h4
   font-family Coda,Tahoma,sans-serif
   font-size 18px
+
+#getting-started, #bg-why, #examples
+  h2,h3,h4
+    lb-w-text-shadow()
+
+#document-support-information
+  h2,h3,h4
+    rt-b-text-shadow()
+
+#meta-information
+  h2,h3,h4
+    rt-b-text-shadow(.77)
 
 a
   color #690
@@ -24,7 +42,7 @@ a
     color #690 !important
 
 body
-  background-color #f0f0f0
+  background-color #eee
   //font-family mplus-1p-regular
   //font-family "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Verdana,Tahoma,sans-serif
   //line-height 180%
@@ -128,6 +146,9 @@ body
     margin-top 20px
     margin-bottom 20px
 
+.buttons
+  lb-w-text-shadow(.33)
+
 #popular-links
   margin-top 20px
   margin-bottom 30px
@@ -148,6 +169,7 @@ body
     margin-left auto
     margin-right auto
     text-align center
+    lb-w-text-shadow(.33)
     padding 8px 0
     border-radius 2px
     background-color #8bc84b
@@ -171,6 +193,9 @@ body
     border-bottom 1px solid rgba(0,0,0,.1)
     box-shadow(rgba(255,255,255,1) 0 1px 0)
     margin-bottom 30px
+  .ref
+    .name
+      lb-w-text-shadow(.33)
 
 #document-support-information
   margin-top 60px
@@ -190,6 +215,7 @@ body
     margin-top 30px
     text-align center
     font-size smaller
+    rb-b-text-shadow(.77)
 
   #requirement, #license
     font-size inherit
