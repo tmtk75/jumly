@@ -64,12 +64,12 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
     describe "including .ref in .alt", ->
       beforeEach ->
         @diagram = diag = @builder.build """
-          @found "it"
-          @alt {
-            "a": ->
-              @message "do", "b"
-              @ref "to them"
-          }
+          @found "it", ->
+            @alt {
+              "a": ->
+                @message "do", "b"
+                @ref "to them"
+            }
           """
         div.append diag
         @layout.layout diag
