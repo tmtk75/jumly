@@ -275,9 +275,9 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       beforeEach ->
         utils.matchers this
         @diagram = @builder.build """
-          @found "mouse"
-          @loop ->
-            @message "rotate", "wheel"
+          @found "mouse", ->
+            @loop ->
+              @message "rotate", "wheel"
           """
         div.append @diagram
         @layout.layout @diagram
