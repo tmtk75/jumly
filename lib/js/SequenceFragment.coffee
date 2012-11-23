@@ -21,19 +21,6 @@ SequenceFragment::enclose = (_) ->
     @swallow(_)
     this
 
-SequenceFragment::extendWidth = (opts) ->
-    frag = this
-    dlw = opts?.left
-    drw = opts?.right
-    dlw ?= 0
-    drw ?= 0
-    frag.css("position", "relative")
-        .css("left", -dlw)
-        .width(frag.width() + dlw/2)
-        .find("> .interaction")
-           .css("margin-left", dlw)
-    frag.width(frag.outerWidth() + drw)
-
 SequenceFragment::alter = (occurr, acts) ->
     alt = this
     alt.addClass("alt")
