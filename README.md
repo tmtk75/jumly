@@ -1,73 +1,51 @@
-#  README
+# README
 
 JUMLY is a JavaScript library.  
 Using JUMLY, you can easily embed UML diagram on your HTML document.  
-All you need are just two in order to use JUMLY.
+All you need are just one.
 
 - Text editor you get used to use.
-- Modern browser like WebKit-base brwoser and Opera.  
-  (planning it works on other browsers, especially Firefox.)
+- A modern browser like WebKit-base brwoser and Opera.  
+  (working for Firefox now)
+
+For more information, see <https://jumly.herokuapp.com/>.  
+The auther's blog is <http://tmtk75.github.com>.
 
 
 ## Getting Started
-Copy following code and put it at the place of your HTML document.
+Copy following code,
+paste it at the place of your HTML document,
+and open the document.
 
-    <link href='http://tmtk75.github.com/jumly/latest/jumly.min.css' rel="stylesheet"/>
+    <link href='https://jumly.herokuapp.com/release/0.1.0/jumly.css' rel="stylesheet"/>
     <script src='http://code.jquery.com/jquery-1.7.1.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='http://tmtk75.github.com/jumly/latest/jumly.min.js'></script>
+    <script src='https://jumly.herokuapp.com/release/0.1.0/jumly.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"
     </script>
 
-[Here is same one](/min-working.html), minimal working example.
-
-
-## Features
-
-- Easily embed some of UML diagrams with HTML5/CSS3.
-- Rendered diagrams are composed in HTMLElement,
-  which means all known ways for HTML/CSS are available.
-- DSL based on coffeescript.
-- Works on just client side.
-
-
-## Links
-
-- Website: <http://jumly.heroku.com>
-- Blog: <http://tmtk75.github.com>
+[Here](/examples/simple.html) is a minimal sample.
 
 
 ## License
-**NOTE: License will be changed in the future.**
+JUMLY v0.1.0 is under [MIT License](http://opensource.org/licenses/MIT).
 
-Now I'm contemplating which license I should choose.
-
-Tentatively CC3.0.
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">jumly</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Tomotaka Sakuma</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
-
-Tomotaka Sakuma 2011-2012 copyright(c), all rights reserved.
+JUMLY v0.1.0, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 ## Changelog
+- 0.1.0 Initial release Nov 23, 2012
+  - support sequence diagram
 
-### 0.1.2
-- Re-write site and spec in coffee-script on Node.js
-- Configure for heroku
-
-### 0.1.2a
-- No feature improvement
-- Refine directory layout
-
-### 0.1.1
-- Implement JUMLY root namespace.
-- Implement JUMLY.DiagramBuilder class, and its sub-classes.
-- Enhance way to refer in JUMLY DSL.
-- Improve website. Especially, TryJUMLY page.
-
-### 0.1.0 <small>Initial release.</small>
-- Enable to render sequence diagram.
-- Able to try prototype of use-case diagram.
-- Able to try prototype of class diagram.
+# Special Thanks
+- jQuery <http://jquery.com/>
+- CoffeeScript <http://coffeescript.org/>
+- node.js <http://nodejs.org/>
+- express <http://expressjs.com/>
+- GitHub <https://github.com/>
+- heroku <https://www.heroku.com/>
+- jade <http://jade-lang.com/>
+- Stylus <http://learnboost.github.com/stylus/>
+- Markdown <https://daringfireball.net/projects/markdown/>
