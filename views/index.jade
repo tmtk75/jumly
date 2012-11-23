@@ -187,7 +187,8 @@ block content
                   @create "HTTP Session", ->
                     @message "init"
                     @message "aquire lock", "Database"
-                  @message "do something"
+                  @message "select service", ->
+                    @ref "do biz logic"
                   @message "release lock", "Database"
                   @reply "", "Browser"
             :code
