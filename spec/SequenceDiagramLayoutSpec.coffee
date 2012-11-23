@@ -397,12 +397,19 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             """
           div.append @diagram
           @layout.layout @diagram
+          @ref = @diagram.respond_resource
 
-        it "is at right to the 1st .occurrence", ->
-          expect(false).toBe 1
+        it "is at right to the left of 1st .occurrence", ->
+          occur = @diagram.find ".occurrence:eq(0)"
+          expect(_left occur).toBeLessThan _left @ref
 
-        it "is at left to the right of 3rd .object", ->
-          expect(false).toBe 1
+        it "is at left to the right of 1st .occurrence", ->
+          occur = @diagram.find ".occurrence:eq(0)"
+          expect(_left @ref).toBeLessThan _right occur
+
+        it "is at left to the center of 2rd .object", ->
+          obj = @diagram.find ".object:eq(1)"
+          expect(_right @ref).toBeLessThan (_left obj) + obj.outerWidth()/2
 
     describe "width", ->
       describe "initialy", ->
@@ -451,13 +458,16 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           @layout.layout diag
 
           ref   = diag.find ".ref"
-          occur = diag.find ".occurrence:eq(2)"
-          obj   = diag.find ".object:eq(2)"
-          expect(_left occur).toBeLessThan _right ref
-          expect(_right occur).toBeLessThan _right ref
+          occur = diag.find ".occurrence:eq(1)"
+          obj   = diag.find ".object:eq(1)"
+          occur.css "background-color":"#ff8080"
+          obj.css "color":"#ff8080"
+          expect(_left obj).toBeLessThan _right ref
           expect(_right ref).toBeLessThan _right obj
+          expect(_left occur).toBeLessThan _right ref
+          expect(_right ref).toBeLessThan _right occur
 
-    describe "index", -> 
+    describe "index", ->
       it "keeps the position", ->
         a = (new SequenceDiagramBuilder).build """
                   @found "g", -> 
