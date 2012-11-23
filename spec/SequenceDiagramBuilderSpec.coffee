@@ -41,6 +41,16 @@ describe "SequenceDiagramBuilder", ->
       
     describe "message", ->
 
+      describe "to itself", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "a", ->
+              @message "1", "a", ->
+            """
+
+        it "has .self", ->
+          expect(@diagram.find(".self")).haveClass "interaction"
+
       describe "nesting", ->
 
         beforeEach prepare_builder

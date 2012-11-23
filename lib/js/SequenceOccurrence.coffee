@@ -22,6 +22,8 @@ SequenceOccurrence::interact = (actor, acts) ->
     else
       occurr = new SequenceOccurrence actor
       iact = new SequenceInteraction this, occurr
+    if actor is iact._actor._actor
+      iact.addClass "self"
     iact.append(occurr).appendTo this
     iact
 
