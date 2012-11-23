@@ -4,7 +4,7 @@ brownie = require "brownie"
 
 version  = brownie.read("lib/version").trim() #replace /\n/, ""
 copyright = """
-// JUMLY v#{version}, 2011-#{new Date().getFullYear()} copyright(c), all rights reserved.\n
+// JUMLY v#{version}, 2011-#{new Date().getFullYear()} copyright(c), all rights reserved Tomotaka Sakuma.\n
 """
 
 brownie.configure
