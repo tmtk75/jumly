@@ -2,9 +2,9 @@ _       = require "underscore"
 fs      = require "fs"
 brownie = require "brownie"
 
-version  = brownie.read("lib/version").trim() #replace /\n/, ""
+version  = brownie.read("lib/version").trim()
 copyright = """
-// JUMLY v#{version}, 2011-#{new Date().getFullYear()} copyright(c), all rights reserved Tomotaka Sakuma.\n
+JUMLY v#{version.split("\n").join("-")}, 2011-#{new Date().getFullYear()} copyright(c), all rights reserved Tomotaka Sakuma. build #{new Date().toGMTString()}
 """
 
 brownie.configure
@@ -30,8 +30,10 @@ task "release", "", ->
   brownie.exec """
     rm -rf #{verdir}
     mkdir -p #{verdir}
-    cp build/jumly.js #{verdir}/jumly.js
-    cp build/jumly.css #{verdir}/jumly.css
+    echo "//#{copyright}"     > #{verdir}/jumly.js
+    echo "/* #{copyright} */" > #{verdir}/jumly.css
+    cat build/jumly.js        >> #{verdir}/jumly.js
+    cat build/jumly.css       >> #{verdir}/jumly.css
     git add #{verdir}/jumly.js
     git add #{verdir}/jumly.css
     git add lib/version
@@ -39,7 +41,7 @@ task "release", "", ->
   console.log "release #{verdir}"
 
 task "minify", "minify jumly.js and jumly.css", ->
-  brownie.minify minified_files:["build/jumly.js"], header:copyright
+  brownie.minify minified_files:["build/jumly.js"], header:"//#{copyright}\n"
   brownie.exec """
     mkdir -p build/.css
     stylus -c lib/css/jumly.styl -o build/.css
