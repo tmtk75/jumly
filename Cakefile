@@ -25,7 +25,8 @@ task "release", "", ->
   unless fs.existsSync css
     console.warn "#{css} is missing. run `cake build`"
     return
-  verdir = "views/static/release/#{version}"
+  verpath = version.split("\n")[0]
+  verdir = "views/static/release/#{verpath}"
   brownie.exec """
     rm -rf #{verdir}
     mkdir -p #{verdir}
