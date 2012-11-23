@@ -375,7 +375,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append @diagram
           @layout.layout @diagram
 
-        it "fit to .alt", ->
+        xit "fit to .alt", ->
+          ## NOTE: The spec is undefined
           alt = @diagram.find ".alt"
           ref = @diagram.find ".ref"
           expect(_left ref).toBeGreaterThan _left alt
