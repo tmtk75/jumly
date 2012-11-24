@@ -19,7 +19,11 @@ block content
           a.button.download DOWNLOAD v#{VERSION}
           .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
-            a.button.apidocs API DOCS
+            a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
+
+        script(src="bootstrap/docs/assets/js/bootstrap-tooltip.js")
+        :coffeescript
+          $ -> $("a.button.apidocs").tooltip()
        
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
