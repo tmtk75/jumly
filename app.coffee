@@ -27,7 +27,10 @@ version = fs.readFileSync("lib/version").toString().trim().split "\n"
 VERSION = version.join "-"
 
 app.get "/", (req,res)->
-  res.render "index", VERSION:VERSION, VERSION_PATH:version[0]
+  res.render "index",
+             VERSION:VERSION,
+             VERSION_PATH:version[0],
+             images_dir:"images"
 
 port = process.env.PORT || 3000
 app.listen port
