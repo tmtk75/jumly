@@ -24,10 +24,13 @@ app.use express.static "#{__dirname}/views/static"
 app.use assets src:"lib"
 
 version = fs.readFileSync("lib/version").toString().trim().split "\n"
-VERSION = version.join "-"
+params =
+  VERSION     : version.join "-"
+  VERSION_PATH: version[0]
+  IMAGES_DIR  : "images"
 
 app.get "/", (req,res)->
-  res.render "index", VERSION:VERSION, VERSION_PATH:version[0]
+  res.render "index", params
 
 port = process.env.PORT || 3000
 app.listen port
