@@ -45,7 +45,8 @@ task "minify", "minify jumly.js and jumly.css", ->
   brownie.exec """
     mkdir -p build/.css
     stylus -c lib/css/jumly.styl -o build/.css
-    cp build/.css/jumly.css build/jumly.min.css
+    printf "/* #{copyright} */" > build/jumly.min.css
+    cat build/.css/jumly.css >> build/jumly.min.css
     """
 
 task "clean", "clean", ->
