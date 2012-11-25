@@ -10,17 +10,11 @@
 #= require SequenceInteraction
 #= require SequenceOccurrence
 #= require SequenceObject
-#= require Class
-#= require ClassDiagram
-#= require ClassDiagramBuilder
 #= require HTMLElementLayout
 #= require Position
-#= require Relationship
 #= require SequenceDiagram
 #= require SequenceDiagramBuilder
 #= require SequenceDiagramLayout
 #= require SequenceFragment
 #= require SequenceRef
-#= require UsecaseDiagram
 #= require icon
-#= require plugin
