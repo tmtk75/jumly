@@ -1,4 +1,4 @@
-//JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Fri, 23 Nov 2012 02:21:31 GMT
+//JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Sun, 25 Nov 2012 02:44:40 GMT
 (function() {
   var JUMLY, SCRIPT_TYPE_PATTERN, core, exported, jumly, _compilers, _evalHTMLScriptElement, _layouts, _runScripts, _to_type_string,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -787,7 +787,7 @@ This is capable to render followings:
     };
     ref = core._to_ref(id);
     if (this[ref]) {
-      throw new Error(("Already exists for '" + ref + "' in the ") + $.kindof(this));
+      throw new Error("Already exists for '" + ref + "'");
     }
     if (exists(id, this)) {
       throw new Error("Element which has same ID(" + id + ") already exists in the document.");
@@ -1140,18 +1140,15 @@ This is capable to render followings:
       return Math.abs(l.src.x - l.dst.x);
     };
     shift_downward = function(msg) {
-      var dy, iact, mt, obj;
+      var mt, obj;
       obj = dst._actor;
       obj.offset({
         top: msg.offset().top - obj.height() / 3
       });
       mt = parseInt(dst.css("margin-top"));
-      dst.offset({
+      return dst.offset({
         top: obj.outerBottom() + mt
       });
-      iact = msg.parents(".interaction:eq(0)");
-      dy = iact.outerBottom() - dst.outerBottom() - mt;
-      return iact.css("margin-bottom", Math.abs(dy));
     };
     this.outerWidth((line_width(this)) + src.outerWidth() - 1);
     return shift_downward(this);
@@ -1382,6 +1379,9 @@ This is capable to render followings:
       occurr = new SequenceOccurrence(actor);
       iact = new SequenceInteraction(this, occurr);
     }
+    if (actor === iact._actor._actor) {
+      iact.addClass("self");
+    }
     iact.append(occurr).appendTo(this);
     return iact;
   };
@@ -1391,7 +1391,7 @@ This is capable to render followings:
     SequenceObject = require("SequenceObject");
     obj = new SequenceObject(objsrc.name).addClass("created-by");
     this._actor.parent().append(obj);
-    return iact = (this.interact(obj)).find(".message").addClass("create").end();
+    return iact = (this.interact(obj)).addClass("creating").find(".message").addClass("create").end();
   };
 
   SequenceOccurrence.prototype._move_horizontally = function() {
@@ -2831,21 +2831,6 @@ This is capable to render followings:
     return this;
   };
 
-  SequenceFragment.prototype.extendWidth = function(opts) {
-    var dlw, drw, frag;
-    frag = this;
-    dlw = opts != null ? opts.left : void 0;
-    drw = opts != null ? opts.right : void 0;
-    if (dlw == null) {
-      dlw = 0;
-    }
-    if (drw == null) {
-      drw = 0;
-    }
-    frag.css("position", "relative").css("left", -dlw).width(frag.width() + dlw / 2).find("> .interaction").css("margin-left", dlw);
-    return frag.width(frag.outerWidth() + drw);
-  };
-
   SequenceFragment.prototype.alter = function(occurr, acts) {
     var alt, name, nodes;
     alt = this;
@@ -2895,7 +2880,15 @@ This is capable to render followings:
   })(HTMLElement);
 
   SequenceRef.prototype.preferred_left_and_width = function() {
-    var alt, d, dh, diag, dl, iact, it, l, left, lines, most, objs, occurs, r, w;
+    var alt, d, dh, diag, dl, iact, it, l, left, lines, most, objs, occurr, occurs, r, right, w;
+    occurr = this.parents(".occurrence:eq(0)");
+    if (occurr.length === 1) {
+      w = occurr.outerWidth();
+      right = occurr.offset().left + w;
+      return {
+        left: right - w / 2
+      };
+    }
     diag = this.parents(".sequence-diagram:eq(0)");
     iact = this.prevAll(".interaction:eq(0)");
     if (iact.length === 0) {
