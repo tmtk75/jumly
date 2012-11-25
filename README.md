@@ -26,7 +26,7 @@ and open the document.
       @message "meet", "JUMLY"
     </script>
 
-[Here](/examples/simple.html) is a minimal sample.
+[Here](http://jumly.herokuapp.com/examples/simple.html) is a minimal sample.
 
 
 ## License
