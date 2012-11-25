@@ -27,6 +27,9 @@ root =
     L = require "SequenceDiagramLayout"
     new L().layout diag
 
+  ua: (opts)->
+    for e of opts
+      return opts[e] if $("html").hasClass "ua-#{e}"
 
 if core.env.is_node
   module.exports = root

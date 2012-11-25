@@ -414,8 +414,9 @@ describe "SequenceDiagramBuilder", ->
         """
 
     it "applies styles to diagram", ->
-      expect(@diagram.css "color").toBe "blue"
-      expect(@diagram.css "font-weight").toBe "bold"
+      _ = utils.ua
+      expect(@diagram.css "color").toBe _ webkit:"blue", gecko:'rgb(0, 0, 255)'
+      expect(@diagram.css "font-weight").toBe _ webkit:"bold", gecko:'700'
  
   describe "find", ->
     beforeEach ->
