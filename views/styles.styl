@@ -224,7 +224,18 @@ body
     position fixed
     left 0
     bottom 0
+    .inner
+      margin-left 10px
+      margin-bottom 30px
     img
       width 24px
       -webkit-filter contrast(10%)
+      -moz-filter contrast(10%)
+      -o-filter contrast(10%)
+      filter contrast(10%)
+      &:hover
+        -webkit-filter contrast(90%)
+        -moz-filter contrast(90%)
+        -o-filter contrast(90%)
+        filter contrast(90%)
       // hue-rotate(0deg), brightness(-0%), saturate(0%)

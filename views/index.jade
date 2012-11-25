@@ -21,10 +21,6 @@ block content
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
 
-        script(src="bootstrap/docs/assets/js/bootstrap-tooltip.js")
-        :coffeescript
-          $ -> $("a.button.apidocs").tooltip()
-       
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
             @found "You", ->
@@ -265,6 +261,26 @@ block content
           footer
             .copyright
               | copyright 2010-#{2012}, all rights reserved ©Tomotaka Sakuma
+
+          #sns-links
+            .inner
+              a(href="https://twitter.com/tmtk75")
+                img.icon(src="#{IMAGES_DIR}/twitter_alt.png")
+              a(href="https://www.facebook.com/tomotaka.sakuma")
+                img.icon(src="#{IMAGES_DIR}/facebook.png")
+              a(href="https://github.com/tmtk75")
+                img.icon(src="#{IMAGES_DIR}/github_alt.png")
+              a(href="https://plus.google.com/u/0/112810316775699020282/")
+                img.icon(src="#{IMAGES_DIR}/google.png")
+              a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro")
+                img.icon(src="#{IMAGES_DIR}/linkedin.png")
+              a(href="https://zerply.com/tmtk")
+                img.icon(src="#{IMAGES_DIR}/zerply.png")
+
+  script(src="bootstrap/docs/assets/js/bootstrap-tooltip.js")
+  :coffeescript
+    $ ->
+      $("a.button.apidocs").tooltip()
 
   :coffeescript
     model =
