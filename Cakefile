@@ -41,6 +41,7 @@ task "release", "", ->
   console.log "release #{verdir}"
 
 task "minify", "minify jumly.js and jumly.css", ->
+  return unless fs.existsSync "build/jumly.js"
   brownie.minify minified_files:["build/jumly.js"], header:"//#{copyright}\n"
   brownie.exec """
     mkdir -p build/.css
