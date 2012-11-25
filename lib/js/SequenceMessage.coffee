@@ -146,9 +146,6 @@ SequenceMessage::_to_be_creation = ->
     obj.offset top:msg.offset().top - obj.height()/3
     mt = parseInt dst.css "margin-top"
     dst.offset top:obj.outerBottom() + mt
-    iact = msg.parents ".interaction:eq(0)"
-    dy = iact.outerBottom() - dst.outerBottom() - mt
-    iact.css "margin-bottom", (Math.abs dy) 
 
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this

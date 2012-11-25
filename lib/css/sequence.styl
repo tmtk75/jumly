@@ -60,6 +60,9 @@ primary-border()
 .sequence-diagram .message.create+.occurrence
   padding: .5em 0 .5em 0
 
+.sequence-diagram .creating
+  margin-bottom 40px
+
 .sequence-diagram .interaction
   position: relative
 
@@ -154,6 +157,16 @@ primary-border()
 
 .sequence-diagram .ref .name
   text-align: center
+
+.sequence-diagram .self .message + .occurrence > .ref
+  margin-top 10px
+  .header
+    float left
+  padding-top 6px
+  padding-bottom 6px
+
+.sequence-diagram .self .message
+  line-height 12px
 
 .sequence-diagram .object .name,.sequence-diagram .occurrence,.sequence-diagram .ref
   box-shadow()

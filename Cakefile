@@ -17,14 +17,14 @@ task "compile", "compile *.coffee", ->
   brownie.compile order:order()
 
 task "release", "", ->
-  js = "build/jumly.js"
-  css = "build/jumly.css"
-  unless fs.existsSync js
-    console.warn "#{js} is missing. run `cake build`"
-    return
-  unless fs.existsSync css
-    console.warn "#{css} is missing. run `cake build`"
-    return
+  js     = "build/jumly.js"
+  css    = "build/jumly.css"
+  minjs  = "build/jumly.min.js"
+  mincss = "build/jumly.min.css"
+  for e in [js, css, minjs, mincss]
+    unless fs.existsSync e
+      console.warn "#{e} is missing. run `cake build` and `cake minify`"
+      return
   verpath = version.split("\n")[0]
   verdir = "views/static/release/#{verpath}"
   brownie.exec """
@@ -34,18 +34,24 @@ task "release", "", ->
     echo "/* #{copyright} */" > #{verdir}/jumly.css
     cat build/jumly.js        >> #{verdir}/jumly.js
     cat build/jumly.css       >> #{verdir}/jumly.css
-    git add #{verdir}/jumly.js
-    git add #{verdir}/jumly.css
+    cp build/jumly.min.js #{verdir}
+    cp build/jumly.min.css #{verdir}
+    git add #{verdir}/jumly.js #{verdir}/jumly.css #{verdir}/jumly.min.js #{verdir}/jumly.min.css
     git add lib/version
     """
   console.log "release #{verdir}"
 
 task "minify", "minify jumly.js and jumly.css", ->
-  brownie.minify minified_files:["build/jumly.js"], header:"//#{copyright}\n"
+  js = "build/jumly.js"
+  unless fs.existsSync js
+    console.warn "#{js} is missing. run `cake build`"
+    return
+  brownie.minify minified_files:[js], header:"//#{copyright}\n"
   brownie.exec """
     mkdir -p build/.css
     stylus -c lib/css/jumly.styl -o build/.css
-    cp build/.css/jumly.css build/jumly.min.css
+    printf "/* #{copyright} */" > build/jumly.min.css
+    cat build/.css/jumly.css >> build/jumly.min.css
     """
 
 task "clean", "clean", ->
