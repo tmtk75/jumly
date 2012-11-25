@@ -17,10 +17,10 @@ Copy following code,
 paste it at the place of your HTML document,
 and open the document.
 
-    <link href='https://jumly.herokuapp.com/release/0.1.0/jumly.css' rel="stylesheet"/>
+    <link href='https://jumly.herokuapp.com/release/0.1.0/jumly.min.css' rel="stylesheet"/>
     <script src='http://code.jquery.com/jquery-1.7.1.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='https://jumly.herokuapp.com/release/0.1.0/jumly.js'></script>
+    <script src='https://jumly.herokuapp.com/release/0.1.0/jumly.min.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"

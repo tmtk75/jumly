@@ -11,7 +11,7 @@ brownie.configure
   basename: "build/jumly"
 
 task "build", "", ->
-  invoke e for e in ["compile", "css:compile"]
+  invoke e for e in ["clean", "compile", "css:compile"]
 
 task "compile", "compile *.coffee", ->
   brownie.compile order:order()
@@ -55,6 +55,9 @@ task "minify", "minify jumly.js and jumly.css", ->
     """
 
 task "clean", "clean", ->
+  brownie.exec """
+    cd #{__dirname}/lib/js; rm -f Class*.coffee Relationship.coffee Usecase*.coffee plugin.coffee
+    """
   brownie.exec """
     rm -rf build lib/css/*.css
     """
