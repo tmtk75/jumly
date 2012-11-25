@@ -30,6 +30,7 @@ root =
   ua: (opts)->
     for e of opts
       return opts[e] if $("html").hasClass "ua-#{e}"
+    opts["webkit"]
 
 if core.env.is_node
   module.exports = root
