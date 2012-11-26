@@ -39,6 +39,7 @@ _ = (opts)->
     return opts["webkit"]
   if navigator?.userAgent.match(/.*(Gecko).*/)
     return opts["gecko"]
+  return opts["webkit"]
 
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
