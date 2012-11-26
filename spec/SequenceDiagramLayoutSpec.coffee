@@ -244,6 +244,13 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append a
           expect(a.css "left").toBe "auto"
         
+        it "is auto for SequenceObject in SequenceDiagram", ->
+          a = new SequenceObject
+          diag = new SequenceDiagram
+          diag.append a
+          div.append diag
+          expect(a.css "left").toBe "auto"
+
         it "is auto for .object created by builder", ->
           b = new SequenceDiagramBuilder
           b.found "sth"
