@@ -6,7 +6,7 @@ stylus = require "stylus"
 nib = require "nib"
 fs = require "fs"
 require "jumly-jade"
-require "jade-filters"
+(require "jade-filters").setup jade
 
 app = express()
 app.set "view engine", "jade"
