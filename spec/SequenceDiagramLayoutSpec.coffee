@@ -228,6 +228,17 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       #@layout.layout diag = @builder.diagram()
 
     describe "object", ->
+      describe "initial left", ->
+        it "is auto for plain div", ->
+          a = $("<div>")
+          div.append a
+          expect(a.css "left").toBe "auto"
+          
+        it "is auto for div.object", ->
+          a = $("<div>").addClass "object"
+          div.append a
+          expect(a.css "left").toBe "auto"
+          
       describe "left", ->
         beforeEach ->
           @diagram = @builder.build """
