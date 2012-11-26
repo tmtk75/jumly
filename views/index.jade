@@ -21,11 +21,6 @@ block content
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
 
-        #notification
-          .alert.alert-info
-            strong Note
-            span &nbsp;Now JUMLY doesn't support Firefix. I'm working on it. Wait a minuite.
-
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
             @found "You", ->
@@ -252,8 +247,10 @@ block content
                   | and <a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3,
                   | and they or later are recommended on you.
                 p
-                  | WebKit-base browser like Google Chrome and Safari, or Opera
-                  | are recommended. Now JUMLY doesn't work on Firefox.
+                  | WebKit-base browser like Google Chrome and Safari,
+                  | Gecko-base browser like Firefox,
+                  | or Opera are recommended.
+                  | Internet Explorer has never been tested.
 
             .span4
               #license
