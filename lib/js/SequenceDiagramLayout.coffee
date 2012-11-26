@@ -34,12 +34,19 @@ SequenceDiagramLayout::_layout_ = ->
 
 HTMLElementLayout = require "HTMLElementLayout"
 
+_ = (opts)->
+  if navigator?.userAgent.match(/.*(WebKit).*/)
+    return opts["webkit"]
+  if navigator?.userAgent.match(/.*(Gecko).*/)
+    return opts["gecko"]
+  return opts["webkit"]
+
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
-    if a.css("left") is "auto"
+    if a.css("left") is (_ webkit:"auto", gecko:"0px")
       a.css left:0
   f1 = (a, b)=>
-    if b.css("left") is "auto"
+    if b.css("left") is (_ webkit:"auto", gecko:"0px")
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
   @_q(".object").pickup2 f0, f1
