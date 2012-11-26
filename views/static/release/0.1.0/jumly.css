@@ -1,4 +1,4 @@
-/* JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Sun, 25 Nov 2012 06:38:07 GMT */
+/* JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Mon, 26 Nov 2012 13:08:39 GMT */
 .centering {
   margin-left: auto;
   margin-right: auto;
@@ -231,12 +231,14 @@
 .sequence-diagram .ref .name {
   text-align: center;
 }
-.sequence-diagram .self .message + .occurrence > .ref {
+.sequence-diagram .self .message + .occurrence > .ref,
+.sequence-diagram .self .message + .occurrence .interaction {
   margin-top: 10px;
   padding-top: 6px;
   padding-bottom: 6px;
 }
-.sequence-diagram .self .message + .occurrence > .ref .header {
+.sequence-diagram .self .message + .occurrence > .ref .header,
+.sequence-diagram .self .message + .occurrence .interaction .header {
   float: left;
 }
 .sequence-diagram .self .message {

@@ -1,4 +1,4 @@
-/* JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Sun, 25 Nov 2012 06:37:55 GMT */.centering{margin-left:auto;margin-right:auto}
+/* JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Mon, 26 Nov 2012 13:08:35 GMT */.centering{margin-left:auto;margin-right:auto}
 .unimportant{z-index:0}
 .primary_border{border:2px solid #808080}
 .centering{margin-left:auto;margin-right:auto}
@@ -49,8 +49,8 @@
 .sequence-diagram .ref{position:relative;min-width:128px;margin:4px;padding:4px;padding-bottom:1em;background-color:#fff;border:solid 1px #000}
 .sequence-diagram .ref .tag{color:#000;font-weight:700}
 .sequence-diagram .ref .name{text-align:center}
-.sequence-diagram .self .message + .occurrence > .ref{margin-top:10px;padding-top:6px;padding-bottom:6px}
-.sequence-diagram .self .message + .occurrence > .ref .header{float:left}
+.sequence-diagram .self .message + .occurrence > .ref,.sequence-diagram .self .message + .occurrence .interaction{margin-top:10px;padding-top:6px;padding-bottom:6px}
+.sequence-diagram .self .message + .occurrence > .ref .header,.sequence-diagram .self .message + .occurrence .interaction .header{float:left}
 .sequence-diagram .self .message{line-height:12px}
 .sequence-diagram .object .name,.sequence-diagram .occurrence,.sequence-diagram .ref{-webkit-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-moz-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-o-box-shadow:8px 5px 10px rgba(0,0,0,0.22);box-shadow:8px 5px 10px rgba(0,0,0,0.22)}
 .sequence-diagram .object{-text-shadow:4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,0.15)}

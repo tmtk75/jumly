@@ -1,4 +1,4 @@
-//JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Sun, 25 Nov 2012 06:38:07 GMT
+//JUMLY v0.1.0-beta, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma. build Mon, 26 Nov 2012 13:08:39 GMT
 (function() {
   var JUMLY, SCRIPT_TYPE_PATTERN, core, exported, jumly, _compilers, _evalHTMLScriptElement, _layouts, _runScripts, _to_type_string,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -2196,7 +2196,7 @@ This is capable to render followings:
 
 }).call(this);
 (function() {
-  var DiagramLayout, HTMLElementLayout, SequenceDiagramLayout, SequenceLifeline, core, jumly,
+  var DiagramLayout, HTMLElementLayout, SequenceDiagramLayout, SequenceLifeline, core, jumly, _,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -2266,11 +2266,24 @@ This is capable to render followings:
 
   HTMLElementLayout = require("HTMLElementLayout");
 
+  _ = function(opts) {
+    if (typeof navigator !== "undefined" && navigator !== null ? navigator.userAgent.match(/.*(WebKit).*/) : void 0) {
+      return opts["webkit"];
+    }
+    if (typeof navigator !== "undefined" && navigator !== null ? navigator.userAgent.match(/.*(Gecko).*/) : void 0) {
+      return opts["gecko"];
+    }
+    return opts["webkit"];
+  };
+
   SequenceDiagramLayout.prototype.align_objects_horizontally = function() {
     var f0, f1,
       _this = this;
     f0 = function(a) {
-      if (a.css("left") === "auto") {
+      if (a.css("left") === (_({
+        webkit: "auto",
+        gecko: "0px"
+      }))) {
         return a.css({
           left: 0
         });
@@ -2278,7 +2291,10 @@ This is capable to render followings:
     };
     f1 = function(a, b) {
       var spacing;
-      if (b.css("left") === "auto") {
+      if (b.css("left") === (_({
+        webkit: "auto",
+        gecko: "0px"
+      }))) {
         spacing = new HTMLElementLayout.HorizontalSpacing(a, b);
         return spacing.apply();
       }
