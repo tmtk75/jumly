@@ -227,6 +227,22 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       #div.append @builder.build "@found 'foundee'"
       #@layout.layout diag = @builder.diagram()
 
+    describe "object", ->
+      describe "left", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth"
+            @left = sth.css "left"
+            """
+          div.append @diagram
+
+        it "is empty for the left from builder context", ->
+          expect(@builder.left).toBe ""
+
+        it "is auto for the left after appended to body", ->
+          expect(@diagram.find(".object:eq(0)").css "left").toBe "auto"
+
+
   describe "message", ->
 
     describe "self-message", ->
