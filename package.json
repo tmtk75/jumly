@@ -15,7 +15,7 @@
     "nib": ">=0.8.2",
     "connect-assets": ">=2.3.3",
     "jumly-jade": ">=0.0.2",
-    "jade-filters": ">=0.0.1"
+    "jade-filters": ">=0.0.2"
   },
   "devDependencies": {
     "underscore": ">=1.4.2",
