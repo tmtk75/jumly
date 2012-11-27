@@ -1,4 +1,5 @@
 #!/usr/bin/env coffee
+_ = require "underscore"
 express = require "express"
 jade = require "jade"
 assets = require "connect-assets"
@@ -29,8 +30,11 @@ params =
   VERSION_PATH: version[0]
   IMAGES_DIR  : "images"
 
-app.get "/", (req,res)->
-  res.render "index", params
+index = (req, res)->
+  res.render "index", (_.extend {}, params, lang:req.params[0] || "en")
+
+app.get "/", index
+app.get /\/index.([a-z]{2})$/, index
 
 port = process.env.PORT || 3000
 app.listen port
