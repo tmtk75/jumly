@@ -227,6 +227,58 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       #div.append @builder.build "@found 'foundee'"
       #@layout.layout diag = @builder.diagram()
 
+    describe "object", ->
+      describe "initial left", ->
+        it "is auto for plain div", ->
+          a = $("<div>")
+          div.append a
+          expect(a.css "left").toBe "auto"
+          
+        it "is auto for div.object", ->
+          a = $("<div>").addClass "object"
+          div.append a
+          expect(a.css "left").toBe "auto"
+          
+        it "is auto for SequenceObject", ->
+          a = new SequenceObject
+          div.append a
+          expect(a.css "left").toBe "auto"
+        
+        it "is auto for relative div in relative div", ->
+          a = $("<div>").css position:"relative"
+          diag = $("<div>").css position:"relative"
+          diag.append a
+          div.append diag
+          expect(a.css "left").toBe "auto"
+
+        it "is auto for SequenceObject in SequenceDiagram", ->
+          a = new SequenceObject
+          diag = new SequenceDiagram
+          diag.append a
+          div.append diag
+          expect(a.css "left").toBe "auto"
+
+        it "is auto for .object created by builder", ->
+          b = new SequenceDiagramBuilder
+          b.found "sth"
+          div.append b.diagram()
+          expect(b.diagram(".object:eq(0)").css "left").toBe "auto"
+
+      describe "left", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "sth"
+            @left = sth.css "left"
+            """
+          div.append @diagram
+
+        it "is empty for the left from builder context", ->
+          expect(@builder.left).toBe ""
+
+        it "is auto for the left after appended to body", ->
+          expect(@diagram.find(".object:eq(0)").css "left").toBe "auto"
+
+
   describe "message", ->
 
     describe "self-message", ->
