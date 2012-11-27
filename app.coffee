@@ -30,11 +30,11 @@ params =
   VERSION_PATH: version[0]
   IMAGES_DIR  : "images"
 
-index = (req, res)->
-  res.render "index", (_.extend {}, params, lang:req.params[0] || "en")
+app.get "/", (req, res)->
+  res.render "index", params
 
-app.get "/", index
-app.get /\/index.([a-z]{2})$/, index
+app.get "/index.ja", (req, res)->
+  res.render "index_ja", params
 
 port = process.env.PORT || 3000
 app.listen port

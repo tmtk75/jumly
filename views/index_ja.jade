@@ -1,0 +1,305 @@
+extends layout
+block content
+  !=css('jumly')
+  !=js('jumly')
+  .container
+    .row
+      .span2
+      .span8
+        h1.logo
+          .brand JUMLY
+        
+        #intro
+          p
+           | JUMLYはUML図を描くためのJavaScriptライブラリです。
+           | HTMLドキュメントに洗練されたUML図を簡単に埋め込むことができます。
+           | 表示に必要なものはいわゆるモダンブラウザだけです。
+
+        #popular-links 
+          a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.0-beta.tar.gz') ダウンロード v#{VERSION}
+          .buttons
+            a.button.github(href='https://github.com/tmtk75/jumly') github
+            a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
+
+        #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
+          :jumly(type=sequence)
+            @found "You", ->
+              @message "Think", ->
+                @message "Write your idea", "JUMLY", ->
+                  @create "Diagram"
+          
+          :code(type=javascript)
+            @found "You", ->
+              @message "Think", ->
+                @message "Write your idea", "JUMLY", ->
+                  @create "Diagram"
+
+          .buttons
+            label(for="example1-styles-a")
+              a.button("data-bind"="css:{selected:example1.normal}") normal
+            label(for="example1-styles-b")
+              a.button("data-bind"="css:{selected:example1.simple}") simple
+            label(for="example1-styles-c")
+              a.button("data-bind"="css:{selected:example1.funcy}") funcy
+            input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
+            input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
+            input#example1-styles-c(type="radio",name="example1_styles",value="funcy","data-bind"="checked:example1.styles",style="display:none")
+
+        #getting-started
+          h2 Getting Started
+          p
+            | すでにあるドキュメントへシーケンス図を埋め込む場合について説明します。<br/>
+            | 次の4行を&lt;head>要素内に追加してください。
+
+          :code(type=xml)
+            &lt;link href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.css' rel='stylesheet'/>
+            &lt;script src='http://code.jquery.com/jquery-1.8.2.min.js'>&lt;/script>
+            &lt;script src='http://coffeescript.org/extras/coffee-script.js'>&lt;/script>
+            &lt;script src='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.js'>&lt;/script>
+
+          p
+            | そして以下の&lt;script>要素を図を挿入したい位置に追加してください。
+
+          :code(type=xml)
+            &lt;script type='text/jumly+sequence'>
+            @found "You", ->
+              @message "get", "JUMLY"
+            &lt;/script>
+
+          p
+            | これだけです。
+            | どうですか？簡単ですよね？
+
+          :jumly(type=sequence)
+            @found "You", ->
+              @message "get", "JUMLY"
+
+          p
+            | ブラウザをrealoadすれば、上のような図が表示されるはずです。
+            | 上図を表示するために必要なコードは8行でした。
+            | もちろんさらに図を任意の位置に追加することもできます。
+
+          p
+            | とても単純なそのまま動作する<a href="examples/simple.html">HTMLファイル</a>を用意しました。
+            | ソースコードを表示したり、変更してみてください。
+
+        #bg-why.row
+          .span4
+            h2 These things before?
+            dl
+              dt To do a lot
+              dd Getting many small diagrams which have a few icons and relationships. 
+               | Then you launched an UML modeling tool, and create a new project, and make a model, ...
+              dt Unsightly looks 
+              dd There was something you don't like at diagram which application generated.
+               | For instance, color, size, line width, font, space b/w objects and so on.
+              dt Not reusable
+              dd Wanted to copy a string, like a class name and something phrase, from UML note icon.
+               | If it's an image, you never do that.
+              input#read_more-there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
+              label(for="read_more-there_things")
+                a("data-bind"="text:read_more.there_things.text")
+              .more("data-bind"="visible:read_more.there_things._visible")
+                dt What changed?
+                dd Can't see difference b/w old diagram and updated one.
+                dt Not viewable
+                dd Can't open a file created by modeling application on other computer you don't usually use.
+              
+          .span4
+            h2 Why you like JUMLY
+            dl
+              dt Easy to use
+              dd To use JUMLY, you need only a web browser and a text editor you get used to.
+              dt Fast for everything
+              dd The time you get a diagram since you want it, the time JUMLY render diagram, the time you know JUMLY
+               | and or so are shorter.
+              dt Everything is text
+              dd Input data is text, and output format is text/html.<br/>
+               | It's great advantage to proprietary binnary data format,
+               | because we can use SCM like Subversion/Mercurial/Git to manage and version the data.
+              input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
+              label(for="read_more-why_you_like")
+                a More...
+              .more("data-bind"="visible:read_more.why_you_like._visible")
+                dt High quality
+                dd You can get keen designed diagrams, especially on MacOSX
+                dt Based on DOM and jQuery
+                dd Diagrams JUMLY renders are composed with DOM/jQuery node, so you've already understand the way to handle them.
+                dt Powered by HTML5/CSS3
+                dd In addition the above, you will get HTML5/CSS3 bless.
+                 | For example, you can edit the styles of icons applying CSS.
+                dt CoffeeScript-base DSL
+                dd DSL of JUMLY is completely CoffeeScript.
+                dt Light and small
+                dd Now the size of script is 56KB, and the size of stylesheet is 16KB.
+                 | They are relatively lighter than the UML modeling tools =)
+
+  #examples
+    .container
+      .row
+        .span2
+        .span8
+          h2 Examples
+          
+          .example
+            :jumly
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
+            :code
+              @found "User", ->
+                @message "search", "Browser", ->
+                  @create asynchronous:"connection", "Web Server"
+                  @message "GET", "Web Server", ->
+                    @message "find the resource", -> @reply ""
+                  @reply "", "User"
+
+          .example
+            :jumly
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
+             :code
+              @found "You", ->
+                @alt {
+                  "[found]": ->
+                    @loop ->
+                      @message "request", "HTTP Server"
+                  "[missing]": ->
+                    @message "new", "HTTP Session"
+                }
+                @ref "respond resource"
+
+          .example
+            :jumly
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "select service", ->
+                    @ref "do biz logic"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
+            :code
+              @found "Browser", ->
+                @message "http request", "HTTP Server", ->
+                  @create "HTTP Session", ->
+                    @message "init"
+                    @message "aquire lock", "Database"
+                  @message "do something"
+                  @message "release lock", "Database"
+                  @reply "", "Browser"
+
+          .example
+            :jumly
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
+              @find(".ref").css(width:256, "padding-bottom":4)
+                .find(".tag").css float:"left"
+              get_the_moved_page.css "background-color":"#80c080"
+              show_not_found.css "background-color":"#f0b0b0" 
+            :code
+              @found "Browser", ->
+                @alt {
+                  "[200]": -> @message "GET href resources", "HTTP Server"
+                  "[301]": -> @ref "GET the moved page"
+                  "[404]": -> @ref "show NOT FOUND"
+                }
+              @find(".ref").css(width:256, "padding-bottom":4)
+                .find(".tag").css float:"left"
+              get_the_moved_page.css "background-color":"#80c080"
+              show_not_found.css "background-color":"#f0b0b0" 
+
+  #document-support-information
+    .container
+      .row
+        .span2
+        .span8
+          h2 Document
+
+          ul
+            p APIドキュメントやマニュアル等は随時アップデート予定です。
+
+  #meta-information
+    .container
+      .row
+        .span2
+        .span8
+          .row
+            .span4
+              #requirement
+                h2 Requirement
+                p
+                  | JUMLYは<a href='http://jquery.com/'>jQuery</a> 1.7.3
+                  | と<a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3でテストされています。
+                  | これらか、もしくはより新しいバージョンを推奨します。
+                p
+                  | WebKitベースのブラウザ（Google Chrome, Safari)、
+                  | Geckoベースのブラウザ（Firefox）、
+                  | もしくはOperaを動作環境として推奨します。
+                  | 作者がもっていないのでInternet Explorerでは全くテストされていません。
+                  | 誰か動かして動作報告してもらえると助かります。
+
+            .span4
+              #license
+                h2 License
+                p
+                  | JUMLY v0.1.0は<a href="http://opensource.org/licenses/MIT">MIT license</a>です。<br>
+                  | もしかすると新しいバージョンは他のライセンスになるかもしれません。
+                  | ただしその場合でも、MIT Licenseで配布済みのバージョンはMIT Linceseで利用可能です。
+          
+          footer
+            .copyright
+              | copyright 2010-#{2012}, all rights reserved ©Tomotaka Sakuma
+
+          #sns-links
+            .inner
+              a(href="https://twitter.com/tmtk75")
+                img.icon(src="#{IMAGES_DIR}/twitter_alt.png")
+              a(href="https://www.facebook.com/tomotaka.sakuma")
+                img.icon(src="#{IMAGES_DIR}/facebook.png")
+              a(href="https://github.com/tmtk75")
+                img.icon(src="#{IMAGES_DIR}/github_alt.png")
+              a(href="https://plus.google.com/u/0/112810316775699020282/")
+                img.icon(src="#{IMAGES_DIR}/google.png")
+              a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro")
+                img.icon(src="#{IMAGES_DIR}/linkedin.png")
+              a(href="https://zerply.com/tmtk")
+                img.icon(src="#{IMAGES_DIR}/zerply.png")
+
+  script(src="bootstrap/docs/assets/js/bootstrap-tooltip.js")
+  :coffeescript
+    $ ->
+      $("a.button.apidocs").tooltip()
+
+  :coffeescript
+    model =
+      read_more:
+        why_you_like: _visible: ko.observable false
+        there_things: _visible: ko.observable false
+      example1:
+        styles: ko.observable "normal"
+    
+    f = (g)-> ko.dependentObservable -> if g() then "Hide" else "More..."
+    model.read_more.why_you_like.text = f model.read_more.why_you_like._visible
+    model.read_more.there_things.text = f model.read_more.there_things._visible
+    model.example1.normal = ko.dependentObservable -> model.example1.styles() is 'normal'
+    model.example1.simple = ko.dependentObservable -> model.example1.styles() is 'simple'
+    model.example1.funcy = ko.dependentObservable -> model.example1.styles() is 'funcy'
+
+    ko.applyBindings model, document.body
+
