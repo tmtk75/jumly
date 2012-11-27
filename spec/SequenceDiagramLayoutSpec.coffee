@@ -244,6 +244,13 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append a
           expect(a.css "left").toBe "auto"
         
+        it "is auto for relative div in relative div", ->
+          a = $("<div>").css position:"relative"
+          diag = $("<div>").css position:"relative"
+          diag.append a
+          div.append diag
+          expect(a.css "left").toBe "auto"
+
         it "is auto for SequenceObject in SequenceDiagram", ->
           a = new SequenceObject
           diag = new SequenceDiagram
