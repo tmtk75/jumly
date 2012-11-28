@@ -552,6 +552,21 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   describe "reply", ->
 
+    describe "name", ->
+      beforeEach ->
+        @diagram = d = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @reply "hello"
+          """
+        div.append d
+        @layout.layout d
+
+      it "is below of .arrow", ->
+        a = @diagram.find(".arrow")
+        b = @diagram.find(".return .name")
+        expect(a.offset().top).toBeLessThan b.offset().top
+
     describe "returning back to the caller", ->
 
       beforeEach ->
