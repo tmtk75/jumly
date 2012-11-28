@@ -1,0 +1,51 @@
+extends layout
+block content
+  !=css('jumly')
+  !=js('jumly')
+  #reference-header
+    .container-fluid
+      .row
+        .span4.menubar
+          h1.logo
+            a(href="/") JUMLY
+  #reference-body
+    .container-fluid
+      .row
+        .span4.menubar
+          ul
+            li Directives
+              ul
+                li @found
+                li @message
+                li @create
+                li @reply
+                li @alt
+                li @loop
+                li @ref
+        .span8.content
+          h2 Directives
+          h3 found
+          h3 message
+          h3 @create
+          h3 @reply
+          h3 @alt
+          h3 @loop
+          h3 @ref
+
+  :coffeescript
+    model =
+      read_more:
+        why_you_like: _visible: ko.observable false
+        there_things: _visible: ko.observable false
+      example1:
+        styles: ko.observable "normal"
+    
+    f = (g)-> ko.dependentObservable -> if g() then "Hide" else "More..."
+    model.read_more.why_you_like.text = f model.read_more.why_you_like._visible
+    model.read_more.there_things.text = f model.read_more.there_things._visible
+    model.example1.normal = ko.dependentObservable -> model.example1.styles() is 'normal'
+    model.example1.simple = ko.dependentObservable -> model.example1.styles() is 'simple'
+    model.example1.funcy = ko.dependentObservable -> model.example1.styles() is 'funcy'
+
+    ko.applyBindings model, document.body
+
