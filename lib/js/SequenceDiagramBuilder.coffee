@@ -216,19 +216,12 @@ SequenceDiagramBuilder::css = (styles) ->
 SequenceDiagramBuilder::find = (selector) ->
   @_diagram.find selector
 
-SequenceDiagramBuilder::_note = (a, b, c) ->
-  nodes = @_curr_occurr.find("> .interaction:eq(0)")
-  if nodes.length is 0
-    nodes = @_curr_occurr.parents ".interaction:eq(0):not(.activated)"
 
-  ##TENTATIVE: because DSL notation is not decided.
-  text = a
-  opts = b
-  note = jumly ".note", text
-  if opts
-    note.attach nodes, opts
-  else
-    nodes.append note
+NoteElement = require "NoteElement"
+
+SequenceDiagramBuilder::note = (text, opts) ->
+  note = new NoteElement text, opts
+  @_curr_occurr().append note
 
 SequenceDiagramBuilder::compose = (opts) ->
   if typeof opts is "function"

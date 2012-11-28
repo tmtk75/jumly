@@ -727,8 +727,36 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           a = @diagram.find ".lifeline:eq(0)"
           b = @diagram.find ".lifeline:eq(1)"
           expect(_bottom a).toBe _bottom b
-          
 
+  describe "note", ->
+    describe "prev message", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth", ->
+            @note "Here is a note"
+            @message "a", "b"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "has .note", ->
+        expect(@diagram.find(".note").outerWidth()).toBeGreaterThan 0
+      
+      it "has a text", ->
+        expect(@diagram.find(".note").text()).toBe "Here is a note"
+  
+    describe "next message", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth", ->
+            @message "a", "b"
+            @note "Here is a note next message"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "has a text", ->
+  
   describe "showcase", ->
   
     it "has full functions", ->

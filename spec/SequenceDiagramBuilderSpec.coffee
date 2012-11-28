@@ -326,6 +326,19 @@ describe "SequenceDiagramBuilder", ->
 
     describe "lost", ->
     
+    describe "note", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth", ->
+            @note "Here is a note", css:margin:4
+          """
+
+      it "has .note", ->
+        expect(@diagram.find(".note").length).toBe 1
+      
+      it "has margin:4", ->
+        expect(@diagram.find(".note").css "margin").toBe "4px"
+    
   describe "build", ->
 
     it "should return node has class .diagram", ->

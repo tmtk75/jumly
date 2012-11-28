@@ -20,4 +20,7 @@ describe "HTMLElement", ->
 
     it "has Diagram get a hyphenated suffixthe", ->
       expect(f "SequenceDiagram").toBe "sequence-diagram"
+    
+    it "returns .note for NoteElement", ->
+      expect(f "NoteElement").toBe "note"
       

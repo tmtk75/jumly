@@ -9,6 +9,8 @@ class HTMLElement
   @to_css_name: (s)->
     (if s.match /Diagram$/
       s.replace(/Diagram$/, "-Diagram")
+    else if s.match /NoteElement/
+      s.replace(/Element$/, "")
     else
       s.replace(/^[A-Z][a-z]+/, ""))
     .toLowerCase()
