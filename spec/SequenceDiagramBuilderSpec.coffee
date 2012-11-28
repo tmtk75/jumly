@@ -155,6 +155,17 @@ describe "SequenceDiagramBuilder", ->
 
     describe "reply", ->
     
+      describe "name", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "a", ->
+              @message "1", "b", ->
+                @reply "hello"
+            """
+
+        it "has .name 'hello'", ->
+          expect(@diagram.find(".return .name").text()).toBe "hello"
+
       describe "returning back to the caller", ->
    
         beforeEach ->
