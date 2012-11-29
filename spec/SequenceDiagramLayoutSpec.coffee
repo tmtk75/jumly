@@ -763,14 +763,19 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
     describe "next message", ->
       beforeEach ->
         @diagram = @builder.build """
-          @found "sth", ->
-            @message "a", "b"
-            @note "Here is a note next message"
+          @found "A", ->
+            @message "b", "B", ->
+            @message "d", "C", ->
+              @message "e", "B", ->
+                @note "I'm a note"
           """
         div.append @diagram
         @layout.layout @diagram
 
-      it "has a text", ->
+      it "is below of the message", ->
+        msg = @diagram.find ".message:eq(2)"
+        note = @diagram.find ".note"
+        expect(_bottom msg).toBeLessThan _top note
   
   describe "showcase", ->
   
