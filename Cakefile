@@ -11,10 +11,13 @@ brownie.configure
   basename: "build/jumly"
 
 task "build", "", ->
-  invoke e for e in ["clean", "compile", "css:compile"]
+  invoke e for e in ["compile", "css:compile"]
 
 task "compile", "compile *.coffee", ->
   brownie.compile order:order()
+
+task "release::build", "", ->
+  invoke e for e in ["clean", "compile", "css:compile"]
 
 task "release", "", ->
   js     = "build/jumly.js"

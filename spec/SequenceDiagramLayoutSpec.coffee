@@ -552,6 +552,21 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
   describe "reply", ->
 
+    describe "name", ->
+      beforeEach ->
+        @diagram = d = @builder.build """
+          @found "a", ->
+            @message "1", "b", ->
+              @reply "hello"
+          """
+        div.append d
+        @layout.layout d
+
+      it "is below of .arrow", ->
+        a = @diagram.find(".arrow")
+        b = @diagram.find(".return .name")
+        expect(a.offset().top).toBeLessThan b.offset().top
+
     describe "returning back to the caller", ->
 
       beforeEach ->
@@ -727,8 +742,51 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           a = @diagram.find ".lifeline:eq(0)"
           b = @diagram.find ".lifeline:eq(1)"
           expect(_bottom a).toBe _bottom b
-          
 
+  describe "note", ->
+    describe "prev message", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth", ->
+            @note "Here is a note"
+            @message "a", "b"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "has .note", ->
+        expect(@diagram.find(".note").outerWidth()).toBeGreaterThan 0
+      
+      it "has a text", ->
+        expect(@diagram.find(".note").text()).toBe "Here is a note"
+  
+    describe "next message", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "A", ->
+            @note "a note"
+            @message "b", "B", ->
+            @message "d", "C", ->
+              @message "e", "B", ->
+                @note "I'm a note"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      describe "the first one", ->
+        it "has 9px top margin", ->
+          note = @diagram.find ".note:eq(0)"
+          expect(note.css "margin-top").toBe "-9px"
+
+      it "is below of the message", ->
+        msg = @diagram.find ".message:eq(2)"
+        note = @diagram.find ".note:eq(1)"
+        y = @diagram.offset().top
+        a = msg.offset().top + msg.outerHeight() - 1 - y
+        b = note.offset().top - y
+        expect(a - b).toBe 0
+        expect(a).toBe b
+  
   describe "showcase", ->
   
     it "has full functions", ->

@@ -48,9 +48,11 @@ primary-border()
   z-index -10
   border-left dashed 1px gray
 
+occur_width = 12px
+
 .sequence-diagram .occurrence
   position: relative
-  width: 12px
+  width occur_width
   padding: 1em 0 1em 0
   margin-top: 4px
   primary-border()
@@ -78,6 +80,9 @@ primary-border()
   border-color: #999
   background-color: #aaa
 
+.sequence-diagram .interaction.activated
+  margin-top 0px
+
 .sequence-diagram .interaction.lost .occurrence.icon::before
   content: ''
 
@@ -87,8 +92,10 @@ primary-border()
 .sequence-diagram .message
   height: 20px
 
+msg_shift_top = -10px
+
 .sequence-diagram .message .name
-  margin-top: -10px
+  margin-top msg_shift_top
   text-align: center
 
 .sequence-diagram .message.lost .icon
@@ -101,10 +108,14 @@ primary-border()
 .sequence-diagram .message.return
   margin-top: -10px
 
+.sequence-diagram .interaction.reply .occurrence
+  padding-bottom 1.44em*1.44
+
 .sequence-diagram .fragment>.reply
   margin-bottom: .5em
 
 .sequence-diagram .message.return .name::before
+  display block
   content: '«return»'
 
 .sequence-diagram .message.destroy .name::before
@@ -175,3 +186,15 @@ primary-border()
 .sequence-diagram .object
   -text-shadow: 4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,.15)
 
+.sequence-diagram
+  .note
+    margin-top 1px + msg_shift_top
+    margin-bottom msg_shift_top*-1
+    margin-left occur_width + border_width*2
+    min-width 128px
+    .name
+      primary-border()
+      background-color #fff
+      padding 4px
+  .interaction:not(.activated) .occurrence .note:nth-child(1)
+    margin-top 1px + border_width

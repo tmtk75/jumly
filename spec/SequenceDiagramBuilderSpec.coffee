@@ -155,6 +155,17 @@ describe "SequenceDiagramBuilder", ->
 
     describe "reply", ->
     
+      describe "name", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "a", ->
+              @message "1", "b", ->
+                @reply "hello"
+            """
+
+        it "has .name 'hello'", ->
+          expect(@diagram.find(".return .name").text()).toBe "hello"
+
       describe "returning back to the caller", ->
    
         beforeEach ->
@@ -325,6 +336,19 @@ describe "SequenceDiagramBuilder", ->
     describe "reactivate", ->
 
     describe "lost", ->
+    
+    describe "note", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "sth", ->
+            @note "Here is a note", css:margin:4
+          """
+
+      it "has .note", ->
+        expect(@diagram.find(".note").length).toBe 1
+      
+      it "has margin:4", ->
+        expect(@diagram.find(".note").css "margin").toBe "4px"
     
   describe "build", ->
 
