@@ -123,19 +123,18 @@ block content
               input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
               label(for="read_more-why_you_like")
                 a More...
-              .more("data-bind"="avisible:read_more.why_you_like._visible")
-                dt High quality
-                dd You can get keen designed diagrams, especially on MacOSX
-                dt Based on DOM and jQuery
-                dd Diagrams JUMLY renders are composed with DOM/jQuery node, so you've already understand the way to handle them.
-                dt Powered by HTML5/CSS3
-                dd In addition the above, you will get HTML5/CSS3 bless.
-                 | For example, you can edit the styles of icons applying CSS.
+              .more("data-bind"="visible:read_more.why_you_like._visible")
+                dt 高品質
+                dd ピクセル単位で調整された見た目に優れた図を出力します。
+                dt Based on DOM, jQuery and HTML5/CSS3
+                dd JUMLYが描く図はWeb標準技術と言えるDOM, jQuery, HTML5/CSS3によって描かれています。
+                 | したがって、それらを操作する方法はすでにあなたは知っているはずです。
+                 | フォントの色やサイズ、移動やアニメーションなどを行うことができるでしょう。
                 dt CoffeeScript-base DSL
-                dd DSL of JUMLY is completely CoffeeScript.
-                dt Light and small
-                dd Now the size of script is 56KB, and the size of stylesheet is 16KB.
-                 | They are relatively lighter than the UML modeling tools =)
+                dd JUMLYのDSLは完全にCoffeeScriptです。必要であればif, forなどの制御文を使うことができます。
+                dt 小さく軽い
+                dd 現時点でファイルサイズはJavaScript、スタイルシートそれぞれ56KB、16KBです。
+                 | これらは他のUMLモデリングツールと比較してとても軽いと言えるでしょう =)
 
   #examples
     .container
@@ -167,6 +166,7 @@ block content
                   "[found]": ->
                     @loop ->
                       @message "request", "HTTP Server"
+                      @note "NOTE: GET or POST?"
                   "[missing]": ->
                     @message "new", "HTTP Session"
                 }
@@ -177,6 +177,7 @@ block content
                   "[found]": ->
                     @loop ->
                       @message "request", "HTTP Server"
+                      @note "NOTE: GET or POST?"
                   "[missing]": ->
                     @message "new", "HTTP Session"
                 }
@@ -240,13 +241,13 @@ block content
             .span4
               h2 History
               ul.history
-                li 0.1.1, Nov 29, 2012
+                li 0.1.1, 2012/11/29
                   ul
-                    li support @note directive
-                    li adjust margins and spaces in stylesheet
-                li 0.1.0, Nov 23, 2012
+                    li @noteをサポート 
+                    li マージンやスペースを調整
+                li 0.1.0, 2012/11/23
                   ul
-                    li support sequence diagram
+                    li シーケンス図をサポート
 
   #meta-information
     .container
@@ -272,7 +273,7 @@ block content
               #license
                 h2 License
                 p
-                  | JUMLY v0.1.0は<a href="http://opensource.org/licenses/MIT">MIT license</a>です。<br>
+                  | JUMLY v#{VERSION}は<a href="http://opensource.org/licenses/MIT">MIT license</a>です。<br>
                   | もしかすると新しいバージョンは他のライセンスになるかもしれません。
                   | ただしその場合でも、MIT Licenseで配布済みのバージョンはMIT Linceseで利用可能です。
           
