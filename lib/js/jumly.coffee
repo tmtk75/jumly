@@ -5,6 +5,7 @@
 #= require Diagram
 #= require DiagramBuilder
 #= require DiagramLayout
+#= require NoteElement
 #= require SequenceLifeline
 #= require SequenceMessage
 #= require SequenceInteraction

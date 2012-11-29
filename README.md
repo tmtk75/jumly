@@ -35,8 +35,11 @@ JUMLY v0.1.0 is under [MIT License](http://opensource.org/licenses/MIT).
 JUMLY v0.1.0, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
-## Changelog
-- 0.1.0 Initial release Nov 23, 2012
+## History
+- 0.1.1 Nov 29, 2012
+  - support @note directive
+  - adjust margins and spaces in stylesheet
+- 0.1.0 Nov 23, 2012 -- initial release
   - support sequence diagram
 
 # Special Thanks

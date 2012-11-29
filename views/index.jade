@@ -122,13 +122,13 @@ block content
               .more("data-bind"="visible:read_more.why_you_like._visible")
                 dt High quality
                 dd You can get keen designed diagrams, especially on MacOSX
-                dt Based on DOM and jQuery
-                dd Diagrams JUMLY renders are composed with DOM/jQuery node, so you've already understand the way to handle them.
-                dt Powered by HTML5/CSS3
-                dd In addition the above, you will get HTML5/CSS3 bless.
-                 | For example, you can edit the styles of icons applying CSS.
+                dt Based on DOM, jQuery and HTML5/CSS3
+                dd Diagrams JUMLY renders are composed with DOM, jQuery and HTML5/CSS3,
+                 | so you've already understood the way to handle them.
+                 | For example, you can edit font-size and color of icons or animate them applying CSS3.
                 dt CoffeeScript-base DSL
                 dd DSL of JUMLY is completely CoffeeScript.
+                 | If you need, you can use "if", "for" or so its statements.
                 dt Light and small
                 dd Now the size of script is 56KB, and the size of stylesheet is 16KB.
                  | They are relatively lighter than the UML modeling tools =)
@@ -163,6 +163,7 @@ block content
                   "[found]": ->
                     @loop ->
                       @message "request", "HTTP Server"
+                      @note "NOTE: This diagrma doesn't make sense :) just an example"
                   "[missing]": ->
                     @message "new", "HTTP Session"
                 }
@@ -173,6 +174,7 @@ block content
                   "[found]": ->
                     @loop ->
                       @message "request", "HTTP Server"
+                      @note "NOTE: This doesn't make sense :)"
                   "[missing]": ->
                     @message "new", "HTTP Session"
                 }
@@ -228,10 +230,21 @@ block content
       .row
         .span2
         .span8
-          h2 Document
-
-          ul
-            p API, reference or so are coming soon.
+          .row
+            .span4
+              h2 Document
+              ul
+                p API, reference or so are coming soon.
+            .span4
+              h2 History
+              ul.history
+                li 0.1.1, Nov 29, 2012
+                  ul
+                    li support @note directive
+                    li adjust margins and spaces in stylesheet
+                li 0.1.0, Nov 23, 2012
+                  ul
+                    li support sequence diagram
 
   #meta-information
     .container
@@ -243,8 +256,8 @@ block content
               #requirement
                 h2 Requirement
                 p
-                  | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> 1.7.3
-                  | and <a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3,
+                  | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> 1.8.1
+                  | and <a href='http://coffeescript.org/'>CoffeeScript</a> 1.4.0,
                   | and they or later are recommended on you.
                 p
                   | WebKit-base browser like Google Chrome and Safari,
@@ -256,7 +269,7 @@ block content
               #license
                 h2 License
                 p
-                  | JUMLY v0.1.0 is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
+                  | JUMLY v#{VERSION} is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
                   | Perhapse, license for newer versions may be changed to another one in the future.
                   | In that case, you can still use old version's JUMLY with MIT license.
           
