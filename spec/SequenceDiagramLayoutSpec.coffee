@@ -764,6 +764,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       beforeEach ->
         @diagram = @builder.build """
           @found "A", ->
+            @note "a note"
             @message "b", "B", ->
             @message "d", "C", ->
               @message "e", "B", ->
@@ -772,10 +773,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         div.append @diagram
         @layout.layout @diagram
 
+      describe "the first one", ->
+        it "has 9px top margin", ->
+          note = @diagram.find ".note:eq(0)"
+          expect(note.css "margin-top").toBe "9px"
+
       it "is below of the message", ->
         msg = @diagram.find ".message:eq(2)"
-        note = @diagram.find ".note"
-        expect(_bottom msg).toBeLessThan _top note
+        note = @diagram.find ".note:eq(1)"
+        expect(_bottom msg).toBe _top note
   
   describe "showcase", ->
   
