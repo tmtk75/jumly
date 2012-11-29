@@ -781,7 +781,11 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is below of the message", ->
         msg = @diagram.find ".message:eq(2)"
         note = @diagram.find ".note:eq(1)"
-        expect(_bottom msg).toBe _top note
+        y = @diagram.offset().top
+        a = msg.offset().top + msg.outerHeight() - 1 - y
+        b = note.offset().top - y
+        expect(a - b).toBe 0
+        expect(a).toBe b
   
   describe "showcase", ->
   
