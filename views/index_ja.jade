@@ -232,10 +232,21 @@ block content
       .row
         .span2
         .span8
-          h2 Document
-
-          ul
-            p APIドキュメントやマニュアル等は随時アップデート予定です。
+          .row
+            .span4
+              h2 Document
+              ul
+                p APIドキュメントやマニュアル等は随時アップデート予定です。
+            .span4
+              h2 History
+              ul.history
+                li 0.1.1, Nov 29, 2012
+                  ul
+                    li support @note directive
+                    li adjust margins and spaces in stylesheet
+                li 0.1.0, Nov 23, 2012
+                  ul
+                    li support sequence diagram
 
   #meta-information
     .container
@@ -247,8 +258,8 @@ block content
               #requirement
                 h2 Requirement
                 p
-                  | JUMLYは<a href='http://jquery.com/'>jQuery</a> 1.7.3
-                  | と<a href='http://coffeescript.org/'>CoffeeScript</a> 1.3.3でテストされています。
+                  | JUMLYは<a href='http://jquery.com/'>jQuery</a> 1.8.1
+                  | と<a href='http://coffeescript.org/'>CoffeeScript</a> 1.4.0でテストされています。
                   | これらか、もしくはより新しいバージョンを推奨します。
                 p
                   | WebKitベースのブラウザ（Google Chrome, Safari)、
