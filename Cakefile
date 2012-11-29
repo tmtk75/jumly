@@ -16,7 +16,7 @@ task "build", "", ->
 task "compile", "compile *.coffee", ->
   brownie.compile order:order()
 
-task "release::build", "", ->
+task "release:build", "", ->
   invoke e for e in ["clean", "compile", "css:compile"]
 
 task "release", "", ->
