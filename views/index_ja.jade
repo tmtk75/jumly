@@ -88,42 +88,42 @@ block content
 
         #bg-why.row
           .span4
-            h2 These things before?
+            h2 こんな経験はありませんか？
             dl
-              dt To do a lot
-              dd Getting many small diagrams which have a few icons and relationships. 
-               | Then you launched an UML modeling tool, and create a new project, and make a model, ...
-              dt Unsightly looks 
-              dd There was something you don't like at diagram which application generated.
-               | For instance, color, size, line width, font, space b/w objects and so on.
-              dt Not reusable
-              dd Wanted to copy a string, like a class name and something phrase, from UML note icon.
-               | If it's an image, you never do that.
+              dt やること多すぎ
+              dd 2つか3つのやりとりがあるような簡単なシーケンス図が欲しいとき、画像出力ができるUMLモデリングツールを起動して、
+               | 新規プロジェクトを作成して、モデルを作って、実際に図を書いて、JPEGかPNGあたりで出力して、あとから間違いに気づいて修正が必要で...
+              dt 見た目がいまいち
+              dd 図に使われるテキストのフォントや行間、線の太さや色、矩形の大きさなど、自分の好みでないとなかなか使う気になりません。
+               | また使用するドキュメントの雰囲気に沿わないと、なかなか使いづらいものがあります。
+              dt コピー＆ペーストしたい、が
+              dd 多くのUMLモデリングツールやドローツールは一枚の画像やそれを含んだPDFを生成します。
+               | が、当然それらの画像に含まれるテキストはコピーなどできません。
               input#read_more-there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
               label(for="read_more-there_things")
                 a("data-bind"="text:read_more.there_things.text")
               .more("data-bind"="visible:read_more.there_things._visible")
-                dt What changed?
-                dd Can't see difference b/w old diagram and updated one.
-                dt Not viewable
-                dd Can't open a file created by modeling application on other computer you don't usually use.
+                dt どこが変わった？
+                dd 開発に仕様が変わるのは当たり前のことで、UML図は適切にメンテナンスされるべきです。
+                 | その変更が些細な場合、一枚図ではどこが変わったかを把握するのが難しいことがあります。
+                dt ファイルが開けない
+                dd 当然ですが、専用のモデリングツールで作られたファイルは、そのツールがないと内容を確認することができません。
               
           .span4
-            h2 Why you like JUMLY
+            h2 JUMLYを使うと
             dl
-              dt Easy to use
-              dd To use JUMLY, you need only a web browser and a text editor you get used to.
-              dt Fast for everything
-              dd The time you get a diagram since you want it, the time JUMLY render diagram, the time you know JUMLY
-               | and or so are shorter.
-              dt Everything is text
-              dd Input data is text, and output format is text/html.<br/>
-               | It's great advantage to proprietary binnary data format,
-               | because we can use SCM like Subversion/Mercurial/Git to manage and version the data.
+              dt とても手軽です
+              dd Google ChromeやSafari、Firefoxなどのモダンブラウザと使い慣れているテキストエディタ、JUMLYを使うにはそれだけです。
+              dt 時間がかかりません
+              dd 簡単な図を表示するには、JavaScriptとCSSを読み込むための数行のコード、そして数行のJUMLYのDSLコードだけです。
+              dt 入力も出力もテキスト
+              dd 入力はテキスト（<a href="http://coffeescript.org/">CoffeeScript</a>のDSL）、出力もテキスト（text/html + text/css）です。<br/>
+               | 商用バイナリフォーマットのファイルに比べると、これが利用者にとってとても大きな利点であることは間違いないでしょう。
+               | たとえばdiffで差分を見たり、gitやsubversionなどでの管理がとても容易です。
               input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
               label(for="read_more-why_you_like")
                 a More...
-              .more("data-bind"="visible:read_more.why_you_like._visible")
+              .more("data-bind"="avisible:read_more.why_you_like._visible")
                 dt High quality
                 dd You can get keen designed diagrams, especially on MacOSX
                 dt Based on DOM and jQuery
