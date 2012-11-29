@@ -776,7 +776,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       describe "the first one", ->
         it "has 9px top margin", ->
           note = @diagram.find ".note:eq(0)"
-          expect(note.css "margin-top").toBe "9px"
+          expect(note.css "margin-top").toBe "-9px"
 
       it "is below of the message", ->
         msg = @diagram.find ".message:eq(2)"
