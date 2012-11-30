@@ -801,14 +801,14 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout @diagram
 
       it "has .mostleft for the 1st occurrence", ->
-        expect(@diagram.find("occurrence:eq(0)").hasClass "mostleft").toBeTruthy()
+        expect(@diagram.find(".occurrence:eq(0)").hasClass "mostleft").toBeTruthy()
 
       it "has no .mostleft and .mostright for the 2nd occurrence", ->
-        expect(@diagram.find("occurrence:eq(1)").hasClass "mostleft").toBeFalsy()
-        expect(@diagram.find("occurrence:eq(1)").hasClass "mostright").toBeFalsy()
+        expect(@diagram.find(".occurrence:eq(1)").hasClass "mostleft").toBeFalsy()
+        expect(@diagram.find(".occurrence:eq(1)").hasClass "mostright").toBeFalsy()
 
       it "has .mostright for the 3rd occurrence", ->
-        expect(@diagram.find("occurrence:eq(2)").hasClass "mostright").toBeTruthy()
+        expect(@diagram.find(".occurrence:eq(2)").hasClass "mostright").toBeTruthy()
 
 
   describe "showcase", ->
