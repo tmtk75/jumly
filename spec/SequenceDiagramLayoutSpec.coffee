@@ -786,7 +786,31 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         b = note.offset().top - y
         expect(a - b).toBe 0
         expect(a).toBe b
-  
+
+
+  describe "marker", ->
+
+    describe "occurrence", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "A", ->
+            @message "b", "B"
+            @message "c", "C"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "has .mostleft for the 1st occurrence", ->
+        expect(@diagram.find("occurrence:eq(0)").hasClass "mostleft").toBeTruthy()
+
+      it "has no .mostleft and .mostright for the 2nd occurrence", ->
+        expect(@diagram.find("occurrence:eq(1)").hasClass "mostleft").toBeFalsy()
+        expect(@diagram.find("occurrence:eq(1)").hasClass "mostright").toBeFalsy()
+
+      it "has .mostright for the 3rd occurrence", ->
+        expect(@diagram.find("occurrence:eq(2)").hasClass "mostright").toBeTruthy()
+
+
   describe "showcase", ->
   
     it "has full functions", ->
