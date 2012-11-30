@@ -23,6 +23,11 @@ block content
           .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
+          ul.quicklinks
+            li
+              <a href='https://jumly.herokuapp.com/release/0.1.1/jumly.min.js' class="js">JavaScript</a> 54KB, minified
+            li
+              <a href=href='https://jumly.herokuapp.com/release/0.1.1/jumly.min.css'>stylesheet</a> 11KB, minified
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
