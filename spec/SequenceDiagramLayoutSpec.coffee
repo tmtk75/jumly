@@ -800,15 +800,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         div.append @diagram
         @layout.layout @diagram
 
-      it "has .mostleft for the 1st occurrence", ->
-        expect(@diagram.find(".occurrence:eq(0)").hasClass "mostleft").toBeTruthy()
+      it "has .leftmost for the 1st occurrence", ->
+        expect(@diagram.find(".occurrence:eq(0)").hasClass "leftmost").toBeTruthy()
 
-      it "has no .mostleft and .mostright for the 2nd occurrence", ->
-        expect(@diagram.find(".occurrence:eq(1)").hasClass "mostleft").toBeFalsy()
-        expect(@diagram.find(".occurrence:eq(1)").hasClass "mostright").toBeFalsy()
+      it "has no .leftmost and .righmostt for the 2nd occurrence", ->
+        expect(@diagram.find(".occurrence:eq(1)").hasClass "leftmost").toBeFalsy()
+        expect(@diagram.find(".occurrence:eq(1)").hasClass "rightmost").toBeFalsy()
 
-      it "has .mostright for the 3rd occurrence", ->
-        expect(@diagram.find(".occurrence:eq(2)").hasClass "mostright").toBeTruthy()
+      it "has .rightmost for the 3rd occurrence", ->
+        expect(@diagram.find(".occurrence:eq(2)").hasClass "rightmost").toBeTruthy()
 
 
   describe "showcase", ->

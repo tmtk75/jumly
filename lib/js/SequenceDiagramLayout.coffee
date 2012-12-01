@@ -30,8 +30,8 @@ SequenceDiagramLayout::_layout_ = ->
   occurs = @diagram.find ".occurrence"
   ml = occurs.sort (e)-> $(e).offset().left
   mr = occurs.sort (e)-> $(e).offset().left + $(e).outerWidth() - 1
-  $(ml[0]).addClass "mostleft"
-  $(mr[mr.length - 1]).addClass "mostright"
+  $(ml[0]).addClass "leftmost"
+  $(mr[mr.length - 1]).addClass "rightmost"
 
   objs = @diagram.find(".object")
   l = objs.min (e)-> $(e).offset().left
