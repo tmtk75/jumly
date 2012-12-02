@@ -180,13 +180,7 @@ body
     &:hover
       background-color darken(#8bc84b, 14%)
     color #46483e
-  .quicklinks
-    text-align center
-    list-style none
-    margin 0
-    padding 0
-    li
-      //display inline-block
+
 #bg-why
   margin-top 60px
   dd
@@ -233,11 +227,11 @@ body
   #requirement, #license
     font-size inherit
 
-  #sns-links
+  #quick-links
     position fixed
     left 0
     bottom 0
-    .inner
+    .inner:last-child
       margin-left 10px
       margin-bottom 60px
     img
@@ -251,6 +245,9 @@ body
         -moz-filter contrast(90%)
         -o-filter contrast(90%)
         filter contrast(90%)
+    ul
+      margin-left 10px
+      list-style none
 
 #reference-body
   .container-fluid
