@@ -27,6 +27,12 @@ SequenceDiagramLayout::_layout_ = ->
   @rebuild_asynchronous_self_calling()
   @render_icons()
 
+  occurs = @diagram.find ".occurrence"
+  ml = occurs.sort (e)-> $(e).offset().left
+  mr = occurs.sort (e)-> $(e).offset().left + $(e).outerWidth() - 1
+  $(ml[0]).addClass "leftmost"
+  $(mr[mr.length - 1]).addClass "rightmost"
+
   objs = @diagram.find(".object")
   l = objs.min (e)-> $(e).offset().left
   r = objs.max (e)-> $(e).offset().left + $(e).outerWidth() - 1
