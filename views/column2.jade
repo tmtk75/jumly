@@ -1,0 +1,33 @@
+doctype 5
+html(lang="en")
+  head
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width,initial-scale=1.0")
+    link(rel='stylesheet', href="vendor.css")
+    link(rel='stylesheet', href="column2.css")
+    block styles
+    include scripts
+  body
+    !=css('jumly')
+    !=js('jumly')
+    .header
+      .container
+        .row
+          .span2
+            block left-header
+          .span6
+            block right-header
+
+    .content
+      .container
+        .row
+          .span2
+            block left-content
+          .span6
+            block right-content
+    
+    .footer
+      .container
+        .copyright
+          | copyright 2010
+    

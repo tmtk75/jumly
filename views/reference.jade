@@ -1,51 +1,73 @@
-extends layout
-block content
-  !=css('jumly')
-  !=js('jumly')
-  #reference-header
-    .container-fluid
-      .row
-        .span4.menubar
-          h1.logo
-            a(href="/") JUMLY
-  #reference-body
-    .container-fluid
-      .row
-        .span4.menubar
-          ul
-            li Directives
-              ul
-                li @found
-                li @message
-                li @create
-                li @reply
-                li @alt
-                li @loop
-                li @ref
-        .span8.content
-          h2 Directives
-          h3 found
-          h3 message
-          h3 @create
-          h3 @reply
-          h3 @alt
-          h3 @loop
-          h3 @ref
+extends column2
+
+block styles
+ link(rel='stylesheet', href="reference.css")
+
+block left-header
+  h1.logo
+    a(href="/") JUMLY
+
+block right-header
+
+block left-content
+  .menu
+    ul
+      li Directives
+        ul
+          li
+            a(href="#_found") @found
+          li
+            a(href="#_message") @message
+          li
+            a(href="#_create") @create
+          li
+            a(href="#_reply") @reply
+          li
+            a(href="#_alt") @alt
+          li
+            a(href="#_loop") @loop
+          li
+            a(href="#_ref") @ref
+          li
+            a(href="#_note") @note
+
+block right-content
+  h2#directives Directives
+
+  
+  #_found
+    h3 @found
+    p  is the top level element to start interactions.
+     | It puts an <strong class="focusable" data-key='object' data-bind="event:{mouseover:focused,mouseout:unfocused}">new object</strong> with timeline and occurrence,
+     | which are dashed line and gray-border rectangle.
+    :jumly
+      @found "He"
+      he.attr "data-bind":"css:{foundobject:object()},event:{mouseover:focused,mouseout:unfocused}", "data-key":"object"
+    :code(type=javascript)
+      @found "He"
+    
+  h3#_message @message
+  h3#_create @create
+  h3#_reply @reply
+  h3#_alt @alt
+  h3#_loop @loop
+  h3#_ref @ref
+  h3#_note @note
 
   :coffeescript
-    model =
-      read_more:
-        why_you_like: _visible: ko.observable false
-        there_things: _visible: ko.observable false
-      example1:
-        styles: ko.observable "normal"
-    
-    f = (g)-> ko.dependentObservable -> if g() then "Hide" else "More..."
-    model.read_more.why_you_like.text = f model.read_more.why_you_like._visible
-    model.read_more.there_things.text = f model.read_more.there_things._visible
-    model.example1.normal = ko.dependentObservable -> model.example1.styles() is 'normal'
-    model.example1.simple = ko.dependentObservable -> model.example1.styles() is 'simple'
-    model.example1.funcy = ko.dependentObservable -> model.example1.styles() is 'funcy'
-
-    ko.applyBindings model, document.body
-
+    $ ->
+      console.log "$ ->"
+      $("body").on "ran.jumly", ->
+        console.log "jumly.event", arguments
+      f = ->
+        foundmodel =
+          aaa: ->console.log arguments
+          focused: (vm, e)-> vm[$(e.target).data "key"] true
+          unfocused: (vm, e)-> vm[$(e.target).data "key"] false
+          object: ko.observable false
+          timeline: ko.observable false
+          occurrence: ko.observable false
+        ko.applyBindings foundmodel, _found
+        console.log "f = ->"
+      #setTimeout f, 1000
+      f()
