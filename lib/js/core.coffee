@@ -131,7 +131,6 @@ _runScripts = ->
   for script in diagrams
     _evalHTMLScriptElement script
   _runScripts.done = true
-  console.log "_runScripts"
   $("body").trigger $.Event("ran.jumly")
   null
 
