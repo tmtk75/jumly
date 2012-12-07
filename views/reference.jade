@@ -36,10 +36,11 @@ block right-content
 
   
   #_found
+    - bind = "css:{hilighted:object()},event:{mouseover:focused,mouseout:unfocused}"
     h3 @found
     p  is the top level element to start interactions.
      | It puts an
-     strong("data-key"='object',"data-bind"="css:{hilighted:object()},event:{mouseover:focused,mouseout:unfocused}")
+     strong("data-key"='object',"data-bind"="#{bind}")
        &nbsp;new object&nbsp;
      | with a timeline and an occurrence,
      | which are dashed line and gray-border rectangle.
@@ -47,7 +48,7 @@ block right-content
       @found "He"
     :jumly
       @found "He"
-      he.attr "data-key":"object","data-bind":"css:{hilighted:object()},event:{mouseover:focused,mouseout:unfocused}"
+      he.attr "data-key":"object","data-bind":"#{bind}"
       $("body").on "ran.jumly", ->
         foundmodel =
           focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
