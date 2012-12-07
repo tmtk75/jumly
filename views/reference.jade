@@ -34,9 +34,9 @@ block left-content
 block right-content
   h2#directives Directives
 
-  
   #_found
-    - bind = "css:{hilighted:object()},event:{mouseover:focused,mouseout:unfocused}"
+    - event = "event:{mouseover:focused,mouseout:unfocused}"
+    - bind = "css:{hilighted:object()}," + event
     h3 @found
     p  is the top level element to start interactions.
      | It puts an
@@ -50,13 +50,12 @@ block right-content
       @found "He"
       he.attr "data-key":"object","data-bind":"#{bind}"
       $("body").on "ran.jumly", ->
-        foundmodel =
-          focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
-          unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
+        foundModel =
           object: ko.observable false
           timeline: ko.observable false
           occurrence: ko.observable false
-        ko.applyBindings foundmodel, _found
+        $.extend foundModel, document.jumly.hilightedModel
+        ko.applyBindings foundModel, _found
     
   h3#_message @message
   h3#_create @create
@@ -65,3 +64,9 @@ block right-content
   h3#_loop @loop
   h3#_ref @ref
   h3#_note @note
+
+  :coffeescript
+    document.jumly = {}
+    document.jumly.hilightedModel =
+      focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
+      unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
