@@ -38,11 +38,11 @@ block right-content
   #_found
     h3 @found
     p  is the top level element to start interactions.
-     | It puts an <strong class="focusable" data-key='object' data-bind="event:{mouseover:focused,mouseout:unfocused}">new object</strong> with timeline and occurrence,
+     | It puts an <strong class="focusable" data-key='object' data-bind="event:{mouseover:focused,mouseout:unfocused}">new object</strong> with a timeline and an occurrence,
      | which are dashed line and gray-border rectangle.
     :jumly
       @found "He"
-      he.attr "data-bind":"css:{foundobject:object()},event:{mouseover:focused,mouseout:unfocused}", "data-key":"object"
+      he.attr "data-bind":"css:{hilighted:object()},event:{mouseover:focused,mouseout:unfocused}", "data-key":"object"
     :code(type=javascript)
       @found "He"
     
@@ -55,19 +55,13 @@ block right-content
   h3#_note @note
 
   :coffeescript
-    $ ->
-      console.log "$ ->"
-      $("body").on "ran.jumly", ->
-        console.log "jumly.event", arguments
-      f = ->
-        foundmodel =
-          aaa: ->console.log arguments
-          focused: (vm, e)-> vm[$(e.target).data "key"] true
-          unfocused: (vm, e)-> vm[$(e.target).data "key"] false
-          object: ko.observable false
-          timeline: ko.observable false
-          occurrence: ko.observable false
-        ko.applyBindings foundmodel, _found
-        console.log "f = ->"
-      #setTimeout f, 1000
-      f()
+    $("body").on "ran.jumly", ->
+      console.log "jumly.event", arguments
+      foundmodel =
+        aaa: ->console.log arguments
+        focused: (vm, e)-> vm[$(e.target).data "key"] true
+        unfocused: (vm, e)-> vm[$(e.target).data "key"] false
+        object: ko.observable false
+        timeline: ko.observable false
+        occurrence: ko.observable false
+      ko.applyBindings foundmodel, _found
