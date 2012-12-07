@@ -1,0 +1,36 @@
+L-EMBOSS(a = 1)
+  text-shadow -1px 1px 0 rgba(255,255,255,a)
+
+D-EMBOSS(a = 1)
+  text-shadow 1px -1px 0 rgba(0,0,0,a)
+
+THICK-DARK()
+  background-color #33342d
+  color #d2d8ba
+  border-top solid 1px darken(white, 33%)
+  border-bottom solid 1px darken(#33342d, 7%)
+
+LIGHT-DARK()
+  background-color #46483e
+  color #d2d8ba
+  border-bottom solid 1px darken(#46483e, 7%)
+
+body
+  border-top solid 6px #8cc84b
+
+.syntaxhighlighter
+  width auto !important
+  .gutter .line
+    border-right 3px solid rgba(6*16/2, 9*16/2, 0, 0.5) !important
+  .string, .string a
+    color #690 !important
+
+h1.logo
+  font-family Coda,Tahoma,sans-serif
+  font-weight extra-bold
+
+a
+  color #690
+
+body
+  background-color #eee
