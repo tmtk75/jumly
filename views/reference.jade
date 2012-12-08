@@ -32,44 +32,106 @@ block left-content
             a(href="#_note") @note
 
 block right-content
-  h2#directives Directives
+  #directives
+    h2 Directives
 
-  #_found
     - event = "event:{mouseover:focused,mouseout:unfocused}"
     - f = function(name) {return "css:{hilighted:" + name + "()}," + event}
-    h3 @found
-    p  is the top level element to start interactions.
-      | It puts an
-      strong("data-key"='object',"data-bind"="#{f('object')}")
-        &nbsp;new object&nbsp;
-      | with a lifeline
-      | and a
-      strong("data-key"='occurrence',"data-bind"="#{f('occurrence')}")
-        &nbsp;new occurrence&nbsp;
-      | which are dashed line and gray-border rectangle.
-    :code(type=javascript)
-      @found "He"
-    :jumly
-      @found "He"
-      he.attr "data-key":"object","data-bind":"#{f('object') }"
-      @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{f('occurrence')}"
-      $("body").on "ran.jumly", ->
-        foundModel =
-          object: ko.observable false
-          occurrence: ko.observable false
-        $.extend foundModel, document.jumly.hilightedModel
-        ko.applyBindings foundModel, _found
-    
-  h3#_message @message
-  h3#_create @create
-  h3#_reply @reply
-  h3#_alt @alt
-  h3#_loop @loop
-  h3#_ref @ref
-  h3#_note @note
 
-  :coffeescript
-    document.jumly = {}
-    document.jumly.hilightedModel =
-      focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
-      unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
+    section#_found
+      
+      h3 @found
+      
+      p  is the top level element to start interactions.
+        |It puts an
+        strong("data-key"='object',"data-bind"="#{f('object')}")
+          &nbsp;new object&nbsp;
+        |with a lifeline
+        |and a
+        strong("data-key"='occurrence',"data-bind"="#{f('occurrence')}")
+          &nbsp;new occurrence&nbsp;
+        |which are dashed line and gray-border rectangle.
+      
+      :code(type=javascript)
+        @found "He"
+      
+      :jumly
+        @found "He"
+        he.attr "data-key":"object","data-bind":"#{f('object') }"
+        @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{f('occurrence')}"
+        $("body").on "ran.jumly", ->
+          foundModel =
+            object: ko.observable false
+            occurrence: ko.observable false
+          $.extend foundModel, document.jumly.hilightedModel
+          ko.applyBindings foundModel, _found
+
+      p  You can put a <code>-></code> to show some interations for the occurrence.
+        |Make an indent (two spaces are better), and write other directives
+        |like <code><a href="#_message">@message</a></code>.
+      
+      :code(type=javascript)
+        @found "He", ->
+          @message "calls", "Her" 
+    
+    section#_message
+      h3 @message
+
+      p is an interaction between two objects or self-invoking.
+
+      p The following shows an
+        strong("data-key"='interaction',"data-bind"="#{f('interaction')}")
+          &nbsp;interaction&nbsp;
+        |from "He" to "Her" and the name is "calls".
+        |<code>@message</code>
+
+      :code(type=javascript)
+        @found "He", ->
+          @message "calls", "Her"
+
+      :jumly
+        @found "He", ->
+          @message "calls", "Her"
+        @find(".interaction").attr "data-key":"interaction","data-bind":"#{f('interaction')}"
+        $("body").on "ran.jumly", ->
+          messageModel =
+            interaction: ko.observable false
+          $.extend messageModel, document.jumly.hilightedModel
+          ko.applyBindings messageModel, _message
+
+      p If second argument is not given, it shows self-invoking.
+      
+      :code(type=javascript)
+        @found "He", ->
+          @message "thinks"
+      
+      :jumly
+        @found "He", ->
+          @message "thinks"
+
+      p You can put a <code>-></code> in both cases after the last argument for nested interaction.
+      :code(type=javascript)
+        @found "He", ->
+          @message "calls", "Her", ->
+            @message "tells mail", "He", ->
+              @message "remembering", ->
+                @message "mails", "Her"
+      :jumly
+        @found "He", ->
+          @message "calls", "Her", ->
+            @message "tells mail", "He", ->
+              @message "remembering", ->
+                @message "mails", "Her"
+    
+    h3#_create @create
+    h3#_reply @reply
+    h3#_alt @alt
+    h3#_loop @loop
+    h3#_ref @ref
+    h3#_note @note
+
+    :coffeescript
+      document.jumly = {}
+      document.jumly.hilightedModel =
+        focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
+        unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
