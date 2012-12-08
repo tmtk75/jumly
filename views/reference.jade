@@ -42,7 +42,7 @@ block right-content
       
       h3 @found
       
-      p  is the top level element to start interactions.
+      p is the top level element to start interactions.
         |It puts an
         strong("data-key"='object',"data-bind"="#{f('object')}")
           &nbsp;new object&nbsp;
@@ -66,7 +66,7 @@ block right-content
           $.extend foundModel, document.jumly.hilightedModel
           ko.applyBindings foundModel, _found
 
-      p  You can put a <code>-></code> to show some interations for the occurrence.
+      p You can put a <code>-></code> to show some interations for the occurrence.
         |Make an indent (two spaces are better), and write other directives
         |like <code><a href="#_message">@message</a></code>.
       
@@ -109,6 +109,7 @@ block right-content
           @message "thinks"
 
       p You can put a <code>-></code> in both cases after the last argument for nested interaction.
+
       :code(type=javascript)
         @found "He", ->
           @message "calls", "Her", ->
@@ -127,7 +128,7 @@ block right-content
 
     section#_create
       h3 @create
-      p  is a kind of interaction which takes one argument which is a name for new object.
+      p is a kind of interaction which takes one argument which is a name for new object.
         |The new object created by <code>@create</code> shifts downward, and the arrow looks
         |dashed line.
 
@@ -152,8 +153,22 @@ block right-content
         @find(".occurrence").addClass "compact"
 
 
-    #_reply
+    section#_reply
       h3 @reply
+      p is a directive to show a return-back message.
+        |This can be put in a <code>@message</code> with an argument for a short description.
+        |The return-message has a stereotype «return» and the description.
+
+      :code(type=javascript)
+        @found "Browser", ->
+          @message "GET", "Server", ->
+            @reply "200"
+
+      :jumly
+        @found "Browser", ->
+          @message "GET", "Server", ->
+            @reply "200"
+
     #_alt
       h3 @alt
     #_loop
