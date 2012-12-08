@@ -46,11 +46,11 @@ block right-content
         |It puts an
         strong("data-key"='object',"data-bind"="#{f('object')}")
           &nbsp;new object&nbsp;
-        |with a lifeline
+        |with a lifeline which is dashed line
         |and a
         strong("data-key"='occurrence',"data-bind"="#{f('occurrence')}")
           &nbsp;new occurrence&nbsp;
-        |which are dashed line and gray-border rectangle.
+        |which has gray-border rectangle.
       
       :code(type=javascript)
         @found "He"
@@ -83,7 +83,6 @@ block right-content
         strong("data-key"='interaction',"data-bind"="#{f('interaction')}")
           &nbsp;interaction&nbsp;
         |from "He" to "Her" and the name is "calls".
-        |<code>@message</code>
 
       :code(type=javascript)
         @found "He", ->
@@ -122,13 +121,42 @@ block right-content
             @message "tells mail", "He", ->
               @message "remembering", ->
                 @message "mails", "Her"
-    
-    h3#_create @create
-    h3#_reply @reply
-    h3#_alt @alt
-    h3#_loop @loop
-    h3#_ref @ref
-    h3#_note @note
+    section#_create
+      h3 @create
+      p  is a kind of interaction which takes one argument which is a name for new object.
+        |The new object created by <code>@create</code> shifts downward, and the arrow looks
+        |dashed line.
+
+      :code(type=javascript)
+        @found "He", ->
+          @create "Contact"
+      :jumly
+        @found "He", ->
+          @create "Contact"
+
+      p <code>@create</code> can optionally take <code>-></code>
+        |at second argument as <code>@message</code> and has some directives.
+      
+      :code(type=javascript)
+        @found "She", ->
+          @create "Dinner", ->
+            @message "smells", "She"
+      :jumly
+        @found "She", ->
+          @create "Dinner", ->
+            @message "smells", "She"
+
+
+    #_reply
+      h3 @reply
+    #_alt
+      h3 @alt
+    #_loop
+      h3 @loop
+    #_ref
+      h3 @ref
+    #_note
+      h3 @note
 
     :coffeescript
       document.jumly = {}
