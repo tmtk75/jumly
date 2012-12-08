@@ -1,0 +1,45 @@
+@import common
+
+ul, h2, h3
+  font-family mplus-1p
+
+h2
+  margin 0
+  font-size 1.2em
+  line-height 1.2em
+  //border-bottom 1px solid #33342d
+  //box-shadow 0px 1px 1px rgba(255,255,255,1)
+
+h3
+  font-size 1em
+  line-height 1em
+
+.menu
+  ul
+    list-style none
+  > ul
+    margin-left 0
+
+.footer
+  LIGHT-DARK()
+  padding-bottom 60px
+
+#directives
+
+  section
+    margin-bottom 3em
+
+  strong.hilighted
+    background-color lighten(#690, 20%)
+    display inline-block
+    position relative
+    border-radius 2px
+
+  .sequence-diagram
+    .object.hilighted .name, .occurrence.hilighted, .interaction.hilighted:first-child
+      background-color lighten(#690, 20%)
+      opacity 0.77
+    
+    .interaction.hilighted:first-child
+      width 160px
+      border-radius 2px

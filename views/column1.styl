@@ -1,19 +1,8 @@
-@import url("https://fonts.googleapis.com/css?family=Coda:800|Questrial|Michroma")
-@import url("bootstrap/docs/assets/css/bootstrap.css")
-//@import url("bootstrap/docs/assets/css/bootstrap-responsive.css")
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-regular.ttf')
-@import url("syntaxhighlighter.css")
-
-lb-w-text-shadow(a = 1)
-  text-shadow -1px 1px 0 rgba(255,255,255,a)
-rt-b-text-shadow(a = 1)
-  text-shadow 1px -1px 0 rgba(0,0,0,a)
+@import common
 
 h1.logo
-  font-family Coda,Tahoma,sans-serif
-  font-weight extra-bold
   text-align center
-  lb-w-text-shadow()
+  L-EMBOSS()
 
 h2,h3,h4
   font-family Coda,Tahoma,sans-serif
@@ -21,52 +10,15 @@ h2,h3,h4
 
 #getting-started, #bg-why, #examples
   h2,h3,h4
-    lb-w-text-shadow()
+    L-EMBOSS()
 
 #document-support-information
   h2,h3,h4
-    rt-b-text-shadow()
+    D-EMBOSS()
 
 #meta-information
   h2,h3,h4
-    rt-b-text-shadow(.77)
-
-a
-  color #690
-
-.syntaxhighlighter
-  width auto !important
-  .gutter .line
-    border-right 3px solid rgba(6*16/2, 9*16/2, 0, 0.5) !important
-  .string, .string a
-    color #690 !important
-
-body
-  background-color #eee
-  //font-family mplus-1p-regular
-  //font-family "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Verdana,Tahoma,sans-serif
-  //line-height 180%
-  border-top solid 6px #8cc84b
-
-//(max-width:767px) or (min-width:768px) or (max-width:979px) or (min-width:1200px)
-@media (max-width:480px)
-  h1,h2,h3,h4,h5,h6
-    font-size 100%
-
-.buttons
-  text-align center
-  margin-top 2px
-  a
-    text-decoration none
-  label
-    display inline-block
-  .button
-    display inline-block
-    padding 8px 0
-    border-radius 2px
-    background-color darken(white, 25%)
-    color #46483e
-    text-align center
+    D-EMBOSS(.77)
 
 #intro
   line-height 180%
@@ -147,7 +99,7 @@ body
     margin-bottom 20px
 
 .buttons
-  lb-w-text-shadow(.33)
+  L-EMBOSS(.33)
 
 #popular-links
   margin-top 20px
@@ -169,7 +121,7 @@ body
     margin-left auto
     margin-right auto
     text-align center
-    lb-w-text-shadow(.33)
+    L-EMBOSS(.33)
     padding 8px 0
     border-radius 2px
     background-color #8bc84b
@@ -195,15 +147,12 @@ body
     margin-bottom 30px
   .ref
     .name
-      lb-w-text-shadow(.33)
+      L-EMBOSS(.33)
 
 #document-support-information
   margin-top 60px
   padding-bottom 60px
-  background-color #33342d
-  color #d2d8ba
-  border-top solid 1px darken(white, 33%)
-  border-bottom solid 1px darken(#33342d, 7%)
+  THICK-DARK()
 
   .history
     list-style none
@@ -211,18 +160,13 @@ body
       margin-bottom 2em
 
 #meta-information
-  background-color #46483e
-  color #d2d8ba
+  LIGHT-DARK()
   padding-bottom 60px
-  border-bottom solid 1px darken(#46483e, 7%)
 
   .copyright
     margin-top 30px
     text-align center
     font-size smaller
-
-  #requirement, #license
-    font-size inherit
 
   #quick-links
     position fixed
@@ -245,28 +189,3 @@ body
     ul
       margin-left 10px
       list-style none
-
-#reference-body
-  .container-fluid
-    padding-left 0
-    margin-left 0
-  .menubar
-    background-color #46483e
-    color #d2d8ba
-    height 100%
-
-#reference-header
-  .container-fluid
-    padding-left 0
-    margin-left 0
-    .menubar
-      background-color #46483e
-  h1.logo
-    margin 0
-    font-size 18px
-    text-align left
-    a
-      color #d2d8ba
-      font-size 24px
-      text-shadow none
-      text-align initial
