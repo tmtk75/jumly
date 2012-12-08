@@ -121,6 +121,10 @@ block right-content
             @message "tells mail", "He", ->
               @message "remembering", ->
                 @message "mails", "Her"
+        @find(".occurrence").addClass "compact"
+
+
+
     section#_create
       h3 @create
       p  is a kind of interaction which takes one argument which is a name for new object.
@@ -145,6 +149,7 @@ block right-content
         @found "She", ->
           @create "Dinner", ->
             @message "smells", "She"
+        @find(".occurrence").addClass "compact"
 
 
     #_reply
