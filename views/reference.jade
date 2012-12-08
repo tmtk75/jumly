@@ -36,24 +36,23 @@ block right-content
 
   #_found
     - event = "event:{mouseover:focused,mouseout:unfocused}"
-    - obj = "css:{hilighted:object()}," + event
-    - occ = "css:{hilighted:occurrence()}," + event
+    - f = function(name) {return "css:{hilighted:" + name + "()}," + event}
     h3 @found
     p  is the top level element to start interactions.
       | It puts an
-      strong("data-key"='object',"data-bind"="#{obj}")
+      strong("data-key"='object',"data-bind"="#{f('object')}")
         &nbsp;new object&nbsp;
       | with a lifeline
       | and a
-      strong("data-key"='occurrence',"data-bind"="#{occ}")
+      strong("data-key"='occurrence',"data-bind"="#{f('occurrence')}")
         &nbsp;new occurrence&nbsp;
       | which are dashed line and gray-border rectangle.
     :code(type=javascript)
       @found "He"
     :jumly
       @found "He"
-      he.attr "data-key":"object","data-bind":"#{obj}"
-      @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{occ}"
+      he.attr "data-key":"object","data-bind":"#{f('object') }"
+      @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{f('occurrence')}"
       $("body").on "ran.jumly", ->
         foundModel =
           object: ko.observable false
