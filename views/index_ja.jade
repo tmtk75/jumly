@@ -25,6 +25,8 @@ block content
         #popular-links 
           a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.0-beta.tar.gz') ダウンロード v#{VERSION}
           .buttons
+            a.button.reference(href='/reference') リファレンスマニュアル r1
+          .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
 
@@ -240,11 +242,17 @@ block content
           .row
             .span4
               h2 Document
-              ul
-                p APIドキュメントやマニュアル等は随時アップデート予定です。
+              ul.document
+                li
+                  a(href="/reference") リファレンスマニュアル r1
+              p APIドキュメントやマニュアル等は随時アップデート予定です。
             .span4
               h2 History
               ul.history
+                li
+                  a(href="/reference") リファレンスマニュアル r1, 2012/12/10
+                  ul
+                    li サポート済みのシーケンス図のディレクティブについての説明
                 li 0.1.1, 2012/11/29
                   ul
                     li @noteをサポート 
