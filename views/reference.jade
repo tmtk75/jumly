@@ -204,16 +204,28 @@ block right-content
 
     #_loop
       h3 @loop
-      p is a kind of fragment to show a loop. It shows 
+      p is a kind of fragment to show repetition.
+        |A rectangle with fine lightgray line represents a loop.
 
       :code(type=javascript)
         @found "You", ->
           @loop ->
-              @message ""
+              @message "call", "Her"
       :jumly
         @found "You", ->
-          @loop  ->
-            @message "wait for his payment"
+          @loop ->
+              @message "call", "Her"
+
+      p If you give a string as first argument, it becomes a condition for the loop.
+
+      :code(type=javascript)
+        @found "You", ->
+          @loop "[until she answer]", ->
+              @message "call", "Her"
+      :jumly
+        @found "You", ->
+          @loop "[until she answer]", ->
+              @message "call", "Her"
 
     #_ref
       h3 @ref
