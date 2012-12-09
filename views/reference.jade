@@ -35,38 +35,27 @@ block right-content
   #directives
     h2 Directives
 
-    - event = "event:{mouseover:focused,mouseout:unfocused}"
-    - f = function(name) {return "css:{hilighted:" + name + "()}," + event}
-
     section#_found
       
       h3 @found
       
-      p  is the top level element to start interactions.
+      p is the top level element to start interactions.
         |It puts an
-        strong("data-key"='object',"data-bind"="#{f('object')}")
+        strong
           &nbsp;new object&nbsp;
-        |with a lifeline
+        |with a lifeline which is dashed line
         |and a
-        strong("data-key"='occurrence',"data-bind"="#{f('occurrence')}")
+        strong
           &nbsp;new occurrence&nbsp;
-        |which are dashed line and gray-border rectangle.
+        |which has gray-border rectangle.
       
       :code(type=javascript)
         @found "He"
       
       :jumly
         @found "He"
-        he.attr "data-key":"object","data-bind":"#{f('object') }"
-        @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{f('occurrence')}"
-        $("body").on "ran.jumly", ->
-          foundModel =
-            object: ko.observable false
-            occurrence: ko.observable false
-          $.extend foundModel, document.jumly.hilightedModel
-          ko.applyBindings foundModel, _found
 
-      p  You can put a <code>-></code> to show some interations for the occurrence.
+      p You can put a <code>-></code> to show some interations for the occurrence.
         |Make an indent (two spaces are better), and write other directives
         |like <code><a href="#_message">@message</a></code>.
       
@@ -80,10 +69,9 @@ block right-content
       p is an interaction between two objects or self-invoking.
 
       p The following shows an
-        strong("data-key"='interaction',"data-bind"="#{f('interaction')}")
+        strong
           &nbsp;interaction&nbsp;
         |from "He" to "Her" and the name is "calls".
-        |<code>@message</code>
 
       :code(type=javascript)
         @found "He", ->
@@ -92,12 +80,6 @@ block right-content
       :jumly
         @found "He", ->
           @message "calls", "Her"
-        @find(".interaction").attr "data-key":"interaction","data-bind":"#{f('interaction')}"
-        $("body").on "ran.jumly", ->
-          messageModel =
-            interaction: ko.observable false
-          $.extend messageModel, document.jumly.hilightedModel
-          ko.applyBindings messageModel, _message
 
       p If second argument is not given, it shows self-invoking.
       
@@ -110,6 +92,7 @@ block right-content
           @message "thinks"
 
       p You can put a <code>-></code> in both cases after the last argument for nested interaction.
+
       :code(type=javascript)
         @found "He", ->
           @message "calls", "Her", ->
@@ -122,16 +105,117 @@ block right-content
             @message "tells mail", "He", ->
               @message "remembering", ->
                 @message "mails", "Her"
-    
-    h3#_create @create
-    h3#_reply @reply
-    h3#_alt @alt
-    h3#_loop @loop
-    h3#_ref @ref
-    h3#_note @note
+        @find(".occurrence").addClass "compact"
 
-    :coffeescript
-      document.jumly = {}
-      document.jumly.hilightedModel =
-        focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
-        unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
+
+
+    section#_create
+      h3 @create
+      p is a kind of interaction which takes one argument which is a name for new object.
+        |The new object created by <code>@create</code> shifts downward, and the arrow looks
+        |dashed line.
+
+      :code(type=javascript)
+        @found "He", ->
+          @create "Contact"
+      :jumly
+        @found "He", ->
+          @create "Contact"
+
+      p <code>@create</code> can optionally take <code>-></code>
+        |at second argument as <code>@message</code> and has some directives.
+      
+      :code(type=javascript)
+        @found "She", ->
+          @create "Dinner", ->
+            @message "smells", "She"
+      :jumly
+        @found "She", ->
+          @create "Dinner", ->
+            @message "smells", "She"
+        @find(".occurrence").addClass "compact"
+
+
+
+    section#_reply
+      h3 @reply
+      p is a directive to show a return-back message.
+        |This can be put in a <code>@message</code> with an argument for a short description.
+        |The return-message has a stereotype «return» and the description.
+
+      :code(type=javascript)
+        @found "Browser", ->
+          @message "GET", "Server", ->
+            @reply "200"
+
+      :jumly
+        @found "Browser", ->
+          @message "GET", "Server", ->
+            @reply "200"
+
+
+
+    section#_alt
+      h3 @alt
+      p is a kind of fragment to make usually two or more conditional
+        |parts including some interactions. One of part of <code>@alt</code>
+        |consists of a pair of a text and <code>-></code>.
+        |You can put several pairs in <code>@alt</code>.
+        |It has an
+        strong alt
+        |tag and each condition's name, and also each part is divided with a dashed line.
+
+      :code(type=javascript)
+        @found "You", ->
+          @alt
+            "[have money]": ->
+              @message "go to", "BookStore"
+            "[have a card]": ->
+              @message "go to", "Restaurant"
+            "[have nothing]": ->
+              @message "go back", "Home"
+      :jumly
+        @found "You", ->
+          @alt
+            "[have money]": ->
+              @message "go to", "BookStore"
+            "[have a card]": ->
+              @message "go to", "Restaurant"
+            "[have nothing]": ->
+              @message "go back", "Home"
+
+      p In each part, nested-interaction is certainly able to be used.
+      :code(type=javascript)
+        @found "You", ->
+          @alt
+            "[male]": ->
+              @message "pay with a card", "Bar", ->
+                @message "auth the card", "Visa"
+            "[female]": ->
+              @message "wait for his payment"
+      :jumly
+        @found "You", ->
+          @alt
+            "[male]": ->
+              @message "pay with a card", "Bar", ->
+                @message "auth the card", "Visa"
+            "[female]": ->
+              @message "wait for his payment"
+
+    #_loop
+      h3 @loop
+      p is a kind of fragment to show a loop. It shows 
+
+      :code(type=javascript)
+        @found "You", ->
+          @loop ->
+              @message ""
+      :jumly
+        @found "You", ->
+          @loop  ->
+            @message "wait for his payment"
+
+    #_ref
+      h3 @ref
+    #_note
+      h3 @note
