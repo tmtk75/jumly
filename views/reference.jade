@@ -153,6 +153,7 @@ block right-content
         @find(".occurrence").addClass "compact"
 
 
+
     section#_reply
       h3 @reply
       p is a directive to show a return-back message.
@@ -169,8 +170,52 @@ block right-content
           @message "GET", "Server", ->
             @reply "200"
 
-    #_alt
+
+
+    section#_alt
       h3 @alt
+      p is a kind of fragment to make usually two or more conditional
+        |parts including some interactions. One of part of <code>@alt</code>
+        |consists of a pair of a text and <code>-></code>.
+        |You can put several pairs in <code>@alt</code>.
+
+      :code(type=javascript)
+        @found "You", ->
+          @alt
+            "[have money]": ->
+              @message "go to", "BookStore"
+            "[have a card]": ->
+              @message "go to", "Restaurant"
+            "[have nothing]": ->
+              @message "go back", "Home"
+      :jumly
+        @found "You", ->
+          @alt
+            "[have money]": ->
+              @message "go to", "BookStore"
+            "[have a card]": ->
+              @message "go to", "Restaurant"
+            "[have nothing]": ->
+              @message "go back", "Home"
+
+      p In each part, nested-interaction is certainly able to be used.
+      :code(type=javascript)
+        @found "You", ->
+          @alt
+            "[male]": ->
+              @message "pay with a card", "Bar", ->
+                @message "auth the card", "Visa"
+            "[female]": ->
+              @message "wait for his payment"
+      :jumly
+        @found "You", ->
+          @alt
+            "[male]": ->
+              @message "pay with a card", "Bar", ->
+                @message "auth the card", "Visa"
+            "[female]": ->
+              @message "wait for his payment"
+
     #_loop
       h3 @loop
     #_ref

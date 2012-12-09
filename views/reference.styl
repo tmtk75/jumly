@@ -1,7 +1,7 @@
 @import common
 
 ul, h2, h3
-  font-family mplus-1p
+  font-family mplus-1p,verdana
 
 h2
   margin 0
@@ -34,6 +34,9 @@ h3
     display inline-block
     position relative
     border-radius 2px
+
+  .sequence-diagram:not(:last-child)
+    margin-bottom 2em
 
   .sequence-diagram
     .object.hilighted .name, .occurrence.hilighted, .interaction.hilighted:first-child
