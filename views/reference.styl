@@ -24,36 +24,13 @@ h3
   LIGHT-DARK()
   padding-bottom 60px
 
-HIGHLIGHTCOLOR = lighten(#690, 20%)
-
 #directives
 
   section
     margin-bottom 5em
 
-  strong.hilighted
-    background-color HIGHLIGHTCOLOR
-    display inline-block
-    position relative
-    border-radius 2px
-
   .sequence-diagram:not(:last-child)
     margin-bottom 2em
 
-  .sequence-diagram
-    .object.hilighted .name, .occurrence.hilighted, .interaction.hilighted:first-child
-      background-color HIGHLIGHTCOLOR
-    
-    .interaction.hilighted:first-child
-      width 160px
-      border-radius 2px
-
   .occurrence.compact
     padding-bottom 2px
-
-  #_alt
-    .sequence-diagram .fragment.alt .condition.hilighted,
-    .sequence-diagram .fragment.alt .interaction.hilighted,
-    .syntaxhighlighter .line.hilighted
-      background-color HIGHLIGHTCOLOR !important
-      border-radius 2px
