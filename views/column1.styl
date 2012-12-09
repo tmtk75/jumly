@@ -107,17 +107,20 @@ h2,h3,h4
   .buttons
     a.github.button, a.apidocs.button
       width 99px 
+    a.github.button, a.apidocs.button, a.reference.button
       -webkit-transition background-color 0.2s ease-in-out
+      -moz-transition background-color 0.2s ease-in-out
       &:hover
         background-color darken(darken(white, 25%), 14%)
     .github
       margin-right 1px
     .apidocs
       margin-left 1px
+  a.download.button, a.reference.button
+    width 200px
   a.download.button
     display block
     text-decoration none
-    width 200px
     margin-left auto
     margin-right auto
     text-align center
@@ -126,6 +129,7 @@ h2,h3,h4
     border-radius 2px
     background-color #8bc84b
     -webkit-transition background-color 0.2s ease-in-out
+    -moz-transition background-color 0.2s ease-in-out
     &:hover
       background-color darken(#8bc84b, 14%)
     color #46483e

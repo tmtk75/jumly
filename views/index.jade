@@ -22,8 +22,10 @@ block content
         #popular-links 
           a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.0-beta.tar.gz') DOWNLOAD v#{VERSION}
           .buttons
+            a.button.reference(href='/reference') Reference Manual r1
+          .buttons
             a.button.github(href='https://github.com/tmtk75/jumly') github
-            a.button.apidocs(title="Coming Soon",data-placement="right") API DOCS
+            a.button.apidocs(title="Coming Soon",data-placement="right") API
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,funcy:example1.funcy}")
           :jumly(type=sequence)
@@ -235,14 +237,21 @@ block content
           .row
             .span4
               h2 Document
-              ul
-                p API, reference or so are coming soon.
+              ul.document
+                li
+                  a(href="/reference") Reference Manual r1
+              p API, tutorial or so are coming soon.
+
             .span4
               h2 History
               ul.history
+                li
+                  a(href="/reference") Reference Manual r1, Dec 10, 2012
+                  ul
+                    li about some directives of sequence diagram
                 li 0.1.1, Nov 29, 2012
                   ul
-                    li support @note directive
+                    li support <a href="/reference#_note">@note</a> directive
                     li adjust margins and spaces in stylesheet
                 li 0.1.0, Nov 23, 2012
                   ul
