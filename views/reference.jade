@@ -56,8 +56,8 @@ block right-content
       
       :jumly
         @found "He"
-        he.attr "data-key":"object","data-bind":"#{highlighting('object') }"
-        @find(".occurrence").attr "data-key":"occurrence","data-bind":"#{highlighting('occurrence')}"
+        he.attr document.jumly.highlighting 'object'
+        @find(".occurrence").attr document.jumly.highlighting 'occurrence'
         $("body").on "ran.jumly", ->
           foundModel =
             object: ko.observable false
@@ -90,7 +90,7 @@ block right-content
       :jumly
         @found "He", ->
           @message "calls", "Her"
-        @find(".interaction").attr "data-key":"interaction","data-bind":"#{highlighting('interaction')}"
+        @find(".interaction").attr document.jumly.highlighting "interaction"
         $("body").on "ran.jumly", ->
           messageModel =
             interaction: ko.observable false
@@ -198,14 +198,20 @@ block right-content
               @message "go back", "Home"
         $("body").on "ran.jumly", ->
           g = ->
-            them = $(".syntaxhighlighter.javascript:eq(0)", _alt).find ".container>.number3,.container>.number4"
-            them.attr "data-key":"altpart0","data-bind":"#{highlighting('altpart0') }"
+            alt = $(".syntaxhighlighter.javascript:eq(0)", _alt)
+            alt.find(".container>.number3,.container>.number4").attr document.jumly.highlighting "altpart0"
+            alt.find(".container>.number5,.container>.number6").attr document.jumly.highlighting "altpart1"
+            alt.find(".container>.number7,.container>.number8").attr document.jumly.highlighting "altpart2"
             model =
               altpart0: ko.observable false
+              altpart1: ko.observable false
+              altpart2: ko.observable false
             $.extend model, document.jumly.hilightedModel
             ko.applyBindings model, _alt
           setTimeout g, 1000
-        @find(".alt").find(".condition:eq(0),.interaction:eq(0)").attr "data-key":"altpart0","data-bind":"#{highlighting('altpart0') }"
+        @find(".alt").find(".condition:eq(0),.interaction:eq(0)").attr document.jumly.highlighting "altpart0"
+        @find(".alt").find(".condition:eq(1),.interaction:eq(1)").attr document.jumly.highlighting "altpart1"
+        @find(".alt").find(".condition:eq(2),.interaction:eq(2)").attr document.jumly.highlighting "altpart2"
 
       p In each part, nested-interaction is certainly able to be used.
       :code(type=javascript)
@@ -233,7 +239,8 @@ block right-content
       h3 @note
 
     :coffeescript
-      document.jumly = {}
-      document.jumly.hilightedModel =
-        focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
-        unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
+      document.jumly =
+        hilightedModel:
+          focused: (vm, e)-> vm[$(e.currentTarget).data "key"] true
+          unfocused: (vm, e)-> vm[$(e.currentTarget).data "key"] false
+        highlighting: (name)-> "data-key":"#{name}","data-bind":"css:{hilighted:#{name}()},event:{mouseover:focused,mouseout:unfocused}"
