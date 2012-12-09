@@ -202,20 +202,59 @@ block right-content
             "[female]": ->
               @message "wait for his payment"
 
-    #_loop
+    section#_loop
       h3 @loop
-      p is a kind of fragment to show a loop. It shows 
+      p is a kind of fragment to show repetition.
+        |A rectangle with fine lightgray line represents a loop.
 
       :code(type=javascript)
         @found "You", ->
           @loop ->
-              @message ""
+              @message "call", "Her"
       :jumly
         @found "You", ->
-          @loop  ->
-            @message "wait for his payment"
+          @loop ->
+              @message "call", "Her"
 
-    #_ref
+      p If you give a string as first argument, it becomes a condition for the loop.
+
+      :code(type=javascript)
+        @found "You", ->
+          @loop "[until she answer]", ->
+              @message "call", "Her"
+      :jumly
+        @found "You", ->
+          @loop "[until she answer]", ->
+              @message "call", "Her"
+
+    section#_ref
       h3 @ref
-    #_note
+      p is a directive to move to another diagram.
+
+      :code(type=javascript)
+        @found "MacOSX", ->
+          @ref "initialize"
+
+      :jumly
+        @found "MacOSX", ->
+          @ref "initialize"
+
+      p T.B.D
+
+    section#_note
       h3 @note
+      p is a directive to put note element everywhere.
+
+      :code(type=javascript)
+        @found "She", ->
+          @note "Eventually"
+          @message "meets", "You", ->
+            @note "can't do anything then"
+          @note "Just say good bye..."
+
+      :jumly
+        @found "She", ->
+          @note "Eventually"
+          @message "meets", "You", ->
+            @note "can't do anything then"
+          @note "Just say good bye..."
