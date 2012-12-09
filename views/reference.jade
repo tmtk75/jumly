@@ -161,6 +161,9 @@ block right-content
         |parts including some interactions. One of part of <code>@alt</code>
         |consists of a pair of a text and <code>-></code>.
         |You can put several pairs in <code>@alt</code>.
+        |It has an
+        strong alt
+        |tag and each condition's name, and also each part is divided with a dashed line.
 
       :code(type=javascript)
         @found "You", ->
@@ -201,6 +204,17 @@ block right-content
 
     #_loop
       h3 @loop
+      p is a kind of fragment to show a loop. It shows 
+
+      :code(type=javascript)
+        @found "You", ->
+          @loop ->
+              @message ""
+      :jumly
+        @found "You", ->
+          @loop  ->
+            @message "wait for his payment"
+
     #_ref
       h3 @ref
     #_note
