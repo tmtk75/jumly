@@ -197,6 +197,16 @@ block right-content
               @message "go to", "Restaurant"
             "[have nothing]": ->
               @message "go back", "Home"
+        $("body").on "ran.jumly", ->
+          g = ->
+            them = $(".syntaxhighlighter.javascript:eq(0)", _alt).find ".container>.number3,.container>.number4"
+            them.attr "data-key":"altpart0","data-bind":"#{f('altpart0') }"
+            model =
+              altpart0: ko.observable false
+            $.extend model, document.jumly.hilightedModel
+            ko.applyBindings model, _alt
+          setTimeout g, 1000
+        @find(".alt").find(".condition:eq(0),.interaction:eq(0)").attr "data-key":"altpart0","data-bind":"#{f('altpart0') }"
 
       p In each part, nested-interaction is certainly able to be used.
       :code(type=javascript)
