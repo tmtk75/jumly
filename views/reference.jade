@@ -35,8 +35,7 @@ block right-content
   #directives
     h2 Directives
 
-    - event = "event:{mouseover:focused,mouseout:unfocused}"
-    - f = function(name) {return "css:{hilighted:" + name + "()}," + event}
+    - f = function(name) {return "css:{hilighted:" + name + "()},event:{mouseover:focused,mouseout:unfocused}"}
 
     section#_found
       
