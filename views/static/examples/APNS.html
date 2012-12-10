@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+  <meta charset='utf-8'/>
+  <link href='../../../build/jumly.css' rel='stylesheet'/>
+  <script src='http://code.jquery.com/jquery-1.8.2.min.js'></script>
+  <script src='http://coffeescript.org/extras/coffee-script.js'></script>
+  <script src='../../../build/jumly.js'></script>
+  <style>
+    .sequence-diagram .horizontal {width: 200px}
+    .sequence-diagram .note {min-width: 200px}
+    .sequence-diagram .interaction {margin-top: 30px}
+  </style>
+</head>
+<body>
+  <script type='text/jumly+sequence'>
+    @found "App", ->
+      @note "each time the App starts..."
+      @message "Hi! can you provide me a deviceToken?", "APNS", ->
+        @reply 'sure!: "deviceToken"'
+      @message 'Hello server, this is my "deviceToken" :)', "Server", ->
+        @note "each time the server wants to send a msg"
+        @message 'please send this "message" to device with "deviceToken"', "APNS", ->
+          @note """
+            is the server an "authorized provider"? yes.
+            is the App device "legitimate"? yes.
+            OK, we will deliver it.
+            """
+          @message 'hey, App! a "message" for you!', "App", ->
+            @message "Thanks for the msg! What's new?", "Server"
+  </script>
+</body>
