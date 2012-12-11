@@ -2,7 +2,7 @@
 
 JUMLY is a JavaScript library.  
 Using JUMLY, you can easily embed UML diagram on your HTML document.  
-All you need are just one.
+All you need are just two things you use everyday.
 
 - Text editor you get used to use.
 - A modern browser like WebKit-base brwoser and Opera.  
@@ -17,10 +17,10 @@ Copy following code,
 paste it at the place of your HTML document,
 and open the document.
 
-    <link href='https://jumly.herokuapp.com/release/0.1.0/jumly.min.css' rel="stylesheet"/>
-    <script src='http://code.jquery.com/jquery-1.7.1.min.js'></script>
+    <link href='https://jumly.herokuapp.com/release/0.1.1/jumly.min.css' rel="stylesheet"/>
+    <script src='http://code.jquery.com/jquery-1.8.2.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='https://jumly.herokuapp.com/release/0.1.0/jumly.min.js'></script>
+    <script src='https://jumly.herokuapp.com/release/0.1.1/jumly.min.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"
@@ -30,12 +30,13 @@ and open the document.
 
 
 ## License
-JUMLY v0.1.0 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.1 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.0, 2011-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.1, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 ## History
+- Reference Manual r1 published Dec 10, 2012
 - 0.1.1 Nov 29, 2012
   - support @note directive
   - adjust margins and spaces in stylesheet
