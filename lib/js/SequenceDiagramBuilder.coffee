@@ -43,7 +43,7 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
 
 SequenceDiagramBuilder::message = (a, b, c) ->
   actname  = a
-  if typeof b is "function" or b is undefined
+  if (typeof a is "string") and (typeof b is "function" or b is undefined)
     actee = @_curr_actor()
     callback = b
   else if typeof a is "string" and typeof b is "string"
