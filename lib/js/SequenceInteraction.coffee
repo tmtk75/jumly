@@ -22,7 +22,7 @@ SequenceInteraction::awayfrom = (obj) ->
   return @backwardTo() unless obj
   for e in @parents(".occurrence").not(".activated")
     e = $(e).self()
-    return e if e?.gives(".object") is obj
+    return e if e?.gives(".participant") is obj
   obj.activate()
 
 SequenceInteraction::_compose_ = ->

@@ -12,7 +12,7 @@ describe "HTMLElement", ->
     f = HTMLElement.to_css_name
 
     it "returns css class name for given function", ->
-      expect(f "SequenceObject").toBe "object"
+      expect(f "SequenceParticipant").toBe "participant"
       expect(f "SequenceInteraction").toBe "interaction"
       expect(f "SequenceOccurrence").toBe "occurrence"
       

@@ -23,7 +23,7 @@ primary-border()
 .sequence-diagram .stop
   position relative
 
-.sequence-diagram .object
+.sequence-diagram .participant
   position relative
   width obj_outer_width
   .name
@@ -35,7 +35,7 @@ primary-border()
     line-height obj_inner_height
     background-color #fff
 
-.sequence-diagram .object:not(:first-child)
+.sequence-diagram .participant:not(:first-child)
   margin-top -(border_width*2 + obj_inner_height)
 
 .sequence-diagram .lifeline,.sequence-diagram .lifeline .line
@@ -180,10 +180,10 @@ msg_shift_top = -10px
 .sequence-diagram .self .message
   line-height 12px
 
-.sequence-diagram .object .name,.sequence-diagram .occurrence,.sequence-diagram .ref
+.sequence-diagram .participant .name,.sequence-diagram .occurrence,.sequence-diagram .ref
   box-shadow()
 
-.sequence-diagram .object
+.sequence-diagram .participant
   -text-shadow: 4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,.15)
 
 .sequence-diagram

@@ -28,8 +28,8 @@ SequenceOccurrence::interact = (actor, acts) ->
     iact
 
 SequenceOccurrence::create = (objsrc) ->
-  SequenceObject = require "SequenceObject"
-  obj = new SequenceObject(objsrc.name)
+  SequenceParticipant = require "SequenceParticipant"
+  obj = new SequenceParticipant(objsrc.name)
               .addClass "created-by"
   @_actor.parent().append obj
   iact = (@interact obj)
@@ -40,7 +40,7 @@ SequenceOccurrence::create = (objsrc) ->
 
 SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"
-    offset left:@parents(".diagram").find(".object").mostLeftRight().right
+    offset left:@parents(".diagram").find(".participant").mostLeftRight().right
     return this
   if not @is_on_another()
     left = @_actor.offset().left + (@_actor.preferred_width() - @width())/2
@@ -75,7 +75,7 @@ SequenceOccurrence::preceding = (obj) ->
     f = (ll) ->
         a = jumly(ll.parents ".occurrence:eq(0)")[0]
         return null if !a
-        return a    if a.gives(".object") is obj
+        return a    if a.gives(".participant") is obj
         return f a
     f this
 

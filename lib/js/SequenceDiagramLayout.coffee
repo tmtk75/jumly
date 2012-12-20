@@ -13,8 +13,8 @@ SequenceDiagramLayout::_q = (sel)->
   $ sel, @diagram
 
 SequenceDiagramLayout::_layout_ = ->
-  objs = $(".object:eq(0) ~ .object", @diagram)
-  $(".object:eq(0)", @diagram).after objs
+  objs = $(".participant:eq(0) ~ .participant", @diagram)
+  $(".participant:eq(0)", @diagram).after objs
   @align_objects_horizontally()
   @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
   @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
@@ -33,7 +33,7 @@ SequenceDiagramLayout::_layout_ = ->
   $(ml[0]).addClass "leftmost"
   $(mr[mr.length - 1]).addClass "rightmost"
 
-  objs = @diagram.find(".object")
+  objs = @diagram.find(".participant")
   l = objs.min (e)-> $(e).offset().left
   r = objs.max (e)-> $(e).offset().left + $(e).outerWidth() - 1
   @diagram.width r - l + 1
@@ -55,7 +55,7 @@ SequenceDiagramLayout::align_objects_horizontally = ->
     if b.css("left") is (_ webkit:"auto", gecko:"0px")
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
-  @_q(".object").pickup2 f0, f1
+  @_q(".participant").pickup2 f0, f1
 
 jumly = $.jumly
 
@@ -63,7 +63,7 @@ SequenceLifeline = require "SequenceLifeline"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   diag = @diagram
-  $(".object", @diagram).each (i, e)->
+  $(".participant", @diagram).each (i, e)->
     obj = $(e).data "_self"
     a = new SequenceLifeline obj
     a.offset left:obj.offset().left
@@ -95,8 +95,8 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
   fragments = $ "> .fragment", @diagram
   if fragments.length > 0
     # To controll the width, you can write selector below.
-    # ".object:eq(0), > .interaction > .occurrence .interaction"
-    most = @_q(".object").mostLeftRight()
+    # ".participant:eq(0), > .interaction > .occurrence .interaction"
+    most = @_q(".participant").mostLeftRight()
     left = fragments.offset().left
     fragments.width (most.right - left) + (most.left - left)
   
@@ -129,7 +129,7 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
   else
     mh = @diagram.find(".interaction:eq(0)").height()
 
-  min = @diagram.find(".object").min (e)-> $(e).offset().top
+  min = @diagram.find(".participant").min (e)-> $(e).offset().top
 
   @_q(".lifeline").each (i, e) ->
     a = $(e).data "_self"
@@ -170,7 +170,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
          top : prev.find(".occurrence").outerBottom() - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
-  @_q(".object").selfEach (e)-> e.renderIcon?()
+  @_q(".participant").selfEach (e)-> e.renderIcon?()
 
 core = require "core"
 if core.env.is_node

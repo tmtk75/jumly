@@ -3,7 +3,7 @@ require "jquery.ext"
 utils = require "./jasmine-utils"
 SequenceDiagramLayout = require "SequenceDiagramLayout"
 SequenceDiagram = require "SequenceDiagram"
-SequenceObject = require "SequenceObject"
+SequenceParticipant = require "SequenceParticipant"
 SequenceDiagramBuilder = require "SequenceDiagramBuilder"
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
@@ -25,7 +25,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
   
   it "determines the size", ->
     diag = new SequenceDiagram
-    diag.append obj = new SequenceObject "foobar"
+    diag.append obj = new SequenceParticipant "foobar"
     div.append diag
     @layout.layout diag
     expect(diag.width()).toBeGreaterThan 0
@@ -58,7 +58,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout @diagram
 
       it "is longer than the sum of all ones", ->
-        t = @diagram.find(".object, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
+        t = @diagram.find(".participant, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
         expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
   
     describe "including .ref in .alt", ->
@@ -100,9 +100,9 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append @diagram
       @layout.layout @diagram
-      @obj1 = @diagram.find(".object:eq(0)").data "_self"
-      @obj2 = @diagram.find(".object:eq(1)").data "_self"
-      @obj3 = @diagram.find(".object:eq(2)").data "_self"
+      @obj1 = @diagram.find(".participant:eq(0)").data "_self"
+      @obj2 = @diagram.find(".participant:eq(1)").data "_self"
+      @obj3 = @diagram.find(".participant:eq(2)").data "_self"
 
     describe "width", ->
 
@@ -129,29 +129,29 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append diag
         @layout.layout diag
-        a = diag.find(".object:eq(0)").data "_self"
-        b = diag.find(".object:eq(1)").data "_self"
+        a = diag.find(".participant:eq(0)").data "_self"
+        b = diag.find(".participant:eq(1)").data "_self"
         expect(a.offset().top).toBe b.offset().top
 
     describe "left top", ->
 
       it "looks at same top for all", ->
-        a = @diagram.find ".object:eq(0)"
-        b = @diagram.find ".object:eq(1)"
-        c = @diagram.find ".object:eq(2)"
+        a = @diagram.find ".participant:eq(0)"
+        b = @diagram.find ".participant:eq(1)"
+        c = @diagram.find ".participant:eq(2)"
         expect(b.offset().top).toBe a.offset().top
         expect(c.offset().top).toBe b.offset().top
       
-      it "is 0 for left of first .object", ->
+      it "is 0 for left of first .participant", ->
         expect(@obj1.position().left).toBe 0
       
       ## 40px is defined in .styl
       span = 40
-      it "is a span #{span}px btw 1st and 2nd of .object", ->
+      it "is a span #{span}px btw 1st and 2nd of .participant", ->
         x = @obj1.position().left + @obj1.preferred_width() + span
         expect(x).toBe @obj2.position().left
 
-      it "is a span #{span}px btw 2nd and 3rd of .object", ->
+      it "is a span #{span}px btw 2nd and 3rd of .participant", ->
         x = @obj2.position().left + @obj3.preferred_width() + span
         expect(x).toBe @obj3.position().left
 
@@ -163,7 +163,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append @diagram
       @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
+      @obj = @diagram.find(".participant:eq(0)").data "_self"
       @lifeline = @diagram.find(".lifeline:eq(0)").data "_self"
 
     describe "left", ->
@@ -174,8 +174,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
     describe "top", ->
       
-      it "is btw .object and its .occurrence", ->
-        obj = @diagram.find ".object:eq(0)"
+      it "is btw .participant and its .occurrence", ->
+        obj = @diagram.find ".participant:eq(0)"
         line = @diagram.find ".lifeline:eq(0) .line"
         occurr = @diagram.find ".occurrence:eq(0)"
         y0 = _bottom obj
@@ -212,7 +212,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append @diagram
       @layout.layout @diagram
-      @obj = @diagram.find(".object:eq(0)").data "_self"
+      @obj = @diagram.find(".participant:eq(0)").data "_self"
       @occurr = @diagram.find(".occurrence:eq(0)").data "_self"
 
     describe "left", ->
@@ -234,13 +234,13 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append a
           expect(a.css "left").toBe "auto"
           
-        it "is auto for div.object", ->
+        it "is auto for div.participant", ->
           a = $("<div>").addClass "object"
           div.append a
           expect(a.css "left").toBe "auto"
           
-        it "is auto for SequenceObject", ->
-          a = new SequenceObject
+        it "is auto for SequenceParticipant", ->
+          a = new SequenceParticipant
           div.append a
           expect(a.css "left").toBe "auto"
         
@@ -251,18 +251,18 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append diag
           expect(a.css "left").toBe "auto"
 
-        it "is auto for SequenceObject in SequenceDiagram", ->
-          a = new SequenceObject
+        it "is auto for SequenceParticipant in SequenceDiagram", ->
+          a = new SequenceParticipant
           diag = new SequenceDiagram
           diag.append a
           div.append diag
           expect(a.css "left").toBe "auto"
 
-        it "is auto for .object created by builder", ->
+        it "is auto for .participant created by builder", ->
           b = new SequenceDiagramBuilder
           b.found "sth"
           div.append b.diagram()
-          expect(b.diagram(".object:eq(0)").css "left").toBe "auto"
+          expect(b.diagram(".participant:eq(0)").css "left").toBe "auto"
 
       describe "left", ->
         beforeEach ->
@@ -276,7 +276,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           expect(@builder.left).toBe ""
 
         it "is auto for the left after appended to body", ->
-          expect(@diagram.find(".object:eq(0)").css "left").toBe "auto"
+          expect(@diagram.find(".participant:eq(0)").css "left").toBe "auto"
 
 
   describe "message", ->
@@ -311,7 +311,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append @diagram
         @layout.layout @diagram
-        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @obj = @diagram.find(".participant:eq(0)").data "_self"
         @loop = @diagram.find(".loop:eq(0)").data "_self"
 
       it "has .loop", ->
@@ -333,7 +333,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append @diagram
         @layout.layout @diagram
-        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @obj = @diagram.find(".participant:eq(0)").data "_self"
         @loop = @diagram.find(".loop:eq(0)").data "_self"
 
       it "has .loop", ->
@@ -371,7 +371,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           """
         div.append @diagram
         @layout.layout @diagram
-        @obj = @diagram.find(".object:eq(0)").data "_self"
+        @obj = @diagram.find(".participant:eq(0)").data "_self"
         @ref = @diagram.find(".ref:eq(0)").data "_self"
 
       it "can be second element", ->
@@ -396,7 +396,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         expect(ref.outerWidth()).toBeGreaterThan 88*1.41
 
     describe "in .alt", ->
-      describe "two .objects", ->
+      describe "two .participants", ->
         beforeEach ->
           @diagram = @builder.build """
             @found "sth", ->
@@ -460,8 +460,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           occur = @diagram.find ".occurrence:eq(0)"
           expect(_left @ref).toBeLessThan _right occur
 
-        it "is at left to the center of 2rd .object", ->
-          obj = @diagram.find ".object:eq(1)"
+        it "is at left to the center of 2rd .participant", ->
+          obj = @diagram.find ".participant:eq(1)"
           expect(_right @ref).toBeLessThan (_left obj) + obj.outerWidth()/2
 
     describe "width", ->
@@ -512,7 +512,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
           ref   = diag.find ".ref"
           occur = diag.find ".occurrence:eq(1)"
-          obj   = diag.find ".object:eq(1)"
+          obj   = diag.find ".participant:eq(1)"
           occur.css "background-color":"#ff8080"
           obj.css "color":"#ff8080"
           expect(_left obj).toBeLessThan _right ref
@@ -679,7 +679,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         """
       div.append diag
       @layout.layout diag
-      @obj = diag.find ".object.created-by"
+      @obj = diag.find ".participant.created-by"
       @msg = diag.find(".create.message").data "_self"
 
     describe "message", ->
@@ -708,7 +708,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       describe "top", ->
 
         it "is at bottom of the bottom of actor object", ->
-          act = @diagram.find ".object:eq(0)"
+          act = @diagram.find ".participant:eq(0)"
           expect(@obj.offset().top).toBeGreaterThan act.offset().top + act.outerHeight()
 
         describe "twice", ->
@@ -721,16 +721,16 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
               """
             div.append diag
             @layout.layout diag
-            obj0 = diag.find ".object:eq(0)"
-            obj1 = diag.find ".object:eq(1)"
-            obj2 = diag.find ".object:eq(2)"
+            obj0 = diag.find ".participant:eq(0)"
+            obj1 = diag.find ".participant:eq(1)"
+            obj2 = diag.find ".participant:eq(2)"
             expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
             expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
       describe "top", ->
 
-        it "is at the bottom of its .object", ->
+        it "is at the bottom of its .participant", ->
           a = @diagram.find(".lifeline:eq(0)").data "_self"
           b = @diagram.find(".lifeline:eq(1)").data "_self"
           expect(_top a).toBeGreaterThan _bottom a._object
@@ -844,7 +844,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           @after (e, diag)->
             f = (e)-> $(e.currentTarget).addClass "focused-hovered"
             g = (e)-> $(e.currentTarget).removeClass "focused-hovered"
-            $(".object .name, .message .name").hover f, g
+            $(".participant .name, .message .name").hover f, g
           ###
         """
       div.append diag

@@ -94,4 +94,4 @@ order = ->
 core = ["core", "jquery.g2d", "jquery.ext"]
 common = ["HTMLElement"]
 diagram = ["Diagram", "DiagramBuilder", "DiagramLayout"]
-sequence = ["SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceObject"]
+sequence = ["SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceParticipant"]

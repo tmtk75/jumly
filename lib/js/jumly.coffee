@@ -10,7 +10,7 @@
 #= require SequenceMessage
 #= require SequenceInteraction
 #= require SequenceOccurrence
-#= require SequenceObject
+#= require SequenceParticipant
 #= require HTMLElementLayout
 #= require Position
 #= require SequenceDiagram

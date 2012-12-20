@@ -35,7 +35,7 @@ SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 SequenceDiagram::preferences = (a, b) ->
     prefs = {}
     width = ->
-        objs  = $(".object", this)
+        objs  = $(".participant", this)
         left  = objs.min((e) -> $(e).position().left) - @position().left
         right = objs.max((e) -> $(e).position().left + $(e).outerWidth()) - @position().left
         left + (right - left) + left

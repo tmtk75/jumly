@@ -1,6 +1,6 @@
 HTMLElement = require "HTMLElement"
 
-class SequenceObject extends HTMLElement
+class SequenceParticipant extends HTMLElement
   constructor: (args)->
     super args, (me)->
       me.append($("<div>").addClass("name"))
@@ -9,7 +9,7 @@ core = require "core"
 SequenceOccurrence = require "SequenceOccurrence"
 SequenceInteraction = require "SequenceInteraction"
 
-SequenceObject::activate = ->
+SequenceParticipant::activate = ->
   occurr = new SequenceOccurrence this
   iact = new SequenceInteraction null, occurr
   iact.addClass "activated"
@@ -18,11 +18,11 @@ SequenceObject::activate = ->
   @parent().append(iact)
   occurr
 
-SequenceObject::isLeftAt = (a)-> @offset().left < a.offset().left
+SequenceParticipant::isLeftAt = (a)-> @offset().left < a.offset().left
 
-SequenceObject::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
+SequenceParticipant::isRightAt = (a)-> (a.offset().left + a.width()) < @offset().left
 
-SequenceObject::iconify = (fixture, styles)->
+SequenceParticipant::iconify = (fixture, styles)->
   unless typeof fixture is "function"
     fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"]
   canvas = $("<canvas>").addClass("icon")
@@ -39,9 +39,9 @@ SequenceObject::iconify = (fixture, styles)->
   this.renderIcon = -> render()
   this
 
-SequenceObject::lost =-> @activate().interact(null, {stereotype:".lost"})
+SequenceParticipant::lost =-> @activate().interact(null, {stereotype:".lost"})
 
 if core.env.is_node
-  module.exports = SequenceObject
+  module.exports = SequenceParticipant
 else
-  core.exports SequenceObject
+  core.exports SequenceParticipant

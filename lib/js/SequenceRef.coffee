@@ -25,7 +25,7 @@ SequenceRef::preferred_left_and_width = ->
     most.width = most.width()
     return most
 
-  objs = diag.find(".object")
+  objs = diag.find(".participant")
   if objs.length is 0
     return {}
 
