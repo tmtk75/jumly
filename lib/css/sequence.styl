@@ -26,6 +26,7 @@ primary-border()
 .sequence-diagram .participant
   position relative
   width obj_outer_width
+  background-color #fff
   .name
     primary-border()
     text-align center
@@ -33,7 +34,6 @@ primary-border()
     min-width obj_inner_width
     height    obj_inner_height
     line-height obj_inner_height
-    background-color #fff
 
 .sequence-diagram .participant:not(:first-child)
   margin-top -(border_width*2 + obj_inner_height)
