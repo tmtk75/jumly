@@ -19,13 +19,16 @@ block content
         p Try changing below. Available directives are @found,
          |@message, @create, @reply, @alt, @loop, @ref and @note.
          |In more detail, see <a href='/reference'>the reference</a>.
+
         textarea#code(rows=12)
           |@found "You", ->
           |   @message "Think", ->
           |     @message "Write your idea", "JUMLY", ->
           |       @create "Diagram"
           |jumly.css "background-color":"#8CC84B"
-
+        
+        //a#open-snippet.btn(href="#snippet",role="button","data-toggle"="modal") show snippet
+        
         #notification
 
         #disqus_thread
@@ -34,13 +37,27 @@ block content
       .span6
         #diagram_container
 
+  #snippet.modal.hide.fade(tabindex=-1,role="dialog","aria-labelledby"="snippetLabel","aria-hidden"="true")
+    .modal-header
+      button.close(type="button","data-dismiss"="modal","aria-hidden"="true") ×
+      h3#snippetLabel Snippet
+    .modal-body
+      pre &nbsp;
+    //.modal-footer
+      button.btn("data-dismiss"="modal","aria-hidden"="true") Close
+      button.btn.btn-primary Save changes
+
   footer
     .copyright
       | copyright 2010-#{2012}, all rights reserved ©Tomotaka Sakuma
 
   !=js('jumly')
 
+  script(src="bootstrap/docs/assets/js/bootstrap-modal.js")
   :coffeescript
+    $(snippet).on "shown", ->
+      $("pre", snippet).text $(code).val()
+      
     $ ->
       compile = ->
         $(code).removeClass "failed"
