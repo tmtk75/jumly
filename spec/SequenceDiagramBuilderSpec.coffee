@@ -21,7 +21,7 @@ describe "SequenceDiagramBuilder", ->
 
       it "gives an object having .found", ->
         @builder.found "biz"
-        obj = @diagram.find ".object"
+        obj = @diagram.find ".participant"
         expect(obj.length).toBe 1
         expect(obj).haveClass "found"
         expect(obj.find(".name").text()).toBe "biz"
@@ -133,14 +133,14 @@ describe "SequenceDiagramBuilder", ->
             expect(@create.find(".name").text()).toBe ""
 
         describe "to the created object just after @create", ->
-          it "creates an .object", ->
+          it "creates an .participant", ->
             @builder.diagram().find("*").remove()
             diag = @builder.build """
               @found "HTTP Server", ->
                 @create "HTTP Session"
                 @message "save state", "HTTP Session"
               """
-            expect(diag.find(".object").length).toBe 2
+            expect(diag.find(".participant").length).toBe 2
 
         describe "asynchronous", ->
           it "has one .asynchronous", ->
@@ -377,7 +377,7 @@ describe "SequenceDiagramBuilder", ->
           """
 
       it "can be referred", ->
-        expect(@builder.that).toBe @diagram.find(".object:eq(0)").data "_self"
+        expect(@builder.that).toBe @diagram.find(".participant:eq(0)").data "_self"
         expect(@diagram.var_found).toBe @builder.that
       
     describe "message", ->
@@ -389,7 +389,7 @@ describe "SequenceDiagramBuilder", ->
           """
 
       it "can be referred", ->
-        expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+        expect(@builder.that).toBe @diagram.find(".participant:eq(1)").data "_self"
         expect(@diagram.var_ano).toBe @builder.that
       
     describe "create", ->
@@ -401,7 +401,7 @@ describe "SequenceDiagramBuilder", ->
           """
 
       it "can be referred", ->
-        expect(@builder.that).toBe @diagram.find(".object:eq(1)").data "_self"
+        expect(@builder.that).toBe @diagram.find(".participant:eq(1)").data "_self"
         expect(@diagram.var_create).toBe @builder.that
 
     describe "ref", ->
@@ -446,7 +446,7 @@ describe "SequenceDiagramBuilder", ->
     beforeEach ->
       @diagram = @builder.build """
         @found "hi"
-        @that = @find(".object:eq(0)").data "_self"
+        @that = @find(".participant:eq(0)").data "_self"
         """
 
     it "equals to $.find", ->

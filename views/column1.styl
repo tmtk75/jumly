@@ -44,49 +44,6 @@ h2,h3,h4
         margin-right: 2px
   &.normal
     color inherit
-  &.simple *
-    box-shadow none
-    -webkit-box-shadow none
-    -moz-box-shadow none
-    -o-box-shadow none
-    .object
-      .name
-        border-top-color transparent
-        border-right-color transparent
-        border-left-color transparent
-        background-color transparent
-    .occurrence
-      background-color white
-  &.funcy
-    *
-      box-shadow none
-      -webkit-box-shadow none
-      -moz-box-shadow none
-      -o-box-shadow none
-    .object:nth-child(1) .name
-      border-color darken(#0095b6, 25%)
-      background-color #0095b6
-      color darken(#0095b6, 50%)
-    .object:nth-child(3) .name
-      border-color darken(#ffba00, 25%)
-      background-color #ffba00
-      color darken(#ffba00, 50%)
-      width 160px
-      margin-left -30px
-    .object:nth-child(5) .name
-      border-color darken(#f0dc82, 25%)
-      background-color #f0dc82
-      color darken(#f0dc82, 50%)
-    .object .name
-      border-radius 12px
-      font-weight bold
-    .occurrence
-      border-radius 8px
-      //background-color darken(#bfff00, 10%)
-      //border-color darken(#bfff00, 25%)
-    .line
-      margin-left 49%
-      border-left dotted 5px darken(#bfff00, 25%)
 
 #getting-started
   margin-top 60px
@@ -107,7 +64,7 @@ h2,h3,h4
   .buttons
     a.github.button, a.apidocs.button
       width 99px 
-    a.github.button, a.apidocs.button, a.reference.button
+    a.download.button, a.github.button, a.apidocs.button, a.reference.button
       -webkit-transition background-color 0.2s ease-in-out
       -moz-transition background-color 0.2s ease-in-out
       &:hover
@@ -116,9 +73,11 @@ h2,h3,h4
       margin-right 1px
     .apidocs
       margin-left 1px
-  a.download.button, a.reference.button
+  a.download.button, a.reference.button, a.try-jumly.button
     width 200px
-  a.download.button
+  a.try-jumly.button
+    background-color #8bc84b
+  a.try-jumly.button
     display block
     text-decoration none
     margin-left auto
@@ -127,7 +86,6 @@ h2,h3,h4
     L-EMBOSS(.33)
     padding 8px 0
     border-radius 2px
-    background-color #8bc84b
     -webkit-transition background-color 0.2s ease-in-out
     -moz-transition background-color 0.2s ease-in-out
     &:hover

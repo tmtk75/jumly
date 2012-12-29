@@ -16,13 +16,13 @@ describe "SequenceDiagram", ->
   it "has no elements just after creation", ->
     expect(@diagram.find("*").length).toBe 0
   
-  describe "SequenceObject", ->
-    SequenceObject = require "SequenceObject"
+  describe "SequenceParticipant", ->
+    SequenceParticipant = require "SequenceParticipant"
     beforeEach ->
-      @object = new SequenceObject "user"
+      @object = new SequenceParticipant "user"
     
-    it "has .object", ->
-      expect(@object).haveClass "object"
+    it "has .participant", ->
+      expect(@object).haveClass "participant"
       
     it "has name", ->
       expect(@object.find(".name").text()).toBe "user"

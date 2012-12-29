@@ -24,7 +24,7 @@ UMLUsecase::pack = (T = (1 + 2.2360679)/2) ->
 
 class UMLActor
     constructor: (props, opts) ->
-        jQuery.extend this, $.jumly ".object"
+        jQuery.extend this, $.jumly ".participant"
         @iconify ".actor"
         @addClass "actor"
         this
