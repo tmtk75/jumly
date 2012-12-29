@@ -9,29 +9,50 @@ block content
     .row
       .span6
         h2.logo Try
-          small JUMLY
+          small
+            a(href='/') JUMLY
           span.desc Interactive Demo
 
     .row
       .span6
-        textarea#code(rows=20)
+        p Try changing below. Available directives are @found,
+         |@message, @create, @reply, @alt, @loop, @ref and @note.
+         |In more detail, see <a href='/reference'>the reference</a>.
+        textarea#code(rows=12)
           |@found "You", ->
           |   @message "Think", ->
           |     @message "Write your idea", "JUMLY", ->
           |       @create "Diagram"
+          | 
+
+        #notification
+
+        #disqus_thread
+          script(src='disqus.js')
+      
       .span6
         #diagram_container
+
+  footer
+    .copyright
+      | copyright 2010-#{2012}, all rights reserved ©Tomotaka Sakuma
 
   !=js('jumly')
 
   :coffeescript
     $ ->
       compile = ->
-        builder = new (require "SequenceDiagramBuilder")
-        layout  = new (require "SequenceDiagramLayout")
-        diag = builder.build $(code).val()
-        $(diagram_container).html diag
-        layout.layout diag
+        $(code).removeClass "failed"
+        $(notification).text ""
+        try
+          builder = new (require "SequenceDiagramBuilder")
+          layout  = new (require "SequenceDiagramLayout")
+          diag = builder.build $(code).val()
+          $(diagram_container).html diag
+          layout.layout diag
+        catch ex
+          $(code).addClass "failed"
+          $(notification).text ex
       
       compile()
 
