@@ -30,17 +30,12 @@ params =
   VERSION_PATH: version[0]
   IMAGES_DIR  : "images"
 
-app.get "/", index_en = (req, res)->
-  res.render "index", params
-
+app.get "/", index_en = (req, res)-> res.render "index", params
 app.get "/index", index_en
 app.get "/index.en", index_en
-
-app.get "/index.ja", (req, res)->
-  res.render "index_ja", params
-
-app.get "/reference", (req, res)->
-  res.render "reference", params
+app.get "/index.ja", (req, res)-> res.render "index_ja", params
+app.get "/reference", (req, res)-> res.render "reference", params
+app.get "/try", (req, res)-> res.render "try", params
 
 port = process.env.PORT || 3000
 app.listen port

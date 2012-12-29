@@ -1,0 +1,41 @@
+extends column1
+
+block styles
+  link(rel='stylesheet', href="try.css")
+
+block content
+  !=css('jumly')
+  .container
+    .row
+      .span6
+        h2.logo Try
+          small JUMLY
+          span.desc Interactive Demo
+
+    .row
+      .span6
+        textarea#code(rows=20)
+          |@found "You", ->
+          |   @message "Think", ->
+          |     @message "Write your idea", "JUMLY", ->
+          |       @create "Diagram"
+      .span6
+        #diagram_container
+
+  !=js('jumly')
+
+  :coffeescript
+    $ ->
+      compile = ->
+        builder = new (require "SequenceDiagramBuilder")
+        layout  = new (require "SequenceDiagramLayout")
+        diag = builder.build $(code).val()
+        $(diagram_container).html diag
+        layout.layout diag
+      
+      compile()
+
+      id = -1
+      $(code).on "keyup", (a,b,c)->
+        clearTimeout id
+        id = setTimeout compile, 500
