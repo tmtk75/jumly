@@ -30,12 +30,16 @@ and open the document.
 
 
 ## License
-JUMLY v0.1.1 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.2 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.1, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.2, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 ## History
+- Try JUMLY, Dec 29, 2012
+  - interactive demo for sequence diagram
+- 0.1.2, Dec 29, 2012
+  - change CSS class name for .participant, which was .object
 - Reference Manual r1 published Dec 10, 2012
 - 0.1.1 Nov 29, 2012
   - support @note directive
