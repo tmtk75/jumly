@@ -64,7 +64,7 @@ h2,h3,h4
   .buttons
     a.github.button, a.apidocs.button
       width 99px 
-    a.github.button, a.apidocs.button, a.reference.button
+    a.download.button, a.github.button, a.apidocs.button, a.reference.button
       -webkit-transition background-color 0.2s ease-in-out
       -moz-transition background-color 0.2s ease-in-out
       &:hover
@@ -73,9 +73,11 @@ h2,h3,h4
       margin-right 1px
     .apidocs
       margin-left 1px
-  a.download.button, a.reference.button
+  a.download.button, a.reference.button, a.try-jumly.button
     width 200px
-  a.download.button
+  a.try-jumly.button
+    background-color #8bc84b
+  a.try-jumly.button
     display block
     text-decoration none
     margin-left auto
@@ -84,7 +86,6 @@ h2,h3,h4
     L-EMBOSS(.33)
     padding 8px 0
     border-radius 2px
-    background-color #8bc84b
     -webkit-transition background-color 0.2s ease-in-out
     -moz-transition background-color 0.2s ease-in-out
     &:hover
