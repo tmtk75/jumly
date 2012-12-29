@@ -23,7 +23,11 @@ block content
             | CSSでstylingされたHTML要素なので、テキスト部分は選択、コピー等が可能です。
 
         #popular-links 
-          a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.0-beta.tar.gz') ダウンロード v#{VERSION}
+          .buttons
+            a.button.try-jumly(href='/try') Try JUMLY
+              small &nbsp;interactive demo
+          .buttons
+            a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.0-beta.tar.gz') ダウンロード v#{VERSION}
           .buttons
             a.button.reference(href='/reference') リファレンスマニュアル r1
           .buttons
