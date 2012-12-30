@@ -12,6 +12,12 @@ block content
     .row
       .span2
       .span8
+        :jumly(type=sequence)
+          @found "App", ->
+            @message "Register", "Engine", ->
+              @reply "OK"
+            @message "Do It", "Engine", ->
+              @reply "NG"
         h1.logo
           .brand JUMLY
         
