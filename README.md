@@ -30,12 +30,14 @@ and open the document.
 
 
 ## License
-JUMLY v0.1.2 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.2a is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.2, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.2a, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 ## History
+- 0.1.2a, Dec 31, 2012
+  - Fixed https://github.com/tmtk75/jumly/issues/4
 - Try JUMLY, Dec 29, 2012
   - interactive demo for sequence diagram
 - 0.1.2, Dec 29, 2012
