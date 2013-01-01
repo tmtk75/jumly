@@ -582,7 +582,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
         it "doesn't overlap", ->
           a = @diagram.find ".return:eq(0)"
-          b = @diagram.find ".message:eq(1)"
+          b = @diagram.find ".message:eq(2)"
           expect(_bottom a).toBeLessThan _top b
 
     describe "returning back to the caller", ->
