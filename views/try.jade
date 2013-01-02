@@ -27,7 +27,7 @@ block content
           |       @create "Diagram"
           |jumly.css "background-color":"#8CC84B"
         
-        //a#open-snippet.btn(href="#snippet",role="button","data-toggle"="modal") show snippet
+        a#download_as_png.btn Download as .png
         
         #notification
 
@@ -54,10 +54,21 @@ block content
   !=js('jumly')
 
   script(src="bootstrap/docs/assets/js/bootstrap-modal.js")
+  script(src="html2canvas/html2canvas.js")
   :coffeescript
     $(snippet).on "shown", ->
       $("pre", snippet).text $(code).val()
-      
+
+    $(download_as_png).on "click", ->
+      html2canvas [diagram_container], onrendered: (canvas)->
+        data = 
+        $.ajax "/images",
+          type: 'POST'
+          data:
+            data: canvas.toDataURL "image/png"
+          success: (res)->
+            console.log res
+
     $ ->
       compile = ->
         $(code).removeClass "failed"

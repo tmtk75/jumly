@@ -21,8 +21,10 @@ app.use stylus.middleware {
                .use(nib())
                .import('nib')
 }
+
 app.use express.static "#{__dirname}/views/static"
 app.use assets src:"lib"
+app.use express.bodyParser()
 
 version = fs.readFileSync("lib/version").toString().trim().split "\n"
 params =
@@ -36,6 +38,10 @@ app.get "/index.en", index_en
 app.get "/index.ja", (req, res)-> res.render "index_ja", params
 app.get "/reference", (req, res)-> res.render "reference", params
 app.get "/try", (req, res)-> res.render "try", params
+app.post "/images", (req, res) ->
+  b64 = req.body.data.replace /^data:image\/png;base64,/, ""
+  buf = new Buffer(b64, 'base64').toString 'binary'
+  res.end buf, "binary"
 
 port = process.env.PORT || 3000
 app.listen port
