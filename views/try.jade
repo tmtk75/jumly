@@ -61,9 +61,9 @@ block content
 
     $(download_as_png).on "click", ->
       html2canvas [diagram_container], onrendered: (canvas)->
-        data = 
         $.ajax "/images",
           type: 'POST'
+          contentType: "application/json"
           data:
             data: canvas.toDataURL "image/png"
           success: (res)->
