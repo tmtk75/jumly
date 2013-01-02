@@ -72,14 +72,14 @@ _determine_primary_stereotype = (jqnode) ->
   for e in ["create", "asynchronous", "synchronous", "destroy"]
     return e if jqnode.hasClass e
 
-SequenceMessage::repaint = (style) ->
+SequenceMessage::repaint = () ->
   shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
-  arrow = jQuery.extend {}, MESSAGE_STYLE, style, shape
+  arrow = jQuery.extend {}, MESSAGE_STYLE, shape
   # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
   # So if you don't set same value to both, the rendered result may be inconsistent.
   canvas = @_current_canvas = @_prefferedCanvas()
 
-  if style?.inherit
+  if false
     p = @parents(".occurrence:eq(0)")
     arrow.fillStyle   = p.css "background-color"
     arrow.strokeStyle = p.css "border-top-color"
@@ -89,7 +89,7 @@ SequenceMessage::repaint = (style) ->
     arrow.shadowOffsetY = RegExp.$3
     arrow.shadowBlur    = RegExp.$4
 
-  if arrow.self
+  if @hasClass "self"
     ctxt = canvas[0].getContext '2d'
     gap = 2
     rcx = @width() - (gap + 4)
@@ -110,7 +110,7 @@ SequenceMessage::repaint = (style) ->
   else
     line = @_lineToNextOccurr canvas
       
-  if arrow.reverse
+  if @hasClass "reverse"
     a           = line.src
     line.src    = line.dst
     line.dst    = a
