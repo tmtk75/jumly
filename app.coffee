@@ -18,7 +18,7 @@ app.configure ->
   app.set 'port', (process.env.PORT || 3000)
   app.set "view engine", "jade"
   app.use express.favicon()
-  app.use express.logger('dev')
+  app.use express.logger 'dev'
   app.use stylus.middleware
     src: path.join __dirname, 'views'
     dest: path.join __dirname, 'views/static'
@@ -32,7 +32,6 @@ app.configure ->
   app.use express.methodOverride()
   app.use express.cookieParser 'your secret here'
   app.use express.session()
-  app.use app.router
   app.use express.static path.join __dirname, "views/static"
   app.use assets src:"lib"
   app.use express.bodyParser()
