@@ -26,7 +26,9 @@ block content
           |     @message "Write your idea", "JUMLY", ->
           |       @create "Diagram"
           |jumly.css "background-color":"#8CC84B"
-        
+       
+        form#download_as_png_form(action='/images',method='POST',target='foobar',style='display:none;')
+          input(name='data')
         a#download_as_png.btn Download as .png
         
         #notification
@@ -61,13 +63,8 @@ block content
 
     $(download_as_png).on "click", ->
       html2canvas [diagram_container], onrendered: (canvas)->
-        $.ajax "/images",
-          type: 'POST'
-          contentType: "application/json"
-          data:
-            data: canvas.toDataURL "image/png"
-          success: (res)->
-            console.log res
+        download_as_png_form.data.value = canvas.toDataURL "image/png"
+        download_as_png_form.submit()
 
     $ ->
       compile = ->
