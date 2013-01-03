@@ -8,8 +8,6 @@ _fn.choose = (ef, cmpf)-> $.choose(this, ef, cmpf)
 _fn.max = (ef)-> $.max(this, ef)
 _fn.min = (ef)-> $.min(this, ef)
 
-_fn.outerRight = -> @offset().left + @outerWidth()
-_fn.right = -> @offset().left + @width() - 1
 _fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
 _fn.mostLeftRight = ->

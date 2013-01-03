@@ -41,7 +41,8 @@ SequenceMessage::_toCreateLine = (canvas)->
   e = @_toLine @_srcOccurr(), @_dstOccurr()._actor, canvas
   if @isTowardLeft()
     src = @_srcOccurr()
-    e.dst.x = src._actor.outerRight() - src.offset().left
+    outerRight = (it)-> it.offset().left + it.outerWidth()
+    e.dst.x = outerRight(src._actor) - src.offset().left
   e
 
 SequenceMessage::_findOccurr = (actee)->
