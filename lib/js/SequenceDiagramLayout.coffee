@@ -51,6 +51,21 @@ _ = (opts)->
     return opts["gecko"]
   return opts["webkit"]
 
+# A specific iterator that picks up by 2 from this nodeset.
+# f0: a callback has one argument like (e) -> to handle the 1st node.
+# f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.
+$.fn.pickup2 = (f0, f1, f2) ->
+  return this if @length is 0
+  f0 prev = $(this[0])
+  return this if @length is 1
+  @slice(1).each (i, curr)=>
+    curr = $ curr
+    if f2? and (i + 1 is @length - 1)
+      f2 prev, curr, i + 1
+    else
+      f1 prev, curr, i + 1
+    prev = curr
+
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is (_ webkit:"auto", gecko:"0px")
