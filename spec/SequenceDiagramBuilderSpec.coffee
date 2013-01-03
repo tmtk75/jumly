@@ -38,6 +38,10 @@ describe "SequenceDiagramBuilder", ->
             """
           expect(@diagram['a_b']).toBeDefined()
           expect(@builder._name).toBe 'a b'
+
+      describe "empty string given", ->
+        it "throws an error", ->
+          expect(-> @builder.build '@found ""').toThrow()
       
     describe "message", ->
 
