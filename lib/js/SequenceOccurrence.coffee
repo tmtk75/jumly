@@ -84,7 +84,7 @@ SequenceOccurrence::destroy = (actee) ->
     #return @interact(actee, {stereotype:"destroy"})
     #Tentative deprecated implementation.
     occur = @interact(actee)
-                .stereotype("destroy")
+                #.stereotype("destroy")
                 .data("_self")._actee
     if occur.is_on_another()
         occur = occur._parent_occurr()

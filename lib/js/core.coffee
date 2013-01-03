@@ -1,18 +1,3 @@
-jumly = (arg, opts) ->
-  mapJqToJy = (arg) ->
-    if (typeof arg is "object" && !(typeof arg.length is "number" && typeof arg.data is "function"))
-      arg = $(arg)  # regard as a DOM node
-    for i in [0..arg.length-1]
-      a = $(arg[i]).self()
-      arg[i] = if !a then null else a
-    arg
-  mapJqToJy arg
-
-$.jumly = jumly
-
-##
-$.fn.stereotype = (n)-> this
-
 core = {}
 
 core._to_id = (that)->

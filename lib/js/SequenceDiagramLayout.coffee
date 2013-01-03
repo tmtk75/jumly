@@ -61,8 +61,6 @@ SequenceDiagramLayout::align_objects_horizontally = ->
       spacing.apply()
   @_q(".participant").pickup2 f0, f1
 
-jumly = $.jumly
-
 SequenceLifeline = require "SequenceLifeline"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
@@ -109,12 +107,12 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
     most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
-    msg = jumly(fragment.find("> .interaction > .message"))[0]
+    msg = fragment.find("> .interaction > .message").data "_self"
     if (msg?.isTowardLeft())
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                occurr = jumly(occurr)[0]
+                occurr = occurr.data "_self"
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
