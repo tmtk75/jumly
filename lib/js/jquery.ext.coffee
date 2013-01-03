@@ -1,23 +1,20 @@
-max = (a, b) -> b - a
-min = (a, b) -> a - b
-$.choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
-$.max = (nodes, ef)-> $.choose(nodes, ef, max)
-$.min = (nodes, ef)-> $.choose(nodes, ef, min)
-_fn = $.fn
-_fn.choose = (ef, cmpf)-> $.choose(this, ef, cmpf)
-_fn.max = (ef)-> $.max(this, ef)
-_fn.min = (ef)-> $.min(this, ef)
+_max = (nodes, ef)-> _choose(nodes, ef, (a, b)-> b - a)
+_min = (nodes, ef)-> _choose(nodes, ef, (a, b)-> a - b)
+_choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
+$.fn.choose = (ef, cmpf)-> _choose(this, ef, cmpf)
+$.fn.max = (ef)-> _max(this, ef)
+$.fn.min = (ef)-> _min(this, ef)
 
-_fn.outerBottom = -> @offset().top + @outerHeight() - 1
+$.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-_fn.mostLeftRight = ->
+$.fn.mostLeftRight = ->
   left : @min (e)-> $(e).offset().left
   right: @max (e)->
     t = $(e).offset().left + $(e).outerWidth()
     if t - 1 < 0 then 0 else t - 1
   width: -> if @right? and @left? then @right - @left + 1 else 0
 
-_fn.mostTopBottom = ->
+$.fn.mostTopBottom = ->
   top   : @min (e)-> $(e).offset().top
   bottom: @max (e)->
     t = $(e).offset().top + $(e).outerHeight()
