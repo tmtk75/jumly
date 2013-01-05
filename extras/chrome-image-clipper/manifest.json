@@ -5,7 +5,7 @@
   "description": "JUMLY",
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "css": [],
       "js": ["jquery.js", "page.js"]
     }
@@ -13,7 +13,6 @@
   "permissions": [
     "https://*/*",
     "http://*/*",
-    "file://*/*",
     "tabs"
   ],
   "background": {"page": "bg.html"},
