@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "JUMLY image clipper",
+  "version": "0.0.1",
+  "description": "JUMLY",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "css": [],
+      "js": ["jquery.js", "page.js"]
+    }
+  ],
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "file://*/*",
+    "tabs"
+  ],
+  "background": {"page": "bg.html"},
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}
