@@ -1,0 +1,40 @@
+body {
+  margin: 0px;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  border-top: solid 6px #8CC84B;
+  background-color: #eee;
+  min-width: 386px;
+}
+header {
+  h2 {
+    text-align: center;
+    font-family: Coda,Tahoma,sans-serif;
+    font-size: 18px;
+    text-shadow: -1px 1px 0 rgba(255,255,255,1);
+  }
+}
+#notification {
+  text-align: center;
+  font-weight: bold;
+  &.succeeded {
+    color: darken(#8CC84B, 20%);
+  }
+  &.failed {
+    color: #ff6000;
+  }
+}
+.copyright {
+  background-color: #33342d;
+  color: #d2d8ba;
+  border-top: solid 1px darken(white, 33%);
+  border-bottom: solid 1px darken(#33342d, 7%);
+  text-align: center;
+  font-size: smaller;
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+} 
+

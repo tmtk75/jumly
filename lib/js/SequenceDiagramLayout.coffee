@@ -27,6 +27,10 @@ SequenceDiagramLayout::_layout_ = ->
   @rebuild_asynchronous_self_calling()
   @render_icons()
 
+  @diagram.find(".return").each (i, e)->
+    e = $(e)
+    e.css "margin-top", -e.height() / 2
+
   occurs = @diagram.find ".occurrence"
   ml = occurs.sort (e)-> $(e).offset().left
   mr = occurs.sort (e)-> $(e).offset().left + $(e).outerWidth() - 1
@@ -47,6 +51,21 @@ _ = (opts)->
     return opts["gecko"]
   return opts["webkit"]
 
+# A specific iterator that picks up by 2 from this nodeset.
+# f0: a callback has one argument like (e) -> to handle the 1st node.
+# f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.
+$.fn.pickup2 = (f0, f1, f2) ->
+  return this if @length is 0
+  f0 prev = $(this[0])
+  return this if @length is 1
+  @slice(1).each (i, curr)=>
+    curr = $ curr
+    if f2? and (i + 1 is @length - 1)
+      f2 prev, curr, i + 1
+    else
+      f1 prev, curr, i + 1
+    prev = curr
+
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     if a.css("left") is (_ webkit:"auto", gecko:"0px")
@@ -56,8 +75,6 @@ SequenceDiagramLayout::align_objects_horizontally = ->
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
   @_q(".participant").pickup2 f0, f1
-
-jumly = $.jumly
 
 SequenceLifeline = require "SequenceLifeline"
 
@@ -105,12 +122,12 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
     most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
-    msg = jumly(fragment.find("> .interaction > .message"))[0]
+    msg = fragment.find("> .interaction > .message").data "_self"
     if (msg?.isTowardLeft())
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                occurr = jumly(occurr)[0]
+                occurr = occurr.data "_self"
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   

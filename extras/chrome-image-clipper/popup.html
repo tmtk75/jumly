@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>JUMLY image clipper</title>
+    <meta charset='utf-8'>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Coda:800|Questrial|Michroma");
+      @import url("http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-regular.ttf");
+    </style>
+    <link type="text/css" rel='stylesheet/less' href="style.less">
+    <script src="less.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>JUMLY image clipper</h2>
+    </header>
+    <div id="notification"></div>
+    <form id='downloader' method='POST' action="http://jumly.herokuapp.com/images" style='display:none;'>
+      <input name="data" type=''/>
+    </form>
+    <canvas id='offscreen' style='display:none;'></canvas>
+    <footer>
+      <div class="copyright">
+        copyright 2010-2013, all rights reserved ©Tomotaka Sakuma
+      </div>
+    </footer>
+  </body>
+  <script src="jquery.js"></script>
+  <script src="popup.js"></script>
+</html>

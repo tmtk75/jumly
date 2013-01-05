@@ -12,7 +12,7 @@ For more information, see <https://jumly.herokuapp.com/>.
 The auther's blog is <http://tmtk75.github.com>.
 
 
-## Getting Started
+# Getting Started
 Copy following code,
 paste it at the place of your HTML document,
 and open the document.
@@ -29,13 +29,62 @@ and open the document.
 [Here](http://jumly.herokuapp.com/examples/simple.html) is a minimal sample.
 
 
-## License
-JUMLY v0.1.1 is under [MIT License](http://opensource.org/licenses/MIT).
+# How to build
+Requiring [Node.js](http://nodejs.org/) v0.8.9 or upper. [nvm](https://github.com/creationix/nvm) is good to get it.
 
-JUMLY v0.1.1, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+In order to build jumly.js, jumly.css and minified ones, it's shortly steps.
+
+    $ git clone https://github.com/tmtk75/jumly.git
+    $ cd jumly
+    $ npm install
+    $ . .env
+    $ cake build
+
+`./build` directory is created and it contains them.
 
 
-## History
+# How to develop
+Written in CoffeeScript and stylus. They are in `./lib` directory.
+`./lib/js/jumly.coffee` organizes other *.coffee files in order.
+
+On a webapp, which is described at [next](#how-to-launch-the-webapp),
+you can use them without build.
+Editing *.coffee and *.styl, reload a page of webapp, and your change will make effect.
+
+
+# How to launch the webapp
+You can launch the webapp using [express](http://expressjs.com/).
+
+    $ . .env
+    $ ./app.coffee
+    
+Please access to [localhost:3000](http://localhost:3000) thru your browser.
+
+
+# How to run specs
+Compile spec files, and open `./spec/index.html` with your browser.
+
+To compile them,
+
+    $ . .env
+    $ cake spec:compile
+    
+[jasmine](http://pivotal.github.com/jasmine/) is used for writing specs.
+   
+
+# License
+JUMLY v0.1.2a is under [MIT License](http://opensource.org/licenses/MIT).
+
+JUMLY v0.1.2a, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+
+
+# History
+- 0.1.2a, Dec 31, 2012
+  - Fixed https://github.com/tmtk75/jumly/issues/4
+- Try JUMLY, Dec 29, 2012
+  - interactive demo for sequence diagram
+- 0.1.2, Dec 29, 2012
+  - change CSS class name for .participant, which was .object
 - Reference Manual r1 published Dec 10, 2012
 - 0.1.1 Nov 29, 2012
   - support @note directive

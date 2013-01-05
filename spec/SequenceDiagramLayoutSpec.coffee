@@ -567,6 +567,24 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         b = @diagram.find(".return .name")
         expect(a.offset().top).toBeLessThan b.offset().top
 
+    describe "looks", ->
+      describe "https://github.com/tmtk75/jumly/issues/4", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "App", ->
+              @message "Register", "Engine", ->
+                @reply "OK"
+              @message "Do It", "Engine", ->
+                @reply "NG"
+            """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "doesn't overlap", ->
+          a = @diagram.find ".return:eq(0)"
+          b = @diagram.find ".message:eq(2)"
+          expect(_bottom a).toBeLessThan _top b
+
     describe "returning back to the caller", ->
 
       beforeEach ->

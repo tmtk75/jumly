@@ -59,7 +59,8 @@ SequenceInteraction::_compose_ = ->
       x = Math.min dst.offset().left, newdst.offset().left
     rmsg.width(Math.abs w)
         .offset(left:x)
-        .repaint(reverse:true)
+        .addClass("reverse")
+        .repaint()
 
 SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
   w = @find(".occurrence:eq(0)").outerWidth()  ## It's based on the width of occurrence.
@@ -73,7 +74,8 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
      .height(b.offset().top - msg.offset().top + dy + w/8)
      .offset left:b.offset().left
   
-  msg.repaint self:true
+  msg.addClass "self"
+  msg.repaint()
 
   arrow = msg.find ".arrow"
   msg.find(".name").offset

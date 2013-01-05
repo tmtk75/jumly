@@ -25,6 +25,8 @@ Math.sign = (x) ->
         return 1
     return -1
 
+$.fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
+
 Relationship::render = ->
     margin_left = $("body").cssAsInt "margin-left"
     margin_top  = $("body").cssAsInt "margin-top"

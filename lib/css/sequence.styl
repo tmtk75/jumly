@@ -90,6 +90,7 @@ occur_width = 12px
   position: absolute
 
 .sequence-diagram .message
+  // This value is depended by arrow's shape
   height: 20px
 
 msg_shift_top = -10px
@@ -106,7 +107,15 @@ msg_shift_top = -10px
   content: '«create»'
 
 .sequence-diagram .message.return
-  margin-top: -10px
+  position relative
+  height auto
+
+.sequence-diagram .interaction:not(:last-child).reply
+  margin-bottom 16px
+
+.sequence-diagram .message.return .name:empty
+  position relative
+  top -8px
 
 .sequence-diagram .interaction.reply > .occurrence
   padding-bottom 1.44em*1.44
