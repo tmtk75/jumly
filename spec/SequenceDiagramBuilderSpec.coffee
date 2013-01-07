@@ -214,7 +214,7 @@ describe "SequenceDiagramBuilder", ->
       beforeEach ->
         @diag = @builder.build """
           @found "thread-a", ->
-            @fragment "lock", ->
+            @fragment "lock":->
               @message "get", "mutex"
           """
         @frag = @diag.find ".fragment"
