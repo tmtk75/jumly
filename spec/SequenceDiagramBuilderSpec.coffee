@@ -210,6 +210,18 @@ describe "SequenceDiagramBuilder", ->
           expect(@iact2.find("> .message:eq(0)").text()).toBe "2"
           expect(@iact2.find("> .message:eq(1)")).haveClass "return"
 
+    describe "fragment", ->
+      it "equals to .interaction", ->
+        diag = @builder.build """
+          @found "thread-a", ->
+            @fragment "lock", ->
+              @message "get", "mutex"
+          """
+        frag = diag.find ".fragment"
+        expect(frag.length).toBe 1
+        expect(frag.find(".message").length).toBe 1
+        expect(diag.lock).toBe frag
+
     describe "ref", ->
       
       it "equals to .interaction", ->
