@@ -1,7 +1,7 @@
 DiagramBuilder = require "DiagramBuilder"
 
 class SequenceDiagramBuilder extends DiagramBuilder
-  constructor: (@_diagram, @_occurr) ->
+  constructor: (@_diagram, @_occurr)->
     super()
     @_diagram ?= new SequenceDiagram
 
@@ -24,7 +24,7 @@ SequenceDiagram = require "SequenceDiagram"
 core = require "core"
 SequenceParticipant = require "SequenceParticipant"
 
-SequenceDiagramBuilder::_find_or_create = (sth) ->
+SequenceDiagramBuilder::_find_or_create = (sth)->
   a = core._normalize sth
   r = core._to_ref a.id
   return @_diagram[r] if @_diagram[r]
@@ -41,7 +41,7 @@ SequenceDiagramBuilder::_find_or_create = (sth) ->
       throw new Error "Unrecognized argument: #{e}"
   obj
 
-SequenceDiagramBuilder::message = (a, b, c) ->
+SequenceDiagramBuilder::message = (a, b, c)->
   actname  = a
   if (typeof a is "string") and (typeof b is "function" or b is undefined)
     actee = @_curr_actor()
@@ -78,7 +78,7 @@ SequenceDiagramBuilder::message = (a, b, c) ->
   callback?.apply it, []
   it
 
-SequenceDiagramBuilder::create = (a, b, c) ->
+SequenceDiagramBuilder::create = (a, b, c)->
   if typeof a is "string" and typeof b is "function"
     name     = null
     actee    = a
@@ -118,11 +118,11 @@ SequenceDiagramBuilder::_var = (varname, refobj)->
   ref = core._to_ref varname
   @_diagram._var ref, refobj
 
-SequenceDiagramBuilder::destroy = (a) ->
+SequenceDiagramBuilder::destroy = (a)->
   @_curr_occurr().destroy @_find_or_create a
   null
 
-SequenceDiagramBuilder::reply = (a, b) ->
+SequenceDiagramBuilder::reply = (a, b)->
   obj = b
   if typeof b is "string"
     ref = core._to_ref core._to_id b
@@ -135,7 +135,7 @@ SequenceDiagramBuilder::reply = (a, b) ->
     .reply name:a, ".actee":obj
   null
 
-SequenceDiagramBuilder::ref = (a) ->
+SequenceDiagramBuilder::ref = (a)->
   SequenceRef = require "SequenceRef"
   occur = @_curr_occurr()
   ref = new SequenceRef a
@@ -149,13 +149,13 @@ SequenceDiagramBuilder::ref = (a) ->
   @_diagram._var r, ref
   ref
 
-SequenceDiagramBuilder::lost = (a) ->
+SequenceDiagramBuilder::lost = (a)->
   @_curr_occurr.lost()
   null
 
-SequenceDiagramBuilder::fragment = (a, b, c) ->
+SequenceDiagramBuilder::fragment = (ctx)->
 
-SequenceDiagramBuilder::loop = (a, b, c) ->
+SequenceDiagramBuilder::loop = (a, b, c)->
   last = [].slice.apply(arguments).pop()  ## Last one is Function
   if $.isFunction(last)
     kids = @_curr_occurr().find("> *")
@@ -170,7 +170,7 @@ SequenceDiagramBuilder::loop = (a, b, c) ->
     frag
   
 
-SequenceDiagramBuilder::alt = (ints) ->
+SequenceDiagramBuilder::alt = (ints)->
   iacts = {}
   self = this
   for name of ints
@@ -203,7 +203,7 @@ Examples:
   - @reactivate "do something", "A"
   - @reactivate @message "call a taxi", "Taxi agent"
 ###
-SequenceDiagramBuilder::reactivate = (a, b, c) ->
+SequenceDiagramBuilder::reactivate = (a, b, c)->
   if a.constructor is this.constructor
     e = a._curr_occurr.parents(".interaction:eq(0)")
     @_curr_actor().activate().append e
@@ -212,20 +212,20 @@ SequenceDiagramBuilder::reactivate = (a, b, c) ->
   @_occurr = occurr
   @message(a, b, c)
 
-SequenceDiagramBuilder::css = (styles) ->
+SequenceDiagramBuilder::css = (styles)->
   @_diagram.css styles
 
-SequenceDiagramBuilder::find = (selector) ->
+SequenceDiagramBuilder::find = (selector)->
   @_diagram.find selector
 
 
 NoteElement = require "NoteElement"
 
-SequenceDiagramBuilder::note = (text, opts) ->
+SequenceDiagramBuilder::note = (text, opts)->
   note = new NoteElement text, opts
   @_curr_occurr().append note
 
-SequenceDiagramBuilder::compose = (opts) ->
+SequenceDiagramBuilder::compose = (opts)->
   if typeof opts is "function"
     opts @_diagram
   else
@@ -236,7 +236,7 @@ SequenceDiagramBuilder::preferences = ->
   @_diagram.preferences.apply @_diagram, arguments
 
 ##
-#JUMLY.DSL type:'.sequence-diagram', compileScript: (script) ->
+#JUMLY.DSL type:'.sequence-diagram', compileScript: (script)->
 #  b = new SequenceDiagramBuilder
 #  b.build script.html()
 
