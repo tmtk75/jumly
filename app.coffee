@@ -1,5 +1,4 @@
 #!/usr/bin/env coffee
-_ = require "underscore"
 express = require "express"
 jade    = require "jade"
 assets  = require "connect-assets"
