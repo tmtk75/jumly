@@ -10,6 +10,7 @@
   "dependencies": {
     "express-jade-stylus": ">=0.0.2",
     "coffee-script": ">=1.4.0",
+    "jade-filters": ">=0.0.2",
     "jumly-jade": ">=0.0.2"
   },
   "devDependencies": {
