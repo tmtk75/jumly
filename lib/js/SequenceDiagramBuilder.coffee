@@ -153,6 +153,8 @@ SequenceDiagramBuilder::lost = (a) ->
   @_curr_occurr.lost()
   null
 
+SequenceDiagramBuilder::fragment = (a, b, c) ->
+
 SequenceDiagramBuilder::loop = (a, b, c) ->
   last = [].slice.apply(arguments).pop()  ## Last one is Function
   if $.isFunction(last)
