@@ -143,10 +143,8 @@ SequenceDiagramBuilder::ref = (a)->
     occur.append ref
   else
     @diagram().append ref
-  id = core._normalize(a).id
-  @_diagram._reg_by_ref id, ref
-  r = core._to_ref id
-  @_diagram._var r, ref
+
+  @_refer ref, by:a
   ref
 
 SequenceDiagramBuilder::lost = (a)->
