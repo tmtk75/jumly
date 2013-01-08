@@ -217,6 +217,7 @@ describe "SequenceDiagramBuilder", ->
             @fragment "lock":->
               @message "get", "mutex"
           """
+        #utils.glance @diag
         @frag = @diag.find ".fragment"
 
       it "has .fragment", ->
@@ -226,7 +227,7 @@ describe "SequenceDiagramBuilder", ->
         expect(@frag.find(".message").length).toBe 1
 
       it "has .name", ->
-        expect(@frag.find(".name").text()).toBe "lock"
+        expect(@frag.find(".name:eq(0)").text()).toBe "lock"
 
       it "is identified", ->
         expect(@diag.lock).toBe @frag
