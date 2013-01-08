@@ -153,7 +153,16 @@ SequenceDiagramBuilder::lost = (a)->
   @_curr_occurr.lost()
   null
 
-SequenceDiagramBuilder::fragment = (ctx)->
+SequenceDiagramBuilder::fragment = (nctx)->
+  for name of nctx
+    ctx = nctx[name]
+    frag = @loop name, ctx
+
+    id = core._normalize(name).id
+    #@_diagram._reg_by_ref id, frag
+    r = core._to_ref id
+    @_diagram._var r, frag
+    return # stop at first property
 
 SequenceDiagramBuilder::loop = (a, b, c)->
   last = [].slice.apply(arguments).pop()  ## Last one is Function
