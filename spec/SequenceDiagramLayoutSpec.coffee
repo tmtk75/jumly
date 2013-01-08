@@ -362,6 +362,23 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       m1 = @alt.find ".message:eq(1)"
       expect(m0.outerWidth()).toBe m1.outerWidth()
 
+  describe "fragment", ->
+    describe "header", ->
+      describe "name", ->
+        beforeEach ->
+          @diagram = @builder.build """
+            @found "something", ->
+              @fragment transaction:->
+                @note "start a trax"
+          """
+          div.append @diagram
+          @layout.layout @diagram
+
+        it "doesn't overlap with note", ->
+          a = _bottom @diagram.find ".fragment .header .name:eq(0)"
+          b = _top @diagram.find ".note"
+          expect(a).toBeLessThan b
+
   describe "ref", ->
     describe "one object and it's second element", ->
       beforeEach ->
