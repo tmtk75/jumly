@@ -156,28 +156,32 @@ SequenceDiagramBuilder::lost = (a)->
 SequenceDiagramBuilder::fragment = (nctx)->
   for name of nctx
     ctx = nctx[name]
-    frag = @loop name, ctx
+    frag = @_fragment ctx, label:name
 
-    id = core._normalize(name).id
+    #id = core._normalize(name).id
     #@_diagram._reg_by_ref id, frag
-    r = core._to_ref id
-    @_diagram._var r, frag
+    #r = core._to_ref id
+    #@_diagram._var r, frag
     return # stop at first property
 
 SequenceDiagramBuilder::loop = (a, b, c)->
   last = [].slice.apply(arguments).pop()  ## Last one is Function
-  if $.isFunction(last)
-    kids = @_curr_occurr().find("> *")
-    last.apply this, []
-    newones = @_curr_occurr().find("> *").not(kids)
-    if newones.length > 0
-      SequenceFragment = require "SequenceFragment"
-      frag = new SequenceFragment().addClass("loop").enclose newones
-      frag.find(".name:first").html "Loop"
-    if typeof a is "string"
-      frag.find(".condition").html a
-    frag
-  
+  return unless $.isFunction(last)
+  @_fragment last, kind:"loop", label:"Loop", a
+
+SequenceDiagramBuilder::_fragment = (last, opts, desc)->
+  kids = @_curr_occurr().find("> *")
+  last.apply this, []
+  newones = @_curr_occurr().find("> *").not(kids)
+  if newones.length > 0
+    SequenceFragment = require "SequenceFragment"
+    frag = new SequenceFragment()
+    frag.addClass opts.kind if opts.kind
+    frag.enclose newones
+    frag.find(".name:first").html opts.label
+  if typeof desc is "string"
+    frag.find(".condition").html desc
+  frag
 
 SequenceDiagramBuilder::alt = (ints)->
   iacts = {}
