@@ -216,6 +216,7 @@ describe "SequenceDiagramBuilder", ->
           @found "thread-a", ->
             @fragment "lock":->
               @message "get", "mutex"
+          @_lock = lock
           """
         #utils.glance @diag
         @frag = @diag.find ".fragment"
@@ -229,8 +230,11 @@ describe "SequenceDiagramBuilder", ->
       it "has .name", ->
         expect(@frag.find(".name:eq(0)").text()).toBe "lock"
 
-      it "is identified", ->
-        expect(@diag.lock).toBe @frag
+      it "can be refered by property", ->
+        expect(@diag.lock).toBe @frag.data "_self"
+      
+      it "can be refered by a var", ->
+        expect(@builder._lock).toBe @frag.data "_self"
 
     describe "ref", ->
       
