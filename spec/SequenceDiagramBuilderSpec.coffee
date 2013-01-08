@@ -225,6 +225,9 @@ describe "SequenceDiagramBuilder", ->
       it "has a context", ->
         expect(@frag.find(".message").length).toBe 1
 
+      it "has .name", ->
+        expect(@frag.find(".name").text()).toBe "lock"
+
       it "is identified", ->
         expect(@diag.lock).toBe @frag
 
