@@ -45,11 +45,11 @@ In order to build jumly.js, jumly.css and minified ones, it's shortly steps.
 
 # How to develop
 Written in CoffeeScript and stylus. They are in `./lib` directory.
-`./lib/js/jumly.coffee` organizes other *.coffee files in order.
+`./lib/js/jumly.coffee` organizes other \*.coffee files in order.
 
 On a webapp, which is described at [next](#how-to-launch-the-webapp),
 you can use them without build.
-Editing *.coffee and *.styl, reload a page of webapp, and your change will make effect.
+Editing \*.coffee and \*.styl, reload a page of webapp, and your change will make effect.
 
 
 # How to launch the webapp
@@ -70,15 +70,17 @@ To compile them,
     $ cake spec:compile
     
 [jasmine](http://pivotal.github.com/jasmine/) is used for writing specs.
-   
+
 
 # License
-JUMLY v0.1.2a is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.2b is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.2a, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.2b, 2010-2012 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.2b, Jan 9, 2013
+  - @fragment directive
 - 0.1.2a, Dec 31, 2012
   - Fixed https://github.com/tmtk75/jumly/issues/4
 - Try JUMLY, Dec 29, 2012
