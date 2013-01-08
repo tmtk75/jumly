@@ -158,10 +158,10 @@ SequenceDiagramBuilder::fragment = (nctx)->
     ctx = nctx[name]
     frag = @_fragment ctx, label:name
 
-    #id = core._normalize(name).id
-    #@_diagram._reg_by_ref id, frag
-    #r = core._to_ref id
-    #@_diagram._var r, frag
+    id = core._normalize(name).id
+    @_diagram._reg_by_ref id, frag
+    r = core._to_ref id
+    @_diagram._var r, frag
     return # stop at first property
 
 SequenceDiagramBuilder::loop = (a, b, c)->
