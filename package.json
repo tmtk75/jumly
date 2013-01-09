@@ -4,7 +4,7 @@
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
-    "node": "*",
+    "node": "0.8.14",
     "npm": "*"
   },
   "dependencies": {
