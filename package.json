@@ -5,7 +5,7 @@
   "description": "library to render UML diagram",
   "engines": {
     "node": "0.8.14",
-    "npm": "*"
+    "npm": "1.1.65"
   },
   "dependencies": {
     "coffee-script": ">=1.4.0",
