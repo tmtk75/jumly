@@ -210,6 +210,32 @@ describe "SequenceDiagramBuilder", ->
           expect(@iact2.find("> .message:eq(0)").text()).toBe "2"
           expect(@iact2.find("> .message:eq(1)")).haveClass "return"
 
+    describe "fragment", ->
+      beforeEach ->
+        @diag = @builder.build """
+          @found "thread-a", ->
+            @fragment "lock":->
+              @message "get", "mutex"
+          @_lock = lock
+          """
+        #utils.glance @diag
+        @frag = @diag.find ".fragment"
+
+      it "has .fragment", ->
+        expect(@frag.length).toBe 1
+
+      it "has a context", ->
+        expect(@frag.find(".message").length).toBe 1
+
+      it "has .name", ->
+        expect(@frag.find(".name:eq(0)").text()).toBe "lock"
+
+      it "can be refered by property", ->
+        expect(@diag.lock).toBe @frag.data "_self"
+      
+      it "can be refered by a var", ->
+        expect(@builder._lock).toBe @frag.data "_self"
+
     describe "ref", ->
       
       it "equals to .interaction", ->

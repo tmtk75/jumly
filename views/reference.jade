@@ -27,6 +27,8 @@ block left-content
           li
             a(href="#_loop") @loop
           li
+            a(href="#_fragment") @fragment
+          li
             a(href="#_ref") @ref
           li
             a(href="#_note") @note
@@ -153,8 +155,6 @@ block right-content
           @message "GET", "Server", ->
             @reply "200"
 
-
-
     section#_alt
       h3 @alt
       p is a kind of fragment to make usually two or more conditional
@@ -225,7 +225,26 @@ block right-content
       :jumly
         @found "You", ->
           @loop "[until she answer]", ->
-              @message "call", "Her"
+            @message "call", "Her"
+
+    section#_fragment
+      h3 @fragment
+      p is a generic directive to make fragmentation like <code>@alt</code> and <code>loop</code>.
+        |If you use this directive, you can create a fragment with arbitrary label you want.
+
+      :code(type=javascript)
+        @found "Thread-A", ->
+          @fragment "critical section":->
+            @message "acquire", "Mutex"
+            @message "do something"
+            @message "release", "Mutex"
+      
+      :jumly
+        @found "Thread-A", ->
+          @fragment "critical section":->
+            @message "acquire", "Mutex"
+            @message "do something"
+            @message "release", "Mutex"
 
     section#_ref
       h3 @ref
