@@ -22,9 +22,6 @@ primary-border()
 .sequence-diagram
   font-family Tahoma,Verdana
 
-  .stop
-    position relative
-
   .participant
     position relative
     width obj_outer_width
@@ -43,8 +40,14 @@ primary-border()
   .lifeline,
   .lifeline .line,
   .occurrence,
-  .interaction
+  .interaction,
+  .ref,
+  .stop
     position relative
+  
+  .message,
+  .message canvas
+    position absolute
 
   .lifeline .line
     margin-left 50%
@@ -84,10 +87,6 @@ primary-border()
 
   .interaction.lost .occurrence.icon::before
     content: ''
-
-  .message,
-  .message canvas
-    position absolute
 
   .message
     // This value is depended by arrow's shape
@@ -161,7 +160,6 @@ primary-border()
         //background-color #fbb
 
   .ref
-    position relative
     min-width 128px
     margin 4px
     padding 4px
