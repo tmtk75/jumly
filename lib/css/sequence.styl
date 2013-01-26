@@ -125,9 +125,6 @@ primary-border()
     &.destroy .name::before
       content: '«destroy»'
 
-  .fragment>.reply
-    margin-bottom: .5em
-
   .fragment
     margin: 4px 4px 8px 4px
     padding: 4px
@@ -136,29 +133,32 @@ primary-border()
     -webkit-border-radius: 2px
     -o-border-radius: 2px
     border-radius: 2px
+  
+    & > .reply
+      margin-bottom: .5em
 
-  .fragment .header .name
-    color: #000
-    font-weight: 700
+    & .header .name
+      color: #000
+      font-weight: 700
 
-  .fragment .header .condition
-    color: #000
-    font-weight: 400
+    & .header .condition
+      color: #000
+      font-weight: 400
 
-  .fragment.alt>.condition
-    color: #000
-    font-weight: 400
-    margin-bottom: -.5em
+    &.alt>.condition
+      color: #000
+      font-weight: 400
+      margin-bottom: -.5em
 
-  .fragment.alt div.divider
-    border-bottom: 1px dashed #555
-    margin: 4px -4px 4px -4px
+    &.alt div.divider
+      border-bottom: 1px dashed #555
+      margin: 4px -4px 4px -4px
 
-  .fragment.alt
-    .condition + .interaction
-      .message
-        margin-top 10px
-        //background-color #fbb
+    &.alt
+      .condition + .interaction
+        .message
+          margin-top 10px
+          //background-color #fbb
 
   .ref
     min-width 128px
