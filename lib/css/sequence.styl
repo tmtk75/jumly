@@ -58,33 +58,33 @@ primary-border()
 
   .occurrence
     width occur_width
-    padding: 1em 0 1em 0
-    margin-top: 4px
+    padding 1em 0 1em 0
+    margin-top 4px
     primary-border()
-    background-color: lightgray
-    z-index: 1
+    background-color lightgray
+    z-index 1
 
   .creating
     margin-bottom 40px
 
   .interaction
     &.lost .occurrence.icon
-      height: 20px
-      width: 20px
-      -moz-border-radius: 20px
-      -webkit-border-radius: 20px
-      -o-border-radius: 20px
-      border-radius: 20px
-      padding: 0
-      margin: 0
-      border-color: #999
-      background-color: #aaa
+      height 20px
+      width 20px
+      -moz-border-radius 20px
+      -webkit-border-radius 20px
+      -o-border-radius 20px
+      border-radius 20px
+      padding 0
+      margin 0
+      border-color #999
+      background-color #aaa
 
     &.activated
       margin-top 0px
 
     &.lost .occurrence.icon::before
-      content: ''
+      content ''
 
     &:not(:last-child).reply
       margin-bottom 16px
@@ -97,21 +97,21 @@ primary-border()
 
   .message
     // This value is depended by arrow's shape
-    height: 20px
+    height 20px
 
     .name
       margin-top msg_shift_top
-      text-align: center
+      text-align center
 
     &.create + .occurrence
-      padding: .5em 0 .5em 0
+      padding .5em 0 .5em 0
 
     &.lost .icon
-      background-color: gray
-      border: 1px solid #444
+      background-color gray
+      border 1px solid #444
 
     &.name::before
-      content: '«create»'
+      content '«create»'
 
     &.return
       position relative
@@ -123,39 +123,39 @@ primary-border()
   
     &.return .name::before
       display block
-      content: '«return»'
+      content '«return»'
 
     &.destroy .name::before
-      content: '«destroy»'
+      content '«destroy»'
 
   .fragment
-    margin: 4px 4px 8px 4px
-    padding: 4px
-    border: solid 1px #aaa
-    -moz-border-radius: 2px
-    -webkit-border-radius: 2px
-    -o-border-radius: 2px
-    border-radius: 2px
+    margin 4px 4px 8px 4px
+    padding 4px
+    border solid 1px #aaa
+    -moz-border-radius 2px
+    -webkit-border-radius 2px
+    -o-border-radius 2px
+    border-radius 2px
   
     & > .reply
-      margin-bottom: .5em
+      margin-bottom .5em
 
     & .header .name
-      color: #000
-      font-weight: 700
+      color #000
+      font-weight 700
 
     & .header .condition
-      color: #000
-      font-weight: 400
+      color #000
+      font-weight 400
 
     &.alt>.condition
-      color: #000
-      font-weight: 400
-      margin-bottom: -.5em
+      color #000
+      font-weight 400
+      margin-bottom -.5em
 
     &.alt div.divider
-      border-bottom: 1px dashed #555
-      margin: 4px -4px 4px -4px
+      border-bottom 1px dashed #555
+      margin 4px -4px 4px -4px
 
     &.alt
       .condition + .interaction
@@ -175,11 +175,11 @@ primary-border()
     border solid 1px black
 
     .tag
-      color: #000
-      font-weight: 700
+      color #000
+      font-weight 700
 
     .name
-      text-align: center
+      text-align center
 
   .self .message + .occurrence
     > .ref, .interaction
