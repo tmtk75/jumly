@@ -10,9 +10,10 @@ block left-header
 block right-header
 
 block left-content
-  .menu
+  nav.menu
     ul
-      li Directives
+      li
+        a(href="#_directives") Directives
         ul
           li
             a(href="#_found") @found
@@ -32,12 +33,63 @@ block left-content
             a(href="#_ref") @ref
           li
             a(href="#_note") @note
+      li
+        a(href="#_css_classes") CSS classes
+        ul
+          li
+            a(href="#_c_diagram") .diagram
+          li
+            a(href="#_c_sequence_diagram") .sequence-diagram
+          li
+            a(href="#_c_name") .name
+          li
+            a(href="#_c_participant") .participant
+            ul
+              li
+                a(href="#_c_found") .found
+          li
+            a(href="#_c_interaction") .interaction
+            ul
+              li
+                a(href="#_c_reply") .reply
+              li
+                a(href="#_c_activated") .activated
+          li
+            a(href="#_c_occurrence") .occurrence
+          li
+            a(href="#_c_message") .message
+            ul
+              li
+                a(href="#_c_create") .create
+              li
+                a(href="#_c_return") .return
+              li
+                a(href="#_c_self") .self
+          li
+            a(href="#_c_lifeline") .lifeline
+          //li
+            a(href="#_c_line") .line
+          li
+            a(href="#_c_fragment") .fragment
+            ul
+              li
+                a(href="#_c_alt") .alt
+              li
+                a(href="#_c_ref") .ref
+          li
+            a(href="#_c_leftmost") .leftmost
+          li
+            a(href="#_c_rightmost") .rightmost
+      li
+        a(href="#_reference_by_var") Reference by var
+      li
+        a(href="#_events") Events
 
 block right-content
-  #directives
+  section#_directives
     h2 Directives
 
-    section#_found
+    .subsection#_found
       
       h3 @found
       
@@ -65,7 +117,7 @@ block right-content
         @found "He", ->
           @message "calls", "Her" 
     
-    section#_message
+    .subsection#_message
       h3 @message
 
       p is an interaction between two objects or self-invoking.
@@ -111,7 +163,7 @@ block right-content
 
 
 
-    section#_create
+    .subsection#_create
       h3 @create
       p is a kind of interaction which takes one argument which is a name for new object.
         |The new object created by <code>@create</code> shifts downward, and the arrow looks
@@ -139,7 +191,7 @@ block right-content
 
 
 
-    section#_reply
+    .subsection#_reply
       h3 @reply
       p is a directive to show a return-back message.
         |This can be put in a <code>@message</code> with an argument for a short description.
@@ -155,7 +207,7 @@ block right-content
           @message "GET", "Server", ->
             @reply "200"
 
-    section#_alt
+    .subsection#_alt
       h3 @alt
       p is a kind of fragment to make usually two or more conditional
         |parts including some interactions. One of part of <code>@alt</code>
@@ -202,7 +254,7 @@ block right-content
             "[female]": ->
               @message "wait for his payment"
 
-    section#_loop
+    .subsection#_loop
       h3 @loop
       p is a kind of fragment to show repetition.
         |A rectangle with fine lightgray line represents a loop.
@@ -227,7 +279,7 @@ block right-content
           @loop "[until she answer]", ->
             @message "call", "Her"
 
-    section#_fragment
+    .subsection#_fragment
       h3 @fragment
       p is a generic directive to make fragmentation like <code>@alt</code> and <code>loop</code>.
         |If you use this directive, you can create a fragment with arbitrary label you want.
@@ -246,7 +298,7 @@ block right-content
             @message "do something"
             @message "release", "Mutex"
 
-    section#_ref
+    .subsection#_ref
       h3 @ref
       p is a directive to move to another diagram.
 
@@ -260,7 +312,7 @@ block right-content
 
       p T.B.D
 
-    section#_note
+    .subsection#_note
       h3 @note
       p is a directive to put note element everywhere.
 
@@ -277,3 +329,14 @@ block right-content
           @message "meets", "You", ->
             @note "can't do anything then"
           @note "Just say good bye..."
+
+  section#_css_classes
+    h2 CSS classes
+    p
+  
+  section#_reference_by_var
+    h2 Reference by var
+    p
+  
+  section#_reference_by_var
+    h2 Events
