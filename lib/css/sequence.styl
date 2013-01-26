@@ -92,40 +92,41 @@ primary-border()
     // This value is depended by arrow's shape
     height: 20px
 
-  .message .name
-    margin-top msg_shift_top
-    text-align: center
+    .name
+      margin-top msg_shift_top
+      text-align: center
 
-  .message.lost .icon
-    background-color: gray
-    border: 1px solid #444
+    &.lost .icon
+      background-color: gray
+      border: 1px solid #444
 
-  .message.create .name::before
-    content: '«create»'
+    &.name::before
+      content: '«create»'
 
-  .message.return
-    position relative
-    height auto
+    &.return
+      position relative
+      height auto
+
+    &.return .name:empty
+      position relative
+      top -8px
+  
+    &.return .name::before
+      display block
+      content: '«return»'
+
+    &.destroy .name::before
+      content: '«destroy»'
+
 
   .interaction:not(:last-child).reply
     margin-bottom 16px
-
-  .message.return .name:empty
-    position relative
-    top -8px
 
   .interaction.reply > .occurrence
     padding-bottom 1.44em*1.44
 
   .fragment>.reply
     margin-bottom: .5em
-
-  .message.return .name::before
-    display block
-    content: '«return»'
-
-  .message.destroy .name::before
-    content: '«destroy»'
 
   .fragment
     margin: 4px 4px 8px 4px
