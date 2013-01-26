@@ -41,7 +41,9 @@ primary-border()
       margin-top -(border_width*2 + obj_inner_height)
 
   .lifeline,
-  .lifeline .line
+  .lifeline .line,
+  .occurrence,
+  .interaction
     position relative
 
   .lifeline .line
@@ -52,7 +54,6 @@ primary-border()
     border-left dashed 1px gray
 
   .occurrence
-    position: relative
     width occur_width
     padding: 1em 0 1em 0
     margin-top: 4px
@@ -65,9 +66,6 @@ primary-border()
 
   .creating
     margin-bottom 40px
-
-  .interaction
-    position: relative
 
   .interaction.lost .occurrence.icon
     height: 20px
