@@ -92,6 +92,9 @@ primary-border()
     &.reply > .occurrence
       padding-bottom 1.44em*1.44
 
+    &:not(.activated) .occurrence .note:nth-child(1)
+      margin-top 1px + border_width
+
   .message
     // This value is depended by arrow's shape
     height: 20px
@@ -160,6 +163,9 @@ primary-border()
           margin-top 10px
           //background-color #fbb
 
+    .header + .note
+      margin-top 2px
+
   .ref
     min-width 128px
     margin 4px
@@ -200,10 +206,3 @@ primary-border()
       primary-border()
       background-color #fff
       padding 4px
-  
-  .interaction:not(.activated) .occurrence .note:nth-child(1)
-    margin-top 1px + border_width
-
-  .fragment
-    .header + .note
-      margin-top 2px
