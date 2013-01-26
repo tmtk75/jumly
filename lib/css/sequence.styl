@@ -37,8 +37,8 @@ primary-border()
       height    obj_inner_height
       line-height obj_inner_height
 
-  .participant:not(:first-child)
-    margin-top -(border_width*2 + obj_inner_height)
+    &:not(:first-child)
+      margin-top -(border_width*2 + obj_inner_height)
 
   .lifeline,
   .lifeline .line
