@@ -13,6 +13,8 @@ obj_inner_height = 31px
 obj_hpadding = 4px
 obj_vpadding = 0px
 obj_outer_width = (border_width + obj_hpadding)*2 + obj_inner_width
+occur_width = 12px
+msg_shift_top = -10px
 
 primary-border()
   border border_width solid #808080
@@ -20,182 +22,181 @@ primary-border()
 .sequence-diagram
   font-family Tahoma,Verdana
 
-.sequence-diagram .stop
-  position relative
+  .participant
+    position relative
+    width obj_outer_width
+    background-color #fff
+    .name
+      primary-border()
+      text-align center
+      padding obj_vpadding obj_hpadding
+      min-width obj_inner_width
+      height    obj_inner_height
+      line-height obj_inner_height
 
-.sequence-diagram .participant
-  position relative
-  width obj_outer_width
-  background-color #fff
-  .name
+    &:not(:first-child)
+      margin-top -(border_width*2 + obj_inner_height)
+
+  .lifeline,
+  .lifeline .line,
+  .occurrence,
+  .interaction,
+  .ref,
+  .stop
+    position relative
+  
+  .message,
+  .message canvas
+    position absolute
+
+  .lifeline .line
+    margin-left 50%
+    left 1px
+    height 100%
+    z-index -10
+    border-left dashed 1px gray
+
+  .occurrence
+    width occur_width
+    padding 1em 0 1em 0
+    margin-top 4px
     primary-border()
-    text-align center
-    padding obj_vpadding obj_hpadding
-    min-width obj_inner_width
-    height    obj_inner_height
-    line-height obj_inner_height
+    background-color lightgray
+    z-index 1
 
-.sequence-diagram .participant:not(:first-child)
-  margin-top -(border_width*2 + obj_inner_height)
+  .creating
+    margin-bottom 40px
 
-.sequence-diagram .lifeline,.sequence-diagram .lifeline .line
-  position relative
+  .interaction
+    &.lost .occurrence.icon
+      height 20px
+      width 20px
+      -moz-border-radius 20px
+      -webkit-border-radius 20px
+      -o-border-radius 20px
+      border-radius 20px
+      padding 0
+      margin 0
+      border-color #999
+      background-color #aaa
 
-.sequence-diagram .lifeline .line
-  margin-left 50%
-  left 1px
-  height 100%
-  z-index -10
-  border-left dashed 1px gray
+    &.activated
+      margin-top 0px
 
-occur_width = 12px
+    &.lost .occurrence.icon::before
+      content ''
 
-.sequence-diagram .occurrence
-  position: relative
-  width occur_width
-  padding: 1em 0 1em 0
-  margin-top: 4px
-  primary-border()
-  background-color: lightgray
-  z-index: 1
+    &:not(:last-child).reply
+      margin-bottom 16px
 
-.sequence-diagram .message.create+.occurrence
-  padding: .5em 0 .5em 0
+    &.reply > .occurrence
+      padding-bottom 1.44em*1.44
 
-.sequence-diagram .creating
-  margin-bottom 40px
+    &:not(.activated) .occurrence .note:nth-child(1)
+      margin-top 1px + border_width
 
-.sequence-diagram .interaction
-  position: relative
+  .message
+    // This value is depended by arrow's shape
+    height 20px
 
-.sequence-diagram .interaction.lost .occurrence.icon
-  height: 20px
-  width: 20px
-  -moz-border-radius: 20px
-  -webkit-border-radius: 20px
-  -o-border-radius: 20px
-  border-radius: 20px
-  padding: 0
-  margin: 0
-  border-color: #999
-  background-color: #aaa
+    .name
+      margin-top msg_shift_top
+      text-align center
 
-.sequence-diagram .interaction.activated
-  margin-top 0px
+    &.create + .occurrence
+      padding .5em 0 .5em 0
 
-.sequence-diagram .interaction.lost .occurrence.icon::before
-  content: ''
+    &.lost .icon
+      background-color gray
+      border 1px solid #444
 
-.sequence-diagram .message,.sequence-diagram .message canvas
-  position: absolute
+    &.name::before
+      content '«create»'
 
-.sequence-diagram .message
-  // This value is depended by arrow's shape
-  height: 20px
+    &.return
+      position relative
+      height auto
 
-msg_shift_top = -10px
+    &.return .name:empty
+      position relative
+      top -8px
+  
+    &.return .name::before
+      display block
+      content '«return»'
 
-.sequence-diagram .message .name
-  margin-top msg_shift_top
-  text-align: center
+    &.destroy .name::before
+      content '«destroy»'
 
-.sequence-diagram .message.lost .icon
-  background-color: gray
-  border: 1px solid #444
+  .fragment
+    margin 4px 4px 8px 4px
+    padding 4px
+    border solid 1px #aaa
+    -moz-border-radius 2px
+    -webkit-border-radius 2px
+    -o-border-radius 2px
+    border-radius 2px
+  
+    & > .reply
+      margin-bottom .5em
 
-.sequence-diagram .message.create .name::before
-  content: '«create»'
+    & .header .name
+      color #000
+      font-weight 700
 
-.sequence-diagram .message.return
-  position relative
-  height auto
+    & .header .condition
+      color #000
+      font-weight 400
 
-.sequence-diagram .interaction:not(:last-child).reply
-  margin-bottom 16px
+    &.alt>.condition
+      color #000
+      font-weight 400
+      margin-bottom -.5em
 
-.sequence-diagram .message.return .name:empty
-  position relative
-  top -8px
+    &.alt div.divider
+      border-bottom 1px dashed #555
+      margin 4px -4px 4px -4px
 
-.sequence-diagram .interaction.reply > .occurrence
-  padding-bottom 1.44em*1.44
+    &.alt
+      .condition + .interaction
+        .message
+          margin-top 10px
+          //background-color #fbb
 
-.sequence-diagram .fragment>.reply
-  margin-bottom: .5em
+    .header + .note
+      margin-top 2px
 
-.sequence-diagram .message.return .name::before
-  display block
-  content: '«return»'
+  .ref
+    min-width 128px
+    margin 4px
+    padding 4px
+    padding-bottom 1em
+    background-color #fff
+    border solid 1px black
 
-.sequence-diagram .message.destroy .name::before
-  content: '«destroy»'
+    .tag
+      color #000
+      font-weight 700
 
-.sequence-diagram .fragment
-  margin: 4px 4px 8px 4px
-  padding: 4px
-  border: solid 1px #aaa
-  -moz-border-radius: 2px
-  -webkit-border-radius: 2px
-  -o-border-radius: 2px
-  border-radius: 2px
+    .name
+      text-align center
 
-.sequence-diagram .fragment .header .name
-  color: #000
-  font-weight: 700
-
-.sequence-diagram .fragment .header .condition
-  color: #000
-  font-weight: 400
-
-.sequence-diagram .fragment.alt>.condition
-  color: #000
-  font-weight: 400
-  margin-bottom: -.5em
-
-.sequence-diagram .fragment.alt div.divider
-  border-bottom: 1px dashed #555
-  margin: 4px -4px 4px -4px
-
-.sequence-diagram .fragment.alt
-  .condition + .interaction
-    .message
+  .self .message + .occurrence
+    > .ref, .interaction
       margin-top 10px
-      //background-color #fbb
+      .header
+        float left
+      padding-top 6px
+      padding-bottom 6px
 
-.sequence-diagram .ref
-  position relative
-  min-width 128px
-  margin 4px
-  padding 4px
-  padding-bottom 1em
-  background-color #fff
-  border solid 1px black
+  .self .message
+    line-height 12px
 
-.sequence-diagram .ref .tag
-  color: #000
-  font-weight: 700
+  .participant .name,
+  .occurrence,
+  .ref
+    box-shadow()
 
-.sequence-diagram .ref .name
-  text-align: center
-
-.sequence-diagram .self .message + .occurrence
-  > .ref, .interaction
-    margin-top 10px
-    .header
-      float left
-    padding-top 6px
-    padding-bottom 6px
-
-.sequence-diagram .self .message
-  line-height 12px
-
-.sequence-diagram .participant .name,.sequence-diagram .occurrence,.sequence-diagram .ref
-  box-shadow()
-
-.sequence-diagram .participant
-  -text-shadow: 4px 3px 0 #fff,9px 8px 0 rgba(0,0,0,.15)
-
-.sequence-diagram
   .note
     margin-top 1px + msg_shift_top
     margin-bottom msg_shift_top*-1
@@ -205,10 +206,3 @@ msg_shift_top = -10px
       primary-border()
       background-color #fff
       padding 4px
-  .interaction:not(.activated) .occurrence .note:nth-child(1)
-    margin-top 1px + border_width
-
-.sequence-diagram
-  .fragment
-    .header + .note
-      margin-top 2px
