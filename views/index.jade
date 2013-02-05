@@ -30,7 +30,6 @@ block content
           .buttons
             a.button.reference(href='/reference') Reference Manual r1
           .buttons
-            a.button.github(href='https://github.com/tmtk75/jumly') github
             a.button.apidocs(title="Coming Soon",data-placement="right") API
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,fancy:example1.fancy}")
@@ -315,6 +314,10 @@ block content
           footer
             .copyright
               | &copy; 2010 Tomotaka Sakuma
+
+            .fork-me
+              a(ref="https://github.com/you")
+                img(style="position: absolute; top: 0; left: 0; border: 0;",src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png",alt="Fork me on GitHub")
 
           #quick-links
             ul.inner
