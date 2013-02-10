@@ -1,4 +1,3 @@
-_       = require "underscore"
 fs      = require "fs"
 brownie = require "brownie"
 

@@ -1,5 +1,8 @@
 extends column2
 
+block title
+  title JUMLY Reference for directives, CSS classes and or so
+
 block styles
  link(rel='stylesheet', href="reference.css")
 
@@ -332,7 +335,17 @@ block right-content
 
   section#_css_classes
     h2 CSS classes
+    p All nodes has a few classes of CSS because JUMLY layouts them.
+     | You can use them because of your some favors, for example,
+     | to refer a specific node and change the background color.
+    p <a href='http://jquery.com'>jQuery</a> can be used to select nodes like
+    :code(type=javascript)
+      $(".diagram:eq(2) .participant").css({color:"red");
     p
+      <a href="/#example1">This example</a> is one of good examples for styling with CSS.
+
+    p
+      TBD.
   
   section#_reference_by_var
     h2 Reference by var
