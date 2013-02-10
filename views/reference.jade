@@ -6,6 +6,12 @@ block title
 block styles
  link(rel='stylesheet', href="reference.css")
 
+block prepend description
+  - var _ = "JUMLY provides some directives to render sequence diagrams.";
+  -    _ += " This reference says the directives, CSS classes JUMLY generates, ";
+  -    _ += " and most of features of JUMLY.";
+  - var _description = _;
+
 block left-header
   h1.logo
     a(href="/") JUMLY
