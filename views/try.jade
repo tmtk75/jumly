@@ -3,6 +3,11 @@ extends column1
 block title
   title JUMLY Demo to edit an UML sequence diagram interactive, try me.
 
+block prepend description
+  - var _ = "You can try JUMLY here interactively changing an example snippet.";
+  -    _ += " Then you can see the update of the sequence diagram as soon as you change.";
+  - var _description = _;
+
 block styles
   link(rel='stylesheet', href="try.css")
 

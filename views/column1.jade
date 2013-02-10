@@ -3,7 +3,10 @@ html(lang="en")
   head
     meta(charset='utf-8')
     meta(name="viewport", content="width=device-width,initial-scale=1.0")
+    - var _description = "";
     block title
+    block description
+      meta(name="description", content="#{_description}")
     link(rel='stylesheet', href="vendor.css")
     link(rel='stylesheet', href="column1.css")
     block styles
