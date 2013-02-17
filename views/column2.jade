@@ -9,10 +9,9 @@ html(lang="en")
     link(rel='stylesheet', href="vendor.css")
     link(rel='stylesheet', href="column2.css")
     block styles
-    include scripts
-  body
     !=css('jumly')
-    !=js('jumly')
+  body
+    block navbar
     .header
       .container
         .row
@@ -33,3 +32,6 @@ html(lang="en")
       .container
         .copyright
           | &copy; 2010 Tomotaka Sakuma
+    
+    include scripts
+    !=js('jumly')

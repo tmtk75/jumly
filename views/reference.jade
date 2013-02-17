@@ -12,9 +12,15 @@ block prepend description
   -    _ += " and most of features of JUMLY.";
   - var _description = _;
 
+block navbar
+  .navbar
+    .navbar-inner
+      .brand(href="#")
+        a.logo(href="/") JUMLY
+      ul.nav
+        li: a(href="/try") TryJUMLY
+
 block left-header
-  h1.logo
-    a(href="/") JUMLY
 
 block right-header
 
