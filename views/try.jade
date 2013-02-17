@@ -11,6 +11,14 @@ block prepend description
 block styles
   link(rel='stylesheet', href="try.css")
 
+block navbar
+  .navbar
+    .navbar-inner
+      .brand(href="#")
+        a.logo(href="/") JUMLY
+      ul.nav
+        li: a(href="/reference") Reference
+
 block content
   !=css('jumly')
   .container
