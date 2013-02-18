@@ -20,6 +20,21 @@ block content
   .container
     .row
       .span2
+        #quick-links
+          ul.inner
+            li: a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.js',class="js") JavaScript <small>54KB</small>
+            li: a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.css',class="css") stylesheet <small>11KB</small>
+            li: a(href="/index.ja") Japanese page
+            li: a(href="http://tmtk75.github.com") author's blog
+
+          .inner
+            a(href="https://twitter.com/tmtk75"): img.icon(src="#{IMAGES_DIR}/twitter_alt.png")
+            a(href="https://www.facebook.com/tomotaka.sakuma"): img.icon(src="#{IMAGES_DIR}/facebook.png")
+            a(href="https://github.com/tmtk75"): img.icon(src="#{IMAGES_DIR}/github_alt.png")
+            a(href="https://plus.google.com/u/0/112810316775699020282/"): img.icon(src="#{IMAGES_DIR}/google.png")
+            a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro"): img.icon(src="#{IMAGES_DIR}/linkedin.png")
+            //a(href="https://zerply.com/tmtk"): img.icon(src="#{IMAGES_DIR}/zerply.png")
+
       .span8
         h1.logo
           .brand JUMLY
@@ -327,41 +342,6 @@ block content
             .fork-me
               a(href="https://github.com/tmtk75/jumly")
                 img(style="position: absolute; top: 0; left: 0; border: 0;",src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png",alt="Fork me on GitHub")
-
-          #quick-links
-            ul.inner
-              li
-                a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.js',class="js") JavaScript
-                  &nbsp;
-                  small 54KB, minified
-              li
-                a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.css',class="css") stylesheet
-                  &nbsp;
-                  small 11KB, minified
-              li
-                a(href="/index.ja") Japanese page
-              li
-                a(href="http://tmtk75.github.com") author's blog
-                &nbsp;
-                a(href="http://tmtk75.github.com/rss.xml")
-                  small RSS
-                &nbsp;
-                a(href="http://tmtk75.github.com/atom.xml")
-                  small ATOM
-
-            .inner
-              a(href="https://twitter.com/tmtk75")
-                img.icon(src="#{IMAGES_DIR}/twitter_alt.png")
-              a(href="https://www.facebook.com/tomotaka.sakuma")
-                img.icon(src="#{IMAGES_DIR}/facebook.png")
-              a(href="https://github.com/tmtk75")
-                img.icon(src="#{IMAGES_DIR}/github_alt.png")
-              a(href="https://plus.google.com/u/0/112810316775699020282/")
-                img.icon(src="#{IMAGES_DIR}/google.png")
-              a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro")
-                img.icon(src="#{IMAGES_DIR}/linkedin.png")
-              a(href="https://zerply.com/tmtk")
-                img.icon(src="#{IMAGES_DIR}/zerply.png")
 
   script(src="bootstrap/docs/assets/js/bootstrap-tooltip.js")
   :coffeescript
