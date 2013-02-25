@@ -8,26 +8,26 @@
     "npm": "*"
   },
   "dependencies": {
-    "coffee-script": ">=1.4.0",
-    "express": ">=3.0.2",
-    "jade": ">=0.27.7",
-    "stylus": ">=0.30.1",
-    "nib": ">=0.8.2",
-    "connect-assets": ">=2.3.3",
-    "jumly-jade": ">=0.0.2",
-    "jade-filters": ">=0.0.2"
+    "coffee-script": "1.4.0",
+    "express": "3.1.0",
+    "jade": "0.28.1",
+    "stylus": "0.32.0",
+    "nib": "0.9.1",
+    "connect-assets": "2.3.3",
+    "jumly-jade": "0.0.2",
+    "jade-filters": "0.0.2"
   },
   "devDependencies": {
-    "knockout": ">=2.1.0",
-    "jwerty": ">=0.3.1",
-    "markdown-js": ">=0.0.3",
-    "js-yaml": ">=1.0.3",
-    "jasmine-node": ">=1.0.26",
-    "temp": ">=0.4.0",
-    "glob": ">=3.1.14",
-    "path": ">=0.4.9",
-    "node-jquery": ">=0.1.1",
-    "brownie": ">=0.1.6"
+    "knockout": "2.1.0",
+    "jwerty": "0.3.1",
+    "markdown-js": "0.0.3",
+    "js-yaml": "1.0.3",
+    "jasmine-node": "1.2.0",
+    "temp": "0.5.0",
+    "glob": "3.1.17",
+    "path": "0.4.9",
+    "node-jquery": "0.1.1",
+    "brownie": "0.1.7"
   },
   "repository": {
     "type": "git",
