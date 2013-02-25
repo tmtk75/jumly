@@ -4,8 +4,8 @@
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
-    "node": "*",
-    "npm": "*"
+    "node": "0.8.20",
+    "npm": "1.2.11"
   },
   "dependencies": {
     "coffee-script": "1.4.0",
