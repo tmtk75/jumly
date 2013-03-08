@@ -44,19 +44,14 @@ params =
   VERSION_PATH: version[0]
   IMAGES_DIR  : "images"
 
+images = require "./routes/images"
 app.get "/", index_en = (req, res)-> res.render "index", params
 app.get "/index", index_en
 app.get "/index.en", index_en
 app.get "/index.ja", (req, res)-> res.render "index_ja", params
 app.get "/reference", (req, res)-> res.render "reference", params
 app.get "/try", (req, res)-> res.render "try", params
-app.post "/images", (req, res) ->
-  b64 = req.body.data.replace /^data:image\/png;base64,/, ""
-  buf = new Buffer(b64, 'base64').toString 'binary'
-  res.contentType "image/png"
-  res.header "Content-Disposition", "attachment; filename=" + "diagram.png"
-  res.status 201
-  res.end buf, "binary"
+app.post "/images", images.b64decode
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"
