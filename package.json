@@ -27,7 +27,7 @@
     "glob": "3.1.17",
     "path": "0.4.9",
     "node-jquery": "0.1.1",
-    "brownie": "0.1.9"
+    "grunt": "0.4.0"
   },
   "repository": {
     "type": "git",
