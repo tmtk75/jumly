@@ -6,7 +6,7 @@ module.exports = (grunt)->
     coffee:
       compile:
         files:
-          "build/<%= pkg.name %>.js": files.map (e)-> "lib/js/#{e}.coffee"
+          "build/<%= pkg.name %>.js": js_files.map (e)-> "lib/js/#{e}.coffee"
 
     stylus:
       compile:
@@ -32,7 +32,7 @@ module.exports = (grunt)->
 
   grunt.registerTask 'default', ['uglify']
 
-files = [
+js_files = [
   "core", "jquery.g2d", "jquery.ext", "icon"
   "HTMLElement"
   "Diagram", "DiagramBuilder", "DiagramLayout"
