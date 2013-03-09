@@ -8,6 +8,13 @@ module.exports = (grunt)->
         files:
           "build/<%= pkg.name %>.js": js_files.map (e)-> "lib/js/#{e}.coffee"
 
+      glob_to_multiple:
+        expand: true
+        cwd: 'spec'
+        src: ['*.coffee']
+        dest: 'spec'
+        ext: '.js'
+
     stylus:
       compile:
         files:
@@ -25,12 +32,24 @@ module.exports = (grunt)->
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
+    jasmine:
+      pivotal:
+        src: 'src/**/*.js',
+        options:
+          specs: 'spec/*Spec.js',
+          helpers: 'spec/*Helper.js'
+
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
-  grunt.registerTask 'default', ['coffee', 'stylus', 'uglify', 'cssmin']
+  grunt.registerTask 'minify', ['uglify', 'cssmin']
+  grunt.registerTask 'compile', ['coffee', 'stylus']
+  grunt.registerTask 'build', ['compile', 'minify']
+  grunt.registerTask 'spec', ['jasmine']
+  grunt.registerTask 'default', ['build']
 
 js_files = [
   "core", "jquery.g2d", "jquery.ext", "icon"
