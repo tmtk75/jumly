@@ -30,7 +30,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
 
-  grunt.registerTask 'default', ['uglify']
+  grunt.registerTask 'default', ['coffee', 'stylus', 'uglify', 'cssmin']
 
 js_files = [
   "core", "jquery.g2d", "jquery.ext", "icon"
