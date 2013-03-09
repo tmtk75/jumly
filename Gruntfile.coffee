@@ -15,15 +15,20 @@ module.exports = (grunt)->
 
     uglify:
       options:
-        banner: """/* <%=pkg.name%> <%=grunt.template.today('yyyy-mm-dd')%>*/\n"""
+        banner: """/* <%= pkg.name %>-<%= pkg.version %> <%=grunt.template.today('yyyy-mm-dd')%> */\n"""
       build:
         src: 'build/<%= pkg.name %>.js'
         dest: 'build/<%= pkg.name %>.min.js'
 
+    cssmin:
+      compress:
+        files:
+          'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-cssmin'
 
   grunt.registerTask 'default', ['uglify']
 

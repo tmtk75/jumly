@@ -1,6 +1,6 @@
 {
   "name": "jumly",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
@@ -32,6 +32,7 @@
     "grunt-contrib-coffee": "~0.6.0",
     "grunt-contrib-stylus": "~0.4.1",
     "grunt-contrib-uglify": "~0.1.2",
+    "grunt-contrib-cssmin": "*",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-nodeunit": "~0.1.2"
   },
