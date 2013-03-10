@@ -65,6 +65,7 @@ Editing \*.coffee and \*.styl, reload a page of webapp, and your change will mak
 You can launch the webapp using [express](http://expressjs.com/).
 
     $ . .env
+    $ git submodule update --init
     $ ./app.coffee
     
 Please access to [localhost:3000](http://localhost:3000) thru your browser.
