@@ -32,12 +32,13 @@ module.exports = (grunt)->
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
-    jasmine:
-      pivotal:
-        src: 'build/jumly.js',
-        options:
-          specs: 'spec/*Spec.js',
-          helpers: 'spec/*Helper.js'
+    "jasmine-node":
+      run:
+        spec: 'spec',
+      options:
+        coffee: true,
+      env:
+        NODE_PATH: "lib/js"
 
     watch:
       coffee:
@@ -48,13 +49,13 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-jasmine'
+  grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
   grunt.registerTask 'minify', ['uglify', 'cssmin']
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build', ['compile', 'minify']
-  grunt.registerTask 'spec', ['jasmine']
+  grunt.registerTask 'spec', ['jasmine-node']
   grunt.registerTask 'default', ['build']
 
 js_files = [
