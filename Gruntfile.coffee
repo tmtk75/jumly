@@ -24,6 +24,7 @@ module.exports = (grunt)->
     uglify:
       options:
         banner: """/* <%= pkg.name %>-<%= pkg.version %> <%=grunt.template.today('yyyy-mm-dd')%> */\n"""
+        mangle: false  ## if true, jumly.min.js is corrupted
       build:
         src: 'build/<%= pkg.name %>.js'
         dest: 'build/<%= pkg.name %>.min.js'
