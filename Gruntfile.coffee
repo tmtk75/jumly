@@ -54,11 +54,24 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
+  grunt.registerTask 'default', ['build']
   grunt.registerTask 'minify', ['uglify', 'cssmin']
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build', ['compile', 'minify']
   grunt.registerTask 'spec', ['jasmine-node']
-  grunt.registerTask 'default', ['build']
+  grunt.registerTask 'release:prepare', "", ->
+    grunt.task.requires ["build"]
+    fs = require "fs"
+    exec = require("child_process").exec
+    version = (fs.readFileSync("lib/version").toString()).split("\n")[0]
+    dir = "views/static/release/#{version}"
+    fs.mkdirSync dir unless fs.existsSync dir
+    done = @async()
+    exec "cp build/jumly.min.js build/jumly.min.css #{dir}; git add #{dir}", (err,stdout,stderr)->
+      process.stdout.write stdout if stdout
+      process.stderr.write stderr if stderr
+      process.stderr.write err if err
+      done(true)
 
 js_files = [
   "core", "jquery.g2d", "jquery.ext", "icon"
