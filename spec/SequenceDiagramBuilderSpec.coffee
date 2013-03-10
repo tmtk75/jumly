@@ -79,11 +79,8 @@ describe "SequenceDiagramBuilder", ->
             expect((@diagram.find "> .interaction > .occurrence").length).toBe 1
 
           it "has two interactions", ->
-            expect((iacts = @diagram.find """
-              > .interaction
-                > .occurrence
-                  > .interaction
-              """).length).toBe 2  ## including msg 1 and 2
+            iacts = @diagram.find """> .interaction > .occurrence > .interaction"""
+            expect(iacts.length).toBe 2  ## including msg 1 and 2
 
             occur0 = iacts.filter(":eq(0)").find "> .occurrence"
             occur1 = iacts.filter(":eq(1)").find "> .occurrence"
