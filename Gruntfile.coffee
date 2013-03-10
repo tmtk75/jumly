@@ -19,7 +19,7 @@ module.exports = (grunt)->
     stylus:
       compile:
         files:
-          "build/<%= pkg.name %>.css": "lib/css/*.styl"
+          "build/<%= pkg.name %>.css": "lib/css/jumly.styl"
 
     uglify:
       options:
