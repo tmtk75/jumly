@@ -59,26 +59,36 @@ describe "SequenceDiagramBuilder", ->
 
         beforeEach prepare_builder
 
-        it "returns back to previous occurrence", ->
-          diag = @builder.build """
-            @found "a", ->
-              @message "1", "b", ->
-                @message "1-1", "b-1", ->
-              @message "2", "c", ->
-                @message "2-1", "c-1", ->
-            """
-          
-          expect((diag.find "> .interaction").length).toBe 1
-          expect((iacts = diag.find """
-            > .interaction
-              > .occurrence
-                > .interaction
-            """).length).toBe 2  ## including msg 1 and 2
+        describe "returns back to previous occurrence", ->
+          beforeEach ->
+            @diagram = @builder.build """
+              @found "a", ->
+                @message "1", "b", ->
+                  @message "1-1", "b-1", ->
+                @message "2", "c", ->
+                  @message "2-1", "c-1", ->
+              """
+         
+          it "has 5 participants", ->
+            expect((@diagram.find "> .participant").length).toBe 5
 
-          occur0 = iacts.filter(":eq(0)").find "> .occurrence"
-          occur1 = iacts.filter(":eq(1)").find "> .occurrence"
-          expect(occur0.find("> .interaction > .message").text()).toBe "1-1"
-          expect(occur1.find("> .interaction > .message").text()).toBe "2-1"
+          it "has 1 interaction", ->
+            expect((@diagram.find "> .interaction").length).toBe 1
+          
+          it "has 1 occurrence", ->
+            expect((@diagram.find "> .interaction > .occurrence").length).toBe 1
+
+          it "has two interactions", ->
+            expect((iacts = @diagram.find """
+              > .interaction
+                > .occurrence
+                  > .interaction
+              """).length).toBe 2  ## including msg 1 and 2
+
+            occur0 = iacts.filter(":eq(0)").find "> .occurrence"
+            occur1 = iacts.filter(":eq(1)").find "> .occurrence"
+            expect(occur0.find("> .interaction > .message").text()).toBe "1-1"
+            expect(occur1.find("> .interaction > .message").text()).toBe "2-1"
 
       describe "twice", ->
 
