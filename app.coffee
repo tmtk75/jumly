@@ -54,6 +54,9 @@ ctx =
   VERSION     : version.join "-"
   VERSION_PATH: version[0]
   IMAGES_DIR  : "public/images"
+  TESTED_VERSION:
+    jquery: "1.9.1"
+    coffeescript: "1.4.0"
 
 index  = require("./routes") ctx
 images = require("./routes/images") ctx
