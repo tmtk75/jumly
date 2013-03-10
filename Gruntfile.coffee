@@ -7,13 +7,14 @@ module.exports = (grunt)->
       compile:
         files:
           "build/<%= pkg.name %>.js": js_files.map (e)-> "lib/js/#{e}.coffee"
+          "build/.spec/<%= pkg.name %>Spec.js": spec_files.map (e)-> "spec/#{e}.coffee"
 
-      glob_to_multiple:
+      ###glob_to_multiple:
         expand: true
         cwd: 'spec'
         src: ['*.coffee']
-        dest: 'spec'
-        ext: '.js'
+        dest: 'build/.spec'
+        ext: '.js' ###
 
     stylus:
       compile:
@@ -68,3 +69,10 @@ js_files = [
   #"Class", "ClassDiagram", "ClassDiagramBuilder"
 ]
 
+spec_files = [
+  "coreSpec"
+  "DiagramSpec"
+  "HTMLElementSpec"
+  "SequenceDiagramBuilderSpec", "SequenceDiagramLayoutSpec", "SequenceDiagramSpec"
+  #"ClassDiagramSpec"
+]
