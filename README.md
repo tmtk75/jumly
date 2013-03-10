@@ -17,10 +17,10 @@ Copy following code,
 paste it at the place of your HTML document,
 and open the document.
 
-    <link href='https://jumly.herokuapp.com/release/0.1.1/jumly.min.css' rel="stylesheet"/>
-    <script src='http://code.jquery.com/jquery-1.8.2.min.js'></script>
+    <link href='https://jumly.herokuapp.com/release/0.1.2b/jumly.min.css' rel="stylesheet"/>
+    <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='https://jumly.herokuapp.com/release/0.1.1/jumly.min.js'></script>
+    <script src='https://jumly.herokuapp.com/release/0.1.2b/jumly.min.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"
@@ -30,7 +30,16 @@ and open the document.
 
 
 # How to build
-Requiring [Node.js](http://nodejs.org/) v0.8.9 or upper. [nvm](https://github.com/creationix/nvm) is good to get it.
+Requiring [node.js](http://nodejs.org/) v0.8.9 or upper.
+
+## node.js installation
+[nvm](https://github.com/creationix/nvm) is good to get it.
+
+    $ git clone git://github.com/creationix/nvm.git ~/.nvm
+    $ . ~/.nvm/nvm.sh
+    $ nvm install 0.8.16
+    
+## Build jumly
 
 In order to build jumly.js, jumly.css and minified ones, it's shortly steps.
 
@@ -38,7 +47,7 @@ In order to build jumly.js, jumly.css and minified ones, it's shortly steps.
     $ cd jumly
     $ npm install
     $ . .env
-    $ cake build
+    $ grunt
 
 `./build` directory is created and it contains them.
 
@@ -67,7 +76,8 @@ Compile spec files, and open `./spec/index.html` with your browser.
 To compile them,
 
     $ . .env
-    $ cake spec:compile
+    $ grunt compile
+    $ open spec/index.html
     
 [jasmine](http://pivotal.github.com/jasmine/) is used for writing specs.
 
@@ -79,6 +89,7 @@ JUMLY v0.1.2b, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- Use GRUNT for bulid, Mar 10, 2013
 - 0.1.2b, Jan 9, 2013
   - @fragment directive
 - 0.1.2a, Dec 31, 2012
@@ -104,3 +115,4 @@ JUMLY v0.1.2b, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 - jade <http://jade-lang.com/>
 - Stylus <http://learnboost.github.com/stylus/>
 - Markdown <https://daringfireball.net/projects/markdown/>
+- GRUNT <http://gruntjs.com/>

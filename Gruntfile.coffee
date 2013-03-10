@@ -84,6 +84,7 @@ js_files = [
 ]
 
 spec_files = [
+  "jasmine-utils"
   "coreSpec"
   "DiagramSpec"
   "HTMLElementSpec"
