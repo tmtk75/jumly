@@ -1,0 +1,30 @@
+extends column1
+
+block styles
+  style
+    .diagram { display: inline-block; }
+    .message { text-align: center; }
+    .back-to-home, .diagram-container {
+      text-align: center;
+      margin-top: 1em;
+    }
+
+block content
+  !=css('jumly')
+  !=js('jumly')
+  .container
+    .row
+      .span12
+        .diagram-container
+          :jumly(type=sequence)
+            @found "You", ->
+              @message "GET #{path}", "JUMLY", ->
+                @reply "404"
+      
+      .span12
+        .message
+          |Not Found: #{path}
+      
+      .span12
+        .back-to-home
+          a(href="/") Back to home
