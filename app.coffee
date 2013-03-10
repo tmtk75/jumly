@@ -53,7 +53,7 @@ version = fs.readFileSync("lib/version").toString().trim().split "\n"
 ctx =
   VERSION     : version.join "-"
   VERSION_PATH: version[0]
-  IMAGES_DIR  : "images"
+  IMAGES_DIR  : "public/images"
 
 index  = require("./routes") ctx
 images = require("./routes/images") ctx
