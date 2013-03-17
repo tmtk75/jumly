@@ -1,0 +1,19 @@
+.simple .sequence-diagram .participant .name,
+.simple .sequence-diagram .occurrence {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+}
+.simple .sequence-diagram .participant {
+  background-color: transparent;
+}
+.simple .sequence-diagram .participant .name {
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  background-color: transparent;
+}
+.simple .sequence-diagram .occurrence {
+  background-color: #fff;
+}

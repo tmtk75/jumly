@@ -1,0 +1,33 @@
+.fancy .sequence-diagram .participant {
+  background-color: transparent;
+}
+.fancy .sequence-diagram .participant:nth-child(1) .name {
+  border-color: #007089;
+  background-color: #0095b6;
+  color: #004a5b;
+}
+.fancy .sequence-diagram .participant:nth-child(3) .name {
+  border-color: #bf8b00;
+  background-color: #ffba00;
+  color: #805d00;
+  width: 160px;
+  margin-left: -30px;
+}
+.fancy .sequence-diagram .participant:nth-child(5) .name {
+  border-color: #e6c52f;
+  background-color: #f0dc82;
+  color: #a58b14;
+}
+.fancy .sequence-diagram .participant .name {
+  border-radius: 8px;
+  font-weight: bold;
+}
+.fancy .sequence-diagram .occurrence {
+  border-radius: 4px;
+  background-color: #e6e6e6;
+  border-color: #bfbfbf;
+}
+.fancy .sequence-diagram .lifeline .line {
+  margin-left: 49%;
+  border-left: dotted 5px #8fbf00;
+}
