@@ -49,7 +49,6 @@ app.configure "development", ->
 
 
 fs = require "fs"
-require "js-yaml"
 version = fs.readFileSync("lib/version").toString().trim().split "\n"
 ctx =
   VERSION     : version.join "-"
@@ -58,17 +57,14 @@ ctx =
   TESTED_VERSION:
     jquery: "1.9.1"
     coffeescript: "1.4.0"
-  i18n: require "#{views_dir}/i18n.yaml"
 
 
-index  = require("./routes") ctx
+routes = require("./routes") ctx
 images = require("./routes/images") ctx
 
-app.get "/",          index.en
-app.get "/index.en",  index.en
-app.get "/index.ja",  index.ja
-app.get "/reference", index.reference
-app.get "/try",       index.try
+app.get "/",          routes.index
+app.get "/reference", routes.reference
+app.get "/try",       routes.try
 app.post "/images",   images.b64decode
 
 http.createServer(app).listen app.get('port'), ->
