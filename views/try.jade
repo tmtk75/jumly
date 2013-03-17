@@ -50,7 +50,7 @@ block content
         #notification
 
         #disqus_thread
-          script(src='disqus.js')
+          script(src='public/js/disqus.js')
       
       .span6
         #diagram_container
@@ -74,8 +74,7 @@ block content
       img(style="position: absolute; top: 0; right: 0; border: 0;",src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png",alt="Fork me on GitHub")
 
 block scripts
-  script(src="bootstrap/docs/assets/js/bootstrap-modal.js")
-  script(src="html2canvas/html2canvas.js")
+  script(src="public/bootstrap/docs/assets/js/bootstrap-modal.js")
   :coffeescript
     $(snippet).on "shown", ->
       $("pre", snippet).text $(code).val()
