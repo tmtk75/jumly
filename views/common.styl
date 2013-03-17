@@ -1,13 +1,38 @@
 @import url("https://fonts.googleapis.com/css?family=Coda:800|Questrial|Michroma")
 @import url("public/bootstrap/docs/assets/css/bootstrap.css")
-//@import url("bootstrap/docs/assets/css/bootstrap-responsive.css")
-@import url("syntaxhighlighter.css")
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-thin.ttf')
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-light.ttf')
+// @import url("bootstrap/docs/assets/css/bootstrap-responsive.css")
+
+// syntaxhighlighter
+@import url("public/syntaxhighlighter/styles/shCore.css")
+@import url("public/syntaxhighlighter/styles/shThemeDefault.css")
+
+.syntaxhighlighter .line.alt1,
+.syntaxhighlighter .line.alt2,
+.syntaxhighlighter {
+  background-image: none !important;
+  background-color: transparent !important;
+  .toolbar {display:none;}
+}
+.syntaxhighlighter {
+  background-color: whiteSmoke !important;
+  padding: 8.5px;
+  margin: 0 0 18px 0;
+  border: 1px solid rgba(0,0,0,0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  .gutter .line {
+    border-right: 3px solid rgba(0,107,159,0.5) !important;
+  }
+}
+
+// @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-thin.ttf')
+// @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-light.ttf')
 @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-regular.ttf')
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-bold.ttf')
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-heavy.ttf')
-//@import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-black.ttf')
+// @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-bold.ttf')
+// @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-heavy.ttf')
+// @import url('http://mplus-fonts.sourceforge.jp/webfonts/mplus-1p-black.ttf')
 
 L-EMBOSS(a = 1)
   text-shadow -1px 1px 0 rgba(255,255,255,a)
