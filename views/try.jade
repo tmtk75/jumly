@@ -43,10 +43,6 @@ block content
           |       @create "Diagram"
           |jumly.css "background-color":"#8CC84B"
        
-        form#download_as_png_form(action='/images',method='POST',target='foobar',style='display:none;')
-          input(name='data')
-        a#download_as_png.btn.hide Download as .png
-        
         #notification
 
         #disqus_thread
@@ -54,16 +50,6 @@ block content
       
       .span6
         #diagram_container
-
-  #snippet.modal.hide.fade(tabindex=-1,role="dialog","aria-labelledby"="snippetLabel","aria-hidden"="true")
-    .modal-header
-      button.close(type="button","data-dismiss"="modal","aria-hidden"="true") ×
-      h3#snippetLabel Snippet
-    .modal-body
-      pre &nbsp;
-    //.modal-footer
-      button.btn("data-dismiss"="modal","aria-hidden"="true") Close
-      button.btn.btn-primary Save changes
 
   footer
     .copyright
@@ -74,16 +60,7 @@ block content
       img(style="position: absolute; top: 0; right: 0; border: 0;",src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png",alt="Fork me on GitHub")
 
 block scripts
-  script(src="public/bootstrap/docs/assets/js/bootstrap-modal.js")
   :coffeescript
-    $(snippet).on "shown", ->
-      $("pre", snippet).text $(code).val()
-
-    $(download_as_png).on "click", ->
-      html2canvas [diagram_container], onrendered: (canvas)->
-        download_as_png_form.data.value = canvas.toDataURL "image/png"
-        download_as_png_form.submit()
-
     $ ->
       compile = ->
         $(code).removeClass "failed"
