@@ -10,7 +10,14 @@ html(lang="en")
     link(rel='stylesheet', href="vendor.css")
     link(rel='stylesheet', href="column1.css")
     block styles
-    include _includes/scripts
+    script(src='public/js/coffee-script.js')
+    script(src='public/js/jquery.js')
+    script(src="public/js/knockout.js")
+    script(src='public/syntaxhighlighter/scripts/shCore.js')
+    script(src='public/syntaxhighlighter/scripts/shBrushJScript.js')
+    script(src='public/syntaxhighlighter/scripts/shBrushXml.js')
+    script(src='public/js/syntaxhighlighter.js')
+    script(src='public/js/_ga.js')
   body
     block navbar
     block content
