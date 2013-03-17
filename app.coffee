@@ -49,6 +49,7 @@ app.configure "development", ->
 
 
 fs = require "fs"
+require "js-yaml"
 version = fs.readFileSync("lib/version").toString().trim().split "\n"
 ctx =
   VERSION     : version.join "-"
@@ -57,6 +58,8 @@ ctx =
   TESTED_VERSION:
     jquery: "1.9.1"
     coffeescript: "1.4.0"
+  i18n: require "#{views_dir}/i18n.yaml"
+
 
 index  = require("./routes") ctx
 images = require("./routes/images") ctx
