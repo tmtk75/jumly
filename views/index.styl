@@ -1,3 +1,149 @@
+h1.logo
+  text-align center
+  L-EMBOSS()
+
+h2,h3,h4
+  font-family Coda,Tahoma,sans-serif
+  font-size 18px
+
+#getting-started, #bg-why, #examples
+  h2,h3,h4
+    L-EMBOSS()
+
+#document-support-information
+  h2,h3,h4
+    D-EMBOSS()
+
+#meta-information
+  h2,h3,h4
+    D-EMBOSS(.77)
+
+#intro
+  line-height 180%
+
+#example1
+  .diagram
+    margin-left auto
+    margin-right auto
+  div.sequence-diagram.diagram ~ div
+    margin-left 80px
+    margin-right 80px
+  .buttons
+    .button
+      padding 4px 0
+      width 152px
+      -webkit-transition background-color 0.2s ease-in-out
+      &:hover
+        background-color darken(darken(white, 25%), 14%)
+      &.selected
+        background-color #8bc84b
+    label:nth-child(1), label:nth-child(2)
+      a
+        margin-right: 2px
+  &.normal
+    color inherit
+
+#getting-started
+  margin-top 60px
+  h2
+    font-size 18px
+  .diagram
+    margin-left auto
+    margin-right auto
+    margin-top 20px
+    margin-bottom 20px
+
+.buttons
+  L-EMBOSS(.33)
+
+#popular-links
+  margin-top 20px
+  margin-bottom 30px
+  .buttons
+    a.download.button, a.apidocs.button, a.reference.button
+      -webkit-transition background-color 0.2s ease-in-out
+      -moz-transition background-color 0.2s ease-in-out
+      &:hover
+        background-color darken(darken(white, 25%), 14%)
+  a.download.button, a.reference.button, a.try-jumly.button, a.apidocs
+    width 200px
+  a.try-jumly.button
+    background-color #8bc84b
+  a.try-jumly.button
+    display block
+    text-decoration none
+    margin-left auto
+    margin-right auto
+    text-align center
+    L-EMBOSS(.33)
+    padding 8px 0
+    border-radius 2px
+    -webkit-transition background-color 0.2s ease-in-out
+    -moz-transition background-color 0.2s ease-in-out
+    &:hover
+      background-color darken(#8bc84b, 14%)
+    color #46483e
+
+#bg-why
+  margin-top 60px
+  dd
+    margin-bottom 14px
+
+#examples
+  color inherit
+  .diagram
+    margin-left auto
+    margin-right auto
+  .example:not(:last-child)
+    padding-bottom 10px
+    border-bottom 1px solid rgba(0,0,0,.1)
+    box-shadow(rgba(255,255,255,1) 0 1px 0)
+    margin-bottom 30px
+  .ref
+    .name
+      L-EMBOSS(.33)
+
+#document-support-information
+  margin-top 60px
+  padding-bottom 60px
+  THICK-DARK()
+
+  .history
+    list-style none
+    > li:not(:last-child)
+      margin-bottom 1em
+
+#meta-information
+  LIGHT-DARK()
+  padding-bottom 60px
+
+  .copyright
+    margin-top 30px
+    text-align center
+    font-size smaller
+
+#quick-links
+  position fixed
+  //left 0
+  bottom 0
+  .inner:last-child
+    margin-left 10px
+    margin-bottom 60px
+  img
+    width 24px
+    -webkit-filter contrast(10%)
+    -moz-filter contrast(10%)
+    -o-filter contrast(10%)
+    filter contrast(10%)
+    &:hover
+      -webkit-filter contrast(90%)
+      -moz-filter contrast(90%)
+      -o-filter contrast(90%)
+      filter contrast(90%)
+  ul
+    margin-left 10px
+    list-style none
+
 .buttons
   text-align center
   margin-top 2px
