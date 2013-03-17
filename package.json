@@ -8,9 +8,9 @@
     "npm": "1.2.11"
   },
   "dependencies": {
-    "coffee-script": "1.4.0",
+    "coffee-script": "1.6.1",
     "express": "3.1.0",
-    "jade": "0.28.1",
+    "jade": "0.28.2",
     "stylus": "0.32.0",
     "nib": "0.9.1",
     "connect-assets": "2.3.3"
