@@ -12,11 +12,8 @@ html(lang="en")
     block styles
     script(src='public/js/coffee-script.js')
     script(src='public/js/jquery.js')
-    script(src="public/js/knockout.js")
-    script(src='public/syntaxhighlighter/scripts/shCore.js')
-    script(src='public/syntaxhighlighter/scripts/shBrushJScript.js')
-    script(src='public/syntaxhighlighter/scripts/shBrushXml.js')
-    script(src='public/js/syntaxhighlighter.js')
+    script(src='public/js/knockout.js')
+    include _includes/syntaxhighlighter
     script(src='public/js/_ga.js')
   body
     block navbar
