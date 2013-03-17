@@ -15,8 +15,6 @@ block styles
   link(rel='stylesheet', href="skin.fancy.css")
 
 block content
-  !=css('jumly')
-  !=js('jumly')
   .container
     .row
       .span2
@@ -343,6 +341,7 @@ block content
               a(href="https://github.com/tmtk75/jumly")
                 img(style="position: absolute; top: 0; left: 0; border: 0;",src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png",alt="Fork me on GitHub")
 
+block scripts
   script(src="public/bootstrap/docs/assets/js/bootstrap-tooltip.js")
   :coffeescript
     $ ->
