@@ -1,4 +1,4 @@
-extends column2
+extends column1
 
 block title
   title JUMLY Reference for directives, CSS classes and or so
@@ -20,318 +20,317 @@ block navbar
       ul.nav
         li: a(href="/try") TryJUMLY
 
-block left-header
+block content
+  .container
+    .row
+      .span3
+        nav.menu
+          ul
+            li
+              a(href="#_directives") Directives
+              ul
+                li: a(href="#_found") @found
+                li: a(href="#_message") @message
+                li: a(href="#_create") @create
+                li: a(href="#_reply") @reply
+                li: a(href="#_alt") @alt
+                li: a(href="#_loop") @loop
+                li: a(href="#_fragment") @fragment
+                li: a(href="#_ref") @ref
+                li: a(href="#_note") @note
+            li
+              a(href="#_css_classes") CSS classes
+              ul
+                li: a(href="#_c_diagram") .diagram
+                li: a(href="#_c_sequence_diagram") .sequence-diagram
+                li: a(href="#_c_name") .name
+                li: a(href="#_c_participant") .participant
+                  ul
+                    li: a(href="#_c_found") .found
+                li: a(href="#_c_interaction") .interaction
+                  ul
+                    li: a(href="#_c_reply") .reply
+                    li: a(href="#_c_activated") .activated
+                li: a(href="#_c_occurrence") .occurrence
+                li: a(href="#_c_message") .message
+                  ul
+                    li: a(href="#_c_create") .create
+                    li: a(href="#_c_return") .return
+                    li: a(href="#_c_self") .self
+                li: a(href="#_c_lifeline") .lifeline
+                //li
+                  a(href="#_c_line") .line
+                li: a(href="#_c_fragment") .fragment
+                  ul
+                    li: a(href="#_c_alt") .alt
+                    li: a(href="#_c_ref") .ref
+                li: a(href="#_c_leftmost") .leftmost
+                li: a(href="#_c_rightmost") .rightmost
+            li: a(href="#_reference_by_var") Reference by var
+            li: a(href="#_events") Events
 
-block right-header
+      .span6
+        section#_directives
+          h2 Directives
 
-block left-content
-  nav.menu
-    ul
-      li
-        a(href="#_directives") Directives
-        ul
-          li: a(href="#_found") @found
-          li: a(href="#_message") @message
-          li: a(href="#_create") @create
-          li: a(href="#_reply") @reply
-          li: a(href="#_alt") @alt
-          li: a(href="#_loop") @loop
-          li: a(href="#_fragment") @fragment
-          li: a(href="#_ref") @ref
-          li: a(href="#_note") @note
-      li
-        a(href="#_css_classes") CSS classes
-        ul
-          li: a(href="#_c_diagram") .diagram
-          li: a(href="#_c_sequence_diagram") .sequence-diagram
-          li: a(href="#_c_name") .name
-          li: a(href="#_c_participant") .participant
-            ul
-              li: a(href="#_c_found") .found
-          li: a(href="#_c_interaction") .interaction
-            ul
-              li: a(href="#_c_reply") .reply
-              li: a(href="#_c_activated") .activated
-          li: a(href="#_c_occurrence") .occurrence
-          li: a(href="#_c_message") .message
-            ul
-              li: a(href="#_c_create") .create
-              li: a(href="#_c_return") .return
-              li: a(href="#_c_self") .self
-          li: a(href="#_c_lifeline") .lifeline
-          //li
-            a(href="#_c_line") .line
-          li: a(href="#_c_fragment") .fragment
-            ul
-              li: a(href="#_c_alt") .alt
-              li: a(href="#_c_ref") .ref
-          li: a(href="#_c_leftmost") .leftmost
-          li: a(href="#_c_rightmost") .rightmost
-      li: a(href="#_reference_by_var") Reference by var
-      li: a(href="#_events") Events
+          .subsection#_found
+            
+            h3 @found
+            
+            p is the top level element to start interactions.
+              |It puts an
+              strong
+                &nbsp;new object&nbsp;
+              |with a lifeline which is dashed line
+              |and a
+              strong
+                &nbsp;new occurrence&nbsp;
+              |which has gray-border rectangle.
+            
+            :code(type=javascript)
+              @found "He"
+            
+            :jumly
+              @found "He"
 
-block right-content
-  section#_directives
-    h2 Directives
+            p You can put a <code>-></code> to show some interations for the occurrence.
+              |Make an indent (two spaces are better), and write other directives
+              |like <code><a href="#_message">@message</a></code>.
+            
+            :code(type=javascript)
+              @found "He", ->
+                @message "calls", "Her" 
+          
+          .subsection#_message
+            h3 @message
 
-    .subsection#_found
-      
-      h3 @found
-      
-      p is the top level element to start interactions.
-        |It puts an
-        strong
-          &nbsp;new object&nbsp;
-        |with a lifeline which is dashed line
-        |and a
-        strong
-          &nbsp;new occurrence&nbsp;
-        |which has gray-border rectangle.
-      
-      :code(type=javascript)
-        @found "He"
-      
-      :jumly
-        @found "He"
+            p is an interaction between two objects or self-invoking.
 
-      p You can put a <code>-></code> to show some interations for the occurrence.
-        |Make an indent (two spaces are better), and write other directives
-        |like <code><a href="#_message">@message</a></code>.
-      
-      :code(type=javascript)
-        @found "He", ->
-          @message "calls", "Her" 
-    
-    .subsection#_message
-      h3 @message
+            p The following shows an
+              strong
+                &nbsp;interaction&nbsp;
+              |from "He" to "Her" and the name is "calls".
 
-      p is an interaction between two objects or self-invoking.
+            :code(type=javascript)
+              @found "He", ->
+                @message "calls", "Her"
 
-      p The following shows an
-        strong
-          &nbsp;interaction&nbsp;
-        |from "He" to "Her" and the name is "calls".
+            :jumly
+              @found "He", ->
+                @message "calls", "Her"
 
-      :code(type=javascript)
-        @found "He", ->
-          @message "calls", "Her"
+            p If second argument is not given, it shows self-invoking.
+            
+            :code(type=javascript)
+              @found "He", ->
+                @message "thinks"
+            
+            :jumly
+              @found "He", ->
+                @message "thinks"
 
-      :jumly
-        @found "He", ->
-          @message "calls", "Her"
+            p You can put a <code>-></code> in both cases after the last argument for nested interaction.
 
-      p If second argument is not given, it shows self-invoking.
-      
-      :code(type=javascript)
-        @found "He", ->
-          @message "thinks"
-      
-      :jumly
-        @found "He", ->
-          @message "thinks"
-
-      p You can put a <code>-></code> in both cases after the last argument for nested interaction.
-
-      :code(type=javascript)
-        @found "He", ->
-          @message "calls", "Her", ->
-            @message "tells mail", "He", ->
-              @message "remembering", ->
-                @message "mails", "Her"
-      :jumly
-        @found "He", ->
-          @message "calls", "Her", ->
-            @message "tells mail", "He", ->
-              @message "remembering", ->
-                @message "mails", "Her"
-        @find(".occurrence").addClass "compact"
-
-
-
-    .subsection#_create
-      h3 @create
-      p is a kind of interaction which takes one argument which is a name for new object.
-        |The new object created by <code>@create</code> shifts downward, and the arrow looks
-        |dashed line.
-
-      :code(type=javascript)
-        @found "He", ->
-          @create "Contact"
-      :jumly
-        @found "He", ->
-          @create "Contact"
-
-      p <code>@create</code> can optionally take <code>-></code>
-        |at second argument as <code>@message</code> and has some directives.
-      
-      :code(type=javascript)
-        @found "She", ->
-          @create "Dinner", ->
-            @message "smells", "She"
-      :jumly
-        @found "She", ->
-          @create "Dinner", ->
-            @message "smells", "She"
-        @find(".occurrence").addClass "compact"
+            :code(type=javascript)
+              @found "He", ->
+                @message "calls", "Her", ->
+                  @message "tells mail", "He", ->
+                    @message "remembering", ->
+                      @message "mails", "Her"
+            :jumly
+              @found "He", ->
+                @message "calls", "Her", ->
+                  @message "tells mail", "He", ->
+                    @message "remembering", ->
+                      @message "mails", "Her"
+              @find(".occurrence").addClass "compact"
 
 
 
-    .subsection#_reply
-      h3 @reply
-      p is a directive to show a return-back message.
-        |This can be put in a <code>@message</code> with an argument for a short description.
-        |The return-message has a stereotype «return» and the description.
+          .subsection#_create
+            h3 @create
+            p is a kind of interaction which takes one argument which is a name for new object.
+              |The new object created by <code>@create</code> shifts downward, and the arrow looks
+              |dashed line.
 
-      :code(type=javascript)
-        @found "Browser", ->
-          @message "GET", "Server", ->
-            @reply "200"
+            :code(type=javascript)
+              @found "He", ->
+                @create "Contact"
+            :jumly
+              @found "He", ->
+                @create "Contact"
 
-      :jumly
-        @found "Browser", ->
-          @message "GET", "Server", ->
-            @reply "200"
+            p <code>@create</code> can optionally take <code>-></code>
+              |at second argument as <code>@message</code> and has some directives.
+            
+            :code(type=javascript)
+              @found "She", ->
+                @create "Dinner", ->
+                  @message "smells", "She"
+            :jumly
+              @found "She", ->
+                @create "Dinner", ->
+                  @message "smells", "She"
+              @find(".occurrence").addClass "compact"
 
-    .subsection#_alt
-      h3 @alt
-      p is a kind of fragment to make usually two or more conditional
-        |parts including some interactions. One of part of <code>@alt</code>
-        |consists of a pair of a text and <code>-></code>.
-        |You can put several pairs in <code>@alt</code>.
-        |It has an
-        strong alt
-        |tag and each condition's name, and also each part is divided with a dashed line.
 
-      :code(type=javascript)
-        @found "You", ->
-          @alt
-            "[have money]": ->
-              @message "go to", "BookStore"
-            "[have a card]": ->
-              @message "go to", "Restaurant"
-            "[have nothing]": ->
-              @message "go back", "Home"
-      :jumly
-        @found "You", ->
-          @alt
-            "[have money]": ->
-              @message "go to", "BookStore"
-            "[have a card]": ->
-              @message "go to", "Restaurant"
-            "[have nothing]": ->
-              @message "go back", "Home"
 
-      p In each part, nested-interaction is certainly able to be used.
-      :code(type=javascript)
-        @found "You", ->
-          @alt
-            "[male]": ->
-              @message "pay with a card", "Bar", ->
-                @message "auth the card", "Visa"
-            "[female]": ->
-              @message "wait for his payment"
-      :jumly
-        @found "You", ->
-          @alt
-            "[male]": ->
-              @message "pay with a card", "Bar", ->
-                @message "auth the card", "Visa"
-            "[female]": ->
-              @message "wait for his payment"
+          .subsection#_reply
+            h3 @reply
+            p is a directive to show a return-back message.
+              |This can be put in a <code>@message</code> with an argument for a short description.
+              |The return-message has a stereotype «return» and the description.
 
-    .subsection#_loop
-      h3 @loop
-      p is a kind of fragment to show repetition.
-        |A rectangle with fine lightgray line represents a loop.
+            :code(type=javascript)
+              @found "Browser", ->
+                @message "GET", "Server", ->
+                  @reply "200"
 
-      :code(type=javascript)
-        @found "You", ->
-          @loop ->
-              @message "call", "Her"
-      :jumly
-        @found "You", ->
-          @loop ->
-              @message "call", "Her"
+            :jumly
+              @found "Browser", ->
+                @message "GET", "Server", ->
+                  @reply "200"
 
-      p If you give a string as first argument, it becomes a condition for the loop.
+          .subsection#_alt
+            h3 @alt
+            p is a kind of fragment to make usually two or more conditional
+              |parts including some interactions. One of part of <code>@alt</code>
+              |consists of a pair of a text and <code>-></code>.
+              |You can put several pairs in <code>@alt</code>.
+              |It has an
+              strong alt
+              |tag and each condition's name, and also each part is divided with a dashed line.
 
-      :code(type=javascript)
-        @found "You", ->
-          @loop "[until she answer]", ->
-              @message "call", "Her"
-      :jumly
-        @found "You", ->
-          @loop "[until she answer]", ->
-            @message "call", "Her"
+            :code(type=javascript)
+              @found "You", ->
+                @alt
+                  "[have money]": ->
+                    @message "go to", "BookStore"
+                  "[have a card]": ->
+                    @message "go to", "Restaurant"
+                  "[have nothing]": ->
+                    @message "go back", "Home"
+            :jumly
+              @found "You", ->
+                @alt
+                  "[have money]": ->
+                    @message "go to", "BookStore"
+                  "[have a card]": ->
+                    @message "go to", "Restaurant"
+                  "[have nothing]": ->
+                    @message "go back", "Home"
 
-    .subsection#_fragment
-      h3 @fragment
-      p is a generic directive to make fragmentation like <code>@alt</code> and <code>loop</code>.
-        |If you use this directive, you can create a fragment with arbitrary label you want.
+            p In each part, nested-interaction is certainly able to be used.
+            :code(type=javascript)
+              @found "You", ->
+                @alt
+                  "[male]": ->
+                    @message "pay with a card", "Bar", ->
+                      @message "auth the card", "Visa"
+                  "[female]": ->
+                    @message "wait for his payment"
+            :jumly
+              @found "You", ->
+                @alt
+                  "[male]": ->
+                    @message "pay with a card", "Bar", ->
+                      @message "auth the card", "Visa"
+                  "[female]": ->
+                    @message "wait for his payment"
 
-      :code(type=javascript)
-        @found "Thread-A", ->
-          @fragment "critical section":->
-            @message "acquire", "Mutex"
-            @message "do something"
-            @message "release", "Mutex"
-      
-      :jumly
-        @found "Thread-A", ->
-          @fragment "critical section":->
-            @message "acquire", "Mutex"
-            @message "do something"
-            @message "release", "Mutex"
+          .subsection#_loop
+            h3 @loop
+            p is a kind of fragment to show repetition.
+              |A rectangle with fine lightgray line represents a loop.
 
-    .subsection#_ref
-      h3 @ref
-      p is a directive to move to another diagram.
+            :code(type=javascript)
+              @found "You", ->
+                @loop ->
+                    @message "call", "Her"
+            :jumly
+              @found "You", ->
+                @loop ->
+                    @message "call", "Her"
 
-      :code(type=javascript)
-        @found "MacOSX", ->
-          @ref "initialize"
+            p If you give a string as first argument, it becomes a condition for the loop.
 
-      :jumly
-        @found "MacOSX", ->
-          @ref "initialize"
+            :code(type=javascript)
+              @found "You", ->
+                @loop "[until she answer]", ->
+                    @message "call", "Her"
+            :jumly
+              @found "You", ->
+                @loop "[until she answer]", ->
+                  @message "call", "Her"
 
-      p T.B.D
+          .subsection#_fragment
+            h3 @fragment
+            p is a generic directive to make fragmentation like <code>@alt</code> and <code>loop</code>.
+              |If you use this directive, you can create a fragment with arbitrary label you want.
 
-    .subsection#_note
-      h3 @note
-      p is a directive to put note element everywhere.
+            :code(type=javascript)
+              @found "Thread-A", ->
+                @fragment "critical section":->
+                  @message "acquire", "Mutex"
+                  @message "do something"
+                  @message "release", "Mutex"
+            
+            :jumly
+              @found "Thread-A", ->
+                @fragment "critical section":->
+                  @message "acquire", "Mutex"
+                  @message "do something"
+                  @message "release", "Mutex"
 
-      :code(type=javascript)
-        @found "She", ->
-          @note "Eventually"
-          @message "meets", "You", ->
-            @note "can't do anything then"
-          @note "Just say good bye..."
+          .subsection#_ref
+            h3 @ref
+            p is a directive to move to another diagram.
 
-      :jumly
-        @found "She", ->
-          @note "Eventually"
-          @message "meets", "You", ->
-            @note "can't do anything then"
-          @note "Just say good bye..."
+            :code(type=javascript)
+              @found "MacOSX", ->
+                @ref "initialize"
 
-  section#_css_classes
-    h2 CSS classes
-    p All nodes has a few classes of CSS because JUMLY layouts them.
-     | You can use them because of your some favors, for example,
-     | to refer a specific node and change the background color.
-    p <a href='http://jquery.com'>jQuery</a> can be used to select nodes like
-    :code(type=javascript)
-      $(".diagram:eq(2) .participant").css({color:"red");
-    p
-      <a href="/#example1">This example</a> is one of good examples for styling with CSS.
+            :jumly
+              @found "MacOSX", ->
+                @ref "initialize"
 
-    p
-      TBD.
-  
-  section#_reference_by_var
-    h2 Reference by var
-    p
-  
-  section#_reference_by_var
-    h2 Events
+            p T.B.D
+
+          .subsection#_note
+            h3 @note
+            p is a directive to put note element everywhere.
+
+            :code(type=javascript)
+              @found "She", ->
+                @note "Eventually"
+                @message "meets", "You", ->
+                  @note "can't do anything then"
+                @note "Just say good bye..."
+
+            :jumly
+              @found "She", ->
+                @note "Eventually"
+                @message "meets", "You", ->
+                  @note "can't do anything then"
+                @note "Just say good bye..."
+
+        section#_css_classes
+          h2 CSS classes
+          p All nodes has a few classes of CSS because JUMLY layouts them.
+           | You can use them because of your some favors, for example,
+           | to refer a specific node and change the background color.
+          p <a href='http://jquery.com'>jQuery</a> can be used to select nodes like
+          :code(type=javascript)
+            $(".diagram:eq(2) .participant").css({color:"red");
+          p
+            <a href="/#example1">This example</a> is one of good examples for styling with CSS.
+
+          p
+            TBD.
+        
+        section#_reference_by_var
+          h2 Reference by var
+          p
+        
+        section#_reference_by_var
+          h2 Events
