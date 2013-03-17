@@ -6,8 +6,6 @@ stylus  = require "stylus"
 nib     = require "nib"
 fs      = require "fs"
 http    = require 'http'
-require "jumly-jade"
-(require "jade-filters").setup jade
 
 views_dir  = "#{__dirname}/views"
 static_dir = "#{views_dir}/static"
@@ -46,6 +44,20 @@ app.configure ->
 
 app.configure "development", ->
   app.use express.errorHandler()
+
+
+require("underscore").extend jade.filters,
+  code: (str, args)->
+    type = args.type or "javascript"
+    str = str.replace /\\n/g, '\n'
+    js = str.replace(/\\/g, '\\\\').replace /\n/g, '\\n'
+    """<pre class="brush: #{type}">#{js}</pre>"""
+  jumly: (body, attrs)->
+    type = attrs.type or "sequence"
+    id = if attrs.id then "id=#{attrs.id}" else ""
+    body = body.replace /\\n/g, '\n'
+    js = body.replace(/\\/g, '\\\\').replace /\n/g, '\\n'
+    """<script type="text/jumly+#{type}" #{id}>\\n#{js}</script>"""
 
 
 fs = require "fs"
