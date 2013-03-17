@@ -3,9 +3,9 @@ _STYLES =
     lineWidth    : 1.5
     fillStyle    : 'white'
     strokeStyle  : 'gray'
-    shadowBlur   : 4
-    shadowColor  : 'rgba(0,0,0,0.33)' # 'transparent black'
-    shadowOffsetX: 10
+    shadowBlur   : 8
+    shadowColor  : 'rgba(0,0,0,0.22)' # 'transparent black'
+    shadowOffsetX: 8
     shadowOffsetY: 5
 
 consts =
