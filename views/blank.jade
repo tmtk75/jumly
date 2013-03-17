@@ -1,0 +1,26 @@
+extends _layouts/default
+
+block styles
+  :stylus
+    body
+      color: inherit
+
+block content
+  .container
+    .row
+      .span12
+        :jumly
+          @found "hello"
+
+        canvas#actor
+        canvas#view
+        canvas#controller
+        canvas#entity
+
+block scripts
+  :coffeescript
+    Icon = require "Icon"
+    (Icon.render "actor") actor, {}
+    (Icon.render "view") view, {}
+    (Icon.render "controller") controller, {}
+    (Icon.render "entity") entity, {}

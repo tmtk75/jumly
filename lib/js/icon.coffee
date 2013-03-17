@@ -1,4 +1,3 @@
-JUMLY = window.JUMLY
 _STYLES =
     radius       : 14    # Radius of each circle
     lineWidth    : 1.5
@@ -161,10 +160,17 @@ _render_controller = (canvas, styles) -> _render_icon canvas, _controller_render
 
 _render_entity = (canvas, args) -> _render_icon canvas, _entity_renderer, args
 
-icon = {}
-$.extend icon, {
-    ".actor"     : _render_actor
-    ".view"      : _render_view
-    ".controller": _render_controller
-    ".entity"    : _render_entity
-}
+class Icon
+  @render = (type)->
+    switch type.toLowerCase()
+      when "actor" then _render_actor
+      when "view" then _render_view
+      when "controller" then _render_controller
+      when "entity" then _render_entity
+      else throw "unknown type:#{type}"
+
+core = require "core"
+if core.env.is_node
+  module.exports = Icon
+else
+  core.exports Icon
