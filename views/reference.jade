@@ -4,7 +4,31 @@ block title
   title JUMLY Reference for directives, CSS classes and or so
 
 block styles
- link(rel='stylesheet', href="reference.css")
+  link(rel='stylesheet', href="common.css")
+  :stylus
+    ul, h2, h3
+      font-family mplus-1p,verdana
+    
+    .menu
+      ul
+        list-style none
+      > ul
+        margin-left 0
+
+    .footer
+      LIGHT-DARK()
+      padding-bottom 60px
+
+    #_directives
+      .subsection
+        margin-bottom 5em
+      .sequence-diagram:not(:last-child)
+        margin-bottom 2em
+      .occurrence.compact
+        padding-bottom 2px
+
+    section
+      margin-bottom 5em
 
 block prepend description
   - var _ = "JUMLY provides some directives to render sequence diagrams.";
