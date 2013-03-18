@@ -2,16 +2,16 @@ _STYLES =
     lineWidth    : 1.5
     fillStyle    : 'white'
     strokeStyle  : 'gray'
-    shadowBlur   : 8
+    shadowBlur   : 12
     shadowColor  : 'rgba(0,0,0,0.22)' # 'transparent black'
     shadowOffsetX: 8
     shadowOffsetY: 5
 
 consts =
-	ACTOR_HEAD       : 8
-	VIEW_RADIUS      : 14
-	CONTROLLER_RADIUS: 14
-	ENTITY_RADIUS    : 14
+	ACTOR_HEAD       : 12
+	VIEW_RADIUS      : 16
+	CONTROLLER_RADIUS: 16
+	ENTITY_RADIUS    : 16
 
 _path = $.g2d.path
 
@@ -31,14 +31,15 @@ _actor_renderer = (ctx, styles) ->
     # Render a body
     r1 = ->
         dh = 3*lw
-        dv = r2*0.85
+        dv = r2*0.77
         new _path(ctx)
             .moveTo(0, r2 + lw + exth).line(lw + r2 + lw, 0)  # actor's arms (h-line) 
             .moveTo(lw + r, r2 + lw).line(0, r2*0.35)         # actor's body (v-line)
-            .line(-r2 + dh, dv).move(r2 - dh, -dv)  # actor's right leg, and back to the groin :)
-            .line( r2 - dh - 1, dv - 1)                     # actor's left leg
+            .line(-r, dv).move(r, -dv)  # actor's right leg, and back to the groin :)
+            .line( r, dv)                     # actor's left leg
         ctx.shadowColor = styles.shadowColor
         ctx.stroke()
+
     
     ret =
         size:
@@ -129,8 +130,8 @@ _entity_renderer = (ctx, styles) ->
         paths: [r0, r1]
 
 _size_canvas = (canvas, size, styles) ->
-    dw = styles.shadowOffsetX + styles.shadowBlur || 0
-    dh = styles.shadowOffsetY + styles.shadowBlur || 0
+    dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur/2 || 0)
+    dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur/2 || 0)
     $(canvas).attr width:size.width + dw, height:size.height + dh
     size
 
