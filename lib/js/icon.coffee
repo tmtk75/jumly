@@ -9,7 +9,7 @@ _STYLES =
 
 Path = $.g2d.path
 
-_actor_renderer = (ctx, styles) ->
+_actor = (ctx, styles) ->
     r    = styles.radius || 12
     r2   = r*2
     exth = r*0.25                        # 25% of radius
@@ -41,7 +41,7 @@ _actor_renderer = (ctx, styles) ->
             height: lw + r2*2 + lw
         paths: [r0, r1]
             
-_view_renderer = (ctx, styles) ->
+_view = (ctx, styles) ->
     r    = styles.radius || 16
     r2   = r*2
     extw = r*0.4              # 40% of r
@@ -68,7 +68,7 @@ _view_renderer = (ctx, styles) ->
             height:lw + r2 +        lw
         paths: [r0, r1]
 
-_controller_renderer = (ctx, styles) ->
+_controller = (ctx, styles) ->
     r    = styles.radius || 16
     r2   = r*2
     exth = r*0.4              # 40% of r
@@ -96,7 +96,7 @@ _controller_renderer = (ctx, styles) ->
             height:lw + r2 + lw + effectext + exth
         paths: [r0, r1]
 
-_entity_renderer = (ctx, styles) ->
+_entity = (ctx, styles) ->
     r    = styles.radius || 16
     r2   = r*2
     exth = r*0.4             # 40% of r
@@ -146,22 +146,14 @@ _render_icon = (canvas, renderer, args) ->
         size: size
         styles: styles
 
-_render_actor = (canvas, styles) -> _render_icon canvas, _actor_renderer, styles
-
-_render_view = (canvas, styles) -> _render_icon canvas, _view_renderer, styles
-
-_render_controller = (canvas, styles) -> _render_icon canvas, _controller_renderer, styles
-
-_render_entity = (canvas, args) -> _render_icon canvas, _entity_renderer, args
-
 class Icon
   @render = (type)->
-    switch type.toLowerCase()
-      when "actor" then _render_actor
-      when "view" then _render_view
-      when "controller" then _render_controller
-      when "entity" then _render_entity
-      else throw "unknown type:#{type}"
+    r =
+      actor: _actor
+      view: _view
+      controller: _controller
+      entity: _entity
+    (canvas, styles) -> _render_icon canvas, r[type], styles
 
 core = require "core"
 if core.env.is_node
