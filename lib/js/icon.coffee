@@ -83,11 +83,12 @@ _controller = (ctx, styles) ->
     ctx.stroke()
  
   r1 = ->
+    x0 = lw + r*0.8
+    x1 = lw + r*1.2
+    y0 = lh + exth
     new Path(ctx)
-        .moveTo(lw + r,     lh + exth)
-        .lineTo(lw + r*1.4, lh + exth/4)
-        .moveTo(lw + r,     lh + exth)
-        .lineTo(lw + r*1.4, lh + exth*7/4)
+        .moveTo(x0, y0).lineTo(x1, lh + exth/4)
+        .moveTo(x0, y0).lineTo(x1, lh + exth*7/4)
     ctx.stroke()
 
   ret =
