@@ -4,6 +4,8 @@ block styles
   :stylus
     body
       color: inherit
+    #a
+      display: inline-block
 
 block content
   .container
@@ -12,7 +14,8 @@ block content
         :jumly
           @found "hello"
 
-        canvas#actor
+        #a
+          canvas#actor
         canvas#view
         canvas#controller
         canvas#entity
@@ -24,3 +27,5 @@ block scripts
     (Icon.render "view") view, {}
     (Icon.render "controller") controller, {}
     (Icon.render "entity") entity, {}
+
+    $(a).css width:$(actor).data("actual-width")
