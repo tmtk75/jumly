@@ -7,7 +7,7 @@ _STYLES =
   shadowOffsetX: 8
   shadowOffsetY: 5
 
-_path = $.g2d.path
+Path = $.g2d.path
 
 _actor_renderer = (ctx, styles) ->
     r    = styles.radius || 12
@@ -26,7 +26,7 @@ _actor_renderer = (ctx, styles) ->
     r1 = ->
         dh = 3*lw
         dv = r2*0.77
-        new _path(ctx)
+        new Path(ctx)
             .moveTo(0, r2 + lw + exth).line(lw + r2 + lw, 0)  # actor's arms (h-line) 
             .moveTo(lw + r, r2 + lw).line(0, r2*0.35)         # actor's body (v-line)
             .line(-r, dv).move(r, -dv)  # actor's right leg, and back to the groin :)
@@ -54,7 +54,7 @@ _view_renderer = (ctx, styles) ->
         ctx.stroke()
    
     r1 = ->
-        new _path(ctx)
+        new Path(ctx)
             .moveTo(lw, r)
             .line(extw, 0)
             .moveTo(lw, 0)
@@ -83,7 +83,7 @@ _controller_renderer = (ctx, styles) ->
         ctx.stroke()
    
     r1 = ->
-        new _path(ctx)
+        new Path(ctx)
             .moveTo(lw + r,     lh + exth)
         	.lineTo(lw + r*1.4, lh + exth/4)
             .moveTo(lw + r,     lh + exth)
@@ -110,7 +110,7 @@ _entity_renderer = (ctx, styles) ->
     
     r1 = ->
         ctx.shadowColor = styles.shadowColor
-        new _path(ctx)
+        new Path(ctx)
             .moveTo(lw + r,  r2)         # v-line (short)
             .lineTo(lw + r,  r2 + exth)  # 
             .moveTo(0,       r2 + exth)  # h-line (long)
