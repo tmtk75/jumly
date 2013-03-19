@@ -124,18 +124,17 @@ _entity = (ctx, styles) ->
       height:lw + r2 + exth + lw
     paths: [r0, r1]
 
-_size = (canvas, size, styles) ->
-  dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur/2 || 0)
-  dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur/2 || 0)
-  $(canvas).attr width:size.width + dw, height:size.height + dh
-
 _render = (canvas, renderer, args) ->
   styles = $.extend _STYLES, args
 
   ctx = canvas.getContext '2d'
   {size, paths} = renderer ctx, styles
-  _size canvas, size, styles
-  $(canvas).attr "data-actual-width":size.width, "data-actual-height":size.height
+
+  dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur/2 || 0)
+  dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur/2 || 0)
+  $(canvas).attr
+    width:size.width + dw, height:size.height + dh
+    "data-actual-width":size.width, "data-actual-height":size.height
 
   $.extend ctx, styles
   for e in paths
