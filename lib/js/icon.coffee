@@ -93,8 +93,8 @@ _controller = (ctx, styles) ->
 
   ret =
     size:
-        width :lw + r2 + lw + effectext
-        height:lw + r2 + lw + effectext + exth
+      width :lw + r2 + lw + effectext
+      height:lw + r2 + lw + effectext + exth
     paths: [r0, r1]
 
 _entity = (ctx, styles) ->
