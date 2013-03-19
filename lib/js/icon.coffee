@@ -123,28 +123,23 @@ _entity = (ctx, styles) ->
             height:lw + r2 + exth + lw
         paths: [r0, r1]
 
-_size_canvas = (canvas, size, styles) ->
+_size = (canvas, size, styles) ->
     dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur/2 || 0)
     dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur/2 || 0)
     $(canvas).attr width:size.width + dw, height:size.height + dh
-    size
 
-_render_icon = (canvas, renderer, args) ->
+_render = (canvas, renderer, args) ->
     styles = $.extend _STYLES, args
 
     ctx = canvas.getContext '2d'
     {size, paths} = renderer ctx, styles
-    _size_canvas canvas, size, styles
+    _size canvas, size, styles
     $(canvas).attr "data-actual-width":size.width, "data-actual-height":size.height
 
     $.extend ctx, styles
     for e in paths
         ctx.beginPath()
         e()
-
-    r =
-        size: size
-        styles: styles
 
 class Icon
   @render = (type)->
@@ -153,7 +148,7 @@ class Icon
       view: _view
       controller: _controller
       entity: _entity
-    (canvas, styles) -> _render_icon canvas, r[type], styles
+    (canvas, styles) -> _render canvas, r[type], styles
 
 core = require "core"
 if core.env.is_node
