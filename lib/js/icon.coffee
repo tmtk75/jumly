@@ -142,6 +142,7 @@ _render_icon = (canvas, renderer, args) ->
     ctx = canvas.getContext '2d'
     {size, paths} = renderer ctx, styles
     _size_canvas canvas, size, styles
+    $(canvas).attr "data-actual-width":size.width, "data-actual-height":size.height
 
     $.extend ctx, styles
     for e in paths
