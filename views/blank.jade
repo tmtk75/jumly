@@ -23,9 +23,9 @@ block content
 block scripts
   :coffeescript
     Icon = require "Icon"
-    (Icon.render "actor") actor
-    (Icon.render "view") view, {}
-    (Icon.render "controller") controller, {}
-    (Icon.render "entity") entity, {}
+    (Icon.renderer "actor") actor
+    (Icon.renderer "view") view, {}
+    (Icon.renderer "controller") controller, {}
+    (Icon.renderer "entity") entity, {}
 
     $(a).css width:$(actor).data("actual-width")

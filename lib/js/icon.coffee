@@ -142,7 +142,7 @@ _render = (canvas, renderer, args) ->
     e()
 
 class Icon
-  @render = (type)->
+  @renderer = (type)->
     r =
       actor: _actor
       view: _view
