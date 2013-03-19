@@ -1,22 +1,16 @@
 _STYLES =
-    lineWidth    : 1.5
-    fillStyle    : 'white'
-    strokeStyle  : 'gray'
-    shadowBlur   : 12
-    shadowColor  : 'rgba(0,0,0,0.22)' # 'transparent black'
-    shadowOffsetX: 8
-    shadowOffsetY: 5
-
-consts =
-	ACTOR_HEAD       : 12
-	VIEW_RADIUS      : 16
-	CONTROLLER_RADIUS: 16
-	ENTITY_RADIUS    : 16
+  lineWidth    : 1.5
+  fillStyle    : 'white'
+  strokeStyle  : 'gray'
+  shadowBlur   : 12
+  shadowColor  : 'rgba(0,0,0,0.22)' # 'transparent black'
+  shadowOffsetX: 8
+  shadowOffsetY: 5
 
 _path = $.g2d.path
 
 _actor_renderer = (ctx, styles) ->
-    r    = styles.radius || consts.ACTOR_HEAD
+    r    = styles.radius || 12
     r2   = r*2
     exth = r*0.25                        # 25% of radius
     lw   = Math.round(styles.lineWidth)  # lw: line-width
@@ -48,7 +42,7 @@ _actor_renderer = (ctx, styles) ->
         paths: [r0, r1]
             
 _view_renderer = (ctx, styles) ->
-    r    = styles.radius || consts.VIEW_RADIUS
+    r    = styles.radius || 16
     r2   = r*2
     extw = r*0.4              # 40% of r
     lw   = styles.lineWidth  # lw: line-width
@@ -75,7 +69,7 @@ _view_renderer = (ctx, styles) ->
         paths: [r0, r1]
 
 _controller_renderer = (ctx, styles) ->
-    r    = styles.radius || consts.CONTROLLER_RADIUS
+    r    = styles.radius || 16
     r2   = r*2
     exth = r*0.4              # 40% of r
     lw   = lh = styles.lineWidth  # lw: line-width
@@ -103,7 +97,7 @@ _controller_renderer = (ctx, styles) ->
         paths: [r0, r1]
 
 _entity_renderer = (ctx, styles) ->
-    r    = styles.radius || consts.ENTITY_RADIUS
+    r    = styles.radius || 16
     r2   = r*2
     exth = r*0.4             # 40% of r
     lw   = styles.lineWidth  # lw: line-width
@@ -136,7 +130,6 @@ _size_canvas = (canvas, size, styles) ->
     size
 
 _render_icon = (canvas, renderer, args) ->
-    args = args || {}
     styles = $.extend _STYLES, args
 
     ctx = canvas.getContext '2d'
