@@ -4,7 +4,8 @@ class Relationship extends HTMLElement
     @src = opts.src
     @dst = opts.dst
     super args, (me)->
-      me.append($("<canvas>").addClass("icon"))
+      me.addClass("relationship")
+        .append($("<canvas>").addClass("icon"))
         .append($("<div>").addClass("name"))
 
 MESSAGE_STYLE =
@@ -32,8 +33,8 @@ Relationship::render = ->
     margin_top  = $("body").cssAsInt "margin-top"
     pt = (obj) ->
         s = obj.offset()
-        dh = 0*(obj.cssAsInt "margin-left")  - margin_left
-        dv = 0*(obj.cssAsInt "margin-top") - margin_top
+        dh = -(obj.cssAsInt "margin-left") - margin_left
+        dv = -(obj.cssAsInt "margin-top") - margin_top
         p = left:s.left + obj.outerWidth()/2 + dh, top:s.top + obj.outerHeight()/2 + dv
    
     rect = (p, q) ->
@@ -46,39 +47,18 @@ Relationship::render = ->
         l = Math.sqrt w*w + h*h
         r = left:a.left, top:a.top, width:w, height:h, hsign:hs, vsign:vs, hunit:hs*w/l, vunit:vs*h/l
 
-    expand = (rect, val) ->
-        if typeof val is "number" then return expand rect, left:val, top:val, right:val, bottom:val
-        r = $.extend {}, rect
-        for d of val
-            switch d
-                when "left"
-                    r.left  -= val[d]
-                    r.width += val[d]
-                when "top"
-                    r.top    -= val[d]
-                    r.height += val[d]
-                when "right"
-                    r.width += val[d]
-                when "bottom"
-                    r.height += val[d]
-        r
-
-    srcicon = @src #.find(".icon")
-    dsticon = @dst #.find(".icon")
-    p = pt srcicon
-    q = pt dsticon
+    p = pt @src
+    q = pt @dst
     r = rect p, q
 
     cr = 2
-    aa = r.hunit*dsticon.outerWidth()/cr
-    bb = r.vunit*dsticon.outerHeight()/cr
-    cc = r.hunit*srcicon.outerWidth()/cr
-    dd = r.vunit*srcicon.outerHeight()/cr
+    aa = r.hunit*@dst.outerWidth()/cr
+    bb = r.vunit*@dst.outerHeight()/cr
+    cc = r.hunit*@src.outerWidth()/cr
+    dd = r.vunit*@src.outerHeight()/cr
     s = x:p.left - r.left + cc, y:p.top  - r.top + dd
     t = x:q.left - r.left - aa, y:q.top  - r.top - bb
 
-    margin = 4
-    r = expand r, margin
     @width r.width
     @height r.height
     @offset left:r.left, top:r.top
@@ -87,7 +67,6 @@ Relationship::render = ->
                           .attr(width:r.width, height:r.height)[0]
                           .getContext "2d"
     ctxt.save()
-    ctxt.translate margin, margin
     style = $.extend {}, MESSAGE_STYLE, pattern:[4, 4], shape:'line'
     if @hasClass("extend")
         style = $.extend style, shape:'dashed'

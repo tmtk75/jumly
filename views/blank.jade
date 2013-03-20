@@ -4,7 +4,7 @@ block styles
   :stylus
     body
       color  inherit
-    .icon
+    .element.icon
       display  inline-block
       text-align center
       margin-left 4px
@@ -17,10 +17,15 @@ block styles
       top   50px
     .icon.actor
       width: 100px
+
     #postgresql
       position relative
       left -50px
       top 120px
+    #mobile-app-developer
+      position relative
+      top 50px
+      
 
 block content
   .container
@@ -40,7 +45,8 @@ block scripts
     diag.append c = new IconElement("heroku", kind:"controller")
     diag.append d = new IconElement("PostgreSQL", kind:"entity")
 
-    d.attr(id:"postgresql").find("canvas")
+    a.attr id:"mobile-app-developer"
+    d.attr id:"postgresql"
     
     Relationship = require "Relationship"
     r = new Relationship("", diagram:diag, src:a, dst:d)
