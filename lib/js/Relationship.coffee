@@ -28,28 +28,29 @@ Math.sign = (x) ->
 
 $.fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
 
-Relationship::render = ->
-    margin_left = $("body").cssAsInt "margin-left"
-    margin_top  = $("body").cssAsInt "margin-top"
-    pt = (obj) ->
-        s = obj.offset()
-        dh = -(obj.cssAsInt "margin-left") - margin_left
-        dv = -(obj.cssAsInt "margin-top") - margin_top
-        p = left:s.left + obj.outerWidth()/2 + dh, top:s.top + obj.outerHeight()/2 + dv
+Relationship::_point = (obj)->
+  margin_left = $("body").cssAsInt "margin-left"
+  margin_top  = $("body").cssAsInt "margin-top"
+  s = obj.offset()
+  dh = -(obj.cssAsInt "margin-left") - margin_left
+  dv = -(obj.cssAsInt "margin-top") - margin_top
+  left:s.left + obj.outerWidth()/2 + dh
+  top:s.top + obj.outerHeight()/2 + dv
    
-    rect = (p, q) ->
-        a = left:Math.min(p.left, q.left), top:Math.min(p.top, q.top)
-        b = left:Math.max(p.left, q.left), top:Math.max(p.top, q.top)
-        w = b.left - a.left + 1
-        h = b.top  - a.top  + 1
-        hs = Math.sign(q.left - p.left)
-        vs = Math.sign(q.top  - p.top)
-        l = Math.sqrt w*w + h*h
-        r = left:a.left, top:a.top, width:w, height:h, hsign:hs, vsign:vs, hunit:hs*w/l, vunit:vs*h/l
+Relationship::_rect = (p, q)->
+  a = left:Math.min(p.left, q.left), top:Math.min(p.top, q.top)
+  b = left:Math.max(p.left, q.left), top:Math.max(p.top, q.top)
+  w = b.left - a.left + 1
+  h = b.top  - a.top  + 1
+  hs = Math.sign(q.left - p.left)
+  vs = Math.sign(q.top  - p.top)
+  l = Math.sqrt w*w + h*h
+  left:a.left, top:a.top, width:w, height:h, hsign:hs, vsign:vs, hunit:hs*w/l, vunit:vs*h/l
 
-    p = pt @src
-    q = pt @dst
-    r = rect p, q
+Relationship::render = ->
+    p = @_point @src
+    q = @_point @dst
+    r = @_rect p, q
 
     cr = 2
     aa = r.hunit*@dst.outerWidth()/cr
