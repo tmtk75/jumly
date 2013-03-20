@@ -125,7 +125,7 @@ _entity = (ctx, styles) ->
     paths: [r0, r1]
 
 _render = (canvas, renderer, args) ->
-  styles = $.extend _STYLES, args
+  styles = $.extend {}, _STYLES, args
 
   ctx = canvas.getContext '2d'
   {size, paths} = renderer ctx, styles
@@ -137,9 +137,12 @@ _render = (canvas, renderer, args) ->
     "data-actual-width":size.width, "data-actual-height":size.height
 
   $.extend ctx, styles
+  #ctx.save()
+  #ctx.translate styles.left, styles.top if styles.left or styles.top
   for e in paths
     ctx.beginPath()
     e()
+  #ctx.restore()
 
 class Icon
   @renderer = (type)->
