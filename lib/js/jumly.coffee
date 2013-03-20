@@ -19,3 +19,4 @@
 #= require SequenceFragment
 #= require SequenceRef
 #= require IconElement
+#= require Relationship

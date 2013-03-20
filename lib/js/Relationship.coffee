@@ -1,11 +1,11 @@
 HTMLElement = require "HTMLElement"
 class Relationship extends HTMLElement
-
-Relationship::_build_ = (div, opts)->
-  @src = opts.src
-  @dst = opts.dst
-  div.append($("<canvas>").addClass("icon"))
-     .append($("<div>").addClass("name"))
+  constructor: (args, opts)->
+    @src = opts.src
+    @dst = opts.dst
+    super args, (me)->
+      me.append($("<canvas>").addClass("icon"))
+        .append($("<div>").addClass("name"))
 
 MESSAGE_STYLE =
     width      : 1
@@ -33,7 +33,7 @@ Relationship::render = ->
     pt = (obj) ->
         s = obj.offset()
         dh = 0*(obj.cssAsInt "margin-left")  - margin_left
-        dv = 0*obj.css("margin-top").toInt() - margin_top
+        dv = 0*(obj.cssAsInt "margin-top") - margin_top
         p = left:s.left + obj.outerWidth()/2 + dh, top:s.top + obj.outerHeight()/2 + dv
    
     rect = (p, q) ->
@@ -63,8 +63,8 @@ Relationship::render = ->
                     r.height += val[d]
         r
 
-    srcicon = @src.find(".icon")
-    dsticon = @dst.find(".icon")
+    srcicon = @src #.find(".icon")
+    dsticon = @dst #.find(".icon")
     p = pt srcicon
     q = pt dsticon
     r = rect p, q

@@ -17,6 +17,10 @@ block styles
       top   50px
     .icon.actor
       width: 100px
+    #postgresql
+      position relative
+      left -50px
+      top 120px
 
 block content
   .container
@@ -31,8 +35,14 @@ block scripts
   :coffeescript
     IconElement = require "IconElement"
     diag = $(".diagram")
+    diag.append a = new IconElement("Mobile App Developer", kind:"actor")
+    diag.append b = new IconElement("KiiCloud Developer Portal", kind:"view")
+    diag.append c = new IconElement("heroku", kind:"controller")
+    diag.append d = new IconElement("PostgreSQL", kind:"entity")
+
+    d.attr(id:"postgresql").find("canvas")
     
-    diag.append new IconElement("Mobile App Developer", kind:"actor")
-    diag.append new IconElement("KiiCloud Developer Portal", kind:"view")
-    diag.append new IconElement("heroku", kind:"controller")
-    diag.append new IconElement("PostgreSQL", kind:"entity")
+    Relationship = require "Relationship"
+    r = new Relationship("", diagram:diag, src:a, dst:d)
+    r.render()
+    diag.append r
