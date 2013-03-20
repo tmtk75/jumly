@@ -3,9 +3,13 @@ extends _layouts/default
 block styles
   :stylus
     body
-      color: inherit
-    #a
-      display: inline-block
+      color  inherit
+    #a, #b, #c
+      display  inline-block
+    #b
+      position  relative
+      left  100px
+      top   50px
 
 block content
   .container
@@ -14,11 +18,14 @@ block content
         :jumly
           @found "hello"
 
-        #a
-          canvas#actor
-        canvas#view
-        canvas#controller
-        canvas#entity
+        .diagram
+          #a
+            canvas#actor
+          canvas#view
+          #c
+            canvas#controller
+          #b
+            canvas#entity
 
 block scripts
   :coffeescript
@@ -29,3 +36,13 @@ block scripts
     (Icon.renderer "entity") entity, {}
 
     $(a).css width:$(actor).data("actual-width")
+
+    $ ->
+      e = $("#c, #b")
+      h = e.mostLeftRight()
+      v = e.mostTopBottom()
+      diag = $(e[0]).parent(".diagram")
+      o = diag.offset()
+      canvas = $("<canvas>").attr(width:h.width(), height:v.height())
+                            .css(position:"absolute", left:h.left - o.left, top:v.top - o.top)
+      diag.append canvas
