@@ -4,27 +4,29 @@ block styles
   :stylus
     body
       color  inherit
+    
     .element.icon
       display  inline-block
       text-align center
       margin-left 4px
       margin-right 4px
+      position relative
+      
       .name
         margin-top 4px
-    #b
-      position  relative
-      left  100px
-      top   50px
-    .icon.actor
-      width: 100px
+      
+      &.actor, &.view
+        width: 100px
 
     #postgresql
-      position relative
       left -50px
       top 120px
     #mobile-app-developer
-      position relative
       top 50px
+    #kiicloud-developer-portal
+      top -50px
+    #heroku
+      left 100px
       
 
 block content
@@ -39,16 +41,20 @@ block content
 block scripts
   :coffeescript
     IconElement = require "IconElement"
+    Relationship = require "Relationship"
+
     diag = $(".diagram")
     diag.append a = new IconElement("Mobile App Developer", kind:"actor")
     diag.append b = new IconElement("KiiCloud Developer Portal", kind:"view")
     diag.append c = new IconElement("heroku", kind:"controller")
     diag.append d = new IconElement("PostgreSQL", kind:"entity")
-
-    a.attr id:"mobile-app-developer"
-    d.attr id:"postgresql"
+    diag.append r0 = new Relationship("", diagram:diag, src:a, dst:b)
+    diag.append r1 = new Relationship("", diagram:diag, src:b, dst:c)
+    diag.append r2 = new Relationship("", diagram:diag, src:c, dst:d)
     
-    Relationship = require "Relationship"
-    r = new Relationship("", diagram:diag, src:a, dst:d)
-    r.render()
-    diag.append r
+    a.attr id:"mobile-app-developer"
+    b.attr id:"kiicloud-developer-portal"
+    c.attr id:"heroku"
+    d.attr id:"postgresql"
+    for r in [r0, r1, r2]
+      r.render()
