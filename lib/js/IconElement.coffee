@@ -144,7 +144,11 @@ _render = (canvas, renderer, args) ->
     e()
   #ctx.restore()
 
-class Icon
+
+core = require "core"
+HTMLElement = require "HTMLElement"
+
+class IconElement extends HTMLElement
   @renderer = (type)->
     r =
       actor: _actor
@@ -153,8 +157,17 @@ class Icon
       entity: _entity
     (canvas, styles) -> _render canvas, r[type], styles
 
-core = require "core"
+  constructor: (args, opts)->
+    idname = core._normalize args
+    super args, (me)->
+      canvas = $("<canvas>")
+      me.addClass("icon").addClass(opts.kind)
+        .append(div = $("<div>").append canvas)
+        .append $("<div>").addClass("name").append idname.name
+      (IconElement.renderer opts.kind) canvas[0]
+      div.css height:canvas.data("actual-height")
+
 if core.env.is_node
-  module.exports = Icon
+  module.exports = IconElement
 else
-  core.exports Icon
+  core.exports IconElement

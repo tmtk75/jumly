@@ -4,12 +4,19 @@ block styles
   :stylus
     body
       color  inherit
-    #a, #b, #c
+    .icon
       display  inline-block
+      text-align center
+      margin-left 4px
+      margin-right 4px
+      .name
+        margin-top 4px
     #b
       position  relative
       left  100px
       top   50px
+    .icon.actor
+      width: 100px
 
 block content
   .container
@@ -19,30 +26,13 @@ block content
           @found "hello"
 
         .diagram
-          #a
-            canvas#actor
-          canvas#view
-          #c
-            canvas#controller
-          #b
-            canvas#entity
 
 block scripts
   :coffeescript
-    Icon = require "Icon"
-    (Icon.renderer "actor") actor
-    (Icon.renderer "view") view, {}
-    (Icon.renderer "controller") controller, {}
-    (Icon.renderer "entity") entity, {}
-
-    $(a).css width:$(actor).data("actual-width")
-
-    $ ->
-      e = $("#c, #b")
-      h = e.mostLeftRight()
-      v = e.mostTopBottom()
-      diag = $(e[0]).parent(".diagram")
-      o = diag.offset()
-      canvas = $("<canvas>").attr(width:h.width(), height:v.height())
-                            .css(position:"absolute", left:h.left - o.left, top:v.top - o.top)
-      diag.append canvas
+    IconElement = require "IconElement"
+    diag = $(".diagram")
+    
+    diag.append new IconElement("Mobile App Developer", kind:"actor")
+    diag.append new IconElement("KiiCloud Developer Portal", kind:"view")
+    diag.append new IconElement("heroku", kind:"controller")
+    diag.append new IconElement("PostgreSQL", kind:"entity")

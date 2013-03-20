@@ -18,4 +18,4 @@
 #= require SequenceDiagramLayout
 #= require SequenceFragment
 #= require SequenceRef
-#= require icon
+#= require IconElement
