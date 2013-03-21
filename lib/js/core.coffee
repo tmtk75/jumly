@@ -120,7 +120,8 @@ _runScripts = ->
   null
 
 # Listen for window load, both in browsers and in IE.
-if window.addEventListener
-  window.addEventListener 'DOMContentLoaded', _runScripts
-else
-  throw "window.addEventListener is not supported"
+unless core.env.is_node
+  if window.addEventListener
+    window.addEventListener 'DOMContentLoaded', _runScripts
+  else
+    throw "window.addEventListener is not supported"
