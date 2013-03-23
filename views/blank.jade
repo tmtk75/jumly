@@ -40,8 +40,9 @@ block content
       .span12
         :jumly(type=robustness)
           @actor "User" :-> @view "Browser"
-          @view "Browser" :-> @controller "Server"
-          @controller "Server" :-> @entity "Database"
+          @view "Browser" :-> @controller "Webapp"
+          @controller "Webapp" :-> @entity "Database"
+          @controller "BatchJob" :-> @entity "Database"
 
         :jumly
           @found "hello"

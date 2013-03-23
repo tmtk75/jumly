@@ -8,9 +8,10 @@ RobustnessDiagramLayout::_layout = ->
   p.left += (parseInt @diagram.css "padding-left")*2
   p.top  += (parseInt @diagram.css "padding-top")*2
   elems.each (i, e)->
-    e = $(e)
-    e.offset left:p.left + (i % 3) * 120, top:p.top + (i / 3) * 100
-    e.css position:"absolute"
+    $(e).css(position:"absolute")
+        .offset
+          left:p.left + (i % 3) * 120
+          top:p.top + (i / 3) * 100
 
   mlr = elems.mostLeftRight(true)
   mtb = elems.mostTopBottom(true)
