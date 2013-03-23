@@ -4,12 +4,14 @@ class Diagram extends HTMLElement
   constructor: ->
     super()
     @addClass "diagram"
-    
+
+## Enable var with given name
 Diagram::_var = (varname, e)->
   eval "#{varname} = e"
 
 core = require "core"
 
+## Enable ref name from id
 Diagram::_reg_by_ref = (id, obj)->
   exists = (id, diag)-> $("##{id}").length > 0
   ref = core._to_ref id
@@ -19,7 +21,6 @@ Diagram::_reg_by_ref = (id, obj)->
   ref
 
 
-core = require "core"
 if core.env.is_node
   module.exports = Diagram
 else

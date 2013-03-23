@@ -9,7 +9,7 @@ describe "RobustnessDiagramBuilder", ->
 
       beforeEach ->
         @diagram = new RobustnessDiagramBuilder().build """
-          @actor "user", -> @view "yahoo"
+          @actor "user": -> @view "yahoo"
         """
 
       it "has two elements", ->
