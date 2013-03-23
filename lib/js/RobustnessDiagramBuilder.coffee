@@ -21,24 +21,26 @@ core = require "core"
 _icon = (name, k)->
   icon = new IconElement name, kind:k
 
-RobustnessDiagramBuilder::actor = (opt)->
+RobustnessDiagramBuilder::_node = (opt, kind)->
   if typeof opt is "string"
-    @_diagram.append (a = _icon opt, "actor")
+    @_diagram.append (a = _icon opt, kind)
     return a
   else if typeof opt is "object"
     for k of opt
       if typeof (f = opt[k]) is "function"
-        a = _icon k, "actor"
+        a = _icon k, kind
         b = f.apply this, []
         @_diagram.append(a).append(b)
         return a
   throw "unexpected: " + typeof opt
 
-RobustnessDiagramBuilder::view = ->
+RobustnessDiagramBuilder::actor = (opt)-> @_node opt, "actor"
 
-RobustnessDiagramBuilder::controller= ->
+RobustnessDiagramBuilder::view = (opt)-> @_node opt, "view"
 
-RobustnessDiagramBuilder::entity = ->
+RobustnessDiagramBuilder::controller= (opt)-> @_node opt, "controller"
+
+RobustnessDiagramBuilder::entity = (opt)-> @_node opt, "entity"
 
 core = require "core"
 if core.env.is_node
