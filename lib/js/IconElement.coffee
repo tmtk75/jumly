@@ -1,3 +1,5 @@
+require "jquery.g2d"
+
 _STYLES =
   lineWidth    : 1.5
   fillStyle    : 'white'
