@@ -18,17 +18,14 @@ RobustnessDiagramBuilder::build = (src)->
 
 core = require "core"
 
-_icon = (name, k)->
-  icon = new IconElement name, kind:k
-
 RobustnessDiagramBuilder::_node = (opt, kind)->
   if typeof opt is "string"
-    @_diagram.append (a = _icon opt, kind)
+    @_diagram.append (a = @_diagram._node_of opt, kind)
     return a
   else if typeof opt is "object"
     for k of opt
       if typeof (f = opt[k]) is "function"
-        a = _icon k, kind
+        a = @_diagram._node_of k, kind
         b = f.apply this, []
         @_diagram.append(a).append(b)
         return a
