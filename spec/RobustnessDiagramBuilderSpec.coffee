@@ -28,7 +28,7 @@ describe "RobustnessDiagramBuilder", ->
         """
 
       it "has two elements", ->
-        expect(@diagram.find(".element").length).toBe 2
+        expect(@diagram.find(".element").length).toBe 4
 
 
     describe "markup", ->
