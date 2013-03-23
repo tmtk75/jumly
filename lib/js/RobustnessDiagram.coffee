@@ -14,6 +14,7 @@ RobustnessDiagram::_node_of = (n, k)->
   @_reg_by_ref id, e
   e
 
+RobustnessDiagram::preferences = -> {}
 
 if core.env.is_node
   module.exports = RobustnessDiagram

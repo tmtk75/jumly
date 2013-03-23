@@ -99,15 +99,16 @@ _evalHTMLScriptElement = (script) ->
   diag.insertAfter script
   layout diag
 
+_new_builder = (type)-> (script)-> (new (require type)).build script.html()
+_new_layout  = (type)-> (diagram)-> (new (require type)).layout diagram
+
 _compilers =
-  '.sequence-diagram': (script)->
-      Builder = require "SequenceDiagramBuilder"
-      (new Builder).build script.html()
+  '.sequence-diagram': _new_builder "SequenceDiagramBuilder"
+  '.robustness-diagram': _new_builder "RobustnessDiagramBuilder"
 
 _layouts =
-  '.sequence-diagram': (diagram)->
-      Layout = require "SequenceDiagramLayout"
-      (new Layout).layout diagram
+  '.sequence-diagram': _new_layout "SequenceDiagramLayout"
+  '.robustness-diagram': _new_layout "RobustnessDiagramLayout"
 
 _runScripts = ->
   return null if _runScripts.done

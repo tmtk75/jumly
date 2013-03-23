@@ -20,3 +20,6 @@
 #= require SequenceRef
 #= require IconElement
 #= require Relationship
+#= require RobustnessDiagram
+#= require RobustnessDiagramBuilder
+#= require RobustnessDiagramLayout
