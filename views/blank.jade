@@ -16,7 +16,7 @@ block styles
         margin-top 4px
       
       &.actor, &.view
-        width: 100px
+        width: 80px
 
     #postgresql
       left -50px
@@ -27,7 +27,12 @@ block styles
       top -50px
     #heroku
       left 100px
-      
+
+    .robustness-diagram
+      border  dashed 1px gray
+      border-radius  3px
+      padding 8px
+
 
 block content
   .container
@@ -36,6 +41,7 @@ block content
         :jumly(type=robustness)
           @actor "User" :-> @view "Browser"
           @view "Browser" :-> @controller "Server"
+          @controller "Server" :-> @entity "Database"
 
         :jumly
           @found "hello"
