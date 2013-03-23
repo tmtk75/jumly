@@ -47,10 +47,10 @@ block scripts
     Relationship = require "Relationship"
 
     diag = $(".diagram")
-    diag.append a = new IconElement("Mobile App Developer", kind:"actor")
-    diag.append b = new IconElement("KiiCloud Developer Portal", kind:"view")
-    diag.append c = new IconElement("heroku", kind:"controller")
-    diag.append d = new IconElement("PostgreSQL", kind:"entity")
+    diag.append a = new IconElement("App Developer", kind:"actor")
+    diag.append b = new IconElement("Register his app", kind:"view")
+    diag.append c = new IconElement("Inspect", kind:"controller")
+    diag.append d = new IconElement("App Store", kind:"entity")
     diag.append r0 = new Relationship("", src:a, dst:b)
     diag.append r1 = new Relationship("", src:b, dst:c)
     diag.append r2 = new Relationship("", src:c, dst:d)
