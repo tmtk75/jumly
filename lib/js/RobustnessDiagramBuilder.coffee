@@ -1,13 +1,30 @@
 DiagramBuilder = require "DiagramBuilder"
 RobustnessDiagram = require "RobustnessDiagram"
+IconElement = require "IconElement"
 
 class RobustnessDiagramBuilder extends DiagramBuilder
-  constructor: (@diagram) ->
+  constructor: (@_diagram)->
+    super()
+    @_diagram ?= new RobustnessDiagram
 
-RobustnessDiagramBuilder::build = ->
-  new RobustnessDiagram
+RobustnessDiagramBuilder::build = (src)->
+  if src.data
+    src.find("*[data-kind]").each (e)=>
+      e = $(e)
+      @_diagram.append new IconElement(e.text(), kind:$(e).data("kind"))
+  else
+    super src
+  @_diagram
 
-RobustnessDiagramBuilder::actor = ->
+core = require "core"
+
+RobustnessDiagramBuilder::actor = (opt)->
+  if typeof opt is "string"
+    icon = new IconElement(opt, kind:"actor")
+    @_diagram.append icon
+  else
+
+
 
 RobustnessDiagramBuilder::view = ->
 

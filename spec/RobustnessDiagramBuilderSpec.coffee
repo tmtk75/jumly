@@ -2,6 +2,19 @@ require "node-jquery"
 RobustnessDiagramBuilder = require "RobustnessDiagramBuilder"
 
 describe "RobustnessDiagramBuilder", ->
+  
+  describe "actor", ->
+  
+    describe "without dst", ->
+      it "creates an actor having .actor", ->
+        diag = new RobustnessDiagramBuilder().build """ @actor "a" """
+        expect(diag.find(".actor").length).toBe 1
+
+    describe "with a dst", ->
+      it "creates two actors", ->
+        diag = new RobustnessDiagramBuilder().build """ @actor "a" :-> @actor "b" """
+        expect(diag.find(".actor").length).toBe 2
+
 
   describe "examples", ->
 
@@ -9,7 +22,9 @@ describe "RobustnessDiagramBuilder", ->
 
       beforeEach ->
         @diagram = new RobustnessDiagramBuilder().build """
-          @actor "user": -> @view "yahoo"
+          @actor "browser": -> @view "HTTP"
+          @view "HTTP": -> @controller "webapp"
+          @controller "webapp": -> @entity "DB"
         """
 
       it "has two elements", ->
@@ -20,9 +35,10 @@ describe "RobustnessDiagramBuilder", ->
 
       beforeEach ->
         html = $ """
-                 <li><i>An user<i> opens <i>yahoo</i> with his browser.</li>
+                 <li><i data-kind="actor">An user<i> opens <i data-kind="view">Yahoo</i> with his browser.</li>
                  """
-        @diagram = new RobustnessDiagramBuilder().build html
+        d = new RobustnessDiagramBuilder()
+        @diagram = d.build $(html)
 
       it "has two elements", ->
         expect(@diagram.find(".element").length).toBe 2
