@@ -3,7 +3,7 @@ class DiagramLayout
 DiagramLayout::layout = (diagram)->
   @diagram = diagram
   @prefs = diagram.preferences()
-  @_layout_?()
+  @_layout?()
 
 core = require "core"
 if core.env.is_node

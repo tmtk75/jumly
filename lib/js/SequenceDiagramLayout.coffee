@@ -12,7 +12,7 @@ class SequenceDiagramLayout extends DiagramLayout
 SequenceDiagramLayout::_q = (sel)->
   $ sel, @diagram
 
-SequenceDiagramLayout::_layout_ = ->
+SequenceDiagramLayout::_layout = ->
   objs = $(".participant:eq(0) ~ .participant", @diagram)
   $(".participant:eq(0)", @diagram).after objs
   @align_objects_horizontally()
