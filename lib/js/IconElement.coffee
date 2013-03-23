@@ -127,6 +127,8 @@ _entity = (ctx, styles) ->
     paths: [r0, r1]
 
 _render = (canvas, renderer, args) ->
+  return unless canvas.getContext  ## for test on CLI
+
   styles = $.extend {}, _STYLES, args
 
   ctx = canvas.getContext '2d'
