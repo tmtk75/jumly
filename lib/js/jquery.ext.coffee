@@ -7,17 +7,17 @@ $.fn.min = (ef)-> _min(this, ef)
 
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-$.fn.mostLeftRight = ->
-  left : @min (e)-> $(e).offset().left
+$.fn.mostLeftRight = (margin)->
+  left : @min (e)-> $(e).offset().left - (if margin then (parseInt $(e).css("margin-left")) else 0)
   right: @max (e)->
-    t = $(e).offset().left + $(e).outerWidth()
+    t = $(e).offset().left + $(e).outerWidth() + (if margin then (parseInt $(e).css("margin-right")) else 0)
     if t - 1 < 0 then 0 else t - 1
   width: -> if @right? and @left? then @right - @left + 1 else 0
 
-$.fn.mostTopBottom = ->
-  top   : @min (e)-> $(e).offset().top
+$.fn.mostTopBottom = (margin)->
+  top   : @min (e)-> $(e).offset().top - (if margin then (parseInt $(e).css("margin-top")) else 0)
   bottom: @max (e)->
-    t = $(e).offset().top + $(e).outerHeight()
+    t = $(e).offset().top + $(e).outerHeight() + (if margin then (parseInt $(e).css("margin-bottom")) else 0)
     if t - 1 < 0 then 0 else t - 1
   height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
         
