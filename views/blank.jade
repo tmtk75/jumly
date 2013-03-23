@@ -35,6 +35,7 @@ block content
       .span12
         :jumly(type=robustness)
           @actor "User" :-> @view "Browser"
+          @view "Browser" :-> @controller "Server"
 
         :jumly
           @found "hello"
