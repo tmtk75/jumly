@@ -18,13 +18,21 @@ RobustnessDiagramBuilder::build = (src)->
 
 core = require "core"
 
+_icon = (name, k)->
+  icon = new IconElement name, kind:k
+
 RobustnessDiagramBuilder::actor = (opt)->
   if typeof opt is "string"
-    icon = new IconElement(opt, kind:"actor")
-    @_diagram.append icon
-  else
-
-
+    @_diagram.append (a = _icon opt, "actor")
+    return a
+  else if typeof opt is "object"
+    for k of opt
+      if typeof (f = opt[k]) is "function"
+        a = _icon k, "actor"
+        b = f.apply this, []
+        @_diagram.append(a).append(b)
+        return a
+  throw "unexpected: " + typeof opt
 
 RobustnessDiagramBuilder::view = ->
 
