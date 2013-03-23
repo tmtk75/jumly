@@ -1,6 +1,7 @@
 DiagramBuilder = require "DiagramBuilder"
 RobustnessDiagram = require "RobustnessDiagram"
 IconElement = require "IconElement"
+Relationship = require "Relationship"
 
 class RobustnessDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram)->
@@ -28,6 +29,7 @@ RobustnessDiagramBuilder::_node = (opt, kind)->
         a = @_diagram._node_of k, kind
         b = f.apply this, []
         @_diagram.append(a).append(b)
+        @_diagram.append new Relationship("", src:a, dst:b)
         return a
   throw "unexpected: " + typeof opt
 
