@@ -32,21 +32,6 @@ prefs_ =
 
 SequenceDiagram::$ = (sel) -> jumly($(sel, this))
 SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
-SequenceDiagram::preferences = (a, b) ->
-    prefs = {}
-    width = ->
-        objs  = $(".participant", this)
-        left  = objs.min((e) -> $(e).position().left) - @position().left
-        right = objs.max((e) -> $(e).position().left + $(e).outerWidth()) - @position().left
-        left + (right - left) + left
-    ## Return preferences
-    if (!b and typeof a is "string") or (!a and !b)
-        r = $.extend {}, prefs, prefs_
-        r.WIDTH = width.apply this
-        return r
-    ## Overrite instance preferences
-    #console.log "setter", prefs
-    $.extend prefs, a
 
 
 core = require "core"

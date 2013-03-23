@@ -2,7 +2,6 @@ class DiagramLayout
 
 DiagramLayout::layout = (diagram)->
   @diagram = diagram
-  @prefs = diagram.preferences()
   @_layout?()
 
 core = require "core"
