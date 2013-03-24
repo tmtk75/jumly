@@ -34,5 +34,8 @@
   },
   "directories": {
     "lib": "./lib"
+  },
+  "scripts": {
+    "test": "grunt spec"
   }
 }
