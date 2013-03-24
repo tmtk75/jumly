@@ -66,8 +66,6 @@ module.exports = (grunt)->
     fs = require "fs"
     dir = "views/static/release"
     fs.mkdirSync dir unless fs.existsSync dir
-    dir = "#{dir}/#{pkg.version}"
-    fs.mkdirSync dir unless fs.existsSync dir
 
     done = @async()
     require("child_process").exec "cp build/jumly.min.js build/jumly.min.css #{dir}; git add #{dir}", (err,stdout,stderr)->
