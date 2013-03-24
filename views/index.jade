@@ -39,19 +39,6 @@ block content
             | Using JUMLY, you can easily embed stylish UML diagrams on your HTML document.  
             | You need nothing to use JUMLY except for modern browser.
 
-        #new-feature
-          h2 New Feature
-          p Robustness diagram is coming soon. Now layout logic is being implemented.
-
-          :jumly(type=robustness)
-            @actor "User" :-> @view "Browser"
-            @view "Browser" :-> @controller "Server"
-            @controller "Server" :-> @entity "Database"
-          :code(type=javascript)
-            @actor "User" :-> @view "Browser"
-            @view "Browser" :-> @controller "Server"
-            @controller "Server" :-> @entity "Database"
-
         #popular-links 
           .buttons
             a.button.try-jumly(href='/try') Try JUMLY
@@ -83,6 +70,20 @@ block content
             input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-c(type="radio",name="example1_styles",value="fancy","data-bind"="checked:example1.styles",style="display:none")
+
+        #new-feature-robustness
+          h2 New Feature
+          p Robustness diagram is coming soon.
+           |Actually, I'm considering the DSL and layout logic now...
+
+          :jumly(type=robustness)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
+          :code(type=javascript)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
 
         #getting-started
           h2 Getting Started
