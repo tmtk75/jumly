@@ -61,12 +61,13 @@ require("underscore").extend jade.filters,
 
 
 fs = require "fs"
-version = fs.readFileSync("lib/version").toString().trim().split "\n"
+pkg = JSON.parse fs.readFileSync("package.json")
 ctx =
-  VERSION     : version.join "-"
-  VERSION_PATH: version[0]
-  IMAGES_DIR  : "public/images"
-  TESTED_VERSION:
+  version: pkg.version
+  paths:
+    release: "release"
+    images: "public/images"
+  tested_version:
     jquery: "1.9.1"
     coffeescript: "1.6.1"
 

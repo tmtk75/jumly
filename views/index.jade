@@ -20,18 +20,14 @@ block content
       .span2
         #quick-links
           ul.inner
-            //li: a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.js',class="js") JavaScript <small>54KB</small>
-            //li: a(href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.css',class="css") stylesheet <small>11KB</small>
-            //li: a(href="/index.ja") Japanese page
             li: a(href="http://tmtk75.github.com") author's blog
 
           .inner
-            a(href="https://twitter.com/tmtk75"): img.icon(src="#{IMAGES_DIR}/twitter_alt.png")
-            a(href="https://www.facebook.com/tomotaka.sakuma"): img.icon(src="#{IMAGES_DIR}/facebook.png")
-            a(href="https://github.com/tmtk75"): img.icon(src="#{IMAGES_DIR}/github_alt.png")
-            a(href="https://plus.google.com/u/0/112810316775699020282/"): img.icon(src="#{IMAGES_DIR}/google.png")
-            a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro"): img.icon(src="#{IMAGES_DIR}/linkedin.png")
-            //a(href="https://zerply.com/tmtk"): img.icon(src="#{IMAGES_DIR}/zerply.png")
+            a(href="https://twitter.com/tmtk75"): img.icon(src="#{paths.images}/twitter_alt.png")
+            a(href="https://www.facebook.com/tomotaka.sakuma"): img.icon(src="#{paths.images}/facebook.png")
+            a(href="https://github.com/tmtk75"): img.icon(src="#{paths.images}/github_alt.png")
+            a(href="https://plus.google.com/u/0/112810316775699020282/"): img.icon(src="#{paths.images}/google.png")
+            a(href="http://www.linkedin.com/profile/view?id=88237980&trk=tab_pro"): img.icon(src="#{paths.images}/linkedin.png")
 
       .span8
         h1.logo
@@ -47,8 +43,6 @@ block content
           .buttons
             a.button.try-jumly(href='/try') Try JUMLY
               small &nbsp;interactive demo
-          //.buttons
-            a.button.download(href='https://github.com/tmtk75/jumly/archive/v0.1.2a-beta.tar.gz') DOWNLOAD v#{VERSION}
           .buttons
             a.button.reference(href='/reference') Reference Manual r1
           .buttons
@@ -85,10 +79,10 @@ block content
             | In case you put a sequence diagram into it, put next four lines in your &lt;head>.
 
           :code(type=xml)
-            &lt;link href='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.css' rel='stylesheet'/>
+            &lt;link href='https://jumly.herokuapp.com/#{paths.release}/jumly.min.css' rel='stylesheet'/>
             &lt;script src='http://code.jquery.com/jquery-1.8.2.min.js'>&lt;/script>
             &lt;script src='http://coffeescript.org/extras/coffee-script.js'>&lt;/script>
-            &lt;script src='https://jumly.herokuapp.com/release/#{VERSION_PATH}/jumly.min.js'>&lt;/script>
+            &lt;script src='https://jumly.herokuapp.com/#{paths.release}/jumly.min.js'>&lt;/script>
 
           p
             | Then, put a next &lt;script> element into the place where you want to put at.
@@ -308,8 +302,8 @@ block content
               #requirement
                 h2 Requirement
                 p
-                  | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> #{TESTED_VERSION.jquery}
-                  | and <a href='http://coffeescript.org/'>CoffeeScript</a> #{TESTED_VERSION.coffeescript},
+                  | JUMLY is tested on <a href='http://jquery.com/'>jQuery</a> #{tested_version.jquery}
+                  | and <a href='http://coffeescript.org/'>CoffeeScript</a> #{tested_version.coffeescript},
                   | and they or later are recommended on you.
                 p
                   | WebKit-base browser like Google Chrome and Safari,
@@ -321,7 +315,7 @@ block content
               #license
                 h2 License
                 p
-                  | JUMLY v#{VERSION} is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
+                  | JUMLY v#{version} is under <a href="http://opensource.org/licenses/MIT">MIT license</a>.<br>
                   | Perhapse, license for newer versions may be changed to another one in the future.
                   | In that case, you can still use old version's JUMLY with MIT license.
           .row
