@@ -39,6 +39,19 @@ block content
             | Using JUMLY, you can easily embed stylish UML diagrams on your HTML document.  
             | You need nothing to use JUMLY except for modern browser.
 
+        #new-feature
+          h2 New Feature
+          p Robustness diagram is coming soon. Now layout logic is being implemented.
+
+          :jumly(type=robustness)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
+          :code(type=javascript)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
+
         #popular-links 
           .buttons
             a.button.try-jumly(href='/try') Try JUMLY
@@ -54,7 +67,6 @@ block content
               @message "Think", ->
                 @message "Write your idea", "JUMLY", ->
                   @create "Diagram"
-          
           :code(type=javascript)
             @found "You", ->
               @message "Think", ->
