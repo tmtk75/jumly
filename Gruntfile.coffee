@@ -79,7 +79,9 @@ js_files = [
   "Diagram", "DiagramBuilder", "DiagramLayout"
   "HTMLElementLayout", "NoteElement", "Position", "Relationship",
   "SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceParticipant"
-  "SequenceDiagram", "SequenceDiagramBuilder", "SequenceDiagramLayout", "SequenceFragment", "SequenceRef", "UsecaseDiagram",
+  "SequenceDiagram", "SequenceDiagramBuilder", "SequenceDiagramLayout", "SequenceFragment", "SequenceRef", "UsecaseDiagram"
+  "IconElement"
+  "RobustnessDiagram", "RobustnessDiagramBuilder", "RobustnessDiagramLayout"
   #"Class", "ClassDiagram", "ClassDiagramBuilder"
 ]
 
@@ -89,5 +91,6 @@ spec_files = [
   "DiagramSpec"
   "HTMLElementSpec"
   "SequenceDiagramBuilderSpec", "SequenceDiagramLayoutSpec", "SequenceDiagramSpec"
+  "RobustnessDiagramBuilderSpec"
   #"ClassDiagramSpec"
 ]
