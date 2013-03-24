@@ -1,7 +1,9 @@
 module.exports = (grunt)->
 
+  pkg = grunt.file.readJSON('package.json')
+
   grunt.initConfig
-    pkg: grunt.file.readJSON('package.json')
+    pkg: pkg
 
     coffee:
       compile:
@@ -59,15 +61,16 @@ module.exports = (grunt)->
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build', ['compile', 'minify']
   grunt.registerTask 'spec', ['jasmine-node']
-  grunt.registerTask 'release:prepare', "", ->
+  grunt.registerTask 'release', "", ->
     grunt.task.requires ["build"]
     fs = require "fs"
-    exec = require("child_process").exec
-    version = (fs.readFileSync("lib/version").toString()).split("\n")[0]
-    dir = "views/static/release/#{version}"
+    dir = "views/static/release"
     fs.mkdirSync dir unless fs.existsSync dir
+    dir = "#{dir}/#{pkg.version}"
+    fs.mkdirSync dir unless fs.existsSync dir
+
     done = @async()
-    exec "cp build/jumly.min.js build/jumly.min.css #{dir}; git add #{dir}", (err,stdout,stderr)->
+    require("child_process").exec "cp build/jumly.min.js build/jumly.min.css #{dir}; git add #{dir}", (err,stdout,stderr)->
       process.stdout.write stdout if stdout
       process.stderr.write stderr if stderr
       process.stderr.write err if err
