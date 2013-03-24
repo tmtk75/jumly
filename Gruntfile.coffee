@@ -33,6 +33,8 @@ module.exports = (grunt)->
 
     cssmin:
       compress:
+        options:
+          banner: """/* <%= pkg.name %>-<%= pkg.version %> <%=grunt.template.today('yyyy-mm-dd')%> */"""
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
