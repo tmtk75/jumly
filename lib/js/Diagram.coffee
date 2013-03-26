@@ -1,4 +1,7 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
+HTMLElement = self.require "HTMLElement"
+core = self.require "core"
 
 class Diagram extends HTMLElement
   constructor: ->
@@ -8,8 +11,6 @@ class Diagram extends HTMLElement
 ## Enable var with given name
 Diagram::_var = (varname, e)->
   eval "#{varname} = e"
-
-core = require "core"
 
 ## Enable ref name from id
 Diagram::_reg_by_ref = (id, obj)->

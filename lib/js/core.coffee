@@ -67,7 +67,7 @@ else
     "node-jquery": {}  ## suppress warning for "node-jquery"
     "./jasmine-matchers": {}  ## suppress warning for "./
 
-  window.require = (name)->
+  JUMLY.require = (name)->
     if name is undefined or name is null
       throw new Error "#{name} was not properly given"
     console.warn "not found:", name unless exported[name]

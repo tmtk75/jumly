@@ -1,6 +1,8 @@
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
 class DiagramBuilder
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   CoffeeScript = require "coffee-script"
 else

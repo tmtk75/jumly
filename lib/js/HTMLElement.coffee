@@ -1,3 +1,5 @@
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
 class HTMLElement
   constructor: (args, f)->
     cls = HTMLElement.to_css_name @constructor.name
@@ -18,7 +20,7 @@ class HTMLElement
 HTMLElement::preferred_width = ->
   @find("> *:eq(0)").outerWidth()
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = HTMLElement
 else

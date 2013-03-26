@@ -1,3 +1,5 @@
+this.require = unless typeof require is "undefined" then require else JUMLY.require
+
 require "node-jquery"
 core = require "core"
 
