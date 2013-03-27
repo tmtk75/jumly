@@ -77,12 +77,13 @@ module.exports = (grunt)->
       done(true)
 
 js_files = [
-  "core", "jquery.g2d", "jquery.ext", "icon"
+  "core", "jquery.g2d", "jquery.ext"
   "HTMLElement"
   "Diagram", "DiagramBuilder", "DiagramLayout"
   "HTMLElementLayout", "NoteElement", "Position", "Relationship",
-  "SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceParticipant"
-  "SequenceDiagram", "SequenceDiagramBuilder", "SequenceDiagramLayout", "SequenceFragment", "SequenceRef", "UsecaseDiagram"
+  "SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceParticipant", "SequenceFragment", "SequenceRef"
+  "SequenceDiagram", "SequenceDiagramBuilder", "SequenceDiagramLayout"
+  "UsecaseDiagram"
   "IconElement"
   "RobustnessDiagram", "RobustnessDiagramBuilder", "RobustnessDiagramLayout"
   #"Class", "ClassDiagram", "ClassDiagramBuilder"

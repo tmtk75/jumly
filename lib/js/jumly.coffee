@@ -11,13 +11,13 @@
 #= require SequenceInteraction
 #= require SequenceOccurrence
 #= require SequenceParticipant
+#= require SequenceFragment
+#= require SequenceRef
 #= require HTMLElementLayout
 #= require Position
 #= require SequenceDiagram
 #= require SequenceDiagramBuilder
 #= require SequenceDiagramLayout
-#= require SequenceFragment
-#= require SequenceRef
 #= require IconElement
 #= require Relationship
 #= require RobustnessDiagram
