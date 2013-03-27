@@ -1,32 +1,30 @@
-_max = (nodes, ef)-> _choose(nodes, ef, (a, b)-> b - a)
-_min = (nodes, ef)-> _choose(nodes, ef, (a, b)-> a - b)
-_choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
-$.fn.choose = (ef, cmpf)-> _choose(this, ef, cmpf)
-$.fn.max = (ef)-> _max(this, ef)
-$.fn.min = (ef)-> _min(this, ef)
+self = require: unless typeof require is "undefined" then require else JUMLY.require
 
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
-$.fn.mostLeftRight = (margin)->
-  left : @min (e)-> $(e).offset().left - (if margin then (parseInt $(e).css("margin-left")) else 0)
-  right: @max (e)->
-    t = $(e).offset().left + $(e).outerWidth() + (if margin then (parseInt $(e).css("margin-right")) else 0)
-    if t - 1 < 0 then 0 else t - 1
-  width: -> if @right? and @left? then @right - @left + 1 else 0
+_choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
 
-$.fn.mostTopBottom = (margin)->
-  top   : @min (e)-> $(e).offset().top - (if margin then (parseInt $(e).css("margin-top")) else 0)
-  bottom: @max (e)->
-    t = $(e).offset().top + $(e).outerHeight() + (if margin then (parseInt $(e).css("margin-bottom")) else 0)
-    if t - 1 < 0 then 0 else t - 1
-  height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
-        
-$.fold = (list, init, func)->
-  l = init
-  for e in list
-    l = func.apply null, [l, e]
-  l
+utils =
+  max: (nodes, ef)-> _choose(nodes, ef, (a, b)-> b - a)
+  min: (nodes, ef)-> _choose(nodes, ef, (a, b)-> a - b)
 
-$.reduce = (list, func)->
-  return undefined if list.length is 0
-  $.fold list[1..], list[0], func
+  mostLeftRight: (objs, margin)->
+    left : @min objs, (e)-> $(e).offset().left - (if margin then (parseInt $(e).css("margin-left")) else 0)
+    right: @max objs, (e)->
+      t = $(e).offset().left + $(e).outerWidth() + (if margin then (parseInt $(e).css("margin-right")) else 0)
+      if t - 1 < 0 then 0 else t - 1
+    width: -> if @right? and @left? then @right - @left + 1 else 0
+
+  mostTopBottom: (objs, margin)->
+    top   : @min objs, (e)-> $(e).offset().top - (if margin then (parseInt $(e).css("margin-top")) else 0)
+    bottom: @max objs, (e)->
+      t = $(e).offset().top + $(e).outerHeight() + (if margin then (parseInt $(e).css("margin-bottom")) else 0)
+      if t - 1 < 0 then 0 else t - 1
+    height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
+          
+
+core = self.require "core"
+if core.env.is_node
+  module.exports = utils
+else
+  core.exports utils, "utils"

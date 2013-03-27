@@ -1,5 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 DiagramLayout = self.require "DiagramLayout"
+utils = self.require "utils"
 
 class RobustnessDiagramLayout extends DiagramLayout
 
@@ -14,8 +15,8 @@ RobustnessDiagramLayout::_layout = ->
           left:p.left + (i % 3) * 120
           top:p.top + (i / 3) * 100
 
-  mlr = elems.mostLeftRight(true)
-  mtb = elems.mostTopBottom(true)
+  mlr = utils.mostLeftRight(elems, true)
+  mtb = utils.mostTopBottom(elems, true)
   @diagram.width(mlr.width())
           .height(mtb.height())
 

@@ -1,5 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 HTMLElement = self.require "HTMLElement"
+utils = self.require "utils"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->
@@ -41,7 +42,7 @@ SequenceOccurrence::create = (objsrc) ->
 
 SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"
-    offset left:@parents(".diagram").find(".participant").mostLeftRight().right
+    offset left:utils.mostLeftRight(@parents(".diagram").find(".participant")).right
     return this
   if not @is_on_another()
     left = @_actor.offset().left + (@_actor.preferred_width() - @width())/2

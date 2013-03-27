@@ -1,5 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 DiagramLayout = self.require "DiagramLayout"
+utils = self.require "utils"
 
 $.fn.self = -> @data "_self"
 $.fn.selfEach = (f)-> @each (i, e)->
@@ -39,8 +40,8 @@ SequenceDiagramLayout::_layout = ->
   $(mr[mr.length - 1]).addClass "rightmost"
 
   objs = @diagram.find(".participant")
-  l = objs.min (e)-> $(e).offset().left
-  r = objs.max (e)-> $(e).offset().left + $(e).outerWidth() - 1
+  l = utils.min objs, (e)-> $(e).offset().left
+  r = utils.max objs, (e)-> $(e).offset().left + $(e).outerWidth() - 1
   @diagram.width r - l + 1
 
 HTMLElementLayout = self.require "HTMLElementLayout"
@@ -114,13 +115,13 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
   if fragments.length > 0
     # To controll the width, you can write selector below.
     # ".participant:eq(0), > .interaction > .occurrence .interaction"
-    most = @_q(".participant").mostLeftRight()
+    most = utils.mostLeftRight @_q(".participant")
     left = fragments.offset().left
     fragments.width (most.right - left) + (most.left - left)
   
   # fragments inside diagram
   fixwidth = (fragment) ->
-    most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight()
+    most = utils.mostLeftRight $(".occurrence, .message, .fragment", fragment).not(".return, .lost")
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
     msg = fragment.find("> .interaction > .message").data "_self"
@@ -147,7 +148,7 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
   else
     mh = @diagram.find(".interaction:eq(0)").height()
 
-  min = @diagram.find(".participant").min (e)-> $(e).offset().top
+  min = utils.min @diagram.find(".participant"), (e)-> $(e).offset().top
 
   @_q(".lifeline").each (i, e) ->
     a = $(e).data "_self"

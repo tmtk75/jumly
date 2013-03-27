@@ -6,6 +6,7 @@ SequenceDiagramLayout = self.require "SequenceDiagramLayout"
 SequenceDiagram = self.require "SequenceDiagram"
 SequenceParticipant = self.require "SequenceParticipant"
 SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
+_u = self.require "utils"
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
@@ -45,8 +46,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
       diag.css "border":"1px solid #008000"
-      a = diag.find("*").min f = (e)-> $(e).offset().top
-      b = diag.find("*").max g = (e)-> $(e).offset().top + $(e).outerHeight()
+      a = _u.min diag.find("*"), f = (e)-> $(e).offset().top
+      b = _u.max diag.find("*"), g = (e)-> $(e).offset().top + $(e).outerHeight()
       expect(diag.height()).toBe Math.round(b - a)
 
     describe "including .ref", ->
@@ -60,7 +61,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
       it "is longer than the sum of all ones", ->
         t = @diagram.find(".participant, .occurrence, .ref") .map (i, e)-> $(e).outerHeight()
-        expect(@diagram.height()).toBeGreaterThan $.reduce t, (a, b)-> a + b
+        fold = (list, init, func)->
+          l = init
+          for e in list
+            l = func.apply null, [l, e]
+          l
+        reduce = (list, func)->
+          return undefined if list.length is 0
+          fold list[1..], list[0], func
+        expect(@diagram.height()).toBeGreaterThan reduce t, (a, b)-> a + b
   
     describe "including .ref in .alt", ->
       beforeEach ->
@@ -76,7 +85,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout diag
 
       it "is longer than the sum of all ones", ->
-        expect(_bottom @diagram).toBe (@diagram.find("*").max (e)-> _bottom $(e))
+        expect(_bottom @diagram).toBe (_u.max @diagram.find("*"), (e)-> _bottom $(e))
 
   describe "width", ->
     beforeEach ->
@@ -201,8 +210,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         lines = @diagram.find ".lifeline"
         occurs = @diagram.find ".occurrence"
         g = (e)-> _bottom $(e)
-        a = lines.max g
-        b = occurs.max g
+        a = _u.max lines, g
+        b = _u.max occurs, g
         expect(a).toBeGreaterThan b
 
   describe "occurrence", ->
