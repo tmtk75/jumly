@@ -70,7 +70,7 @@ module.exports = (grunt)->
     fs.mkdirSync dir unless fs.existsSync dir
 
     done = @async()
-    require("child_process").exec "cp build/jumly.min.js build/jumly.min.css #{dir}; git add #{dir}", (err,stdout,stderr)->
+    require("child_process").exec "cp build/jumly.*  #{dir}; git add #{dir}", (err,stdout,stderr)->
       process.stdout.write stdout if stdout
       process.stderr.write stderr if stderr
       process.stderr.write err if err
