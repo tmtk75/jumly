@@ -76,18 +76,10 @@ module.exports = (grunt)->
       process.stderr.write err if err
       done(true)
 
-js_files = [
-  "core", "jquery.g2d", "jquery.ext"
-  "HTMLElement"
-  "Diagram", "DiagramBuilder", "DiagramLayout"
-  "HTMLElementLayout", "NoteElement", "Position", "Relationship",
-  "SequenceLifeline", "SequenceMessage", "SequenceInteraction", "SequenceOccurrence", "SequenceParticipant", "SequenceFragment", "SequenceRef"
-  "SequenceDiagram", "SequenceDiagramBuilder", "SequenceDiagramLayout"
-  "UsecaseDiagram"
-  "IconElement"
-  "RobustnessDiagram", "RobustnessDiagramBuilder", "RobustnessDiagramLayout"
-  #"Class", "ClassDiagram", "ClassDiagramBuilder"
-]
+fs = require "fs"
+_  = require "underscore"
+js_files = _.compact fs.readFileSync("lib/js/jumly.coffee").toString()
+            .split("\n").map (e)-> e.replace("#= require ", "").trim()
 
 spec_files = [
   "jasmine-utils"

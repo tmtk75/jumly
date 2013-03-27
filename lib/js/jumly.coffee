@@ -5,7 +5,10 @@
 #= require Diagram
 #= require DiagramBuilder
 #= require DiagramLayout
+#= require HTMLElementLayout
 #= require NoteElement
+#= require Position
+#= require Relationship
 #= require SequenceLifeline
 #= require SequenceMessage
 #= require SequenceInteraction
@@ -13,13 +16,10 @@
 #= require SequenceParticipant
 #= require SequenceFragment
 #= require SequenceRef
-#= require HTMLElementLayout
-#= require Position
 #= require SequenceDiagram
 #= require SequenceDiagramBuilder
 #= require SequenceDiagramLayout
 #= require IconElement
-#= require Relationship
 #= require RobustnessDiagram
 #= require RobustnessDiagramBuilder
 #= require RobustnessDiagramLayout
