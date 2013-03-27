@@ -1,7 +1,8 @@
-DiagramBuilder = require "DiagramBuilder"
-RobustnessDiagram = require "RobustnessDiagram"
-IconElement = require "IconElement"
-Relationship = require "Relationship"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+DiagramBuilder = self.require "DiagramBuilder"
+RobustnessDiagram = self.require "RobustnessDiagram"
+IconElement = self.require "IconElement"
+Relationship = self.require "Relationship"
 
 class RobustnessDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram)->
@@ -17,7 +18,7 @@ RobustnessDiagramBuilder::build = (src)->
     super src
   @_diagram
 
-core = require "core"
+core = self.require "core"
 
 RobustnessDiagramBuilder::_node = (opt, kind)->
   if typeof opt is "string"
@@ -41,7 +42,7 @@ RobustnessDiagramBuilder::controller= (opt)-> @_node opt, "controller"
 
 RobustnessDiagramBuilder::entity = (opt)-> @_node opt, "entity"
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = RobustnessDiagramBuilder
 else

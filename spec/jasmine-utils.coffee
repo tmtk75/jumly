@@ -1,4 +1,7 @@
-core = require "core"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+core = self.require "core"
+HTMLElement = self.require "HTMLElement"
+L = self.require "SequenceDiagramLayout"
 
 root =
   matchers: (suite)->
@@ -7,7 +10,6 @@ root =
         @actual.hasClass expected
   
   div: (self)->
-    HTMLElement = require "HTMLElement"
     klass = HTMLElement.to_css_name self.description
     div = $("<div>").attr("id", klass + "-container")
                     .addClass("spec-diagram-container")
@@ -24,7 +26,6 @@ root =
 
   glance: (diag)->
     $("body").prepend diag
-    L = require "SequenceDiagramLayout"
     new L().layout diag
 
   ua: (opts)->

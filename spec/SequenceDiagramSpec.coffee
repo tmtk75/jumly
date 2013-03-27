@@ -1,8 +1,9 @@
-utils = require "./jasmine-utils"
-is_node = require("core").env.is_node
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+utils = self.require "./jasmine-utils"
+is_node = self.require("core").env.is_node
 
 describe "SequenceDiagram", ->
-  SequenceDiagram = require "SequenceDiagram"
+  SequenceDiagram = self.require "SequenceDiagram"
   div = utils.div this
 
   beforeEach ->
@@ -17,7 +18,7 @@ describe "SequenceDiagram", ->
     expect(@diagram.find("*").length).toBe 0
   
   describe "SequenceParticipant", ->
-    SequenceParticipant = require "SequenceParticipant"
+    SequenceParticipant = self.require "SequenceParticipant"
     beforeEach ->
       @object = new SequenceParticipant "user"
     
@@ -37,13 +38,13 @@ describe "SequenceDiagram", ->
   describe "SequenceOccurrence", ->
 
     it "has .occurrence", ->
-      SequenceOccurrence = require "SequenceOccurrence"
+      SequenceOccurrence = self.require "SequenceOccurrence"
       beforeEach ->
         @occurr = new SequenceOccurrence
 
   describe "SequenceFragment", ->
 
-    SequenceFragment = require "SequenceFragment"
+    SequenceFragment = self.require "SequenceFragment"
     beforeEach ->
       @fragment = new SequenceFragment "treat all"
 
@@ -55,7 +56,7 @@ describe "SequenceDiagram", ->
 
   describe "SequenceRef", ->
 
-    SequenceRef = require "SequenceRef"
+    SequenceRef = self.require "SequenceRef"
     beforeEach ->
       @ref = new SequenceRef "another sequence"
 

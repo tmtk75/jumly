@@ -1,4 +1,6 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
+HTMLElement = self.require "HTMLElement"
 
 class SequenceLifeline extends HTMLElement
   constructor: (@_object)->
@@ -7,7 +9,7 @@ class SequenceLifeline extends HTMLElement
       me.append($("<div>").addClass "line")
         .width self._object.width()
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = SequenceLifeline
 else

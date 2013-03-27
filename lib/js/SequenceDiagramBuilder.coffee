@@ -1,4 +1,10 @@
-DiagramBuilder = require "DiagramBuilder"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+core = self.require "core"
+DiagramBuilder = self.require "DiagramBuilder"
+SequenceDiagram = self.require "SequenceDiagram"
+SequenceParticipant = self.require "SequenceParticipant"
+SequenceRef = self.require "SequenceRef"
+SequenceFragment = self.require "SequenceFragment"
 
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram, @_occurr)->
@@ -19,10 +25,6 @@ SequenceDiagramBuilder::found = (sth, callback)->
   @_occurr = null
   this
 
-SequenceDiagram = require "SequenceDiagram"
-
-core = require "core"
-SequenceParticipant = require "SequenceParticipant"
 
 SequenceDiagramBuilder::_find_or_create = (sth)->
   a = core._normalize sth
@@ -136,7 +138,6 @@ SequenceDiagramBuilder::reply = (a, b)->
   null
 
 SequenceDiagramBuilder::ref = (a)->
-  SequenceRef = require "SequenceRef"
   occur = @_curr_occurr()
   ref = new SequenceRef a
   if occur
@@ -169,7 +170,6 @@ SequenceDiagramBuilder::_fragment = (last, opts, desc)->
   last.apply this, []
   newones = @_curr_occurr().find("> *").not(kids)
   if newones.length > 0
-    SequenceFragment = require "SequenceFragment"
     frag = new SequenceFragment()
     frag.addClass opts.kind if opts.kind
     frag.enclose newones
@@ -227,7 +227,7 @@ SequenceDiagramBuilder::find = (selector)->
   @_diagram.find selector
 
 
-NoteElement = require "NoteElement"
+NoteElement = self.require "NoteElement"
 
 SequenceDiagramBuilder::note = (text, opts)->
   note = new NoteElement text, opts
@@ -250,7 +250,6 @@ SequenceDiagramBuilder::preferences = ->
 
 #JUMLY.SequenceDiagramBuilder = SequenceDiagramBuilder
 
-core = require "core"
 if core.env.is_node
   module.exports = SequenceDiagramBuilder
 else

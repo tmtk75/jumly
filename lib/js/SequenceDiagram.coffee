@@ -1,4 +1,5 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 jumly = $.jumly
 
@@ -13,7 +14,7 @@ jQuery.fn.swallow = (_, f) ->
   @append _.detach()
   this
 
-Diagram = require "Diagram"
+Diagram = self.require "Diagram"
 
 class SequenceDiagram extends Diagram
   constructor: ->
@@ -34,7 +35,7 @@ SequenceDiagram::$ = (sel) -> jumly($(sel, this))
 SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = SequenceDiagram
 else

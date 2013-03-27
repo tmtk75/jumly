@@ -1,13 +1,14 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 class SequenceParticipant extends HTMLElement
   constructor: (args)->
     super args, (me)->
       me.append($("<div>").addClass("name"))
 
-core = require "core"
-SequenceOccurrence = require "SequenceOccurrence"
-SequenceInteraction = require "SequenceInteraction"
+core = self.require "core"
+SequenceOccurrence = self.require "SequenceOccurrence"
+SequenceInteraction = self.require "SequenceInteraction"
 
 SequenceParticipant::activate = ->
   occurr = new SequenceOccurrence this

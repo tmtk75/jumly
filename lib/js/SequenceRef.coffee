@@ -1,4 +1,5 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 class SequenceRef extends HTMLElement
   constructor: (args)->
@@ -53,8 +54,9 @@ SequenceRef::preferred_left_and_width = ->
   most.width = most.width()
   most
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = SequenceRef
 else
   core.exports SequenceRef
+console.log "Ref loaded"

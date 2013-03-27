@@ -1,4 +1,5 @@
-DiagramLayout = require "DiagramLayout"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+DiagramLayout = self.require "DiagramLayout"
 
 class RobustnessDiagramLayout extends DiagramLayout
 
@@ -21,7 +22,7 @@ RobustnessDiagramLayout::_layout = ->
   @diagram.find(".relationship").each (i, e)-> $(e).data("_self").render()
 
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = RobustnessDiagramLayout
 else

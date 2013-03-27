@@ -1,4 +1,6 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
+HTMLElement = self.require "HTMLElement"
 
 class NoteElement extends HTMLElement
   constructor: (args, attrs)->
@@ -6,7 +8,7 @@ class NoteElement extends HTMLElement
       me.append($("<div>").addClass("name"))
     @css attrs.css if attrs
 
-core = require "core"
+core = self.require "core"
 
 if core.env.is_node
   module.exports = NoteElement

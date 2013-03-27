@@ -1,5 +1,6 @@
-require "node-jquery"
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+self.require "node-jquery"
+HTMLElement = self.require "HTMLElement"
 
 describe "HTMLElement", ->
 

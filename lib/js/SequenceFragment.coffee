@@ -1,4 +1,5 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 class SequenceFragment extends HTMLElement
   constructor: (args)->
@@ -35,7 +36,7 @@ SequenceFragment::alter = (occurr, acts) ->
     alt.find(".divider:last").remove()
     alt
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = SequenceFragment
 else

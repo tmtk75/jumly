@@ -1,5 +1,6 @@
-require "node-jquery"
-RobustnessDiagramBuilder = require "RobustnessDiagramBuilder"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+self.require "node-jquery"
+RobustnessDiagramBuilder = self.require "RobustnessDiagramBuilder"
 
 describe "RobustnessDiagramBuilder", ->
   

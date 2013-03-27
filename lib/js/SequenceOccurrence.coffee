@@ -1,11 +1,12 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->
     super()
 
-core = require "core"
-SequenceInteraction = require "SequenceInteraction"
+core = self.require "core"
+SequenceInteraction = self.require "SequenceInteraction"
 
 SequenceOccurrence::interact = (actor, acts) ->
     if acts?.stereotype is ".lost"
@@ -15,7 +16,7 @@ SequenceOccurrence::interact = (actor, acts) ->
     else if acts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if actor?.stereotype is ".alt"
-        SequenceFragment = require "SequenceFragment"
+        SequenceFragment = self.require "SequenceFragment"
         alt = new SequenceFragment "alt"
         alt.alter this, acts
         return this
@@ -28,7 +29,7 @@ SequenceOccurrence::interact = (actor, acts) ->
     iact
 
 SequenceOccurrence::create = (objsrc) ->
-  SequenceParticipant = require "SequenceParticipant"
+  SequenceParticipant = self.require "SequenceParticipant"
   obj = new SequenceParticipant(objsrc.name)
               .addClass "created-by"
   @_actor.parent().append obj

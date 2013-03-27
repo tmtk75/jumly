@@ -1,7 +1,7 @@
-this.require = unless typeof require is "undefined" then require else JUMLY.require
+self = require: unless typeof require is "undefined" then require else JUMLY.require
 
-require "node-jquery"
-core = require "core"
+self.require "node-jquery"
+core = self.require "core"
 
 describe "core", ->
 
@@ -13,7 +13,7 @@ describe "core", ->
       if !core.env.is_node
         class Foo
         core.exports Foo
-        foo = require "Foo"
+        foo = self.require "Foo"
         expect(foo).toBe Foo
 
   describe "_normalize", ->

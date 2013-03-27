@@ -1,9 +1,10 @@
-Diagram = require "Diagram"
-IconElement = require "IconElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+Diagram = self.require "Diagram"
+IconElement = self.require "IconElement"
 
 class RobustnessDiagram extends Diagram
 
-core = require "core"
+core = self.require "core"
 
 RobustnessDiagram::_node_of = (n, k)->
   id = core._to_id n

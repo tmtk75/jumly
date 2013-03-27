@@ -1,3 +1,4 @@
+self = require: unless typeof require is "undefined" then require else JUMLY.require
 
 class UMLUsecase
   constructor: (props, opts) ->
@@ -37,7 +38,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-class JUMLYUsecaseDiagram extends require("Diagram")
+class JUMLYUsecaseDiagram extends self.require("Diagram")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -98,7 +99,7 @@ JUMLYUsecaseDiagram::compose = ->
 
 
 
-class JUMLYUsecaseDiagramBuilder extends require("DiagramBuilder")
+class JUMLYUsecaseDiagramBuilder extends self.require("DiagramBuilder")
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->

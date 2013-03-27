@@ -1,4 +1,5 @@
-require "jquery.g2d"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+self.require "jquery.g2d"
 
 _STYLES =
   lineWidth    : 1.5
@@ -149,8 +150,8 @@ _render = (canvas, renderer, args) ->
   #ctx.restore()
 
 
-core = require "core"
-HTMLElement = require "HTMLElement"
+core = self.require "core"
+HTMLElement = self.require "HTMLElement"
 
 class IconElement extends HTMLElement
   @renderer = (type)->

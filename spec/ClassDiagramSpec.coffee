@@ -1,5 +1,6 @@
-require "node-jquery"
-ClassDiagram = require "ClassDiagram"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+self.require "node-jquery"
+ClassDiagram = self.require "ClassDiagram"
 
 describe "ClassDiagram", ->
 

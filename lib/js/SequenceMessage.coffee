@@ -1,4 +1,5 @@
-HTMLElement = require "HTMLElement"
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+HTMLElement = self.require "HTMLElement"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -151,7 +152,7 @@ SequenceMessage::_to_be_creation = ->
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this
 
-core = require "core"
+core = self.require "core"
 if core.env.is_node
   module.exports = SequenceMessage
 else
