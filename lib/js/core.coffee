@@ -56,9 +56,12 @@ core.env =
 JUMLY =
   env: core.env
 
+self = {}
+
 if core.env.is_node
   global.JUMLY = JUMLY
   module.exports = core
+  self.require = require
 else
   window.JUMLY = JUMLY
 
@@ -72,6 +75,8 @@ else
       throw new Error "#{name} was not properly given"
     console.warn "not found:", name unless exported[name]
     exported[name]
+  
+  self.require = JUMLY.require
 
   core.exports = (func, name)->
     exported[func.name or name] = func
@@ -99,8 +104,8 @@ _evalHTMLScriptElement = (script) ->
   diag.insertAfter script
   layout diag
 
-_new_builder = (type)-> (script)-> (new (require type)).build script.html()
-_new_layout  = (type)-> (diagram)-> (new (require type)).layout diagram
+_new_builder = (type)-> (script)-> (new (self.require type)).build script.html()
+_new_layout  = (type)-> (diagram)-> (new (self.require type)).layout diagram
 
 _compilers =
   '.sequence-diagram': _new_builder "SequenceDiagramBuilder"

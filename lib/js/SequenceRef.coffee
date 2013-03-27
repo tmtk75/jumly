@@ -59,4 +59,3 @@ if core.env.is_node
   module.exports = SequenceRef
 else
   core.exports SequenceRef
-console.log "Ref loaded"
