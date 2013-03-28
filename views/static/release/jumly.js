@@ -563,107 +563,88 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var _choose, _max, _min;
+  var core, self, utils, _choose;
 
-  _max = function(nodes, ef) {
-    return _choose(nodes, ef, function(a, b) {
-      return b - a;
-    });
-  };
-
-  _min = function(nodes, ef) {
-    return _choose(nodes, ef, function(a, b) {
-      return a - b;
-    });
-  };
-
-  _choose = function(nodes, ef, cmpf) {
-    return $.map(nodes, ef).sort(cmpf)[0];
-  };
-
-  $.fn.choose = function(ef, cmpf) {
-    return _choose(this, ef, cmpf);
-  };
-
-  $.fn.max = function(ef) {
-    return _max(this, ef);
-  };
-
-  $.fn.min = function(ef) {
-    return _min(this, ef);
+  self = {
+    require: typeof require !== "undefined" ? require : JUMLY.require
   };
 
   $.fn.outerBottom = function() {
     return this.offset().top + this.outerHeight() - 1;
   };
 
-  $.fn.mostLeftRight = function(margin) {
-    return {
-      left: this.min(function(e) {
-        return $(e).offset().left - (margin ? parseInt($(e).css("margin-left")) : 0);
-      }),
-      right: this.max(function(e) {
-        var t;
-
-        t = $(e).offset().left + $(e).outerWidth() + (margin ? parseInt($(e).css("margin-right")) : 0);
-        if (t - 1 < 0) {
-          return 0;
-        } else {
-          return t - 1;
-        }
-      }),
-      width: function() {
-        if ((this.right != null) && (this.left != null)) {
-          return this.right - this.left + 1;
-        } else {
-          return 0;
-        }
-      }
-    };
+  _choose = function(nodes, ef, cmpf) {
+    return $.map(nodes, ef).sort(cmpf)[0];
   };
 
-  $.fn.mostTopBottom = function(margin) {
-    return {
-      top: this.min(function(e) {
-        return $(e).offset().top - (margin ? parseInt($(e).css("margin-top")) : 0);
-      }),
-      bottom: this.max(function(e) {
-        var t;
+  utils = {
+    max: function(nodes, ef) {
+      return _choose(nodes, ef, function(a, b) {
+        return b - a;
+      });
+    },
+    min: function(nodes, ef) {
+      return _choose(nodes, ef, function(a, b) {
+        return a - b;
+      });
+    },
+    mostLeftRight: function(objs, margin) {
+      return {
+        left: this.min(objs, function(e) {
+          return $(e).offset().left - (margin ? parseInt($(e).css("margin-left")) : 0);
+        }),
+        right: this.max(objs, function(e) {
+          var t;
 
-        t = $(e).offset().top + $(e).outerHeight() + (margin ? parseInt($(e).css("margin-bottom")) : 0);
-        if (t - 1 < 0) {
-          return 0;
-        } else {
-          return t - 1;
+          t = $(e).offset().left + $(e).outerWidth() + (margin ? parseInt($(e).css("margin-right")) : 0);
+          if (t - 1 < 0) {
+            return 0;
+          } else {
+            return t - 1;
+          }
+        }),
+        width: function() {
+          if ((this.right != null) && (this.left != null)) {
+            return this.right - this.left + 1;
+          } else {
+            return 0;
+          }
         }
-      }),
-      height: function() {
-        if ((this.top != null) && (this.bottom != null)) {
-          return this.bottom - this.top + 1;
-        } else {
-          return 0;
+      };
+    },
+    mostTopBottom: function(objs, margin) {
+      return {
+        top: this.min(objs, function(e) {
+          return $(e).offset().top - (margin ? parseInt($(e).css("margin-top")) : 0);
+        }),
+        bottom: this.max(objs, function(e) {
+          var t;
+
+          t = $(e).offset().top + $(e).outerHeight() + (margin ? parseInt($(e).css("margin-bottom")) : 0);
+          if (t - 1 < 0) {
+            return 0;
+          } else {
+            return t - 1;
+          }
+        }),
+        height: function() {
+          if ((this.top != null) && (this.bottom != null)) {
+            return this.bottom - this.top + 1;
+          } else {
+            return 0;
+          }
         }
-      }
-    };
-  };
-
-  $.fold = function(list, init, func) {
-    var e, l, _i, _len;
-
-    l = init;
-    for (_i = 0, _len = list.length; _i < _len; _i++) {
-      e = list[_i];
-      l = func.apply(null, [l, e]);
+      };
     }
-    return l;
   };
 
-  $.reduce = function(list, func) {
-    if (list.length === 0) {
-      return void 0;
-    }
-    return $.fold(list.slice(1), list[0], func);
-  };
+  core = self.require("core");
+
+  if (core.env.is_node) {
+    module.exports = utils;
+  } else {
+    core.exports(utils, "utils");
+  }
 
 }).call(this);
 
@@ -1732,7 +1713,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, SequenceInteraction, SequenceOccurrence, core, self,
+  var HTMLElement, SequenceInteraction, SequenceOccurrence, core, self, utils,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1741,6 +1722,8 @@ This is capable to render followings:
   };
 
   HTMLElement = self.require("HTMLElement");
+
+  utils = self.require("utils");
 
   SequenceOccurrence = (function(_super) {
     __extends(SequenceOccurrence, _super);
@@ -1797,7 +1780,7 @@ This is capable to render followings:
 
     if (this.parent().hasClass("lost")) {
       offset({
-        left: this.parents(".diagram").find(".participant").mostLeftRight().right
+        left: utils.mostLeftRight(this.parents(".diagram").find(".participant")).right
       });
       return this;
     }
@@ -2058,7 +2041,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, SequenceRef, core, self,
+  var HTMLElement, SequenceRef, core, self, utils,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -2067,6 +2050,8 @@ This is capable to render followings:
   };
 
   HTMLElement = self.require("HTMLElement");
+
+  utils = self.require("utils");
 
   SequenceRef = (function(_super) {
     __extends(SequenceRef, _super);
@@ -2096,7 +2081,7 @@ This is capable to render followings:
     iact = this.prevAll(".interaction:eq(0)");
     if (iact.length === 0) {
       lines = $(".lifeline .line", diag);
-      most = lines.mostLeftRight();
+      most = utils.mostLeftRight(lines);
       most.width = most.width();
       return most;
     }
@@ -2123,7 +2108,7 @@ This is capable to render followings:
     if ((alt = this.parents(".alt:eq(0)")).length === 1) {
       left = alt.parents(".occurrence");
       l = left.offset().left + left.outerWidth() - 1;
-      r = this.parent().find(".occurrence").max(function(e) {
+      r = utils.max(this.parent().find(".occurrence"), function(e) {
         return $(e).offset().left + $(e).outerWidth() / 2;
       });
       d = left.outerWidth() / 2 - 1;
@@ -2134,7 +2119,7 @@ This is capable to render followings:
     }
     dh = diag.self().find(".occurrence:eq(0)").width();
     occurs = iact.find(".occurrence");
-    most = occurs.mostLeftRight();
+    most = utils.mostLeftRight(occurs);
     most.left -= dh;
     most.width = most.width();
     return most;
@@ -2622,7 +2607,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var DiagramLayout, HTMLElementLayout, SequenceDiagramLayout, SequenceLifeline, core, self, _, _ref,
+  var DiagramLayout, HTMLElementLayout, SequenceDiagramLayout, SequenceLifeline, core, self, utils, _, _ref,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -2631,6 +2616,8 @@ This is capable to render followings:
   };
 
   DiagramLayout = self.require("DiagramLayout");
+
+  utils = self.require("utils");
 
   $.fn.self = function() {
     return this.data("_self");
@@ -2699,10 +2686,10 @@ This is capable to render followings:
     $(ml[0]).addClass("leftmost");
     $(mr[mr.length - 1]).addClass("rightmost");
     objs = this.diagram.find(".participant");
-    l = objs.min(function(e) {
+    l = utils.min(objs, function(e) {
       return $(e).offset().left;
     });
-    r = objs.max(function(e) {
+    r = utils.max(objs, function(e) {
       return $(e).offset().left + $(e).outerWidth() - 1;
     });
     return this.diagram.width(r - l + 1);
@@ -2819,14 +2806,14 @@ This is capable to render followings:
 
     fragments = $("> .fragment", this.diagram);
     if (fragments.length > 0) {
-      most = this._q(".participant").mostLeftRight();
+      most = utils.mostLeftRight(this._q(".participant"));
       left = fragments.offset().left;
       fragments.width((most.right - left) + (most.left - left));
     }
     fixwidth = function(fragment) {
       var msg;
 
-      most = $(".occurrence, .message, .fragment", fragment).not(".return, .lost").mostLeftRight();
+      most = utils.mostLeftRight($(".occurrence, .message, .fragment", fragment).not(".return, .lost"));
       fragment.width(most.width() - (fragment.outerWidth() - fragment.width()));
       msg = fragment.find("> .interaction > .message").data("_self");
       if (msg != null ? msg.isTowardLeft() : void 0) {
@@ -2856,7 +2843,7 @@ This is capable to render followings:
     } else {
       mh = this.diagram.find(".interaction:eq(0)").height();
     }
-    min = this.diagram.find(".participant").min(function(e) {
+    min = utils.min(this.diagram.find(".participant"), function(e) {
       return $(e).offset().top;
     });
     return this._q(".lifeline").each(function(i, e) {
@@ -3292,7 +3279,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var DiagramLayout, RobustnessDiagramLayout, core, self, _ref,
+  var DiagramLayout, RobustnessDiagramLayout, core, self, utils, _ref,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -3301,6 +3288,8 @@ This is capable to render followings:
   };
 
   DiagramLayout = self.require("DiagramLayout");
+
+  utils = self.require("utils");
 
   RobustnessDiagramLayout = (function(_super) {
     __extends(RobustnessDiagramLayout, _super);
@@ -3329,8 +3318,8 @@ This is capable to render followings:
         top: p.top + (i / 3) * 100
       });
     });
-    mlr = elems.mostLeftRight(true);
-    mtb = elems.mostTopBottom(true);
+    mlr = utils.mostLeftRight(elems, true);
+    mtb = utils.mostTopBottom(elems, true);
     this.diagram.width(mlr.width()).height(mtb.height());
     return this.diagram.find(".relationship").each(function(i, e) {
       return $(e).data("_self").render();
