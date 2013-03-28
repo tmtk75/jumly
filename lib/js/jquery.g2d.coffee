@@ -183,6 +183,14 @@ shape_arrow = (ctxt, src, dst, styles)->
         ctxt.fill()
     ctxt.restore()
 
-$.g2d =
-    arrow: shape_arrow
-    path : Shape
+self = require: unless typeof require is "undefined" then require else JUMLY.require
+
+g2d =
+  arrow: shape_arrow
+  path : Shape
+
+core = self.require "core"
+if core.env.is_node
+  module.exports = g2d
+else
+  core.exports g2d, "g2d"

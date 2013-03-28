@@ -1,5 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 HTMLElement = self.require "HTMLElement"
+g2d = self.require "g2d"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -97,10 +98,10 @@ SequenceMessage::repaint = () ->
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
     llw = @_dstOccurr().outerWidth()
-    $.g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
+    g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
     arrow.base = 0
-    $.g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
-    $.g2d.arrow ctxt, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
+    g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
+    g2d.arrow ctxt, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
     return this
 
   if @hasClass "create"
@@ -118,7 +119,7 @@ SequenceMessage::repaint = () ->
     line.dst    = a
     arrow.shape = 'dashed'
       
-  jQuery.g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
+  g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
   this
 
 SequenceMessage::isToward = (dir) ->

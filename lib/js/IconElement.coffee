@@ -1,5 +1,5 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
-self.require "jquery.g2d"
+g2d = self.require "g2d"
 
 _STYLES =
   lineWidth    : 1.5
@@ -10,7 +10,7 @@ _STYLES =
   shadowOffsetX: 8
   shadowOffsetY: 5
 
-Path = $.g2d.path
+Path = g2d.path
 
 _actor = (ctx, styles) ->
   r    = styles.radius || 12

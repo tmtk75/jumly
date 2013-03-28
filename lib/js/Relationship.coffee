@@ -1,6 +1,7 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 
 HTMLElement = self.require "HTMLElement"
+g2d = self.require "g2d"
 
 class Relationship extends HTMLElement
   constructor: (args, opts)->
@@ -76,7 +77,7 @@ Relationship::render = ->
         style = $.extend style, shape:'dashed'
     #if @hasClass("use")
     #    style = $.extend style, width:0, base:0, height:0
-    $.g2d.arrow ctxt, s, t, style
+    g2d.arrow ctxt, s, t, style
     ctxt.restore()
 
 
