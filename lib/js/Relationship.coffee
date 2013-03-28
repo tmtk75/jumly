@@ -29,14 +29,14 @@ Math.sign = (x) ->
         return 1
     return -1
 
-$.fn.cssAsInt = (name) -> a = @css(name); if a then parseInt a else 0
+cssAsInt = (node, name) -> a = node.css(name); if a then parseInt a else 0
 
 Relationship::_point = (obj)->
-  margin_left = $("body").cssAsInt "margin-left"
-  margin_top  = $("body").cssAsInt "margin-top"
+  margin_left = cssAsInt $("body"), "margin-left"
+  margin_top  = cssAsInt $("body"), "margin-top"
   s = obj.offset()
-  dh = -(obj.cssAsInt "margin-left") - margin_left
-  dv = -(obj.cssAsInt "margin-top") - margin_top
+  dh = -(cssAsInt obj, "margin-left") - margin_left
+  dv = -(cssAsInt obj, "margin-top") - margin_top
   left:s.left + obj.outerWidth()/2 + dh
   top:s.top + obj.outerHeight()/2 + dv
    
