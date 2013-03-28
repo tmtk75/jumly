@@ -33,7 +33,7 @@ describe "RobustnessDiagramBuilder", ->
         expect(@diagram.find(".relationship").length).toBe 3
 
 
-    describe "markup", ->
+    xdescribe "markup", ->
 
       beforeEach ->
         html = $ """
