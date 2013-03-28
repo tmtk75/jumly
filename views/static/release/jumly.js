@@ -260,7 +260,7 @@ This is capable to render followings:
 
 
 (function() {
-  var Shape, shape_arrow, to_polar_from_cartesian, _line_to, _render_both, _render_dashed, _render_dashed2, _render_line, _render_line2, _render_normal;
+  var Shape, core, g2d, self, shape_arrow, to_polar_from_cartesian, _line_to, _render_both, _render_dashed, _render_dashed2, _render_line, _render_line2, _render_normal;
 
   Shape = (function() {
     function Shape(ctxt) {
@@ -555,10 +555,22 @@ This is capable to render followings:
     return ctxt.restore();
   };
 
-  $.g2d = {
+  self = {
+    require: typeof require !== "undefined" ? require : JUMLY.require
+  };
+
+  g2d = {
     arrow: shape_arrow,
     path: Shape
   };
+
+  core = self.require("core");
+
+  if (core.env.is_node) {
+    module.exports = g2d;
+  } else {
+    core.exports(g2d, "g2d");
+  }
 
 }).call(this);
 
@@ -1054,7 +1066,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, MESSAGE_STYLE, Relationship, core, cssAsInt, self,
+  var HTMLElement, MESSAGE_STYLE, Relationship, core, cssAsInt, g2d, self,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1063,6 +1075,8 @@ This is capable to render followings:
   };
 
   HTMLElement = self.require("HTMLElement");
+
+  g2d = self.require("g2d");
 
   Relationship = (function(_super) {
     __extends(Relationship, _super);
@@ -1195,7 +1209,7 @@ This is capable to render followings:
         shape: 'dashed'
       });
     }
-    $.g2d.arrow(ctxt, s, t, style);
+    g2d.arrow(ctxt, s, t, style);
     return ctxt.restore();
   };
 
@@ -1246,7 +1260,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, MESSAGE_STYLE, STEREOTYPE_STYLES, SequenceMessage, core, self, _determine_primary_stereotype,
+  var HTMLElement, MESSAGE_STYLE, STEREOTYPE_STYLES, SequenceMessage, core, g2d, self, _determine_primary_stereotype,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1255,6 +1269,8 @@ This is capable to render followings:
   };
 
   HTMLElement = self.require("HTMLElement");
+
+  g2d = self.require("g2d");
 
   SequenceMessage = (function(_super) {
     __extends(SequenceMessage, _super);
@@ -1424,7 +1440,7 @@ This is capable to render followings:
       rcx = this.width() - (gap + 4);
       rey = this.height() - (arrow.height / 2 + 4);
       llw = this._dstOccurr().outerWidth();
-      $.g2d.arrow(ctxt, {
+      g2d.arrow(ctxt, {
         x: rcx,
         y: rey
       }, {
@@ -1432,14 +1448,14 @@ This is capable to render followings:
         y: rey
       }, arrow);
       arrow.base = 0;
-      $.g2d.arrow(ctxt, {
+      g2d.arrow(ctxt, {
         x: llw / 2 + gap,
         y: gap
       }, {
         x: rcx,
         y: gap
       }, arrow);
-      $.g2d.arrow(ctxt, {
+      g2d.arrow(ctxt, {
         x: rcx,
         y: gap
       }, {
@@ -1463,7 +1479,7 @@ This is capable to render followings:
       line.dst = a;
       arrow.shape = 'dashed';
     }
-    jQuery.g2d.arrow(canvas[0].getContext('2d'), line.src, line.dst, arrow);
+    g2d.arrow(canvas[0].getContext('2d'), line.src, line.dst, arrow);
     return this;
   };
 
@@ -2912,7 +2928,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, IconElement, Path, core, self, _STYLES, _actor, _controller, _entity, _render, _view,
+  var HTMLElement, IconElement, Path, core, g2d, self, _STYLES, _actor, _controller, _entity, _render, _view,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -2920,7 +2936,7 @@ This is capable to render followings:
     require: typeof require !== "undefined" ? require : JUMLY.require
   };
 
-  self.require("jquery.g2d");
+  g2d = self.require("g2d");
 
   _STYLES = {
     lineWidth: 1.5,
@@ -2932,7 +2948,7 @@ This is capable to render followings:
     shadowOffsetY: 5
   };
 
-  Path = $.g2d.path;
+  Path = g2d.path;
 
   _actor = function(ctx, styles) {
     var exth, lw, r, r0, r1, r2, ret;
