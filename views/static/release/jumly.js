@@ -1054,7 +1054,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, MESSAGE_STYLE, Relationship, core, self,
+  var HTMLElement, MESSAGE_STYLE, Relationship, core, cssAsInt, self,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1100,10 +1100,10 @@ This is capable to render followings:
     return -1;
   };
 
-  $.fn.cssAsInt = function(name) {
+  cssAsInt = function(node, name) {
     var a;
 
-    a = this.css(name);
+    a = node.css(name);
     if (a) {
       return parseInt(a);
     } else {
@@ -1114,11 +1114,11 @@ This is capable to render followings:
   Relationship.prototype._point = function(obj) {
     var dh, dv, margin_left, margin_top, s;
 
-    margin_left = $("body").cssAsInt("margin-left");
-    margin_top = $("body").cssAsInt("margin-top");
+    margin_left = cssAsInt($("body"), "margin-left");
+    margin_top = cssAsInt($("body"), "margin-top");
     s = obj.offset();
-    dh = -(obj.cssAsInt("margin-left")) - margin_left;
-    dv = -(obj.cssAsInt("margin-top")) - margin_top;
+    dh = -(cssAsInt(obj, "margin-left")) - margin_left;
+    dv = -(cssAsInt(obj, "margin-top")) - margin_top;
     return {
       left: s.left + obj.outerWidth() / 2 + dh,
       top: s.top + obj.outerHeight() / 2 + dv
