@@ -33,15 +33,21 @@ block content
             li
               a(href="#_directives") Directives
               ul
-                li: a(href="#_found") @found
-                li: a(href="#_message") @message
-                li: a(href="#_create") @create
-                li: a(href="#_reply") @reply
-                li: a(href="#_alt") @alt
-                li: a(href="#_loop") @loop
-                li: a(href="#_fragment") @fragment
-                li: a(href="#_ref") @ref
-                li: a(href="#_note") @note
+                li: a(href="#_sequence_diagram") Sequence Diagram
+                ul
+                  li: a(href="#_found") @found
+                  li: a(href="#_message") @message
+                  li: a(href="#_create") @create
+                  li: a(href="#_reply") @reply
+                  li: a(href="#_alt") @alt
+                  li: a(href="#_loop") @loop
+                  li: a(href="#_fragment") @fragment
+                  li: a(href="#_ref") @ref
+                  li: a(href="#_note") @note
+                li: a(href="#_robustness_diagram") Robustness Diagram
+                ul
+                  li: a(href="#_actor") @actor
+                  li TBD
             li
               a(href="#_css_classes") CSS classes
               ul
@@ -77,9 +83,11 @@ block content
         section#_directives
           h2 Directives
 
+          h3#_sequence_diagram Sequence Diagram
+
           .subsection#_found
             
-            h3 @found
+            h4 @found
             
             p is the top level element to start interactions.
               |It puts an
@@ -106,7 +114,7 @@ block content
                 @message "calls", "Her" 
           
           .subsection#_message
-            h3 @message
+            h4 @message
 
             p is an interaction between two objects or self-invoking.
 
@@ -152,7 +160,7 @@ block content
 
 
           .subsection#_create
-            h3 @create
+            h4 @create
             p is a kind of interaction which takes one argument which is a name for new object.
               |The new object created by <code>@create</code> shifts downward, and the arrow looks
               |dashed line.
@@ -180,7 +188,7 @@ block content
 
 
           .subsection#_reply
-            h3 @reply
+            h4 @reply
             p is a directive to show a return-back message.
               |This can be put in a <code>@message</code> with an argument for a short description.
               |The return-message has a stereotype «return» and the description.
@@ -196,7 +204,7 @@ block content
                   @reply "200"
 
           .subsection#_alt
-            h3 @alt
+            h4 @alt
             p is a kind of fragment to make usually two or more conditional
               |parts including some interactions. One of part of <code>@alt</code>
               |consists of a pair of a text and <code>-></code>.
@@ -243,7 +251,7 @@ block content
                     @message "wait for his payment"
 
           .subsection#_loop
-            h3 @loop
+            h4 @loop
             p is a kind of fragment to show repetition.
               |A rectangle with fine lightgray line represents a loop.
 
@@ -268,7 +276,7 @@ block content
                   @message "call", "Her"
 
           .subsection#_fragment
-            h3 @fragment
+            h4 @fragment
             p is a generic directive to make fragmentation like <code>@alt</code> and <code>loop</code>.
               |If you use this directive, you can create a fragment with arbitrary label you want.
 
@@ -287,7 +295,7 @@ block content
                   @message "release", "Mutex"
 
           .subsection#_ref
-            h3 @ref
+            h4 @ref
             p is a directive to move to another diagram.
 
             :code(type=javascript)
@@ -301,7 +309,7 @@ block content
             p T.B.D
 
           .subsection#_note
-            h3 @note
+            h4 @note
             p is a directive to put note element everywhere.
 
             :code(type=javascript)
@@ -317,6 +325,14 @@ block content
                 @message "meets", "You", ->
                   @note "can't do anything then"
                 @note "Just say good bye..."
+
+          h3#_robustness_diagram Robustness Diagram
+
+          .subsection#_actor
+            
+            h4 @actor
+            
+            p TBD
 
         section#_css_classes
           h2 CSS classes
