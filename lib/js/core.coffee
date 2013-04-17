@@ -116,18 +116,20 @@ _layouts =
   '.robustness-diagram': _new_layout "RobustnessDiagramLayout"
 
 _runScripts = ->
-  return null if _runScripts.done
   scripts = document.getElementsByTagName 'script'
   diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
   for script in diagrams
-    _evalHTMLScriptElement script
-  _runScripts.done = true
+    unless $(script).data 'jumly-evaluated'
+      _evalHTMLScriptElement script
+      $(script).data 'jumly-evaluated', true
   #$("body").trigger $.Event("ran.jumly")
   null
 
 # Listen for window load, both in browsers and in IE.
 unless core.env.is_node
-  if window.addEventListener
+  if typeof $ isnt 'undefined'
+    $(window).on 'DOMContentLoaded', _runScripts
+  else if window.addEventListener
     window.addEventListener 'DOMContentLoaded', _runScripts
   else
     throw "window.addEventListener is not supported"
