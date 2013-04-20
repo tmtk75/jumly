@@ -1,8 +1,8 @@
-script(src='public/syntaxhighlighter/scripts/shCore.js')
-script(src='public/syntaxhighlighter/scripts/shBrushJScript.js')
-script(src='public/syntaxhighlighter/scripts/shBrushXml.js')
+script(src='/public/syntaxhighlighter/scripts/shCore.js')
+script(src='/public/syntaxhighlighter/scripts/shBrushJScript.js')
+script(src='/public/syntaxhighlighter/scripts/shBrushXml.js')
 :coffeescript
   $ ->
-    SyntaxHighlighter.config.clipboardSwf = './syntaxhighlighter/scripts/clipboard.swf'
+    #SyntaxHighlighter.config.clipboardSwf = '/public/syntaxhighlighter/scripts/clipboard.swf'
     SyntaxHighlighter.config.toolbar = false
     SyntaxHighlighter.all()
