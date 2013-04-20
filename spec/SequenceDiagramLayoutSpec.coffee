@@ -1,12 +1,11 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 self.require "core"
-self.require "jquery.ext"
+_u = self.require "jquery.ext"
 utils = self.require "./jasmine-utils"
 SequenceDiagramLayout = self.require "SequenceDiagramLayout"
 SequenceDiagram = self.require "SequenceDiagram"
 SequenceParticipant = self.require "SequenceParticipant"
 SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
-_u = utils
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
