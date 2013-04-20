@@ -1,4 +1,4 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
+self = require: JUMLY.require
 
 class HTMLElement
   constructor: (args, f)->

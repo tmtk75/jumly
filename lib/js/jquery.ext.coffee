@@ -1,4 +1,4 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
+self = require: JUMLY.require
 
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 

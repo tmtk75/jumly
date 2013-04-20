@@ -183,7 +183,7 @@ shape_arrow = (ctxt, src, dst, styles)->
         ctxt.fill()
     ctxt.restore()
 
-self = require: unless typeof require is "undefined" then require else JUMLY.require
+self = require: JUMLY.require
 
 g2d =
   arrow: shape_arrow
