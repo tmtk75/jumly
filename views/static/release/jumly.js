@@ -218,9 +218,6 @@
   _runScripts = function() {
     var diagrams, s, script, scripts, _i, _len;
 
-    if (_runScripts.done) {
-      return null;
-    }
     scripts = document.getElementsByTagName('script');
     diagrams = (function() {
       var _i, _len, _results;
@@ -236,14 +233,18 @@
     })();
     for (_i = 0, _len = diagrams.length; _i < _len; _i++) {
       script = diagrams[_i];
-      _evalHTMLScriptElement(script);
+      if (!$(script).data('jumly-evaluated')) {
+        _evalHTMLScriptElement(script);
+        $(script).data('jumly-evaluated', true);
+      }
     }
-    _runScripts.done = true;
     return null;
   };
 
   if (!core.env.is_node) {
-    if (window.addEventListener) {
+    if (typeof $ !== 'undefined') {
+      $(window).on('DOMContentLoaded', _runScripts);
+    } else if (window.addEventListener) {
       window.addEventListener('DOMContentLoaded', _runScripts);
     } else {
       throw "window.addEventListener is not supported";
@@ -569,7 +570,7 @@ This is capable to render followings:
   if (core.env.is_node) {
     module.exports = g2d;
   } else {
-    core.exports(g2d, "g2d");
+    core.exports(g2d, "jquery.g2d");
   }
 
 }).call(this);
@@ -655,7 +656,7 @@ This is capable to render followings:
   if (core.env.is_node) {
     module.exports = utils;
   } else {
-    core.exports(utils, "utils");
+    core.exports(utils, "jquery.ext");
   }
 
 }).call(this);
@@ -1076,7 +1077,7 @@ This is capable to render followings:
 
   HTMLElement = self.require("HTMLElement");
 
-  g2d = self.require("g2d");
+  g2d = self.require("jquery.g2d");
 
   Relationship = (function(_super) {
     __extends(Relationship, _super);
@@ -1270,7 +1271,7 @@ This is capable to render followings:
 
   HTMLElement = self.require("HTMLElement");
 
-  g2d = self.require("g2d");
+  g2d = self.require("jquery.g2d");
 
   SequenceMessage = (function(_super) {
     __extends(SequenceMessage, _super);
@@ -1739,7 +1740,7 @@ This is capable to render followings:
 
   HTMLElement = self.require("HTMLElement");
 
-  utils = self.require("utils");
+  utils = self.require("jquery.ext");
 
   SequenceOccurrence = (function(_super) {
     __extends(SequenceOccurrence, _super);
@@ -2067,7 +2068,7 @@ This is capable to render followings:
 
   HTMLElement = self.require("HTMLElement");
 
-  utils = self.require("utils");
+  utils = self.require("jquery.ext");
 
   SequenceRef = (function(_super) {
     __extends(SequenceRef, _super);
@@ -2633,7 +2634,7 @@ This is capable to render followings:
 
   DiagramLayout = self.require("DiagramLayout");
 
-  utils = self.require("utils");
+  utils = self.require("jquery.ext");
 
   $.fn.self = function() {
     return this.data("_self");
@@ -2936,7 +2937,7 @@ This is capable to render followings:
     require: typeof require !== "undefined" ? require : JUMLY.require
   };
 
-  g2d = self.require("g2d");
+  g2d = self.require("jquery.g2d");
 
   _STYLES = {
     lineWidth: 1.5,
@@ -3305,7 +3306,7 @@ This is capable to render followings:
 
   DiagramLayout = self.require("DiagramLayout");
 
-  utils = self.require("utils");
+  utils = self.require("jquery.ext");
 
   RobustnessDiagramLayout = (function(_super) {
     __extends(RobustnessDiagramLayout, _super);
