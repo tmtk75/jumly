@@ -17,10 +17,10 @@ Copy following code,
 paste it at the place of your HTML document,
 and open the document.
 
-    <link href='https://jumly.herokuapp.com/release/0.1.2b/jumly.min.css' rel="stylesheet"/>
-    <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+    <link href='https://jumly.herokuapp.com/release/jumly.min.css' rel="stylesheet"/>
+    <script src='http://code.jquery.com/jquery-2.0.0.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='https://jumly.herokuapp.com/release/0.1.2b/jumly.min.js'></script>
+    <script src='https://jumly.herokuapp.com/release/jumly.min.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"
@@ -84,12 +84,15 @@ To compile them,
 
 
 # License
-JUMLY v0.1.2b is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.3a is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.2b, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.3a, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.3a, Mar 29, 2013
+  - Robustness diagram prototyping
+  - Fixed pollution of jQuery namespace with some funcitons
 - Use GRUNT for bulid, Mar 10, 2013
 - 0.1.2b, Jan 9, 2013
   - @fragment directive
