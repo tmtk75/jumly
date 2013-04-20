@@ -1,6 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 DiagramLayout = self.require "DiagramLayout"
-utils = self.require "utils"
+utils = self.require "jquery.ext"
 
 class RobustnessDiagramLayout extends DiagramLayout
 

@@ -1,6 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 HTMLElement = self.require "HTMLElement"
-utils = self.require "utils"
+utils = self.require "jquery.ext"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->

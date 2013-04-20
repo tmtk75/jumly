@@ -6,7 +6,7 @@ SequenceDiagramLayout = self.require "SequenceDiagramLayout"
 SequenceDiagram = self.require "SequenceDiagram"
 SequenceParticipant = self.require "SequenceParticipant"
 SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
-_u = self.require "utils"
+_u = utils
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top

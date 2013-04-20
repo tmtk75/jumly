@@ -193,4 +193,4 @@ core = self.require "core"
 if core.env.is_node
   module.exports = g2d
 else
-  core.exports g2d, "g2d"
+  core.exports g2d, "jquery.g2d"

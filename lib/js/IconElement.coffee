@@ -1,5 +1,5 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
-g2d = self.require "g2d"
+g2d = self.require "jquery.g2d"
 
 _STYLES =
   lineWidth    : 1.5

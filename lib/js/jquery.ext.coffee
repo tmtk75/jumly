@@ -27,4 +27,4 @@ core = self.require "core"
 if core.env.is_node
   module.exports = utils
 else
-  core.exports utils, "utils"
+  core.exports utils, "jquery.ext"

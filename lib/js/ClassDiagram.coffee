@@ -1,5 +1,5 @@
 Diagram = require "Diagram"
-utils = require "utils"
+utils = require "jquery.ext"
 
 class ClassDiagram extends Diagram
 

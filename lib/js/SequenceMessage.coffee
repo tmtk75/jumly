@@ -1,6 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 HTMLElement = self.require "HTMLElement"
-g2d = self.require "g2d"
+g2d = self.require "jquery.g2d"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
