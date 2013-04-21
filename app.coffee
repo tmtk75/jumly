@@ -68,6 +68,7 @@ ctx =
     release: "release"
     images: "public/images"
   tested_version:
+    node: "0.8.23"
     jquery: "2.0.0"
     coffeescript: "1.6.1"
 
