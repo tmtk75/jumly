@@ -25,7 +25,7 @@
     "grunt-contrib-stylus": "~0.4.1",
     "grunt-contrib-uglify": "~0.1.2",
     "grunt-contrib-cssmin": "~0.4.1",
-    "grunt-contrib-jasmine-node": "~0.0.2",
+    "grunt-contrib-jasmine-node": "~0.0.3",
     "grunt-contrib-watch": "~0.3.1"
   },
   "repository": {
