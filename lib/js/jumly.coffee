@@ -23,3 +23,4 @@
 #= require RobustnessDiagram
 #= require RobustnessDiagramBuilder
 #= require RobustnessDiagramLayout
+#= require api
