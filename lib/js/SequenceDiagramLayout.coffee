@@ -1,4 +1,4 @@
-self = require: JUMLY.require
+self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
 DiagramLayout = self.require "DiagramLayout"
 utils = self.require "jquery.ext"
 
