@@ -68,9 +68,9 @@ ctx =
     release: "release"
     images: "public/images"
   tested_version:
-    node: "0.8.23"
+    node: pkg.engines.node
     jquery: "2.0.0"
-    coffeescript: "1.6.1"
+    coffeescript: pkg.dependencies["coffee-script"]
 
 
 routes = require("./routes") ctx
