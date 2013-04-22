@@ -11,5 +11,5 @@ JUMLY._layout = (doc)->
 
 JUMLY.eval = (code, opts)->
   doc = @_compile code
-  opts.into.html doc
+  $(opts.into).html doc
   @_layout doc
