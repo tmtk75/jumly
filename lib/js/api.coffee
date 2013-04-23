@@ -10,8 +10,8 @@ JUMLY._layout = (doc)->
   layout.layout doc
 
 ###
-  code: string
-        jumly script
+  node: a jQuery node
+        To get jumly script from it.
 
   opts: function or object
         If object, it must have "into" property which value is
@@ -19,18 +19,16 @@ JUMLY._layout = (doc)->
 
         If function, it must return a function in order to put a new diagram node
         into the document. And also it should return the node which the new function put into.
-        The node is marked as already evaluated by jumly.
 ###
-JUMLY.eval = (code, opts)->
-  d = @_compile code
+JUMLY.eval = ($node, opts)->
+  d = @_compile $node.text()
   if typeof opts is "function"
-    $e = opts d
+    opts d
   else if typeof opts is "object"
-    $e = $(opts.into).html d
+    $(opts.into).html d
   @_layout d
-  console.warn "target node is not found" unless $e
-  $e?.data "jumly.diagram", d
-  d.data "jumly.src", $e
+  $node.data "jumly.diagram", d
+  d.data "jumly.src", $node
 
 ###
   placer  : function
@@ -45,7 +43,4 @@ JUMLY.scan = (placer = _placer, provider = _provider)->
   provider().each (i, e)->
     $e = $(e)
     return if $e.data("jumly.diagram") ## skip already evaluated ones
-    code = (switch e.nodeName.toLowerCase()
-              when "input", "textarea" then $e.val()
-              else $e.text())
-    JUMLY.eval code, placer($e)
+    JUMLY.eval $e, placer($e)

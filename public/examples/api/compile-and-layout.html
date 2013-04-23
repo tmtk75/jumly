@@ -10,17 +10,18 @@
   <div id="here"></div>
 
   <div data-jumly="text/jumly+sequence">@found "a1"</div>
-  <textarea data-jumly="text/jumly+sequence">@found "a2"</textarea>
+  <div data-jumly="text/jumly+sequence">@found "a2"</div>
 
   <script type="text/coffeescript">
     # Initial scan
     JUMLY.scan()
 
-    # Second scan
+    # Second or more scan
+    i = 3
     f = ->
-      $("body").append """<input data-jumly="text/jumly+sequence" value='@found "a3"'></input>"""
-      JUMLY.scan ->
-        return (d)-> $("body").prepend d
+      $("body").append """<div data-jumly="text/jumly+sequence">@found "a#{i++}"</div>"""
+      JUMLY.scan -> (d)-> $("body").prepend d
+      setTimeout f, 500 if i <= 5
 
     setTimeout f, 1000
   </script>
