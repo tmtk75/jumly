@@ -1,23 +1,27 @@
 <!doctype html>
 <head>
   <meta charset='utf-8'/>
-  <link href='/public/jumly.min.css' rel='stylesheet'/>
+  <link href='/public/jumly.css' rel='stylesheet'/>
   <script src='/public/js/jquery.js'></script>
   <script src='/public/js/coffee-script.js'></script>
-  <script src='/public/jumly.min.js'></script>
+  <script src='/public/jumly.js'></script>
 </head>
 <body>
   <div id="here"></div>
 
   <div data-jumly="text/jumly+sequence">@found "a1"</div>
-
   <textarea data-jumly="text/jumly+sequence">@found "a2"</textarea>
-  
+
   <script type="text/coffeescript">
+    # Initial scan
     JUMLY.scan()
+
+    # Second scan
     f = ->
-      $("body").append('<input data-jumly="text/jumly+sequence" value=\'@found "a3"\'></input>')
-      JUMLY.scan()
+      $("body").append """<input data-jumly="text/jumly+sequence" value='@found "a3"'></input>"""
+      JUMLY.scan ->
+        return (d)-> $("body").prepend d
+
     setTimeout f, 1000
   </script>
 </body>
