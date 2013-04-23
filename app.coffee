@@ -81,7 +81,7 @@ app.get "/reference", routes.reference
 app.get "/try",       routes.try
 app.post "/images",   images.b64decode
 
-app.get "/blank", (req, res)-> res.render "blank", ctx
+app.get "/experimental/scan", (req, res)-> res.render "experimental/scan", ctx
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"
