@@ -5,7 +5,10 @@ head
   meta(name="viewport", content="width=device-width,initial-scale=1.0")
   !=css('jumly')
 body
+  // This node is evaluated at onLoad event
+  script(type="text/jumly+sequence") @found "a0"
 
+  // These two nodes are evaluated by 1st JUMLY.scan
   div(data-jumly="text/jumly+sequence")@found "a1"
   div(data-jumly="text/jumly+sequence")@found "a2"
 
