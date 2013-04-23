@@ -83,7 +83,7 @@ js_files = _.compact fs.readFileSync("lib/js/jumly.coffee").toString()
 
 spec_files = [
   "jasmine-utils"
-  "coreSpec"
+  "coreSpec", "apiSpec"
   "DiagramSpec"
   "HTMLElementSpec"
   "SequenceDiagramBuilderSpec", "SequenceDiagramLayoutSpec", "SequenceDiagramSpec"
