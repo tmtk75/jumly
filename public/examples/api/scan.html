@@ -20,7 +20,7 @@
     i = 3
     f = ->
       $("body").append """<div data-jumly="text/jumly+sequence">@found "a#{i++}"</div>"""
-      JUMLY.scan -> (d)-> $("body").prepend d
+      JUMLY.scan -> (d, $n)-> $n.hide().before d
       setTimeout f, 500 if i <= 5
 
     setTimeout f, 1000

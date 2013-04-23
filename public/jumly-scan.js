@@ -3383,8 +3383,10 @@ Some public APIs which are experimental
           If object, it must have "into" property which value is
           acceptable by $() like selector, dom and jQuery object.
   
-          If function, it must return a function in order to put a new diagram node
-          into the document. And also it should return the node which the new function put into.
+          If function, it must return a function in order to put
+          a new diagram node into the document.
+          1st arg is the diagram node, 2nd arg is jQuery object
+          having jumly code.
   */
 
 
@@ -3393,7 +3395,7 @@ Some public APIs which are experimental
 
     d = this._compile($node.text());
     if (typeof opts === "function") {
-      opts(d);
+      opts(d, $node);
     } else if (typeof opts === "object") {
       $(opts.into).html(d);
     }

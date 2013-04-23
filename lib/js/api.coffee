@@ -17,13 +17,15 @@ JUMLY._layout = (doc)->
         If object, it must have "into" property which value is
         acceptable by $() like selector, dom and jQuery object.
 
-        If function, it must return a function in order to put a new diagram node
-        into the document. And also it should return the node which the new function put into.
+        If function, it must return a function in order to put
+        a new diagram node into the document.
+        1st arg is the diagram node, 2nd arg is jQuery object
+        having the source jumly code.
 ###
 JUMLY.eval = ($node, opts)->
   d = @_compile $node.text()
   if typeof opts is "function"
-    opts d
+    opts d, $node
   else if typeof opts is "object"
     $(opts.into).html d
   @_layout d
