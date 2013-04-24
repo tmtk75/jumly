@@ -13,7 +13,7 @@ JUMLY._layout = (doc)->
   node: a jQuery node
         To get jumly script from it.
 
-  opts: function or object
+  opts: function | object
         If object, it must have "into" property which value is
         acceptable by $() like selector, dom and jQuery object.
 
@@ -33,16 +33,29 @@ JUMLY.eval = ($node, opts)->
   d.data "jumly.src", $node
 
 ###
-  placer  : function
-            to return the 2nd argument of JUMLY.eval.
+  provider: function or jQuery nodeset
+            if funciton, it returns jQuery nodeset
+  opts:
+    finder: function
+            to return nodeset which text() returns jumly code
 
-  provider: function
-            to return jQuery node set which have jumly code
+    placer: function
+            to return the 2nd argument of JUMLY.eval.
 ###
-_placer = ($e)-> (d)-> $e.after d
-_provider = -> $("body").find("*[data-jumly]")
-JUMLY.scan = (placer = _placer, provider = _provider)->
-  provider().each (i, e)->
+_provider = -> $("body")
+_opts =
+  finder: ($nodes)-> $nodes.find("*[data-jumly]")
+  placer: (d, $e)-> $e.after d
+
+JUMLY.scan = (provider = _provider, opts)->
+  nodes = (if typeof provider is "function"
+             provider()
+           else unless provider
+             _provider()
+           else
+             provider)
+  p = $.extend {}, _opts, opts
+  p.finder(nodes).each (i, e)->
     $e = $(e)
     return if $e.data("jumly.diagram") ## skip already evaluated ones
-    JUMLY.eval $e, placer($e)
+    JUMLY.eval $e, p.placer
