@@ -8,7 +8,7 @@ describe "JUMLY", ->
 
   describe "eval", ->
     beforeEach ->
-      @node = $ '''<span><div data-jumly='{"type":"text/jumly+sequene"}'>@found "that"</div></span>'''
+      @node = $ '''<span><div data-jumly='{"type":"text/jumly+sequence"}'>@found "that"</div></span>'''
       @here = $ """<div><span></span></div>"""
 
     describe "a jQuery node is given", ->
@@ -50,7 +50,7 @@ describe "JUMLY", ->
       it "makes a new diagram after each node which has data-jumly attr", ->
         nodes = $ """
                   <div>
-                    <div data-jumly='{"type":"text/jumly+sequene"}'>@found "that"</div>
+                    <div data-jumly='{"type":"text/jumly+sequence"}'>@found "that"</div>
                   </div>
                   """
         JUMLY.scan nodes.find("> *")
@@ -61,7 +61,7 @@ describe "JUMLY", ->
         describe "which has an funciton placer", ->
           nodes = $ """
                     <div>
-                      <div data-jumly="text/jumly+sequene">@found "dog"</div>
+                      <div data-jumly="text/jumly+sequence">@found "dog"</div>
                     </div>
                     """
           JUMLY.scan nodes, placer:(d, $e)-> nodes.html d
@@ -74,7 +74,7 @@ describe "JUMLY", ->
 
         nodes = """
                 <div>
-                  <script id='a-script' type="text/jumly+sequene">@found "cat"</script>
+                  <script id='a-script' type="text/jumly+sequence">@found "cat"</script>
                 </div>
                 """
 
@@ -112,7 +112,7 @@ describe "JUMLY", ->
 
         nodes = """
                 <div>
-                  <div id='a-div' data-jumly="text/jumly+sequene">@found "cat"</script>
+                  <div id='a-div' data-jumly="text/jumly+sequence">@found "cat"</script>
                 </div>
                 """
 
@@ -127,8 +127,8 @@ describe "JUMLY", ->
 
         nodes = """
                 <div>
-                  <script id='a-script' type="text/jumly+sequene">@found "cat"</script>
-                  <div id='a-div' data-jumly="text/jumly+sequene">@found "cat"</div>
+                  <script id='a-script' type="text/jumly+sequence">@found "cat"</script>
+                  <div id='a-div' data-jumly="text/jumly+sequence">@found "cat"</div>
                 </div>
                 """
 
