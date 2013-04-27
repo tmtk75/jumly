@@ -43,7 +43,11 @@ JUMLY.eval = ($src, opts)->
     throw "unknown type: #{typeof meta}"
   meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
 
-  d = @_compile $src.text(), meta.type
+  val = (s)->
+    switch s[0].nodeName.toLowerCase()
+      when "textarea", "input" then s.val()
+      else s.text()
+  d = @_compile val($src), meta.type
   if typeof opts is "function"
     opts d, $src
   else if typeof opts is "object"

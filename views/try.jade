@@ -66,11 +66,7 @@ block scripts
         $(code).removeClass "failed"
         $(notification).text ""
         try
-          builder = new (JUMLY.require "SequenceDiagramBuilder")
-          layout  = new (JUMLY.require "SequenceDiagramLayout")
-          diag = builder.build $(code).val()
-          $(diagram_container).html diag
-          layout.layout diag
+          JUMLY.eval $(code), into:$(diagram_container)
         catch ex
           $(code).addClass "failed"
           $(notification).text ex
