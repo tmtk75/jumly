@@ -46,7 +46,7 @@ block content
           .buttons
             a.button.reference(href='/reference') Reference Manual r1
           .buttons
-            a.button.apidocs(title="Coming Soon",data-placement="right") API
+            a.button.apidocs(href='/reference#_api',title="Coming Soon",data-placement="right") API
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,fancy:example1.fancy}")
           :jumly(type=sequence)
@@ -282,6 +282,9 @@ block content
             .span4
               h2 History
               ul.history
+                li 0.1.3b, Apr 27, 2013
+                  ul
+                    li API JUMLY.scan (beta)
                 li 0.1.3a, Mar 29, 2013
                   ul
                     li Robustness diagram prototyping
