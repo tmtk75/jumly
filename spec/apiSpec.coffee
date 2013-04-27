@@ -43,6 +43,26 @@ describe "JUMLY", ->
           expect(b.hasClass "diagram").toBeTruthy()
           expect(a[0]).toBe b[0]
 
+    describe "text/jumly+robustness", ->
+      describe "in type of script", ->
+        it "makes a new robustness diagram", ->
+          node = $ '''<script type='text/jumly+robustness'>@actor "User"</div>'''
+          a = JUMLY.eval node, into:@here
+          expect(a.hasClass "robustness-diagram").toBeTruthy()
+
+      describe "in data-jumly", ->
+        describe "as string", ->
+          it "makes a new robustness diagram", ->
+            node = $ '''<div data-jumly='text/jumly+robustness'>@view "Browser"</div>'''
+            a = JUMLY.eval node, into:@here
+            expect(a.hasClass "robustness-diagram").toBeTruthy()
+
+        describe "as object", ->
+          it "makes a new robustness diagram", ->
+            node = $ '''<div data-jumly='{"type":"text/jumly+robustness"}'>@view "Browser"</div>'''
+            a = JUMLY.eval node, into:@here
+            expect(a.hasClass "robustness-diagram").toBeTruthy()
+
 
   describe "scan", ->
 
