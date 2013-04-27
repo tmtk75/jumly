@@ -84,12 +84,14 @@ To compile them,
 
 
 # License
-JUMLY v0.1.3a is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.3b is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.3a, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.3b, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.3b, Apr 27, 2013
+  - API JUMLY.scan (beta)
 - 0.1.3a, Mar 29, 2013
   - Robustness diagram prototyping
   - Fixed pollution of jQuery namespace with some funcitons
