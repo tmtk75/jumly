@@ -58,15 +58,15 @@ JUMLY.eval = ($src, opts)->
   d.data _mkey, "src":$src
 
 ###
-  provider: function or jQuery nodeset
-            if funciton, it returns jQuery nodeset
+  scope: DOM | jQuery nodeset
+         nodeset to scan
   opts:
     finder: function
             to find candidated nodes
     filter: function
             to filter candiates to eval
     placer: function
-            to return the 2nd argument of JUMLY.eval.
+            to put new created diagram into somewhere
 ###
 _opts =
   finder: ($n)-> $n.find "script, *[data-jumly]"

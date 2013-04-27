@@ -30,8 +30,7 @@ block content
       .span3
         nav.menu
           ul
-            li
-              a(href="#_directives") Directives
+            li: a(href="#_directives") Directives
               ul
                 li: a(href="#_sequence_diagram") Sequence Diagram
                 ul
@@ -47,9 +46,11 @@ block content
                 li: a(href="#_robustness_diagram") Robustness Diagram
                 ul
                   li: a(href="#_actor") @actor
+                  li: a(href="#_view") @view
+                  li: a(href="#_controller") @controller
+                  li: a(href="#_entity") @entity
                   li TBD
-            li
-              a(href="#_css_classes") CSS classes
+            li: a(href="#_css_classes") CSS classes
               ul
                 li: a(href="#_c_diagram") .diagram
                 li: a(href="#_c_sequence_diagram") .sequence-diagram
@@ -78,6 +79,9 @@ block content
                 li: a(href="#_c_rightmost") .rightmost
             li: a(href="#_reference_by_var") Reference by var
             li: a(href="#_events") Events
+            li: a(href="#_api") API
+              ul
+                li: a(href="#_JUMLY_scan") JUMLY.scan
 
       .span6
         section#_directives
@@ -329,8 +333,13 @@ block content
           h3#_robustness_diagram Robustness Diagram
 
           .subsection#_actor
-            
             h4 @actor
+          .subsection#_view
+            h4 @view
+          .subsection#_controller
+            h4 @controller
+          .subsection#_entity
+            h4 @entity
             
             p TBD
 
@@ -345,12 +354,34 @@ block content
           p
             <a href="/#example1">This example</a> is one of good examples for styling with CSS.
 
-          p
-            TBD.
+          p TBD.
         
         section#_reference_by_var
           h2 Reference by var
-          p
+          p TBD.
         
         section#_reference_by_var
           h2 Events
+          p TBD.
+
+        section#_api
+          h2 API
+          h3#_JUMLY_scan JUMLY.scan
+          p
+            | This API scans, evaluates matched nodes and inserts a diagram after the node.
+            | This doesn't evaluate same node twice or more.
+          p Matched nodes are following:
+          ul
+            li &lt;script&gt; node and its value of type attribute starts with "text/jumly+" like "text/jumly+sequence".
+            li Nodes which value of data-jumly attribute starts with "text/jumly+" like "text/jumly+sequence".
+          p How to use
+          :code(type=javascript)
+            JUMLY.scan();
+          //pre
+            | JUMLY.scan(scope, opts)
+            |   scope: DOM | jQuery nodeset
+            |   opts:
+            |     finder: function(scope), which returns nodeset to filter.
+            |     filter: function(node), if true, it's evaluated.
+            |     placer: function(diagram, srcNode), 
+          p TBD.
