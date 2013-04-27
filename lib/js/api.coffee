@@ -61,16 +61,25 @@ JUMLY.eval = ($src, opts)->
   provider: function or jQuery nodeset
             if funciton, it returns jQuery nodeset
   opts:
+    finder: function
+            to find candidated nodes
+    filter: function
+            to filter candiates to eval
     placer: function
             to return the 2nd argument of JUMLY.eval.
 ###
 _opts =
+  finder: ($n)-> $n.find "script, *[data-jumly]"
+  filter: (i, n)->
+            if n.nodeName.toLowerCase() is "script" and type = $(n).attr("type")
+              type.match /text\/jumly\+.*/
+            else
+              true
   placer: (d, $e)-> $e.after d
 
 JUMLY.scan = (scope = document, opts)->
-  nodes = $(scope)
   p = $.extend {}, _opts, opts
-  nodes.each (i, e)->
+  p.finder($(scope)).filter(p.filter).each (i, e)->
     $e = $(e)
     if dst = $e.data(_mkey)?.dst
       if p.synchronize

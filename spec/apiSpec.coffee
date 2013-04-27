@@ -67,6 +67,9 @@ describe "JUMLY", ->
 
   describe "scan", ->
 
+    beforeEach ->
+      @finder = (a)->a.find("> *")
+
     describe "a jQuery nodeset is given", ->
       it "makes a new diagram after each node which has data-jumly attr", ->
         nodes = $ """
@@ -74,7 +77,7 @@ describe "JUMLY", ->
                     <div data-jumly='{"type":"text/jumly+sequence"}'>@found "that"</div>
                   </div>
                   """
-        JUMLY.scan nodes.find("> *")
+        JUMLY.scan nodes, finder:@finder
         expect(nodes.find("> .diagram").length).toBe 1
 
       describe "with opiton", ->
@@ -85,7 +88,7 @@ describe "JUMLY", ->
                       <div data-jumly="text/jumly+sequence">@found "dog"</div>
                     </div>
                     """
-          JUMLY.scan nodes, placer:(d, $e)-> nodes.html d
+          JUMLY.scan nodes, finder:@finder, placer:(d, $e)-> nodes.html d
           expect(nodes.find("> .diagram").length).toBe 1
           expect(nodes.find("> *").length).toBe 1
 
@@ -101,29 +104,26 @@ describe "JUMLY", ->
 
         it "doesn't create more than 1", ->
           nodes = $(nodes)
-          scripts = nodes.find("> script, > *[data-jumly]")
-          JUMLY.scan scripts
-          JUMLY.scan scripts
+          JUMLY.scan nodes
+          JUMLY.scan nodes
           expect(nodes.find("> .diagram").length).toBe 1
 
         describe "when modifying code", ->
           beforeEach ->
             @nodes = $(nodes)
-            @scripts = nodes.find("> script")
-
-            JUMLY.scan @scripts
+            JUMLY.scan @nodes, finder:(n)->n.find("> script")
             @nodes.find("script").text "@found 'bird'"
 
           describe "without eval", ->
             it "doesn't eval again", ->
-              JUMLY.scan @scripts  # scan again
+              JUMLY.scan @nodes # scan again
 
               expect(@nodes.find("> .diagram").length).toBe 1
               expect(@nodes.find("> .diagram .participant").text()).toBe "cat"
 
           describe "with eval", ->
             it "evals", ->
-              JUMLY.scan @scripts, synchronize:true  # scan again with re-eval
+              JUMLY.scan @nodes, synchronize:true  # scan again with re-eval
 
               expect(@nodes.find("> .diagram").length).toBe 1
               expect(@nodes.find("> .diagram .participant").text()).toBe "bird"
@@ -139,9 +139,8 @@ describe "JUMLY", ->
 
         it "doesn't create more than 1", ->
           nodes = $(nodes)
-          scripts = nodes.find("> script, > *[data-jumly]")
-          JUMLY.scan scripts
-          JUMLY.scan scripts
+          JUMLY.scan nodes
+          JUMLY.scan nodes
           expect(nodes.find("> .diagram").length).toBe 1
 
       describe "for multi-nodes in scope", ->
@@ -155,7 +154,6 @@ describe "JUMLY", ->
 
         it "doesn't create more than 1", ->
           nodes = $(nodes)
-          scripts = nodes.find("> script, > *[data-jumly]")
-          JUMLY.scan scripts
-          JUMLY.scan scripts
+          JUMLY.scan nodes
+          JUMLY.scan nodes
           expect(nodes.find("> .diagram").length).toBe 2
