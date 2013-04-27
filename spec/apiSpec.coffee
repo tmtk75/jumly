@@ -157,3 +157,15 @@ describe "JUMLY", ->
           JUMLY.scan nodes
           JUMLY.scan nodes
           expect(nodes.find("> .diagram").length).toBe 2
+
+      describe "one by one", ->
+        it "makes diagrams properly", ->
+          nodes = $ """
+                    <div>
+                      <script id='a-script' type="text/jumly+sequence">@found "cat"</script>
+                    </div>
+                    """
+          JUMLY.scan nodes
+          nodes.append '''<div id='a-div' data-jumly="text/jumly+sequence">@found "cat"</div>'''
+          JUMLY.scan nodes
+          expect(nodes.find("> .diagram").length).toBe 2
