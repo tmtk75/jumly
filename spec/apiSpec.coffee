@@ -49,6 +49,7 @@ describe "JUMLY", ->
           node = $ '''<script type='text/jumly+robustness'>@actor "User"</script>'''
           a = JUMLY.eval node, into:@here
           expect(a.hasClass "robustness-diagram").toBeTruthy()
+          expect(@here.find(">.diagram").length).toBe 1
 
       describe "in data-jumly", ->
         describe "as string", ->
