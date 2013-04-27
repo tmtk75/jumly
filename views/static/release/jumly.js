@@ -1,5 +1,5 @@
 (function() {
-  var JUMLY, SCRIPT_TYPE_PATTERN, core, exported, self, _compilers, _evalHTMLScriptElement, _layouts, _new_builder, _new_layout, _runScripts, _to_type_string,
+  var JUMLY, core, exported, self,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   core = {};
@@ -137,7 +137,7 @@
   if (core.env.is_node) {
     global.JUMLY = JUMLY;
     module.exports = core;
-    self.require = require;
+    self.require = JUMLY.require = require;
   } else {
     window.JUMLY = JUMLY;
     exported = {
@@ -160,95 +160,10 @@
     };
   }
 
-  SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/;
-
-  _to_type_string = function(type) {
-    var kind;
-
-    if (!type.match(SCRIPT_TYPE_PATTERN)) {
-      throw "Illegal type: " + type;
-    }
-    return kind = RegExp.$1 + RegExp.$2 + RegExp.$3;
-  };
-
-  _evalHTMLScriptElement = function(script) {
-    var compiler, diag, kind, layout, type;
-
-    script = $(script);
-    type = script.attr("type");
-    if (!type) {
-      throw "Not found: type attribute in script";
-    }
-    kind = _to_type_string(type);
-    compiler = _compilers["." + kind + "-diagram"];
-    layout = _layouts["." + kind + "-diagram"];
-    if (!compiler) {
-      throw "Not found: compiler for '." + kind + "'";
-    }
-    if (!layout) {
-      throw "Not found: layout for '." + kind + "'";
-    }
-    diag = compiler(script);
-    diag.insertAfter(script);
-    return layout(diag);
-  };
-
-  _new_builder = function(type) {
-    return function(script) {
-      return (new (self.require(type))).build(script.html());
-    };
-  };
-
-  _new_layout = function(type) {
-    return function(diagram) {
-      return (new (self.require(type))).layout(diagram);
-    };
-  };
-
-  _compilers = {
-    '.sequence-diagram': _new_builder("SequenceDiagramBuilder"),
-    '.robustness-diagram': _new_builder("RobustnessDiagramBuilder")
-  };
-
-  _layouts = {
-    '.sequence-diagram': _new_layout("SequenceDiagramLayout"),
-    '.robustness-diagram': _new_layout("RobustnessDiagramLayout")
-  };
-
-  _runScripts = function() {
-    var diagrams, s, script, scripts, _i, _len;
-
-    scripts = document.getElementsByTagName('script');
-    diagrams = (function() {
-      var _i, _len, _results;
-
-      _results = [];
-      for (_i = 0, _len = scripts.length; _i < _len; _i++) {
-        s = scripts[_i];
-        if (s.type.match(/text\/jumly+(.*)/)) {
-          _results.push(s);
-        }
-      }
-      return _results;
-    })();
-    for (_i = 0, _len = diagrams.length; _i < _len; _i++) {
-      script = diagrams[_i];
-      if (!$(script).data('jumly-evaluated')) {
-        _evalHTMLScriptElement(script);
-        $(script).data('jumly-evaluated', true);
-      }
-    }
-    return null;
-  };
-
   if (!core.env.is_node) {
-    if (typeof $ !== 'undefined') {
-      $(window).on('DOMContentLoaded', _runScripts);
-    } else if (window.addEventListener) {
-      window.addEventListener('DOMContentLoaded', _runScripts);
-    } else {
-      throw "window.addEventListener is not supported";
-    }
+    $(window).on('DOMContentLoaded', function() {
+      return JUMLY.scan();
+    });
   }
 
 }).call(this);
@@ -557,7 +472,7 @@ This is capable to render followings:
   };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   g2d = {
@@ -579,7 +494,7 @@ This is capable to render followings:
   var core, self, utils, _choose;
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   $.fn.outerBottom = function() {
@@ -665,7 +580,7 @@ This is capable to render followings:
   var HTMLElement, core, self;
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = (function() {
@@ -711,7 +626,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -763,7 +678,7 @@ This is capable to render followings:
   var CoffeeScript, DiagramBuilder, core, self;
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   DiagramBuilder = (function() {
@@ -813,7 +728,7 @@ This is capable to render followings:
   var DiagramLayout, core, self;
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   DiagramLayout = (function() {
@@ -842,7 +757,7 @@ This is capable to render followings:
   var HorizontalSpacing, core, root, self;
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HorizontalSpacing = (function() {
@@ -893,7 +808,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -930,7 +845,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   Position = (function() {
@@ -1072,7 +987,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1230,7 +1145,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1266,7 +1181,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1547,7 +1462,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1735,7 +1650,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1893,7 +1808,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -1985,7 +1900,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -2063,7 +1978,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -2158,7 +2073,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   HTMLElement = self.require("HTMLElement");
@@ -2236,7 +2151,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   core = self.require("core");
@@ -2629,7 +2544,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   DiagramLayout = self.require("DiagramLayout");
@@ -2934,7 +2849,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   g2d = self.require("jquery.g2d");
@@ -3150,7 +3065,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   Diagram = self.require("Diagram");
@@ -3200,7 +3115,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   DiagramBuilder = self.require("DiagramBuilder");
@@ -3301,7 +3216,7 @@ This is capable to render followings:
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
-    require: typeof require !== "undefined" ? require : JUMLY.require
+    require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
   DiagramLayout = self.require("DiagramLayout");
@@ -3350,5 +3265,200 @@ This is capable to render followings:
   } else {
     core.exports(RobustnessDiagramLayout);
   }
+
+}).call(this);
+
+/*
+Some public APIs which are experimental
+*/
+
+
+(function() {
+  var _meta, _mkey, _opts, _place, _type;
+
+  _type = "text/jumly+sequence";
+
+  JUMLY._compile = function(code, type) {
+    var builder;
+
+    if (type == null) {
+      type = _type;
+    }
+    switch (type) {
+      case "text/jumly+sequence":
+        builder = new (JUMLY.require("SequenceDiagramBuilder"));
+        break;
+      case "text/jumly+robustness":
+        builder = new (JUMLY.require("RobustnessDiagramBuilder"));
+        break;
+      default:
+        throw "unknown type: " + type;
+    }
+    return builder.build(code);
+  };
+
+  JUMLY._layout = function(doc, type) {
+    var layout;
+
+    if (type == null) {
+      type = _type;
+    }
+    switch (type) {
+      case "text/jumly+sequence":
+        layout = new (JUMLY.require("SequenceDiagramLayout"));
+        break;
+      case "text/jumly+robustness":
+        layout = new (JUMLY.require("RobustnessDiagramLayout"));
+        break;
+      default:
+        throw "unknown type: " + type;
+    }
+    return layout.layout(doc);
+  };
+
+  /*
+    node: a jQuery node
+          To get jumly script from it.
+  
+    opts: function | object
+          If object, it must have "into" property which value is
+          acceptable by $() like selector, dom and jQuery object.
+  
+          If function, it must return a function in order to put
+          a new diagram node into the document.
+          1st arg is the diagram node, 2nd arg is jQuery object
+          having the source jumly code.
+  */
+
+
+  _mkey = "jumly";
+
+  _meta = function($src) {
+    var meta;
+
+    meta = $src.data(_mkey);
+    if (meta === void 0) {
+      $src.data(_mkey, meta = {});
+    } else if (typeof meta === "string") {
+      $src.data(_mkey, meta = {
+        type: meta
+      });
+    } else if (typeof meta === "object") {
+      meta;
+    } else {
+      throw "unknown type: " + (typeof meta);
+    }
+    return meta;
+  };
+
+  _place = function(d, $src, opts) {
+    if (typeof opts === "function") {
+      return opts(d, $src);
+    } else if (typeof opts === "object") {
+      if (!opts.into) {
+        throw "missing `into`";
+      }
+      return $(opts.into).html(d);
+    } else {
+      throw "no idea to place a new diagram.";
+    }
+  };
+
+  JUMLY["eval"] = function($src, opts) {
+    var d, meta, val;
+
+    meta = _meta($src);
+    if ($src[0].nodeName.toLowerCase() === "script") {
+      meta.type = $src.attr("type");
+    }
+    val = function(s) {
+      switch (s[0].nodeName.toLowerCase()) {
+        case "textarea":
+        case "input":
+          return s.val();
+        default:
+          return s.text();
+      }
+    };
+    d = this._compile(val($src), meta.type);
+    _place(d, $src, opts);
+    this._layout(d, meta.type);
+    $.extend(meta, {
+      "dst": d
+    });
+    return d.data(_mkey, {
+      "src": $src
+    });
+  };
+
+  /*
+    scope: DOM | jQuery nodeset
+           nodeset to scan
+    opts:
+      finder: function
+              to find candidated nodes
+      filter: function
+              to filter candiates to eval
+      placer: function
+              to put new created diagram into somewhere
+  */
+
+
+  _opts = {
+    finder: function($n) {
+      return $n.find("script, *[data-jumly]");
+    },
+    filter: function(n) {
+      var _ref;
+
+      if (n.nodeName.toLowerCase() !== "script") {
+        return true;
+      } else {
+        return (_ref = $(n).attr("type")) != null ? _ref.match(/text\/jumly\+.*/) : void 0;
+      }
+    },
+    placer: function(d, $e) {
+      return $e.after(d);
+    }
+  };
+
+  JUMLY.scan = function(scope, opts) {
+    var $e, dst, e, p, _i, _len, _ref, _ref1, _results;
+
+    if (scope == null) {
+      scope = document;
+    }
+    p = $.extend({}, _opts, opts);
+    _ref = (function() {
+      var _j, _len, _ref, _results1;
+
+      _ref = p.finder($(scope));
+      _results1 = [];
+      for (_j = 0, _len = _ref.length; _j < _len; _j++) {
+        e = _ref[_j];
+        if (p.filter(e)) {
+          _results1.push(e);
+        }
+      }
+      return _results1;
+    })();
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      e = _ref[_i];
+      $e = $(e);
+      if (dst = (_ref1 = $e.data(_mkey)) != null ? _ref1.dst : void 0) {
+        if (p.synchronize) {
+          _results.push(JUMLY["eval"]($e, {
+            into: dst
+          }));
+        } else {
+          _results.push(void 0);
+        }
+      } else {
+        _results.push(JUMLY["eval"]($e, p.placer));
+      }
+    }
+    return _results;
+  };
 
 }).call(this);
