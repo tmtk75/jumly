@@ -1,12 +1,20 @@
 ###
 Some public APIs which are experimental
 ###
-JUMLY._compile = (code)->
-  builder = new (JUMLY.require "SequenceDiagramBuilder")
+_type = "text/jumly+sequence"
+
+JUMLY._compile = (code, type = _type)->
+  switch type
+    when "text/jumly+sequence"   then builder = new (JUMLY.require "SequenceDiagramBuilder")
+    when "text/jumly+robustness" then builder = new (JUMLY.require "RobustnessDiagramBuilder")
+    else throw "unknown type: #{type}"
   builder.build code
 
-JUMLY._layout = (doc)->
-  layout  = new (JUMLY.require "SequenceDiagramLayout")
+JUMLY._layout = (doc, type = _type)->
+  switch type
+    when "text/jumly+sequence"   then layout = new (JUMLY.require "SequenceDiagramLayout")
+    when "text/jumly+robustness" then layout = new (JUMLY.require "RobustnessDiagramLayout")
+    else throw "unknown type: #{type}"
   layout.layout doc
 
 ###
@@ -24,18 +32,6 @@ JUMLY._layout = (doc)->
 ###
 _mkey = "jumly" # meta data key
 JUMLY.eval = ($src, opts)->
-  d = @_compile $src.text()
-  if typeof opts is "function"
-    opts d, $src
-  else if typeof opts is "object"
-    throw "missing `into`" unless opts.into
-    $(opts.into).html d
-  else
-    throw "no idea to place a new diagram."
-
-  @_layout d
-  return d if typeof $src is "string"
-
   meta = $src.data _mkey
   if meta is undefined
     $src.data _mkey, meta = {}
@@ -44,7 +40,19 @@ JUMLY.eval = ($src, opts)->
   else if typeof meta is "object"
     meta # nop
   else
-    throw "unknwon type: #{typeof meta}"
+    throw "unknown type: #{typeof meta}"
+  meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
+
+  d = @_compile $src.text(), meta.type
+  if typeof opts is "function"
+    opts d, $src
+  else if typeof opts is "object"
+    throw "missing `into`" unless opts.into
+    $(opts.into).html d
+  else
+    throw "no idea to place a new diagram."
+
+  @_layout d, meta.type
 
   $.extend meta, "dst":d
   d.data _mkey, "src":$src
