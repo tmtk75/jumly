@@ -22,40 +22,53 @@ JUMLY._layout = (doc)->
         1st arg is the diagram node, 2nd arg is jQuery object
         having the source jumly code.
 ###
-JUMLY.eval = ($node, opts)->
-  d = @_compile $node.text()
+_mkey = "jumly" # meta data key
+JUMLY.eval = ($src, opts)->
+  src = if typeof $src is "string" then $src else $src.text()
+  d = @_compile src
   if typeof opts is "function"
-    opts d, $node
+    opts d, $src
   else if typeof opts is "object"
+    throw "missing `into`" unless opts.into
     $(opts.into).html d
+  else
+    throw "no idea to place a new diagram."
+
   @_layout d
-  $node.data "jumly.diagram", d
-  d.data "jumly.src", $node
+  return d if typeof $src is "string"
+
+  meta = $src.data _mkey
+  if meta is undefined
+    $src.data _mkey, meta = {}
+  else if typeof meta is "string"
+    $src.data _mkey, meta = type:meta
+  else if typeof meta is "object"
+    meta # nop
+  else
+    throw "unknwon type: #{typeof meta}"
+
+  $.extend meta, "dst":d
+  d.data _mkey, "src":$src
 
 ###
   provider: function or jQuery nodeset
             if funciton, it returns jQuery nodeset
   opts:
-    finder: function
-            to return nodeset which text() returns jumly code
-
     placer: function
             to return the 2nd argument of JUMLY.eval.
 ###
-_provider = -> $("body")
 _opts =
-  finder: ($nodes)-> $nodes.find("*[data-jumly]")
   placer: (d, $e)-> $e.after d
 
-JUMLY.scan = (provider = _provider, opts)->
-  nodes = (if typeof provider is "function"
-             provider()
-           else unless provider
-             _provider()
-           else
-             provider)
+JUMLY.scan = (scope = document, opts)->
+  nodes = $(scope)
   p = $.extend {}, _opts, opts
-  p.finder(nodes).each (i, e)->
+  nodes.each (i, e)->
     $e = $(e)
-    return if $e.data("jumly.diagram") ## skip already evaluated ones
+    if dst = $e.data(_mkey)?.dst
+      if p.synchronize
+        JUMLY.eval $e, into:dst
+      ## skip already evaluated ones if no synchronize
+      return
     JUMLY.eval $e, p.placer
+
