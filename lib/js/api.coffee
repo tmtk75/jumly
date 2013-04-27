@@ -70,21 +70,21 @@ JUMLY.eval = ($src, opts)->
 ###
 _opts =
   finder: ($n)-> $n.find "script, *[data-jumly]"
-  filter: (i, n)->
-            if n.nodeName.toLowerCase() is "script" and type = $(n).attr("type")
-              type.match /text\/jumly\+.*/
-            else
+  filter: (n)->
+            unless n.nodeName.toLowerCase() is "script"
               true
+            else
+              $(n).attr("type")?.match /text\/jumly\+.*/
   placer: (d, $e)-> $e.after d
 
 JUMLY.scan = (scope = document, opts)->
   p = $.extend {}, _opts, opts
-  p.finder($(scope)).filter(p.filter).each (i, e)->
+  for e in (e for e in p.finder($ scope) when p.filter(e))
     $e = $(e)
     if dst = $e.data(_mkey)?.dst
       if p.synchronize
         JUMLY.eval $e, into:dst
       ## skip already evaluated ones if no synchronize
-      return
-    JUMLY.eval $e, p.placer
+    else
+      JUMLY.eval $e, p.placer
 
