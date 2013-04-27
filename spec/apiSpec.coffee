@@ -46,7 +46,7 @@ describe "JUMLY", ->
     describe "text/jumly+robustness", ->
       describe "in type of script", ->
         it "makes a new robustness diagram", ->
-          node = $ '''<script type='text/jumly+robustness'>@actor "User"</div>'''
+          node = $ '''<script type='text/jumly+robustness'>@actor "User"</script>'''
           a = JUMLY.eval node, into:@here
           expect(a.hasClass "robustness-diagram").toBeTruthy()
 
