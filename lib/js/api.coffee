@@ -24,8 +24,7 @@ JUMLY._layout = (doc)->
 ###
 _mkey = "jumly" # meta data key
 JUMLY.eval = ($src, opts)->
-  src = if typeof $src is "string" then $src else $src.text()
-  d = @_compile src
+  d = @_compile $src.text()
   if typeof opts is "function"
     opts d, $src
   else if typeof opts is "object"

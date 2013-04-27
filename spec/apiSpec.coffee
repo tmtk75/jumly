@@ -26,7 +26,8 @@ describe "JUMLY", ->
           expect(b.length).toBe 1
           expect(a[0]).toBe b[0]
 
-    describe "a string is given", ->
+    ## Disable string argument
+    xdescribe "a string is given", ->
 
       describe "with `into`", ->
         it "makes a new diagram and put it", ->
