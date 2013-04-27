@@ -81,55 +81,7 @@ else
   core.exports = (func, name)->
     exported[func.name or name] = func
 
-
-SCRIPT_TYPE_PATTERN = /text\/jumly-(.*)-diagram|text\/jumly\+(.*)|application\/jumly\+(.*)/
-
-_to_type_string = (type)->
-  unless type.match SCRIPT_TYPE_PATTERN then throw "Illegal type: #{type}"
-  kind = RegExp.$1 + RegExp.$2 + RegExp.$3
-
-_evalHTMLScriptElement = (script) ->
-  script = $ script
-  type = script.attr("type")
-  throw "Not found: type attribute in script" unless type
-  
-  kind = _to_type_string type
-  compiler = _compilers[".#{kind}-diagram"]
-  layout = _layouts[".#{kind}-diagram"]
-
-  throw "Not found: compiler for '.#{kind}'" unless compiler
-  throw "Not found: layout for '.#{kind}'" unless layout
-
-  diag = compiler script
-  diag.insertAfter script
-  layout diag
-
-_new_builder = (type)-> (script)-> (new (self.require type)).build script.html()
-_new_layout  = (type)-> (diagram)-> (new (self.require type)).layout diagram
-
-_compilers =
-  '.sequence-diagram': _new_builder "SequenceDiagramBuilder"
-  '.robustness-diagram': _new_builder "RobustnessDiagramBuilder"
-
-_layouts =
-  '.sequence-diagram': _new_layout "SequenceDiagramLayout"
-  '.robustness-diagram': _new_layout "RobustnessDiagramLayout"
-
-_runScripts = ->
-  scripts = document.getElementsByTagName 'script'
-  diagrams = (s for s in scripts when s.type.match /text\/jumly+(.*)/)
-  for script in diagrams
-    unless $(script).data 'jumly-evaluated'
-      _evalHTMLScriptElement script
-      $(script).data 'jumly-evaluated', true
-  #$("body").trigger $.Event("ran.jumly")
-  null
-
 # Listen for window load, both in browsers and in IE.
 unless core.env.is_node
-  if typeof $ isnt 'undefined'
-    $(window).on 'DOMContentLoaded', _runScripts
-  else if window.addEventListener
-    window.addEventListener 'DOMContentLoaded', _runScripts
-  else
-    throw "window.addEventListener is not supported"
+  $(window).on 'DOMContentLoaded', ->
+    JUMLY.scan()
