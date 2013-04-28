@@ -3,10 +3,6 @@ extends _layouts/default
 block title
   title JUMLY Reference for directives, CSS classes and or so
 
-block prepend description
-  - var _ = "Providing all directives and explanations for styles for JUMLY"
-  - var __description = _;
-
 block styles
   link(rel='stylesheet', href="/reference.css")
 
@@ -14,7 +10,7 @@ block prepend description
   - var _ = "JUMLY provides some directives to render sequence diagrams.";
   -    _ += " This reference says the directives, CSS classes JUMLY generates, ";
   -    _ += " and most of features of JUMLY.";
-  - var _description = _;
+  - var __description = _;
 
 block navbar
   include _includes/navbar
@@ -380,3 +376,8 @@ block content
             |     filter: function(node), if true, it's evaluated.
             |     placer: function(diagram, srcNode), 
           p TBD.
+  
+  footer
+    .copyright
+      include _includes/copyright
+
