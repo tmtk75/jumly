@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>experimental for jumly</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel='stylesheet' href='/release/jumly.min.css'>
+  <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+  <script src="http://coffeescript.org/extras/coffee-script.js"></script>
+  <script src='/release/jumly.min.js'></script>
+</head>
+<body>
+  <!-- This node is evaluated at onLoad event-->
+  <script type="text/jumly+sequence">@found "a0"</script>
+  <!-- These two nodes are evaluated by 1st JUMLY.scan-->
+  <div data-jumly="text/jumly+sequence">@found "a1"</div>
+  <div data-jumly="text/jumly+sequence">@found "a2"</div>
+  <script type="text/coffeescript">
+    # Initial scan
+    JUMLY.scan()
+
+    # Second or more scan
+    i = 3
+    f = ->
+      $("body").append """<div data-jumly="text/jumly+sequence">@found "a#{i++}"</div>"""
+      JUMLY.scan document, placer:(d, $n)-> $n.hide().before d
+      setTimeout f, 1000 if i <= 5
+    f()
+  </script>
+</body>
