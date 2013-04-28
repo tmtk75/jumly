@@ -1,0 +1,39 @@
+extends _layouts/default
+
+block title
+  title JUMLY API Document
+
+block styles
+  link(rel='stylesheet', href="/api.css")
+  link(rel='stylesheet', href="/public/bootstrap/docs/assets/css/bootstrap-responsive.css")
+
+block prepend description
+  - var _ = "JUMLY API Document provides how to use all APIs."
+  -    _ += " "
+  - var __description = _;
+
+block navbar
+  include _includes/navbar
+
+block content
+  .container-fluid
+    .row-fluid
+      .span3
+        nav.menu
+          ul
+            li: a(href="#_core") Core
+              ul
+                li: a(href="#_core_scan") scan
+      
+      .span6
+        h1 JUMLY API Document
+
+        section#_core
+          h2 Core
+
+          h3#_core_scan scan
+  
+  footer
+    .copyright
+      include _includes/copyright
+

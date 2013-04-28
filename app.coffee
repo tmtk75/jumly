@@ -78,6 +78,7 @@ images = require("./routes/images") ctx
 
 app.get "/",          routes.index
 app.get "/reference", routes.reference
+app.get "/api",       routes.api
 app.get "/try",       routes.try
 app.post "/images",   images.b64decode
 
