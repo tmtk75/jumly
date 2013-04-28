@@ -17,12 +17,7 @@ block prepend description
   - var _description = _;
 
 block navbar
-  .navbar
-    .navbar-inner
-      .brand(href="#")
-        a.logo(href="/") JUMLY
-      ul.nav
-        li: a(href="/try") TryJUMLY
+  include _includes/navbar
 
 block content
   .container
