@@ -3,19 +3,21 @@ Some public APIs which are experimental
 ###
 _type = "text/jumly+sequence"
 
+_t2l =  # type 2 logic
+  "text/jumly+sequence":
+    builder: "SequenceDiagramBuilder"
+    layout:  "SequenceDiagramLayout"
+  "text/jumly+robustness":
+    builder: "RobustnessDiagramBuilder"
+    layout:  "RobustnessDiagramLayout"
+
 JUMLY._compile = (code, type = _type)->
-  switch type
-    when "text/jumly+sequence"   then builder = new (JUMLY.require "SequenceDiagramBuilder")
-    when "text/jumly+robustness" then builder = new (JUMLY.require "RobustnessDiagramBuilder")
-    else throw "unknown type: #{type}"
-  builder.build code
+  throw "unknown type: #{type}" unless _t2l[type]
+  (new (JUMLY.require _t2l[type].builder)).build code
 
 JUMLY._layout = (doc, type = _type)->
-  switch type
-    when "text/jumly+sequence"   then layout = new (JUMLY.require "SequenceDiagramLayout")
-    when "text/jumly+robustness" then layout = new (JUMLY.require "RobustnessDiagramLayout")
-    else throw "unknown type: #{type}"
-  layout.layout doc
+  throw "unknown type: #{type}" unless _t2l[type]
+  (new (JUMLY.require _t2l[type].layout)).layout doc
 
 ###
   node: a jQuery node
