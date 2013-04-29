@@ -23,6 +23,7 @@ block content
           ul
             li: a(href="#_core") Core
               ul
+                li: a(href="#_JUMLY_eval") eval
                 li: a(href="#_JUMLY_scan") scan
             li: a(href="#_events") Events
             li: a(href="#_types") Types
@@ -38,30 +39,100 @@ block content
               .entry-meta
                 span.category Core
               h3
+                a(href='#_JUMLY_eval') JUMLY.eval
+            .entry-summary
+              p Evaluates given element and put diagram into document
+
+          article
+            header.entry-header
+              .entry-meta
+                span.category Core
+              h3
                 a(href='#_JUMLY_scan') JUMLY.scan
             .entry-summary
               p Evaluates matched nodes and inserts a diagram after the node. This doesn't evaluate same node twice or more.
+
 
         section#_events
           h2 Events
 
 
         #details
+          section#_JUMLY_eval
+            .category Categories: Core
+            h3 JUMLY.eval()
+
+            article
+              .title
+                .returns JUMLYDiagram
+                .name JUMLY.eval()
+              .summary
+              .signatures
+                .signature
+                  .name JUMLY.eval(source, options)
+                  ul
+                    li.arg
+                      .name source
+                      .type: .name jQueryObject
+                      .description Source element to evaluate its text value.
+                    li.arg
+                      .name options
+                      .type: .name PlainObject
+                      .description To give way to put diagram.
+                        ul
+                          li.arg
+                            .name into
+                            .type
+                              .name Selector or jQueryObject
+                            .description which $.html() is called
+
+                .signature
+                  .name JUMLY.eval(source, placer)
+                  ul
+                    li.arg
+                      .name source
+                      .type: .name jQueryObject
+                      .description Source element to evaluate its text value.
+                    li.arg
+                      .name placer
+                      .type
+                        .name Function
+                        .params
+                          .param
+                            .type JUMLYDiagram
+                            .name diagram
+                          .param
+                            .type jQueryObject
+                            .name source
+                      .description To put diagram into somewhere you like.
+              .description
+                p To evaluae single element and put it into somewhere you specifiy.
+
+                p Next examples similarly work.
+                  | #holder-1 and #holder-2 contain each generated diagram as its html.
+
+                :code
+                  JUMLY.eval $("#diagram-1"), into:"#holder-1"
+
+                :code
+                  JUMLY.eval $("#diagram-2"), (diagram, source)->
+                                                $("#holder-2").html diagram
+
           section#_JUMLY_scan
             .category Categories: Core
             h3 JUMLY.scan()
 
             article
               .title
-                .name JUMLY.scan()
                 .returns
+                .name JUMLY.scan()
               .summary
               .signatures
                 .signature
-                  .name JUMLY.scan(element, [options])
+                  .name JUMLY.scan(scope, [options])
                   ul
                     li.arg
-                      .name element
+                      .name scope
                       .default document
                       .type: .name Element
                       .description One element to scan JUMLY elements.
@@ -77,8 +148,8 @@ block content
                               .name Function
                               .params
                                 .param
-                                  .type Element
-                                  .name element
+                                  .type jQueryObject
+                                  .name scope
                             .description To return JUMLY elements you want
                           li.arg
                             .name placer
