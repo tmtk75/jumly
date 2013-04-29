@@ -74,20 +74,6 @@ block content
             input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-c(type="radio",name="example1_styles",value="fancy","data-bind"="checked:example1.styles",style="display:none")
 
-        #new-feature-robustness
-          h2 New Feature
-          p Robustness diagram is coming soon.
-           |Actually, I'm considering the DSL and layout logic now...
-
-          :jumly(type=robustness)
-            @actor "User" :-> @view "Browser"
-            @view "Browser" :-> @controller "Server"
-            @controller "Server" :-> @entity "Database"
-          :code(type=javascript)
-            @actor "User" :-> @view "Browser"
-            @view "Browser" :-> @controller "Server"
-            @controller "Server" :-> @entity "Database"
-
         #getting-started
           h2 Getting Started
           p
@@ -175,6 +161,20 @@ block content
                 dt Light and small
                 dd Now the size of script is 56KB, and the size of stylesheet is 16KB.
                  | They are relatively lighter than the UML modeling tools =)
+
+        #new-feature-robustness
+          h2 New Feature
+          p Robustness diagram is coming soon.
+           |Actually, I'm considering the DSL and layout logic now...
+
+          :jumly(type=robustness)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
+          :code(type=javascript)
+            @actor "User" :-> @view "Browser"
+            @view "Browser" :-> @controller "Server"
+            @controller "Server" :-> @entity "Database"
 
   #examples
     .container
