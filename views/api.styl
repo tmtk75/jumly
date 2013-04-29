@@ -1,2 +1,75 @@
 @import common
 @import "_layouts/footer"
+
+h1, h2, h3
+  margin-top 0
+  font-family Russo One
+
+ul
+  font-family mplus-1p,verdana
+
+.menu
+  ul
+    list-style none
+  > ul
+    margin-left 0
+
+#_core
+  margin-top 3em
+
+section
+  margin-bottom 5em
+
+#_core
+  article
+    _A_BG()
+
+    h3
+      font-size 1.3em
+
+.entry-meta, #details .category
+  float right
+  background-color #ccc
+  padding 2px 1em 2px 1em
+  border-radius 5px
+  font-size 12px
+
+#details
+  article
+    > .title
+      _L_HEADER()
+      //text-shadow 0 -1px 0 rgba(0,0,0,0.5)
+      font-size 16px
+      letter-spacing 0
+      margin-bottom 1px
+
+    > .description
+      margin-top 1em
+
+.signatures
+  .signature
+    > .name
+      _M_HEADER()
+      //text-shadow 0 -1px 0 transparent
+      font-size 16px
+      letter-spacing 0
+    
+    background-color #ddd
+    border-radius 5px
+    padding-bottom 5px
+
+    ul
+      list-style none
+      margin-bottom 10px
+
+    .arg
+      margin-top 10px
+      .name
+        L-EMBOSS()
+        font-weight bold
+
+      .type
+        L-EMBOSS()
+        &:before
+          content "Type: "
+

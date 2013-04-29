@@ -23,15 +23,114 @@ block content
           ul
             li: a(href="#_core") Core
               ul
-                li: a(href="#_core_scan") scan
+                li: a(href="#_JUMLY_scan") scan
+            li: a(href="#_events") Events
       
-      .span6
+      .span9
         h1 JUMLY API Document
 
         section#_core
           h2 Core
 
-          h3#_core_scan scan
+          article
+            header.entry-header
+              .entry-meta
+                span.category Core
+              h3
+                a(href='#_JUMLY_scan') JUMLY.scan
+            .entry-summary
+              p Evaluates matched nodes and inserts a diagram after the node. This doesn't evaluate same node twice or more.
+
+        section#_events
+          h2 Events
+
+
+        #details
+          section#_JUMLY_scan
+            .category Categories: Core
+            h3 JUMLY.scan()
+
+            article
+              .title
+                .name JUMLY.scan()
+                .returns
+              .summary
+              .signatures
+                .signature
+                  .name JUMLY.scan(elements, options)
+                  ul
+                    li.arg
+                      .name elements
+                      .type Elements
+                      .description 
+                        | One or more elements to scan JUMLY elements.
+                    li.arg
+                      .name options
+                      .type Object
+                      .description
+                        | Enable to give a few funtions to be used by JUMLY.scan.
+                .signature
+                  .name JUMLY.scan(jQuery object, options)
+                  ul
+                    li.arg
+                      .name jQuery object
+                      .type jQuery object
+                        | An existing jQuery object to scan JUMLY elements.
+                    li.arg
+                      .name options
+                      .type Object
+                      .description
+                        | Enable to give a few funtions to be used by JUMLY.scan.
+              .description
+                p
+                  | Lookup up JUMLY elements in given elements or jQuery object,
+                  | evaluate text value of each JUMLY element to build its diagram element,
+                  | and put each diagram element into somewhere of document.
+
+                p Following elements are matched as default.
+                  | The scope is <code>document</code>.
+
+                ul
+                  li &lt;script&gt; node and its value of type attribute starts
+                    | with <code>text/jumly+</code> like "text/jumly+sequence".
+                    :code(type=html)
+                      &lt;script type="text/jumly+sequence"&gt;
+                  li Other element which value of data-jumly attribute starts
+                    | with <code>text/jumly+</code> like "text/jumly+sequence".
+                    :code(type=html)
+                      &lt;div data-jumly="text/jumly+sequence"&gt;
+
+                p Each generated diagram is inserted after each own source JUMLY element as default.
+
+                :code(type=html)
+                  &lt;script type="text/jumly+sequence"&gt;...&lt;/script&gt;
+                  &lt;div class="diagram sequence-diagram"&gt;...
+
+                p <code>JUMLY.scan</code> is executed at <code>DOMContentLoaded</code> event
+                  | without any arguments like following.
+
+                :code
+                  JUMLY.scan()
+
+                p Except for added new JUMLY elements,
+                  | already evaluated JUMLY elements are ignored 
+                  | even when you call JUMLY.scan() twice or more.
+                  | If you add a new JUMLY element, it's evaluated.
+
+                h4 options
+                p 2nd parameter is to give a few functions which used by JUMLY.scan.
+                p It can have <code>.finder</code> and <code>.placer</code> as property.
+                  | <code>.finder</code> is a function taking one argument which is a jQuery object
+                  | given as 1st argument of JUMLY.scan.
+                  | <code>.placer</code> is a function taking two arguments which are generated diagram element
+                  | and its source element.
+
+                p Here is an example that returns all children and append all diagrams in body.
+
+                :code
+                  JUMLY.scan document,
+                    finder: ($elements)-> $elements.find "> *"
+                    placer: (diagram, $jumlyElement)-> $("body").append diagram
   
   footer
     .copyright

@@ -1,7 +1,11 @@
 @import common
 @import "_layouts/footer"
 
-ul, h2, h3
+h1, h2, h3
+  margin-top 0
+  font-family Russo One
+
+ul
   font-family mplus-1p,verdana
 
 .menu
@@ -11,12 +15,21 @@ ul, h2, h3
     margin-left 0
 
 #_directives
+  margin-top 3em
+
   .subsection
     margin-bottom 5em
   .sequence-diagram:not(:last-child)
     margin-bottom 2em
   .occurrence.compact
     padding-bottom 2px
+
+  h3
+    _L_HEADER()
+
+  .subsection
+    h4
+      _M_HEADER()
 
 section
   margin-bottom 5em

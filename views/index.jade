@@ -13,6 +13,10 @@ block styles
   link(rel='stylesheet', href="/index.css")
   link(rel='stylesheet', href="/public/css/skin.simple.css")
   link(rel='stylesheet', href="/public/css/skin.fancy.css")
+  :stylus
+    .tooltip
+      font-size 12px
+      text-shadow none
 
 block content
   .container
@@ -41,12 +45,11 @@ block content
 
         #popular-links 
           .buttons
-            a.button.try-jumly(href='/try') Try JUMLY
-              small &nbsp;interactive demo
+            a.button.try-jumly(href='/try',title="Interactive Demo",data-placement="right") Try JUMLY
           .buttons
-            a.button.reference(href='/reference') Reference Manual r1
+            a.button.reference(href='/reference') Reference Manual
           .buttons
-            a.button.apidocs(href='/reference#_api',title="Coming Soon",data-placement="right") API
+            a.button.apidocs(href='/api') API Document
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,fancy:example1.fancy}")
           :jumly(type=sequence)
@@ -370,7 +373,7 @@ block scripts
   script(src="public/bootstrap/docs/assets/js/bootstrap-tooltip.js")
   :coffeescript
     $ ->
-      $("a.button.apidocs").tooltip()
+      $("a.button.try-jumly").tooltip()
 
   :coffeescript
     model =

@@ -69,12 +69,11 @@ block content
                 li: a(href="#_c_leftmost") .leftmost
                 li: a(href="#_c_rightmost") .rightmost
             li: a(href="#_reference_by_var") Reference by var
-            li: a(href="#_events") Events
-            li: a(href="#_api") API
-              ul
-                li: a(href="#_JUMLY_scan") JUMLY.scan
 
-      .span6
+      .span7
+        h1 JUMLY<br>
+          | Reference Manual
+
         section#_directives
           h2 Directives
 
@@ -87,7 +86,7 @@ block content
             p is the top level element to start interactions.
               |It puts an
               strong
-                &nbsp;new object&nbsp;
+                &nbsp;new participant&nbsp;
               |with a lifeline which is dashed line
               |and a
               strong
@@ -111,7 +110,7 @@ block content
           .subsection#_message
             h4 @message
 
-            p is an interaction between two objects or self-invoking.
+            p is an interaction between two participants or self-invoking.
 
             p The following shows an
               strong
@@ -156,8 +155,8 @@ block content
 
           .subsection#_create
             h4 @create
-            p is a kind of interaction which takes one argument which is a name for new object.
-              |The new object created by <code>@create</code> shifts downward, and the arrow looks
+            p is a kind of interaction which takes one argument which is a name for new participant.
+              |The new participant created by <code>@create</code> shifts downward, and the arrow looks
               |dashed line.
 
             :code(type=javascript)
@@ -351,32 +350,6 @@ block content
           h2 Reference by var
           p TBD.
         
-        section#_reference_by_var
-          h2 Events
-          p TBD.
-
-        section#_api
-          h2 API
-          h3#_JUMLY_scan JUMLY.scan
-          p
-            | This API scans, evaluates matched nodes and inserts a diagram after the node.
-            | This doesn't evaluate same node twice or more.
-          p Matched nodes are following:
-          ul
-            li &lt;script&gt; node and its value of type attribute starts with "text/jumly+" like "text/jumly+sequence".
-            li Nodes which value of data-jumly attribute starts with "text/jumly+" like "text/jumly+sequence".
-          p How to use
-          :code(type=javascript)
-            JUMLY.scan();
-          //pre
-            | JUMLY.scan(scope, opts)
-            |   scope: DOM | jQuery nodeset
-            |   opts:
-            |     finder: function(scope), which returns nodeset to filter.
-            |     filter: function(node), if true, it's evaluated.
-            |     placer: function(diagram, srcNode), 
-          p TBD.
-  
   footer
     .copyright
       include _includes/copyright
