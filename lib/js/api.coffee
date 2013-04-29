@@ -19,6 +19,19 @@ JUMLY._layout = (doc, type = _type)->
   throw "unknown type: #{type}" unless _t2l[type]
   (new (JUMLY.require _t2l[type].layout)).layout doc
 
+## returns JUMLY meta object
+_to_meta = ($src)->
+  meta = $src.data _mkey
+  if meta is undefined
+    $src.data _mkey, meta = {}
+  else if typeof meta is "string"
+    $src.data _mkey, meta = type:meta
+  else if typeof meta is "object"
+    meta # nop
+  else
+    throw "unknown type: #{typeof meta}"
+  meta
+
 ###
   node: a jQuery node
         To get jumly script from it.
@@ -34,15 +47,7 @@ JUMLY._layout = (doc, type = _type)->
 ###
 _mkey = "jumly" # meta data key
 JUMLY.eval = ($src, opts)->
-  meta = $src.data _mkey
-  if meta is undefined
-    $src.data _mkey, meta = {}
-  else if typeof meta is "string"
-    $src.data _mkey, meta = type:meta
-  else if typeof meta is "object"
-    meta # nop
-  else
-    throw "unknown type: #{typeof meta}"
+  meta = _to_meta $src
   meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
 
   val = (s)->
