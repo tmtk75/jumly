@@ -30,7 +30,14 @@ _to_meta = ($src)->
     meta # nop
   else
     throw "unknown type: #{typeof meta}"
+  meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
   meta
+
+## returns value of node
+_val = (s)->
+  switch s[0].nodeName.toLowerCase()
+    when "textarea", "input" then s.val()
+    else s.text()
 
 ###
   node: a jQuery node
@@ -48,13 +55,8 @@ _to_meta = ($src)->
 _mkey = "jumly" # meta data key
 JUMLY.eval = ($src, opts)->
   meta = _to_meta $src
-  meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
 
-  val = (s)->
-    switch s[0].nodeName.toLowerCase()
-      when "textarea", "input" then s.val()
-      else s.text()
-  d = @_compile val($src), meta.type
+  d = @_compile _val($src), meta.type
   if typeof opts is "function"
     opts d, $src
   else if typeof opts is "object"
