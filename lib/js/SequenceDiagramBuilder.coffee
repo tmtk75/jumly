@@ -175,7 +175,7 @@ SequenceDiagramBuilder::_fragment = (last, opts, desc)->
     frag.enclose newones
     frag.find(".name:first").html opts.label
   if typeof desc is "string"
-    frag.find(".condition").html desc
+    frag.find("> .header > .condition").html desc
   frag
 
 SequenceDiagramBuilder::alt = (ints)->
