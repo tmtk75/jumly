@@ -64,12 +64,38 @@ section
 
     .arg
       margin-top 10px
-      .name
+
+      > .name
         L-EMBOSS()
         font-weight bold
+        display inline-block
 
-      .type
+      > .default
         L-EMBOSS()
+        display inline-block
         &:before
-          content "Type: "
+          margin-left 1em
+          content "(default: "
+        &:after
+          content ")"
 
+      > .type
+        > .name
+          L-EMBOSS()
+          &:before
+            content "Type: "
+
+        .params, .param, .type, .name
+          display inline-block
+          L-EMBOSS()
+        .params
+          &:before
+            content "("
+          &:after
+            content ")"
+        .param:not(:first-child)
+          &:before
+            content ","
+            margin-right 0.5em
+        .param .name
+          margin-left 5px

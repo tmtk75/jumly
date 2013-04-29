@@ -25,6 +25,7 @@ block content
               ul
                 li: a(href="#_JUMLY_scan") scan
             li: a(href="#_events") Events
+            li: a(href="#_types") Types
       
       .span9
         h1 JUMLY API Document
@@ -57,30 +58,55 @@ block content
               .summary
               .signatures
                 .signature
-                  .name JUMLY.scan(elements, options)
+                  .name JUMLY.scan(element, [options])
                   ul
                     li.arg
-                      .name elements
-                      .type Elements
-                      .description 
-                        | One or more elements to scan JUMLY elements.
-                    li.arg
+                      .name element
+                      .default document
+                      .type: .name Element
+                      .description One element to scan JUMLY elements.
+                    li.arg#_JUMLY_scan_1_options
                       .name options
-                      .type Object
-                      .description
-                        | Enable to give a few funtions to be used by JUMLY.scan.
+                      .default built-in object
+                      .type: .name PlainObject
+                      .description Enable to give a few funtions to be used by JUMLY.scan.
+                        ul
+                          li.arg
+                            .name finder
+                            .type
+                              .name Function
+                              .params
+                                .param
+                                  .type Element
+                                  .name element
+                            .description To return JUMLY elements you want
+                          li.arg
+                            .name placer
+                            .type
+                              .name Function
+                              .params
+                                .param
+                                  .type JUMLYDiagram
+                                  .name diagram
+                                .param
+                                  .type jQueryObject
+                                  .name scope
+                            .description To put diagram into where you want
+
                 .signature
-                  .name JUMLY.scan(jQuery object, options)
+                  .name JUMLY.scan(scope, [options])
                   ul
                     li.arg
-                      .name jQuery object
-                      .type jQuery object
-                        | An existing jQuery object to scan JUMLY elements.
+                      .name scope
+                      .type: .name jQueryObject
+                      .description An existing jQuery object to scan JUMLY elements.
                     li.arg
                       .name options
-                      .type Object
+                      .type: .name PlainObject
                       .description
                         | Enable to give a few funtions to be used by JUMLY.scan.
+                        | Refer <a href="#_JUMLY_scan_1_options">here</a> for the detail.
+
               .description
                 p
                   | Lookup up JUMLY elements in given elements or jQuery object,
@@ -131,7 +157,21 @@ block content
                   JUMLY.scan document,
                     finder: ($elements)-> $elements.find "> *"
                     placer: (diagram, $jumlyElement)-> $("body").append diagram
-  
+
+        section#_types
+          h2 Types
+
+          article#_type_PlainObject
+            h3 PlainObject
+
+          article#_type_jQueryObject
+            h3 jQueryObject
+
+          article#_type_JUMLYDiagram
+            h3 JUMLYDiagram
+
+          p TBD
+
   footer
     .copyright
       include _includes/copyright
