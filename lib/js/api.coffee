@@ -30,8 +30,11 @@ _to_meta = ($src)->
     meta # nop
   else
     throw "unknown type: #{typeof meta}"
-  meta.type = $src.attr("type") if $src[0].nodeName.toLowerCase() is "script"
+  meta.type = $src.attr("type") if _is_script $src[0]
   meta
+
+## returns true if n is <scipt>
+_is_script = (n)-> n.nodeName.toLowerCase() is "script"
 
 ## returns value of node
 _val = (s)->
@@ -82,7 +85,7 @@ JUMLY.eval = ($src, opts)->
 _opts =
   finder: ($n)->
             nodes = $n.find "script, *[data-jumly]"
-            filter = (n)-> unless n.nodeName.toLowerCase() is "script"
+            filter = (n)-> unless _is_script n
                              true
                            else
                              $(n).attr("type")?.match /text\/jumly\+.*/
