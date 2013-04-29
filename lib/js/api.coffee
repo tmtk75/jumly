@@ -67,23 +67,22 @@ JUMLY.eval = ($src, opts)->
   opts:
     finder: function
             to find candidated nodes
-    filter: function
-            to filter candiates to eval
     placer: function
             to put new created diagram into somewhere
 ###
 _opts =
-  finder: ($n)-> $n.find "script, *[data-jumly]"
-  filter: (n)->
-            unless n.nodeName.toLowerCase() is "script"
-              true
-            else
-              $(n).attr("type")?.match /text\/jumly\+.*/
+  finder: ($n)->
+            nodes = $n.find "script, *[data-jumly]"
+            filter = (n)-> unless n.nodeName.toLowerCase() is "script"
+                             true
+                           else
+                             $(n).attr("type")?.match /text\/jumly\+.*/
+            e for e in nodes when filter(e)
   placer: (d, $e)-> $e.after d
 
 JUMLY.scan = (scope = document, opts)->
   p = $.extend {}, _opts, opts
-  for e in (e for e in p.finder($ scope) when p.filter(e))
+  for e in p.finder($ scope)
     $e = $(e)
     if dst = $e.data(_mkey)?.dst
       if p.synchronize
