@@ -54,7 +54,6 @@
 .sequence-diagram .ref .tag{color:#000;font-weight:700}
 .sequence-diagram .ref .name{text-align:center}
 .sequence-diagram .self .message + .occurrence > .ref,.sequence-diagram .self .message + .occurrence .interaction{margin-top:10px;padding-top:6px;padding-bottom:6px}
-.sequence-diagram .self .message + .occurrence > .ref .header,.sequence-diagram .self .message + .occurrence .interaction .header{float:left}
 .sequence-diagram .self .message{line-height:12px}
 .sequence-diagram .participant .name,.sequence-diagram .occurrence,.sequence-diagram .ref{-webkit-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-moz-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-o-box-shadow:8px 5px 10px rgba(0,0,0,0.22);box-shadow:8px 5px 10px rgba(0,0,0,0.22)}
 .sequence-diagram .note{margin-top:-9px;margin-bottom:10px;margin-left:16px;min-width:128px;}

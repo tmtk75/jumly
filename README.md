@@ -84,9 +84,9 @@ To compile them,
 
 
 # License
-JUMLY v0.1.3b is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.3c is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.3b, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.3c, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History

@@ -2424,7 +2424,7 @@ This is capable to render followings:
       frag.find(".name:first").html(opts.label);
     }
     if (typeof desc === "string") {
-      frag.find(".condition").html(desc);
+      frag.find("> .header > .condition").html(desc);
     }
     return frag;
   };
@@ -3274,46 +3274,74 @@ Some public APIs which are experimental
 
 
 (function() {
-  var _meta, _mkey, _opts, _place, _type;
+  var _is_script, _mkey, _opts, _t2l, _to_meta, _type, _val;
 
   _type = "text/jumly+sequence";
 
-  JUMLY._compile = function(code, type) {
-    var builder;
+  _t2l = {
+    "text/jumly+sequence": {
+      builder: "SequenceDiagramBuilder",
+      layout: "SequenceDiagramLayout"
+    },
+    "text/jumly+robustness": {
+      builder: "RobustnessDiagramBuilder",
+      layout: "RobustnessDiagramLayout"
+    }
+  };
 
+  JUMLY._compile = function(code, type) {
     if (type == null) {
       type = _type;
     }
-    switch (type) {
-      case "text/jumly+sequence":
-        builder = new (JUMLY.require("SequenceDiagramBuilder"));
-        break;
-      case "text/jumly+robustness":
-        builder = new (JUMLY.require("RobustnessDiagramBuilder"));
-        break;
-      default:
-        throw "unknown type: " + type;
+    if (!_t2l[type]) {
+      throw "unknown type: " + type;
     }
-    return builder.build(code);
+    return (new (JUMLY.require(_t2l[type].builder))).build(code);
   };
 
   JUMLY._layout = function(doc, type) {
-    var layout;
-
     if (type == null) {
       type = _type;
     }
-    switch (type) {
-      case "text/jumly+sequence":
-        layout = new (JUMLY.require("SequenceDiagramLayout"));
-        break;
-      case "text/jumly+robustness":
-        layout = new (JUMLY.require("RobustnessDiagramLayout"));
-        break;
-      default:
-        throw "unknown type: " + type;
+    if (!_t2l[type]) {
+      throw "unknown type: " + type;
     }
-    return layout.layout(doc);
+    return (new (JUMLY.require(_t2l[type].layout))).layout(doc);
+  };
+
+  _to_meta = function($src) {
+    var meta;
+
+    meta = $src.data(_mkey);
+    if (meta === void 0) {
+      $src.data(_mkey, meta = {});
+    } else if (typeof meta === "string") {
+      $src.data(_mkey, meta = {
+        type: meta
+      });
+    } else if (typeof meta === "object") {
+      meta;
+    } else {
+      throw "unknown type: " + (typeof meta);
+    }
+    if (_is_script($src[0])) {
+      meta.type = $src.attr("type");
+    }
+    return meta;
+  };
+
+  _is_script = function(n) {
+    return n.nodeName.toLowerCase() === "script";
+  };
+
+  _val = function(s) {
+    switch (s[0].nodeName.toLowerCase()) {
+      case "textarea":
+      case "input":
+        return s.val();
+      default:
+        return s.text();
+    }
   };
 
   /*
@@ -3333,55 +3361,21 @@ Some public APIs which are experimental
 
   _mkey = "jumly";
 
-  _meta = function($src) {
-    var meta;
+  JUMLY["eval"] = function($src, opts) {
+    var d, meta;
 
-    meta = $src.data(_mkey);
-    if (meta === void 0) {
-      $src.data(_mkey, meta = {});
-    } else if (typeof meta === "string") {
-      $src.data(_mkey, meta = {
-        type: meta
-      });
-    } else if (typeof meta === "object") {
-      meta;
-    } else {
-      throw "unknown type: " + (typeof meta);
-    }
-    return meta;
-  };
-
-  _place = function(d, $src, opts) {
+    meta = _to_meta($src);
+    d = this._compile(_val($src), meta.type);
     if (typeof opts === "function") {
-      return opts(d, $src);
+      opts(d, $src);
     } else if (typeof opts === "object") {
       if (!opts.into) {
         throw "missing `into`";
       }
-      return $(opts.into).html(d);
+      $(opts.into).html(d);
     } else {
       throw "no idea to place a new diagram.";
     }
-  };
-
-  JUMLY["eval"] = function($src, opts) {
-    var d, meta, val;
-
-    meta = _meta($src);
-    if ($src[0].nodeName.toLowerCase() === "script") {
-      meta.type = $src.attr("type");
-    }
-    val = function(s) {
-      switch (s[0].nodeName.toLowerCase()) {
-        case "textarea":
-        case "input":
-          return s.val();
-        default:
-          return s.text();
-      }
-    };
-    d = this._compile(val($src), meta.type);
-    _place(d, $src, opts);
     this._layout(d, meta.type);
     $.extend(meta, {
       "dst": d
@@ -3397,8 +3391,6 @@ Some public APIs which are experimental
     opts:
       finder: function
               to find candidated nodes
-      filter: function
-              to filter candiates to eval
       placer: function
               to put new created diagram into somewhere
   */
@@ -3406,16 +3398,26 @@ Some public APIs which are experimental
 
   _opts = {
     finder: function($n) {
-      return $n.find("script, *[data-jumly]");
-    },
-    filter: function(n) {
-      var _ref;
+      var e, filter, nodes, _i, _len, _results;
 
-      if (n.nodeName.toLowerCase() !== "script") {
-        return true;
-      } else {
-        return (_ref = $(n).attr("type")) != null ? _ref.match(/text\/jumly\+.*/) : void 0;
+      nodes = $n.find("script, *[data-jumly]");
+      filter = function(n) {
+        var _ref;
+
+        if (!_is_script(n)) {
+          return true;
+        } else {
+          return (_ref = $(n).attr("type")) != null ? _ref.match(/text\/jumly\+.*/) : void 0;
+        }
+      };
+      _results = [];
+      for (_i = 0, _len = nodes.length; _i < _len; _i++) {
+        e = nodes[_i];
+        if (filter(e)) {
+          _results.push(e);
+        }
       }
+      return _results;
     },
     placer: function(d, $e) {
       return $e.after(d);
@@ -3429,19 +3431,7 @@ Some public APIs which are experimental
       scope = document;
     }
     p = $.extend({}, _opts, opts);
-    _ref = (function() {
-      var _j, _len, _ref, _results1;
-
-      _ref = p.finder($(scope));
-      _results1 = [];
-      for (_j = 0, _len = _ref.length; _j < _len; _j++) {
-        e = _ref[_j];
-        if (p.filter(e)) {
-          _results1.push(e);
-        }
-      }
-      return _results1;
-    })();
+    _ref = p.finder($(scope));
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       e = _ref[_i];
