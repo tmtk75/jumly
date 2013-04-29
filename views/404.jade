@@ -4,9 +4,12 @@ block styles
   :stylus
     @import common
   style
-    .diagram { display: inline-block; }
-    .message { text-align: center; }
-    .back-to-home, .diagram-container {
+    .diagram {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .diagram-container { margin-top: 1em; }
+    .back-to-home {
       text-align: center;
       margin-top: 1em;
     }
@@ -22,9 +25,6 @@ block content
                 @reply "404"
       
       .span12
-        .message
-          |Not Found: #{path}
-      
-      .span12
         .back-to-home
+          |Not Found: #{path}<br>
           a(href="/") Back to home
