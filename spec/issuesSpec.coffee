@@ -29,7 +29,7 @@ describe "issues", ->
   utils.unless_node -> describe "#12", ->
   
     describe "@create", ->
-      it "is that message starts from the bottom of occurrence", ->
+      beforeEach ->
         diag = (new SequenceDiagramBuilder).build '''
           @found "You", ->
             @create "Diagram", ->
@@ -39,10 +39,15 @@ describe "issues", ->
         (new SequenceDiagramLayout).layout diag
 
         occur = diag.find ".occurrence:eq(1)"
-        rmsg  = diag.find ".message.return"
-        bottom = occur.offset().top + occur.outerHeight() - 1
-        top    = rmsg.offset().top
-        expect(top).toBeGreaterThan bottom
+        @rmsg  = diag.find ".message.return"
+        @bottom = occur.offset().top + occur.outerHeight() - 1
+        @top    = @rmsg.offset().top
+
+      it "top < bottom of occurrence", ->
+        expect(@top).toBeLessThan @bottom
+
+      it "bototm < bottom of occurrence", ->
+        expect(@top + @rmsg.outerHeight() - 1).toBeGreaterThan @bottom
       
     describe "@message", ->
       beforeEach ->
@@ -57,7 +62,7 @@ describe "issues", ->
         occur   = diag.find ".occurrence:eq(1)"
         @rmsg   = diag.find ".message.return"
         @bottom = occur.offset().top + occur.outerHeight() - 1
-        @top    = rmsg.offset().top
+        @top    = @rmsg.offset().top
 
       it "top < bottom of occurrence", ->
         expect(@top).toBeLessThan @bottom
