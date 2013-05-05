@@ -46,10 +46,22 @@ module.exports = (grunt)->
       env:
         NODE_PATH: "lib/js"
 
-    watch:
+    livereload:
+      port: 35729
+
+    regarde:
+      css:
+        files: 'lib/css/*.styl'
+        tasks: ['stylus', 'cssmin']
+      js:
+        files: 'lib/js/*.coffee'
+        tasks: ['coffee', 'uglify']
       coffee:
         files: ['spec/*.coffee']
-        tasks: ['coffee:compile', 'jasmine:pivotal']
+        tasks: ['compile', 'jasmine-node']
+      views:
+        files: 'views/*.*'
+        tasks: ['livereload']
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
@@ -57,12 +69,15 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-regarde'
+  grunt.loadNpmTasks 'grunt-contrib-livereload'
 
   grunt.registerTask 'default', ['build']
   grunt.registerTask 'minify', ['uglify', 'cssmin']
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build', ['compile', 'minify']
   grunt.registerTask 'spec', ['jasmine-node']
+  grunt.registerTask 'dev', ['livereload-start', 'regarde']
   grunt.registerTask 'release', "", ->
     grunt.task.requires ["build"]
     fs = require "fs"
