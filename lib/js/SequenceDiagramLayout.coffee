@@ -29,10 +29,6 @@ SequenceDiagramLayout::_layout = ->
   @rebuild_asynchronous_self_calling()
   @render_icons()
 
-  @diagram.find(".return").each (i, e)->
-    e = $(e)
-    e.css "margin-top", -e.height() / 2
-
   occurs = @diagram.find ".occurrence"
   ml = occurs.sort (e)-> $(e).offset().left
   mr = occurs.sort (e)-> $(e).offset().left + $(e).outerWidth() - 1
