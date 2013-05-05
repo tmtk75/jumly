@@ -104,7 +104,7 @@ primary-border()
       text-align center
 
     &.create + .occurrence
-      padding .5em 0 .5em 0
+      padding 7px 0 7px 0
 
     &.lost .icon
       background-color gray
@@ -126,6 +126,10 @@ primary-border()
 
     &.destroy .name::before
       content '«destroy»'
+
+  .creating .message.return
+    margin-top 12px + 4px - 1px
+
 
   .fragment
     margin 4px 4px 8px 4px
