@@ -40,12 +40,12 @@ describe "issues", ->
 
         occur = diag.find ".occurrence:eq(1)"
         rmsg  = diag.find ".message.return"
-        bottom = occur.offset().top + occur.height() - 1
+        bottom = occur.offset().top + occur.outerHeight() - 1
         top    = rmsg.offset().top
         expect(top).toBeGreaterThan bottom
       
     describe "@message", ->
-      it "is that message starts from the bottom of occurrence", ->
+      beforeEach ->
         diag = (new SequenceDiagramBuilder).build '''
           @found "You", ->
             @message "get", "Diagram", ->
@@ -54,8 +54,13 @@ describe "issues", ->
         div.append diag
         (new SequenceDiagramLayout).layout diag
 
-        occur = diag.find ".occurrence:eq(1)"
-        rmsg  = diag.find ".message.return"
-        bottom = occur.offset().top + occur.height() - 1
-        top    = rmsg.offset().top
-        expect(top).toBeLessThan bottom
+        occur   = diag.find ".occurrence:eq(1)"
+        @rmsg   = diag.find ".message.return"
+        @bottom = occur.offset().top + occur.outerHeight() - 1
+        @top    = rmsg.offset().top
+
+      it "top < bottom of occurrence", ->
+        expect(@top).toBeLessThan @bottom
+
+      it "bototm < bottom of occurrence", ->
+        expect(@top + @rmsg.outerHeight() - 1).toBeGreaterThan @bottom
