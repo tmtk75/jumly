@@ -29,6 +29,7 @@ SequenceDiagramBuilder::found = (sth, callback)->
 SequenceDiagramBuilder::_find_or_create = (sth)->
   a = core._normalize sth
   r = core._to_ref a.id
+  throw new Error("Reserved word '#{r}'") if typeof @_diagram[r] is "function"
   return @_diagram[r] if @_diagram[r]
   obj = new SequenceParticipant sth
   @_diagram._reg_by_ref a.id, obj

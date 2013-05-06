@@ -73,6 +73,5 @@ describe "issues", ->
   describe "#6", ->
     describe "@found 'get'", ->
       it "can be built without exception", ->
-        diag = (new SequenceDiagramBuilder).build '''
-          @found "get", ->
-          '''
+        f = -> (new SequenceDiagramBuilder).build '''@found "get", ->'''
+        expect(f).toThrow new Error("Reserved word 'get'")
