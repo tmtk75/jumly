@@ -69,3 +69,10 @@ describe "issues", ->
 
       it "bototm < bottom of occurrence", ->
         expect(@top + @rmsg.outerHeight() - 1).toBeGreaterThan @bottom
+
+  describe "#6", ->
+    describe "@found 'get'", ->
+      it "can be built without exception", ->
+        diag = (new SequenceDiagramBuilder).build '''
+          @found "get", ->
+          '''
