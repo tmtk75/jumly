@@ -1,23 +1,22 @@
 self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
 HTMLElement = self.require "HTMLElement"
-g2d = self.require "jquery.g2d"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
     super null, (me)->
-      me.append($("<canvas>").addClass "arrow")
+      me.append($("<svg class='arrow' width='0' height='0'>"))
         .append($("<div>").addClass "name")
 
-SequenceMessage::_lineToNextOccurr = (canvas) ->
+SequenceMessage::_lineToNextOccurr = (svg) ->
   if false #@hasClass("destroy")) {
     ##FIXME: Destroy message
     console.log "FIXME: to avoid runtime error."
     {src:{x:0, y:0}, dst:{x:400, y:0}}
   srcll = @_srcOccurr()
   dstll = @_dstOccurr()
-  @_toLine srcll, dstll, canvas
+  @_toLine srcll, dstll, svg
 
-SequenceMessage::_toLine = (src, dst, canvas) ->
+SequenceMessage::_toLine = (src, dst, svg) ->
   # Lost message is always toward right.
   e = if !@parent().hasClass("lost") and @isTowardLeft()
     src: x: src.offset().left - @offset().left
@@ -25,7 +24,7 @@ SequenceMessage::_toLine = (src, dst, canvas) ->
   else
     src: x: src.outerWidth()
     dst: x: dst.offset().left - src.offset().left
-  y = canvas.outerHeight()/2
+  y = svg.outerHeight()/2
   e.src.y = y
   e.dst.y = y
   e
@@ -35,12 +34,11 @@ SequenceMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
 SequenceMessage::_dstOccurr = -> (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this).self()
 
 SequenceMessage::_prefferedCanvas = ->
-  @find("canvas:eq(0)")
+  @find("svg:eq(0)")
     .attr(width:@width(), height:@height())
-    .css (width:@width(), height:@height())
 
-SequenceMessage::_toCreateLine = (canvas)->
-  e = @_toLine @_srcOccurr(), @_dstOccurr()._actor, canvas
+SequenceMessage::_toCreateLine = (svg)->
+  e = @_toLine @_srcOccurr(), @_dstOccurr()._actor, svg
   if @isTowardLeft()
     src = @_srcOccurr()
     outerRight = (it)-> it.offset().left + it.outerWidth()
@@ -75,12 +73,19 @@ _determine_primary_stereotype = (jqnode) ->
   for e in ["create", "asynchronous", "synchronous", "destroy"]
     return e if jqnode.hasClass e
 
+g2d =
+  arrow: (svg, p, q, opts)->
+    e = document.createElementNS("http://www.w3.org/2000/svg", 'line')
+    e.setAttribute 'x1', p.x
+    e.setAttribute 'y1', p.y
+    e.setAttribute 'x2', q.x
+    e.setAttribute 'y2', q.y
+    svg[0].appendChild e
+
 SequenceMessage::repaint = () ->
   shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
   arrow = jQuery.extend {}, MESSAGE_STYLE, shape
-  # Canvas element has width x height property of CSS and posseses width x height attribute as DOM element.
-  # So if you don't set same value to both, the rendered result may be inconsistent.
-  canvas = @_current_canvas = @_prefferedCanvas()
+  svg = @_prefferedCanvas()
 
   if false
     p = @parents(".occurrence:eq(0)")
@@ -93,25 +98,24 @@ SequenceMessage::repaint = () ->
     arrow.shadowBlur    = RegExp.$4
 
   if @hasClass "self"
-    ctxt = canvas[0].getContext '2d'
     gap = 2
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
     llw = @_dstOccurr().outerWidth()
-    g2d.arrow ctxt, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
+    g2d.arrow svg, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
     arrow.base = 0
-    g2d.arrow ctxt, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
-    g2d.arrow ctxt, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
+    g2d.arrow svg, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
+    g2d.arrow svg, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
     return this
 
   if @hasClass "create"
-    line = @_toCreateLine canvas
+    line = @_toCreateLine svg
   else if @_actee
     newsrc = @_findOccurr @_actee
     newdst = @_dstOccurr()
-    line = @_toLine newsrc, newdst, canvas
+    line = @_toLine newsrc, newdst, svg
   else
-    line = @_lineToNextOccurr canvas
+    line = @_lineToNextOccurr svg
       
   if @hasClass "reverse"
     a           = line.src
@@ -119,7 +123,7 @@ SequenceMessage::repaint = () ->
     line.dst    = a
     arrow.shape = 'dashed'
       
-  g2d.arrow canvas[0].getContext('2d'), line.src, line.dst, arrow
+  g2d.arrow svg, line.src, line.dst, arrow
   this
 
 SequenceMessage::isToward = (dir) ->

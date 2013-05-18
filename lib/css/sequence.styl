@@ -46,8 +46,13 @@ primary-border()
     position relative
   
   .message,
-  .message canvas
+  .message svg
     position absolute
+  
+  .message svg.arrow line
+    stroke #606060
+  .message.create svg.arrow line
+    stroke-dasharray 6,4
 
   .lifeline .line
     margin-left 50%
