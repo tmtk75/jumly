@@ -1,5 +1,4 @@
 self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-g2d = self.require "jquery.g2d"
 
 _STYLES =
   lineWidth    : 1.5
@@ -10,39 +9,42 @@ _STYLES =
   shadowOffsetX: 8
   shadowOffsetY: 5
 
-Path = g2d.path
+ns = "http://www.w3.org/2000/svg"
 
-_actor = (ctx, styles) ->
+_actor = (svg, styles) ->
   r    = styles.radius || 12
   r2   = r*2
   exth = r*0.25                        # 25% of radius
   lw   = Math.round(styles.lineWidth)  # lw: line-width
   
   # Render a head
-  r0 = ->
-    ctx.arc lw + r, lw + r, r, 0, Math.PI*2, true
-    ctx.fill()
-    ctx.shadowColor = 'transparent'
-    ctx.stroke()
+  e = document.createElementNS(ns, 'circle')
+  e.setAttribute "cx", lw + r
+  e.setAttribute "cy", lw + r
+  e.setAttribute "r", r
+  svg.appendChild e
   
   # Render a body
-  r1 = ->
-    dh = 3*lw
-    dv = r2*0.77
-    new Path(ctx)
-        .moveTo(0, r2 + lw + exth).line(lw + r2 + lw, 0)  # actor's arms (h-line) 
-        .moveTo(lw + r, r2 + lw).line(0, r2*0.35)         # actor's body (v-line)
-        .line(-r, dv).move(r, -dv)  # actor's right leg, and back to the groin :)
-        .line( r, dv)                     # actor's left leg
-    ctx.shadowColor = styles.shadowColor
-    ctx.stroke()
-
+  dh = 3*lw
+  dv = r2*0.77
+  e = document.createElementNS(ns, 'path')
+  d = [
+     ["M", 0, r2 + lw + exth]
+     ["l", lw + r2 + lw, 0]  # actor's arms (h-line) 
+     ["M", lw + r, r2 + lw]
+     ["l", 0, r2*0.35]       # actor's body (v-line)
+     ["l", -r, dv]
+     ["m", r, -dv]           # actor's right leg, and back to the groin :)
+     ["l", r,  dv]           # actor's left leg
+    ]
+  to_d = (d)-> (d.map (e)-> "#{e[0]}#{e[1]},#{e[2]}").join ""
+  e.setAttribute "d", to_d d
+  svg.appendChild e
   
   ret =
     size:
       width : lw + r2   + lw
       height: lw + r2*2 + lw
-    paths: [r0, r1]
           
 _view = (ctx, styles) ->
   r    = styles.radius || 16
@@ -127,28 +129,18 @@ _entity = (ctx, styles) ->
       height:lw + r2 + exth + lw
     paths: [r0, r1]
 
-_render = (canvas, renderer, args) ->
-  return unless canvas.getContext  ## for test on CLI
+_render = (svg, renderer, args) ->
+  #return unless svg.getContext  ## for test on CLI
 
   styles = $.extend {}, _STYLES, args
 
-  ctx = canvas.getContext '2d'
-  {size, paths} = renderer ctx, styles
+  {size, paths} = renderer svg, styles
 
   dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur/2 || 0)
   dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur/2 || 0)
-  $(canvas).attr
+  $(svg).attr
     width:size.width + dw, height:size.height + dh
     "data-actual-width":size.width, "data-actual-height":size.height
-
-  $.extend ctx, styles
-  #ctx.save()
-  #ctx.translate styles.left, styles.top if styles.left or styles.top
-  for e in paths
-    ctx.beginPath()
-    e()
-  #ctx.restore()
-
 
 core = self.require "core"
 HTMLElement = self.require "HTMLElement"
@@ -160,17 +152,17 @@ class IconElement extends HTMLElement
       view: _view
       controller: _controller
       entity: _entity
-    (canvas, styles) -> _render canvas, r[type], styles
+    (svg, styles) -> _render svg, r[type], styles
 
   constructor: (args, opts)->
     idname = core._normalize args
     super args, (me)->
-      canvas = $("<canvas>")
+      svg = $("<svg width='0' height='0'>")
       me.addClass("icon").addClass(opts.kind)
-        .append(div = $("<div>").append canvas)
+        .append(div = $("<div>").append svg)
         .append $("<div>").addClass("name").append idname.name
-      (IconElement.renderer opts.kind) canvas[0]
-      div.css height:canvas.data("actual-height")
+      (IconElement.renderer opts.kind) svg[0]
+      div.css height:svg.data("actual-height")
 
 if core.env.is_node
   module.exports = IconElement
