@@ -97,13 +97,16 @@ _actor = (svg, styles) ->
   
   svg.appendChild shadow2
 
+  g = document.createElementNS(ns, 'g')
+  g.setAttribute "style", "filter:url(#dropshadow)"
+  svg.appendChild g
+
   # Render a head
   e = document.createElementNS(ns, 'circle')
   e.setAttribute "cx", lw + r
   e.setAttribute "cy", lw + r
   e.setAttribute "r", r
-  e.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild e
+  g.appendChild e
   
   # Render a body
   dh = 3*lw
@@ -120,8 +123,7 @@ _actor = (svg, styles) ->
     ]
   to_d = (d)-> (d.map (e)-> "#{e[0]}#{e[1]},#{e[2]}").join ""
   e.setAttribute "d", to_d d
-  e.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild e
+  g.appendChild e
 
   ret =
     size:
