@@ -97,7 +97,7 @@ g2d =
     e.setAttribute 'y2', q.y
     svg[0].appendChild e
 
-    ahead svg[0], -1, q
+    ahead svg[0], -1*(Math.sign q.x - p.x), q
 
 SequenceMessage::repaint = () ->
   shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
