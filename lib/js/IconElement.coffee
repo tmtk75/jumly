@@ -47,13 +47,55 @@ shadow.appendChild blur
 shadow.appendChild offset
 shadow.appendChild merge
 
+
+# http://commons.oreilly.com/wiki/index.php/SVG_Essentials/Filters
+"""
+<filter id="dropshadow">
+  <feColorMatrix type="matrix"           [1]
+    values=
+    "0 0 0 0   0
+     0 0 0 0.9 0
+     0 0 0 0.9 0
+     0 0 0 1   0"/>
+  <feGaussianBlur stdDeviation="2.5"     [2]
+                  result="coloredBlur"/> [3]
+  <feMerge>                              [4]
+    <feMergeNode in="coloredBlur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+"""
+ce = (n)-> document.createElementNS ns, n
+sa = (n, attrs)->
+       for p of attrs
+         n.setAttribute p, attrs[p]
+       n
+ne = (n, attrs)-> sa ce(n), attrs
+
+red = green = blue = 0.22
+
+shadow2 = ne "filter", id:"dropshadow"
+matrix  = ne "feColorMatrix", type:"matrix", values:"0 0 0 #{red} 0    0 0 0 #{green} 0    0 0 0 #{blue} 0    0 0 0 1 0"
+blur    = ne "feGaussianBlur", stdDeviation:2.5, result:"coloreBlur"
+merge   = ne "feMerge"
+mnBlur  = ne "feMergeNode", in:"coloreBlur"
+mnSrc   = ne "feMergeNode", in:"SourceGraphic"
+
+merge.appendChild mnBlur
+merge.appendChild mnSrc
+
+shadow2.appendChild matrix
+shadow2.appendChild blur
+shadow2.appendChild merge
+
+
 _actor = (svg, styles) ->
   r    = styles.radius || 12
   r2   = r*2
   exth = r*0.25                        # 25% of radius
   lw   = Math.round(styles.lineWidth)  # lw: line-width
   
-  svg.appendChild shadow
+  svg.appendChild shadow2
 
   # Render a head
   e = document.createElementNS(ns, 'circle')
