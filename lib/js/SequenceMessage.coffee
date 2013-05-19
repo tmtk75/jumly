@@ -91,7 +91,7 @@ g2d =
 
     e = document.createElementNS(ns, 'polyline')
     e.setAttribute "class", "closed"
-    e.setAttribute "points", p [[q.x-10,q.y+6], [q.x-10,q.y-6]]
+    e.setAttribute "points", p [[q.x-10,q.y+7], [q.x-10,q.y-7]]
     svg[0].appendChild e
 
 SequenceMessage::repaint = () ->
