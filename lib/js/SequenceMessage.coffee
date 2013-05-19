@@ -73,9 +73,11 @@ _determine_primary_stereotype = (jqnode) ->
   for e in ["create", "asynchronous", "synchronous", "destroy"]
     return e if jqnode.hasClass e
 
+ns = "http://www.w3.org/2000/svg"
+to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
+
 g2d =
   arrow: (svg, p, q, opts)->
-    ns = "http://www.w3.org/2000/svg"
     e = document.createElementNS(ns, 'line')
     e.setAttribute 'x1', p.x
     e.setAttribute 'y1', p.y
@@ -83,15 +85,14 @@ g2d =
     e.setAttribute 'y2', q.y
     svg[0].appendChild e
 
-    p = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
-
     e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "points", p [[q.x-10,q.y-6], [q.x,q.y], [q.x-10,q.y+6]]
+    e.setAttribute "class", "head"
+    e.setAttribute "points", to_points [[q.x-10,q.y-6], [q.x,q.y], [q.x-10,q.y+6]]
     svg[0].appendChild e
 
     e = document.createElementNS(ns, 'polyline')
     e.setAttribute "class", "closed"
-    e.setAttribute "points", p [[q.x-10,q.y+7], [q.x-10,q.y-7]]
+    e.setAttribute "points", to_points [[q.x-10,q.y+7], [q.x-10,q.y-7]]
     svg[0].appendChild e
 
 SequenceMessage::repaint = () ->
@@ -114,10 +115,22 @@ SequenceMessage::repaint = () ->
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
     llw = @_dstOccurr().outerWidth()
-    g2d.arrow svg, {x:rcx, y:rey}, {x:llw + gap,  y:rey}, arrow
-    arrow.base = 0
-    g2d.arrow svg, {x:llw/2 + gap, y:gap}, {x:rcx, y:gap}, arrow
-    g2d.arrow svg, {x:rcx,         y:gap}, {x:rcx, y:rey}, arrow
+    e = document.createElementNS(ns, 'polyline')
+    e.setAttribute "points", to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
+    svg[0].appendChild e
+
+    q = x:llw + gap, y:rey
+    dx = 10
+    dy = 6
+    e = document.createElementNS(ns, 'polyline')
+    e.setAttribute "class", "head"
+    e.setAttribute "points", to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
+    svg[0].appendChild e
+
+    e = document.createElementNS(ns, 'polyline')
+    e.setAttribute "class", "closed"
+    e.setAttribute "points", to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
+    svg[0].appendChild e
     return this
 
   if @hasClass "create"
