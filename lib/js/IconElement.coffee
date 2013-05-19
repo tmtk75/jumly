@@ -29,7 +29,12 @@ ns = "http://www.w3.org/2000/svg"
   </feMerge>
 </filter>
 """
-ce = (n)-> document.createElementNS ns, n
+ce = (n)->
+  unless typeof document is "undefined"
+    document.createElementNS ns, n
+  else
+    $("<#{n}>")[0]  # for jasmine-node
+
 sa = (n, attrs)->
        for p of attrs
          n.setAttribute p, attrs[p]
@@ -65,12 +70,12 @@ _actor = (svg, styles) ->
   lw   = Math.round(styles.lineWidth)  # lw: line-width
   
   svg.appendChild drop_shadow()
-  g = document.createElementNS(ns, 'g')
+  g = ce 'g'
   g.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild g
 
   # Render a head
-  e = document.createElementNS(ns, 'circle')
+  e = ce 'circle'
   e.setAttribute "cx", lw + r
   e.setAttribute "cy", lw + r
   e.setAttribute "r", r
@@ -79,7 +84,7 @@ _actor = (svg, styles) ->
   # Render a body
   dh = 3*lw
   dv = r2*0.77
-  e = document.createElementNS(ns, 'path')
+  e = ce 'path'
   d = [
      ["M", 0, r2 + lw + exth]
      ["l", lw + r2 + lw, 0]  # actor's arms (h-line) 
@@ -104,11 +109,11 @@ _view = (svg, styles) ->
   lw   = styles.lineWidth  # lw: line-width
 
   svg.appendChild drop_shadow()
-  g = document.createElementNS(ns, 'g')
+  g = ce 'g'
   g.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild g
 
-  e = document.createElementNS(ns, 'circle')
+  e = ce 'circle'
   e.setAttribute "cx", lw + r + extw
   e.setAttribute "cy", lw + r
   e.setAttribute "r", r
@@ -120,7 +125,7 @@ _view = (svg, styles) ->
      ["M", lw, 0]
      ["l", 0, r2]
     ]
-  e = document.createElementNS(ns, 'path')
+  e = ce 'path'
   e.setAttribute "d", to_d d
   g.appendChild e
 
@@ -138,11 +143,11 @@ _controller = (svg, styles) ->
   effectext = 0
 
   svg.appendChild drop_shadow()
-  g = document.createElementNS(ns, 'g')
+  g = ce 'g'
   g.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild g
 
-  e = document.createElementNS(ns, 'circle')
+  e = ce 'circle'
   e.setAttribute "cx", lw + r
   e.setAttribute "cy", lw + r + exth
   e.setAttribute "r", r
@@ -157,7 +162,7 @@ _controller = (svg, styles) ->
      ["M", x0, y0]
      ["L", x1, lh + exth*7/4]
     ]
-  e = document.createElementNS(ns, 'path')
+  e = ce 'path'
   e.setAttribute "d", to_d d
   g.appendChild e
 
@@ -173,11 +178,11 @@ _entity = (svg, styles) ->
   lw   = styles.lineWidth  # lw: line-width
 
   svg.appendChild drop_shadow()
-  g = document.createElementNS(ns, 'g')
+  g = ce 'g'
   g.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild g
   
-  e = document.createElementNS(ns, 'circle')
+  e = ce 'circle'
   e.setAttribute "cx", lw + r
   e.setAttribute "cy", lw + r
   e.setAttribute "r", r
@@ -189,7 +194,7 @@ _entity = (svg, styles) ->
      ["M", 0,       r2 + exth]  # h-line (long)
      ["L", r2 + lw, r2 + exth]  #
     ]
-  e = document.createElementNS(ns, 'path')
+  e = ce 'path'
   e.setAttribute "d", to_d d
   g.appendChild e
   
