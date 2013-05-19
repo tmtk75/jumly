@@ -75,11 +75,22 @@ _determine_primary_stereotype = (jqnode) ->
 
 g2d =
   arrow: (svg, p, q, opts)->
-    e = document.createElementNS("http://www.w3.org/2000/svg", 'line')
+    ns = "http://www.w3.org/2000/svg"
+    e = document.createElementNS(ns, 'line')
     e.setAttribute 'x1', p.x
     e.setAttribute 'y1', p.y
     e.setAttribute 'x2', q.x
     e.setAttribute 'y2', q.y
+    svg[0].appendChild e
+
+    p = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
+
+    e = document.createElementNS(ns, 'polygon')
+    e.setAttribute "fill", "gray"
+    e.setAttribute "stroke", "gray"
+    e.setAttribute "stroke-width", 1
+    e.setAttribute "stroke-linejoin", "round"
+    e.setAttribute "points", p [[q.x,q.y], [q.x-10,q.y-6], [q.x-10,q.y+6]]
     svg[0].appendChild e
 
 SequenceMessage::repaint = () ->
