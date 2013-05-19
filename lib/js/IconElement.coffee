@@ -59,6 +59,7 @@ shadow.appendChild merge
      0 0 0 1   0"/>
   <feGaussianBlur stdDeviation="2.5"     [2]
                   result="coloredBlur"/> [3]
+  <feOffset dx="2" dy="2" result="coloreBlur"/>
   <feMerge>                              [4]
     <feMergeNode in="coloredBlur"/>
     <feMergeNode in="SourceGraphic"/>
@@ -74,9 +75,10 @@ ne = (n, attrs)-> sa ce(n), attrs
 
 red = green = blue = 0.22
 
-shadow2 = ne "filter", id:"dropshadow"
+shadow2 = ne "filter", id:"dropshadow", width:"200%"
 matrix  = ne "feColorMatrix", type:"matrix", values:"0 0 0 #{red} 0    0 0 0 #{green} 0    0 0 0 #{blue} 0    0 0 0 1 0"
 blur    = ne "feGaussianBlur", stdDeviation:2.5, result:"coloreBlur"
+offset  = ne "feOffset", dx:8, dy:5, result:"coloreBlur"
 merge   = ne "feMerge"
 mnBlur  = ne "feMergeNode", in:"coloreBlur"
 mnSrc   = ne "feMergeNode", in:"SourceGraphic"
@@ -86,6 +88,7 @@ merge.appendChild mnSrc
 
 shadow2.appendChild matrix
 shadow2.appendChild blur
+shadow2.appendChild offset
 shadow2.appendChild merge
 
 
