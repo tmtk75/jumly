@@ -63,23 +63,22 @@ drop_shadow = ->
 
 to_d = (d)-> (d.map (e)-> "#{e[0]}#{e[1]},#{e[2]}").join ""
 
+svg_g = (svg)->
+  svg.appendChild drop_shadow()
+  g = sa (ce 'g'), style:"filter:url(#dropshadow)"
+  svg.appendChild g
+  g
+
 _actor = (svg, styles) ->
   r    = styles.radius || 12
   r2   = r*2
   exth = r*0.25                        # 25% of radius
   lw   = Math.round(styles.lineWidth)  # lw: line-width
-  
-  svg.appendChild drop_shadow()
-  g = ce 'g'
-  g.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild g
+
+  g = svg_g svg
 
   # Render a head
-  e = ce 'circle'
-  e.setAttribute "cx", lw + r
-  e.setAttribute "cy", lw + r
-  e.setAttribute "r", r
-  g.appendChild e
+  g.appendChild ne 'circle', cx:lw + r, cy:lw + r, r:r
   
   # Render a body
   dh = 3*lw
@@ -108,16 +107,9 @@ _view = (svg, styles) ->
   extw = r*0.4              # 40% of r
   lw   = styles.lineWidth  # lw: line-width
 
-  svg.appendChild drop_shadow()
-  g = ce 'g'
-  g.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild g
+  g = svg_g svg
 
-  e = ce 'circle'
-  e.setAttribute "cx", lw + r + extw
-  e.setAttribute "cy", lw + r
-  e.setAttribute "r", r
-  g.appendChild e
+  g.appendChild ne 'circle', cx:lw + r + extw, cy:lw + r, r:r
 
   d = [
      ["M", lw, r]
@@ -142,16 +134,9 @@ _controller = (svg, styles) ->
   dy   = 0
   effectext = 0
 
-  svg.appendChild drop_shadow()
-  g = ce 'g'
-  g.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild g
+  g = svg_g svg
 
-  e = ce 'circle'
-  e.setAttribute "cx", lw + r
-  e.setAttribute "cy", lw + r + exth
-  e.setAttribute "r", r
-  g.appendChild e
+  g.appendChild ne 'circle', cx:lw + r, cy:lw + r + exth, r:r
  
   x0 = lw + r*0.8
   x1 = lw + r*1.2
@@ -177,16 +162,9 @@ _entity = (svg, styles) ->
   exth = r*0.4             # 40% of r
   lw   = styles.lineWidth  # lw: line-width
 
-  svg.appendChild drop_shadow()
-  g = ce 'g'
-  g.setAttribute "style", "filter:url(#dropshadow)"
-  svg.appendChild g
+  g = svg_g svg
   
-  e = ce 'circle'
-  e.setAttribute "cx", lw + r
-  e.setAttribute "cy", lw + r
-  e.setAttribute "r", r
-  g.appendChild e
+  g.appendChild ne 'circle', cx:lw + r, cy:lw + r, r:r
 
   d = [
      ["M", lw + r,  r2]         # v-line (short)
