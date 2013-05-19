@@ -49,8 +49,22 @@ primary-border()
   .message svg
     position absolute
   
-  .message svg.arrow line
-    stroke #606060
+  .message svg.arrow
+    line
+      stroke gray
+      stroke-width 1.5
+    polyline
+      stroke gray
+      fill gray
+      stroke-width 1.5
+      stroke-linejoin round
+
+  .message.create svg.arrow
+    polyline
+      fill none
+    polyline.closed
+      stroke none
+
   .message.create svg.arrow line,
   .message.return svg.arrow line
     stroke-dasharray 8,8

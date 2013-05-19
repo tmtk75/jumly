@@ -85,12 +85,13 @@ g2d =
 
     p = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 
-    e = document.createElementNS(ns, 'polygon')
-    e.setAttribute "fill", "gray"
-    e.setAttribute "stroke", "gray"
-    e.setAttribute "stroke-width", 1
-    e.setAttribute "stroke-linejoin", "round"
-    e.setAttribute "points", p [[q.x,q.y], [q.x-10,q.y-6], [q.x-10,q.y+6]]
+    e = document.createElementNS(ns, 'polyline')
+    e.setAttribute "points", p [[q.x-10,q.y-6], [q.x,q.y], [q.x-10,q.y+6]]
+    svg[0].appendChild e
+
+    e = document.createElementNS(ns, 'polyline')
+    e.setAttribute "class", "closed"
+    e.setAttribute "points", p [[q.x-10,q.y+6], [q.x-10,q.y-6]]
     svg[0].appendChild e
 
 SequenceMessage::repaint = () ->
