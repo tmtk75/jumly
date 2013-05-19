@@ -9,7 +9,43 @@ _STYLES =
   shadowOffsetX: 8
   shadowOffsetY: 5
 
+## shadow filter
+"""
+<filter id="dropshadow" width="130%" height="130%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
+  <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
+  <feMerge> 
+    <feMergeNode/> <!-- this contains the offset blurred image -->
+    <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+  </feMerge>
+</filter>
+"""
+
 ns = "http://www.w3.org/2000/svg"
+
+shadow = document.createElementNS ns, "filter"
+shadow.setAttribute "id", "dropshadow"
+shadow.setAttribute "width", "130%"
+#shadow.setAttribute "height", "130%"
+
+blur = document.createElementNS ns, "feGaussianBlur"
+blur.setAttribute "in", "SourceAlpha"
+blur.setAttribute "stdDeviation", 3
+
+offset = document.createElementNS ns, "feOffset"
+offset.setAttribute "dx", 2
+offset.setAttribute "dy", 2
+offset.setAttribute "result", "offsetblur"
+
+merge = document.createElementNS ns, "feMerge"
+merge.appendChild document.createElementNS ns, "feMergeNode"
+mergeNode = document.createElementNS ns, "feMergeNode"
+mergeNode.setAttribute "in", "SourceGraphic"
+merge.appendChild mergeNode
+
+shadow.appendChild blur
+shadow.appendChild offset
+shadow.appendChild merge
 
 _actor = (svg, styles) ->
   r    = styles.radius || 12
@@ -17,11 +53,14 @@ _actor = (svg, styles) ->
   exth = r*0.25                        # 25% of radius
   lw   = Math.round(styles.lineWidth)  # lw: line-width
   
+  svg.appendChild shadow
+
   # Render a head
   e = document.createElementNS(ns, 'circle')
   e.setAttribute "cx", lw + r
   e.setAttribute "cy", lw + r
   e.setAttribute "r", r
+  e.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild e
   
   # Render a body
@@ -39,8 +78,9 @@ _actor = (svg, styles) ->
     ]
   to_d = (d)-> (d.map (e)-> "#{e[0]}#{e[1]},#{e[2]}").join ""
   e.setAttribute "d", to_d d
+  e.setAttribute "style", "filter:url(#dropshadow)"
   svg.appendChild e
-  
+
   ret =
     size:
       width : lw + r2   + lw
