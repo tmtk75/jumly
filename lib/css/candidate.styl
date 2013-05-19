@@ -61,9 +61,10 @@
 .diagram .relationship
   position: absolute
 
-.diagram .relationship canvas
-  -border: 1px solid red
-
+  svg line
+    stroke gray
+    stroke-width 1.5
+    stroke-dasharray 4,4
 
 // usecase-a
 .usecase-diagram.layout-a .usecase:nth-child(odd)>.icon

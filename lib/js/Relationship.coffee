@@ -9,8 +9,13 @@ class Relationship extends HTMLElement
     @dst = opts.dst
     super args, (me)->
       me.addClass("relationship")
-        .append($("<canvas>").addClass("icon"))
+        .append(svg = $("<svg width='0' height='0'>").addClass("icon"))
         .append($("<div>").addClass("name"))
+
+      ns = "http://www.w3.org/2000/svg"
+      e = document.createElementNS ns, "line"
+      svg[0].appendChild e
+      me
 
 MESSAGE_STYLE =
     width      : 1
@@ -52,34 +57,25 @@ Relationship::_rect = (p, q)->
   left:a.left, top:a.top, width:w, height:h, hsign:hs, vsign:vs, hunit:hs*w/l, vunit:vs*h/l
 
 Relationship::render = ->
-    p = @_point @src
-    q = @_point @dst
-    r = @_rect p, q
+  p = @_point @src
+  q = @_point @dst
+  r = @_rect p, q
 
-    cr = 2
-    aa = r.hunit*@dst.outerWidth()/cr
-    bb = r.vunit*@dst.outerHeight()/cr
-    cc = r.hunit*@src.outerWidth()/cr
-    dd = r.vunit*@src.outerHeight()/cr
-    s = x:p.left - r.left + cc, y:p.top  - r.top + dd
-    t = x:q.left - r.left - aa, y:q.top  - r.top - bb
+  cr = 2
+  aa = r.hunit*@dst.outerWidth()/cr
+  bb = r.vunit*@dst.outerHeight()/cr
+  cc = r.hunit*@src.outerWidth()/cr
+  dd = r.vunit*@src.outerHeight()/cr
+  s = x:p.left - r.left + cc, y:p.top  - r.top + dd
+  t = x:q.left - r.left - aa, y:q.top  - r.top - bb
 
-    @width r.width
-    @height r.height
-    @offset left:r.left, top:r.top
+  @width r.width
+  @height r.height
+  @offset left:r.left, top:r.top
 
-    ctxt = @find("canvas").css( width:r.width, height:r.height)
-                          .attr(width:r.width, height:r.height)[0]
-                          .getContext "2d"
-    ctxt.save()
-    style = $.extend {}, MESSAGE_STYLE, pattern:[4, 4], shape:'line'
-    if @hasClass("extend")
-        style = $.extend style, shape:'dashed'
-    #if @hasClass("use")
-    #    style = $.extend style, width:0, base:0, height:0
-    g2d.arrow ctxt, s, t, style
-    ctxt.restore()
-
+  @find("svg").attr(width:r.width, height:r.height)
+              .find("line")
+              .attr x1:s.x, y1:s.y, x2:t.x, y2:t.y
 
 core = self.require "core"
 if core.env.is_node
