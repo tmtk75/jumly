@@ -73,7 +73,7 @@ sa = (n, attrs)->
        n
 ne = (n, attrs)-> sa ce(n), attrs
 
-red = green = blue = 0.22
+red = green = blue = 0.22*3
 
 shadow2 = ne "filter", id:"dropshadow", width:"200%"
 matrix  = ne "feColorMatrix", type:"matrix", values:"0 0 0 #{red} 0    0 0 0 #{green} 0    0 0 0 #{blue} 0    0 0 0 1 0"
