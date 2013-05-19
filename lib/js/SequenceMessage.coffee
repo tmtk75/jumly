@@ -75,6 +75,18 @@ _determine_primary_stereotype = (jqnode) ->
 
 ns = "http://www.w3.org/2000/svg"
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
+ahead = (svg, sign, q)->
+  dx = sign * 10
+  dy = 6
+  e = document.createElementNS(ns, 'polyline')
+  e.setAttribute "class", "head"
+  e.setAttribute "points", to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
+  svg.appendChild e
+
+  e = document.createElementNS(ns, 'polyline')
+  e.setAttribute "class", "closed"
+  e.setAttribute "points", to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
+  svg.appendChild e
 
 g2d =
   arrow: (svg, p, q, opts)->
@@ -85,15 +97,7 @@ g2d =
     e.setAttribute 'y2', q.y
     svg[0].appendChild e
 
-    e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "class", "head"
-    e.setAttribute "points", to_points [[q.x-10,q.y-6], [q.x,q.y], [q.x-10,q.y+6]]
-    svg[0].appendChild e
-
-    e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "class", "closed"
-    e.setAttribute "points", to_points [[q.x-10,q.y+7], [q.x-10,q.y-7]]
-    svg[0].appendChild e
+    ahead svg[0], -1, q
 
 SequenceMessage::repaint = () ->
   shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
@@ -119,18 +123,7 @@ SequenceMessage::repaint = () ->
     e.setAttribute "points", to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
     svg[0].appendChild e
 
-    q = x:llw + gap, y:rey
-    dx = 10
-    dy = 6
-    e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "class", "head"
-    e.setAttribute "points", to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
-    svg[0].appendChild e
-
-    e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "class", "closed"
-    e.setAttribute "points", to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
-    svg[0].appendChild e
+    ahead svg[0], 1, x:llw + gap, y:rey
     return this
 
   if @hasClass "create"
