@@ -23,7 +23,14 @@
 .sequence-diagram .participant .name{border:2px solid #808080;text-align:center;padding:0 4px;min-width:88px;height:31px;line-height:31px}
 .sequence-diagram .participant:not(:first-child){margin-top:-35px}
 .sequence-diagram .lifeline,.sequence-diagram .lifeline .line,.sequence-diagram .occurrence,.sequence-diagram .interaction,.sequence-diagram .ref,.sequence-diagram .stop{position:relative}
-.sequence-diagram .message,.sequence-diagram .message canvas{position:absolute}
+.sequence-diagram .message,.sequence-diagram .message svg{position:absolute}
+.sequence-diagram .message svg.arrow line{stroke:#808080;stroke-width:1.5}
+.sequence-diagram .message svg.arrow polyline{stroke:#808080;fill:#808080;stroke-width:1.5;stroke-linejoin:round}
+.sequence-diagram .message.create svg.arrow polyline,.sequence-diagram .message.return svg.arrow polyline{fill:none}
+.sequence-diagram .message.create svg.arrow polyline.closed,.sequence-diagram .message.return svg.arrow polyline.closed{stroke:none}
+.sequence-diagram .message.self svg.arrow polyline{fill:none}
+.sequence-diagram .message.self svg.arrow polyline.head{fill:#808080}
+.sequence-diagram .message.create svg.arrow line,.sequence-diagram .message.return svg.arrow line{stroke-dasharray:8,8}
 .sequence-diagram .lifeline .line{margin-left:50%;left:1px;height:100%;z-index:-10;border-left:dashed 1px #808080}
 .sequence-diagram .occurrence{width:12px;padding:1em 0 1em 0;margin-top:4px;border:2px solid #808080;background-color:#d3d3d3;z-index:1}
 .sequence-diagram .creating{margin-bottom:40px}
@@ -35,13 +42,14 @@
 .sequence-diagram .interaction:not(.activated) .occurrence .note:nth-child(1){margin-top:3px}
 .sequence-diagram .message{height:20px;}
 .sequence-diagram .message .name{margin-top:-10px;text-align:center}
-.sequence-diagram .message.create + .occurrence{padding:.5em 0 .5em 0}
+.sequence-diagram .message.create + .occurrence{padding:7px 0 7px 0}
 .sequence-diagram .message.lost .icon{background-color:#808080;border:1px solid #444}
 .sequence-diagram .message.name::before{content:'«create»'}
-.sequence-diagram .message.return{position:relative;height:auto}
+.sequence-diagram .message.return{margin-top:-10px}
 .sequence-diagram .message.return .name:empty{position:relative;top:-8px}
 .sequence-diagram .message.return .name::before{display:block;content:'«return»'}
 .sequence-diagram .message.destroy .name::before{content:'«destroy»'}
+.sequence-diagram .creating .message.return{margin-top:15px}
 .sequence-diagram .fragment{margin:4px 4px 8px 4px;padding:4px;border:solid 1px #aaa;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;border-radius:2px;}
 .sequence-diagram .fragment > .reply{margin-bottom:.5em}
 .sequence-diagram .fragment .header .name{color:#000;font-weight:700}
@@ -72,8 +80,8 @@
 .class-diagram .class .icon .attrs,.class-diagram .class .icon .methods{border-top:solid 2px #808080;min-height:8px}
 .class-diagram .class .icon .attrs>*,.class-diagram .class .icon .methods>*{display:block;margin:0;padding:0}
 .class-diagram .class .icon ul{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0;padding-left:1em;padding-right:1em}
-.diagram .relationship{position:absolute}
-.diagram .relationship canvas{-border:1px solid #f00}
+.diagram .relationship{position:absolute;}
+.diagram .relationship svg line{stroke:#808080;stroke-width:1.5;stroke-dasharray:4,4}
 .usecase-diagram.layout-a .usecase:nth-child(odd)>.icon{margin-left:auto}
 .usecase-diagram.layout-a .usecase:nth-child(even)>.icon{margin-right:auto}
 .usecase-diagram.layout-a .actor{position:relative}
@@ -112,3 +120,6 @@
 .usecase-diagram.layout-a .system-boundary .system-boundary{margin-top:4px;width:95%}
 .usecase-diagram.layout-a .system-boundary.out-of-bounds{border-width:0;border-color:transparent;-webkit-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-moz-box-shadow:8px 5px 10px rgba(0,0,0,0.22);-o-box-shadow:8px 5px 10px rgba(0,0,0,0.22);box-shadow:8px 5px 10px rgba(0,0,0,0.22);width:0;height:0;padding:0;margin-top:0;margin-bottom:0}
 .robustness-diagram{position:relative}
+svg circle,svg path{stroke:#808080;stroke-width:1.5}
+svg path{fill:none}
+svg circle{fill:#fff}

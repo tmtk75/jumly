@@ -169,125 +169,19 @@
 }).call(this);
 
 /*
-This is capable to render followings:
-- Synmetric figure
-- Poly-line
+ * Convert to polar coordinate system from Cartesian coordinate system.
+ * @return {
+ *   gradients  :
+ *   radius     :
+ *   quadrants  : {x, y} x:1 or -1, y:1 or -1
+ *   declination:
+ *   offset     :
+ * }
 */
 
 
 (function() {
-  var Shape, core, g2d, self, shape_arrow, to_polar_from_cartesian, _line_to, _render_both, _render_dashed, _render_dashed2, _render_line, _render_line2, _render_normal;
-
-  Shape = (function() {
-    function Shape(ctxt) {
-      this.ctxt = ctxt;
-      this.pos = {
-        left: 0,
-        top: 0
-      };
-      this.memento = [];
-    }
-
-    return Shape;
-
-  })();
-
-  Shape.prototype.backtrack = function(depth) {
-    var i, m;
-
-    this.ctxt.save();
-    this.ctxt.scale(1, -1);
-    i = 0;
-    while (m = this.memento.pop()) {
-      m();
-      i += 1;
-      if (i >= depth) {
-        break;
-      }
-    }
-    this.ctxt.restore();
-    return this;
-  };
-
-  Shape.prototype.line = function(dx, dy, b) {
-    var _pos,
-      _this = this;
-
-    this.pos.left += dx;
-    this.pos.top += dy;
-    this.ctxt.lineTo(this.pos.left, this.pos.top);
-    _pos = {
-      left: this.pos.left,
-      top: this.pos.top
-    };
-    this.memento.push(function(rx, ry) {
-      return _this.ctxt.lineTo(_pos.left - dx, _pos.top - dy);
-    });
-    return this;
-  };
-
-  Shape.prototype.move = function(dx, dy) {
-    var _pos,
-      _this = this;
-
-    this.pos.left += dx;
-    this.pos.top += dy;
-    this.ctxt.moveTo(this.pos.left, this.pos.top);
-    _pos = {
-      left: this.pos.left,
-      top: this.pos.top
-    };
-    this.memento.push(function(rx, ry) {
-      return _this.ctxt.moveTo(_pos.left - dx, _pos.top - dy);
-    });
-    return this;
-  };
-
-  Shape.prototype.lineTo = function(p, q) {
-    var _pos,
-      _this = this;
-
-    _pos = {
-      left: this.pos.left,
-      top: this.pos.top
-    };
-    this.ctxt.lineTo(p, q);
-    this.pos.left = p;
-    this.pos.top = q;
-    this.memento.push(function() {
-      return _this.ctxt.lineTo(_pos.left, _pos.top);
-    });
-    return this;
-  };
-
-  Shape.prototype.moveTo = function(p, q) {
-    var _pos,
-      _this = this;
-
-    _pos = {
-      left: this.pos.left,
-      top: this.pos.top
-    };
-    this.ctxt.moveTo(p, q);
-    this.pos.left = p;
-    this.pos.top = q;
-    this.memento.push(function() {
-      return _this.ctxt.moveTo(_pos.left, _pos.top);
-    });
-    return this;
-  };
-
-  /*
-   * Convert to polar coordinate system from Cartesian coordinate system.
-   * @return {
-   *   gradients  :
-   *   radius     :
-   *   quadrants  : {x, y} x:1 or -1, y:1 or -1
-   *   declination:
-   *   offset     :
-   * }
-  */
-
+  var SVG_NS, core, g2d, self, to_polar_from_cartesian;
 
   to_polar_from_cartesian = function(src, dst) {
     var dx, dy;
@@ -308,176 +202,36 @@ This is capable to render followings:
     };
   };
 
-  _line_to = function(ctxt, src, dst, styles) {
-    var i, p, pattern, plen, x, _i, _ref;
-
-    if (!styles) {
-      ctxt.moveTo(src.left, src.top);
-      ctxt.lineTo(dst.left, dst.top);
-      return;
-    }
-    styles = $.extend({
-      pattern: [4, 4]
-    }, styles);
-    p = to_polar_from_cartesian(src, dst);
-    ctxt.save();
-    ctxt.translate(p.offset.left, p.offset.top);
-    ctxt.rotate(p.declination);
-    ctxt.scale(p.quadrants.x, p.quadrants.y);
-    ctxt.moveTo(0, 0);
-    pattern = styles.pattern;
-    plen = pattern[0] + pattern[1];
-    if (p.radius > 0) {
-      for (i = _i = 0, _ref = p.radius - 1; plen > 0 ? _i <= _ref : _i >= _ref; i = _i += plen) {
-        x = i + pattern[0];
-        if (p.radius - 1 <= x) {
-          x = p.radius - 1;
-        }
-        ctxt.lineTo(x, 0);
-        ctxt.moveTo(i + plen, 0);
-      }
-    }
-    return ctxt.restore();
-  };
-
-  _render_both = function(ctxt, a, r, e, dt) {
-    a.line(e.height, e.width + dt).line(0, -dt).line(r - e.height * 2, 0).line(0, dt).line(e.height, -(e.width + dt)).backtrack();
-    return ctxt.closePath();
-  };
-
-  _render_line = function(ctxt, a, r, e, dt) {
-    a.moveTo(0, 0).line(r, 0).line(-e.height, e.base).move(e.height, -e.base).line(-e.height, -e.base);
-    return delete e.fillStyle;
-  };
-
-  _render_line2 = function(ctxt, a, r, e, dt) {
-    return a.moveTo(0, 0).line(r - e.height, 0).line(0, e.base).line(e.height, -e.base).backtrack();
-  };
-
-  _render_dashed = function(ctxt, a, r, e, dt) {
-    _line_to(ctxt, {
-      left: 0,
-      top: 0
-    }, {
-      left: r,
-      top: 0
-    }, {
-      pattern: e.pattern
-    });
-    _line_to(ctxt, {
-      left: r,
-      top: 0
-    }, {
-      left: r - e.height,
-      top: e.base
-    });
-    _line_to(ctxt, {
-      left: r,
-      top: 0
-    }, {
-      left: r - e.height,
-      top: -e.base
-    });
-    return delete e.fillStyle;
-  };
-
-  _render_dashed2 = function(ctxt, a, r, e, dt) {
-    _line_to(ctxt, {
-      left: 0,
-      top: 0
-    }, {
-      left: r - e.height,
-      top: 0
-    }, {
-      pattern: e.pattern
-    });
-    return a.moveTo(r - e.height, 0).line(0, e.base).line(e.height, -e.base).line(-e.height, -e.base).line(0, e.base);
-  };
-
-  _render_normal = function(ctxt, a, r, e, dt) {
-    a.moveTo(0, 0).line(0, e.width).line(r - e.height, 0).line(0, dt).line(e.height, -(e.width + dt)).backtrack();
-    return ctxt.closePath();
-  };
-
-  /*
-   * Draw an allow shape on a canvas.
-   * This allow shape is defined by following style's 3 parameters.
-   * @param styles: {
-   *   width : Width of the edge for rectangle,
-   *   base  : Length of the base edge,
-   *   height: Height of triangle,
-   * }
-   * @param ctxt
-   * @param src, dst
-  */
-
-
-  shape_arrow = function(ctxt, src, dst, styles) {
-    var a, dt, e, p, r, _ref;
-
-    p = to_polar_from_cartesian({
-      left: src.x,
-      top: src.y
-    }, {
-      left: dst.x,
-      top: dst.y
-    });
-    r = p.radius;
-    ctxt.save();
-    ctxt.translate(src.x, src.y);
-    ctxt.rotate(p.declination);
-    ctxt.scale(p.quadrants.x, p.quadrants.y);
-    e = $.extend({
-      width: 20,
-      base: 35,
-      height: 50,
-      pattern: [4, 4],
-      shape: null
-    }, styles);
-    if ((_ref = e.lineWidth) == null) {
-      e.lineWidth = 1.0;
-    }
-    $.extend(ctxt, e);
-    ctxt.beginPath();
-    if (e.tosrc) {
-      ctxt.translate(r, 0);
-      ctxt.rotate(Math.PI);
-    }
-    a = new Shape(ctxt);
-    dt = e.base - e.width;
-    switch (styles.shape) {
-      case 'both':
-        _render_both(ctxt, a, r, e, dt);
-        break;
-      case 'line':
-        _render_line(ctxt, a, r, e, dt);
-        break;
-      case 'dashed':
-        _render_dashed(ctxt, a, r, e, dt);
-        break;
-      case 'dashed2':
-        _render_dashed2(ctxt, a, r, e, dt);
-        break;
-      case 'line2':
-        _render_line2(ctxt, a, r, e, dt);
-        break;
-      default:
-        _render_normal(ctxt, a, r, e, dt);
-    }
-    ctxt.stroke();
-    if (e.fillStyle) {
-      ctxt.fill();
-    }
-    return ctxt.restore();
-  };
-
   self = {
     require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
 
+  SVG_NS = "http://www.w3.org/2000/svg";
+
   g2d = {
-    arrow: shape_arrow,
-    path: Shape
+    svg: {
+      create: function(tagname) {
+        if (typeof document === "undefined") {
+          return $("<" + tagname + ">")[0];
+        } else {
+          return document.createElementNS(SVG_NS, tagname);
+        }
+      },
+      attrs: function(n, attrs) {
+        var p;
+
+        for (p in attrs) {
+          n.setAttribute(p, attrs[p]);
+        }
+        return n;
+      },
+      "new": function(tagname, attrs) {
+        var e;
+
+        e = this.create(tagname);
+        return this.attrs(e, attrs);
+      }
+    }
   };
 
   core = self.require("core");
@@ -1001,7 +755,11 @@ This is capable to render followings:
       this.src = opts.src;
       this.dst = opts.dst;
       Relationship.__super__.constructor.call(this, args, function(me) {
-        return me.addClass("relationship").append($("<canvas>").addClass("icon")).append($("<div>").addClass("name"));
+        var svg;
+
+        me.addClass("relationship").append(svg = $("<svg width='0' height='0'>").addClass("icon")).append($("<div>").addClass("name"));
+        svg[0].appendChild(g2d.svg.create("line"));
+        return me;
       });
     }
 
@@ -1084,7 +842,7 @@ This is capable to render followings:
   };
 
   Relationship.prototype.render = function() {
-    var aa, bb, cc, cr, ctxt, dd, p, q, r, s, style, t;
+    var aa, bb, cc, cr, dd, p, q, r, s, t;
 
     p = this._point(this.src);
     q = this._point(this.dst);
@@ -1108,25 +866,15 @@ This is capable to render followings:
       left: r.left,
       top: r.top
     });
-    ctxt = this.find("canvas").css({
+    return this.find("svg").attr({
       width: r.width,
       height: r.height
-    }).attr({
-      width: r.width,
-      height: r.height
-    })[0].getContext("2d");
-    ctxt.save();
-    style = $.extend({}, MESSAGE_STYLE, {
-      pattern: [4, 4],
-      shape: 'line'
+    }).find("line").attr({
+      x1: s.x,
+      y1: s.y,
+      x2: t.x,
+      y2: t.y
     });
-    if (this.hasClass("extend")) {
-      style = $.extend(style, {
-        shape: 'dashed'
-      });
-    }
-    g2d.arrow(ctxt, s, t, style);
-    return ctxt.restore();
   };
 
   core = self.require("core");
@@ -1176,7 +924,7 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, MESSAGE_STYLE, STEREOTYPE_STYLES, SequenceMessage, core, g2d, self, _determine_primary_stereotype,
+  var HTMLElement, MESSAGE_STYLE, STEREOTYPE_STYLES, SequenceMessage, ahead, core, g2d, self, to_points, _determine_primary_stereotype, _g2d,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1186,8 +934,6 @@ This is capable to render followings:
 
   HTMLElement = self.require("HTMLElement");
 
-  g2d = self.require("jquery.g2d");
-
   SequenceMessage = (function(_super) {
     __extends(SequenceMessage, _super);
 
@@ -1195,7 +941,7 @@ This is capable to render followings:
       this._iact = _iact;
       this._actee = _actee;
       SequenceMessage.__super__.constructor.call(this, null, function(me) {
-        return me.append($("<canvas>").addClass("arrow")).append($("<div>").addClass("name"));
+        return me.append($("<svg class='arrow' width='0' height='0'>")).append($("<div>").addClass("name"));
       });
     }
 
@@ -1203,7 +949,7 @@ This is capable to render followings:
 
   })(HTMLElement);
 
-  SequenceMessage.prototype._lineToNextOccurr = function(canvas) {
+  SequenceMessage.prototype._lineToNextOccurr = function(svg) {
     var dstll, srcll;
 
     if (false) {
@@ -1221,10 +967,10 @@ This is capable to render followings:
     }
     srcll = this._srcOccurr();
     dstll = this._dstOccurr();
-    return this._toLine(srcll, dstll, canvas);
+    return this._toLine(srcll, dstll, svg);
   };
 
-  SequenceMessage.prototype._toLine = function(src, dst, canvas) {
+  SequenceMessage.prototype._toLine = function(src, dst, svg) {
     var e, y;
 
     e = !this.parent().hasClass("lost") && this.isTowardLeft() ? {
@@ -1242,7 +988,7 @@ This is capable to render followings:
         x: dst.offset().left - src.offset().left
       }
     };
-    y = canvas.outerHeight() / 2;
+    y = svg.outerHeight() / 2;
     e.src.y = y;
     e.dst.y = y;
     return e;
@@ -1257,19 +1003,16 @@ This is capable to render followings:
   };
 
   SequenceMessage.prototype._prefferedCanvas = function() {
-    return this.find("canvas:eq(0)").attr({
-      width: this.width(),
-      height: this.height()
-    }).css({
+    return this.find("svg:eq(0)").attr({
       width: this.width(),
       height: this.height()
     });
   };
 
-  SequenceMessage.prototype._toCreateLine = function(canvas) {
+  SequenceMessage.prototype._toCreateLine = function(svg) {
     var e, outerRight, src;
 
-    e = this._toLine(this._srcOccurr(), this._dstOccurr()._actor, canvas);
+    e = this._toLine(this._srcOccurr(), this._dstOccurr()._actor, svg);
     if (this.isTowardLeft()) {
       src = this._srcOccurr();
       outerRight = function(it) {
@@ -1334,12 +1077,52 @@ This is capable to render followings:
     }
   };
 
+  to_points = function(vals) {
+    return vals.map(function(e) {
+      return "" + e[0] + "," + e[1];
+    }).join(" ");
+  };
+
+  _g2d = self.require("jquery.g2d");
+
+  ahead = function(svg, sign, q) {
+    var dx, dy, e;
+
+    dx = sign * 10;
+    dy = 6;
+    e = _g2d.svg["new"]('polyline', {
+      "class": "head",
+      points: to_points([[q.x + dx, q.y - dy], [q.x, q.y], [q.x + dx, q.y + dy]])
+    });
+    svg.appendChild(e);
+    e = _g2d.svg["new"]('polyline', {
+      "class": "closed",
+      points: to_points([[q.x + dx, q.y + (dy + 1)], [q.x + dx, q.y - (dy + 1)]])
+    });
+    return svg.appendChild(e);
+  };
+
+  g2d = {
+    arrow: function(svg, p, q) {
+      var e;
+
+      e = _g2d.svg["new"]('line', {
+        x1: p.x,
+        y1: p.y,
+        x2: q.x,
+        y2: q.y
+      });
+      svg[0].appendChild(e);
+      return ahead(svg[0], -1 * (Math.sign(q.x - p.x)), q);
+    }
+  };
+
   SequenceMessage.prototype.repaint = function() {
-    var a, arrow, canvas, ctxt, gap, line, llw, newdst, newsrc, p, rcx, rey, shape;
+    var a, arrow, e, gap, line, llw, newdst, newsrc, p, rcx, rey, shape, svg;
 
     shape = STEREOTYPE_STYLES[_determine_primary_stereotype(this)];
     arrow = jQuery.extend({}, MESSAGE_STYLE, shape);
-    canvas = this._current_canvas = this._prefferedCanvas();
+    svg = this._prefferedCanvas();
     if (false) {
       p = this.parents(".occurrence:eq(0)");
       arrow.fillStyle = p.css("background-color");
@@ -1351,43 +1134,28 @@ This is capable to render followings:
       arrow.shadowBlur = RegExp.$4;
     }
     if (this.hasClass("self")) {
-      ctxt = canvas[0].getContext('2d');
       gap = 2;
       rcx = this.width() - (gap + 4);
       rey = this.height() - (arrow.height / 2 + 4);
       llw = this._dstOccurr().outerWidth();
-      g2d.arrow(ctxt, {
-        x: rcx,
-        y: rey
-      }, {
+      e = _g2d.svg["new"]('polyline', {
+        points: to_points([[llw / 2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap, rey]])
+      });
+      svg[0].appendChild(e);
+      ahead(svg[0], 1, {
         x: llw + gap,
         y: rey
-      }, arrow);
-      arrow.base = 0;
-      g2d.arrow(ctxt, {
-        x: llw / 2 + gap,
-        y: gap
-      }, {
-        x: rcx,
-        y: gap
-      }, arrow);
-      g2d.arrow(ctxt, {
-        x: rcx,
-        y: gap
-      }, {
-        x: rcx,
-        y: rey
-      }, arrow);
+      });
       return this;
     }
     if (this.hasClass("create")) {
-      line = this._toCreateLine(canvas);
+      line = this._toCreateLine(svg);
     } else if (this._actee) {
       newsrc = this._findOccurr(this._actee);
       newdst = this._dstOccurr();
-      line = this._toLine(newsrc, newdst, canvas);
+      line = this._toLine(newsrc, newdst, svg);
     } else {
-      line = this._lineToNextOccurr(canvas);
+      line = this._lineToNextOccurr(svg);
     }
     if (this.hasClass("reverse")) {
       a = line.src;
@@ -1395,7 +1163,7 @@ This is capable to render followings:
       line.dst = a;
       arrow.shape = 'dashed';
     }
-    g2d.arrow(canvas[0].getContext('2d'), line.src, line.dst, arrow);
+    g2d.arrow(svg, line.src, line.dst, arrow);
     return this;
   };
 
@@ -2210,6 +1978,9 @@ This is capable to render followings:
 
     a = core._normalize(sth);
     r = core._to_ref(a.id);
+    if (typeof this._diagram[r] === "function") {
+      throw new Error("Reserved word '" + r + "'");
+    }
     if (this._diagram[r]) {
       return this._diagram[r];
     }
@@ -2604,10 +2375,6 @@ This is capable to render followings:
     this.align_lifelines_stop_horizontally();
     this.rebuild_asynchronous_self_calling();
     this.render_icons();
-    this.diagram.find(".return").each(function(i, e) {
-      e = $(e);
-      return e.css("margin-top", -e.height() / 2);
-    });
     occurs = this.diagram.find(".occurrence");
     ml = occurs.sort(function(e) {
       return $(e).offset().left;
@@ -2844,15 +2611,13 @@ This is capable to render followings:
 }).call(this);
 
 (function() {
-  var HTMLElement, IconElement, Path, core, g2d, self, _STYLES, _actor, _controller, _entity, _render, _view,
+  var HTMLElement, IconElement, blue, ce, core, drop_shadow, g2d, green, ne, ns, red, sa, self, svg_g, to_d, _STYLES, _actor, _controller, _entity, _render, _view,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   self = {
     require: typeof module !== 'undefined' && typeof module.exports !== 'undefined' ? require : JUMLY.require
   };
-
-  g2d = self.require("jquery.g2d");
 
   _STYLES = {
     lineWidth: 1.5,
@@ -2864,67 +2629,131 @@ This is capable to render followings:
     shadowOffsetY: 5
   };
 
-  Path = g2d.path;
+  ns = "http://www.w3.org/2000/svg";
 
-  _actor = function(ctx, styles) {
-    var exth, lw, r, r0, r1, r2, ret;
+  "<filter id=\"dropshadow\">\n  <feColorMatrix type=\"matrix\"           [1]\n    values=\n    \"0 0 0 0   0\n     0 0 0 0.9 0\n     0 0 0 0.9 0\n     0 0 0 1   0\"/>\n  <feGaussianBlur stdDeviation=\"2.5\"     [2]\n                  result=\"coloredBlur\"/> [3]\n  <feOffset dx=\"2\" dy=\"2\" result=\"coloreBlur\"/>\n  <feMerge>                              [4]\n    <feMergeNode in=\"coloredBlur\"/>\n    <feMergeNode in=\"SourceGraphic\"/>\n  </feMerge>\n</filter>";
+
+  g2d = self.require("jquery.g2d");
+
+  ce = g2d.svg.create;
+
+  sa = g2d.svg.attrs;
+
+  ne = function(n, attrs) {
+    return sa(ce(n), attrs);
+  };
+
+  red = green = blue = 0.22 * 3;
+
+  drop_shadow = function() {
+    var blur, matrix, merge, mnBlur, mnSrc, offset, shadow2;
+
+    shadow2 = ne("filter", {
+      id: "dropshadow",
+      width: "200%",
+      height: "200%"
+    });
+    matrix = ne("feColorMatrix", {
+      type: "matrix",
+      values: "0 0 0 " + red + " 0    0 0 0 " + green + " 0    0 0 0 " + blue + " 0    0 0 0 1 0"
+    });
+    blur = ne("feGaussianBlur", {
+      stdDeviation: 2.5,
+      result: "coloreBlur"
+    });
+    offset = ne("feOffset", {
+      dx: 8,
+      dy: 5,
+      result: "coloreBlur"
+    });
+    merge = ne("feMerge");
+    mnBlur = ne("feMergeNode", {
+      "in": "coloreBlur"
+    });
+    mnSrc = ne("feMergeNode", {
+      "in": "SourceGraphic"
+    });
+    merge.appendChild(mnBlur);
+    merge.appendChild(mnSrc);
+    shadow2.appendChild(matrix);
+    shadow2.appendChild(blur);
+    shadow2.appendChild(offset);
+    shadow2.appendChild(merge);
+    return shadow2;
+  };
+
+  to_d = function(d) {
+    return (d.map(function(e) {
+      return "" + e[0] + e[1] + "," + e[2];
+    })).join("");
+  };
+
+  svg_g = function(svg) {
+    var g;
+
+    svg.appendChild(drop_shadow());
+    g = sa(ce('g'), {
+      style: "filter:url(#dropshadow)"
+    });
+    svg.appendChild(g);
+    return g;
+  };
+
+  _actor = function(svg, styles) {
+    var d, dh, dv, e, exth, g, lw, r, r2, ret;
 
     r = styles.radius || 12;
     r2 = r * 2;
     exth = r * 0.25;
     lw = Math.round(styles.lineWidth);
-    r0 = function() {
-      ctx.arc(lw + r, lw + r, r, 0, Math.PI * 2, true);
-      ctx.fill();
-      ctx.shadowColor = 'transparent';
-      return ctx.stroke();
-    };
-    r1 = function() {
-      var dh, dv;
-
-      dh = 3 * lw;
-      dv = r2 * 0.77;
-      new Path(ctx).moveTo(0, r2 + lw + exth).line(lw + r2 + lw, 0).moveTo(lw + r, r2 + lw).line(0, r2 * 0.35).line(-r, dv).move(r, -dv).line(r, dv);
-      ctx.shadowColor = styles.shadowColor;
-      return ctx.stroke();
-    };
+    g = svg_g(svg);
+    g.appendChild(ne('circle', {
+      cx: lw + r,
+      cy: lw + r,
+      r: r
+    }));
+    dh = 3 * lw;
+    dv = r2 * 0.77;
+    d = [["M", 0, r2 + lw + exth], ["l", lw + r2 + lw, 0], ["M", lw + r, r2 + lw], ["l", 0, r2 * 0.35], ["l", -r, dv], ["m", r, -dv], ["l", r, dv]];
+    e = ne('path', {
+      d: to_d(d)
+    });
+    g.appendChild(e);
     return ret = {
       size: {
         width: lw + r2 + lw,
         height: lw + r2 * 2 + lw
-      },
-      paths: [r0, r1]
+      }
     };
   };
 
-  _view = function(ctx, styles) {
-    var extw, lw, r, r0, r1, r2, ret;
+  _view = function(svg, styles) {
+    var d, e, extw, g, lw, r, r2, ret;
 
     r = styles.radius || 16;
     r2 = r * 2;
     extw = r * 0.4;
     lw = styles.lineWidth;
-    r0 = function() {
-      ctx.arc(lw + r + extw, lw + r, r, 0, Math.PI * 2, true);
-      ctx.fill();
-      ctx.shadowColor = 'transparent';
-      return ctx.stroke();
-    };
-    r1 = function() {
-      new Path(ctx).moveTo(lw, r).line(extw, 0).moveTo(lw, 0).line(0, r2);
-      return ctx.stroke();
-    };
+    g = svg_g(svg);
+    g.appendChild(ne('circle', {
+      cx: lw + r + extw,
+      cy: lw + r,
+      r: r
+    }));
+    d = [["M", lw, r], ["l", extw, 0], ["M", lw, 0], ["l", 0, r2]];
+    e = ce('path');
+    e.setAttribute("d", to_d(d));
+    g.appendChild(e);
     return ret = {
       size: {
         width: lw + r2 + extw + lw,
         height: lw + r2 + lw
-      },
-      paths: [r0, r1]
+      }
     };
   };
 
-  _controller = function(ctx, styles) {
-    var dy, effectext, exth, lh, lw, r, r0, r1, r2, ret;
+  _controller = function(svg, styles) {
+    var d, dy, e, effectext, exth, g, lh, lw, r, r2, ret, x0, x1, y0;
 
     r = styles.radius || 16;
     r2 = r * 2;
@@ -2932,82 +2761,67 @@ This is capable to render followings:
     lw = lh = styles.lineWidth;
     dy = 0;
     effectext = 0;
-    r0 = function() {
-      ctx.arc(lw + r, lw + r + exth, r, 0, Math.PI * 2, true);
-      ctx.fill();
-      ctx.shadowColor = 'transparent';
-      return ctx.stroke();
-    };
-    r1 = function() {
-      var x0, x1, y0;
-
-      x0 = lw + r * 0.8;
-      x1 = lw + r * 1.2;
-      y0 = lh + exth;
-      new Path(ctx).moveTo(x0, y0).lineTo(x1, lh + exth / 4).moveTo(x0, y0).lineTo(x1, lh + exth * 7 / 4);
-      return ctx.stroke();
-    };
+    g = svg_g(svg);
+    g.appendChild(ne('circle', {
+      cx: lw + r,
+      cy: lw + r + exth,
+      r: r
+    }));
+    x0 = lw + r * 0.8;
+    x1 = lw + r * 1.2;
+    y0 = lh + exth;
+    d = [["M", x0, y0], ["L", x1, lh + exth / 4], ["M", x0, y0], ["L", x1, lh + exth * 7 / 4]];
+    e = ne('path', {
+      d: to_d(d)
+    });
+    g.appendChild(e);
     return ret = {
       size: {
         width: lw + r2 + lw + effectext,
         height: lw + r2 + lw + effectext + exth
-      },
-      paths: [r0, r1]
+      }
     };
   };
 
-  _entity = function(ctx, styles) {
-    var exth, lw, r, r0, r1, r2, ret;
+  _entity = function(svg, styles) {
+    var d, e, exth, g, lw, r, r2, ret;
 
     r = styles.radius || 16;
     r2 = r * 2;
     exth = r * 0.4;
     lw = styles.lineWidth;
-    r0 = function() {
-      ctx.arc(lw + r, lw + r, r, 0, Math.PI * 2, true);
-      ctx.fill();
-      ctx.shadowColor = 'transparent';
-      return ctx.stroke();
-    };
-    r1 = function() {
-      ctx.shadowColor = styles.shadowColor;
-      new Path(ctx).moveTo(lw + r, r2).lineTo(lw + r, r2 + exth).moveTo(0, r2 + exth).lineTo(r2 + lw, r2 + exth);
-      return ctx.stroke();
-    };
+    g = svg_g(svg);
+    g.appendChild(ne('circle', {
+      cx: lw + r,
+      cy: lw + r,
+      r: r
+    }));
+    d = [["M", lw + r, r2], ["L", lw + r, r2 + exth], ["M", 0, r2 + exth], ["L", r2 + lw, r2 + exth]];
+    e = ne('path', {
+      d: to_d(d)
+    });
+    g.appendChild(e);
     return ret = {
       size: {
         width: lw + r2 + lw,
         height: lw + r2 + exth + lw
-      },
-      paths: [r0, r1]
+      }
     };
   };
 
-  _render = function(canvas, renderer, args) {
-    var ctx, dh, dw, e, paths, size, styles, _i, _len, _ref, _results;
+  _render = function(svg, renderer, args) {
+    var dh, dw, paths, size, styles, _ref;
 
-    if (!canvas.getContext) {
-      return;
-    }
     styles = $.extend({}, _STYLES, args);
-    ctx = canvas.getContext('2d');
-    _ref = renderer(ctx, styles), size = _ref.size, paths = _ref.paths;
+    _ref = renderer(svg, styles), size = _ref.size, paths = _ref.paths;
     dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur / 2 || 0);
     dh = (styles.shadowOffsetY || 0) + (styles.shadowBlur / 2 || 0);
-    $(canvas).attr({
+    return $(svg).attr({
       width: size.width + dw,
       height: size.height + dh,
       "data-actual-width": size.width,
       "data-actual-height": size.height
     });
-    $.extend(ctx, styles);
-    _results = [];
-    for (_i = 0, _len = paths.length; _i < _len; _i++) {
-      e = paths[_i];
-      ctx.beginPath();
-      _results.push(e());
-    }
-    return _results;
   };
 
   core = self.require("core");
@@ -3026,8 +2840,8 @@ This is capable to render followings:
         controller: _controller,
         entity: _entity
       };
-      return function(canvas, styles) {
-        return _render(canvas, r[type], styles);
+      return function(svg, styles) {
+        return _render(svg, r[type], styles);
       };
     };
 
@@ -3036,13 +2850,13 @@ This is capable to render followings:
 
       idname = core._normalize(args);
       IconElement.__super__.constructor.call(this, args, function(me) {
-        var canvas, div;
+        var div, svg;
 
-        canvas = $("<canvas>");
-        me.addClass("icon").addClass(opts.kind).append(div = $("<div>").append(canvas)).append($("<div>").addClass("name").append(idname.name));
-        (IconElement.renderer(opts.kind))(canvas[0]);
+        svg = $("<svg width='0' height='0'>");
+        me.addClass("icon").addClass(opts.kind).append(div = $("<div>").append(svg)).append($("<div>").addClass("name").append(idname.name));
+        (IconElement.renderer(opts.kind))(svg[0]);
         return div.css({
-          height: canvas.data("actual-height")
+          height: svg.data("actual-height")
         });
       });
     }

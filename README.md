@@ -90,6 +90,8 @@ JUMLY v0.1.3c, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.4, May 20, 2013
+  - Replaced canvas with svg
 - 0.1.3b, Apr 27, 2013
   - API JUMLY.scan (beta)
 - 0.1.3a, Mar 29, 2013
