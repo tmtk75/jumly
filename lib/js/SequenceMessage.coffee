@@ -73,28 +73,21 @@ _determine_primary_stereotype = (jqnode) ->
   for e in ["create", "asynchronous", "synchronous", "destroy"]
     return e if jqnode.hasClass e
 
-ns = "http://www.w3.org/2000/svg"
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
+
+_g2d = self.require "jquery.g2d"
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6
-  e = document.createElementNS(ns, 'polyline')
-  e.setAttribute "class", "head"
-  e.setAttribute "points", to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
+  e = _g2d.svg.new 'polyline', class:"head", points:to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
   svg.appendChild e
 
-  e = document.createElementNS(ns, 'polyline')
-  e.setAttribute "class", "closed"
-  e.setAttribute "points", to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
+  e = _g2d.svg.new 'polyline', class:"closed", points:to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
   svg.appendChild e
 
 g2d =
-  arrow: (svg, p, q, opts)->
-    e = document.createElementNS(ns, 'line')
-    e.setAttribute 'x1', p.x
-    e.setAttribute 'y1', p.y
-    e.setAttribute 'x2', q.x
-    e.setAttribute 'y2', q.y
+  arrow: (svg, p, q)->
+    e = _g2d.svg.new 'line', x1:p.x, y1:p.y, x2:q.x, y2:q.y
     svg[0].appendChild e
 
     ahead svg[0], -1*(Math.sign q.x - p.x), q
@@ -119,8 +112,7 @@ SequenceMessage::repaint = () ->
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
     llw = @_dstOccurr().outerWidth()
-    e = document.createElementNS(ns, 'polyline')
-    e.setAttribute "points", to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
+    e = _g2d.svg.new 'polyline', points:to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
     svg[0].appendChild e
 
     ahead svg[0], 1, x:llw + gap, y:rey

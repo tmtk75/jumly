@@ -12,9 +12,7 @@ class Relationship extends HTMLElement
         .append(svg = $("<svg width='0' height='0'>").addClass("icon"))
         .append($("<div>").addClass("name"))
 
-      ns = "http://www.w3.org/2000/svg"
-      e = document.createElementNS ns, "line"
-      svg[0].appendChild e
+      svg[0].appendChild g2d.svg.create "line"
       me
 
 MESSAGE_STYLE =

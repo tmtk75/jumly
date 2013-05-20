@@ -29,16 +29,9 @@ ns = "http://www.w3.org/2000/svg"
   </feMerge>
 </filter>
 """
-ce = (n)->
-  unless typeof document is "undefined"
-    document.createElementNS ns, n
-  else
-    $("<#{n}>")[0]  # for jasmine-node
-
-sa = (n, attrs)->
-       for p of attrs
-         n.setAttribute p, attrs[p]
-       n
+g2d = self.require "jquery.g2d"
+ce = g2d.svg.create
+sa = g2d.svg.attrs
 ne = (n, attrs)-> sa ce(n), attrs
 
 red = green = blue = 0.22*3
@@ -83,7 +76,6 @@ _actor = (svg, styles) ->
   # Render a body
   dh = 3*lw
   dv = r2*0.77
-  e = ce 'path'
   d = [
      ["M", 0, r2 + lw + exth]
      ["l", lw + r2 + lw, 0]  # actor's arms (h-line) 
@@ -93,7 +85,7 @@ _actor = (svg, styles) ->
      ["m", r, -dv]           # actor's right leg, and back to the groin :)
      ["l", r,  dv]           # actor's left leg
     ]
-  e.setAttribute "d", to_d d
+  e = ne 'path', d:to_d d
   g.appendChild e
 
   ret =
@@ -147,8 +139,7 @@ _controller = (svg, styles) ->
      ["M", x0, y0]
      ["L", x1, lh + exth*7/4]
     ]
-  e = ce 'path'
-  e.setAttribute "d", to_d d
+  e = ne 'path', d:to_d d
   g.appendChild e
 
   ret =
@@ -172,8 +163,7 @@ _entity = (svg, styles) ->
      ["M", 0,       r2 + exth]  # h-line (long)
      ["L", r2 + lw, r2 + exth]  #
     ]
-  e = ce 'path'
-  e.setAttribute "d", to_d d
+  e = ne 'path', d:to_d d
   g.appendChild e
   
   ret =

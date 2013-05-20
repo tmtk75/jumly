@@ -21,7 +21,22 @@ to_polar_from_cartesian = (src, dst)->
         y: if dy != 0 then dy/Math.abs(dy) else 1
 self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
 
-g2d = {}
+SVG_NS = "http://www.w3.org/2000/svg"
+
+g2d =
+  svg:
+    create: (tagname)->
+      if typeof document is "undefined"
+        $("<#{tagname}>")[0]
+      else
+        document.createElementNS SVG_NS, tagname
+    attrs: (n, attrs)->
+       for p of attrs
+         n.setAttribute p, attrs[p]
+       n
+    new: (tagname, attrs)->
+      e = @create tagname
+      @attrs e, attrs
 
 core = self.require "core"
 if core.env.is_node
