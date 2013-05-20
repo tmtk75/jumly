@@ -31,3 +31,7 @@
   margin-left: 49%;
   border-left: dotted 5px #8fbf00;
 }
+.fancy .sequence-diagram .message svg.arrow line,
+.fancy .sequence-diagram .message svg.arrow polyline {
+  stroke-width: 3px;
+}
