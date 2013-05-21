@@ -76,13 +76,14 @@ ctx =
 routes = require("./routes") ctx
 images = require("./routes/images") ctx
 
-app.get "/",          routes.index
-app.get "/reference", routes.reference
-app.get "/api",       routes.api
-app.get "/try",       routes.try
-app.post "/images",   images.b64decode
-
+app.get "/",               routes.index
+app.get "/reference.html", routes.reference
+app.get "/api.html",       routes.api
+app.get "/try.html",       routes.try
+app.post "/images",        images.b64decode
+app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"
 app.get "/experimental/scan", (req, res)-> res.render "experimental/scan", ctx
+
 
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"
