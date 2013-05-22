@@ -17,6 +17,7 @@ Copy following code,
 paste it at the place of your HTML document,
 and open the document.
 
+```html
     <link href='https://jumly.herokuapp.com/release/jumly.min.css' rel="stylesheet"/>
     <script src='http://code.jquery.com/jquery-2.0.0.min.js'></script>
     <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
@@ -25,8 +26,9 @@ and open the document.
     @found "You", ->
       @message "meet", "JUMLY"
     </script>
+```
 
-[Here](http://jumly.herokuapp.com/examples/simple.html) is a minimal sample.
+[Here](http://jumly.herokuapp.com/public/examples/simple.html) is a minimal sample.
 
 
 # How to build
