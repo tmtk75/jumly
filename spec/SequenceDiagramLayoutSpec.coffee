@@ -213,6 +213,19 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         b = _u.max occurs, g
         expect(a).toBeGreaterThan b
 
+      describe "for two top interactions", ->
+        it "is longer", ->
+          diag = (new SequenceDiagramBuilder).build """
+            @found 'a', ->
+              @message '1', 'b', ->
+            @found 'b', ->
+              @message '2', 'c', ->
+            """
+          div.append diag
+          @layout.layout diag
+
+          expect(_bottom diag.find(".lifeline:eq(0)")).toBeGreaterThan _bottom diag.find("> .interaction:eq(1)")
+
   describe "occurrence", ->
 
     beforeEach ->
