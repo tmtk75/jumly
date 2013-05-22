@@ -142,7 +142,12 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
     last = nodes.filter(":last")
     mh = last.offset().top + last.outerHeight() - nodes.filter(":first").offset().top
   else
-    mh = @diagram.find(".interaction:eq(0)").height()
+    if (iters = @diagram.find("> .interaction")).length is 1
+      mh = iters.filter(":eq(0)").height()
+    else
+      a = iters.filter(":eq(0)")
+      b = iters.filter(":last")
+      mh = (b.offset().top + b.height() - 1) - a.offset().top
 
   min = utils.min @diagram.find(".participant"), (e)-> $(e).offset().top
 
