@@ -4,31 +4,29 @@
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
-    "node": "0.10.4",
-    "npm": "1.2.18"
+    "node": "0.10.7",
+    "npm": "1.2.21"
   },
   "dependencies": {
     "coffee-script": "1.6.2",
-    "express": "3.1.0",
+    "express": "3.1.2",
     "jade": "0.28.2",
-    "stylus": "0.32.0",
-    "underscore": "1.2.1",
+    "stylus": "0.32.1",
+    "underscore": "1.2.4",
     "nib": "0.9.1",
     "connect-assets": "2.3.3"
   },
   "devDependencies": {
-    "jasmine-node": "~1.2.0",
-    "node-jquery": "~0.1.1",
-    "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.6",
-    "grunt-contrib-coffee": "~0.6.0",
-    "grunt-contrib-stylus": "~0.4.1",
-    "grunt-contrib-uglify": "~0.1.2",
-    "grunt-contrib-cssmin": "~0.4.1",
-    "grunt-contrib-jasmine-node": "~0.0.3",
-    "grunt-contrib-watch": "~0.3.1",
-    "grunt-regarde": "0.1.1",
-    "grunt-contrib-livereload": "*"
+    "jasmine-node": "1.2.3",
+    "node-jquery": "0.1.1",
+    "grunt": "0.4.1",
+    "grunt-cli": "0.1.8",
+    "grunt-contrib-coffee": "0.6.7",
+    "grunt-contrib-stylus": "0.4.1",
+    "grunt-contrib-uglify": "0.1.2",
+    "grunt-contrib-cssmin": "0.4.2",
+    "grunt-contrib-jasmine-node": "0.0.3",
+    "grunt-regarde": "0.1.1"
   },
   "repository": {
     "type": "git",
@@ -38,6 +36,7 @@
     "lib": "./lib"
   },
   "scripts": {
+    "start": "./app.coffee",
     "test": "grunt spec"
   }
 }
