@@ -45,6 +45,7 @@ module.exports = (grunt)->
         coffee: true,
       env:
         NODE_PATH: "lib/js"
+      executable: './node_modules/.bin/jasmine-node'
 
     livereload:
       port: 35729
