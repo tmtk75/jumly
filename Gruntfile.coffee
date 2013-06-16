@@ -25,7 +25,8 @@ module.exports = (grunt)->
 
     uglify:
       options:
-        banner: """/* <%= pkg.name %>-<%= pkg.version %> <%=grunt.template.today('yyyy-mm-dd')%> */\n"""
+        ## About format, see http://blog.stevenlevithan.com/archives/date-time-format
+        banner: """/* <%= pkg.name %>-<%= pkg.version %> <%=grunt.template.today('UTC:yyyy-mm-dd"T"HH:MM:ss"Z"')%> */\n"""
         mangle: false  ## if true, jumly.min.js is corrupted
       build:
         src: 'build/<%= pkg.name %>.js'
