@@ -6,6 +6,8 @@ stylus  = require "stylus"
 nib     = require "nib"
 fs      = require "fs"
 http    = require 'http'
+domain  = require 'domain'
+temp    = require 'temp'
 
 views_dir  = "#{__dirname}/views"
 static_dir = "#{views_dir}/static"
@@ -26,8 +28,24 @@ app.configure ->
   app.set "view engine", "jade"
   app.use express.favicon()
   app.use express.logger 'dev'
+  app.use (req, res, next)->
+    reqd = domain.create()
+    reqd.add req
+    reqd.add res
+    reqd.on 'error', (req, res)->
+      res.status 500
+      res.end()
+    reqd.run next
   app.use express.bodyParser()
   app.use express.methodOverride()
+  app.use (req, res, next)->
+    if req.is 'text/*'
+      req.text = ''
+      req.setEncoding 'utf8'
+      req.on 'data', (chunk)-> req.text += chunk
+      req.on 'end', next
+    else
+      next()
  
   app.use '/public', express.static "#{__dirname}/public"
   app.use '/', express.static static_dir
@@ -75,12 +93,32 @@ ctx =
 
 routes = require("./routes") ctx
 images = require("./routes/images") ctx
+child_process = require "child_process"
 
 app.get "/",               routes.index
 app.get "/reference.html", routes.reference
 app.get "/api.html",       routes.api
 app.get "/try.html",       routes.try
 app.post "/images",        images.b64decode
+app.post "/eval", (req, res)->
+  temp.open "jumly", (err, info)->
+    throw err if err
+    console.log info, req.text
+    fs.write info.fd, req.text
+    fs.close info.fd, (err)->
+      throw err if err
+      encoding = req.query.encoding or "b64"
+      format = req.query.format or "png"
+      title = child_process.spawn "#{__dirname}/bin/jumly.sh", [info.path, format, encoding]
+      title.stdout.on 'data', (data)-> res.write data
+      title.stderr.on 'data', (data)-> res.write data
+      title.on 'close', (code)->
+        res.end()
+        fs.unlink info.path, (err)->
+          if err
+            console.err "unlink: #{err}"
+          else
+            console.log "removed: #{info.path}"
 
 # redirect 302
 app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"

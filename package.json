@@ -14,7 +14,9 @@
     "stylus": "0.32.1",
     "underscore": "1.2.4",
     "nib": "0.9.1",
-    "connect-assets": "2.3.3"
+    "connect-assets": "2.3.3",
+    "phantomjs": "*",
+    "temp": "*"
   },
   "devDependencies": {
     "jasmine-node": "1.2.3",
@@ -38,5 +40,8 @@
   "scripts": {
     "start": "./app.coffee",
     "test": "grunt spec"
+  },
+  "bin": {
+    "jumly": "jumly.sh"
   }
 }
