@@ -5,12 +5,13 @@ fs = require "fs"
 if system.args.length < 2
   console.log """
     usage: #{system.args[0]} <script-path> [format] [encoding]
-      script-path    ./meet-you.jm
-      format         png|jpg
-      encoding       image|b64
+      script-path    meet-you.jm
+      format         png | jpg
+      encoding       image | base64
+
     ex)
-      #{system.args[0]} ./meet-you.jm jpg
-      #{system.args[0]} ./meet-you.jm png b64
+      #{system.args[0]} meet-you.jm jpg
+      #{system.args[0]} meet-you.jm png base64
 
     """
   phantom.exit 1
@@ -38,10 +39,10 @@ body = fs.read script_path
 ### run ###
 require("./loadJUMLY").loadJUMLY body, (page)->
   ## create a file as .png
-  page.render img_path unless encoding.match /b64|base64/i
+  page.render img_path if encoding.match /image/i
 
   ## print base64 to stdout
-  console.log page.renderBase64 ext if encoding.match /b64|base64/i
+  console.log page.renderBase64 ext if encoding.match /^base64$/i
 
   ## create a file to show above it
   ###

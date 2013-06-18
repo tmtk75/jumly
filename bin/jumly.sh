@@ -8,10 +8,11 @@ if [ -z "$script_path" ]; then
 usage: `basename $0` script_path [format] [encoding]
   script-path    ./meet-you.jm
   format         png|jpg
-  encoding       image|b64
+  encoding       image | base64 | html
 
 ex)
-  `basename $0` ./meet-you.jm b64 png
+  `basename $0` meet-you.jm jpg
+  `basename $0` meet-you.jm png base64
 
 EOF
   exit
