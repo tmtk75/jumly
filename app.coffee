@@ -7,7 +7,6 @@ nib     = require "nib"
 fs      = require "fs"
 http    = require 'http'
 domain  = require 'domain'
-temp    = require 'temp'
 
 views_dir  = "#{__dirname}/views"
 static_dir = "#{views_dir}/static"
@@ -32,7 +31,8 @@ app.configure ->
     reqd = domain.create()
     reqd.add req
     reqd.add res
-    reqd.on 'error', (req, res)->
+    reqd.on 'error', (err)->
+      console.log err
       res.status 500
       res.end()
     reqd.run next
@@ -78,7 +78,6 @@ require("underscore").extend jade.filters,
     """<script type="text/jumly+#{type}" #{id}>\\n#{js}</script>"""
 
 
-fs = require "fs"
 pkg = JSON.parse fs.readFileSync("package.json")
 ctx =
   version: pkg.version
@@ -93,32 +92,13 @@ ctx =
 
 routes = require("./routes") ctx
 images = require("./routes/images") ctx
-child_process = require "child_process"
 
 app.get "/",               routes.index
 app.get "/reference.html", routes.reference
 app.get "/api.html",       routes.api
 app.get "/try.html",       routes.try
 app.post "/images",        images.b64decode
-app.post "/eval", (req, res)->
-  temp.open "jumly", (err, info)->
-    throw err if err
-    console.log info, req.text
-    fs.write info.fd, req.text
-    fs.close info.fd, (err)->
-      throw err if err
-      format = req.query.format or "png"
-      encoding = req.query.encoding or "base64"
-      title = child_process.spawn "#{__dirname}/bin/jumly.sh", [info.path, format, encoding]
-      title.stdout.on 'data', (data)-> res.write data
-      title.stderr.on 'data', (data)-> res.write data
-      title.on 'close', (code)->
-        res.end()
-        fs.unlink info.path, (err)->
-          if err
-            console.err "unlink: #{err}"
-          else
-            console.log "removed: #{info.path}"
+app.post "/eval",          images.eval
 
 # redirect 302
 app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"
