@@ -107,8 +107,8 @@ app.post "/eval", (req, res)->
     fs.write info.fd, req.text
     fs.close info.fd, (err)->
       throw err if err
-      encoding = req.query.encoding or "b64"
       format = req.query.format or "png"
+      encoding = req.query.encoding or "base64"
       title = child_process.spawn "#{__dirname}/bin/jumly.sh", [info.path, format, encoding]
       title.stdout.on 'data', (data)-> res.write data
       title.stderr.on 'data', (data)-> res.write data
