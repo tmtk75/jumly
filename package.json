@@ -42,6 +42,6 @@
     "test": "grunt spec"
   },
   "bin": {
-    "jumly": "jumly.sh"
+    "jumly": "./bin/jumly.sh"
   }
 }
