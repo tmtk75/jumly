@@ -18,9 +18,10 @@ EOF
   exit
 fi
 
-cwd=$(cd `dirname $0`/..; pwd)
-npm_bin=$cwd/node_modules/.bin
+cwd=$(dirname `\ls -l $0 | awk '{if ($11) {print $11} else {print $9}}'`)/..
+cd $cwd
 
+npm_bin=$cwd/node_modules/.bin
 $npm_bin/phantomjs \
   $cwd/lib/ext/img-conv/img-conv.coffee \
   $script_path \
