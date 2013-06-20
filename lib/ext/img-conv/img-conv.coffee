@@ -39,7 +39,9 @@ body = fs.read script_path
 ### run ###
 require("./loadJUMLY").loadJUMLY body, (page)->
   ## create a file as .png
-  page.render img_path if encoding.match /image/i
+  if encoding.match /image/i
+    page.render img_path
+    console.log img_path
 
   ## print base64 to stdout
   console.log page.renderBase64 ext if encoding.match /^base64$/i
