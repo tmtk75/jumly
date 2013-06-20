@@ -44,6 +44,11 @@ require("./loadJUMLY").loadJUMLY body, (page)->
   ## print base64 to stdout
   console.log page.renderBase64 ext if encoding.match /^base64$/i
 
+  ## print html to stdout
+  if encoding.match /^html$/i
+    console.log '<link rel="stylesheet" href="http://jumly.herokuapp.com/release/jumly.min.css"/>'
+    console.log page.evaluate -> $("body").html()
+
   ## create a file to show above it
   ###
   fs.write html_path, """
