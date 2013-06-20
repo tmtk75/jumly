@@ -18,15 +18,31 @@ module.exports = (ctx)->
       fs.write info.fd, req.text
       fs.close info.fd, (err)->
         throw err if err
+
         format = req.query.format or "png"
         encoding = req.query.encoding or "base64"
+
+        filepath = ""
+        if encoding.match /image/  ## jumly.sh prints the filepath to stdout
+          stdouth = (data)-> filepath += data
+        else
+          stdouth = (data)-> res.write data
+
         title = child_process.spawn "#{__dirname}/../bin/jumly.sh", [info.path, format, encoding]
-        title.stdout.on 'data', (data)-> res.write data
+        title.stdout.on 'data', stdouth
         title.stderr.on 'data', (data)-> res.write data
-        title.on 'close', (code)->
-          res.end()
+
+        unlink = ->
           fs.unlink info.path, (err)->
             if err
               console.err "unlink: #{err}"
             else
-              console.log "removed: #{info.path}"
+             console.log "removed: #{info.path}"
+
+        title.on 'close', (code)->
+          if filepath
+            res.write "Hi! How are you?"
+            res.end()
+          else
+            res.end()
+            unlink()
