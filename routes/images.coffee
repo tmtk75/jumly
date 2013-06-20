@@ -41,8 +41,11 @@ module.exports = (ctx)->
 
         title.on 'close', (code)->
           if filepath
-            res.write "Hi! How are you?"
-            res.end()
+            fs.readFile filepath, flags:"rb", (err, data)->
+              throw err if err
+              res.write data
+              res.end()
+              unlink()
           else
             res.end()
             unlink()
