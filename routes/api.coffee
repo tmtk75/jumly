@@ -17,7 +17,7 @@ _400_if_not_have = (res, str, vals)->
     res.end()
     true
 
-_diagrams = (jmcode, req, res)->
+_diagrams = (is_post, jmcode, req, res)->
     temp.open "jumly", (err, info)->
       throw err if err
 
@@ -25,15 +25,19 @@ _diagrams = (jmcode, req, res)->
       fs.close info.fd, (err)->
         throw err if err
 
-        #req.headers["content-type"].match /(^[^\/]+)\/([^+]+)\+?(.*)$/
-        [_, encoding, format, base64] = req.headers["accept"].match /(^[^\/]+)\/([^;]+)(;.*)?$/
-        encoding = "base64" if base64 is ";base64" and encoding.match /image/i
-        encoding = "html" if encoding.match(/^text$/i) and format.match(/^html$/i)
-        format   = "png" if format is "*"
-        encoding = "image" if encoding is "*"
+        if is_post
+          #req.headers["content-type"].match /(^[^\/]+)\/([^+]+)\+?(.*)$/
+          [_, encoding, format, base64] = req.headers["accept"].match /(^[^\/]+)\/([^;]+)(;.*)?$/
+          encoding = "base64" if base64 is ";base64" and encoding.match /image/i
+          encoding = "html" if encoding.match(/^text$/i) and format.match(/^html$/i)
+          format   = "png" if format is "*"
+          encoding = "image" if encoding is "*"
 
-        return if _400_if_not_have res, encoding, ["image", "base64", "html"]
-        return if _400_if_not_have res, format, ["png", "gif", "jpg", "jpeg", "html"]
+          return if _400_if_not_have res, encoding, ["image", "base64", "html"]
+          return if _400_if_not_have res, format, ["png", "gif", "jpg", "jpeg", "html"]
+        else
+          format = "png"
+          encoding = "image"
 
         ## jumly.sh prints tmpfile path to stdout if it creates image file
         filepath = ""
@@ -71,7 +75,7 @@ module.exports = (ctx)->
   diagrams:
     get: (req, res)->
       res.setHeader "content-type", "image/png"
-      _diagrams unescape(req.query["data"]), req, res
+      _diagrams false, unescape(req.query["data"]), req, res
 
     post: (req, res)->
-      _diagrams req.text, req, res
+      _diagrams true, req.text, req, res
