@@ -41,7 +41,7 @@ module.exports = (ctx)->
 
         title.on 'close', (code)->
           if filepath
-            fs.readFile filepath, flags:"rb", (err, data)->
+            fs.readFile filepath.trim(), flags:"rb", (err, data)->
               throw err if err
               res.write data
               res.end()
