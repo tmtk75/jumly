@@ -33,7 +33,7 @@ _diagrams = (jmcode, req, res)->
         encoding = "image" if encoding is "*"
 
         return if _400_if_not_have res, encoding, ["image", "base64", "html"]
-        return if _400_if_not_have res, format, ["png", "jpg", "jpeg", "html"]
+        return if _400_if_not_have res, format, ["png", "gif", "jpg", "jpeg", "html"]
 
         ## jumly.sh prints tmpfile path to stdout if it creates image file
         filepath = ""
