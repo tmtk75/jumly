@@ -98,7 +98,8 @@ app.get "/",               routes.index
 app.get "/reference.html", routes.reference
 app.get "/api.html",       routes.api
 app.get "/try.html",       routes.try
-app.post "/api/diagrams",  api.diagrams
+app.get "/api/diagrams",   api.diagrams.get
+app.post "/api/diagrams",  api.diagrams.post
 
 # redirect 302
 app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"

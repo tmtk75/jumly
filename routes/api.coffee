@@ -17,20 +17,11 @@ _400_if_not_have = (res, str, vals)->
     res.end()
     true
 
-module.exports = (ctx)->
-  b64decode: (req, res)->
-    b64 = req.body.data.replace /^data:image\/png;base64,/, ""
-    buf = new Buffer(b64, 'base64').toString 'binary'
-    res.contentType "image/png"
-    res.header "Content-Disposition", "attachment; filename=" + "diagram.png"
-    res.status 201
-    res.end buf, "binary"
-
-  diagrams: (req, res)->
+_diagrams = (jmcode, req, res)->
     temp.open "jumly", (err, info)->
       throw err if err
 
-      fs.write info.fd, req.text
+      fs.write info.fd, jmcode
       fs.close info.fd, (err)->
         throw err if err
 
@@ -67,3 +58,19 @@ module.exports = (ctx)->
           else
             res.end()
             _unlink info.path
+
+module.exports = (ctx)->
+  b64decode: (req, res)->
+    b64 = req.body.data.replace /^data:image\/png;base64,/, ""
+    buf = new Buffer(b64, 'base64').toString 'binary'
+    res.contentType "image/png"
+    res.header "Content-Disposition", "attachment; filename=" + "diagram.png"
+    res.status 201
+    res.end buf, "binary"
+
+  diagrams:
+    get: (req, res)->
+      _diagrams unescape(req.query["data"]), req, res
+
+    post: (req, res)->
+      _diagrams req.text, req, res
