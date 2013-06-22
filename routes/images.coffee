@@ -32,12 +32,12 @@ module.exports = (ctx)->
         title.stdout.on 'data', stdouth
         title.stderr.on 'data', (data)-> res.write data
 
-        unlink = ->
-          fs.unlink info.path, (err)->
+        unlink = (path)->
+          fs.unlink path, (err)->
             if err
               console.err "unlink: #{err}"
             else
-             console.log "removed: #{info.path}"
+              console.log "unlink: #{path}"
 
         title.on 'close', (code)->
           if filepath
@@ -45,7 +45,8 @@ module.exports = (ctx)->
               throw err if err
               res.write data
               res.end()
-              unlink()
+              unlink info.path
+              unlink filepath.trim()
           else
             res.end()
-            unlink()
+            unlink info.path
