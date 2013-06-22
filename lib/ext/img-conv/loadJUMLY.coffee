@@ -30,13 +30,14 @@ module.exports =
     page.onConsoleMessage = (msg)-> console.log msg
 
     page.open tmp_html, ->
-      viewport = page.evaluate ->
+      rect = page.evaluate ->
         $src = $("<div>").html window._jumly_code
         JUMLY.eval $src, into:"body"
         diag = $(".diagram")
-        width:diag.outerWidth(), height:diag.outerHeight()
+        left:diag.offset().left, top:diag.offset().top, width:diag.outerWidth(), height:diag.outerHeight()
 
-      page.viewportSize = viewport
+      page.viewportSize = rect
+      page.clipRect = rect
 
       fs.remove tmp_html
 
