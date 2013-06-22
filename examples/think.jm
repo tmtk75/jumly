@@ -1,0 +1,4 @@
+@found "You", ->
+  @message "Think", ->
+    @message "Write your idea", "JUMLY", ->
+      @create "Diagram"

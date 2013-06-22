@@ -1,0 +1,6 @@
+@found "User", ->
+  @message "search", "Browser", ->
+    @create asynchronous:"connection", "Web Server"
+      @message "GET", "Web Server", ->
+        @message "find the resource", -> @reply ""
+          @reply "", "User"

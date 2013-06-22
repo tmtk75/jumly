@@ -1,0 +1,9 @@
+@found "You", ->
+  @alt
+    "[found]": ->
+      @loop ->
+        @message "request", "HTTP Server"
+        @note "NOTE: This doesn't make sense :)"
+    "[missing]": ->
+      @message "new", "HTTP Session"
+  @ref "respond resource"
