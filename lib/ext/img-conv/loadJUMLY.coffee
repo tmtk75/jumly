@@ -34,7 +34,9 @@ module.exports =
         $src = $("<div>").html window._jumly_code
         JUMLY.eval $src, into:"body"
         diag = $(".diagram")
-        left:diag.offset().left, top:diag.offset().top, width:diag.outerWidth(), height:diag.outerHeight()
+        box_shadow_dw =  + 8 + 5
+        box_shadow_dh =  + 5 #+ 5
+        left:diag.offset().left, top:diag.offset().top, width:diag.outerWidth() + box_shadow_dw, height:diag.outerHeight() + box_shadow_dh
 
       page.viewportSize = rect
       page.clipRect = rect
