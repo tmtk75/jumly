@@ -70,6 +70,7 @@ module.exports = (ctx)->
 
   diagrams:
     get: (req, res)->
+      res.setHeader "content-type", "image/png"
       _diagrams unescape(req.query["data"]), req, res
 
     post: (req, res)->
