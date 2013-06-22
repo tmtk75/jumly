@@ -91,14 +91,13 @@ ctx =
 
 
 routes = require("./routes") ctx
-images = require("./routes/images") ctx
+api    = require("./routes/api") ctx
 
 app.get "/",               routes.index
 app.get "/reference.html", routes.reference
 app.get "/api.html",       routes.api
 app.get "/try.html",       routes.try
-app.post "/images",        images.b64decode
-app.post "/eval",          images.eval
+app.post "/api/diagrams",  api.diagrams
 
 # redirect 302
 app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"

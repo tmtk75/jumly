@@ -11,7 +11,7 @@ module.exports = (ctx)->
     res.status 201
     res.end buf, "binary"
 
-  eval: (req, res)->
+  diagrams: (req, res)->
     temp.open "jumly", (err, info)->
       throw err if err
       console.log info, req.text
