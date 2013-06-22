@@ -34,6 +34,7 @@ app.configure ->
     reqd.on 'error', (err)->
       console.log err
       res.status 500
+      res.write err
       res.end()
     reqd.run next
   app.use express.bodyParser()
