@@ -7,7 +7,7 @@ if system.args.length < 2
     usage: #{system.args[0]} <script-path> [format] [encoding]
       script-path    meet-you.jm
       format         png | jpg
-      encoding       image | base64
+      encoding       image | base64 | html
 
     ex)
       #{system.args[0]} meet-you.jm jpg
