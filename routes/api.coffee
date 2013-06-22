@@ -6,8 +6,8 @@ _unlink = (path)->
   fs.unlink path, (err)->
     if err
       console.err "unlink: #{err}"
-    else
-      console.log "unlink: #{path}"
+    #else
+    #  console.log "unlink: #{path}"
 
 _400_if_not_have = (res, str, vals)->
   unless str.toLowerCase() in vals
