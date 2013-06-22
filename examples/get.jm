@@ -1,2 +1,0 @@
-@found "You", ->
-  @message "get", "JUMLY"
