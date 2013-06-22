@@ -9,6 +9,14 @@ _unlink = (path)->
     else
       console.log "unlink: #{path}"
 
+_400_if_not_have = (res, str, vals)->
+  unless str.toLowerCase() in vals
+    res.status 400
+    res.setHeader "content-type", "text/plain"
+    res.write "unsupported media-type: #{str}"
+    res.end()
+    true
+
 module.exports = (ctx)->
   b64decode: (req, res)->
     b64 = req.body.data.replace /^data:image\/png;base64,/, ""
@@ -27,9 +35,14 @@ module.exports = (ctx)->
         throw err if err
 
         #req.headers["content-type"].match /(^[^\/]+)\/([^+]+)\+?(.*)$/
-        [_, encoding, format, base64] = req.headers["accept"].match /(^[^\/]+)\/([^;]+)(;base64)?$/
-        encoding = "base64" if base64 and encoding.match /image/i
+        [_, encoding, format, base64] = req.headers["accept"].match /(^[^\/]+)\/([^;]+)(;.*)?$/
+        encoding = "base64" if base64 is ";base64" and encoding.match /image/i
         encoding = "html" if encoding.match(/^text$/i) and format.match(/^html$/i)
+        format   = "png" if format is "*"
+        encoding = "image" if encoding is "*"
+
+        return if _400_if_not_have res, encoding, ["image", "base64", "html"]
+        return if _400_if_not_have res, format, ["png", "jpg", "jpeg", "html"]
 
         ## jumly.sh prints tmpfile path to stdout if it creates image file
         filepath = ""
