@@ -86,7 +86,11 @@ module.exports = (ctx)->
   diagrams:
     get: (req, res)->
       res.setHeader "content-type", "image/png"
-      _diagrams false, unescape(req.query["data"]), req, res
+      if req.query["data"].match /%/
+        data = unescape req.query["data"]
+      else
+        data = new Buffer(req.query["data"], 'base64').toString('ascii')
+      _diagrams false, data, req, res
 
     post: (req, res)->
       _diagrams true, req.text, req, res
