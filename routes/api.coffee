@@ -5,7 +5,7 @@ temp = require 'temp'
 _unlink = (path)->
   fs.unlink path, (err)->
     if err
-      console.err "unlink: #{err}"
+      console.error "unlink: #{err}"
     #else
     #  console.log "unlink: #{path}"
 
@@ -17,13 +17,21 @@ _400_if_not_have = (res, str, vals)->
     res.end()
     true
 
+_senderr = (err, res, status = 500)->
+  console.error err
+  res.status status
+  res.write JSON.stringify(err)
+  res.end()
+
 _diagrams = (is_post, jmcode, req, res)->
   temp.open "jumly", (err, info)->
-    throw err if err
+    return _senderr(err, res) if err
 
     fs.write info.fd, jmcode
     fs.close info.fd, (err)->
-      throw err if err
+      if err
+        _unlink info.path
+        return _senderr(err, res)
 
       if is_post
         #req.headers["content-type"].match /(^[^\/]+)\/([^+]+)\+?(.*)$/
@@ -50,13 +58,16 @@ _diagrams = (is_post, jmcode, req, res)->
       proc = child_process.spawn "#{__dirname}/../bin/jumly.sh", [info.path, format, encoding]
       proc.stdout.on 'data', stdouth
       proc.stderr.on 'data', (data)-> res.write data
+      proc.on 'error', (err)-> console.error err
 
       proc.on 'close', (code)->
         if filepath
           fs.readFile filepath.trim(), flags:"rb", (err, data)->
-            throw err if err
-            res.write data
-            res.end()
+            if err
+              _senderr err, res, 400
+            else
+              res.write data
+              res.end()
             _unlink info.path
             _unlink filepath.trim()
         else
