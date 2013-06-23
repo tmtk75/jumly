@@ -13,20 +13,17 @@ static_dir = "#{views_dir}/static"
 
 app = express()
 app.configure ->
-  app.use stylus.middleware
-    src: views_dir
-    dest: static_dir
-    compile: (str, path, fn)->
-               stylus(str)
-                 .set('filename', path)
-                 .set('compress', true)
-                 .use(nib()).import('nib')
-
   app.set 'port', (process.env.PORT || 3000)
   app.set "views", views_dir
   app.set "view engine", "jade"
-  app.use express.favicon()
+
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+
+  app.use express.cookieParser (secret = 'adf19dfe1a4bbdd949326870e3997d799b758b9b')
+  app.use express.session secret:secret
   app.use express.logger 'dev'
+
   app.use (req, res, next)->
     reqd = domain.create()
     reqd.add req
@@ -37,8 +34,7 @@ app.configure ->
       res.write err
       res.end()
     reqd.run next
-  app.use express.bodyParser()
-  app.use express.methodOverride()
+
   app.use (req, res, next)->
     if req.is 'text/*'
       req.text = ''
@@ -48,21 +44,25 @@ app.configure ->
     else
       next()
  
-  app.use '/public', express.static "#{__dirname}/public"
-  app.use '/', express.static static_dir
-  app.use app.router
+  app.use stylus.middleware
+    src: views_dir
+    dest: static_dir
+    compile: (str, path, fn)->
+               stylus(str)
+                 .set('filename', path)
+                 .set('compress', true)
+                 .use(nib()).import('nib')
 
-  app.use express.cookieParser 'adf19dfe1a4bbdd949326870e3997d799b758b9b'
-  app.use express.session()
   app.use assets src:"lib"
+
+  app.use '/public', express.static "#{__dirname}/public"
+  app.use '/',       express.static static_dir
+  app.use app.router
+  app.use express.favicon()
 
   app.use (req, res, next)->
     res.status 404
     res.render '404', req._parsedUrl
-
-
-app.configure "development", ->
-  app.use express.errorHandler()
 
 
 require("underscore").extend jade.filters,
