@@ -21,6 +21,7 @@ block content
       .span3
         nav.menu
           ul
+            li: a(href="#_REST") REST
             li: a(href="#_core") Core
               ul
                 li: a(href="#_JUMLY_eval") eval
@@ -30,6 +31,15 @@ block content
       
       .span9
         h1 JUMLY API Document
+
+        section#_REST
+          h2 REST
+          include _includes/heads-up
+
+          p This is still unstable API, which means the I/F may be changed.
+            | But it's already very useful.
+          p Here is the spec,&nbsp;
+            a(src='https://github.com/tmtk75/jumly/wiki/REST-API') https://github.com/tmtk75/jumly/wiki/REST-API
 
         section#_core
           h2 Core
