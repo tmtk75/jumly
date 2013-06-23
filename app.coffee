@@ -25,17 +25,6 @@ app.configure ->
   app.use express.logger 'dev'
 
   app.use (req, res, next)->
-    reqd = domain.create()
-    reqd.add req
-    reqd.add res
-    reqd.on 'error', (err)->
-      console.log err
-      res.status 500
-      res.write err
-      res.end()
-    reqd.run next
-
-  app.use (req, res, next)->
     if req.is 'text/*'
       req.text = ''
       req.setEncoding 'utf8'
