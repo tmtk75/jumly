@@ -70,9 +70,9 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
-  grunt.loadNpmTasks 'grunt-contrib-watch'
+  #grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-regarde'
-  grunt.loadNpmTasks 'grunt-contrib-livereload'
+  #grunt.loadNpmTasks 'grunt-contrib-livereload'
 
   grunt.registerTask 'default', ['build']
   grunt.registerTask 'minify', ['uglify', 'cssmin']
