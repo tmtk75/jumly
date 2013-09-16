@@ -1,0 +1,29 @@
+<!doctype html>
+<head>
+  <meta charset='utf-8'/>
+  <link href='https://jumly.herokuapp.com/release/jumly.min.css' rel='stylesheet'/>
+  <script src='http://code.jquery.com/jquery-2.0.0.min.js'></script>
+  <script src='http://coffeescript.org/extras/coffee-script.js'></script>
+  <script src='https://jumly.herokuapp.com/release/jumly.min.js'></script>
+  <!--
+  NOTE: How to style with CSS in detail,
+        see http://www.w3.org/TR/SVG/styling.html#SVGStylingProperties
+  -->
+  <style>
+    .sequence-diagram .message svg.arrow line {
+      stroke-width: 3px;
+      stroke: #8bc84b;
+      stroke-dasharray: 8, 4;
+    }
+    .sequence-diagram .message svg.arrow polyline {
+      stroke: #8bc84b;
+      fill: #8bc84b;
+    }
+  </style>
+</head>
+<body>
+  <script type='text/jumly+sequence'>
+  @found "You", ->
+    @message "get", "JUMLY"
+  </script>
+</body>
