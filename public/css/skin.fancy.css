@@ -35,3 +35,12 @@
 .fancy .sequence-diagram .message svg.arrow polyline {
   stroke-width: 3px;
 }
+.fancy .sequence-diagram .message svg.arrow line,
+.fancy .sequence-diagram .message svg.arrow polyline {
+  stroke: #8cc84b;
+}
+.fancy .sequence-diagram .message svg.arrow polyline.head,
+.fancy .sequence-diagram .message svg.arrow polyline.closed {
+  stroke: #8cc84b;
+  fill: #8cc84b;
+}
