@@ -86,12 +86,14 @@ To compile them,
 
 
 # License
-JUMLY v0.1.4 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.5-1 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.4, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.5-1, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.5-1, June 23, 2013
+  - REST API to generate image
 - 0.1.4, May 20, 2013
   - Replaced canvas with svg
 - 0.1.3b, Apr 27, 2013
