@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "jasmine-node": "1.2.3",
-    "node-jquery": "0.1.1",
+    "node-jquery-xhr": "1.8.3",
     "grunt": "0.4.1",
     "grunt-cli": "0.1.8",
     "grunt-contrib-coffee": "0.6.7",
