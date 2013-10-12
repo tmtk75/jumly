@@ -19,15 +19,14 @@
     "temp": "*"
   },
   "devDependencies": {
-    "jasmine-node": "1.2.3",
-    "node-jquery": "0.1.1",
+    "jasmine-node": "1.11.0",
+    "node-jquery-xhr": "1.8.3",
     "grunt": "0.4.1",
     "grunt-cli": "0.1.8",
     "grunt-contrib-coffee": "0.6.7",
     "grunt-contrib-stylus": "0.4.1",
     "grunt-contrib-uglify": "0.1.2",
     "grunt-contrib-cssmin": "0.4.2",
-    "grunt-contrib-jasmine-node": "0.1.1",
     "grunt-regarde": "0.1.1"
   },
   "repository": {
@@ -39,7 +38,7 @@
   },
   "scripts": {
     "start": "./app.coffee",
-    "test": "grunt spec"
+    "test": "NODE_PATH=lib/js ./node_modules/.bin/jasmine-node --coffee spec"
   },
   "bin": {
     "jumly": "./bin/jumly.sh"

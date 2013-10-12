@@ -11,13 +11,6 @@ module.exports = (grunt)->
           "build/<%= pkg.name %>.js": js_files.map (e)-> "lib/js/#{e}.coffee"
           "build/.spec/<%= pkg.name %>Spec.js": spec_files.map (e)-> "spec/#{e}.coffee"
 
-      ###glob_to_multiple:
-        expand: true
-        cwd: 'spec'
-        src: ['*.coffee']
-        dest: 'build/.spec'
-        ext: '.js' ###
-
     stylus:
       compile:
         files:
@@ -39,18 +32,6 @@ module.exports = (grunt)->
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
-    "jasmine-node":
-      run:
-        spec: 'spec',
-      options:
-        coffee: true,
-      env:
-        NODE_PATH: "lib/js"
-      executable: './node_modules/.bin/jasmine-node'
-
-    livereload:
-      port: 35729
-
     regarde:
       css:
         files: 'lib/css/*.styl'
@@ -69,17 +50,14 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
-  #grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-regarde'
-  #grunt.loadNpmTasks 'grunt-contrib-livereload'
 
   grunt.registerTask 'default', ['build']
-  grunt.registerTask 'minify', ['uglify', 'cssmin']
+  grunt.registerTask 'minify',  ['uglify', 'cssmin']
   grunt.registerTask 'compile', ['coffee', 'stylus']
-  grunt.registerTask 'build', ['compile', 'minify']
-  grunt.registerTask 'spec', ['jasmine-node']
-  grunt.registerTask 'dev', ['livereload-start', 'regarde']
+  grunt.registerTask 'build',   ['compile', 'minify']
+
+  ## release task
   grunt.registerTask 'release', "", ->
     grunt.task.requires ["build"]
     fs = require "fs"
@@ -91,7 +69,7 @@ module.exports = (grunt)->
       process.stdout.write stdout if stdout
       process.stderr.write stderr if stderr
       process.stderr.write err if err
-      done(true)
+      done true
 
 fs = require "fs"
 _  = require "underscore"
