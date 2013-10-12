@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "./app.coffee",
-    "test": "NODE_PATH=lib/js ./node_modules/.bin/jasmine-node --coffee spec"
+    "test": "grunt test"
   },
   "bin": {
     "jumly": "./bin/jumly.sh"

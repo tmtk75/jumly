@@ -57,6 +57,23 @@ module.exports = (grunt)->
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build',   ['compile', 'minify']
 
+  ## jasmine-node
+  grunt.registerTask 'test', "", ->
+    executable = "./node_modules/.bin/jasmine-node"
+    args = ["--coffee", "spec"]
+    env = process.env
+    env.NODE_PATH = "lib/js"
+
+    spawn = require("child_process").spawn
+    cmd = spawn executable, args, env:env, cwd:"."
+
+    done = @async()
+    write = (data)-> process.stdout.write data.toString()
+    cmd.stdout.on 'data', write
+    cmd.stderr.on 'data', write
+    cmd.on 'exit', (code)-> done(code == 0)
+
+
   ## release task
   grunt.registerTask 'release', "", ->
     grunt.task.requires ["build"]
