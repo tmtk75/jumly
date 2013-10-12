@@ -39,14 +39,16 @@ module.exports = (grunt)->
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
-    "jasmine_node":
-      run:
-        spec: 'spec',
-      options:
-        coffee: true,
-      env:
-        NODE_PATH: "lib/js"
-      executable: './node_modules/.bin/jasmine-node'
+    jasmine_node:
+      specNameMatcher: "./spec/*"
+      projectRoot: "."
+      requirejs: false
+      forceExit: true
+      jUnit:
+        report: true
+        savePath: "./build/reports/jasmine/"
+        useDotNotation: true
+        consolidate: true
 
     livereload:
       port: 35729
