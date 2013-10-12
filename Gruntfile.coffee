@@ -39,7 +39,7 @@ module.exports = (grunt)->
         files:
           'build/<%= pkg.name %>.min.css': [ "build/<%= pkg.name %>.css" ]
 
-    "jasmine-node":
+    "jasmine_node":
       run:
         spec: 'spec',
       options:
@@ -69,7 +69,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-jasmine-node'
+  grunt.loadNpmTasks 'grunt-jasmine-node'
   #grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-regarde'
   #grunt.loadNpmTasks 'grunt-contrib-livereload'
@@ -78,7 +78,7 @@ module.exports = (grunt)->
   grunt.registerTask 'minify', ['uglify', 'cssmin']
   grunt.registerTask 'compile', ['coffee', 'stylus']
   grunt.registerTask 'build', ['compile', 'minify']
-  grunt.registerTask 'spec', ['jasmine-node']
+  grunt.registerTask 'spec', ['jasmine_node']
   grunt.registerTask 'dev', ['livereload-start', 'regarde']
   grunt.registerTask 'release', "", ->
     grunt.task.requires ["build"]
