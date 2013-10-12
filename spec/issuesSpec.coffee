@@ -1,6 +1,6 @@
 self = require: unless typeof require is "undefined" then require else JUMLY.require
 
-self.require "node-jquery"
+self.require "node-jquery-xhr"
 SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
 SequenceDiagramLayout  = self.require "SequenceDiagramLayout"
 utils = self.require "./jasmine-utils"
