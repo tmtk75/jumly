@@ -11,22 +11,22 @@
     "coffee-script": "1.6.3",
     "express": "3.1.2",
     "jade": "0.28.2",
-    "stylus": "0.32.1",
-    "underscore": "1.2.4",
-    "nib": "0.9.1",
-    "connect-assets": "2.3.3",
-    "phantomjs": "*",
-    "temp": "*"
+    "stylus": "0.35.0",
+    "underscore": "1.5.2",
+    "nib": "1.0.1",
+    "connect-assets": "2.5.2",
+    "phantomjs": "1.9.2-2",
+    "temp": "0.6.0"
   },
   "devDependencies": {
     "jasmine-node": "1.11.0",
     "node-jquery-xhr": "1.8.3",
     "grunt": "0.4.1",
-    "grunt-cli": "0.1.8",
-    "grunt-contrib-coffee": "0.6.7",
-    "grunt-contrib-stylus": "0.4.1",
-    "grunt-contrib-uglify": "0.1.2",
-    "grunt-contrib-cssmin": "0.4.2",
+    "grunt-cli": "0.1.9",
+    "grunt-contrib-coffee": "0.7.0",
+    "grunt-contrib-stylus": "0.8.0",
+    "grunt-contrib-uglify": "0.2.4",
+    "grunt-contrib-cssmin": "0.6.2",
     "grunt-regarde": "0.1.1"
   },
   "repository": {
