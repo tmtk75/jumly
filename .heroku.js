@@ -1,3 +1,4 @@
+require('newrelic');
 // $ heroku create --stack cedar
 // $ heroku config:add NODE_ENV=heroku
 
