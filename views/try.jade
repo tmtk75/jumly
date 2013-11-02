@@ -90,6 +90,7 @@ block scripts
         catch ex
           $(code).addClass "failed"
           $(notification).text ex
+          Raven.captureException ex
       
       compile()
 
