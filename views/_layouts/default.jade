@@ -12,6 +12,9 @@ html(lang="en")
   body
     block navbar
     block content
+    script(src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js")
+    :coffeescript
+      Raven.config('https://c2e92a5a2b1c4f5392c8246abe963478@app.getsentry.com/14921', {whitelistUrls: [/example\.com/]}).install()
     script(src='/public/js/coffee-script.js')
     script(src='/public/js/jquery.js')
     script(src='/public/js/knockout.js')
