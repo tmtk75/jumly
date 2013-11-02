@@ -8,7 +8,7 @@ All you need are just two things you use everyday.
 - A modern browser like WebKit-base brwoser and Opera.  
   (working for Firefox now)
 
-For more information, see <https://jumly.tmtk.net/>.  
+For more information, see <http://jumly.tmtk.net/>.  
 The auther's blog is <http://tmtk75.github.com>.
 
 
@@ -18,10 +18,10 @@ paste it at the place of your HTML document,
 and open the document.
 
 ```html
-    <link href='https://jumly.tmtk.net/release/jumly.min.css' rel="stylesheet"/>
-    <script src='http://code.jquery.com/jquery-2.0.0.min.js'></script>
-    <script src='http://jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='https://jumly.tmtk.net/release/jumly.min.js'></script>
+    <link href='//jumly.tmtk.net/release/jumly.min.css' rel="stylesheet"/>
+    <script src='//code.jquery.com/jquery-2.0.0.min.js'></script>
+    <script src='//jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
+    <script src='//jumly.tmtk.net/release/jumly.min.js'></script>
     <script type='text/jumly+sequence'>
     @found "You", ->
       @message "meet", "JUMLY"
