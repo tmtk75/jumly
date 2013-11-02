@@ -18,14 +18,14 @@ paste it at the place of your HTML document,
 and open the document.
 
 ```html
-    <link href='//jumly.tmtk.net/release/jumly.min.css' rel="stylesheet"/>
-    <script src='//code.jquery.com/jquery-2.0.0.min.js'></script>
-    <script src='//jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
-    <script src='//jumly.tmtk.net/release/jumly.min.js'></script>
-    <script type='text/jumly+sequence'>
-    @found "You", ->
-      @message "meet", "JUMLY"
-    </script>
+<link href='//jumly.tmtk.net/release/jumly.min.css' rel="stylesheet"/>
+<script src='//code.jquery.com/jquery-2.0.0.min.js'></script>
+<script src='//jashkenas.github.com/coffee-script/extras/coffee-script.js'></script>
+<script src='//jumly.tmtk.net/release/jumly.min.js'></script>
+<script type='text/jumly+sequence'>
+@found "You", ->
+  @message "meet", "JUMLY"
+</script>
 ```
 
 [Here](http://jumly.tmtk.net/public/examples/simple.html) is a minimal sample.
