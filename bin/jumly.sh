@@ -7,12 +7,12 @@ if [ -z "$script_path" ]; then
   cat<<EOF
 usage: `basename $0` <script-path> [format] [encoding]
   script-path    ./meet-you.jm
-  format         png|jpg
+  format         png | jpg
   encoding       image | base64 | html
 
 ex)
-  `basename $0` meet-you.jm jpg
-  `basename $0` meet-you.jm png base64
+  `basename $0` examples/You-get-JUMLY.jm png
+  `basename $0` examples/You-get-JUMLY.jm png base64
 
 EOF
   exit
