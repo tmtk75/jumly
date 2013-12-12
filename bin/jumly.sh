@@ -6,7 +6,7 @@ encoding=$3
 if [ -z "$script_path" ]; then
   cat<<EOF
 usage: `basename $0` <script-path> [format] [encoding]
-  script-path    ./meet-you.jm
+  script-path    ./examples/You-get-JUMLY.jm
   format         png | jpg
   encoding       image | base64 | html
 
