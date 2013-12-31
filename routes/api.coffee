@@ -1,6 +1,6 @@
 fs = require "fs"
 child_process = require "child_process"
-temp = require 'temp'
+tmp = require 'tmp'
 
 _unlink = (path)->
   fs.unlink path, (err)->
@@ -24,13 +24,13 @@ _senderr = (err, res, status = 500)->
   res.end()
 
 _diagrams = (is_post, jmcode, req, res)->
-  temp.open "jumly", (err, info)->
+  tmp.file (err, tmp_path, tmp_fd)->
     return _senderr(err, res) if err
 
-    fs.write info.fd, jmcode
-    fs.close info.fd, (err)->
+    fs.write tmp_fd, jmcode
+    fs.close tmp_fd, (err)->
       if err
-        _unlink info.path
+        _unlink tmp_path
         return _senderr(err, res)
 
       if is_post
@@ -55,7 +55,7 @@ _diagrams = (is_post, jmcode, req, res)->
         stdouth = (data)-> res.write data
 
       ## exec jumly.sh
-      proc = child_process.spawn "#{__dirname}/../bin/jumly.sh", [info.path, format, encoding]
+      proc = child_process.spawn "#{__dirname}/../bin/jumly.sh", [tmp_path, format, encoding]
       proc.stdout.on 'data', stdouth
       proc.stderr.on 'data', (data)-> res.write data
       proc.on 'error', (err)-> console.error err
@@ -68,11 +68,11 @@ _diagrams = (is_post, jmcode, req, res)->
             else
               res.write data
               res.end()
-            _unlink info.path
+            _unlink tmp_path
             _unlink filepath.trim()
         else
           res.end()
-          _unlink info.path
+          _unlink tmp_path
 
 module.exports = (ctx)->
   b64decode: (req, res)->
