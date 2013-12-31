@@ -14,6 +14,12 @@ module.exports =
       <head>
         <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="#{rootdir}/views/static/release/jumly.min.css" />
+        <style>
+          .sequence-diagram .participant {
+            font-family: Coda;
+            font-weight: bold;
+          }
+        </style>
       </head>
       <body>
       </body>
