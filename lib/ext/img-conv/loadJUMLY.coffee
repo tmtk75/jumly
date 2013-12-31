@@ -12,9 +12,9 @@ module.exports =
     fs.write tmp_html, """
       <!DOCTYPE HTML>
       <head>
-        <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="#{rootdir}/views/static/release/jumly.min.css" />
         <style>
+          @import url(http://fonts.googleapis.com/css?family=Coda);
           .sequence-diagram .participant {
             font-family: Coda;
             font-weight: bold;
