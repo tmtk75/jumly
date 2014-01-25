@@ -129,7 +129,7 @@ block content
                | If it's an image, you never do that.
               input#read_more-there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
               label(for="read_more-there_things")
-                a("data-bind"="text:read_more.there_things.text")
+                span("data-bind"="text:read_more.there_things.text")
               .more("data-bind"="visible:read_more.there_things._visible")
                 dt What changed?
                 dd Can't see difference b/w old diagram and updated one.
@@ -150,7 +150,7 @@ block content
                | because we can use SCM like Subversion/Mercurial/Git to manage and version the data.
               input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
               label(for="read_more-why_you_like")
-                a More...
+                span("data-bind"="text:read_more.why_you_like.text")
               .more("data-bind"="visible:read_more.why_you_like._visible")
                 dt High quality
                 dd You can get keen designed diagrams, especially on MacOSX
