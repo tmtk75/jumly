@@ -68,11 +68,11 @@ block content
 
           .buttons
             label(for="example1-styles-a")
-              a.button("data-bind"="css:{selected:example1.normal}") normal
+              .button("data-bind"="css:{selected:example1.normal}") normal
             label(for="example1-styles-b")
-              a.button("data-bind"="css:{selected:example1.simple}") simple
+              .button("data-bind"="css:{selected:example1.simple}") simple
             label(for="example1-styles-c")
-              a.button("data-bind"="css:{selected:example1.fancy}") fancy
+              .button("data-bind"="css:{selected:example1.fancy}") fancy
             input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-c(type="radio",name="example1_styles",value="fancy","data-bind"="checked:example1.styles",style="display:none")
