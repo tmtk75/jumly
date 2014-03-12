@@ -21,7 +21,6 @@
 
   core.kindof = function(that) {
     var ctor, toName;
-
     if (that === null) {
       return 'Null';
     }
@@ -45,7 +44,6 @@
 
   core._normalize = function(that) {
     var a, id, it, keys, mods, name, p;
-
     switch (core.kindof(that)) {
       case "String":
         return {
@@ -72,7 +70,6 @@
     }
     keys = (function() {
       var _results;
-
       _results = [];
       for (p in that) {
         _results.push(p);
@@ -92,7 +89,6 @@
     }
     keys = (function() {
       var _results;
-
       _results = [];
       for (p in it) {
         _results.push(p);
@@ -185,7 +181,6 @@
 
   to_polar_from_cartesian = function(src, dst) {
     var dx, dy;
-
     dx = dst.left - src.left;
     dy = dst.top - src.top;
     return {
@@ -219,7 +214,6 @@
       },
       attrs: function(n, attrs) {
         var p;
-
         for (p in attrs) {
           n.setAttribute(p, attrs[p]);
         }
@@ -227,7 +221,6 @@
       },
       "new": function(tagname, attrs) {
         var e;
-
         e = this.create(tagname);
         return this.attrs(e, attrs);
       }
@@ -277,7 +270,6 @@
         }),
         right: this.max(objs, function(e) {
           var t;
-
           t = $(e).offset().left + $(e).outerWidth() + (margin ? parseInt($(e).css("margin-right")) : 0);
           if (t - 1 < 0) {
             return 0;
@@ -301,7 +293,6 @@
         }),
         bottom: this.max(objs, function(e) {
           var t;
-
           t = $(e).offset().top + $(e).outerHeight() + (margin ? parseInt($(e).css("margin-bottom")) : 0);
           if (t - 1 < 0) {
             return 0;
@@ -340,7 +331,6 @@
   HTMLElement = (function() {
     function HTMLElement(args, f) {
       var cls, me, root;
-
       cls = HTMLElement.to_css_name(this.constructor.name);
       me = $.extend(this, root = $("<div>").addClass(cls));
       if (typeof f === "function") {
@@ -405,7 +395,6 @@
 
   Diagram.prototype._reg_by_ref = function(id, obj) {
     var exists, ref;
-
     exists = function(id, diag) {
       return $("#" + id).length > 0;
     };
@@ -463,7 +452,6 @@
 
   DiagramBuilder.prototype._refer = function(ref, adv) {
     var id, r;
-
     id = core._normalize(adv.by).id;
     this._diagram._reg_by_ref(id, ref);
     r = core._to_ref(id);
@@ -529,7 +517,6 @@
 
   HorizontalSpacing.prototype.apply = function() {
     var a, b;
-
     a = this.data("left").data("_self");
     b = this.data("right").data("_self");
     a.after(this);
@@ -672,7 +659,6 @@
 
   PositionRightLeft.prototype.apply = function() {
     var src;
-
     src = this.attrs.src;
     this._coordinate(src);
     this.div.offset({
@@ -685,7 +671,6 @@
 
   PositionLeftRight.prototype.apply = function() {
     var dst, src;
-
     src = this.attrs.src;
     dst = this.attrs.dst;
     this._coordinate(src);
@@ -699,7 +684,6 @@
 
   PositionLeft.prototype.apply = function() {
     var dst;
-
     dst = this.attrs.dst;
     this._coordinate(dst);
     return this.attrs.dst.offset({
@@ -709,7 +693,6 @@
 
   PositionTop.prototype.apply = function() {
     var dst;
-
     dst = this.attrs.dst;
     this._coordinate(dst);
     return this.attrs.dst.offset({
@@ -756,7 +739,6 @@
       this.dst = opts.dst;
       Relationship.__super__.constructor.call(this, args, function(me) {
         var svg;
-
         me.addClass("relationship").append(svg = $("<svg width='0' height='0'>").addClass("icon")).append($("<div>").addClass("name"));
         svg[0].appendChild(g2d.svg.create("line"));
         return me;
@@ -790,7 +772,6 @@
 
   cssAsInt = function(node, name) {
     var a;
-
     a = node.css(name);
     if (a) {
       return parseInt(a);
@@ -801,7 +782,6 @@
 
   Relationship.prototype._point = function(obj) {
     var dh, dv, margin_left, margin_top, s;
-
     margin_left = cssAsInt($("body"), "margin-left");
     margin_top = cssAsInt($("body"), "margin-top");
     s = obj.offset();
@@ -815,7 +795,6 @@
 
   Relationship.prototype._rect = function(p, q) {
     var a, b, h, hs, l, vs, w;
-
     a = {
       left: Math.min(p.left, q.left),
       top: Math.min(p.top, q.top)
@@ -843,7 +822,6 @@
 
   Relationship.prototype.render = function() {
     var aa, bb, cc, cr, dd, p, q, r, s, t;
-
     p = this._point(this.src);
     q = this._point(this.dst);
     r = this._rect(p, q);
@@ -951,7 +929,6 @@
 
   SequenceMessage.prototype._lineToNextOccurr = function(svg) {
     var dstll, srcll;
-
     if (false) {
       console.log("FIXME: to avoid runtime error.");
       ({
@@ -972,7 +949,6 @@
 
   SequenceMessage.prototype._toLine = function(src, dst, svg) {
     var e, y;
-
     e = !this.parent().hasClass("lost") && this.isTowardLeft() ? {
       src: {
         x: src.offset().left - this.offset().left
@@ -1011,7 +987,6 @@
 
   SequenceMessage.prototype._toCreateLine = function(svg) {
     var e, outerRight, src;
-
     e = this._toLine(this._srcOccurr(), this._dstOccurr()._actor, svg);
     if (this.isTowardLeft()) {
       src = this._srcOccurr();
@@ -1026,7 +1001,6 @@
   SequenceMessage.prototype._findOccurr = function(actee) {
     var occurr,
       _this = this;
-
     occurr = null;
     this.parents(".occurrence").each(function(i, e) {
       e = $(e).data("_self");
@@ -1067,7 +1041,6 @@
 
   _determine_primary_stereotype = function(jqnode) {
     var e, _i, _len, _ref;
-
     _ref = ["create", "asynchronous", "synchronous", "destroy"];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       e = _ref[_i];
@@ -1087,7 +1060,6 @@
 
   ahead = function(svg, sign, q) {
     var dx, dy, e;
-
     dx = sign * 10;
     dy = 6;
     e = _g2d.svg["new"]('polyline', {
@@ -1105,7 +1077,6 @@
   g2d = {
     arrow: function(svg, p, q) {
       var e;
-
       e = _g2d.svg["new"]('line', {
         x1: p.x,
         y1: p.y,
@@ -1119,7 +1090,6 @@
 
   SequenceMessage.prototype.repaint = function() {
     var a, arrow, e, gap, line, llw, newdst, newsrc, p, rcx, rey, shape, svg;
-
     shape = STEREOTYPE_STYLES[_determine_primary_stereotype(this)];
     arrow = jQuery.extend({}, MESSAGE_STYLE, shape);
     svg = this._prefferedCanvas();
@@ -1169,7 +1139,6 @@
 
   SequenceMessage.prototype.isToward = function(dir) {
     var actee, actor;
-
     actor = this._iact._actor._actor;
     actee = this._iact._actee._actor;
     if ("right" === dir) {
@@ -1189,18 +1158,15 @@
 
   SequenceMessage.prototype._to_be_creation = function() {
     var dst, line_width, shift_downward, src;
-
     src = this._srcOccurr();
     dst = this._dstOccurr();
     line_width = function(msg) {
       var l;
-
       l = msg._toLine(src, dst._actor, msg);
       return Math.abs(l.src.x - l.dst.x);
     };
     shift_downward = function(msg) {
       var mt, obj;
-
       obj = dst._actor;
       obj.offset({
         top: msg.offset().top - obj.height() / 3
@@ -1261,7 +1227,6 @@
 
   SequenceInteraction.prototype.to = function(func) {
     var occurrs, tee, tor;
-
     occurrs = this.gives(".occurrence");
     tee = occurrs.as(".actee");
     tor = occurrs.as(".actor");
@@ -1282,7 +1247,6 @@
 
   SequenceInteraction.prototype.awayfrom = function(obj) {
     var e, _i, _len, _ref;
-
     if (!obj) {
       return this.backwardTo();
     }
@@ -1299,7 +1263,6 @@
 
   SequenceInteraction.prototype._compose_ = function() {
     var actee, dst, errmsg, msg, newdst, rmsg, src, that, w, x;
-
     that = this;
     src = this._actor;
     dst = this._actee;
@@ -1338,7 +1301,6 @@
 
   SequenceInteraction.prototype._buildSelfInvocation = function(a, b, msg) {
     var arrow, dx, dy, w;
-
     w = this.find(".occurrence:eq(0)").outerWidth();
     dx = w * 2;
     dy = w * 1;
@@ -1366,7 +1328,6 @@
 
   SequenceInteraction.prototype.reply = function(p) {
     var a, name;
-
     this.addClass("reply");
     a = new SequenceMessage(this, p != null ? p[".actee"] : void 0).addClass("return").insertAfter(this.children(".occurrence:eq(0)"));
     name = function(it) {
@@ -1381,7 +1342,6 @@
 
   SequenceInteraction.prototype.fragment = function(attrs, opts) {
     var SequenceFragment, frag;
-
     SequenceFragment = self.require("SequenceFragment");
     frag = new SequenceFragment();
     return frag.enclose(this);
@@ -1389,7 +1349,6 @@
 
   SequenceInteraction.prototype.isToSelf = function() {
     var a, b;
-
     a = this._actor;
     b = this._actee;
     if (!(a && b)) {
@@ -1443,7 +1402,6 @@
 
   SequenceOccurrence.prototype.interact = function(actor, acts) {
     var SequenceFragment, alt, iact, occurr;
-
     if ((acts != null ? acts.stereotype : void 0) === ".lost") {
       occurr = new SequenceOccurrence().addClass("icon");
       iact = new SequenceInteraction(this, occurr);
@@ -1468,7 +1426,6 @@
 
   SequenceOccurrence.prototype.create = function(objsrc) {
     var SequenceParticipant, iact, obj;
-
     SequenceParticipant = self.require("SequenceParticipant");
     obj = new SequenceParticipant(objsrc.name).addClass("created-by");
     this._actor.parent().append(obj);
@@ -1477,7 +1434,6 @@
 
   SequenceOccurrence.prototype._move_horizontally = function() {
     var left;
-
     if (this.parent().hasClass("lost")) {
       offset({
         left: utils.mostLeftRight(this.parents(".diagram").find(".participant")).right
@@ -1501,7 +1457,6 @@
 
   SequenceOccurrence.prototype._parent_occurr = function() {
     var i, occurrs, _i, _ref;
-
     occurrs = this.parents(".occurrence");
     if (occurrs.length === 0) {
       return null;
@@ -1516,7 +1471,6 @@
 
   SequenceOccurrence.prototype._shift_to_parent = function() {
     var a;
-
     if (!this.is_on_another()) {
       return 0;
     }
@@ -1535,10 +1489,8 @@
 
   SequenceOccurrence.prototype.preceding = function(obj) {
     var f;
-
     f = function(ll) {
       var a;
-
       a = jumly(ll.parents(".occurrence:eq(0)"))[0];
       if (!a) {
         return null;
@@ -1553,7 +1505,6 @@
 
   SequenceOccurrence.prototype.destroy = function(actee) {
     var occur;
-
     occur = this.interact(actee).data("_self")._actee;
     if (occur.is_on_another()) {
       occur = occur._parent_occurr();
@@ -1602,7 +1553,6 @@
 
   SequenceParticipant.prototype.activate = function() {
     var iact, occurr;
-
     occurr = new SequenceOccurrence(this);
     iact = new SequenceInteraction(null, occurr);
     iact.addClass("activated");
@@ -1623,7 +1573,6 @@
   SequenceParticipant.prototype.iconify = function(fixture, styles) {
     var canvas, container, render, size, _ref,
       _this = this;
-
     if (typeof fixture !== "function") {
       fixture = $.jumly.icon["." + fixture] || $.jumly.icon[".actor"];
     }
@@ -1636,7 +1585,6 @@
     });
     render = function() {
       var name;
-
       name = _this.find(".name");
       styles.fillStyle = name.css("background-color");
       styles.strokeStyle = name.css("border-top-color");
@@ -1688,7 +1636,6 @@
 
   SequenceFragment.prototype.enclose = function(_) {
     var a, b, i, _i, _ref;
-
     if ((_ == null) || _.length === 0) {
       throw "SequenceFragment::enclose arguments are empty.";
     }
@@ -1713,7 +1660,6 @@
 
   SequenceFragment.prototype.alter = function(occurr, acts) {
     var alt, name, nodes;
-
     alt = this;
     alt.addClass("alt").find(".condition").remove();
     occurr.append(alt);
@@ -1768,7 +1714,6 @@
 
   SequenceRef.prototype.preferred_left_and_width = function() {
     var alt, d, dh, diag, dl, iact, it, l, left, lines, most, objs, occurr, occurs, r, right, w;
-
     occurr = this.parents(".occurrence:eq(0)");
     if (occurr.length === 1) {
       w = occurr.outerWidth();
@@ -1882,7 +1827,6 @@
 
   SequenceDiagram.prototype.gives = function(query) {
     var e, f;
-
     e = this.find(query);
     f = jumly.lang._of(e, query);
     return {
@@ -1938,12 +1882,10 @@
     __extends(SequenceDiagramBuilder, _super);
 
     function SequenceDiagramBuilder(_diagram, _occurr) {
-      var _ref;
-
       this._diagram = _diagram;
       this._occurr = _occurr;
       SequenceDiagramBuilder.__super__.constructor.call(this);
-      if ((_ref = this._diagram) == null) {
+      if (this._diagram == null) {
         this._diagram = new SequenceDiagram;
       }
     }
@@ -1962,7 +1904,6 @@
 
   SequenceDiagramBuilder.prototype.found = function(sth, callback) {
     var actor;
-
     actor = this._find_or_create(sth);
     actor.addClass("found");
     this._occurr = actor.activate();
@@ -1975,7 +1916,6 @@
 
   SequenceDiagramBuilder.prototype._find_or_create = function(sth) {
     var a, obj, r;
-
     a = core._normalize(sth);
     r = core._to_ref(a.id);
     if (typeof this._diagram[r] === "function") {
@@ -2003,7 +1943,6 @@
 
   SequenceDiagramBuilder.prototype.message = function(a, b, c) {
     var actee, actname, callback, e, iact, it, msg, norm, stereotype;
-
     actname = a;
     if ((typeof a === "string") && (typeof b === "function" || b === void 0)) {
       actee = this._curr_actor();
@@ -2046,7 +1985,6 @@
 
   SequenceDiagramBuilder.prototype.create = function(a, b, c) {
     var actee, async, callback, ctxt, e, iact, id, name, norm, occurr;
-
     if (typeof a === "string" && typeof b === "function") {
       name = null;
       actee = a;
@@ -2096,7 +2034,6 @@
 
   SequenceDiagramBuilder.prototype._var = function(varname, refobj) {
     var ref;
-
     ref = core._to_ref(varname);
     return this._diagram._var(ref, refobj);
   };
@@ -2108,7 +2045,6 @@
 
   SequenceDiagramBuilder.prototype.reply = function(a, b) {
     var f, n, obj, ref;
-
     obj = b;
     if (typeof b === "string") {
       ref = core._to_ref(core._to_id(b));
@@ -2133,7 +2069,6 @@
 
   SequenceDiagramBuilder.prototype.ref = function(a) {
     var occur, ref;
-
     occur = this._curr_occurr();
     ref = new SequenceRef(a);
     if (occur) {
@@ -2154,7 +2089,6 @@
 
   SequenceDiagramBuilder.prototype.fragment = function(nctx) {
     var ctx, frag, name;
-
     for (name in nctx) {
       ctx = nctx[name];
       frag = this._fragment(ctx, {
@@ -2169,7 +2103,6 @@
 
   SequenceDiagramBuilder.prototype.loop = function(a, b, c) {
     var last;
-
     last = [].slice.apply(arguments).pop();
     if (!$.isFunction(last)) {
       return;
@@ -2182,7 +2115,6 @@
 
   SequenceDiagramBuilder.prototype._fragment = function(last, opts, desc) {
     var frag, kids, newones;
-
     kids = this._curr_occurr().find("> *");
     last.apply(this, []);
     newones = this._curr_occurr().find("> *").not(kids);
@@ -2202,7 +2134,6 @@
 
   SequenceDiagramBuilder.prototype.alt = function(ints) {
     var iacts, name, _new_act;
-
     iacts = {};
     self = this;
     for (name in ints) {
@@ -2212,11 +2143,9 @@
       _new_act = function(name, act) {
         return function() {
           var nodes, _;
-
           nodes = [];
           _ = function(it) {
             var node;
-
             if ((it != null ? it.constructor : void 0) === SequenceDiagramBuilder) {
               node = it._curr_occurr().parent(".interaction:eq(0)");
             } else {
@@ -2258,7 +2187,6 @@
 
   SequenceDiagramBuilder.prototype.reactivate = function(a, b, c) {
     var e, occurr;
-
     if (a.constructor === this.constructor) {
       e = a._curr_occurr.parents(".interaction:eq(0)");
       this._curr_actor().activate().append(e);
@@ -2281,7 +2209,6 @@
 
   SequenceDiagramBuilder.prototype.note = function(text, opts) {
     var note;
-
     note = new NoteElement(text, opts);
     return this._curr_occurr().append(note);
   };
@@ -2355,7 +2282,6 @@
 
   SequenceDiagramLayout.prototype._layout = function() {
     var l, ml, mr, objs, occurs, r;
-
     objs = $(".participant:eq(0) ~ .participant", this.diagram);
     $(".participant:eq(0)", this.diagram).after(objs);
     this.align_objects_horizontally();
@@ -2409,7 +2335,6 @@
   $.fn.pickup2 = function(f0, f1, f2) {
     var prev,
       _this = this;
-
     if (this.length === 0) {
       return this;
     }
@@ -2431,7 +2356,6 @@
   SequenceDiagramLayout.prototype.align_objects_horizontally = function() {
     var f0, f1,
       _this = this;
-
     f0 = function(a) {
       if (a.css("left") === (_({
         webkit: "auto",
@@ -2444,7 +2368,6 @@
     };
     f1 = function(a, b) {
       var spacing;
-
       if (b.css("left") === (_({
         webkit: "auto",
         gecko: "0px"
@@ -2460,11 +2383,9 @@
 
   SequenceDiagramLayout.prototype.generate_lifelines_and_align_horizontally = function() {
     var diag;
-
     diag = this.diagram;
     return $(".participant", this.diagram).each(function(i, e) {
       var a, obj;
-
       obj = $(e).data("_self");
       a = new SequenceLifeline(obj);
       a.offset({
@@ -2478,7 +2399,6 @@
   SequenceDiagramLayout.prototype.pack_refs_horizontally = function() {
     return this._q(".ref").selfEach(function(ref) {
       var idx, not_defined, parent, pw;
-
       pw = ref.preferred_left_and_width();
       ref.offset({
         left: pw.left
@@ -2502,7 +2422,6 @@
 
   SequenceDiagramLayout.prototype.pack_fragments_horizontally = function() {
     var fixwidth, fragments, left, most;
-
     fragments = $("> .fragment", this.diagram);
     if (fragments.length > 0) {
       most = utils.mostLeftRight(this._q(".participant"));
@@ -2511,7 +2430,6 @@
     }
     fixwidth = function(fragment) {
       var msg;
-
       most = utils.mostLeftRight($(".occurrence, .message, .fragment", fragment).not(".return, .lost"));
       fragment.width(most.width() - (fragment.outerWidth() - fragment.width()));
       msg = fragment.find("> .interaction > .message").data("_self");
@@ -2530,8 +2448,7 @@
   };
 
   SequenceDiagramLayout.prototype.align_lifelines_vertically = function() {
-    var last, mh, min, nodes;
-
+    var a, b, iters, last, mh, min, nodes;
     nodes = this.diagram.find(".interaction, > .ref");
     if (nodes.length === 0) {
       return;
@@ -2540,14 +2457,19 @@
       last = nodes.filter(":last");
       mh = last.offset().top + last.outerHeight() - nodes.filter(":first").offset().top;
     } else {
-      mh = this.diagram.find(".interaction:eq(0)").height();
+      if ((iters = this.diagram.find("> .interaction")).length === 1) {
+        mh = iters.filter(":eq(0)").height();
+      } else {
+        a = iters.filter(":eq(0)");
+        b = iters.filter(":last");
+        mh = (b.offset().top + b.height() - 1) - a.offset().top;
+      }
     }
     min = utils.min(this.diagram.find(".participant"), function(e) {
       return $(e).offset().top;
     });
     return this._q(".lifeline").each(function(i, e) {
-      var a, dh, mt, ot;
-
+      var dh, mt, ot;
       a = $(e).data("_self");
       a.offset({
         left: a._object.offset().left
@@ -2565,7 +2487,6 @@
   SequenceDiagramLayout.prototype.align_lifelines_stop_horizontally = function() {
     return $(".stop", this.diagram).each(function(i, e) {
       var occurr;
-
       e = $(e);
       occurr = e.prev(".occurrence");
       return e.offset({
@@ -2577,7 +2498,6 @@
   SequenceDiagramLayout.prototype.rebuild_asynchronous_self_calling = function() {
     return this.diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each(function(i, e) {
       var iact, msg, occurr, prev;
-
       e = $(e).self();
       if (!e.isToSelf()) {
         return;
@@ -2647,7 +2567,6 @@
 
   drop_shadow = function() {
     var blur, matrix, merge, mnBlur, mnSrc, offset, shadow2;
-
     shadow2 = ne("filter", {
       id: "dropshadow",
       width: "200%",
@@ -2690,7 +2609,6 @@
 
   svg_g = function(svg) {
     var g;
-
     svg.appendChild(drop_shadow());
     g = sa(ce('g'), {
       style: "filter:url(#dropshadow)"
@@ -2701,7 +2619,6 @@
 
   _actor = function(svg, styles) {
     var d, dh, dv, e, exth, g, lw, r, r2, ret;
-
     r = styles.radius || 12;
     r2 = r * 2;
     exth = r * 0.25;
@@ -2729,7 +2646,6 @@
 
   _view = function(svg, styles) {
     var d, e, extw, g, lw, r, r2, ret;
-
     r = styles.radius || 16;
     r2 = r * 2;
     extw = r * 0.4;
@@ -2754,7 +2670,6 @@
 
   _controller = function(svg, styles) {
     var d, dy, e, effectext, exth, g, lh, lw, r, r2, ret, x0, x1, y0;
-
     r = styles.radius || 16;
     r2 = r * 2;
     exth = r * 0.4;
@@ -2785,7 +2700,6 @@
 
   _entity = function(svg, styles) {
     var d, e, exth, g, lw, r, r2, ret;
-
     r = styles.radius || 16;
     r2 = r * 2;
     exth = r * 0.4;
@@ -2811,7 +2725,6 @@
 
   _render = function(svg, renderer, args) {
     var dh, dw, paths, size, styles, _ref;
-
     styles = $.extend({}, _STYLES, args);
     _ref = renderer(svg, styles), size = _ref.size, paths = _ref.paths;
     dw = (styles.shadowOffsetX || 0) + (styles.shadowBlur / 2 || 0);
@@ -2833,7 +2746,6 @@
 
     IconElement.renderer = function(type) {
       var r;
-
       r = {
         actor: _actor,
         view: _view,
@@ -2847,11 +2759,9 @@
 
     function IconElement(args, opts) {
       var idname;
-
       idname = core._normalize(args);
       IconElement.__super__.constructor.call(this, args, function(me) {
         var div, svg;
-
         svg = $("<svg width='0' height='0'>");
         me.addClass("icon").addClass(opts.kind).append(div = $("<div>").append(svg)).append($("<div>").addClass("name").append(idname.name));
         (IconElement.renderer(opts.kind))(svg[0]);
@@ -2902,7 +2812,6 @@
 
   RobustnessDiagram.prototype._node_of = function(n, k) {
     var e, id, ref;
-
     id = core._to_id(n);
     ref = core._to_ref(id);
     if (this[ref]) {
@@ -2944,11 +2853,9 @@
     __extends(RobustnessDiagramBuilder, _super);
 
     function RobustnessDiagramBuilder(_diagram) {
-      var _ref;
-
       this._diagram = _diagram;
       RobustnessDiagramBuilder.__super__.constructor.call(this);
-      if ((_ref = this._diagram) == null) {
+      if (this._diagram == null) {
         this._diagram = new RobustnessDiagram;
       }
     }
@@ -2959,7 +2866,6 @@
 
   RobustnessDiagramBuilder.prototype.build = function(src) {
     var _this = this;
-
     if (src.data) {
       src.find("*[data-kind]").each(function(e) {
         e = $(e);
@@ -2977,7 +2883,6 @@
 
   RobustnessDiagramBuilder.prototype._node = function(opt, kind) {
     var a, b, f, k;
-
     if (typeof opt === "string") {
       this._diagram.append((a = this._diagram._node_of(opt, kind)));
       return a;
@@ -3051,7 +2956,6 @@
 
   RobustnessDiagramLayout.prototype._layout = function() {
     var elems, mlr, mtb, p;
-
     elems = this.diagram.find(".element");
     p = this.diagram.offset();
     p.left += (parseInt(this.diagram.css("padding-left"))) * 2;
@@ -3125,7 +3029,6 @@ Some public APIs which are experimental
 
   _to_meta = function($src) {
     var meta;
-
     meta = $src.data(_mkey);
     if (meta === void 0) {
       $src.data(_mkey, meta = {});
@@ -3177,7 +3080,6 @@ Some public APIs which are experimental
 
   JUMLY["eval"] = function($src, opts) {
     var d, meta;
-
     meta = _to_meta($src);
     d = this._compile(_val($src), meta.type);
     if (typeof opts === "function") {
@@ -3213,11 +3115,9 @@ Some public APIs which are experimental
   _opts = {
     finder: function($n) {
       var e, filter, nodes, _i, _len, _results;
-
       nodes = $n.find("script, *[data-jumly]");
       filter = function(n) {
         var _ref;
-
         if (!_is_script(n)) {
           return true;
         } else {
@@ -3240,7 +3140,6 @@ Some public APIs which are experimental
 
   JUMLY.scan = function(scope, opts) {
     var $e, dst, e, p, _i, _len, _ref, _ref1, _results;
-
     if (scope == null) {
       scope = document;
     }
