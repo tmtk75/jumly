@@ -36,14 +36,14 @@ and open the document.
 
 
 # How to build
-Requiring [node.js](http://nodejs.org/) v0.8.9 or upper.
+Requiring [node.js](http://nodejs.org/) v0.10.20 or upper.
 
 ## node.js installation
 [nvm](https://github.com/creationix/nvm) is good to get it.
 
     $ git clone git://github.com/creationix/nvm.git ~/.nvm
     $ . ~/.nvm/nvm.sh
-    $ nvm install 0.8.16
+    $ nvm install 0.10.20
     
 ## Build jumly
 
@@ -90,12 +90,14 @@ To compile them,
 
 
 # License
-JUMLY v0.1.5-1 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.1.5-2 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.5-1, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.1.5-2, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.1.5-2, Mar 12, 2014
+  - Removed z-index from `.sequence-diagram .lifeline .line` for [#28](https://github.com/tmtk75/jumly/issues/28)
 - 0.1.5-1, June 23, 2013
   - REST API to generate image
 - 0.1.4, May 20, 2013
