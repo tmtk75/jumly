@@ -16,9 +16,9 @@ html(lang="en")
     script(src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js")
     :coffeescript
       Raven.config('https://c2e92a5a2b1c4f5392c8246abe963478@app.getsentry.com/14921', {whitelistUrls: [/example\.com/]}).install()
-    script(src='/public/js/coffee-script.js')
-    script(src='/public/js/jquery.js')
-    script(src='/public/js/knockout.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js')
+    script(src='//code.jquery.com/jquery-2.1.0.min.js')
+    script(src='//knockoutjs.com/downloads/knockout-3.0.0.js')
     include ../_includes/syntaxhighlighter
     !=js('jumly')
     block scripts

@@ -1,6 +1,6 @@
 {
   "name": "jumly",
-  "version": "0.1.5-1",
+  "version": "0.1.5-2",
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
@@ -15,8 +15,8 @@
     "underscore": "1.5.2",
     "nib": "1.0.1",
     "connect-assets": "2.5.2",
-    "phantomjs": "1.9.2-6",
-    "tmp": "0.0.23",
+    "phantomjs": "1.9.7-15",
+    "tmp": "*",
     "newrelic": "*"
   },
   "devDependencies": {

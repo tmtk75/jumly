@@ -1,7 +1,7 @@
 extends _layouts/default
 
 block title
-  title JUMLY, Advanced modern rendering enging for UML diagram with JavaScript/HTML5/CSS
+  title JUMLY, Advanced modern rendering engine for UML diagram with JavaScript/HTML5/CSS
 
 block prepend description
   - var _ = "JUMLY must help you if you want some sequence diagrams in your web site.";
@@ -68,11 +68,11 @@ block content
 
           .buttons
             label(for="example1-styles-a")
-              a.button("data-bind"="css:{selected:example1.normal}") normal
+              .button("data-bind"="css:{selected:example1.normal}") normal
             label(for="example1-styles-b")
-              a.button("data-bind"="css:{selected:example1.simple}") simple
+              .button("data-bind"="css:{selected:example1.simple}") simple
             label(for="example1-styles-c")
-              a.button("data-bind"="css:{selected:example1.fancy}") fancy
+              .button("data-bind"="css:{selected:example1.fancy}") fancy
             input#example1-styles-a(type="radio",name="example1_styles",value="normal","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-b(type="radio",name="example1_styles",value="simple","data-bind"="checked:example1.styles",style="display:none")
             input#example1-styles-c(type="radio",name="example1_styles",value="fancy","data-bind"="checked:example1.styles",style="display:none")
@@ -129,7 +129,7 @@ block content
                | If it's an image, you never do that.
               input#read_more-there_things(type="checkbox","data-bind"="checked:read_more.there_things._visible",style="display:none")
               label(for="read_more-there_things")
-                a("data-bind"="text:read_more.there_things.text")
+                span("data-bind"="text:read_more.there_things.text")
               .more("data-bind"="visible:read_more.there_things._visible")
                 dt What changed?
                 dd Can't see difference b/w old diagram and updated one.
@@ -150,7 +150,7 @@ block content
                | because we can use SCM like Subversion/Mercurial/Git to manage and version the data.
               input#read_more-why_you_like(type="checkbox","data-bind"="checked:read_more.why_you_like._visible",style="display:none")
               label(for="read_more-why_you_like")
-                a More...
+                span("data-bind"="text:read_more.why_you_like.text")
               .more("data-bind"="visible:read_more.why_you_like._visible")
                 dt High quality
                 dd You can get keen designed diagrams, especially on MacOSX
@@ -299,6 +299,11 @@ block content
             .span4
               h2 History
               ul.history
+                li 0.1.5-2, Mar 12, 2014
+                  ul
+                    li
+                      | Fixed&nbsp;
+                      a(href="//github.com/tmtk75/jumly/issues/28") #28,
                 li 0.1.5-1, Jun 23, 2013
                   ul
                     li <a href='//github.com/tmtk75/jumly/wiki/REST-API'>REST API to generate image</a>

@@ -23,8 +23,8 @@ module.exports =
       </head>
       <body>
       </body>
-      <script src='#{rootdir}/public/js/jquery.js'></script>
-      <script src='#{rootdir}/public/js/coffee-script.js'></script>
+      <script src='#{rootdir}/public/js/jquery-2.1.0.min.js'></script>
+      <script src='#{rootdir}/public/js/coffee-script-1.7.1.js'></script>
       <script src='#{rootdir}/views/static/release/jumly.min.js'></script>
       <script type='text/coffeescript'>
         window._jumly_code = '''

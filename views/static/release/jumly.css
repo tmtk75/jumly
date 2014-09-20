@@ -31,7 +31,7 @@
 .sequence-diagram .message.self svg.arrow polyline{fill:none}
 .sequence-diagram .message.self svg.arrow polyline.head{fill:#808080}
 .sequence-diagram .message.create svg.arrow line,.sequence-diagram .message.return svg.arrow line{stroke-dasharray:8,8}
-.sequence-diagram .lifeline .line{margin-left:50%;left:1px;height:100%;z-index:-10;border-left:dashed 1px #808080}
+.sequence-diagram .lifeline .line{margin-left:50%;left:1px;height:100%;border-left:dashed 1px #808080}
 .sequence-diagram .occurrence{width:12px;padding:1em 0 1em 0;margin-top:4px;border:2px solid #808080;background-color:#d3d3d3;z-index:1}
 .sequence-diagram .creating{margin-bottom:40px}
 .sequence-diagram .interaction.lost .occurrence.icon{height:20px;width:20px;-moz-border-radius:20px;-webkit-border-radius:20px;-o-border-radius:20px;border-radius:20px;padding:0;margin:0;border-color:#999;background-color:#aaa}
