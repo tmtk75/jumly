@@ -1,58 +1,55 @@
 #!/usr/bin/env coffee
-express = require "express"
-jade    = require "jade"
-assets  = require "connect-assets"
-stylus  = require "stylus"
-nib     = require "nib"
-fs      = require "fs"
-http    = require 'http'
-domain  = require 'domain'
+express        = require "express"
+jade           = require "jade"
+assets         = require "connect-assets"
+stylus         = require "stylus"
+fs             = require "fs"
+http           = require 'http'
+domain         = require 'domain'
+bodyParser     = require 'body-parser'
+methodOverride = require 'method-override'
+logger         = require "morgan"
+cookieParser   = require "cookie-parser"
+cookieSession  = require "cookie-session"
+serveFavicon   = require "serve-favicon"
+path           = require "path"
+#session        = require 'express-session'
+#MemoryStore    = require('express-session').MemoryStore
+#log4js         = require "log4js"
 
-views_dir  = "#{__dirname}/views"
-static_dir = "#{views_dir}/static"
+views_dir  = path.join __dirname, 'views'
+static_dir = path.join views_dir, 'static'
 
 app = express()
-app.configure ->
-  app.set 'port', (process.env.PORT || 3000)
-  app.set "views", views_dir
-  app.set "view engine", "jade"
-
-  app.use express.bodyParser()
-  app.use express.methodOverride()
-
-  app.use express.cookieParser (secret = 'adf19dfe1a4bbdd949326870e3997d799b758b9b')
-  app.use express.session secret:secret
-  app.use express.logger 'dev'
-
-  app.use (req, res, next)->
-    if req.is 'text/*'
-      req.text = ''
-      req.setEncoding 'utf8'
-      req.on 'data', (chunk)-> req.text += chunk
-      req.on 'end', next
-    else
-      next()
- 
-  app.use stylus.middleware
-    src: views_dir
-    dest: static_dir
-    compile: (str, path, fn)->
-               stylus(str)
-                 .set('filename', path)
-                 .set('compress', true)
-                 .use(nib()).import('nib')
-
-  app.use assets src:"lib"
-
-  app.use '/public', express.static "#{__dirname}/public"
-  app.use '/',       express.static static_dir
-  app.use app.router
-  app.use express.favicon()
-
-  app.use (req, res, next)->
-    res.status 404
-    res.render '404', req._parsedUrl
-
+app.set 'port', (process.env.PORT || 3000)
+app.set "views", views_dir
+app.set "view engine", "jade"
+app.use bodyParser.json()
+app.use bodyParser.urlencoded extended: true
+app.use methodOverride()
+#app.use express.query()
+app.use cookieParser()
+app.use cookieSession keys: ['adf19dfe1a4bbdd949326870e3997d799b758b9b']
+app.use logger 'dev'
+#app.use session store: new MemoryStore(reapInterval: 5 * 60 * 1000), secret: 'abracadabra', resave: true, saveUninitialized: true
+app.use (req, res, next)->
+  res.locals.session = req.session
+  next()
+app.use stylus.middleware
+  src: views_dir
+  dest: static_dir
+app.use assets src:"lib"
+app.use '/public', express.static "#{__dirname}/public"
+app.use '/',       express.static static_dir
+app.use (req, res, next)->
+  if req.is 'text/*'
+    req.text = ''
+    req.setEncoding 'utf8'
+    req.on 'data', (chunk)-> req.text += chunk
+    req.on 'end', next
+  else
+    next()
+#app.use serveFavicon()
 
 require("underscore").extend jade.filters,
   code: (str, args)->
@@ -66,7 +63,6 @@ require("underscore").extend jade.filters,
     body = body.replace /\\n/g, '\n'
     js = body.replace(/\\/g, '\\\\').replace /\n/g, '\\n'
     """<script type="text/jumly+#{type}" #{id}>\\n#{js}</script>"""
-
 
 pkg = JSON.parse fs.readFileSync("package.json")
 ctx =
@@ -94,6 +90,9 @@ app.post "/api/diagrams",  api.diagrams.post
 # redirect 302
 app.get "/:path([a-z]+)", (req, res)-> res.redirect "/#{req.params.path}.html"
 
+# 404
+app.use (req, res, next)-> res.status(404).render '404', req._parsedUrl
 
+# Start listening
 http.createServer(app).listen app.get('port'), ->
   console.log "Express server listening on port #{app.get('port')}"
