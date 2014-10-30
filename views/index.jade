@@ -55,12 +55,12 @@ block content
             a.button.apidocs(href='/api.html') API Document
 
         #example1("data-bind"="css:{normal:example1.normal,simple:example1.simple,fancy:example1.fancy}")
-          :jumly(type=sequence)
+          :jumly(type="sequence")
             @found "You", ->
               @message "Think", ->
                 @message "Write your idea", "JUMLY", ->
                   @create "Diagram"
-          :code(type=javascript)
+          :code(type="javascript")
             @found "You", ->
               @message "Think", ->
                 @message "Write your idea", "JUMLY", ->
@@ -83,7 +83,7 @@ block content
             | Let's say you already have a document.
             | In case you put a sequence diagram into it, put next four lines in your &lt;head>.
 
-          :code(type=xml)
+          :code(type="xml")
             &lt;link href='//jumly.tmtk.net/#{paths.release}/jumly.min.css' rel='stylesheet'/>
             &lt;script src='//code.jquery.com/jquery-#{tested_version.jquery}.min.js'>&lt;/script>
             &lt;script src='//coffeescript.org/extras/coffee-script.js'>&lt;/script>
@@ -92,7 +92,7 @@ block content
           p
             | Then, put a next &lt;script> element into the place where you want to put at.
 
-          :code(type=xml)
+          :code(type="xml")
             &lt;script type='text/jumly+sequence'>
             @found "You", ->
               @message "get", "JUMLY"
@@ -102,7 +102,7 @@ block content
             | That's all.
             | It's easy, isn't it?
 
-          :jumly(type=sequence)
+          :jumly(type="sequence")
             @found "You", ->
               @message "get", "JUMLY"
 
@@ -170,11 +170,11 @@ block content
           p Robustness diagram is coming soon.
            |Actually, I'm considering the DSL and layout logic now...
 
-          :jumly(type=robustness)
+          :jumly(type="robustness")
             @actor "User" :-> @view "Browser"
             @view "Browser" :-> @controller "Server"
             @controller "Server" :-> @entity "Database"
-          :code(type=javascript)
+          :code(type="javascript")
             @actor "User" :-> @view "Browser"
             @view "Browser" :-> @controller "Server"
             @controller "Server" :-> @entity "Database"
