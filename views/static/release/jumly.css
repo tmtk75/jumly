@@ -26,8 +26,8 @@
 .sequence-diagram .message,.sequence-diagram .message svg{position:absolute}
 .sequence-diagram .message svg.arrow line{stroke:#808080;stroke-width:1.5}
 .sequence-diagram .message svg.arrow polyline{stroke:#808080;fill:#808080;stroke-width:1.5;stroke-linejoin:round}
-.sequence-diagram .message.create svg.arrow polyline,.sequence-diagram .message.return svg.arrow polyline{fill:none}
-.sequence-diagram .message.create svg.arrow polyline.closed,.sequence-diagram .message.return svg.arrow polyline.closed{stroke:none}
+.sequence-diagram .message.create svg.arrow polyline,.sequence-diagram .message.asynchronous svg.arrow polyline,.sequence-diagram .message.return svg.arrow polyline{fill:none}
+.sequence-diagram .message.create svg.arrow polyline.closed,.sequence-diagram .message.asynchronous svg.arrow polyline.closed,.sequence-diagram .message.return svg.arrow polyline.closed{stroke:none}
 .sequence-diagram .message.self svg.arrow polyline{fill:none}
 .sequence-diagram .message.self svg.arrow polyline.head{fill:#808080}
 .sequence-diagram .message.create svg.arrow line,.sequence-diagram .message.return svg.arrow line{stroke-dasharray:8,8}
