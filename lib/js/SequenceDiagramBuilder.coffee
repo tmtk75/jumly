@@ -1,10 +1,10 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-core = self.require "core"
-DiagramBuilder = self.require "DiagramBuilder"
-SequenceDiagram = self.require "SequenceDiagram"
-SequenceParticipant = self.require "SequenceParticipant"
-SequenceRef = self.require "SequenceRef"
-SequenceFragment = self.require "SequenceFragment"
+$ = require "jquery"
+core = require "core.coffee"
+DiagramBuilder = require "DiagramBuilder.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceRef = require "SequenceRef.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
 
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram, @_occurr)->
@@ -228,7 +228,7 @@ SequenceDiagramBuilder::find = (selector)->
   @_diagram.find selector
 
 
-NoteElement = self.require "NoteElement"
+NoteElement = require "NoteElement.coffee"
 
 SequenceDiagramBuilder::note = (text, opts)->
   note = new NoteElement text, opts
@@ -251,8 +251,4 @@ SequenceDiagramBuilder::preferences = ->
 
 #JUMLY.SequenceDiagramBuilder = SequenceDiagramBuilder
 
-if core.env.is_node
-  module.exports = SequenceDiagramBuilder
-else
-  core.exports SequenceDiagramBuilder
-
+module.exports = SequenceDiagramBuilder

@@ -1,6 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-DiagramLayout = self.require "DiagramLayout"
-utils = self.require "jquery.ext"
+DiagramLayout = require "DiagramLayout.coffee"
+utils = require "jquery.ext.coffee"
 
 $.fn.self = -> @data "_self"
 $.fn.selfEach = (f)-> @each (i, e)->
@@ -40,7 +39,7 @@ SequenceDiagramLayout::_layout = ->
   r = utils.max objs, (e)-> $(e).offset().left + $(e).outerWidth() - 1
   @diagram.width r - l + 1
 
-HTMLElementLayout = self.require "HTMLElementLayout"
+HTMLElementLayout = require "HTMLElementLayout.coffee"
 
 _ = (opts)->
   if navigator?.userAgent.match(/.*(WebKit).*/)
@@ -74,7 +73,7 @@ SequenceDiagramLayout::align_objects_horizontally = ->
       spacing.apply()
   @_q(".participant").pickup2 f0, f1
 
-SequenceLifeline = self.require "SequenceLifeline"
+SequenceLifeline = require "SequenceLifeline.coffee"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   diag = @diagram
@@ -192,8 +191,4 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
 SequenceDiagramLayout::render_icons = ->
   @_q(".participant").selfEach (e)-> e.renderIcon?()
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceDiagramLayout
-else
-  core.exports SequenceDiagramLayout
+module.exports = SequenceDiagramLayout

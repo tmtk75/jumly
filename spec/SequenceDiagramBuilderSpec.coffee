@@ -1,7 +1,5 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-utils = self.require "./jasmine-utils"
-
-SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
+utils = require "./jasmine-utils.coffee"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
 
 prepare_builder = ->
   @builder = new SequenceDiagramBuilder

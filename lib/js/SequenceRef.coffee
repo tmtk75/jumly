@@ -1,6 +1,6 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
-utils = self.require "jquery.ext"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceRef extends HTMLElement
   constructor: (args)->
@@ -55,8 +55,4 @@ SequenceRef::preferred_left_and_width = ->
   most.width = most.width()
   most
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceRef
-else
-  core.exports SequenceRef
+module.exports = SequenceRef

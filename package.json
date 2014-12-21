@@ -8,10 +8,11 @@
     "npm": "1.3.11"
   },
   "dependencies": {
-    "coffee-script": "1.6.3",
+    "coffee-script": "^1.8.0",
     "connect-assets": "2.5.2",
     "express": "3.1.2",
     "jade": "0.28.2",
+    "jquery": "^2.1.3",
     "nib": "1.0.1",
     "phantomjs": "1.9.7-15",
     "stylus": "0.35.0",
@@ -36,7 +37,6 @@
     "karma-coffee-preprocessor": "^0.2.1",
     "karma-jasmine": "^0.3.2",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-sourcemap-loader": "^0.3.2",
     "karma-webpack": "^1.3.1",
     "style-loader": "^0.8.2",
     "webpack": "^1.4.13",

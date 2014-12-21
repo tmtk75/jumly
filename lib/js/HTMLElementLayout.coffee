@@ -1,5 +1,3 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
 class HorizontalSpacing
   constructor: (a, b)->
     $.extend this, $("<span>")
@@ -18,8 +16,4 @@ HorizontalSpacing::apply = ->
 root =
   HorizontalSpacing: HorizontalSpacing
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = root
-else
-  core.exports root, "HTMLElementLayout"
+module.exports = root

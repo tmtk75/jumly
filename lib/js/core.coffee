@@ -1,3 +1,5 @@
+$ = require "jquery"
+jQuery = $
 core = {}
 
 core._to_id = (that)->

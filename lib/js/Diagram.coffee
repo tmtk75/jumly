@@ -1,3 +1,4 @@
+$ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
 core = require "core.coffee"
 

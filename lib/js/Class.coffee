@@ -16,7 +16,7 @@
 </div>
 ###
 
-HTMLElement = require "HTMLElement"
+HTMLElement = require "HTMLElement.coffee"
 
 class Class extends HTMLElement
 

@@ -1,6 +1,7 @@
 #core = require "core.coffee"
 #HTMLElement = require "HTMLElement"
 #L = require "SequenceDiagramLayout"
+$ = require "jquery"
 
 root =
   matchers: (suite)->

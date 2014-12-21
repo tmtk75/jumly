@@ -1,10 +1,9 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-Diagram = self.require "Diagram"
-IconElement = self.require "IconElement"
+Diagram = require "Diagram.coffee"
+IconElement = require "IconElement.coffee"
 
 class RobustnessDiagram extends Diagram
 
-core = self.require "core"
+core = require "core.coffee"
 
 RobustnessDiagram::_node_of = (n, k)->
   id = core._to_id n
@@ -16,7 +15,4 @@ RobustnessDiagram::_node_of = (n, k)->
   e
 
 
-if core.env.is_node
-  module.exports = RobustnessDiagram
-else
-  core.exports RobustnessDiagram
+module.exports = RobustnessDiagram

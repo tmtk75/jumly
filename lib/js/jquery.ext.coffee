@@ -1,4 +1,4 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
+$ = require "jquery"
 
 $.fn.outerBottom = -> @offset().top + @outerHeight() - 1
 
@@ -23,8 +23,4 @@ utils =
     height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
           
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = utils
-else
-  core.exports utils, "jquery.ext"
+module.exports = utils

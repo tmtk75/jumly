@@ -1,7 +1,6 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
-
-jumly = $.jumly
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+jQuery = require "jquery"
 
 ## This is wrap feature keeping own instance, jQuery.wrap makes child node duplicated.
 jQuery.fn.swallow = (_, f) ->
@@ -14,7 +13,7 @@ jQuery.fn.swallow = (_, f) ->
   @append _.detach()
   this
 
-Diagram = self.require "Diagram"
+Diagram = require "Diagram.coffee"
 
 class SequenceDiagram extends Diagram
   constructor: ->
@@ -31,13 +30,5 @@ prefs_ =
     WIDTH : null
     HEIGHT: 50
 
-SequenceDiagram::$ = (sel) -> jumly($(sel, this))
-SequenceDiagram::$0 = (typesel) -> @$(typesel)[0]
 
-
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceDiagram
-else
-  core.exports SequenceDiagram
-
+module.exports = SequenceDiagram

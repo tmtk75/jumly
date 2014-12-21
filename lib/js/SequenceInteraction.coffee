@@ -1,5 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
@@ -83,7 +83,7 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
       left: arrow.offset().left + arrow.outerWidth()
       top : arrow.offset().top
 
-SequenceMessage = self.require "SequenceMessage"
+SequenceMessage = require "SequenceMessage.coffee"
 
 SequenceInteraction::reply = (p) ->
     @addClass "reply"
@@ -110,9 +110,4 @@ SequenceInteraction::isToSelf = ->
 
 SequenceInteraction::is_to_itself = -> @isToSelf()
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceInteraction
-else
-  core.exports SequenceInteraction
-
+module.exports = SequenceInteraction

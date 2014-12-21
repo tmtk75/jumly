@@ -1,2 +1,11 @@
+//require("coffee-script");
+//require("coffee-script/register");
 require("core.coffee");
+require("jquery.g2d.coffee");
 require("Diagram.coffee");
+require("SequenceDiagramBuilder.coffee");
+require("DiagramBuilder.coffee");
+require("SequenceDiagram.coffee");
+require("SequenceParticipant.coffee");
+require("SequenceRef.coffee");
+require("SequenceFragment.coffee");

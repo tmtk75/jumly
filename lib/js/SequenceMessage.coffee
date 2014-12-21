@@ -1,5 +1,4 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+HTMLElement = require "HTMLElement.coffee"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -75,7 +74,7 @@ _determine_primary_stereotype = (jqnode) ->
 
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 
-_g2d = self.require "jquery.g2d"
+_g2d = require "jquery.g2d.coffee"
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6
@@ -167,8 +166,4 @@ SequenceMessage::_to_be_creation = ->
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceMessage
-else
-  core.exports SequenceMessage
+module.exports = SequenceMessage
