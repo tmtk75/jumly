@@ -5,9 +5,9 @@ module.exports = {
         filename: "bundle.js"
     },
     externals: {
-        // require("jquery") is external and available on the global var jQuery
+        // require("jquery") & require("coffee-script") are external and available on the global
         "jquery": "jQuery",
-        //"coffee-script": "CoffeeScript"
+        "coffee-script": "CoffeeScript"
     },
     module: {
         loaders: [
@@ -16,12 +16,6 @@ module.exports = {
         ]
     },
     resolve: {
-        alias: {
-            //"fs": "tmp",
-            //"file": "tmp",
-            //"repl": "tmp",
-            //"child_process": "tmp",
-        },
         modulesDirectories: [
             "lib/js",
             "lib/css",

@@ -1,7 +1,7 @@
 class DiagramBuilder
 
 core = require "core.coffee"
-#CoffeeScript = require "coffee-script"
+CoffeeScript = require "coffee-script"
 
 DiagramBuilder::build = (script)->
   (-> eval CoffeeScript.compile script).apply this, []

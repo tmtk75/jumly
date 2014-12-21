@@ -1,7 +1,7 @@
 karma: coffee-script.js
 	karma start karma.conf.js
 
-coffee-script:
+coffee-script.js:
 	curl -OL http://coffeescript.org/extras/coffee-script.js
 
 jasmine:
