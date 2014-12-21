@@ -11,6 +11,10 @@ module.exports = {
         ]
     },
     resolve: {
-        modulesDirectories: ["src", "node_modules"]
+        modulesDirectories: [
+            "lib/js",
+            "lib/css",
+            "node_modules",
+        ]
     },
 };

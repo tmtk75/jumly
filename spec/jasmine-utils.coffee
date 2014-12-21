@@ -1,13 +1,14 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-core = self.require "core"
-HTMLElement = self.require "HTMLElement"
-L = self.require "SequenceDiagramLayout"
+#core = require "core.coffee"
+#HTMLElement = require "HTMLElement"
+#L = require "SequenceDiagramLayout"
 
 root =
   matchers: (suite)->
-    suite.addMatchers
-      haveClass: (expected)->
-        @actual.hasClass expected
+    jasmine.addMatchers
+      haveClass: (util, customEqualityTesters)->
+        compare: (actual, expected)->
+          b = actual.hasClass expected
+          pass: b, message: b ? "have" : "doesn't have"
   
   div: (self)->
     klass = HTMLElement.to_css_name self.description
@@ -33,7 +34,4 @@ root =
       return opts[e] if $("html").hasClass "ua-#{e}"
     opts["webkit"]
 
-if core.env.is_node
-  module.exports = root
-else
-  core.exports root, "./jasmine-utils"
+module.exports = root

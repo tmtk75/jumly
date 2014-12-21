@@ -61,7 +61,6 @@ self = {}
 if core.env.is_node
   global.JUMLY = JUMLY
   module.exports = core
-  self.require = JUMLY.require = require
 else
   window.JUMLY = JUMLY
 
@@ -77,9 +76,6 @@ else
     exported[name]
   
   self.require = JUMLY.require
-
-  core.exports = (func, name)->
-    exported[func.name or name] = func
 
 # Listen for window load, both in browsers and in IE.
 unless core.env.is_node
