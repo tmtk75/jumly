@@ -1,5 +1,3 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
 class UMLUsecase
   constructor: (props, opts) ->
     jQuery.extend this, UMLUsecase.newNode()
@@ -38,7 +36,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-class JUMLYUsecaseDiagram extends self.require("Diagram")
+class JUMLYUsecaseDiagram extends require("Diagram.coffee")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -99,7 +97,7 @@ JUMLYUsecaseDiagram::compose = ->
 
 
 
-class JUMLYUsecaseDiagramBuilder extends self.require("DiagramBuilder")
+class JUMLYUsecaseDiagramBuilder extends require("DiagramBuilder.coffee")
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->

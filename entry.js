@@ -1,5 +1,3 @@
-//require("coffee-script");
-//require("coffee-script/register");
 require("core.coffee");
 require("jquery.g2d.coffee");
 require("Diagram.coffee");

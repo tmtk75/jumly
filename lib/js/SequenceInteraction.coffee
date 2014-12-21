@@ -97,7 +97,7 @@ SequenceInteraction::reply = (p) ->
     this
 
 SequenceInteraction::fragment = (attrs, opts) ->
-    SequenceFragment = self.require "SequenceFragment"
+    SequenceFragment = require "SequenceFragment.coffee"
     frag = new SequenceFragment()
     frag.enclose(this)
    
