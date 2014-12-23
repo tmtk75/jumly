@@ -1,6 +1,6 @@
 $ = require "jquery"
 
-$.fn.outerBottom = -> @offset().top + @outerHeight() - 1
+_outerBottom = ($e)-> $e.offset().top + $e.outerHeight() - 1
 
 _choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
 
@@ -21,6 +21,7 @@ utils =
       t = $(e).offset().top + $(e).outerHeight() + (if margin then (parseInt $(e).css("margin-bottom")) else 0)
       if t - 1 < 0 then 0 else t - 1
     height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
-          
+
+  outerBottom: _outerBottom
 
 module.exports = utils

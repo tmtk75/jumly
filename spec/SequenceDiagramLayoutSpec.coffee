@@ -780,8 +780,8 @@ describe "SequenceDiagramLayout", ->
             obj0 = diag.find ".participant:eq(0)"
             obj1 = diag.find ".participant:eq(1)"
             obj2 = diag.find ".participant:eq(2)"
-            expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
-            expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
+            expect(_u.outerBottom(obj0)).toBeLessThan obj1.offset().top
+            expect(_u.outerBottom(obj1)).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
       describe "top", ->

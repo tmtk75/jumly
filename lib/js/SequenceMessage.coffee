@@ -1,4 +1,5 @@
 HTMLElement = require "HTMLElement.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -161,7 +162,7 @@ SequenceMessage::_to_be_creation = ->
     obj = dst._actor
     obj.offset top:msg.offset().top - obj.height()/3
     mt = parseInt dst.css "margin-top"
-    dst.offset top:obj.outerBottom() + mt
+    dst.offset top:utils.outerBottom(obj) + mt
 
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this

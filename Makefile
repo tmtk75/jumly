@@ -7,7 +7,7 @@ test: dist/bundle.lib.js dist/bundle.spec.js \
 example: dist/bundle.lib.js
 	open examples/bundle.html
 
-dist/bundle.lib.js dist/bundle.spec.js: node_modules/.bin/webpack lib/js/*.coffee
+dist/bundle.lib.js dist/bundle.spec.js: node_modules/.bin/webpack lib/js/*.coffee spec/*.coffee
 	webpack
 
 vendor/coffee-script.js:

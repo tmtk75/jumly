@@ -186,7 +186,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
     msg.css("z-index", -1)
        .offset
          left: occurr.offset().left
-         top : prev.find(".occurrence").outerBottom() - msg.height()/3
+         top : utils.outerBottom(prev.find(".occurrence")) - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
   @_q(".participant").selfEach (e)-> e.renderIcon?()
