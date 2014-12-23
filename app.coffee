@@ -1,7 +1,6 @@
 #!/usr/bin/env coffee
 express = require "express"
 jade    = require "jade"
-assets  = require "connect-assets"
 stylus  = require "stylus"
 nib     = require "nib"
 fs      = require "fs"
@@ -41,8 +40,6 @@ app.configure ->
                  .set('filename', path)
                  .set('compress', true)
                  .use(nib()).import('nib')
-
-  app.use assets src:"lib"
 
   app.use '/public', express.static "#{__dirname}/public"
   app.use '/',       express.static static_dir
