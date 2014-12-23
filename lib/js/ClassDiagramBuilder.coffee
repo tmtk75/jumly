@@ -15,8 +15,4 @@ DSL type:".class-diagram", compileScript: (script) ->
   b.build script.html()
 
 
-if typeof module != 'undefined' and module.exports
-  module.exports = ClassDiagramBuilder
-else
-  require("core").ClassDiagramBuilder = ClassDiagramBuilder
-
+module.exports = ClassDiagramBuilder

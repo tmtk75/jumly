@@ -16,10 +16,11 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         'node_modules/jquery/dist/jquery.js',
-        'coffee-script.js',
+        'vendor/coffee-script.js',
         //'spec/DiagramSpec.coffee',
         //'spec/HTMLElementSpec.coffee',
-        'spec/SequenceDiagramBuilderSpec.coffee',
+        'spec/SequenceDiagramLayoutSpec.coffee',
+        //'spec/SequenceDiagramBuilderSpec.coffee',
     ],
 
 
@@ -35,7 +36,11 @@ module.exports = function(config) {
     },
 
 
-    webpack: require("./webpack.config.js"),
+    webpack: function() {
+        var conf = require("./webpack.config.js")
+        delete conf.entry.spec;
+        return conf;
+    }(),
 
 
     // test results reporter to use
@@ -63,8 +68,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    //browsers: ['Chrome'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
+    //browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

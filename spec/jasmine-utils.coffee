@@ -1,7 +1,7 @@
-#core = require "core.coffee"
-#HTMLElement = require "HTMLElement"
-#L = require "SequenceDiagramLayout"
 $ = require "jquery"
+core = require "core.coffee"
+HTMLElement = require "HTMLElement.coffee"
+L = require "SequenceDiagramLayout.coffee"
 
 root =
   matchers: (suite)->
@@ -17,14 +17,12 @@ root =
                     .addClass("spec-diagram-container")
                     .prepend($("<div>").addClass("description").text self.description)
     cont = $("body > #diagram-containers")
-    if cont .length is 0
+    #indow.document.write "hello"
+    if cont.length is 0
       cont = $("<div>").attr("id", "diagram-containers")
       $("body").append cont
     cont.append div
     div
-
-  unless_node: (f)->
-    f() unless core.env.is_node
 
   glance: (diag)->
     $("body").prepend diag

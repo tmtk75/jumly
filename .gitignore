@@ -1,5 +1,7 @@
 node_modules
-*.swp
+.*.swp
+.*.un~
 views/static/*.css
 build
-bundle.js
+dist
+vendor

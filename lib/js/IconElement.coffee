@@ -182,7 +182,7 @@ _render = (svg, renderer, args) ->
     width:size.width + dw, height:size.height + dh
     "data-actual-width":size.width, "data-actual-height":size.height
 
-core = require "core.coffe"
+core = require "core.coffee"
 HTMLElement = require "HTMLElement.coffee"
 
 class IconElement extends HTMLElement

@@ -52,34 +52,15 @@ core._normalize = (that)->
       a[name] = mods
       a
 
-core.env =
-  is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
+is_node = (typeof module != 'undefined' and typeof module.exports != 'undefined')
 
-JUMLY =
-  env: core.env
+module.exports = core
 
-self = {}
-
-if core.env.is_node
-  global.JUMLY = JUMLY
-  module.exports = core
-else
-  window.JUMLY = JUMLY
-
-  exported =
-    core: core
-    "node-jquery": {}  ## suppress warning for "node-jquery"
-    "./jasmine-matchers": {}  ## suppress warning for "./
-
-  JUMLY.require = (name)->
-    if name is undefined or name is null
-      throw new Error "#{name} was not properly given"
-    console.warn "not found:", name unless exported[name]
-    exported[name]
-  
-  self.require = JUMLY.require
+#
+if is_node
+  global.JUMLY = {}
 
 # Listen for window load, both in browsers and in IE.
-unless core.env.is_node
+unless is_node
   $(window).on 'DOMContentLoaded', ->
     JUMLY.scan()

@@ -34,7 +34,4 @@ def = ->
 #def ".class-diagram", ClassDiagram
 def ".class", Class
 
-if typeof module != 'undefined' and module.exports
-  module.exports = Class
-else
-  require("core").Class = Class
+module.exports = Class

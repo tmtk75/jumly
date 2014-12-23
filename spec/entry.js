@@ -1,0 +1,10 @@
+require("ClassDiagramSpec.coffee");
+require("DiagramSpec.coffee");
+require("HTMLElementSpec.coffee");
+require("RobustnessDiagramBuilderSpec.coffee");
+require("SequenceDiagramBuilderSpec.coffee");
+require("SequenceDiagramLayoutSpec.coffee");
+require("SequenceDiagramSpec.coffee");
+require("apiSpec.coffee");
+require("coreSpec.coffee");
+require("issuesSpec.coffee");

@@ -1,8 +1,6 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-
-self.require "node-jquery-xhr"
-core = self.require "core"
-self.require "api"
+core = require "core.coffee"
+require "api.coffee"
+$ = require "jquery"
 
 describe "JUMLY", ->
 
@@ -27,7 +25,7 @@ describe "JUMLY", ->
           expect(a[0]).toBe b[0]
 
     ## Disable string argument
-    xdescribe "a string is given", ->
+    describe "a string is given", ->
 
       describe "with `into`", ->
         it "makes a new diagram and put it", ->
@@ -82,7 +80,7 @@ describe "JUMLY", ->
 
       describe "with opiton", ->
 
-        describe "which has an funciton placer", ->
+        it "has an function placer", ->
           nodes = $ """
                     <div>
                       <div data-jumly="text/jumly+sequence">@found "dog"</div>
