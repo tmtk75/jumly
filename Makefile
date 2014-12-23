@@ -1,10 +1,13 @@
 
-open: dist/bundle.jumly.js dist/bundle.spec.js \
+test: dist/bundle.lib.js dist/bundle.spec.js \
 	vendor/coffee-script.js \
 	vendor/jasmine/lib/jasmine-2.1.3/jasmine.js
 	open spec/index.html
 
-dist/bundle.jumly.js dist/bundle.spec.js: node_modules/.bin/webpack
+example: dist/bundle.lib.js
+	open examples/bundle.html
+
+dist/bundle.lib.js dist/bundle.spec.js: node_modules/.bin/webpack
 	webpack
 
 vendor/coffee-script.js:
