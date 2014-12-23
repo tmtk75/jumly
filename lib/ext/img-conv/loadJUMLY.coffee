@@ -17,7 +17,6 @@ module.exports =
           @import url(http://fonts.googleapis.com/css?family=Coda);
           .sequence-diagram .participant {
             font-family: Coda;
-            font-weight: bold;
           }
         </style>
       </head>
