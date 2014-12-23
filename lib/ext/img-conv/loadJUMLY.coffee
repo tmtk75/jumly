@@ -13,6 +13,12 @@ module.exports =
       <!DOCTYPE HTML>
       <head>
         <link rel="stylesheet" href="#{rootdir}/views/static/release/jumly.min.css" />
+        <style>
+          @import url(http://fonts.googleapis.com/css?family=Coda);
+          .sequence-diagram .participant {
+            font-family: Coda;
+          }
+        </style>
       </head>
       <body>
       </body>
