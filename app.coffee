@@ -38,7 +38,11 @@ app.use (req, res, next)->
 app.use stylus.middleware
   src: views_dir
   dest: static_dir
-app.use assets src:"lib"
+app.use assets
+  paths: [
+    path.join __dirname, "lib/js"
+    path.join __dirname, "lib/css"
+  ]
 app.use '/public', express.static "#{__dirname}/public"
 app.use '/',       express.static static_dir
 app.use (req, res, next)->
