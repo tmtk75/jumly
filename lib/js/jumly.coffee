@@ -1,6 +1,6 @@
 #= require core
-#= require jquery.g2d
-#= require jquery.ext
+#= require jquery-g2d
+#= require jquery-ext
 #= require HTMLElement
 #= require Diagram
 #= require DiagramBuilder
