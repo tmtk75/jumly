@@ -8,7 +8,6 @@ html(lang="en")
     block title
     block description
       meta(name="description", content="#{__description}")
-    !=css('jumly')
     block styles
   body
     block navbar
@@ -20,6 +19,6 @@ html(lang="en")
     script(src='//code.jquery.com/jquery-2.1.0.min.js')
     script(src='//knockoutjs.com/downloads/knockout-3.0.0.js')
     include ../_includes/syntaxhighlighter
-    !=js('jumly')
+    script(src='/public/jumly.min.js')
     block scripts
     script(src='/public/js/_ga.js')
