@@ -56,7 +56,8 @@ _val = (s)->
         having the source jumly code.
 ###
 _mkey = "jumly" # meta data key
-JUMLY.eval = ($src, opts)->
+
+_eval = ($src, opts)->
   meta = _to_meta $src
 
   d = _compile _val($src), meta.type
@@ -92,14 +93,17 @@ _opts =
             e for e in nodes when filter(e)
   placer: (d, $e)-> $e.after d
 
-JUMLY.scan = (scope = document, opts)->
+_scan = (scope = document, opts)->
   p = $.extend {}, _opts, opts
   for e in p.finder($ scope)
     $e = $(e)
     if dst = $e.data(_mkey)?.dst
       if p.synchronize
-        JUMLY.eval $e, into:dst
+        _eval $e, into:dst
       ## skip already evaluated ones if no synchronize
     else
-      JUMLY.eval $e, p.placer
+      _eval $e, p.placer
 
+module.exports =
+  eval: _eval
+  scan: _scan

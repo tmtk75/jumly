@@ -52,15 +52,9 @@ core._normalize = (that)->
       a[name] = mods
       a
 
-is_node = (typeof module != 'undefined' and typeof module.exports != 'undefined')
-
 module.exports = core
 
-#
-if is_node
-  global.JUMLY = {}
-
 # Listen for window load, both in browsers and in IE.
-unless is_node
+if typeof window is "object"
   $(window).on 'DOMContentLoaded', ->
-    JUMLY.scan()
+    require("api.coffee").scan()
