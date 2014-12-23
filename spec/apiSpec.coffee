@@ -1,5 +1,5 @@
 core = require "core.coffee"
-require "api.coffee"
+JUMLY = require "api.coffee"
 $ = require "jquery"
 
 describe "JUMLY", ->
