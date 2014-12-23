@@ -1,10 +1,11 @@
-DiagramBuilder = require "DiagramBuilder"
+DiagramBuilder = require "DiagramBuilder.coffee"
+core = require "core.coffee"
 
 class ClassDiagramBuilder extends DiagramBuilder
   constructor: (@diagram) ->
 
 ClassDiagramBuilder::def = (props)->
-  @diagram.declare Identity.normalize props
+  @diagram.declare core_.normalize props
 
 ##Deprecated
 ClassDiagramBuilder::start = (acts)-> acts.apply this, []

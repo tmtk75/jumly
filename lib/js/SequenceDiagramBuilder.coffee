@@ -65,7 +65,7 @@ SequenceDiagramBuilder::message = (a, b, c)->
           actname = a[e]
           stereotype = "asynchronous"
   else if typeof a is "string" and typeof b is "object"
-    norm = JUMLY.Identity.normalize b
+    norm = core._normalize b
     actee = @_find_or_create norm
     callback = c
   else
