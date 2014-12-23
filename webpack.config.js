@@ -2,7 +2,7 @@ var path = require("path");
 
 module.exports = {
     entry: {
-      jumly: "./entry.js",
+      jumly: "./lib/entry.js",
       spec:  "./spec/entry.js",
     },
     output: {

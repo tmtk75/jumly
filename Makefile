@@ -25,3 +25,6 @@ karma: vendor/coffee-script.js node_modules/jquery/dist/jquery.js
 
 jasmine-node:
 	NODE_PATH=node_modules:lib/js jasmine-node --coffee spec/*.coffee
+
+clean:
+	rm -rf build dist
