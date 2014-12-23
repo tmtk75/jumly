@@ -1,6 +1,6 @@
 {
   "name": "jumly",
-  "version": "0.1.5-2",
+  "version": "0.1.5-4",
   "author": "Tomotaka Sakuma",
   "description": "library to render UML diagram",
   "engines": {
