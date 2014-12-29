@@ -105,6 +105,9 @@ _scan = (scope = document, opts)->
     else
       _eval $e, p.placer
 
-module.exports =
+global.JUMLY =
   eval: _eval
   scan: _scan
+
+module.exports = global.JUMLY
+
