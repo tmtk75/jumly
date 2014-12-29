@@ -19,10 +19,9 @@ and open the document.
 
 ```html
 <head>
-<link href='//jumly.tmtk.net/release/jumly.min.css' rel='stylesheet'/>
 <script src='//code.jquery.com/jquery-2.1.0.min.js'></script>
 <script src='//coffeescript.org/extras/coffee-script.js'></script>
-<script src='//jumly.tmtk.net/release/jumly.min.js'></script>
+<script src='//jumly.tmtk.net/public/jumly.min.js'></script>
 </head>
 <body>
 <script type='text/jumly+sequence'>

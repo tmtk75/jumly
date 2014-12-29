@@ -48,7 +48,7 @@ require("./loadJUMLY").loadJUMLY body, (page)->
 
   ## print html to stdout
   if encoding.match /^html$/i
-    console.log '<link rel="stylesheet" href="http://jumly.tmtk.net/release/jumly.min.css"/>'
+    console.log '<link rel="stylesheet" href="http://jumly.tmtk.net/public/jumly.min.css"/>'
     console.log page.evaluate -> $("body").html()
 
   ## create a file to show above it

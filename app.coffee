@@ -69,7 +69,7 @@ pkg = JSON.parse fs.readFileSync("package.json")
 ctx =
   version: pkg.version
   paths:
-    release: "release"
+    release: "public"
     images: "public/images"
   tested_version:
     node: pkg.engines.node

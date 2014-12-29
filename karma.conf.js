@@ -17,10 +17,17 @@ module.exports = function(config) {
     files: [
         'node_modules/jquery/dist/jquery.js',
         'vendor/coffee-script.js',
-        //'spec/DiagramSpec.coffee',
-        //'spec/HTMLElementSpec.coffee',
+        'dist/jumly.css',
+        'spec/ClassDiagramSpec.coffee',
+        'spec/DiagramSpec.coffee',
+        'spec/HTMLElementSpec.coffee',
+        'spec/RobustnessDiagramBuilderSpec.coffee',
+        'spec/SequenceDiagramBuilderSpec.coffee',
         'spec/SequenceDiagramLayoutSpec.coffee',
-        //'spec/SequenceDiagramBuilderSpec.coffee',
+        'spec/SequenceDiagramSpec.coffee',
+        'spec/apiSpec.coffee',
+        'spec/coreSpec.coffee',
+        'spec/issuesSpec.coffee',
     ],
 
 
