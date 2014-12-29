@@ -29,9 +29,9 @@ SequenceMessage::_toLine = (src, dst, svg) ->
   e.dst.y = y
   e
 
-SequenceMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
+SequenceMessage::_srcOccurr = -> utils.self @parents(".occurrence:eq(0)")
 
-SequenceMessage::_dstOccurr = -> (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this).self()
+SequenceMessage::_dstOccurr = -> utils.self (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this)
 
 SequenceMessage::_prefferedCanvas = ->
   @find("svg:eq(0)")

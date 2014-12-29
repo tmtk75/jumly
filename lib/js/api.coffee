@@ -21,6 +21,7 @@ _layout = (doc, type = _type)->
 
 ## returns JUMLY meta object
 _to_meta = ($src)->
+  throw new Error("data method is missing -- #{$src}") unless $src.data
   meta = $src.data _mkey
   if meta is undefined
     $src.data _mkey, meta = {}
