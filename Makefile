@@ -7,6 +7,10 @@ test: dist/bundle.lib.js dist/bundle.spec.js \
 example: dist/bundle.lib.js
 	open examples/bundle.html
 
+build:
+	webpack
+	grunt minify
+
 api:
 	open "http://localhost:3000/api/diagrams?data=%40found%20%22You%22%2C%20-%3E%0A%20%20%40message%20%22Think%22%2C%20-%3E%0A%20%20%20%20%40message%20%22Write%20your%20idea%22%2C%20%22JUMLY%22%2C%20-%3E%0A%20%20%20%20%20%20%40create%20%22Diagram%22%0Ajumly.css%20%22background-color%22%3A%22%238CC84B%22"
 
