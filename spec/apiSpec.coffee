@@ -24,23 +24,6 @@ describe "JUMLY", ->
           expect(b.length).toBe 1
           expect(a[0]).toBe b[0]
 
-    ## Disable string argument
-    describe "a string is given", ->
-
-      describe "with `into`", ->
-        it "makes a new diagram and put it", ->
-          a = JUMLY.eval "@found 'cat'", into:@here
-          b = @here.find ">.diagram"
-          expect(b.length).toBe 1
-          expect(a[0]).toBe b[0]
-
-      describe "with a funciton `placer`", ->
-        it "makes a new diagram and put it", ->
-          a = JUMLY.eval "@found 'dog'", (d, $e)=> @here.find(">span").after d
-          b = @here.find ">*:eq(1)"
-          expect(b.hasClass "diagram").toBeTruthy()
-          expect(a[0]).toBe b[0]
-
     describe "text/jumly+robustness", ->
       describe "in type of script", ->
         it "makes a new robustness diagram", ->
