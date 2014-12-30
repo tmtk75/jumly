@@ -51,7 +51,8 @@
   },
   "scripts": {
     "start": "./app.coffee",
-    "test": "./node_modules/karma/bin/karma start karma.conf.js $KARMA_OPTIONS"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js $KARMA_OPTIONS",
+    "prepublish": "npm prune"
   },
   "license": "MIT"
 }
