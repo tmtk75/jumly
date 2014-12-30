@@ -2,7 +2,7 @@
   "name": "jumly",
   "version": "0.1.5-4",
   "author": "Tomotaka Sakuma",
-  "description": "library to render UML diagram",
+  "description": "Library to render UML diagrams",
   "engines": {
     "node": "0.10.34",
     "npm": "1.4.28"
@@ -45,13 +45,13 @@
     "url": "git://github.com/tmtk75/jumly.git"
   },
   "directories": {
-    "lib": "./lib"
+    "lib": "./lib",
+    "bin": "./bin",
+    "example": "./examples"
   },
   "scripts": {
     "start": "./app.coffee",
-    "test": "grunt test"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js $KARMA_OPTIONS"
   },
-  "bin": {
-    "jumly": "./bin/jumly.sh"
-  }
+  "license": "MIT"
 }

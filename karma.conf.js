@@ -1,5 +1,6 @@
 // Karma configuration
 // Generated on Sat Dec 20 2014 18:15:19 GMT+0900 (JST)
+var travis_enabled = process.env["KARMA_OPTIONS"] ? true : false;
 
 module.exports = function(config) {
   config.set({
@@ -70,7 +71,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: !travis_enabled,
 
 
     // start these browsers
@@ -81,6 +82,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: travis_enabled,
+
+
+    customLaunchers: {
+      ChromeTravis: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
   });
 };
