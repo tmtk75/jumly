@@ -20,5 +20,6 @@ if (cluster.isMaster) {
 */
 var coffee = require('coffee-script');
 var fs = require('fs');
+require('coffee-script/register');
 var app = coffee.compile(fs.readFileSync('./app.coffee').toString());
 eval(app);
