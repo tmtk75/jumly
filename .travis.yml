@@ -14,6 +14,5 @@ before_install:
 
 install:
   - npm install
-  - make dist/jumly.css
-  - make vendor/coffee-script.js
+  - make dist/jumly.css vendor/coffee-script.js
 
