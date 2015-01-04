@@ -1,5 +1,3 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
 _STYLES =
   lineWidth    : 1.5
   fillStyle    : 'white'
@@ -29,7 +27,7 @@ ns = "http://www.w3.org/2000/svg"
   </feMerge>
 </filter>
 """
-g2d = self.require "jquery.g2d"
+g2d = require "jquery.g2d.coffee"
 ce = g2d.svg.create
 sa = g2d.svg.attrs
 ne = (n, attrs)-> sa ce(n), attrs
@@ -184,8 +182,8 @@ _render = (svg, renderer, args) ->
     width:size.width + dw, height:size.height + dh
     "data-actual-width":size.width, "data-actual-height":size.height
 
-core = self.require "core"
-HTMLElement = self.require "HTMLElement"
+core = require "core.coffee"
+HTMLElement = require "HTMLElement.coffee"
 
 class IconElement extends HTMLElement
   @renderer = (type)->
@@ -206,7 +204,4 @@ class IconElement extends HTMLElement
       (IconElement.renderer opts.kind) svg[0]
       div.css height:svg.data("actual-height")
 
-if core.env.is_node
-  module.exports = IconElement
-else
-  core.exports IconElement
+module.exports = IconElement

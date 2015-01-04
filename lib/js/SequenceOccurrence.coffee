@@ -1,13 +1,12 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
-utils = self.require "jquery.ext"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->
     super()
 
-core = self.require "core"
-SequenceInteraction = self.require "SequenceInteraction"
+SequenceInteraction = require "SequenceInteraction.coffee"
 
 SequenceOccurrence::interact = (actor, acts) ->
     if acts?.stereotype is ".lost"
@@ -17,7 +16,7 @@ SequenceOccurrence::interact = (actor, acts) ->
     else if acts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if actor?.stereotype is ".alt"
-        SequenceFragment = self.require "SequenceFragment"
+        SequenceFragment = require "SequenceFragment.coffee"
         alt = new SequenceFragment "alt"
         alt.alter this, acts
         return this
@@ -30,7 +29,7 @@ SequenceOccurrence::interact = (actor, acts) ->
     iact
 
 SequenceOccurrence::create = (objsrc) ->
-  SequenceParticipant = self.require "SequenceParticipant"
+  SequenceParticipant = require "SequenceParticipant.coffee"
   obj = new SequenceParticipant(objsrc.name)
               .addClass "created-by"
   @_actor.parent().append obj
@@ -98,7 +97,4 @@ SequenceOccurrence::destroy = (actee) ->
               .insertAfter(occur)
     occur
 
-if core.env.is_node
-  module.exports = SequenceOccurrence
-else
-  core.exports SequenceOccurrence
+module.exports = SequenceOccurrence

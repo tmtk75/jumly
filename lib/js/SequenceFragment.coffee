@@ -1,5 +1,6 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceFragment extends HTMLElement
   constructor: (args)->
@@ -19,7 +20,7 @@ SequenceFragment::enclose = (_) ->
                 throw {message:"different parent", nodes:[a, b]}
     if _.parent is undefined
         return this
-    @swallow(_)
+    utils.swallow(this, _)
     this
 
 SequenceFragment::alter = (occurr, acts) ->
@@ -36,8 +37,4 @@ SequenceFragment::alter = (occurr, acts) ->
     alt.find(".divider:last").remove()
     alt
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceFragment
-else
-  core.exports SequenceFragment
+module.exports = SequenceFragment

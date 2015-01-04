@@ -1,4 +1,4 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
+$ = require "jquery"
 
 class HTMLElement
   constructor: (args, f)->
@@ -20,8 +20,4 @@ class HTMLElement
 HTMLElement::preferred_width = ->
   @find("> *:eq(0)").outerWidth()
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = HTMLElement
-else
-  core.exports HTMLElement
+module.exports = HTMLElement

@@ -11,14 +11,12 @@ module.exports =
 
     fs.write tmp_html, """
       <!DOCTYPE HTML>
-      <head>
-        <link rel="stylesheet" href="#{rootdir}/views/static/release/jumly.min.css" />
-      </head>
       <body>
       </body>
       <script src='#{rootdir}/public/js/jquery-2.1.0.min.js'></script>
       <script src='#{rootdir}/public/js/coffee-script-1.7.1.js'></script>
-      <script src='#{rootdir}/views/static/release/jumly.min.js'></script>
+      <script src='#{rootdir}/public/js/es5-shim.min.js'></script>
+      <script src='#{rootdir}/public/jumly.min.js'></script>
       <script type='text/coffeescript'>
         window._jumly_code = '''
 #{jumly_code.replace /'''/g, "\\'\\'\\'"}

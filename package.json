@@ -1,47 +1,58 @@
 {
   "name": "jumly",
-  "version": "0.1.5-2",
+  "version": "0.2.0",
   "author": "Tomotaka Sakuma",
-  "description": "library to render UML diagram",
+  "description": "Library to render UML diagrams",
   "engines": {
-    "node": "0.10.20",
-    "npm": "1.3.11"
+    "node": "0.10.34",
+    "npm": "1.4.28"
   },
   "dependencies": {
-    "coffee-script": "1.6.3",
+    "coffee-script": "1.8.0",
     "express": "3.1.2",
     "jade": "0.28.2",
-    "stylus": "0.35.0",
-    "underscore": "1.5.2",
-    "nib": "1.0.1",
-    "connect-assets": "2.5.2",
-    "phantomjs": "1.9.7-15",
-    "tmp": "*",
-    "newrelic": "*"
+    "jquery": "2.1.3",
+    "nib": "^1.0.4",
+    "phantomjs": "^1.9.13",
+    "stylus": "^0.49.3",
+    "tmp": "0.0.24",
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "jasmine-node": "1.11.0",
-    "node-jquery-xhr": "1.8.3",
-    "grunt": "0.4.1",
-    "grunt-cli": "0.1.9",
-    "grunt-contrib-coffee": "0.7.0",
-    "grunt-contrib-stylus": "0.8.0",
-    "grunt-contrib-uglify": "0.2.4",
-    "grunt-contrib-cssmin": "0.6.2",
-    "grunt-regarde": "0.1.1"
+    "coffee-loader": "^0.7.2",
+    "css-loader": "^0.9.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-stylus": "^0.20.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "jasmine": "^2.1.1",
+    "jasmine-core": "^2.1.3",
+    "jasmine-node": "^1.14.5",
+    "karma": "^0.12.28",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-coffee-preprocessor": "^0.2.1",
+    "karma-jasmine": "^0.3.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-webpack": "1.3.1",
+    "style-loader": "^0.8.2",
+    "stylus-loader": "^0.5.0",
+    "webpack": "^1.4.13",
+    "webpack-dev-server": "^1.6.6"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/tmtk75/jumly.git"
   },
   "directories": {
-    "lib": "./lib"
+    "lib": "./lib",
+    "bin": "./bin",
+    "example": "./examples"
   },
   "scripts": {
     "start": "./app.coffee",
-    "test": "grunt test"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js $KARMA_OPTIONS",
+    "prepublish": "npm prune"
   },
-  "bin": {
-    "jumly": "./bin/jumly.sh"
-  }
+  "license": "MIT"
 }

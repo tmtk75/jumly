@@ -1,3 +1,7 @@
 node_modules
-*.swp
+.*.swp
+.*.un~
 views/static/*.css
+build
+dist
+vendor

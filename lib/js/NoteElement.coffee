@@ -1,6 +1,4 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
-HTMLElement = self.require "HTMLElement"
+HTMLElement = require "HTMLElement.coffee"
 
 class NoteElement extends HTMLElement
   constructor: (args, attrs)->
@@ -8,9 +6,4 @@ class NoteElement extends HTMLElement
       me.append($("<div>").addClass("name"))
     @css attrs.css if attrs
 
-core = self.require "core"
-
-if core.env.is_node
-  module.exports = NoteElement
-else
-  core.exports NoteElement
+module.exports = NoteElement

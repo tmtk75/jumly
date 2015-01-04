@@ -1,9 +1,6 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-
-self.require "node-jquery-xhr"
-SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
-SequenceDiagramLayout  = self.require "SequenceDiagramLayout"
-utils = self.require "./jasmine-utils"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
+SequenceDiagramLayout  = require "SequenceDiagramLayout.coffee"
+utils = require "./jasmine-utils.coffee"
 
 describe "issues", ->
   
@@ -26,7 +23,7 @@ describe "issues", ->
       expect(conds.filter(":eq(0)").text()).toBe "[until i > 100]"
       expect(conds.filter(":eq(1)").text()).toBe ""
   
-  utils.unless_node -> describe "#12", ->
+  describe "#12", ->
   
     describe "@create", ->
       beforeEach ->

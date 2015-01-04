@@ -1,13 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-DiagramLayout = self.require "DiagramLayout"
-utils = self.require "jquery.ext"
-
-$.fn.self = -> @data "_self"
-$.fn.selfEach = (f)-> @each (i, e)->
-  e = $(e).self()
-  throw new Error("_self have nothing ", e) unless e?
-  f e
-  this
+DiagramLayout = require "DiagramLayout.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout
 
@@ -19,11 +11,11 @@ SequenceDiagramLayout::_layout = ->
   $(".participant:eq(0)", @diagram).after objs
   @align_objects_horizontally()
   @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
-  @_q(".occurrence .interaction").selfEach (e)-> e._compose_()
+  utils.selfEach @_q(".occurrence .interaction"), (e)-> e._compose_()
   @generate_lifelines_and_align_horizontally()
   @pack_refs_horizontally()
   @pack_fragments_horizontally()
-  @_q(".create.message").selfEach (e)-> e._to_be_creation()
+  utils.selfEach @_q(".create.message"), (e)-> e._to_be_creation()
   @align_lifelines_vertically()
   @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling()
@@ -40,7 +32,7 @@ SequenceDiagramLayout::_layout = ->
   r = utils.max objs, (e)-> $(e).offset().left + $(e).outerWidth() - 1
   @diagram.width r - l + 1
 
-HTMLElementLayout = self.require "HTMLElementLayout"
+HTMLElementLayout = require "HTMLElementLayout.coffee"
 
 _ = (opts)->
   if navigator?.userAgent.match(/.*(WebKit).*/)
@@ -48,21 +40,6 @@ _ = (opts)->
   if navigator?.userAgent.match(/.*(Gecko).*/)
     return opts["gecko"]
   return opts["webkit"]
-
-# A specific iterator that picks up by 2 from this nodeset.
-# f0: a callback has one argument like (e) -> to handle the 1st node.
-# f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.
-$.fn.pickup2 = (f0, f1, f2) ->
-  return this if @length is 0
-  f0 prev = $(this[0])
-  return this if @length is 1
-  @slice(1).each (i, curr)=>
-    curr = $ curr
-    if f2? and (i + 1 is @length - 1)
-      f2 prev, curr, i + 1
-    else
-      f1 prev, curr, i + 1
-    prev = curr
 
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
@@ -72,9 +49,9 @@ SequenceDiagramLayout::align_objects_horizontally = ->
     if b.css("left") is (_ webkit:"auto", gecko:"0px")
       spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
       spacing.apply()
-  @_q(".participant").pickup2 f0, f1
+  utils.pickup2 @_q(".participant"), f0, f1
 
-SequenceLifeline = self.require "SequenceLifeline"
+SequenceLifeline = require "SequenceLifeline.coffee"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   diag = @diagram
@@ -86,7 +63,7 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
     diag.append a
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
-  @_q(".ref").selfEach (ref) ->
+  utils.selfEach @_q(".ref"), (ref) ->
     pw = ref.preferred_left_and_width()
     ref.offset(left:pw.left)
 
@@ -129,10 +106,9 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
-  @_q(".occurrence > .fragment")
-    .selfEach(fixwidth)
+  a = (utils.selfEach @_q(".occurrence > .fragment"), fixwidth)
     .parents(".occurrence > .fragment")
-    .selfEach(fixwidth)
+  utils.selfEach a, fixwidth
 
 SequenceDiagramLayout::align_lifelines_vertically = ->
   nodes = @diagram.find(".interaction, > .ref")
@@ -170,30 +146,25 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
   @diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
-    e = $(e).self()
+    e = utils.self $(e)
     if not e.isToSelf()
         return
     iact = e.addClass("activated")
             .addClass("asynchronous")
     prev = iact.parents(".interaction:eq(0)")
     iact.insertAfter prev
-    
-    occurr = iact.css("padding-bottom", 0)
-                 .find("> .occurrence").self()
-                 ._move_horizontally()
-                 .css("top", 0)
+   
+    aa = utils.self iact.css("padding-bottom", 0).find("> .occurrence")
+    occurr = aa._move_horizontally()
+               .css("top", 0)
 
-    msg = iact.find(".message").self()
+    msg = utils.self iact.find(".message")
     msg.css("z-index", -1)
        .offset
          left: occurr.offset().left
-         top : prev.find(".occurrence").outerBottom() - msg.height()/3
+         top : utils.outerBottom(prev.find(".occurrence")) - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
-  @_q(".participant").selfEach (e)-> e.renderIcon?()
+  utils.selfEach @_q(".participant"), (e)-> e.renderIcon?()
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceDiagramLayout
-else
-  core.exports SequenceDiagramLayout
+module.exports = SequenceDiagramLayout

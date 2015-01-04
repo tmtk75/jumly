@@ -1,5 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+HTMLElement = require "HTMLElement.coffee"
+utils = require "jquery.ext.coffee"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -29,9 +29,9 @@ SequenceMessage::_toLine = (src, dst, svg) ->
   e.dst.y = y
   e
 
-SequenceMessage::_srcOccurr = -> @parents(".occurrence:eq(0)").self()
+SequenceMessage::_srcOccurr = -> utils.self @parents(".occurrence:eq(0)")
 
-SequenceMessage::_dstOccurr = -> (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this).self()
+SequenceMessage::_dstOccurr = -> utils.self (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this)
 
 SequenceMessage::_prefferedCanvas = ->
   @find("svg:eq(0)")
@@ -75,7 +75,7 @@ _determine_primary_stereotype = (jqnode) ->
 
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 
-_g2d = self.require "jquery.g2d"
+_g2d = require "jquery.g2d.coffee"
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6
@@ -162,13 +162,9 @@ SequenceMessage::_to_be_creation = ->
     obj = dst._actor
     obj.offset top:msg.offset().top - obj.height()/3
     mt = parseInt dst.css "margin-top"
-    dst.offset top:obj.outerBottom() + mt
+    dst.offset top:utils.outerBottom(obj) + mt
 
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceMessage
-else
-  core.exports SequenceMessage
+module.exports = SequenceMessage

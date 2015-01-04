@@ -1,8 +1,6 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-
-self.require "node-jquery-xhr"
-core = self.require "core"
-self.require "api"
+core = require "core.coffee"
+JUMLY = require "api.coffee"
+$ = require "jquery"
 
 describe "JUMLY", ->
 
@@ -24,23 +22,6 @@ describe "JUMLY", ->
           a = JUMLY.eval @node, (d, $e)=> @here.find(">span").append d
           b = @here.find ">span>.diagram"
           expect(b.length).toBe 1
-          expect(a[0]).toBe b[0]
-
-    ## Disable string argument
-    xdescribe "a string is given", ->
-
-      describe "with `into`", ->
-        it "makes a new diagram and put it", ->
-          a = JUMLY.eval "@found 'cat'", into:@here
-          b = @here.find ">.diagram"
-          expect(b.length).toBe 1
-          expect(a[0]).toBe b[0]
-
-      describe "with a funciton `placer`", ->
-        it "makes a new diagram and put it", ->
-          a = JUMLY.eval "@found 'dog'", (d, $e)=> @here.find(">span").after d
-          b = @here.find ">*:eq(1)"
-          expect(b.hasClass "diagram").toBeTruthy()
           expect(a[0]).toBe b[0]
 
     describe "text/jumly+robustness", ->
@@ -82,7 +63,7 @@ describe "JUMLY", ->
 
       describe "with opiton", ->
 
-        describe "which has an funciton placer", ->
+        it "has an function placer", ->
           nodes = $ """
                     <div>
                       <div data-jumly="text/jumly+sequence">@found "dog"</div>

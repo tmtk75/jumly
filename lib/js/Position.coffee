@@ -1,5 +1,3 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
 class Position
   constructor: (@attrs)->
     @div = $("<div>").addClass(@attrs.css)
@@ -45,8 +43,4 @@ Position.Left      = PositionLeft
 Position.Top       = PositionTop
 
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = Position
-else
-  core.exports Position
+module.exports = Position

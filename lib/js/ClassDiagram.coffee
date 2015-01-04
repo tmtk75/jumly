@@ -1,5 +1,5 @@
-Diagram = require "Diagram"
-utils = require "jquery.ext"
+Diagram = require "Diagram.coffee"
+utils = require "jquery.ext.coffee"
 
 class ClassDiagram extends Diagram
 
@@ -40,8 +40,4 @@ ClassDiagram::compose = ->
   this
 
 
-core = require "core"
-if core.env.is_node
-  module.exports = ClassDiagram
-else
-  core.exports ClassDiagram
+module.exports = ClassDiagram

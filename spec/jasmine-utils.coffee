@@ -1,13 +1,15 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-core = self.require "core"
-HTMLElement = self.require "HTMLElement"
-L = self.require "SequenceDiagramLayout"
+$ = require "jquery"
+core = require "core.coffee"
+HTMLElement = require "HTMLElement.coffee"
+L = require "SequenceDiagramLayout.coffee"
 
 root =
   matchers: (suite)->
-    suite.addMatchers
-      haveClass: (expected)->
-        @actual.hasClass expected
+    jasmine.addMatchers
+      haveClass: (util, customEqualityTesters)->
+        compare: (actual, expected)->
+          b = actual.hasClass expected
+          pass: b, message: b ? "have" : "doesn't have"
   
   div: (self)->
     klass = HTMLElement.to_css_name self.description
@@ -15,14 +17,12 @@ root =
                     .addClass("spec-diagram-container")
                     .prepend($("<div>").addClass("description").text self.description)
     cont = $("body > #diagram-containers")
-    if cont .length is 0
+    #indow.document.write "hello"
+    if cont.length is 0
       cont = $("<div>").attr("id", "diagram-containers")
       $("body").append cont
     cont.append div
     div
-
-  unless_node: (f)->
-    f() unless core.env.is_node
 
   glance: (diag)->
     $("body").prepend diag
@@ -33,7 +33,4 @@ root =
       return opts[e] if $("html").hasClass "ua-#{e}"
     opts["webkit"]
 
-if core.env.is_node
-  module.exports = root
-else
-  core.exports root, "./jasmine-utils"
+module.exports = root

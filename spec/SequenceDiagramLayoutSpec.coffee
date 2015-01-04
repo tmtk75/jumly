@@ -1,18 +1,17 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-self.require "core"
-_u = self.require "jquery.ext"
-utils = self.require "./jasmine-utils"
-SequenceDiagramLayout = self.require "SequenceDiagramLayout"
-SequenceDiagram = self.require "SequenceDiagram"
-SequenceParticipant = self.require "SequenceParticipant"
-SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
+core = require "core.coffee"
+_u = require "jquery.ext.coffee"
+utils = require "./jasmine-utils.coffee"
+SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
 
 _bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
 _top = (e)-> Math.round e.offset().top
 _right = (e)-> Math.round e.offset().left + e.outerWidth() - 1
 _left = (e)-> Math.round e.offset().left
 
-utils.unless_node -> describe "SequenceDiagramLayout", ->
+describe "SequenceDiagramLayout", ->
 
   div = utils.div this
 
@@ -781,8 +780,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             obj0 = diag.find ".participant:eq(0)"
             obj1 = diag.find ".participant:eq(1)"
             obj2 = diag.find ".participant:eq(2)"
-            expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
-            expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
+            expect(_u.outerBottom(obj0)).toBeLessThan obj1.offset().top
+            expect(_u.outerBottom(obj1)).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
       describe "top", ->

@@ -1,4 +1,4 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
+core = require "core.coffee"
 
 class UMLUsecase
   constructor: (props, opts) ->
@@ -38,7 +38,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-class JUMLYUsecaseDiagram extends self.require("Diagram")
+class JUMLYUsecaseDiagram extends require("Diagram.coffee")
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -99,11 +99,11 @@ JUMLYUsecaseDiagram::compose = ->
 
 
 
-class JUMLYUsecaseDiagramBuilder extends self.require("DiagramBuilder")
+class JUMLYUsecaseDiagramBuilder extends require("DiagramBuilder.coffee")
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
-    uname = $.jumly.normalize uname
+    uname = core._normalize uname
     a = $.jumly type, uname
     $.extend a.jprops(), uname
     a
@@ -111,7 +111,7 @@ JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
 JUMLYUsecaseDiagramBuilder::_declare_ = (uname, type, target)->
   a = @new_ type, uname
   target.append a
-  b = JUMLY.Identity.normalize uname
+  b = core._normalize uname
 
   ref = @_diagram._regByRef_ b.id, a
   eval "#{ref} = a"
@@ -135,7 +135,7 @@ JUMLYUsecaseDiagramBuilder::boundary = (name, acts) ->
     @_boundary.append boundary
   else
     @_diagram.append boundary
-  norm = JUMLY.Identity.normalize name
+  norm = core._normalize name
   @_diagram._regByRef_ norm.id
   this
 

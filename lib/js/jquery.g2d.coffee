@@ -19,7 +19,6 @@ to_polar_from_cartesian = (src, dst)->
     quadrants  :
         x: if dx != 0 then dx/Math.abs(dx) else 1
         y: if dy != 0 then dy/Math.abs(dy) else 1
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
 
 SVG_NS = "http://www.w3.org/2000/svg"
 
@@ -38,8 +37,4 @@ g2d =
       e = @create tagname
       @attrs e, attrs
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = g2d
-else
-  core.exports g2d, "jquery.g2d"
+module.exports = g2d

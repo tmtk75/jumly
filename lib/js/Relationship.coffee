@@ -1,7 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
-HTMLElement = self.require "HTMLElement"
-g2d = self.require "jquery.g2d"
+HTMLElement = require "HTMLElement.coffee"
+g2d = require "jquery.g2d.coffee"
 
 class Relationship extends HTMLElement
   constructor: (args, opts)->
@@ -75,9 +73,4 @@ Relationship::render = ->
               .find("line")
               .attr x1:s.x, y1:s.y, x2:t.x, y2:t.y
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = Relationship
-else
-  core.exports Relationship
-
+module.exports = Relationship

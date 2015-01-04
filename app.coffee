@@ -1,7 +1,6 @@
 #!/usr/bin/env coffee
 express = require "express"
 jade    = require "jade"
-assets  = require "connect-assets"
 stylus  = require "stylus"
 nib     = require "nib"
 fs      = require "fs"
@@ -42,8 +41,6 @@ app.configure ->
                  .set('compress', true)
                  .use(nib()).import('nib')
 
-  app.use assets src:"lib"
-
   app.use '/public', express.static "#{__dirname}/public"
   app.use '/',       express.static static_dir
   app.use app.router
@@ -72,11 +69,11 @@ pkg = JSON.parse fs.readFileSync("package.json")
 ctx =
   version: pkg.version
   paths:
-    release: "release"
+    release: "public"
     images: "public/images"
   tested_version:
     node: pkg.engines.node
-    jquery: "2.1.0"
+    jquery: pkg.dependencies["jquery"]
     coffeescript: pkg.dependencies["coffee-script"]
 
 

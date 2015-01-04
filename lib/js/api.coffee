@@ -5,22 +5,23 @@ _type = "text/jumly+sequence"
 
 _t2l =  # type 2 logic
   "text/jumly+sequence":
-    builder: "SequenceDiagramBuilder"
-    layout:  "SequenceDiagramLayout"
+    builder: require "SequenceDiagramBuilder.coffee"
+    layout:  require "SequenceDiagramLayout.coffee"
   "text/jumly+robustness":
-    builder: "RobustnessDiagramBuilder"
-    layout:  "RobustnessDiagramLayout"
+    builder: require "RobustnessDiagramBuilder.coffee"
+    layout:  require "RobustnessDiagramLayout.coffee"
 
-JUMLY._compile = (code, type = _type)->
+_compile = (code, type = _type)->
   throw "unknown type: #{type}" unless _t2l[type]
-  (new (JUMLY.require _t2l[type].builder)).build code
+  (new _t2l[type].builder).build code
 
-JUMLY._layout = (doc, type = _type)->
+_layout = (doc, type = _type)->
   throw "unknown type: #{type}" unless _t2l[type]
-  (new (JUMLY.require _t2l[type].layout)).layout doc
+  (new _t2l[type].layout).layout doc
 
 ## returns JUMLY meta object
 _to_meta = ($src)->
+  throw new Error("data method is missing -- #{$src}") unless $src.data
   meta = $src.data _mkey
   if meta is undefined
     $src.data _mkey, meta = {}
@@ -56,10 +57,11 @@ _val = (s)->
         having the source jumly code.
 ###
 _mkey = "jumly" # meta data key
-JUMLY.eval = ($src, opts)->
+
+_eval = ($src, opts)->
   meta = _to_meta $src
 
-  d = @_compile _val($src), meta.type
+  d = _compile _val($src), meta.type
   if typeof opts is "function"
     opts d, $src
   else if typeof opts is "object"
@@ -68,7 +70,7 @@ JUMLY.eval = ($src, opts)->
   else
     throw "no idea to place a new diagram."
 
-  @_layout d, meta.type
+  _layout d, meta.type
 
   $.extend meta, "dst":d
   d.data _mkey, "src":$src
@@ -92,14 +94,20 @@ _opts =
             e for e in nodes when filter(e)
   placer: (d, $e)-> $e.after d
 
-JUMLY.scan = (scope = document, opts)->
+_scan = (scope = document, opts)->
   p = $.extend {}, _opts, opts
   for e in p.finder($ scope)
     $e = $(e)
     if dst = $e.data(_mkey)?.dst
       if p.synchronize
-        JUMLY.eval $e, into:dst
+        _eval $e, into:dst
       ## skip already evaluated ones if no synchronize
     else
-      JUMLY.eval $e, p.placer
+      _eval $e, p.placer
+
+global.JUMLY =
+  eval: _eval
+  scan: _scan
+
+module.exports = global.JUMLY
 

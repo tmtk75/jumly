@@ -1,9 +1,11 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-utils = self.require "./jasmine-utils"
-is_node = self.require("core").env.is_node
+utils = require "./jasmine-utils.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceOccurrence = require "SequenceOccurrence.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
+SequenceRef = require "SequenceRef.coffee"
 
 describe "SequenceDiagram", ->
-  SequenceDiagram = self.require "SequenceDiagram"
   div = utils.div this
 
   beforeEach ->
@@ -18,7 +20,6 @@ describe "SequenceDiagram", ->
     expect(@diagram.find("*").length).toBe 0
   
   describe "SequenceParticipant", ->
-    SequenceParticipant = self.require "SequenceParticipant"
     beforeEach ->
       @object = new SequenceParticipant "user"
     
@@ -28,23 +29,20 @@ describe "SequenceDiagram", ->
     it "has name", ->
       expect(@object.find(".name").text()).toBe "user"
    
-    unless is_node
-      it "has size", ->
-        div.append @diagram
-        @diagram.append @object
-        expect(@object.width()).toBeGreaterThan 0
-        expect(@object.height()).toBeGreaterThan 0
+    it "has size", ->
+      div.append @diagram
+      @diagram.append @object
+      expect(@object.width()).toBeGreaterThan 0
+      expect(@object.height()).toBeGreaterThan 0
   
   describe "SequenceOccurrence", ->
 
     it "has .occurrence", ->
-      SequenceOccurrence = self.require "SequenceOccurrence"
       beforeEach ->
         @occurr = new SequenceOccurrence
 
   describe "SequenceFragment", ->
 
-    SequenceFragment = self.require "SequenceFragment"
     beforeEach ->
       @fragment = new SequenceFragment "treat all"
 
@@ -56,7 +54,6 @@ describe "SequenceDiagram", ->
 
   describe "SequenceRef", ->
 
-    SequenceRef = self.require "SequenceRef"
     beforeEach ->
       @ref = new SequenceRef "another sequence"
 
