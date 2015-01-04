@@ -73,7 +73,7 @@ ctx =
     images: "public/images"
   tested_version:
     node: pkg.engines.node
-    jquery: "2.1.0"
+    jquery: pkg.dependencies["jquery"]
     coffeescript: pkg.dependencies["coffee-script"]
 
 
