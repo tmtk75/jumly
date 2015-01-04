@@ -13,7 +13,7 @@ before_install:
   - export KARMA_OPTIONS="--browsers ChromeTravis"
 
 install:
-  - mkdir -p vendor; curl -OL http://coffeescript.org/extras/coffee-script.js; mv coffee-script.js vendor
   - npm install
-  - ./node_modules/.bin/grunt stylus
+  - make dist/jumly.css
+  - make vendor/coffee-script.js
 

@@ -6,16 +6,16 @@ build: public/jumly.min.js \
 public/jumly.min.js public/jumly.min.css: \
 	  dist/bundle.lib.js \
 	  dist/jumly.css
-	grunt minify
+	./node_modules/.bin/grunt minify
 
 dist/jumly.css: lib/css/*.styl
-	grunt stylus
+	./node_modules/.bin/grunt stylus
 
 dist/bundle.lib.js dist/bundle.spec.js: \
           node_modules/.bin/webpack \
 	  lib/js/*.coffee \
 	  spec/*.coffee
-	webpack
+	./node_modules/.bin/webpack
 
 vendor/coffee-script.js:
 	mkdir -p vendor && cd vendor; \
