@@ -47,20 +47,25 @@ _diagrams = (is_post, jmcode, req, res)->
         format = "png"
         encoding = "image"
 
-      ## jumly.sh prints tmpfile path to stdout if it creates image file
+      ## jumly prints tmpfile path to stdout if it creates image file
       filepath = ""
-      if encoding.match /image/  ## jumly.sh prints the filepath to stdout
+      if encoding.match /image/  ## jumly prints the filepath to stdout
         stdouth = (data)-> filepath += data
       else
         stdouth = (data)-> res.write data
 
-      ## exec jumly.sh
-      proc = child_process.spawn "#{__dirname}/../bin/jumly.sh", [tmp_path, format, encoding]
+      ## cmd path
+      cmd = "#{__dirname}/../bin/jumly"
+      console.log cmd, tmp_path, format, encoding
+
+      ## exec jumly
+      proc = child_process.spawn cmd, [tmp_path, format, encoding]
       proc.stdout.on 'data', stdouth
       proc.stderr.on 'data', (data)-> res.write data
-      proc.on 'error', (err)-> console.error err
+      proc.on 'error', (err)-> console.error "error:", err
 
       proc.on 'close', (code)->
+        console.log "close:", code
         if filepath
           fs.readFile filepath.trim(), flags:"rb", (err, data)->
             if err

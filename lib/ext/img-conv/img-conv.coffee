@@ -30,6 +30,10 @@ img_path =  if script_path.match regex_ext
               script_path + "." + ext
 html_path = img_path.replace regex_ext, ".html"
 
+##
+phantom.onError = (msg, trace)->
+  console.error 'PHANTOM ERROR:', msg
+  phantom.exit 1
 
 ### read script ###
 body = fs.read script_path

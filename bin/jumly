@@ -25,6 +25,6 @@ cd $cwd
 npm_bin=$cwd/node_modules/.bin
 $npm_bin/phantomjs \
   $cwd/lib/ext/img-conv/img-conv.coffee \
-  $here/$script_path \
+  $script_path \
   $format \
   $encoding
