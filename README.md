@@ -43,18 +43,18 @@ Requiring [node.js](http://nodejs.org/) v0.10.20 or upper.
     $ git clone git://github.com/creationix/nvm.git ~/.nvm
     $ . ~/.nvm/nvm.sh
     $ nvm install 0.10.20
-    
+
 ## Build jumly
 
 In order to build jumly.js, jumly.css and minified ones, it's shortly steps.
 
     $ git clone https://github.com/tmtk75/jumly.git
     $ cd jumly
-    $ npm install
     $ . .env
-    $ grunt
+    $ npm install
+    $ make build
 
-`./build` directory is created and it contains them.
+`./public/jumly.min.js` is generated.
 
 
 # How to develop
@@ -72,29 +72,37 @@ You can launch the webapp using [express](http://expressjs.com/).
     $ . .env
     $ git submodule update --init
     $ ./app.coffee
-    
+
 Please access to [localhost:3000](http://localhost:3000) thru your browser.
 
 
 # How to run specs
+## With browser
+
+    $ make test
+
 Compile spec files, and open `./spec/index.html` with your browser.
 
+## With Karma
 To compile them,
 
     $ . .env
-    $ grunt compile
+    $ build karam
     $ open spec/index.html
-    
+
 [jasmine](http://pivotal.github.com/jasmine/) is used for writing specs.
 
 
 # License
-JUMLY v0.1.5-2 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.2.0 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.1.5-2, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.2.0, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.2.0, Jan 4, 2015
+  - Followed CommonJS for module system
+  - Use Karam for test
 - 0.1.5-2, Mar 12, 2014
   - Removed z-index from `.sequence-diagram .lifeline .line` for [#28](https://github.com/tmtk75/jumly/issues/28)
 - 0.1.5-1, June 23, 2013
@@ -133,3 +141,5 @@ JUMLY v0.1.5-2, 2010-2013 copyright(c), all rights reserved Tomotaka Sakuma.
 - Stylus <http://learnboost.github.com/stylus/>
 - Markdown <https://daringfireball.net/projects/markdown/>
 - GRUNT <http://gruntjs.com/>
+- webpack <http://webpack.github.io/>
+- Karma <http://karma-runner.github.io/>
