@@ -9,10 +9,6 @@ box-shadow()
 
 border_width = 2px
 obj_inner_width  = 88px
-obj_inner_height = 31px
-obj_hpadding = 4px
-obj_vpadding = 0px
-obj_outer_width = (border_width + obj_hpadding)*2 + obj_inner_width
 occur_width = 12px
 msg_shift_top = -10px
 
@@ -23,19 +19,18 @@ primary-border()
   font-family Tahoma,Verdana
 
   .participant
-    position relative
-    width obj_outer_width
+    display inline-block
     background-color #fff
+    primary-border()
+    min-height 31px
     .name
-      primary-border()
-      text-align center
-      padding obj_vpadding obj_hpadding
+      display inline-block
+      margin 8px 0  // looks vertical centering
+      padding 0px 4px
       min-width obj_inner_width
-      height    obj_inner_height
-      line-height obj_inner_height
-
-    &:not(:first-child)
-      margin-top -(border_width*2 + obj_inner_height)
+      max-width obj_inner_width*2
+      text-align center
+      word-break break-all
 
   .lifeline,
   .lifeline .line,
@@ -220,7 +215,7 @@ primary-border()
   .self .message
     line-height 12px
 
-  .participant .name,
+  .participant,
   .occurrence,
   .ref
     box-shadow()

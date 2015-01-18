@@ -26,6 +26,7 @@ module.exports = function(config) {
         'spec/SequenceDiagramBuilderSpec.coffee',
         'spec/SequenceDiagramLayoutSpec.coffee',
         'spec/SequenceDiagramSpec.coffee',
+        'spec/SequenceParticipantSpec.coffee',
         'spec/apiSpec.coffee',
         'spec/coreSpec.coffee',
         'spec/issuesSpec.coffee',

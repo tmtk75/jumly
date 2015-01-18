@@ -6,13 +6,15 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../vendor/coffee-script.js"></script>
     <script src="../dist/bundle.lib.js"></script>
+    <style>
+    .participant .name { -font-size: 48px; }
+    </style>
 </head>
 <body>
     <script type='text/jumly+sequence'>
-    @found "Me"
-    </script>
-    <script type="text/jumly+robustness">
-    @actor "User" :-> @view "Browser"
+    @found "supercalifragilisticexpialidocious",->
+      @create "0123456789abcdf0123456789abcdf0123456789abcdf", ->
+        @message "hi", "What"
     </script>
 </body>
 </html>

@@ -33,4 +33,12 @@ root =
       return opts[e] if $("html").hasClass "ua-#{e}"
     opts["webkit"]
 
+  bottom: (e)-> Math.round e.offset().top + e.outerHeight() - 1
+
+  top: (e)-> Math.round e.offset().top
+
+  right: (e)-> Math.round e.offset().left + e.outerWidth() - 1
+
+  left: (e)-> Math.round e.offset().left
+
 module.exports = root
