@@ -10,7 +10,7 @@ box-shadow()
 border_width = 2px
 obj_inner_width  = 88px
 occur_width = 12px
-msg_shift_top = -10px
+msg_shift_top = -0.85em
 
 primary-border()
   border border_width solid #808080
@@ -221,8 +221,8 @@ primary-border()
     box-shadow()
 
   .note
-    margin-top 1px + msg_shift_top
-    margin-bottom msg_shift_top*-1
+    margin-top -100%
+    margin-bottom 1em
     margin-left occur_width + border_width*2
     min-width 128px
     .name
