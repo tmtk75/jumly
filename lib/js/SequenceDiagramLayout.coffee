@@ -102,7 +102,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                occurr = occurr.data "_self"
+                occurr = $(occurr).data "_self"
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
