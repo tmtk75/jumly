@@ -29,7 +29,11 @@ SequenceDiagramLayout::_layout = ->
 
   objs = @diagram.find(".participant")
   l = utils.min objs, (e)-> $(e).offset().left
-  r = utils.max objs, (e)-> $(e).offset().left + $(e).outerWidth() - 1
+  r = utils.max objs, (e)->
+        e = $(e)
+        a = e.css("box-shadow").match /[0-9]+px/g
+        hblur = parseInt(a[2])
+        e.offset().left + e.outerWidth() - 1 + hblur
   @diagram.width r - l + 1
 
 HTMLElementLayout = require "HTMLElementLayout.coffee"
