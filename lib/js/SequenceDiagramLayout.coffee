@@ -38,21 +38,12 @@ SequenceDiagramLayout::_layout = ->
 
 HTMLElementLayout = require "HTMLElementLayout.coffee"
 
-_ = (opts)->
-  if navigator?.userAgent.match(/.*(WebKit).*/)
-    return opts["webkit"]
-  if navigator?.userAgent.match(/.*(Gecko).*/)
-    return opts["gecko"]
-  return opts["webkit"]
-
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
-    if a.css("left") is (_ webkit:"auto", gecko:"0px")
-      a.css left:0
+    a.css left:0
   f1 = (a, b)=>
-    if b.css("left") is (_ webkit:"auto", gecko:"0px")
-      spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
-      spacing.apply()
+    spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
+    spacing.apply()
   utils.pickup2 @_q(".participant"), f0, f1
 
 SequenceLifeline = require "SequenceLifeline.coffee"
