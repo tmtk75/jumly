@@ -32,7 +32,7 @@ SequenceDiagramLayout::_layout = ->
   r = utils.max objs, (e)->
         e = $(e)
         a = e.css("box-shadow").match /[0-9]+px/g
-        hblur = parseInt(a[2])
+        hblur = if a then parseInt(a[2]) else 0
         e.offset().left + e.outerWidth() - 1 + hblur
   @diagram.width r - l + 1
 
