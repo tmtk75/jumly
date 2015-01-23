@@ -30,7 +30,8 @@ describe "SequenceParticipant", ->
       # 1.2 is from https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
       lh = Math.round(parseInt(n.css("font-size")) * 1.2) # estimated line-height
 
-      expect(p.outerHeight()).toBe 2 + 8 + 0 + lh + 0 + 8 + 2
+      h = 2 + 8 + 0 + lh + 0 + 8 + 2
+      expect(h - 1 <= p.outerHeight() && p.outerHeight() <= h + 1)
 
   describe "two participants", ->
     beforeEach ->
