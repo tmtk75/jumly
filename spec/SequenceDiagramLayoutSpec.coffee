@@ -107,16 +107,6 @@ describe "SequenceDiagramLayout", ->
       @obj2 = @diagram.find(".participant:eq(1)").data "_self"
       @obj3 = @diagram.find(".participant:eq(2)").data "_self"
 
-    describe "width", ->
-
-      it "is 100px", ->
-        expect(@obj1.outerWidth()).toBe 100
-
-    describe "height", ->
-
-      it "is 36px", ->
-        expect(@obj1.outerHeight()).toBe 36
-
     describe "top", ->
 
       it "is aligned", ->
