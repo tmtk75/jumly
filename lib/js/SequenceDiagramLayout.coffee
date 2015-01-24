@@ -27,7 +27,7 @@ SequenceDiagramLayout::_layout = ->
   $(ml[0]).addClass "leftmost"
   $(mr[mr.length - 1]).addClass "rightmost"
 
-  objs = @diagram.find(".participant")
+  objs = @diagram.find("*")
   l = utils.min objs, (e)-> $(e).offset().left
   r = utils.max objs, (e)->
         e = $(e)
