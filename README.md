@@ -29,18 +29,20 @@ It's better that people can casually use UML digrams in every documents.
 
 
 # Getting Started
-Copy following code,
-paste it at a place you want to put in,
-and open the document.
+Copy following code, save as a file, and open the file with your browser.
 
 ```html
-<script src='//code.jquery.com/jquery-2.1.0.min.js'></script>
-<script src='//coffeescript.org/extras/coffee-script.js'></script>
-<script src='//jumly.tmtk.net/public/jumly.min.js'></script>
+<head>
+<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+<script src='http://coffeescript.org/extras/coffee-script.js'></script>
+<script src='http://jumly.tmtk.net/public/jumly.min.js'></script>
+</head>
+<body>
 <script type='text/jumly+sequence'>
 @found "You", ->
   @message "meet", "JUMLY"
 </script>
+</body>
 ```
 
 [Here](http://jumly.tmtk.net/public/examples/simple.html) is a minimal sample.
