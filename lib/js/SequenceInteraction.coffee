@@ -1,6 +1,8 @@
+core = require "core.coffee"
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+SequenceMessage = require "SequenceMessage.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
@@ -23,7 +25,7 @@ SequenceInteraction::toward = -> @forwardTo()
 SequenceInteraction::awayfrom = (obj) ->
   return @backwardTo() unless obj
   for e in @parents(".occurrence").not(".activated")
-    e = utils.self $(e)
+    e = core.self $(e)
     return e if e?.gives(".participant") is obj
   obj.activate()
 
@@ -84,8 +86,6 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
       left: arrow.offset().left + arrow.outerWidth()
       top : arrow.offset().top
 
-SequenceMessage = require "SequenceMessage.coffee"
-
 SequenceInteraction::reply = (p) ->
     @addClass "reply"
     a = new SequenceMessage(this, p?[".actee"])
@@ -98,7 +98,6 @@ SequenceInteraction::reply = (p) ->
     this
 
 SequenceInteraction::fragment = (attrs, opts) ->
-    SequenceFragment = require "SequenceFragment.coffee"
     frag = new SequenceFragment()
     frag.enclose(this)
    

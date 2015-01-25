@@ -1,12 +1,12 @@
 $ = require "jquery"
+pos = require "position.coffee"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+SequenceInteraction = require "SequenceInteraction.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->
     super()
-
-SequenceInteraction = require "SequenceInteraction.coffee"
 
 SequenceOccurrence::interact = (actor, acts) ->
     if acts?.stereotype is ".lost"
@@ -16,7 +16,6 @@ SequenceOccurrence::interact = (actor, acts) ->
     else if acts?.stereotype is ".destroy"
         #NOTE: Destroy message building
     else if actor?.stereotype is ".alt"
-        SequenceFragment = require "SequenceFragment.coffee"
         alt = new SequenceFragment "alt"
         alt.alter this, acts
         return this
@@ -41,7 +40,7 @@ SequenceOccurrence::create = (objsrc) ->
 
 SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"
-    offset left:utils.mostLeftRight(@parents(".diagram").find(".participant")).right
+    offset left:pos.mostLeftRight(@parents(".diagram").find(".participant")).right
     return this
   if not @is_on_another()
     left = @_actor.offset().left + (@_actor.preferred_width() - @width())/2

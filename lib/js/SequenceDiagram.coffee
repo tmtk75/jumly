@@ -12,9 +12,4 @@ SequenceDiagram::gives = (query)->
   f = jumly.lang._of e, query
   {of: f}
 
-prefs_ =
-    WIDTH : null
-    HEIGHT: 50
-
-
 module.exports = SequenceDiagram

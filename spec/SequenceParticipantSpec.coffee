@@ -1,5 +1,4 @@
 core = require "core.coffee"
-_u = require "jquery.ext.coffee"
 utils = require "./jasmine-utils.coffee"
 SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
 SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"

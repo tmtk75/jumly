@@ -1,13 +1,12 @@
 #= require core
-#= require jquery.g2d
-#= require jquery.ext
+#= require g2d
+#= require position
 #= require HTMLElement
 #= require Diagram
 #= require DiagramBuilder
 #= require DiagramLayout
 #= require HTMLElementLayout
 #= require NoteElement
-#= require Position
 #= require Relationship
 #= require SequenceLifeline
 #= require SequenceMessage

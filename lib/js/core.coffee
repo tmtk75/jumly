@@ -2,6 +2,8 @@ $ = require "jquery"
 jQuery = $
 core = {}
 
+core.self = ($e)-> $e.data "_self"
+
 core._to_id = (that)->
   return that.attr("id") if that.constructor is jQuery
   that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"

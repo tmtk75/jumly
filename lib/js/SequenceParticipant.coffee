@@ -1,13 +1,12 @@
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
+SequenceOccurrence = require "SequenceOccurrence.coffee"
+SequenceInteraction = require "SequenceInteraction.coffee"
 
 class SequenceParticipant extends HTMLElement
   constructor: (args)->
     super args, (me)->
       me.append($("<div>").addClass("name"))
-
-SequenceOccurrence = require "SequenceOccurrence.coffee"
-SequenceInteraction = require "SequenceInteraction.coffee"
 
 SequenceParticipant::activate = ->
   occurr = new SequenceOccurrence this

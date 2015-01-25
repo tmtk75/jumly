@@ -1,4 +1,6 @@
 core = require "core.coffee"
+Diagram = require "Diagram.coffee"
+DiagramBuilder = require "DiagramBuilder.coffee"
 
 class UMLUsecase
   constructor: (props, opts) ->
@@ -38,7 +40,7 @@ class UMLSystemBoundary
         $("<div>").addClass("system-boundary")
                   .append $("<div>").addClass "name"
 
-class JUMLYUsecaseDiagram extends require("Diagram.coffee")
+class JUMLYUsecaseDiagram extends Diagram
 
 set_min_size = (nodes) ->
     nodes.each (i, e) ->
@@ -99,7 +101,7 @@ JUMLYUsecaseDiagram::compose = ->
 
 
 
-class JUMLYUsecaseDiagramBuilder extends require("DiagramBuilder.coffee")
+class JUMLYUsecaseDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram, @_boundary) ->
 
 JUMLYUsecaseDiagramBuilder::new_ = (type, uname) ->
