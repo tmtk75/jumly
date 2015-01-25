@@ -3,6 +3,12 @@ utils = require "jquery.ext.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout
 
+selfEach = ($e, f)-> $e.each (i, e)->
+  e = utils.self $(e)
+  throw new Error("_self have nothing ", e) unless e?
+  f e
+  this
+
 SequenceDiagramLayout::_q = (sel)->
   $ sel, @diagram
 
@@ -11,11 +17,11 @@ SequenceDiagramLayout::_layout = ->
   $(".participant:eq(0)", @diagram).after objs
   @align_objects_horizontally()
   @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
-  utils.selfEach @_q(".occurrence .interaction"), (e)-> e._compose_()
+  selfEach @_q(".occurrence .interaction"), (e)-> e._compose_()
   @generate_lifelines_and_align_horizontally()
   @pack_refs_horizontally()
   @pack_fragments_horizontally()
-  utils.selfEach @_q(".create.message"), (e)-> e._to_be_creation()
+  selfEach @_q(".create.message"), (e)-> e._to_be_creation()
   @align_lifelines_vertically()
   @align_lifelines_stop_horizontally()
   @rebuild_asynchronous_self_calling()
@@ -74,7 +80,7 @@ SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
     diag.append a
 
 SequenceDiagramLayout::pack_refs_horizontally = ->
-  utils.selfEach @_q(".ref"), (ref) ->
+  selfEach @_q(".ref"), (ref) ->
     pw = ref.preferred_left_and_width()
     ref.offset(left:pw.left)
 
@@ -117,9 +123,9 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
-  a = (utils.selfEach @_q(".occurrence > .fragment"), fixwidth)
+  a = (selfEach @_q(".occurrence > .fragment"), fixwidth)
     .parents(".occurrence > .fragment")
-  utils.selfEach a, fixwidth
+  selfEach a, fixwidth
 
 SequenceDiagramLayout::align_lifelines_vertically = ->
   nodes = @diagram.find(".interaction, > .ref")
@@ -176,6 +182,6 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
          top : utils.outerBottom(prev.find(".occurrence")) - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
-  utils.selfEach @_q(".participant"), (e)-> e.renderIcon?()
+  selfEach @_q(".participant"), (e)-> e.renderIcon?()
 
 module.exports = SequenceDiagramLayout

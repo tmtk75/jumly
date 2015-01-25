@@ -26,10 +26,4 @@ utils =
 
   self: ($e)-> $e.data "_self"
 
-  selfEach: ($e, f)-> $e.each (i, e)->
-    e = utils.self $(e)
-    throw new Error("_self have nothing ", e) unless e?
-    f e
-    this
-
 module.exports = utils
