@@ -1,7 +1,7 @@
 utils = require "./jasmine-utils.coffee"
+Diagram = require "Diagram.coffee"
 
 describe "Diagram", ->
-  Diagram = require "Diagram.coffee"
   beforeEach ->
     @diagram = new Diagram
     utils.matchers this
