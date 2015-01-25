@@ -57,6 +57,6 @@ describe "SequenceParticipant", ->
       @layout.layout @diagram
 
     it "should work", ->
-      p = @diagram.find(".participant:eq(0)")
+      p = @diagram.find(".participant:eq(0) .name")
       expect(p.html()).toBe "0 a"
 

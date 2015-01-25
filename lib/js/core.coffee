@@ -7,10 +7,8 @@ core._to_id = (that)->
   that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
 
 core._to_ref = (s)->
-  if s.match /^[0-9].*/
-    '_' + s
-  else
-    s.replace(/^[0-9]|-/g, '_')
+  s = '_' + s  if s.match /^[0-9]/
+  s.replace /^[0-9]|-/g, '_'
 
 core.kindof = (that)->
   return 'Null' if that is null
