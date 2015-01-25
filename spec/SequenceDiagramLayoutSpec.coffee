@@ -811,9 +811,12 @@ describe "SequenceDiagramLayout", ->
         @layout.layout @diagram
 
       describe "the first one", ->
-        it "has -12px top margin", ->
-          note = @diagram.find ".note:eq(0)"
-          expect(note.css "margin-top").toBe "-12px"
+        it "has different top margin", ->
+          n0 = @diagram.find ".note:eq(0)"
+          n1 = @diagram.find ".note:eq(1)"
+          expect(n0.css "margin-top").not.toBe n1.css "margin-top"
+          expect(parseInt(n0.css "margin-top") < 0).toBeTruthy()
+          expect(parseInt(n1.css "margin-top") > 0).toBeTruthy()
 
       it "is below of the message", ->
         msg = @diagram.find ".message:eq(2)"
