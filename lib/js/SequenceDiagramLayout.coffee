@@ -1,5 +1,5 @@
 DiagramLayout = require "DiagramLayout.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 core = require "core.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout

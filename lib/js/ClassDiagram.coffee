@@ -1,5 +1,5 @@
 Diagram = require "Diagram.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 
 class ClassDiagram extends Diagram
 

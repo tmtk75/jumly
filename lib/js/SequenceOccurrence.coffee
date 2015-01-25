@@ -1,6 +1,6 @@
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 
 class SequenceOccurrence  extends HTMLElement
   constructor: (@_actor)->

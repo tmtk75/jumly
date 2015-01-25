@@ -1,5 +1,5 @@
 DiagramLayout = require "DiagramLayout.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 
 class RobustnessDiagramLayout extends DiagramLayout
 

@@ -1,6 +1,6 @@
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 
 class SequenceRef extends HTMLElement
   constructor: (args)->

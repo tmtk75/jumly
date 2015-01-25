@@ -1,5 +1,5 @@
 core = require "core.coffee"
-_u = require "jquery.ext.coffee"
+pos = require "position.coffee"
 utils = require "./jasmine-utils.coffee"
 SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
 SequenceDiagram = require "SequenceDiagram.coffee"
@@ -39,8 +39,8 @@ describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
       diag.css "border":"1px solid #008000"
-      a = _u.min diag.find("*"), f = (e)-> $(e).offset().top
-      b = _u.max diag.find("*"), g = (e)-> $(e).offset().top + $(e).outerHeight()
+      a = pos.min diag.find("*"), f = (e)-> $(e).offset().top
+      b = pos.max diag.find("*"), g = (e)-> $(e).offset().top + $(e).outerHeight()
       expect(diag.height()).toBe Math.round(b - a)
 
     describe "including .ref", ->
@@ -78,7 +78,7 @@ describe "SequenceDiagramLayout", ->
         @layout.layout diag
 
       it "is longer than the sum of all ones", ->
-        expect(utils.bottom @diagram).toBe (_u.max @diagram.find("*"), (e)-> utils.bottom $(e))
+        expect(utils.bottom @diagram).toBe (pos.max @diagram.find("*"), (e)-> utils.bottom $(e))
 
   describe "width", ->
     beforeEach ->
@@ -193,8 +193,8 @@ describe "SequenceDiagramLayout", ->
         lines = @diagram.find ".lifeline"
         occurs = @diagram.find ".occurrence"
         g = (e)-> utils.bottom $(e)
-        a = _u.max lines, g
-        b = _u.max occurs, g
+        a = pos.max lines, g
+        b = pos.max occurs, g
         expect(a).toBeGreaterThan b
 
       describe "for two top interactions", ->
@@ -761,8 +761,8 @@ describe "SequenceDiagramLayout", ->
             obj0 = diag.find ".participant:eq(0)"
             obj1 = diag.find ".participant:eq(1)"
             obj2 = diag.find ".participant:eq(2)"
-            expect(_u.outerBottom(obj0)).toBeLessThan obj1.offset().top
-            expect(_u.outerBottom(obj1)).toBeLessThan obj2.offset().top
+            expect(pos.outerBottom(obj0)).toBeLessThan obj1.offset().top
+            expect(pos.outerBottom(obj1)).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
       describe "top", ->

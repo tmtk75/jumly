@@ -1,5 +1,5 @@
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+utils = require "position.coffee"
 core = require "core.coffee"
 
 class SequenceMessage extends HTMLElement
