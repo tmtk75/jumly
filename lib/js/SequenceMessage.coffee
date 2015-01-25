@@ -1,6 +1,6 @@
 core = require "core.coffee"
 pos = require "position.coffee"
-_g2d = require "g2d.coffee"
+g2d = require "g2d.coffee"
 HTMLElement = require "HTMLElement.coffee"
 
 class SequenceMessage extends HTMLElement
@@ -80,18 +80,11 @@ to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6
-  e = _g2d.svg.new 'polyline', class:"head", points:to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
+  e = g2d.svg.new 'polyline', class:"head", points:to_points [[q.x+dx,q.y-dy], [q.x,q.y], [q.x+dx,q.y+dy]]
   svg.appendChild e
 
-  e = _g2d.svg.new 'polyline', class:"closed", points:to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
+  e = g2d.svg.new 'polyline', class:"closed", points:to_points [[q.x+dx,q.y+(dy+1)], [q.x+dx,q.y-(dy+1)]]
   svg.appendChild e
-
-g2d =
-  arrow: (svg, p, q)->
-    e = _g2d.svg.new 'line', x1:p.x, y1:p.y, x2:q.x, y2:q.y
-    svg[0].appendChild e
-
-    ahead svg[0], -1*(Math.sign q.x - p.x), q
 
 SequenceMessage::repaint = () ->
   shape = STEREOTYPE_STYLES[_determine_primary_stereotype this]
@@ -113,7 +106,7 @@ SequenceMessage::repaint = () ->
     rcx = @width() - (gap + 4)
     rey = @height() - (arrow.height/2 + 4)
     llw = @_dstOccurr().outerWidth()
-    e = _g2d.svg.new 'polyline', points:to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
+    e = g2d.svg.new 'polyline', points:to_points [[llw/2 + gap, gap], [rcx, gap], [rcx, rey], [llw + gap,  rey]]
     svg[0].appendChild e
 
     ahead svg[0], 1, x:llw + gap, y:rey
@@ -134,7 +127,12 @@ SequenceMessage::repaint = () ->
     line.dst    = a
     arrow.shape = 'dashed'
       
-  g2d.arrow svg, line.src, line.dst, arrow
+  arrow = (svg, p, q)->
+    e = g2d.svg.new 'line', x1:p.x, y1:p.y, x2:q.x, y2:q.y
+    svg[0].appendChild e
+    ahead svg[0], -1*(Math.sign q.x - p.x), q
+
+  arrow svg, line.src, line.dst, arrow
   this
 
 SequenceMessage::isToward = (dir) ->
