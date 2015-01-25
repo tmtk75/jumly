@@ -1,6 +1,7 @@
-HTMLElement = require "HTMLElement.coffee"
-utils = require "position.coffee"
 core = require "core.coffee"
+utils = require "position.coffee"
+_g2d = require "g2d.coffee"
+HTMLElement = require "HTMLElement.coffee"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -76,7 +77,6 @@ _determine_primary_stereotype = (jqnode) ->
 
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 
-_g2d = require "g2d.coffee"
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6

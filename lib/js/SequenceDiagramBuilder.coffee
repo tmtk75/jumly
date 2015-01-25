@@ -5,6 +5,7 @@ SequenceDiagram = require "SequenceDiagram.coffee"
 SequenceParticipant = require "SequenceParticipant.coffee"
 SequenceRef = require "SequenceRef.coffee"
 SequenceFragment = require "SequenceFragment.coffee"
+NoteElement = require "NoteElement.coffee"
 
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram, @_occurr)->
@@ -227,8 +228,6 @@ SequenceDiagramBuilder::css = (styles)->
 SequenceDiagramBuilder::find = (selector)->
   @_diagram.find selector
 
-
-NoteElement = require "NoteElement.coffee"
 
 SequenceDiagramBuilder::note = (text, opts)->
   note = new NoteElement text, opts

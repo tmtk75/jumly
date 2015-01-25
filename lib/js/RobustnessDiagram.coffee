@@ -1,9 +1,8 @@
+core = require "core.coffee"
 Diagram = require "Diagram.coffee"
 IconElement = require "IconElement.coffee"
 
 class RobustnessDiagram extends Diagram
-
-core = require "core.coffee"
 
 RobustnessDiagram::_node_of = (n, k)->
   id = core._to_id n

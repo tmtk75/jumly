@@ -1,3 +1,7 @@
+core = require "core.coffee"
+g2d = require "g2d.coffee"
+HTMLElement = require "HTMLElement.coffee"
+
 _STYLES =
   lineWidth    : 1.5
   fillStyle    : 'white'
@@ -27,7 +31,7 @@ ns = "http://www.w3.org/2000/svg"
   </feMerge>
 </filter>
 """
-g2d = require "g2d.coffee"
+
 ce = g2d.svg.create
 sa = g2d.svg.attrs
 ne = (n, attrs)-> sa ce(n), attrs
@@ -181,9 +185,6 @@ _render = (svg, renderer, args) ->
   $(svg).attr
     width:size.width + dw, height:size.height + dh
     "data-actual-width":size.width, "data-actual-height":size.height
-
-core = require "core.coffee"
-HTMLElement = require "HTMLElement.coffee"
 
 class IconElement extends HTMLElement
   @renderer = (type)->

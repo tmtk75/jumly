@@ -1,6 +1,8 @@
-DiagramLayout = require "DiagramLayout.coffee"
-utils = require "position.coffee"
 core = require "core.coffee"
+utils = require "position.coffee"
+DiagramLayout = require "DiagramLayout.coffee"
+HTMLElementLayout = require "HTMLElementLayout.coffee"
+SequenceLifeline = require "SequenceLifeline.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout
 
@@ -43,8 +45,6 @@ SequenceDiagramLayout::_layout = ->
         e.offset().left + e.outerWidth() - 1 + hblur
   @diagram.width r - l + 1
 
-HTMLElementLayout = require "HTMLElementLayout.coffee"
-
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
     a.css left:0
@@ -68,8 +68,6 @@ SequenceDiagramLayout::align_objects_horizontally = ->
       prev = curr
   
   pickup2 @_q(".participant"), f0, f1
-
-SequenceLifeline = require "SequenceLifeline.coffee"
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   diag = @diagram
