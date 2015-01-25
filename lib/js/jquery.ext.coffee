@@ -24,6 +24,4 @@ utils =
 
   outerBottom: _outerBottom
 
-  self: ($e)-> $e.data "_self"
-
 module.exports = utils

@@ -1,6 +1,6 @@
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "jquery.ext.coffee"
+core = require "core.coffee"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
@@ -23,7 +23,7 @@ SequenceInteraction::toward = -> @forwardTo()
 SequenceInteraction::awayfrom = (obj) ->
   return @backwardTo() unless obj
   for e in @parents(".occurrence").not(".activated")
-    e = utils.self $(e)
+    e = core.self $(e)
     return e if e?.gives(".participant") is obj
   obj.activate()
 

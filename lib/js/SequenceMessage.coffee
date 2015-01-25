@@ -1,5 +1,6 @@
 HTMLElement = require "HTMLElement.coffee"
 utils = require "jquery.ext.coffee"
+core = require "core.coffee"
 
 class SequenceMessage extends HTMLElement
   constructor: (@_iact, @_actee)->
@@ -29,9 +30,9 @@ SequenceMessage::_toLine = (src, dst, svg) ->
   e.dst.y = y
   e
 
-SequenceMessage::_srcOccurr = -> utils.self @parents(".occurrence:eq(0)")
+SequenceMessage::_srcOccurr = -> core.self @parents(".occurrence:eq(0)")
 
-SequenceMessage::_dstOccurr = -> utils.self (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this)
+SequenceMessage::_dstOccurr = -> core.self (if @hasClass "return" then @prev ".occurrence" else $ "~ .occurrence", this)
 
 SequenceMessage::_prefferedCanvas = ->
   @find("svg:eq(0)")

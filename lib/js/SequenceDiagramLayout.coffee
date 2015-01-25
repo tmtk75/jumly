@@ -1,10 +1,11 @@
 DiagramLayout = require "DiagramLayout.coffee"
 utils = require "jquery.ext.coffee"
+core = require "core.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout
 
 selfEach = ($e, f)-> $e.each (i, e)->
-  e = utils.self $(e)
+  e = core.self $(e)
   throw new Error("_self have nothing ", e) unless e?
   f e
   this
@@ -163,7 +164,7 @@ SequenceDiagramLayout::align_lifelines_stop_horizontally = ->
 
 SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
   @diagram.find(".message.asynchronous").parents(".interaction:eq(0)").each (i, e) ->
-    e = utils.self $(e)
+    e = core.self $(e)
     if not e.isToSelf()
         return
     iact = e.addClass("activated")
@@ -171,11 +172,11 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
     prev = iact.parents(".interaction:eq(0)")
     iact.insertAfter prev
    
-    aa = utils.self iact.css("padding-bottom", 0).find("> .occurrence")
+    aa = core.self iact.css("padding-bottom", 0).find("> .occurrence")
     occurr = aa._move_horizontally()
                .css("top", 0)
 
-    msg = utils.self iact.find(".message")
+    msg = core.self iact.find(".message")
     msg.css("z-index", -1)
        .offset
          left: occurr.offset().left
