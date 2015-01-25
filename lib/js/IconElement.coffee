@@ -27,7 +27,7 @@ ns = "http://www.w3.org/2000/svg"
   </feMerge>
 </filter>
 """
-g2d = require "jquery.g2d.coffee"
+g2d = require "g2d.coffee"
 ce = g2d.svg.create
 sa = g2d.svg.attrs
 ne = (n, attrs)-> sa ce(n), attrs

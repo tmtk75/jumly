@@ -1,5 +1,5 @@
 HTMLElement = require "HTMLElement.coffee"
-g2d = require "jquery.g2d.coffee"
+g2d = require "g2d.coffee"
 
 class Relationship extends HTMLElement
   constructor: (args, opts)->

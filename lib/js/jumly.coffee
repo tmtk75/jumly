@@ -1,5 +1,5 @@
 #= require core
-#= require jquery.g2d
+#= require g2d
 #= require position
 #= require HTMLElement
 #= require Diagram

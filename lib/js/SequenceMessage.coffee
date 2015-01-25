@@ -76,7 +76,7 @@ _determine_primary_stereotype = (jqnode) ->
 
 to_points = (vals)-> vals.map((e)-> "#{e[0]},#{e[1]}").join " "
 
-_g2d = require "jquery.g2d.coffee"
+_g2d = require "g2d.coffee"
 ahead = (svg, sign, q)->
   dx = sign * 10
   dy = 6
