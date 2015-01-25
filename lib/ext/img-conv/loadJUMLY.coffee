@@ -33,9 +33,8 @@ module.exports =
         $("body").width 65535
         JUMLY.eval $src, into:"body"
         diag = $(".diagram")
-        box_shadow_dw =  + 8 + 5
-        box_shadow_dh =  + 5 #+ 5
-        left:diag.offset().left, top:diag.offset().top, width:diag.outerWidth() + box_shadow_dw, height:diag.outerHeight() + box_shadow_dh
+        shadow_blur_w = 2  # NOTE: to include blur of shadow
+        left:diag.offset().left, top:diag.offset().top, width:diag.outerWidth() + shadow_blur_w, height:diag.outerHeight()
 
       page.viewportSize = rect
       page.clipRect = rect
