@@ -4,7 +4,7 @@ _outerBottom = ($e)-> $e.offset().top + $e.outerHeight() - 1
 
 _choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
 
-utils =
+position =
   max: (nodes, ef)-> _choose(nodes, ef, (a, b)-> b - a)
   min: (nodes, ef)-> _choose(nodes, ef, (a, b)-> a - b)
 
@@ -24,4 +24,4 @@ utils =
 
   outerBottom: _outerBottom
 
-module.exports = utils
+module.exports = position

@@ -1,5 +1,5 @@
 DiagramLayout = require "DiagramLayout.coffee"
-utils = require "position.coffee"
+pos = require "position.coffee"
 
 class RobustnessDiagramLayout extends DiagramLayout
 
@@ -14,8 +14,8 @@ RobustnessDiagramLayout::_layout = ->
           left:p.left + (i % 3) * 120
           top:p.top + (i / 3) * 100
 
-  mlr = utils.mostLeftRight(elems, true)
-  mtb = utils.mostTopBottom(elems, true)
+  mlr = pos.mostLeftRight(elems, true)
+  mtb = pos.mostTopBottom(elems, true)
   @diagram.width(mlr.width())
           .height(mtb.height())
 

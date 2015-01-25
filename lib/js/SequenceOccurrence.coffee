@@ -1,5 +1,5 @@
 $ = require "jquery"
-utils = require "position.coffee"
+pos = require "position.coffee"
 HTMLElement = require "HTMLElement.coffee"
 SequenceInteraction = require "SequenceInteraction.coffee"
 SequenceFragment = require "SequenceFragment.coffee"
@@ -40,7 +40,7 @@ SequenceOccurrence::create = (objsrc) ->
 
 SequenceOccurrence::_move_horizontally = ->
   if @parent().hasClass "lost"
-    offset left:utils.mostLeftRight(@parents(".diagram").find(".participant")).right
+    offset left:pos.mostLeftRight(@parents(".diagram").find(".participant")).right
     return this
   if not @is_on_another()
     left = @_actor.offset().left + (@_actor.preferred_width() - @width())/2

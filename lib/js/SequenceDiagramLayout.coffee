@@ -1,5 +1,5 @@
 core = require "core.coffee"
-utils = require "position.coffee"
+pos = require "position.coffee"
 DiagramLayout = require "DiagramLayout.coffee"
 HTMLElementLayout = require "HTMLElementLayout.coffee"
 SequenceLifeline = require "SequenceLifeline.coffee"
@@ -37,8 +37,8 @@ SequenceDiagramLayout::_layout = ->
   $(mr[mr.length - 1]).addClass "rightmost"
 
   objs = @diagram.find("*").not(".interaction")
-  l = utils.min objs, (e)-> $(e).offset().left
-  r = utils.max objs, (e)->
+  l = pos.min objs, (e)-> $(e).offset().left
+  r = pos.max objs, (e)->
         e = $(e)
         a = e.css("box-shadow").match /[0-9]+px/g
         hblur = if a then parseInt(a[2]) else 0
@@ -104,13 +104,13 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
   if fragments.length > 0
     # To controll the width, you can write selector below.
     # ".participant:eq(0), > .interaction > .occurrence .interaction"
-    most = utils.mostLeftRight @_q(".participant")
+    most = pos.mostLeftRight @_q(".participant")
     left = fragments.offset().left
     fragments.width (most.right - left) + (most.left - left)
   
   # fragments inside diagram
   fixwidth = (fragment) ->
-    most = utils.mostLeftRight $(".occurrence, .message, .fragment", fragment).not(".return, .lost")
+    most = pos.mostLeftRight $(".occurrence, .message, .fragment", fragment).not(".return, .lost")
     fragment.width(most.width() - (fragment.outerWidth() - fragment.width()))
     ## WORKAROUND: it's tentative for both of next condition and the body
     msg = fragment.find("> .interaction > .message").data "_self"
@@ -141,7 +141,7 @@ SequenceDiagramLayout::align_lifelines_vertically = ->
       b = iters.filter(":last")
       mh = (b.offset().top + b.height() - 1) - a.offset().top
 
-  min = utils.min @diagram.find(".participant"), (e)-> $(e).offset().top
+  min = pos.min @diagram.find(".participant"), (e)-> $(e).offset().top
 
   @_q(".lifeline").each (i, e) ->
     a = $(e).data "_self"
@@ -178,7 +178,7 @@ SequenceDiagramLayout::rebuild_asynchronous_self_calling = ->
     msg.css("z-index", -1)
        .offset
          left: occurr.offset().left
-         top : utils.outerBottom(prev.find(".occurrence")) - msg.height()/3
+         top : pos.outerBottom(prev.find(".occurrence")) - msg.height()/3
 
 SequenceDiagramLayout::render_icons = ->
   selfEach @_q(".participant"), (e)-> e.renderIcon?()

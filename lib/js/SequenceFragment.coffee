@@ -1,6 +1,5 @@
 $ = require "jquery"
 HTMLElement = require "HTMLElement.coffee"
-utils = require "position.coffee"
 
 class SequenceFragment extends HTMLElement
   constructor: (args)->

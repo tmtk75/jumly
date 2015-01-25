@@ -1,5 +1,5 @@
 core = require "core.coffee"
-utils = require "position.coffee"
+pos = require "position.coffee"
 _g2d = require "g2d.coffee"
 HTMLElement = require "HTMLElement.coffee"
 
@@ -163,7 +163,7 @@ SequenceMessage::_to_be_creation = ->
     obj = dst._actor
     obj.offset top:msg.offset().top - obj.height()/3
     mt = parseInt dst.css "margin-top"
-    dst.offset top:utils.outerBottom(obj) + mt
+    dst.offset top:pos.outerBottom(obj) + mt
 
   @outerWidth (line_width this) + src.outerWidth() - 1
   shift_downward this
