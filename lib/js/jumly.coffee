@@ -7,7 +7,6 @@
 #= require DiagramLayout
 #= require HTMLElementLayout
 #= require NoteElement
-#= require Position
 #= require Relationship
 #= require SequenceLifeline
 #= require SequenceMessage
