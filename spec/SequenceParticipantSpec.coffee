@@ -47,3 +47,16 @@ describe "SequenceParticipant", ->
       p1 = @diagram.find(".participant:eq(1)")
 
       expect(utils.bottom p0).toBe utils.bottom p1
+
+  describe "name starts with digits and has spaces", ->
+    beforeEach ->
+      @diagram = @builder.build """
+        @found "0 a"
+        """
+      div.append @diagram
+      @layout.layout @diagram
+
+    it "should work", ->
+      p = @diagram.find(".participant:eq(0)")
+      expect(p.html()).toBe "0 a"
+
