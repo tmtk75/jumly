@@ -32,21 +32,6 @@ utils =
     f e
     this
 
-  # A specific iterator that picks up by 2 from this nodeset.
-  # f0: a callback has one argument like (e) -> to handle the 1st node.
-  # f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.
-  pickup2: ($e, f0, f1, f2) ->
-    return $e if $e.length is 0
-    f0 prev = $($e[0])
-    return $e if $e.length is 1
-    $e.slice(1).each (i, curr)=>
-      curr = $ curr
-      if f2? and (i + 1 is $e.length - 1)
-        f2 prev, curr, i + 1
-      else
-        f1 prev, curr, i + 1
-      prev = curr
-  
   ## This is wrap feature keeping own instance, jQuery.wrap makes child node duplicated.
   swallow: ($e, _, f) ->
     f = f or $.fn.append
