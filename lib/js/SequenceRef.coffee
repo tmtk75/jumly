@@ -1,6 +1,6 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
-utils = self.require "jquery.ext"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+pos = require "position.coffee"
 
 class SequenceRef extends HTMLElement
   constructor: (args)->
@@ -23,7 +23,7 @@ SequenceRef::preferred_left_and_width = ->
 
   if iact.length is 0
     lines = $(".lifeline .line", diag)
-    most = utils.mostLeftRight(lines)
+    most = pos.mostLeftRight(lines)
     most.width = most.width()
     return most
 
@@ -43,20 +43,16 @@ SequenceRef::preferred_left_and_width = ->
   if (alt = @parents(".alt:eq(0)")).length is 1
     left = alt.parents(".occurrence")
     l = left.offset().left + left.outerWidth() - 1
-    r = utils.max @parent().find(".occurrence"), (e)-> $(e).offset().left + $(e).outerWidth()/2
+    r = pos.max @parent().find(".occurrence"), (e)-> $(e).offset().left + $(e).outerWidth()/2
     d = left.outerWidth()/2 - 1
     return left:l - d, width:(r - l)
 
   dh = diag.self()
            .find(".occurrence:eq(0)").width()
   occurs = iact.find(".occurrence")
-  most = utils.mostLeftRight(occurs)
+  most = pos.mostLeftRight(occurs)
   most.left -= dh
   most.width = most.width()
   most
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceRef
-else
-  core.exports SequenceRef
+module.exports = SequenceRef

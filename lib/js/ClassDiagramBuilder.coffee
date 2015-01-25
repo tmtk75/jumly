@@ -1,10 +1,11 @@
-DiagramBuilder = require "DiagramBuilder"
+DiagramBuilder = require "DiagramBuilder.coffee"
+core = require "core.coffee"
 
 class ClassDiagramBuilder extends DiagramBuilder
   constructor: (@diagram) ->
 
 ClassDiagramBuilder::def = (props)->
-  @diagram.declare Identity.normalize props
+  @diagram.declare core_.normalize props
 
 ##Deprecated
 ClassDiagramBuilder::start = (acts)-> acts.apply this, []
@@ -15,8 +16,4 @@ DSL type:".class-diagram", compileScript: (script) ->
   b.build script.html()
 
 
-if typeof module != 'undefined' and module.exports
-  module.exports = ClassDiagramBuilder
-else
-  require("core").ClassDiagramBuilder = ClassDiagramBuilder
-
+module.exports = ClassDiagramBuilder

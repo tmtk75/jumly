@@ -1,9 +1,7 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-self.require "node-jquery-xhr"
-utils = self.require "./jasmine-utils"
+utils = require "./jasmine-utils.coffee"
+Diagram = require "Diagram.coffee"
 
 describe "Diagram", ->
-  Diagram = self.require "Diagram"
   beforeEach ->
     @diagram = new Diagram
     utils.matchers this

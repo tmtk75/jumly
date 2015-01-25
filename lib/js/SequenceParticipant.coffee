@@ -1,14 +1,12 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+SequenceOccurrence = require "SequenceOccurrence.coffee"
+SequenceInteraction = require "SequenceInteraction.coffee"
 
 class SequenceParticipant extends HTMLElement
   constructor: (args)->
     super args, (me)->
       me.append($("<div>").addClass("name"))
-
-core = self.require "core"
-SequenceOccurrence = self.require "SequenceOccurrence"
-SequenceInteraction = self.require "SequenceInteraction"
 
 SequenceParticipant::activate = ->
   occurr = new SequenceOccurrence this
@@ -42,7 +40,4 @@ SequenceParticipant::iconify = (fixture, styles)->
 
 SequenceParticipant::lost =-> @activate().interact(null, {stereotype:".lost"})
 
-if core.env.is_node
-  module.exports = SequenceParticipant
-else
-  core.exports SequenceParticipant
+module.exports = SequenceParticipant

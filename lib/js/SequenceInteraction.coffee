@@ -1,5 +1,8 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-HTMLElement = self.require "HTMLElement"
+core = require "core.coffee"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+SequenceMessage = require "SequenceMessage.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
 
 class SequenceInteraction extends HTMLElement
   constructor: (@_actor, @_actee)->
@@ -22,7 +25,7 @@ SequenceInteraction::toward = -> @forwardTo()
 SequenceInteraction::awayfrom = (obj) ->
   return @backwardTo() unless obj
   for e in @parents(".occurrence").not(".activated")
-    e = $(e).self()
+    e = core.self $(e)
     return e if e?.gives(".participant") is obj
   obj.activate()
 
@@ -83,8 +86,6 @@ SequenceInteraction::_buildSelfInvocation = (a, b, msg) ->
       left: arrow.offset().left + arrow.outerWidth()
       top : arrow.offset().top
 
-SequenceMessage = self.require "SequenceMessage"
-
 SequenceInteraction::reply = (p) ->
     @addClass "reply"
     a = new SequenceMessage(this, p?[".actee"])
@@ -97,7 +98,6 @@ SequenceInteraction::reply = (p) ->
     this
 
 SequenceInteraction::fragment = (attrs, opts) ->
-    SequenceFragment = self.require "SequenceFragment"
     frag = new SequenceFragment()
     frag.enclose(this)
    
@@ -110,9 +110,4 @@ SequenceInteraction::isToSelf = ->
 
 SequenceInteraction::is_to_itself = -> @isToSelf()
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = SequenceInteraction
-else
-  core.exports SequenceInteraction
-
+module.exports = SequenceInteraction

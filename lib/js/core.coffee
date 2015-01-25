@@ -1,14 +1,16 @@
+$ = require "jquery"
+jQuery = $
 core = {}
+
+core.self = ($e)-> $e.data "_self"
 
 core._to_id = (that)->
   return that.attr("id") if that.constructor is jQuery
   that.toLowerCase().replace /[^a-zA-Z0-9_]/g, "-"
 
 core._to_ref = (s)->
-  if s.match /^[0-9].*/
-    '_' + s
-  else
-    s.replace(/^[0-9]|-/g, '_')
+  s = '_' + s  if s.match /^[0-9]/
+  s.replace /^[0-9]|-/g, '_'
 
 core.kindof = (that)->
   return 'Null' if that is null
@@ -50,38 +52,9 @@ core._normalize = (that)->
       a[name] = mods
       a
 
-core.env =
-  is_node: (typeof module != 'undefined' and typeof module.exports != 'undefined')
-
-JUMLY =
-  env: core.env
-
-self = {}
-
-if core.env.is_node
-  global.JUMLY = JUMLY
-  module.exports = core
-  self.require = JUMLY.require = require
-else
-  window.JUMLY = JUMLY
-
-  exported =
-    core: core
-    "node-jquery": {}  ## suppress warning for "node-jquery"
-    "./jasmine-matchers": {}  ## suppress warning for "./
-
-  JUMLY.require = (name)->
-    if name is undefined or name is null
-      throw new Error "#{name} was not properly given"
-    console.warn "not found:", name unless exported[name]
-    exported[name]
-  
-  self.require = JUMLY.require
-
-  core.exports = (func, name)->
-    exported[func.name or name] = func
+module.exports = core
 
 # Listen for window load, both in browsers and in IE.
-unless core.env.is_node
+if typeof window is "object"
   $(window).on 'DOMContentLoaded', ->
-    JUMLY.scan()
+    require("api.coffee").scan()

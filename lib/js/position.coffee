@@ -1,10 +1,10 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
+$ = require "jquery"
 
-$.fn.outerBottom = -> @offset().top + @outerHeight() - 1
+_outerBottom = ($e)-> $e.offset().top + $e.outerHeight() - 1
 
 _choose = (nodes, ef, cmpf)-> $.map(nodes, ef).sort(cmpf)[0]
 
-utils =
+position =
   max: (nodes, ef)-> _choose(nodes, ef, (a, b)-> b - a)
   min: (nodes, ef)-> _choose(nodes, ef, (a, b)-> a - b)
 
@@ -21,10 +21,7 @@ utils =
       t = $(e).offset().top + $(e).outerHeight() + (if margin then (parseInt $(e).css("margin-bottom")) else 0)
       if t - 1 < 0 then 0 else t - 1
     height:-> if @top? and @bottom? then @bottom - @top + 1 else 0
-          
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = utils
-else
-  core.exports utils, "jquery.ext"
+  outerBottom: _outerBottom
+
+module.exports = position

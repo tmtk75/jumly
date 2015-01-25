@@ -1,12 +1,18 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-utils = self.require "./jasmine-utils"
-is_node = self.require("core").env.is_node
+utils = require "./jasmine-utils.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceOccurrence = require "SequenceOccurrence.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
+SequenceRef = require "SequenceRef.coffee"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
+SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
 
 describe "SequenceDiagram", ->
-  SequenceDiagram = self.require "SequenceDiagram"
   div = utils.div this
 
   beforeEach ->
+    @layout = new SequenceDiagramLayout
+    @builder = new SequenceDiagramBuilder
     utils.matchers this
     @diagram = new SequenceDiagram "hello"
 
@@ -18,7 +24,6 @@ describe "SequenceDiagram", ->
     expect(@diagram.find("*").length).toBe 0
   
   describe "SequenceParticipant", ->
-    SequenceParticipant = self.require "SequenceParticipant"
     beforeEach ->
       @object = new SequenceParticipant "user"
     
@@ -28,23 +33,20 @@ describe "SequenceDiagram", ->
     it "has name", ->
       expect(@object.find(".name").text()).toBe "user"
    
-    unless is_node
-      it "has size", ->
-        div.append @diagram
-        @diagram.append @object
-        expect(@object.width()).toBeGreaterThan 0
-        expect(@object.height()).toBeGreaterThan 0
+    it "has size", ->
+      div.append @diagram
+      @diagram.append @object
+      expect(@object.width()).toBeGreaterThan 0
+      expect(@object.height()).toBeGreaterThan 0
   
   describe "SequenceOccurrence", ->
 
     it "has .occurrence", ->
-      SequenceOccurrence = self.require "SequenceOccurrence"
       beforeEach ->
         @occurr = new SequenceOccurrence
 
   describe "SequenceFragment", ->
 
-    SequenceFragment = self.require "SequenceFragment"
     beforeEach ->
       @fragment = new SequenceFragment "treat all"
 
@@ -56,7 +58,6 @@ describe "SequenceDiagram", ->
 
   describe "SequenceRef", ->
 
-    SequenceRef = self.require "SequenceRef"
     beforeEach ->
       @ref = new SequenceRef "another sequence"
 
@@ -66,3 +67,24 @@ describe "SequenceDiagram", ->
     it "has given name", ->
       expect(@ref.find(".name").text()).toBe "another sequence"
     
+  describe "width", ->
+    describe "issue#31", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "Browser", ->
+            @alt {
+              "[200]": -> @message "GET href resources", "HTTP Server"
+              "[301]": -> @ref "GET the moved page"
+              "[404]": -> @ref "show NOT FOUND"
+            }
+          @find(".ref").css(width:256, "padding-bottom":4)
+            .find(".tag").css float:"left"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "is extended by .ref", ->
+        l0 = utils.left @diagram.find(".ref:eq(0)")
+        l1 = utils.left @diagram
+        expect(@diagram.outerWidth() >= (l0 - l1) + 256)
+

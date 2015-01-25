@@ -1,6 +1,5 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-DiagramLayout = self.require "DiagramLayout"
-utils = self.require "jquery.ext"
+DiagramLayout = require "DiagramLayout.coffee"
+pos = require "position.coffee"
 
 class RobustnessDiagramLayout extends DiagramLayout
 
@@ -15,16 +14,12 @@ RobustnessDiagramLayout::_layout = ->
           left:p.left + (i % 3) * 120
           top:p.top + (i / 3) * 100
 
-  mlr = utils.mostLeftRight(elems, true)
-  mtb = utils.mostTopBottom(elems, true)
+  mlr = pos.mostLeftRight(elems, true)
+  mtb = pos.mostTopBottom(elems, true)
   @diagram.width(mlr.width())
           .height(mtb.height())
 
   @diagram.find(".relationship").each (i, e)-> $(e).data("_self").render()
 
 
-core = self.require "core"
-if core.env.is_node
-  module.exports = RobustnessDiagramLayout
-else
-  core.exports RobustnessDiagramLayout
+module.exports = RobustnessDiagramLayout

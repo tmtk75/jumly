@@ -1,4 +1,4 @@
-.simple .sequence-diagram .participant .name,
+.simple .sequence-diagram .participant,
 .simple .sequence-diagram .occurrence {
   box-shadow: none;
   -webkit-box-shadow: none;
@@ -8,7 +8,7 @@
 .simple .sequence-diagram .participant {
   background-color: transparent;
 }
-.simple .sequence-diagram .participant .name {
+.simple .sequence-diagram .participant {
   border-top-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;

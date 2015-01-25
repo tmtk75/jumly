@@ -1,7 +1,6 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-
-HTMLElement = self.require "HTMLElement"
-core = self.require "core"
+$ = require "jquery"
+HTMLElement = require "HTMLElement.coffee"
+core = require "core.coffee"
 
 class Diagram extends HTMLElement
   constructor: ->
@@ -22,7 +21,4 @@ Diagram::_reg_by_ref = (id, obj)->
   ref
 
 
-if core.env.is_node
-  module.exports = Diagram
-else
-  core.exports Diagram
+module.exports = Diagram

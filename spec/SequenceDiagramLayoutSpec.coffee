@@ -1,18 +1,12 @@
-self = require: unless typeof require is "undefined" then require else JUMLY.require
-self.require "core"
-_u = self.require "jquery.ext"
-utils = self.require "./jasmine-utils"
-SequenceDiagramLayout = self.require "SequenceDiagramLayout"
-SequenceDiagram = self.require "SequenceDiagram"
-SequenceParticipant = self.require "SequenceParticipant"
-SequenceDiagramBuilder = self.require "SequenceDiagramBuilder"
+core = require "core.coffee"
+pos = require "position.coffee"
+utils = require "./jasmine-utils.coffee"
+SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
 
-_bottom = (e)-> Math.round e.offset().top + e.outerHeight() - 1
-_top = (e)-> Math.round e.offset().top
-_right = (e)-> Math.round e.offset().left + e.outerWidth() - 1
-_left = (e)-> Math.round e.offset().left
-
-utils.unless_node -> describe "SequenceDiagramLayout", ->
+describe "SequenceDiagramLayout", ->
 
   div = utils.div this
 
@@ -45,8 +39,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       div.append diag
       @layout.layout diag
       diag.css "border":"1px solid #008000"
-      a = _u.min diag.find("*"), f = (e)-> $(e).offset().top
-      b = _u.max diag.find("*"), g = (e)-> $(e).offset().top + $(e).outerHeight()
+      a = pos.min diag.find("*"), f = (e)-> $(e).offset().top
+      b = pos.max diag.find("*"), g = (e)-> $(e).offset().top + $(e).outerHeight()
       expect(diag.height()).toBe Math.round(b - a)
 
     describe "including .ref", ->
@@ -84,7 +78,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout diag
 
       it "is longer than the sum of all ones", ->
-        expect(_bottom @diagram).toBe (_u.max @diagram.find("*"), (e)-> _bottom $(e))
+        expect(utils.bottom @diagram).toBe (pos.max @diagram.find("*"), (e)-> utils.bottom $(e))
 
   describe "width", ->
     beforeEach ->
@@ -112,16 +106,6 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       @obj1 = @diagram.find(".participant:eq(0)").data "_self"
       @obj2 = @diagram.find(".participant:eq(1)").data "_self"
       @obj3 = @diagram.find(".participant:eq(2)").data "_self"
-
-    describe "width", ->
-
-      it "is 100px", ->
-        expect(@obj1.outerWidth()).toBe 100
-
-    describe "height", ->
-
-      it "is 35px", ->
-        expect(@obj1.outerHeight()).toBe 35
 
     describe "top", ->
 
@@ -187,7 +171,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         obj = @diagram.find ".participant:eq(0)"
         line = @diagram.find ".lifeline:eq(0) .line"
         occurr = @diagram.find ".occurrence:eq(0)"
-        y0 = _bottom obj
+        y0 = utils.bottom obj
         y1 = line.offset().top
         y2 = occurr.offset().top
         expect(y1).toBeGreaterThan y0
@@ -208,9 +192,9 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
       it "is at mostbottom than the others", ->
         lines = @diagram.find ".lifeline"
         occurs = @diagram.find ".occurrence"
-        g = (e)-> _bottom $(e)
-        a = _u.max lines, g
-        b = _u.max occurs, g
+        g = (e)-> utils.bottom $(e)
+        a = pos.max lines, g
+        b = pos.max occurs, g
         expect(a).toBeGreaterThan b
 
       describe "for two top interactions", ->
@@ -224,7 +208,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           div.append diag
           @layout.layout diag
 
-          expect(_bottom diag.find(".lifeline:eq(0)")).toBeGreaterThan _bottom diag.find("> .interaction:eq(1)")
+          expect(utils.bottom diag.find(".lifeline:eq(0)")).toBeGreaterThan utils.bottom diag.find("> .interaction:eq(1)")
 
   describe "occurrence", ->
 
@@ -397,8 +381,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           @layout.layout @diagram
 
         it "doesn't overlap with note", ->
-          a = _bottom @diagram.find ".fragment .header .name:eq(0)"
-          b = _top @diagram.find ".note"
+          a = utils.bottom @diagram.find ".fragment .header .name:eq(0)"
+          b = utils.top @diagram.find ".note"
           expect(a).toBeLessThan b
 
   describe "ref", ->
@@ -414,15 +398,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @ref = @diagram.find(".ref:eq(0)").data "_self"
 
       it "can be second element", ->
-        y0 = _bottom @obj
-        y1 = _top @ref
+        y0 = utils.bottom @obj
+        y1 = utils.top @ref
         expect(y0).toBeLessThan y1
     
       it "is at left to the left of object", ->
         expect(@ref.offset().left).toBeLessThan @obj.offset().left
       
       it "is at right to the right of object", ->
-        expect(_right @ref).toBeGreaterThan _right @obj
+        expect(utils.right @ref).toBeGreaterThan utils.right @obj
 
     describe "first element", ->
       it "can be first element", ->
@@ -451,8 +435,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         it "fit to .alt", ->
           alt = @diagram.find ".alt"
           ref = @diagram.find ".ref"
-          expect(_left ref).toBeGreaterThan _left alt
-          expect(_right ref).toBeLessThan _right alt
+          expect(utils.left ref).toBeGreaterThan utils.left alt
+          expect(utils.right ref).toBeLessThan utils.right alt
 
       describe "one object", ->
         beforeEach ->
@@ -470,8 +454,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           ## NOTE: The spec is undefined
           alt = @diagram.find ".alt"
           ref = @diagram.find ".ref"
-          expect(_left ref).toBeGreaterThan _left alt
-          expect(_right ref).toBeLessThan _right alt
+          expect(utils.left ref).toBeGreaterThan utils.left alt
+          expect(utils.right ref).toBeLessThan utils.right alt
 
     describe "left", ->
       describe "next of .alt", ->
@@ -493,15 +477,11 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
 
         it "is at right to the left of 1st .occurrence", ->
           occur = @diagram.find ".occurrence:eq(0)"
-          expect(_left occur).toBeLessThan _left @ref
+          expect(utils.left occur).toBeLessThan utils.left @ref
 
         it "is at left to the right of 1st .occurrence", ->
           occur = @diagram.find ".occurrence:eq(0)"
-          expect(_left @ref).toBeLessThan _right occur
-
-        it "is at left to the center of 2rd .participant", ->
-          obj = @diagram.find ".participant:eq(1)"
-          expect(_right @ref).toBeLessThan (_left obj) + obj.outerWidth()/2
+          expect(utils.left @ref).toBeLessThan utils.right occur
 
     describe "width", ->
       describe "initialy", ->
@@ -554,10 +534,10 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
           obj   = diag.find ".participant:eq(1)"
           occur.css "background-color":"#ff8080"
           obj.css "color":"#ff8080"
-          expect(_left obj).toBeLessThan _right ref
-          expect(_right ref).toBeLessThan _right obj
-          expect(_left occur).toBeLessThan _right ref
-          expect(_right ref).toBeLessThan _right occur
+          expect(utils.left obj).toBeLessThan utils.right ref
+          expect(utils.right ref).toBeLessThan utils.right obj
+          expect(utils.left occur).toBeLessThan utils.right ref
+          expect(utils.right ref).toBeLessThan utils.right occur
 
     describe "index", ->
       it "keeps the position", ->
@@ -622,7 +602,7 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         it "doesn't overlap", ->
           a = @diagram.find ".return:eq(0)"
           b = @diagram.find ".message:eq(2)"
-          expect(_bottom a).toBeLessThan _top b
+          expect(utils.bottom a).toBeLessThan utils.top b
 
     describe "returning back to the caller", ->
 
@@ -781,8 +761,8 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
             obj0 = diag.find ".participant:eq(0)"
             obj1 = diag.find ".participant:eq(1)"
             obj2 = diag.find ".participant:eq(2)"
-            expect(obj0.outerBottom()).toBeLessThan obj1.offset().top
-            expect(obj1.outerBottom()).toBeLessThan obj2.offset().top
+            expect(pos.outerBottom(obj0)).toBeLessThan obj1.offset().top
+            expect(pos.outerBottom(obj1)).toBeLessThan obj2.offset().top
 
     describe "lifeline", ->
       describe "top", ->
@@ -790,15 +770,15 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         it "is at the bottom of its .participant", ->
           a = @diagram.find(".lifeline:eq(0)").data "_self"
           b = @diagram.find(".lifeline:eq(1)").data "_self"
-          expect(_top a).toBeGreaterThan _bottom a._object
-          expect(_top b).toBeGreaterThan _bottom b._object
+          expect(utils.top a).toBeGreaterThan utils.bottom a._object
+          expect(utils.top b).toBeGreaterThan utils.bottom b._object
 
       describe "bottom", ->
 
         it "is at the same", ->
           a = @diagram.find ".lifeline:eq(0)"
           b = @diagram.find ".lifeline:eq(1)"
-          expect(_bottom a).toBe _bottom b
+          expect(utils.bottom a).toBe utils.bottom b
 
   describe "note", ->
     describe "prev message", ->
@@ -831,9 +811,12 @@ utils.unless_node -> describe "SequenceDiagramLayout", ->
         @layout.layout @diagram
 
       describe "the first one", ->
-        it "has 9px top margin", ->
-          note = @diagram.find ".note:eq(0)"
-          expect(note.css "margin-top").toBe "-9px"
+        it "has different top margin", ->
+          n0 = @diagram.find ".note:eq(0)"
+          n1 = @diagram.find ".note:eq(1)"
+          expect(n0.css "margin-top").not.toBe n1.css "margin-top"
+          expect(parseInt(n0.css "margin-top") < 0).toBeTruthy()
+          expect(parseInt(n1.css "margin-top") > 0).toBeTruthy()
 
       it "is below of the message", ->
         msg = @diagram.find ".message:eq(2)"

@@ -36,6 +36,8 @@ block content
       .span8
         h1.logo
           .brand JUMLY
+
+        #latest-version v#{version}
         
         #intro
           p
@@ -84,7 +86,6 @@ block content
             | In case you put a sequence diagram into it, put next four lines in your &lt;head>.
 
           :code(type=xml)
-            &lt;link href='//jumly.tmtk.net/#{paths.release}/jumly.min.css' rel='stylesheet'/>
             &lt;script src='//code.jquery.com/jquery-#{tested_version.jquery}.min.js'>&lt;/script>
             &lt;script src='//coffeescript.org/extras/coffee-script.js'>&lt;/script>
             &lt;script src='//jumly.tmtk.net/#{paths.release}/jumly.min.js'>&lt;/script>
@@ -219,7 +220,7 @@ block content
                   "[found]": ->
                     @loop ->
                       @message "request", "HTTP Server"
-                      @note "NOTE: This doesn't make sense :)"
+                      @note "NOTE: This doesn't make sense :) just an example"
                   "[missing]": ->
                     @message "new", "HTTP Session"
                 @ref "respond resource"
@@ -299,6 +300,19 @@ block content
             .span4
               h2 History
               ul.history
+                li 0.2.1, Jan 25, 2015
+                  ul Fixed several issues.
+                    <a href='https://github.com/tmtk75/jumly/issues/8'>#8</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/18'>#18</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/19'>#19</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/23'>#23</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/24'>#24</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/31'>#31</a>
+                    <a href='https://github.com/tmtk75/jumly/issues/35'>#35</a>
+                li 0.2.0, Jan 4, 2015
+                  ul
+                    li Followed CommonJS for module system
+                    li Use Karam for test
                 li 0.1.5-2, Mar 12, 2014
                   ul
                     li

@@ -18,6 +18,7 @@ EOF
   exit
 fi
 
+here=`pwd`
 cwd=$(dirname `\ls -l $0 | awk '{if ($11) {print $11} else {print $9}}'`)/..
 cd $cwd
 

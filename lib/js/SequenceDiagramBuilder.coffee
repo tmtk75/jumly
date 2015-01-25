@@ -1,10 +1,11 @@
-self = require: if (typeof module != 'undefined' and typeof module.exports != 'undefined') then require else JUMLY.require
-core = self.require "core"
-DiagramBuilder = self.require "DiagramBuilder"
-SequenceDiagram = self.require "SequenceDiagram"
-SequenceParticipant = self.require "SequenceParticipant"
-SequenceRef = self.require "SequenceRef"
-SequenceFragment = self.require "SequenceFragment"
+$ = require "jquery"
+core = require "core.coffee"
+DiagramBuilder = require "DiagramBuilder.coffee"
+SequenceDiagram = require "SequenceDiagram.coffee"
+SequenceParticipant = require "SequenceParticipant.coffee"
+SequenceRef = require "SequenceRef.coffee"
+SequenceFragment = require "SequenceFragment.coffee"
+NoteElement = require "NoteElement.coffee"
 
 class SequenceDiagramBuilder extends DiagramBuilder
   constructor: (@_diagram, @_occurr)->
@@ -65,7 +66,7 @@ SequenceDiagramBuilder::message = (a, b, c)->
           actname = a[e]
           stereotype = "asynchronous"
   else if typeof a is "string" and typeof b is "object"
-    norm = JUMLY.Identity.normalize b
+    norm = core._normalize b
     actee = @_find_or_create norm
     callback = c
   else
@@ -228,8 +229,6 @@ SequenceDiagramBuilder::find = (selector)->
   @_diagram.find selector
 
 
-NoteElement = self.require "NoteElement"
-
 SequenceDiagramBuilder::note = (text, opts)->
   note = new NoteElement text, opts
   @_curr_occurr().append note
@@ -251,8 +250,4 @@ SequenceDiagramBuilder::preferences = ->
 
 #JUMLY.SequenceDiagramBuilder = SequenceDiagramBuilder
 
-if core.env.is_node
-  module.exports = SequenceDiagramBuilder
-else
-  core.exports SequenceDiagramBuilder
-
+module.exports = SequenceDiagramBuilder

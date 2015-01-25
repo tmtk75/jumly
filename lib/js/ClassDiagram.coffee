@@ -1,5 +1,5 @@
-Diagram = require "Diagram"
-utils = require "jquery.ext"
+Diagram = require "Diagram.coffee"
+pos = require "position.coffee"
 
 class ClassDiagram extends Diagram
 
@@ -24,7 +24,7 @@ ClassDiagram::declare = (normval) ->
   @append clz
 
 ClassDiagram::preferredWidth = ->
-  utils.mostLeftRight(@find(".class .icon")).width() + 16 ##WORKAROUND: 16 is magic number.
+  pos.mostLeftRight(@find(".class .icon")).width() + 16 ##WORKAROUND: 16 is magic number.
 
 ClassDiagram::preferredHeight = ->
   @find(".class .icon").mostTopBottom().height()
@@ -40,8 +40,4 @@ ClassDiagram::compose = ->
   this
 
 
-core = require "core"
-if core.env.is_node
-  module.exports = ClassDiagram
-else
-  core.exports ClassDiagram
+module.exports = ClassDiagram

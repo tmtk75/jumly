@@ -30,6 +30,10 @@ img_path =  if script_path.match regex_ext
               script_path + "." + ext
 html_path = img_path.replace regex_ext, ".html"
 
+##
+phantom.onError = (msg, trace)->
+  console.error 'PHANTOM ERROR:', msg
+  phantom.exit 1
 
 ### read script ###
 body = fs.read script_path
@@ -48,7 +52,7 @@ require("./loadJUMLY").loadJUMLY body, (page)->
 
   ## print html to stdout
   if encoding.match /^html$/i
-    console.log '<link rel="stylesheet" href="http://jumly.tmtk.net/release/jumly.min.css"/>'
+    console.log '<link rel="stylesheet" href="http://jumly.tmtk.net/public/jumly.min.css"/>'
     console.log page.evaluate -> $("body").html()
 
   ## create a file to show above it
