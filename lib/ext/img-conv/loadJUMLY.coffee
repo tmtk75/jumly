@@ -30,6 +30,7 @@ module.exports =
     page.open tmp_html, ->
       rect = page.evaluate ->
         $src = $("<div>").html window._jumly_code
+        $("body").width 65535
         JUMLY.eval $src, into:"body"
         diag = $(".diagram")
         box_shadow_dw =  + 8 + 5

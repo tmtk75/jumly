@@ -9,12 +9,7 @@ box-shadow()
 
 border_width = 2px
 obj_inner_width  = 88px
-obj_inner_height = 31px
-obj_hpadding = 4px
-obj_vpadding = 0px
-obj_outer_width = (border_width + obj_hpadding)*2 + obj_inner_width
 occur_width = 12px
-msg_shift_top = -10px
 
 primary-border()
   border border_width solid #808080
@@ -23,19 +18,18 @@ primary-border()
   font-family Tahoma,Verdana
 
   .participant
-    position relative
-    width obj_outer_width
+    display inline-block
     background-color #fff
+    primary-border()
+    min-height 31px
     .name
-      primary-border()
-      text-align center
-      padding obj_vpadding obj_hpadding
+      display inline-block
+      margin 8px 0  // looks vertical centering
+      padding 0px 4px
       min-width obj_inner_width
-      height    obj_inner_height
-      line-height obj_inner_height
-
-    &:not(:first-child)
-      margin-top -(border_width*2 + obj_inner_height)
+      max-width obj_inner_width*2
+      text-align center
+      word-break break-all
 
   .lifeline,
   .lifeline .line,
@@ -114,7 +108,7 @@ primary-border()
       content ''
 
     &:not(:last-child).reply
-      margin-bottom 16px
+      margin-bottom 1em*2.5
 
     &.reply > .occurrence
       padding-bottom 1.44em*1.44
@@ -127,7 +121,7 @@ primary-border()
     height 20px
 
     .name
-      margin-top msg_shift_top
+      margin-top -0.85em
       text-align center
 
     &.create + .occurrence
@@ -141,7 +135,9 @@ primary-border()
       content '«create»'
 
     &.return
-      margin-top -10px
+      margin-top -0.85em
+      .name
+        margin-top -1em*0.6
 
     &.return .name:empty
       position relative
@@ -220,14 +216,14 @@ primary-border()
   .self .message
     line-height 12px
 
-  .participant .name,
+  .participant,
   .occurrence,
   .ref
     box-shadow()
 
   .note
-    margin-top 1px + msg_shift_top
-    margin-bottom msg_shift_top*-1
+    margin-top -100%
+    margin-bottom 1em
     margin-left occur_width + border_width*2
     min-width 128px
     .name

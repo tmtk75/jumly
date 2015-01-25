@@ -94,12 +94,21 @@ To compile them,
 
 
 # License
-JUMLY v0.2.0 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.2.1 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.2.0, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.2.1, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.2.1, Jan 25, 2015
+  - Fixed several issues.
+    [#8](https://github.com/tmtk75/jumly/issues/8)
+    [#18](https://github.com/tmtk75/jumly/issues/18)
+    [#19](https://github.com/tmtk75/jumly/issues/19)
+    [#23](https://github.com/tmtk75/jumly/issues/23)
+    [#24](https://github.com/tmtk75/jumly/issues/24)
+    [#31](https://github.com/tmtk75/jumly/issues/31)
+    [#35](https://github.com/tmtk75/jumly/issues/35)
 - 0.2.0, Jan 4, 2015
   - Followed CommonJS for module system
   - Use Karam for test

@@ -4,11 +4,15 @@ SequenceParticipant = require "SequenceParticipant.coffee"
 SequenceOccurrence = require "SequenceOccurrence.coffee"
 SequenceFragment = require "SequenceFragment.coffee"
 SequenceRef = require "SequenceRef.coffee"
+SequenceDiagramBuilder = require "SequenceDiagramBuilder.coffee"
+SequenceDiagramLayout = require "SequenceDiagramLayout.coffee"
 
 describe "SequenceDiagram", ->
   div = utils.div this
 
   beforeEach ->
+    @layout = new SequenceDiagramLayout
+    @builder = new SequenceDiagramBuilder
     utils.matchers this
     @diagram = new SequenceDiagram "hello"
 
@@ -63,3 +67,24 @@ describe "SequenceDiagram", ->
     it "has given name", ->
       expect(@ref.find(".name").text()).toBe "another sequence"
     
+  describe "width", ->
+    describe "issue#31", ->
+      beforeEach ->
+        @diagram = @builder.build """
+          @found "Browser", ->
+            @alt {
+              "[200]": -> @message "GET href resources", "HTTP Server"
+              "[301]": -> @ref "GET the moved page"
+              "[404]": -> @ref "show NOT FOUND"
+            }
+          @find(".ref").css(width:256, "padding-bottom":4)
+            .find(".tag").css float:"left"
+          """
+        div.append @diagram
+        @layout.layout @diagram
+
+      it "is extended by .ref", ->
+        l0 = utils.left @diagram.find(".ref:eq(0)")
+        l1 = utils.left @diagram
+        expect(@diagram.outerWidth() >= (l0 - l1) + 256)
+

@@ -27,28 +27,23 @@ SequenceDiagramLayout::_layout = ->
   $(ml[0]).addClass "leftmost"
   $(mr[mr.length - 1]).addClass "rightmost"
 
-  objs = @diagram.find(".participant")
+  objs = @diagram.find("*").not(".interaction")
   l = utils.min objs, (e)-> $(e).offset().left
-  r = utils.max objs, (e)-> $(e).offset().left + $(e).outerWidth() - 1
+  r = utils.max objs, (e)->
+        e = $(e)
+        a = e.css("box-shadow").match /[0-9]+px/g
+        hblur = if a then parseInt(a[2]) else 0
+        e.offset().left + e.outerWidth() - 1 + hblur
   @diagram.width r - l + 1
 
 HTMLElementLayout = require "HTMLElementLayout.coffee"
 
-_ = (opts)->
-  if navigator?.userAgent.match(/.*(WebKit).*/)
-    return opts["webkit"]
-  if navigator?.userAgent.match(/.*(Gecko).*/)
-    return opts["gecko"]
-  return opts["webkit"]
-
 SequenceDiagramLayout::align_objects_horizontally = ->
   f0 = (a)=>
-    if a.css("left") is (_ webkit:"auto", gecko:"0px")
-      a.css left:0
+    a.css left:0
   f1 = (a, b)=>
-    if b.css("left") is (_ webkit:"auto", gecko:"0px")
-      spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
-      spacing.apply()
+    spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
+    spacing.apply()
   utils.pickup2 @_q(".participant"), f0, f1
 
 SequenceLifeline = require "SequenceLifeline.coffee"
@@ -102,7 +97,7 @@ SequenceDiagramLayout::pack_fragments_horizontally = ->
       fragment.offset(left:most.left)
               .find("> .interaction > .occurrence")
               .each (i, occurr) ->
-                occurr = occurr.data "_self"
+                occurr = $(occurr).data "_self"
                 occurr._move_horizontally()
                       .prev().offset left:occurr.offset().left
   
