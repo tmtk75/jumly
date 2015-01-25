@@ -222,7 +222,7 @@ primary-border()
     box-shadow()
 
   .note
-    margin-top -100%
+    margin-top 2px
     margin-bottom 1em
     margin-left occur_width + border_width*2
     min-width 128px
@@ -230,3 +230,5 @@ primary-border()
       primary-border()
       background-color #fff
       padding 4px
+    &:first-child
+      margin-top -1em
