@@ -108,12 +108,14 @@ To compile them,
 
 
 # License
-JUMLY v0.2.1 is under [MIT License](http://opensource.org/licenses/MIT).
+JUMLY v0.2.2 is under [MIT License](http://opensource.org/licenses/MIT).
 
-JUMLY v0.2.1, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
+JUMLY v0.2.2, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.2.2, Feb 7, 2015
+  - Fixed an issue for image width
 - 0.2.1, Jan 25, 2015
   - Fixed several issues.
     [#8](https://github.com/tmtk75/jumly/issues/8)
