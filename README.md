@@ -2,7 +2,7 @@
 
 JUMLY is a JavaScript library.  
 Using JUMLY, you can easily embed UML diagram on your HTML document.  
-All you need are just two things you use everyday.
+All you need is just two things you use everyday.
 
 - Text editor you get used to use.
 - A modern browser like WebKit-base brwoser and Opera.  
