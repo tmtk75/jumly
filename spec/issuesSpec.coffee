@@ -72,3 +72,56 @@ describe "issues", ->
       it "can be built without exception", ->
         f = -> (new SequenceDiagramBuilder).build '''@found "get", ->'''
         expect(f).toThrow new Error("Reserved word 'get'")
+
+  describe "issue#38", ->
+
+    beforeEach ->
+      @layout = new SequenceDiagramLayout
+      @builder = new SequenceDiagramBuilder
+      @diagram = @builder.diagram()
+
+    describe "normal nested interaction", ->
+
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "A", ->
+            @message "1", "B",->
+              @message "2", "A", ->
+                @reply 3
+            """
+        div.append diag
+        @layout.layout diag
+
+        @interBA = diag.find ".interaction:eq(1)"
+        @interBA.find("> .occurrence").css("background-color", "red")
+        @interAB = diag.find ".interaction:eq(2)"
+        @interAB.find("> .occurrence").css("background-color", "blue")
+
+      it "contains reply message in nested interaction", ->
+        #expect(@interBA.length).toBe 1
+        #expect(@interAB.length).toBe 1
+        expect(@interAB.find("> .message.return").length).toBe 1
+
+    describe "self interaction", ->
+
+      beforeEach ->
+        @diagram = diag = @builder.build """
+          @found "A", ->
+            @message "1", "B",->
+              @message "2", "B", ->
+                @reply 3
+            """
+        div.append diag
+        @layout.layout diag
+
+        @interBB = diag.find ".interaction:eq(1)"
+        @interBB.find("> .occurrence").css("background-color", "red")
+        @interSelf = diag.find ".interaction:eq(2)"
+        @interSelf.find("> .occurrence").css("background-color", "blue")
+
+      it "contains reply message in nested interaction", ->
+        #expect(@interBB.length  ).toBe 1
+        #expect(@interSelf.length).toBe 1
+        expect(@interBB.find("> .message.return").length  ).toBe 1
+        expect(@interSelf.find("> .message.return").length).toBe 0
+
