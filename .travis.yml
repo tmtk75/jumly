@@ -16,3 +16,6 @@ install:
   - npm install
   - make dist/jumly.css vendor/coffee-script.js
 
+branches:
+  only:
+    - master
