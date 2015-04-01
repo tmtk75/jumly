@@ -52,6 +52,9 @@ SequenceOccurrence::_move_horizontally = ->
 SequenceOccurrence::is_on_another =->
   not (@_parent_occurr() is null)
 
+SequenceOccurrence::is_self = ->
+  @parents(".interaction:eq(0)").hasClass("self")
+
 SequenceOccurrence::_parent_occurr = ->
     occurrs = @parents ".occurrence"
     return null if occurrs.length is 0

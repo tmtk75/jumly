@@ -132,7 +132,7 @@ SequenceDiagramBuilder::reply = (a, b)->
     ref = core._to_ref core._to_id b
     obj = @_diagram[ref] if @_diagram[ref]
 
-  f = (occur, n)-> if occur.is_on_another() then f(occur._parent_occurr(), n + 1) else n
+  f = (occur, n)-> if occur.is_self() then f(occur._parent_occurr(), n + 1) else n
   n = f @_curr_occurr(), 0
   @_curr_occurr()
     .parents(".interaction:eq(#{n})").data("_self")
