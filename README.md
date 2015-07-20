@@ -114,6 +114,8 @@ JUMLY v0.2.2, 2010-2015 copyright(c), all rights reserved Tomotaka Sakuma.
 
 
 # History
+- 0.2.4, Jul 21, 2015
+  - Workaround for [#40](https://github.com/tmtk75/jumly/issues/40)
 - 0.2.3, Apr 1, 2015
   - Fixed [#38](https://github.com/tmtk75/jumly/issues/38)
 - 0.2.2, Feb 7, 2015
