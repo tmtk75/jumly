@@ -24,16 +24,16 @@ vendor/coffee-script.js:
 node_modules/jquery/dist/jquery.js:
 	npm install
 
-vendor/jasmine/lib/jasmine-2.1.3/jasmine.js:
+vendor/jasmine/lib/jasmine-2.3.4/jasmine.js:
 	mkdir -p vendor/jasmine && cd vendor/jasmine; \
-	curl -OL 'https://raw.githubusercontent.com/jasmine/jasmine/master/dist/jasmine-standalone-2.1.3.zip'; \
-	unzip -o jasmine-standalone-2.1.3.zip; \
-	touch lib/jasmine-2.1.3/jasmine.js
+	curl -OL 'https://github.com/jasmine/jasmine/releases/download/v3.3.4/jasmine-standalone-2.3.4.zip'; \
+	unzip -o jasmine-standalone-2.3.4.zip; \
+	touch lib/jasmine-2.3.4/jasmine.js
 
 .PHONY: test example karma api clean
 test: dist/bundle.lib.js dist/bundle.spec.js \
       vendor/coffee-script.js \
-      vendor/jasmine/lib/jasmine-2.1.3/jasmine.js
+      vendor/jasmine/lib/jasmine-2.3.4/jasmine.js
 	open spec/index.html
 
 example: dist/bundle.lib.js
