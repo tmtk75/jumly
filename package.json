@@ -1,11 +1,11 @@
 {
   "name": "jumly",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Tomotaka Sakuma",
   "description": "Library to render UML diagrams",
   "engines": {
-    "node": "0.10.35",
-    "npm": "1.4.28"
+    "node": "0.12.7",
+    "npm": "2.11.3"
   },
   "dependencies": {
     "coffee-script": "1.8.0",
@@ -26,7 +26,7 @@
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-stylus": "^0.20.0",
     "grunt-contrib-uglify": "^0.6.0",
-    "jasmine": "^2.1.1",
+    "jasmine": "^2.3.1",
     "jasmine-core": "^2.3.4",
     "jasmine-node": "^1.14.5",
     "karma": "^0.12.28",
