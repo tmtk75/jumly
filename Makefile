@@ -14,6 +14,7 @@ dist/jumly.css: lib/css/*.styl
 dist/bundle.lib.js dist/bundle.spec.js: \
           node_modules/.bin/webpack \
 	  lib/js/*.coffee \
+	  lib/css/*.styl \
 	  spec/*.coffee
 	./node_modules/.bin/webpack
 
