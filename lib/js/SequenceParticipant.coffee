@@ -8,6 +8,9 @@ class SequenceParticipant extends HTMLElement
     super args, (me)->
       me.append($("<div>").addClass("name"))
 
+SequenceParticipant::preferred_width = ->
+  @outerWidth()
+
 SequenceParticipant::activate = ->
   occurr = new SequenceOccurrence this
   iact = new SequenceInteraction null, occurr

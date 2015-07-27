@@ -5,7 +5,6 @@
 #= require Diagram
 #= require DiagramBuilder
 #= require DiagramLayout
-#= require HTMLElementLayout
 #= require NoteElement
 #= require Relationship
 #= require SequenceLifeline

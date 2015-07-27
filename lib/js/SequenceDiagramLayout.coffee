@@ -1,7 +1,6 @@
 core = require "core.coffee"
 pos = require "position.coffee"
 DiagramLayout = require "DiagramLayout.coffee"
-HTMLElementLayout = require "HTMLElementLayout.coffee"
 SequenceLifeline = require "SequenceLifeline.coffee"
 
 class SequenceDiagramLayout extends DiagramLayout
@@ -18,7 +17,6 @@ SequenceDiagramLayout::_q = (sel)->
 SequenceDiagramLayout::_layout = ->
   objs = $(".participant:eq(0) ~ .participant", @diagram)
   $(".participant:eq(0)", @diagram).after objs
-  @align_objects_horizontally()
   @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
   selfEach @_q(".occurrence .interaction"), (e)-> e._compose_()
   @generate_lifelines_and_align_horizontally()
@@ -44,30 +42,6 @@ SequenceDiagramLayout::_layout = ->
         hblur = if a then parseInt(a[2]) else 0
         e.offset().left + e.outerWidth() - 1 + hblur
   @diagram.width r - l + 1
-
-SequenceDiagramLayout::align_objects_horizontally = ->
-  f0 = (a)=>
-    a.css left:0
-  f1 = (a, b)=>
-    spacing = new HTMLElementLayout.HorizontalSpacing(a, b)
-    spacing.apply()
-
-  # A specific iterator that picks up by 2 from this nodeset.
-  # f0: a callback has one argument like (e) -> to handle the 1st node.
-  # f1: a callback has two arguments like (a, b) -> to handle the nodes after 2nd node.
-  pickup2 = ($e, f0, f1, f2) ->
-    return $e if $e.length is 0
-    f0 prev = $($e[0])
-    return $e if $e.length is 1
-    $e.slice(1).each (i, curr)=>
-      curr = $ curr
-      if f2? and (i + 1 is $e.length - 1)
-        f2 prev, curr, i + 1
-      else
-        f1 prev, curr, i + 1
-      prev = curr
-  
-  pickup2 @_q(".participant"), f0, f1
 
 SequenceDiagramLayout::generate_lifelines_and_align_horizontally = ->
   diag = @diagram

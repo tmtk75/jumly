@@ -1,14 +1,6 @@
-.spacing
-  position absolute
-
 hspace = 40px
 hbw = 1px
 
-.sequence-diagram .horizontal
-  width hspace - hbw*2
+.sequence-diagram .participant:not(:first-child)
+  margin-left hspace - hbw*2
 
-.sequence-diagram .horizontal
-  border solid #ff8080 hbw
-  height 1em
-  background-color rgba(255,128,128,.33)
-  visibility hidden

@@ -18,6 +18,6 @@ class HTMLElement
     .toLowerCase()
 
 HTMLElement::preferred_width = ->
-  @find("> *:eq(0)").outerWidth()
+  @find("> *:eq(0)").outerWidth()  ## w/o margin
 
 module.exports = HTMLElement

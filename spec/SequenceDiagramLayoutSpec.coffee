@@ -138,14 +138,16 @@ describe "SequenceDiagramLayout", ->
       it "is 0 for left of first .participant", ->
         expect(@obj1.position().left).toBe 0
       
-      ## 40px is defined in .styl
-      span = 40
-      it "is a span #{span}px btw 1st and 2nd of .participant", ->
-        x = @obj1.position().left + @obj1.preferred_width() + span
+      it "is a span 0px btw 1st and 2nd of .participant", ->
+        # space is defined in lib/css/spacing.styl
+	# |---- 100 ----|<--
+        x = @obj1.position().left + @obj1.preferred_width()
         expect(x).toBe @obj2.position().left
 
-      it "is a span #{span}px btw 2nd and 3rd of .participant", ->
-        x = @obj2.position().left + @obj3.preferred_width() + span
+      it "is a span 0px btw 2nd and 3rd of .participant", ->
+        # space is defined in lib/css/spacing.styl
+	# |---- 100 ----|- 38 -|-- 100 --|<--
+        x = @obj2.position().left + @obj2.preferred_width() + (40 - 1*2)
         expect(x).toBe @obj3.position().left
 
   describe "lifeline", ->

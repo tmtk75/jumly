@@ -31,7 +31,11 @@ vendor/jasmine/lib/jasmine-2.3.4/jasmine.js:
 	unzip -o jasmine-standalone-2.3.4.zip; \
 	touch lib/jasmine-2.3.4/jasmine.js
 
-.PHONY: test example karma api clean
+.PHONY: dev test example karma api clean
+
+dev:
+	webpack -w
+
 test: dist/bundle.lib.js dist/bundle.spec.js \
       vendor/coffee-script.js \
       vendor/jasmine/lib/jasmine-2.3.4/jasmine.js
