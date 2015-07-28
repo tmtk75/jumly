@@ -213,10 +213,12 @@ primary-border()
       padding-top 6px
       padding-bottom 6px
 
-  .self .message
+  .self > .message
     line-height 12px
     .name
       min-width obj_inner_width
+      max-width obj_inner_width * 1.5
+      text-align left
 
   .participant,
   .occurrence,
