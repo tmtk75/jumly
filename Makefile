@@ -5,7 +5,8 @@ build: public/jumly.min.js \
 
 public/jumly.min.js public/jumly.min.css: \
 	  dist/bundle.lib.js \
-	  dist/jumly.css
+	  dist/jumly.css \
+	  package.json
 	./node_modules/.bin/grunt minify
 
 dist/jumly.css: lib/css/*.styl

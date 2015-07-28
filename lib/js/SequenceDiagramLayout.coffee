@@ -34,7 +34,7 @@ SequenceDiagramLayout::_layout = ->
   $(ml[0]).addClass "leftmost"
   $(mr[mr.length - 1]).addClass "rightmost"
 
-  objs = @diagram.find(".participant, .ref, .note, .loop, .fragment")
+  objs = @diagram.find(".participant, .ref, .note, .loop, .fragment, .self > .name")
   l = pos.min objs, (e)-> $(e).offset().left
   r = pos.max objs, (e)->
         e = $(e)
