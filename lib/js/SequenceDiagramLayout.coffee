@@ -16,6 +16,8 @@ SequenceDiagramLayout::_q = (sel)->
 
 SequenceDiagramLayout::_layout = ->
   objs = $(".participant:eq(0) ~ .participant", @diagram)
+  objs.last().css "margin-right": 0
+
   $(".participant:eq(0)", @diagram).after objs
   @_q(".occurrence").each (i, e)-> $(e).data("_self")._move_horizontally()
   selfEach @_q(".occurrence .interaction"), (e)-> e._compose_()
