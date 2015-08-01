@@ -6,19 +6,19 @@
   background-color: #0095b6;
   color: #004a5b;
 }
-.fancy .sequence-diagram .participant:nth-child(3) {
+.fancy .sequence-diagram .participant:nth-child(2) {
   border-color: #bf8b00;
   background-color: #ffba00;
   color: #805d00;
   width: 160px;
   text-align: center;
-  margin-left: -30px;
+  margin-left: 8px;
 }
-.fancy .sequence-diagram .participant:nth-child(5) {
+.fancy .sequence-diagram .participant:nth-child(3) {
   border-color: #e6c52f;
   background-color: #f0dc82;
   color: #a58b14;
-  margin-left: -30px;
+  margin-left: 8px;
 }
 .fancy .sequence-diagram .participant {
   border-radius: 4px;
