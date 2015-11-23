@@ -28,7 +28,7 @@ node_modules/jquery/dist/jquery.js:
 
 vendor/jasmine/lib/jasmine-2.3.4/jasmine.js:
 	mkdir -p vendor/jasmine && cd vendor/jasmine; \
-	curl -OL 'https://github.com/jasmine/jasmine/releases/download/v3.3.4/jasmine-standalone-2.3.4.zip'; \
+	curl -OL 'https://github.com/jasmine/jasmine/releases/download/v2.3.4/jasmine-standalone-2.3.4.zip'; \
 	unzip -o jasmine-standalone-2.3.4.zip; \
 	touch lib/jasmine-2.3.4/jasmine.js
 
