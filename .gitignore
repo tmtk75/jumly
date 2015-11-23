@@ -5,3 +5,4 @@ views/static/*.css
 build
 dist
 vendor
+.vagrant
